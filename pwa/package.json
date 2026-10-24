@@ -1,0 +1,21 @@
+{
+  "name": "studysynth-pwa",
+  "version": "1.2.0",
+  "description": "A fully standalone, zero-network, zero-LLM competitive exam study workspace and deterministic question generation studio designed to run offline on Android phones/tablets and modern desktop browsers.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node tests/test_engine.js && node tests/test_integration.js && node tests/test_processing.js && node tests/test_revision.js",
+    "benchmark": "node tests/benchmark_engine.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "pdfjs-dist": "^6.4.299",
+    "tesseract.js": "^7.0.0"
+  }
+}

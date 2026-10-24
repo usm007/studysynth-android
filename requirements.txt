@@ -1,0 +1,5 @@
+# StudySynth Android content tooling
+pypdf>=6.0
+fonttools>=4.50
+brotli>=1.1
+pytest>=8.0

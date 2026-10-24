@@ -1,0 +1,12 @@
+{
+  "appId": "com.usm007.studysynth",
+  "appName": "StudySynth",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "backgroundColor": "#f3f4f8"
+  }
+}

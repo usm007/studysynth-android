@@ -1,0 +1,524 @@
+{
+  "ctet_c6_ch01": {
+    "fingerprint": "sha256:1761ccb92e52eb4ecc56c48a46732418bb1d534b8f89a41e728d85b59de8ced2",
+    "inventory": 69,
+    "kept": 73,
+    "offered": 299,
+    "questions": 9,
+    "source": "ctet_c6_ch01",
+    "title": "Locating Places on the Earth"
+  },
+  "ctet_c6_ch02": {
+    "fingerprint": "sha256:3c8d9d170c06470b5a842917ddf3c66442f67963f0d011f56f7d93502d7c13f3",
+    "inventory": 60,
+    "kept": 61,
+    "offered": 151,
+    "questions": 5,
+    "source": "ctet_c6_ch02",
+    "title": "Oceans and Continents"
+  },
+  "ctet_c6_ch03": {
+    "fingerprint": "sha256:3ef3b9a296e23bda9711daf08e17cf6a27d38eb2376fcadca53b602bca2ca467",
+    "inventory": 73,
+    "kept": 73,
+    "offered": 198,
+    "questions": 5,
+    "source": "ctet_c6_ch03",
+    "title": "Landforms and Life"
+  },
+  "ctet_c6_ch04": {
+    "fingerprint": "sha256:8648ad3ee0851ede7d567288e9f866aa63e4040bf247303a2ff6e2a27bf4e3a8",
+    "inventory": 54,
+    "kept": 57,
+    "offered": 175,
+    "questions": 3,
+    "source": "ctet_c6_ch04",
+    "title": "Timeline and Sources of History"
+  },
+  "ctet_c6_ch05": {
+    "fingerprint": "sha256:fe4866bf0ffb7497c57c4b6eab3c1654c7a2c982c78ea8525dd4ca4d48b67c47",
+    "inventory": 31,
+    "kept": 30,
+    "offered": 87,
+    "questions": 3,
+    "source": "ctet_c6_ch05",
+    "title": "India, That Is Bharat"
+  },
+  "ctet_c6_ch06": {
+    "fingerprint": "sha256:e29ad788429afb5c0700a39a4cd458ec886f03a3e6a68e93dead1b3e80aa0b99",
+    "inventory": 23,
+    "kept": 22,
+    "offered": 86,
+    "questions": 2,
+    "source": "ctet_c6_ch06",
+    "title": "The Beginnings of Indian Civilisation"
+  },
+  "ctet_c6_ch07": {
+    "fingerprint": "sha256:3fd92d34ef8855055f04b059b59615f91f08c7dc541dfcf343407c36d9700c09",
+    "inventory": 71,
+    "kept": 78,
+    "offered": 251,
+    "questions": 5,
+    "source": "ctet_c6_ch07",
+    "title": "India's Cultural Roots"
+  },
+  "ctet_c6_ch08": {
+    "fingerprint": "sha256:e4e026fb4ad5e9f9aaf4df7b6a5cbe499ee5dd0445686bebb4e839cde6ffc7d0",
+    "inventory": 22,
+    "kept": 22,
+    "offered": 115,
+    "questions": 1,
+    "source": "ctet_c6_ch08",
+    "title": "Unity in Diversity, or 'Many in the One'"
+  },
+  "ctet_c6_ch09": {
+    "fingerprint": "sha256:c748fb144a2a3e53670b871f2493ff4afb463eb1928b9cb659430859db597f2f",
+    "inventory": 45,
+    "kept": 44,
+    "offered": 153,
+    "questions": 2,
+    "source": "ctet_c6_ch09",
+    "title": "Family and Community"
+  },
+  "ctet_c6_ch10": {
+    "fingerprint": "sha256:b41191fe4e5195a427a9b9fcb8c24b4c1d36652c57aca312bde0caaa13925f3e",
+    "inventory": 30,
+    "kept": 30,
+    "offered": 142,
+    "questions": 2,
+    "source": "ctet_c6_ch10",
+    "title": "Grassroots Democracy \u2014 Part 1: Governance"
+  },
+  "ctet_c6_ch11": {
+    "fingerprint": "sha256:eaa20708797d57773b78729b3f16b45fc8ef687d4f84830800d096d77f6a0d8d",
+    "inventory": 38,
+    "kept": 38,
+    "offered": 113,
+    "questions": 4,
+    "source": "ctet_c6_ch11",
+    "title": "Grassroots Democracy \u2014 Part 2: Local Government in Rural Areas"
+  },
+  "ctet_c6_ch12": {
+    "fingerprint": "sha256:8368bc5bd752bc2ecbf06edc7ea38e62603abc89010fa4038449fa5eb8577a88",
+    "inventory": 16,
+    "kept": 16,
+    "offered": 92,
+    "questions": 2,
+    "source": "ctet_c6_ch12",
+    "title": "Grassroots Democracy \u2014 Part 3: Local Government in Urban Areas"
+  },
+  "ctet_c6_ch13": {
+    "fingerprint": "sha256:cb52633981092828f4e0334d16a0b518c2c4faf53c08f905b047ab19ab091e2e",
+    "inventory": 21,
+    "kept": 21,
+    "offered": 120,
+    "questions": 5,
+    "source": "ctet_c6_ch13",
+    "title": "The Value of Work"
+  },
+  "ctet_c6_ch14": {
+    "fingerprint": "sha256:b0b20023b16064131680d0880fa88c188533ad961c36a622a8cc15ab9badbf4d",
+    "inventory": 40,
+    "kept": 43,
+    "offered": 124,
+    "questions": 4,
+    "source": "ctet_c6_ch14",
+    "title": "Economic Activities Around Us"
+  },
+  "ctet_c7_ch01": {
+    "fingerprint": "sha256:f78066bc87f304be8c863490012246b0d6cc66cadc42cfb2537f6c3108ef75c3",
+    "inventory": 86,
+    "kept": 92,
+    "offered": 262,
+    "questions": 18,
+    "source": "ctet_c7_ch01",
+    "title": "Geographical Diversity of India"
+  },
+  "ctet_c7_ch02": {
+    "fingerprint": "sha256:8d74069265e8eee3c016b6532a052a449a30cfdd36f94fc8977a949eadbbcfe2",
+    "inventory": 55,
+    "kept": 54,
+    "offered": 212,
+    "questions": 18,
+    "source": "ctet_c7_ch02",
+    "title": "Understanding the Weather"
+  },
+  "ctet_c7_ch03": {
+    "fingerprint": "sha256:299c66148a3f7875658df307c59b41d8f36454297d969cb440d352e209c639fe",
+    "inventory": 100,
+    "kept": 106,
+    "offered": 256,
+    "questions": 9,
+    "source": "ctet_c7_ch03",
+    "title": "Climates of India"
+  },
+  "ctet_c7_ch04": {
+    "fingerprint": "sha256:230bed0e5a77d521e5e8aa553d9bab142d9a0e4bce9c0a45e78046bdb61530ab",
+    "inventory": 55,
+    "kept": 57,
+    "offered": 137,
+    "questions": 1,
+    "source": "ctet_c7_ch04",
+    "title": "New Beginnings: Cities and States"
+  },
+  "ctet_c7_ch05": {
+    "fingerprint": "sha256:91759348aa68b834d2a182d83e810be401ead572ecdda9b7886adbe026514c11",
+    "inventory": 105,
+    "kept": 109,
+    "offered": 323,
+    "questions": 7,
+    "source": "ctet_c7_ch05",
+    "title": "The Rise of Empires"
+  },
+  "ctet_c7_ch06": {
+    "fingerprint": "sha256:381793407b6a8251e8769f6bb9773ce32e3a9cb778801c88947a3af294076095",
+    "inventory": 108,
+    "kept": 109,
+    "offered": 250,
+    "questions": 10,
+    "source": "ctet_c7_ch06",
+    "title": "The Age of Reorganisation"
+  },
+  "ctet_c7_ch07": {
+    "fingerprint": "sha256:d63e8dea14c0bd2a572a7d805faab53f9180f6deb6a72d31d23fe21ef083fe2a",
+    "inventory": 85,
+    "kept": 82,
+    "offered": 237,
+    "questions": 4,
+    "source": "ctet_c7_ch07",
+    "title": "The Gupta Era: An Age of Tireless Creativity"
+  },
+  "ctet_c7_ch08": {
+    "fingerprint": "sha256:85dfd8d488d9da0277aa0b90b1cd95666ba06c605ad32861b1ffcb1678f1197f",
+    "inventory": 98,
+    "kept": 99,
+    "offered": 226,
+    "questions": 5,
+    "source": "ctet_c7_ch08",
+    "title": "How the Land Becomes Sacred"
+  },
+  "ctet_c7_ch09": {
+    "fingerprint": "sha256:b8843f8fe2cab0e8912a6e8d84122d3906a39199b5b5b77fcfb35c13afafd113",
+    "inventory": 99,
+    "kept": 100,
+    "offered": 324,
+    "questions": 17,
+    "source": "ctet_c7_ch09",
+    "title": "From the Rulers to the Ruled: Types of Government"
+  },
+  "ctet_c7_ch10": {
+    "fingerprint": "sha256:677962851befc6da866df903d5f987b9ddcaba487eff2faf9328c90f28b850b6",
+    "inventory": 57,
+    "kept": 56,
+    "offered": 235,
+    "questions": 4,
+    "source": "ctet_c7_ch10",
+    "title": "The Constitution of India \u2014 An Introduction"
+  },
+  "ctet_c7_ch11": {
+    "fingerprint": "sha256:997a8db1c45b36d220bbbe8f205b114c2e9c3de155e00b327cb5ccf549a696d0",
+    "inventory": 53,
+    "kept": 56,
+    "offered": 210,
+    "questions": 2,
+    "source": "ctet_c7_ch11",
+    "title": "From Barter to Money"
+  },
+  "ctet_c7_ch12": {
+    "fingerprint": "sha256:26dd5be2b06bbd7f6985940e05283909048efbfeec7f669ebb703b4cb10def25",
+    "inventory": 97,
+    "kept": 99,
+    "offered": 308,
+    "questions": 10,
+    "source": "ctet_c7_ch12",
+    "title": "Understanding Markets"
+  },
+  "ctet_c7_ch13": {
+    "fingerprint": "sha256:0eed20780065cbcdaba9a7dbf01cc5504e04fbfd9aa587783bd203e5538c1626",
+    "inventory": 120,
+    "kept": 122,
+    "offered": 330,
+    "questions": 20,
+    "source": "ctet_c7_ch13",
+    "title": "The Story of Indian Farming"
+  },
+  "ctet_c7_ch14": {
+    "fingerprint": "sha256:8fef5fc2038ffe9e30891a7db405fb2452c20dbeac3beea5d208e68fcaf0795e",
+    "inventory": 126,
+    "kept": 126,
+    "offered": 299,
+    "questions": 14,
+    "source": "ctet_c7_ch14",
+    "title": "India and Her Neighbours"
+  },
+  "ctet_c7_ch15": {
+    "fingerprint": "sha256:b01309bf930cdd58dd1dd67f760ae26e28e9f05b5c16907c0cc7b88035d3339e",
+    "inventory": 209,
+    "kept": 210,
+    "offered": 423,
+    "questions": 7,
+    "source": "ctet_c7_ch15",
+    "title": "Empires and Kingdoms: 6th to 10th Centuries"
+  },
+  "ctet_c7_ch16": {
+    "fingerprint": "sha256:7c62ac0114915fa30d52062afec1675b271133c940dcf4f86fd2df011e93cf5f",
+    "inventory": 132,
+    "kept": 134,
+    "offered": 267,
+    "questions": 5,
+    "source": "ctet_c7_ch16",
+    "title": "Turning Tides: 11th and 12th Centuries"
+  },
+  "ctet_c7_ch17": {
+    "fingerprint": "sha256:e55146e5cd4742da84a729b331afa2f88b701a2b7678440f3f7e3919c0baecbd",
+    "inventory": 74,
+    "kept": 75,
+    "offered": 196,
+    "questions": 3,
+    "source": "ctet_c7_ch17",
+    "title": "India, a Home to Many"
+  },
+  "ctet_c7_ch18": {
+    "fingerprint": "sha256:6561039a3012c87ef1343e624dc0363ca6123f23f44146d485338de554052eab",
+    "inventory": 123,
+    "kept": 127,
+    "offered": 319,
+    "questions": 15,
+    "source": "ctet_c7_ch18",
+    "title": "The State, the Government, and You"
+  },
+  "ctet_c7_ch19": {
+    "fingerprint": "sha256:c9d995e0e3b142a5edc6b7ae6d514d155cec84598c269cdeef86547734cf53b8",
+    "inventory": 54,
+    "kept": 59,
+    "offered": 226,
+    "questions": 4,
+    "source": "ctet_c7_ch19",
+    "title": "Infrastructure: Engine of India's Development"
+  },
+  "ctet_c7_ch20": {
+    "fingerprint": "sha256:2ca5e7cd462f0bf02b5e9d84879d764b67654f1787fb6d598ef5792494e9e1ae",
+    "inventory": 72,
+    "kept": 79,
+    "offered": 249,
+    "questions": 25,
+    "source": "ctet_c7_ch20",
+    "title": "Banks and the Magic of Finance"
+  },
+  "ctet_c8_ch01": {
+    "fingerprint": "sha256:a34533efdde328435288df6632ec29b8b1d0691e290fe816a19dbedde9808d32",
+    "inventory": 99,
+    "kept": 103,
+    "offered": 245,
+    "questions": 8,
+    "source": "ctet_c8_ch01",
+    "title": "Natural Resources and Their Use"
+  },
+  "ctet_c8_ch02": {
+    "fingerprint": "sha256:cf576ca7ccdc147c29516d930b63807237bcc96ca468a98969a7c1c9e170b095",
+    "inventory": 147,
+    "kept": 149,
+    "offered": 373,
+    "questions": 7,
+    "source": "ctet_c8_ch02",
+    "title": "Reshaping India's Political Map"
+  },
+  "ctet_c8_ch03": {
+    "fingerprint": "sha256:b525024c78be7f3874e28827ab21600f652cf43b234f8ae609a51ddc65850700",
+    "inventory": 112,
+    "kept": 115,
+    "offered": 262,
+    "questions": 10,
+    "source": "ctet_c8_ch03",
+    "title": "The Rise of the Marathas"
+  },
+  "ctet_c8_ch04": {
+    "fingerprint": "sha256:1087277012de4f19129b91c479ef9b285388e0cda4b7c1e6f427f6d89202658b",
+    "inventory": 138,
+    "kept": 140,
+    "offered": 365,
+    "questions": 3,
+    "source": "ctet_c8_ch04",
+    "title": "The Colonial Era in India"
+  },
+  "ctet_c8_ch05": {
+    "fingerprint": "sha256:f832e69fd47143eebeb68d42c2f07c8080170a5c7084f7ff3e1d5f407458795e",
+    "inventory": 77,
+    "kept": 77,
+    "offered": 267,
+    "questions": 9,
+    "source": "ctet_c8_ch05",
+    "title": "Universal Franchise and India's Electoral System"
+  },
+  "ctet_c8_ch06": {
+    "fingerprint": "sha256:700dc99db1793d91319a73e86438d15ae4e790412b1ad4d36d9c220f057e4475",
+    "inventory": 93,
+    "kept": 94,
+    "offered": 292,
+    "questions": 12,
+    "source": "ctet_c8_ch06",
+    "title": "The Parliamentary System: Legislature and Executive"
+  },
+  "ctet_c8_ch07": {
+    "fingerprint": "sha256:306c17542588f19054d33ff24c4242597ec364c92dfdf0b71fc18152da784b36",
+    "inventory": 69,
+    "kept": 70,
+    "offered": 325,
+    "questions": 16,
+    "source": "ctet_c8_ch07",
+    "title": "Factors of Production"
+  },
+  "ctet_c8_ch08": {
+    "fingerprint": "sha256:44d04b2056c4f40994208e70585eef94762ae75b177e124d2daabd8d6c88f84c",
+    "inventory": 132,
+    "kept": 135,
+    "offered": 339,
+    "questions": 25,
+    "source": "ctet_c8_ch08",
+    "title": "World Geography: Some Glimpses"
+  },
+  "ctet_c8_ch09": {
+    "fingerprint": "sha256:350580297a653cafa3d8cd40b492807a03e4ec1b0b3825db64d704026c5e45b7",
+    "inventory": 281,
+    "kept": 287,
+    "offered": 586,
+    "questions": 10,
+    "source": "ctet_c8_ch09",
+    "title": "India's Long Road to Independence"
+  },
+  "ctet_c8_ch10": {
+    "fingerprint": "sha256:7ee8ca43118ffe7dbaa2112c4d1c0128b91a9fd187ead34a1fd93d0b2c3ce1f2",
+    "inventory": 100,
+    "kept": 97,
+    "offered": 298,
+    "questions": 8,
+    "source": "ctet_c8_ch10",
+    "title": "A Journey through Indian Architecture"
+  },
+  "ctet_c8_ch11": {
+    "fingerprint": "sha256:6886004acb0152dcce85993085e0482ed1f7287b13f9a53e72412b2db066dabe",
+    "inventory": 78,
+    "kept": 86,
+    "offered": 183,
+    "questions": 5,
+    "source": "ctet_c8_ch11",
+    "title": "The Role of the Judiciary in Our Society"
+  },
+  "ctet_c8_ch12": {
+    "fingerprint": "sha256:ae6f0ef8a5482761cd92fcead9bc607e4a10c5d7bec292bb079e6b4dddfdf71c",
+    "inventory": 103,
+    "kept": 103,
+    "offered": 319,
+    "questions": 9,
+    "source": "ctet_c8_ch12",
+    "title": "Citizenship: Rights and Duties"
+  },
+  "ctet_c8_ch13": {
+    "fingerprint": "sha256:aa68a496fc738f525ba705fd5b55a5e277b374bc7778b88ba7f3b60b83d05c68",
+    "inventory": 87,
+    "kept": 88,
+    "offered": 235,
+    "questions": 9,
+    "source": "ctet_c8_ch13",
+    "title": "Dynamics of Population"
+  },
+  "ctet_c8_ch14": {
+    "fingerprint": "sha256:77623d641c91ec7291e1c55a2db7df968cdd217867585b4130063cdcba8e0973",
+    "inventory": 81,
+    "kept": 82,
+    "offered": 243,
+    "questions": 4,
+    "source": "ctet_c8_ch14",
+    "title": "India's Urban Landscape"
+  },
+  "ctet_c8_ch15": {
+    "fingerprint": "sha256:4d4783f1e84544900295c4135fe04c5b3840ee4d5b92d3adbca232e1425b2d53",
+    "inventory": 146,
+    "kept": 147,
+    "offered": 366,
+    "questions": 9,
+    "source": "ctet_c8_ch15",
+    "title": "Cultural Currents: 13th to 17th Centuries"
+  },
+  "ctet_ped_ch01": {
+    "fingerprint": "sha256:9c4e225fe5ca95bb62e8552377429be6db009e3396f89e2a170ff679c7b49020",
+    "inventory": 58,
+    "kept": 62,
+    "offered": 145,
+    "questions": 11,
+    "source": "ctet_ped_ch01",
+    "title": "Growth and Development"
+  },
+  "ctet_ped_ch02": {
+    "fingerprint": "sha256:03e9fbe5b547da933ba57240075b59e0b4ffe3937cac889d6b7b2cbed24ee7f2",
+    "inventory": 20,
+    "kept": 20,
+    "offered": 51,
+    "questions": 1,
+    "source": "ctet_ped_ch02",
+    "title": "Socialisation Process"
+  },
+  "ctet_ped_ch03": {
+    "fingerprint": "sha256:fdc3164938bd32320a837db71659169a60700cf0d865d5e8ef9bb9ec0a025813",
+    "inventory": 63,
+    "kept": 65,
+    "offered": 135,
+    "questions": 5,
+    "source": "ctet_ped_ch03",
+    "title": "Cognitive & Moral Development"
+  },
+  "ctet_ped_ch04": {
+    "fingerprint": "sha256:542a3f04eaa429586f4ab8c91802113422b18e920502651d69b32e4fd156ba11",
+    "inventory": 17,
+    "kept": 17,
+    "offered": 46,
+    "questions": 2,
+    "source": "ctet_ped_ch04",
+    "title": "Child Centered & Progressive Education"
+  },
+  "ctet_ped_ch05": {
+    "fingerprint": "sha256:9ec8c4a9893e00476f266a7b9cc17809210782d1cb180526fd3e4f25252c54be",
+    "inventory": 45,
+    "kept": 51,
+    "offered": 97,
+    "questions": 6,
+    "source": "ctet_ped_ch05",
+    "title": "Concept of Intelligence"
+  },
+  "ctet_ped_ch06": {
+    "fingerprint": "sha256:e6818dbe0f597cc0b64c5cff0c7438703ae610f4daae8f27dec18bc9849f1efe",
+    "inventory": 10,
+    "kept": 10,
+    "offered": 22,
+    "questions": 0,
+    "source": "ctet_ped_ch06",
+    "title": "Language and Thought"
+  },
+  "ctet_ped_ch07": {
+    "fingerprint": "sha256:e27bedd2c29054f8a9af26f2ac13ece8b22b85b0c08fc3ef139f04d35c657098",
+    "inventory": 8,
+    "kept": 10,
+    "offered": 21,
+    "questions": 0,
+    "source": "ctet_ped_ch07",
+    "title": "Gender as a Social Construct"
+  },
+  "ctet_ped_ch08": {
+    "fingerprint": "sha256:7444bc74d214d456dfe03e8d663277b802adc750ca6846fd7c7102530c5cbb64",
+    "inventory": 84,
+    "kept": 85,
+    "offered": 175,
+    "questions": 8,
+    "source": "ctet_ped_ch08",
+    "title": "Learning Theories"
+  },
+  "ctet_ped_ch09": {
+    "fingerprint": "sha256:463f03e792ac3a081543a05f81b8afe5a8b4962abae296bf40ac229640eebb88",
+    "inventory": 94,
+    "kept": 100,
+    "offered": 240,
+    "questions": 10,
+    "source": "ctet_ped_ch09",
+    "title": "Pedagogical Issues & Inclusive Education"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "studysynth-android",
+  "version": "1.2.0",
+  "private": true,
+  "description": "StudySynth Lite — offline study workspace and exam simulator",
+  "scripts": {
+    "web:build": "node scripts/build-web.js",
+    "android:add": "cap add android",
+    "android:sync": "npm run web:build && cap sync android",
+    "android:apk": "npm run android:sync && cd android && gradlew.bat assembleDebug",
+    "android:open": "cap open android",
+    "test:pwa": "npm test --prefix pwa"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.3"
+  }
+}

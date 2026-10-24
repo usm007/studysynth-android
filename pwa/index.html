@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, interactive-widget=resizes-content">
+  <title>StudySynth CTET — NCERT Social Science Practice & Revision</title>
+  <meta name="description" content="CTET Social Science (Classes 6 to 8) NCERT study companion. Verified practice questions, adaptive revision flashcards, and timed mock tests — 100% offline.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#3943d3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="StudySynth CTET">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body data-mode="library">
+
+  <a class="skip-link" href="#qwork">Skip to study workspace</a>
+
+  <!-- ======================================================================
+       STUDYSYNTH MAIN WORKSPACE SHELL
+       ====================================================================== -->
+  <div id="appShell" class="app-shell">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-in">
+        <button id="navToggle" class="iconbtn nav-toggle" type="button" aria-label="Open navigation" aria-controls="appRail" aria-expanded="false"><span class="ms-icon" aria-hidden="true">menu</span></button>
+
+        <div class="brand" id="brandLogo">
+          <img src="./assets/logo.png" alt="StudySynth" class="brand-mark">
+          <div class="brand-text">
+            <div class="brand-name">StudySynth CTET</div>
+            <div class="brand-sub">NCERT Social Science (6–8)</div>
+          </div>
+        </div>
+
+        <div class="set-title">
+          <b id="setTitle">LIBRARY</b>
+          <span id="setTopic">Choose a PDF or saved set</span>
+        </div>
+
+        <div class="progress-wrap" aria-label="Question progress">
+          <span id="progNum" class="progress-num">1/10</span>
+          <div class="progress-bar" aria-hidden="true"><i id="progBar" style="width:10%;"></i></div>
+          <span id="progPct" class="progress-pct">10%</span>
+        </div>
+
+        <div class="topbar-actions">
+          <button id="installBadge" class="install-badge" title="Install StudySynth for offline use" aria-label="Install StudySynth app">
+            <span class="install-icon ms-icon" aria-hidden="true">install_mobile</span>
+            <span class="install-text">Install App</span>
+          </button>
+          <button id="themeToggle" class="iconbtn" title="Toggle dark or light mode" aria-label="Toggle dark or light mode"><span class="ms-icon" aria-hidden="true">dark_mode</span></button>
+          <button id="printBtn" class="iconbtn" title="Print A4 test booklet" aria-label="Print test booklet"><span class="ms-icon" aria-hidden="true">print</span></button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN SHELL -->
+    <div class="shell">
+
+      <!-- LEFT SIDEBAR: MODES & STATS -->
+      <aside id="appRail" class="rail" aria-label="Study modes and session status">
+        <div class="rail-head">
+          <div class="rail-sec-title">Study Modes</div>
+          <button id="navClose" class="rail-close" type="button" aria-label="Close navigation"><span class="ms-icon" aria-hidden="true">close</span></button>
+        </div>
+        <nav class="mode-list" aria-label="Study modes">
+          <button class="mode-item active" data-mode="library" aria-current="page">
+            <span class="mode-icon ms-icon" aria-hidden="true">library_books</span>
+            <div>
+              <b>Library</b>
+              <small>PDFs &amp; saved sets</small>
+            </div>
+          </button>
+          <button class="mode-item" data-mode="practice">
+            <span class="mode-icon ms-icon" aria-hidden="true">lightbulb</span>
+            <div>
+              <b>Practice</b>
+              <small>Instant feedback &amp; citation</small>
+            </div>
+          </button>
+          <button class="mode-item" data-mode="revision">
+            <span class="mode-icon ms-icon" aria-hidden="true">style</span>
+            <div>
+              <b>Revision</b>
+              <small>Adaptive spaced recall</small>
+            </div>
+          </button>
+          <button class="mode-item" data-mode="test">
+            <span class="mode-icon ms-icon" aria-hidden="true">timer</span>
+            <div>
+              <b>Exam Test</b>
+              <small>Timed evaluation</small>
+            </div>
+          </button>
+          <button class="mode-item" data-mode="generator">
+            <span class="mode-icon ms-icon" aria-hidden="true">bolt</span>
+            <div>
+              <b>Generator</b>
+              <small>Extract from notes / PDF</small>
+            </div>
+          </button>
+        </nav>
+
+        <!-- Inline Confidence Meter -->
+        <div class="conf-meter">
+          <div class="cm-head">
+            <span class="cm-label" id="railAccLabel">Session Score</span>
+            <span id="railAcc" class="cm-pct">0%</span>
+          </div>
+          <div class="cm-bar" aria-hidden="true"><i id="railBar" style="width:0%;"></i></div>
+          <span id="railSub" class="cm-sub">0 answered of 10</span>
+        </div>
+
+        <div class="rail-foot">
+          <button id="aboutBtn" class="rail-about" type="button">About</button>
+          <div class="credit" aria-label="With love, usm007">With <span class="credit-heart ms-icon" aria-hidden="true">favorite</span>, usm007</div>
+        </div>
+      </aside>
+
+      <div id="navBackdrop" class="nav-backdrop" hidden></div>
+
+      <!-- CENTER WORKSPACE -->
+      <main class="workspace">
+        <div class="workcol">
+          <div id="qwork">
+
+            <!-- QUIZ VIEW -->
+            <div id="quizView" class="view quiz-view">
+
+              <!-- Exam setup: shown before a timed test starts -->
+              <section id="testSetup" class="test-setup" hidden aria-labelledby="testSetupTitle">
+                <div class="test-setup-card">
+                  <h2 id="testSetupTitle">Start an exam test</h2>
+                  <p id="testSetupModule" class="test-setup-module"></p>
+                  <div class="test-setup-grid">
+                    <label class="test-field" for="testQuestionCount">
+                      <span>Number of questions</span>
+                      <select id="testQuestionCount"></select>
+                    </label>
+                    <label class="test-field" for="testSecondsPerQuestion">
+                      <span>Time per question</span>
+                      <select id="testSecondsPerQuestion">
+                        <option value="30">30 seconds</option>
+                        <option value="45">45 seconds</option>
+                        <option value="60" selected>1 minute</option>
+                        <option value="90">1 minute 30 seconds</option>
+                        <option value="120">2 minutes</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div class="test-setup-summary">
+                    <div><span>Total time</span><strong id="testTotalTime">10:00</strong></div>
+                    <div><span>Marking</span><strong>+2.00 / −0.66</strong></div>
+                  </div>
+                  <button id="testStartBtn" class="btn btn-primary test-start-btn" type="button">Start test</button>
+                  <p class="test-setup-note">The timer starts immediately and keeps running if you switch screens. The test submits automatically when time runs out.</p>
+                </div>
+              </section>
+
+              <div class="sheet-head">
+                <div id="sheetNum" class="sheet-num">Q 01</div>
+                <div class="sheet-id">
+                  <span id="sheetModeLabel" class="sheet-mode">Practice</span>
+                  <span id="sheetContext" class="sheet-ctx"></span>
+                </div>
+                <button id="markBtn" class="btn bookmark-btn" type="button" aria-pressed="false"><span class="ms-icon bookmark-icon" aria-hidden="true">star</span><span class="bookmark-text">Bookmark</span></button>
+              </div>
+
+              <!-- Exam Mode Strip -->
+              <div class="exam-strip">
+                <div class="exam-clock" aria-label="Exam timer"><span class="ms-icon" aria-hidden="true">timer</span><span id="examTimer" class="t">00:00</span></div>
+                <div id="examAnswered" class="exam-answered">0/10 answered</div>
+                <div class="exam-marking">+2.00 / −0.66</div>
+                <button id="examSubmitBtn" class="exam-submit" type="button">Submit Test</button>
+              </div>
+
+              <div class="sheet-body">
+                <div id="questionContainer" class="question-content" aria-live="polite">
+                  <!-- Dynamic Question Content -->
+                </div>
+                <div id="answerPanel" class="answer-panel" hidden>
+                  <!-- Answer and explanation -->
+                </div>
+              </div>
+
+              <div class="actions">
+                <button id="prevBtn" class="btn action-prev" type="button"><span class="ms-icon" aria-hidden="true">arrow_back</span><span>Previous</span></button>
+                <div class="spacer"></div>
+                <button id="nextBtn" class="btn btn-primary action-next" type="button"><span class="action-next-label">Next</span><span class="ms-icon" aria-hidden="true">arrow_forward</span></button>
+                <button id="submitBtn" class="btn btn-success action-submit" type="button"><span class="ms-icon" aria-hidden="true">check</span><span>Submit Test</span></button>
+              </div>
+
+            </div>
+
+            <!-- GENERATOR VIEW -->
+            <div id="generatorView" class="view generator-view" style="display:none;">
+              <div class="view-inner">
+                <div class="view-heading">
+                  <div>
+                    <h2>Question Generator</h2>
+                  </div>
+                </div>
+
+                <div id="dropZone" class="drop-zone" role="button" tabindex="0" aria-label="Choose a study document or note photo">
+                  <div class="drop-icon"><span class="ms-icon" aria-hidden="true">upload_file</span></div>
+                  <h3>Drop a study document, selectable PDF, or note photo</h3>
+                  <p>Supports .pdf, .txt, .md, and camera photos (.jpg, .png, .webp)</p>
+                  <span class="drop-cta">Choose a file</span>
+                  <input type="file" id="fileInput" accept=".pdf,.txt,.md,.json,.jpg,.jpeg,.png,.webp" hidden>
+                </div>
+                <div id="fileStatus" class="file-status" role="status" aria-live="polite"></div>
+
+                <div class="field-group">
+                  <label for="docTitle">Module title</label>
+                  <input type="text" id="docTitle" placeholder="e.g. Biology — Chapter 4" autocomplete="off">
+                </div>
+
+                <div class="field-group">
+                  <label for="docText">Or paste extracted notes / text</label>
+                  <textarea id="docText" rows="6" placeholder="Paste your notes here…"></textarea>
+                </div>
+
+                <button id="generateBtn" class="btn btn-primary generate-btn" type="button">
+                  <span class="ms-icon" aria-hidden="true">bolt</span>
+                  <span class="generate-label">Generate Quiz &amp; Study Package</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- REVISION VIEW — adaptive, evidence-backed recall -->
+            <div id="revisionView" class="view revision-view" style="display:none;">
+              <div class="view-inner revision-inner">
+
+                <p id="revisionUnavailable" class="empty-state" hidden></p>
+
+                <!-- Dashboard -->
+                <section id="revisionDashboard" class="rev-panel" hidden>
+                  <div class="rev-head">
+                    <div class="rev-head-copy">
+                      <h2 id="revDashTitle">Revision</h2>
+                    </div>
+                    <button id="revResetBtn" class="btn btn-sm rev-reset" type="button">Reset progress</button>
+                  </div>
+
+                  <div class="rev-stats" role="list" aria-label="Revision status for this set">
+                    <div class="rev-stat" role="listitem"><b id="revStatDue">0</b><span>Due now</span></div>
+                    <div class="rev-stat" role="listitem"><b id="revStatNew">0</b><span>New</span></div>
+                    <div class="rev-stat" role="listitem"><b id="revStatLearning">0</b><span>Learning</span></div>
+                    <div class="rev-stat" role="listitem"><b id="revStatConsistent">0</b><span>Consistently recalled</span></div>
+                    <div class="rev-stat" role="listitem"><b id="revStatTotal">0</b><span>Valid items</span></div>
+                  </div>
+
+                  <p id="revDashNote" class="rev-note"></p>
+
+                  <div class="rev-dash-actions">
+                    <button id="revStartBtn" class="btn btn-primary rev-start" type="button">Start revision</button>
+                    <button id="revResumeBtn" class="btn rev-resume" type="button" hidden>Resume session</button>
+                  </div>
+                </section>
+
+                <!-- Session -->
+                <section id="revisionSession" class="rev-panel rev-session" hidden>
+                  <div class="rev-session-head">
+                    <span id="revPos" class="rev-pos">Item 1 of 10</span>
+                    <button id="revPauseBtn" class="btn btn-sm" type="button">Pause &amp; save</button>
+                  </div>
+                  <div id="revProgress" class="rev-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Revision progress"><i id="revProgressBar"></i></div>
+
+                  <article class="rev-card">
+                    <span id="revForm" class="rev-form">Recall</span>
+                    <div id="revPrompt" class="rev-prompt" aria-live="polite"></div>
+
+                    <div id="revAnswer" class="rev-answer" hidden>
+                      <span class="rev-label">Answer</span>
+                      <p id="revAnswerText" class="rev-answer-text"></p>
+                      <div class="rev-evidence">
+                        <span id="revSourceRef" class="rev-source-ref"></span>
+                        <p id="revEvidenceShort" class="rev-evidence-text"></p>
+                        <p id="revEvidenceFull" class="rev-evidence-text rev-evidence-full" hidden></p>
+                        <button id="revEvidenceToggle" class="btn btn-sm rev-evidence-toggle" type="button" hidden>Show full excerpt</button>
+                      </div>
+                    </div>
+                  </article>
+
+                  <div class="rev-controls">
+                    <button id="revRevealBtn" class="btn btn-primary rev-reveal" type="button">Reveal answer</button>
+                    <button id="revBackBtn" class="btn rev-back" type="button" hidden>Back to current card</button>
+                    <button id="revPrevBtn" class="btn btn-sm rev-prev" type="button" hidden>Previous card</button>
+                  </div>
+
+                  <div id="revRatings" class="rev-ratings" role="group" aria-label="How well did you recall this?" hidden>
+                    <div class="rev-rating-row">
+                      <button class="btn rev-rate rev-rate-again" type="button" data-rating="again"><b>Again</b><small>Couldn’t recall</small></button>
+                      <button class="btn rev-rate rev-rate-hard" type="button" data-rating="hard"><b>Hard</b><small>Took effort</small></button>
+                      <button class="btn rev-rate rev-rate-good" type="button" data-rating="good"><b>Good</b><small>Recalled</small></button>
+                      <button class="btn rev-rate rev-rate-easy" type="button" data-rating="easy"><b>Easy</b><small>Instant</small></button>
+                    </div>
+                  </div>
+                </section>
+
+                <!-- Summary -->
+                <section id="revisionSummary" class="rev-panel rev-summary" hidden>
+                  <h2 id="revSummaryTitle">Session complete</h2>
+                  <div class="rev-summary-grid">
+                    <div><b id="revSumReviewed">0</b><span>Reviewed</span></div>
+                    <div><b id="revSumAgain">0</b><span>Again</span></div>
+                    <div><b id="revSumHard">0</b><span>Hard</span></div>
+                    <div><b id="revSumGood">0</b><span>Good</span></div>
+                    <div><b id="revSumEasy">0</b><span>Easy</span></div>
+                  </div>
+                  <p id="revSumRemaining" class="rev-note"></p>
+                  <p id="revSumNext" class="rev-note"></p>
+                  <div class="rev-dash-actions">
+                    <button id="revSummaryDoneBtn" class="btn btn-primary" type="button">Back to revision</button>
+                  </div>
+                </section>
+
+              </div>
+            </div>
+
+            <!-- LIBRARY VIEW -->
+            <div id="libraryView" class="view library-view" style="display:none;">
+              <div class="view-inner">
+                <div class="view-heading">
+                  <div>
+                    <h2>Library</h2>
+                  </div>
+                </div>
+                <div class="library-toolbar">
+                  <nav id="libBreadcrumbBar" class="lib-breadcrumb-bar" aria-label="Library navigation"></nav>
+                  <div class="lib-search-box">
+                    <span class="ms-icon" aria-hidden="true">search</span>
+                    <input id="libSearchInput" type="search" placeholder="Search chapters or papers..." aria-label="Search chapters or papers">
+                  </div>
+                  <button id="libraryGenerateBtn" class="btn btn-sm" type="button"><span class="ms-icon" aria-hidden="true">add</span><span>Add PDF or notes</span></button>
+                </div>
+                <div id="libraryContainer"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <!-- RIGHT LIVEBAR: ANALYTICS (Desktop) -->
+      <aside class="livebar" aria-label="Live analytics">
+        <div class="live-acc">
+          <div id="liveAccNum" class="live-acc-v">0%</div>
+          <div class="live-acc-s">Live Accuracy</div>
+        </div>
+
+        <div class="live-grid">
+          <div class="live-stat good">
+            <b id="statCorrect">0</b>
+            <span>Correct</span>
+          </div>
+          <div class="live-stat bad">
+            <b id="statWrong">0</b>
+            <span>Wrong</span>
+          </div>
+        </div>
+
+        <div class="palette-wrap">
+          <span class="palette-label">Question Palette</span>
+          <div id="livePalette" class="palette-grid"></div>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Background processing indicator -->
+    <button id="processChip" class="process-chip" type="button" hidden>
+      <span class="process-chip-icon" aria-hidden="true"><span class="ms-icon">progress_activity</span></span>
+      <span class="process-chip-copy">
+        <b id="processChipStage">Preparing…</b>
+        <small id="processChipMeta">Working</small>
+      </span>
+      <span id="processChipPct" class="process-chip-pct" hidden>0%</span>
+      <span class="process-chip-open ms-icon" aria-hidden="true">open_in_full</span>
+    </button>
+  </div>
+
+  <!-- Processing dialog (one reusable surface for imports and generation) -->
+  <div id="processModal" class="modal process-modal" role="dialog" aria-modal="true" aria-labelledby="processTitle" aria-describedby="processMessage">
+    <div class="modal-card process-card">
+      <div class="process-head">
+        <h2 id="processTitle">Preparing your study module</h2>
+        <p id="processMessage" class="process-message">Opening your document…</p>
+        <p id="processNotice" class="process-notice" hidden></p>
+      </div>
+
+      <div class="process-progress">
+        <div id="processTrack" class="process-track" role="progressbar" aria-labelledby="processTitle" aria-valuemin="0" aria-valuemax="100">
+          <i id="processBar" class="process-bar"></i>
+        </div>
+        <div class="process-meta">
+          <span id="processCount">Working</span>
+          <span id="processPct" class="process-pct" hidden>0%</span>
+        </div>
+      </div>
+
+      <ul id="processStages" class="process-stages" aria-label="Processing stages"></ul>
+      <p id="processStorage" class="process-storage" hidden></p>
+
+      <div class="process-actions">
+        <button id="processMinimizeBtn" class="btn" type="button">Continue in background</button>
+        <button id="processCancelBtn" class="btn btn-danger" type="button">Cancel processing</button>
+        <button id="processResumeBtn" class="btn btn-primary" type="button" hidden>Resume processing</button>
+        <button id="processRetryBtn" class="btn btn-primary" type="button" hidden>Try again</button>
+        <button id="processOpenBtn" class="btn btn-primary" type="button" hidden>Open study module</button>
+        <button id="processDiscardBtn" class="btn btn-danger" type="button" hidden>Discard</button>
+        <button id="processCloseBtn" class="btn" type="button" hidden>Close</button>
+      </div>
+    </div>
+  </div>
+  <div id="processLive" class="sr-only" role="status" aria-live="polite"></div>
+
+  <!-- Scorecard -->
+  <div id="scoreModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="scoreTitle">
+    <div class="modal-card">
+      <div class="score-hero">
+        <strong id="scoreTitle" class="score-value">0.00</strong>
+        <span id="scoreMax" class="score-max">out of 20.00</span>
+        <span id="scoreBand" class="score-band">Keep practising</span>
+      </div>
+      <div class="score-grid">
+        <div><b id="scoreCorrect">0</b><span>Correct</span></div>
+        <div><b id="scoreWrong">0</b><span>Wrong</span></div>
+        <div><b id="scoreSkipped">0</b><span>Skipped</span></div>
+        <div><b id="scoreTime">00:00</b><span>Time</span></div>
+      </div>
+      <p id="scoreNote" class="score-note">Marking: +2.00 for a correct answer, −0.66 for a wrong answer.</p>
+      <div class="modal-actions">
+        <button id="scoreReviewBtn" class="btn" type="button">Review answers</button>
+        <button id="scoreRetakeBtn" class="btn btn-primary" type="button">Retake test</button>
+      </div>
+      <button id="scoreCloseBtn" class="modal-close" type="button" aria-label="Close scorecard"><span class="ms-icon" aria-hidden="true">close</span></button>
+    </div>
+  </div>
+
+  <!-- About -->
+  <div id="aboutModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="modal-card about-card">
+      <img src="./assets/logo.png" alt="" class="about-mark">
+      <h2 id="aboutTitle" class="about-title">StudySynth</h2>
+      <p class="about-summary">Turn your notes and PDFs into verified practice questions, adaptive revision, and timed exam tests. Everything runs on your device, fully offline.</p>
+      <p class="about-credit" aria-label="Built by usm007">Built with <span class="credit-heart ms-icon" aria-hidden="true">favorite</span> by usm007</p>
+      <div class="modal-actions">
+        <button id="aboutCloseBtn" class="btn btn-primary" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite">Action completed</div>
+
+  <noscript>
+    <div class="noscript">StudySynth needs JavaScript enabled to generate and study quizzes offline.</div>
+  </noscript>
+
+  <!-- Offline Scripts -->
+  <script src="./sample_data.js"></script>
+  <script src="./ctet_index.js"></script>
+  <script src="./engine/generator.js"></script>
+  <script src="./engine/analyze.js"></script>
+  <script src="./engine/pdfParser.js"></script>
+  <script src="./engine/ocr.js"></script>
+  <script src="./engine/storage.js"></script>
+  <script src="./engine/jobs.js"></script>
+  <script src="./vendor/tesseract/tesseract.min.js"></script>
+  <script src="./engine/revision.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
