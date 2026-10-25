@@ -14,7 +14,7 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | entity_attribute (6), classification_membership (2), cause_effect (6), multi_statement (1) |
+| **Production Questions** | 15 | entity_attribute (4), classification_membership (2), cause_effect (4), multi_statement (1), statement_option (3), assertion_reason (1) |
 | **Conceptual Reasoning V2** | 2 | causal_reasoning (2) |
 | **Total** | **17** | Verified Evidence-Grounded Items |
 
@@ -76,7 +76,7 @@ The source states: “Soon the club’s membership increased and its activities 
 
 **Options:**
 - **A)** citizens to approach the Supreme Court if their fundamental rights are violated *(Distractor Origin: `source_causal_pool`)*
-- **B)** you a resident, but citizenship is a formal, legal membership in a country *(Distractor Origin: `source_object_pool`)*
+- **B)** what we are all entitled to as human beings and members of society *(Distractor Origin: `source_object_pool`)*
 - **C)** us to live with dignity, while duties remind us to use our freedom wisely and respectfully **(CORRECT ANSWER)**
 - **D)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
 
@@ -97,95 +97,73 @@ The source explicitly describes the relationship as: “Rights allow us to live 
 > Consider the following statements:
 
 **Statements:**
-- **1)** New student Kruti was being teased on the playground for her accent.
+- **1)** New student Kruti was formal.
 - **2)** Sonali and Harshada showed what it means to be good citizens—they stood up for someone who needed help and made sure everyone felt included.
 
 Which of the statements given above is/are correct?
 
 **Options:**
 - **A)** 1 only *(Distractor Origin: `statement_combination_pool`)*
-- **B)** 2 only *(Distractor Origin: `statement_combination_pool`)*
+- **B)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
 - **C)** Neither 1 nor 2 *(Distractor Origin: `statement_combination_pool`)*
-- **D)** Both 1 and 2 **(CORRECT ANSWER)**
+- **D)** 2 only **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "New student Kruti was being teased on the playground for her accent."
 
 **Explanation:**
-Statement 1 is correct. The source states: “New student Kruti was being teased on the playground for her accent.” This supports statement 1. Statement 2 is correct. The source states: “Sonali and Harshada showed what it means to be good citizens—they stood up for someone who needed help and made sure everyone felt included.” This supports statement 2.
+Statement 1 is false. The source states: “New student Kruti was being teased on the playground for her accent.” The stated value is being teased on the playground for her accent, not formal. Statement 2 is correct. The source states: “Sonali and Harshada showed what it means to be good citizens—they stood up for someone who needed help and made sure everyone felt included.” This supports statement 2.
 
 ---
 
 ### Question 5 [Q-P5-005]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> Which of the following correctly describes Duties?
+> Which of the following statements is correct about Duties?
 
 **Options:**
-- **A)** the responsibilities that we must follow as members of a community **(CORRECT ANSWER)**
-- **B)** what we are all entitled to as human beings and members of society *(Distractor Origin: `typed_entity_pool`)*
-- **C)** one of the most important rights of every Indian *(Distractor Origin: `typed_entity_pool`)*
-- **D)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Duties are the responsibilities that we must follow as members of a community. **(CORRECT ANSWER)**
+- **B)** Duties are what we are all entitled to as human beings and members of society. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Duties are being teased on the playground for her accent. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** Duties are affirmative way to ensure non-discrimination. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Duties are the responsibilities that we must follow as members of a community."
 
 **Explanation:**
-The source states: “Duties are the responsibilities that we must follow as members of a community.” This identifies the stated role of Duties as the responsibilities that we must follow as members of a community.
+The source states: “Duties are the responsibilities that we must follow as members of a community.” The correct statement preserves that value. The other options replace it with a value the source does not state for Duties.
 
 ---
 
 ### Question 6 [Q-P5-006]
-- **Subtype:** `classification_membership`
+- **Subtype:** `assertion_reason`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **B**
 
 **Stem:**
-> Which one is mentioned as belonging to violated?
+> Assertion (A): The right to freedom is one of the most important rights of every Indian. Reason (R): A student who laughed was reminded that respect is part of citizenship. Which of the following is correct?
 
 **Options:**
-- **A)** right to education *(Distractor Origin: `controlled_category_pool`)*
-- **B)** seek remedies if they **(CORRECT ANSWER)**
-- **C)** right to equality *(Distractor Origin: `controlled_category_pool`)*
-- **D)** right to life and dignity *(Distractor Origin: `controlled_category_pool`)*
+- **A)** Both A and R are true and R is the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **B)** Both A and R are true but R is NOT the correct explanation of A **(CORRECT ANSWER)**
+- **C)** A is true but R is false *(Distractor Origin: `assertion_reason_code_pool`)*
+- **D)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "One can go to court and seek remedies if they are violated."
+> "The right to freedom is one of the most important rights of every Indian."
 
 **Explanation:**
-The source states: “One can go to court and seek remedies if they are violated.” This lists seek remedies if they as a member of violated.
+Assertion is correct: “The right to freedom is one of the most important rights of every Indian.” Reason is correct: “A student who laughed was reminded that respect is part of citizenship.” However, R does not state a cause or reason for A, so it is not the correct explanation of A.
 
 ---
 
 ### Question 7 [Q-P5-007]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
-
-**Stem:**
-> What happens when the Indian Constitution came into effect in 1950?
-
-**Options:**
-- **A)** he disagrees with it *(Distractor Origin: `source_causal_pool`)*
-- **B)** being teased on the playground for her accent *(Distractor Origin: `source_object_pool`)*
-- **C)** it had no Fundamental Duties **(CORRECT ANSWER)**
-- **D)** even by the government, they can go to court for help *(Distractor Origin: `source_causal_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "When the Indian Constitution came into effect in 1950, it had no Fundamental Duties."
-
-**Explanation:**
-The source explicitly describes the relationship as: “When the Indian Constitution came into effect in 1950, it had no Fundamental Duties.” The answer preserves the stated direction of that relationship.
-
----
-
-### Question 8 [Q-P5-008]
 - **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **C**
 
 **Stem:**
 > Which of the following correctly describes Sanya?
@@ -193,8 +171,8 @@ The source explicitly describes the relationship as: “When the Indian Constitu
 **Options:**
 - **A)** affirmative way to ensure non-discrimination *(Distractor Origin: `typed_entity_pool`)*
 - **B)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
-- **C)** one of the most important rights of every Indian *(Distractor Origin: `typed_entity_pool`)*
-- **D)** excited to audition for the school play **(CORRECT ANSWER)**
+- **C)** excited to audition for the school play **(CORRECT ANSWER)**
+- **D)** one of the most important rights of every Indian *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Sanya was excited to audition for the school play."
@@ -204,76 +182,76 @@ The source states: “Sanya was excited to audition for the school play.” This
 
 ---
 
+### Question 8 [Q-P5-008]
+- **Subtype:** `classification_membership`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> Which one is mentioned as belonging to violated?
+
+**Options:**
+- **A)** right to education *(Distractor Origin: `controlled_category_pool`)*
+- **B)** right to equality *(Distractor Origin: `controlled_category_pool`)*
+- **C)** right to life and dignity *(Distractor Origin: `controlled_category_pool`)*
+- **D)** seek remedies if they **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "One can go to court and seek remedies if they are violated."
+
+**Explanation:**
+The source states: “One can go to court and seek remedies if they are violated.” This lists seek remedies if they as a member of violated.
+
+---
+
 ### Question 9 [Q-P5-009]
 - **Subtype:** `cause_effect`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> What happens when someone’s rights are violated?
+> What happens when the Indian Constitution came into effect in 1950?
 
 **Options:**
-- **A)** even by the government, they can go to court for help **(CORRECT ANSWER)**
-- **B)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
-- **C)** being teased on the playground for her accent *(Distractor Origin: `source_object_pool`)*
-- **D)** you a resident, but citizenship is a formal, legal membership in a country *(Distractor Origin: `source_object_pool`)*
+- **A)** it had no Fundamental Duties **(CORRECT ANSWER)**
+- **B)** right to freedom of religion *(Distractor Origin: `source_object_pool`)*
+- **C)** the same benefits on account *(Distractor Origin: `source_object_pool`)*
+- **D)** he disagrees with it *(Distractor Origin: `source_causal_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "If someone’s rights are violated, even by the government, they can go to court for help."
+> "When the Indian Constitution came into effect in 1950, it had no Fundamental Duties."
 
 **Explanation:**
-The source explicitly describes the relationship as: “If someone’s rights are violated, even by the government, they can go to court for help.” The answer preserves the stated direction of that relationship.
+The source explicitly describes the relationship as: “When the Indian Constitution came into effect in 1950, it had no Fundamental Duties.” The answer preserves the stated direction of that relationship.
 
 ---
 
 ### Question 10 [Q-P5-010]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **B**
 
 **Stem:**
-> Which of the following correctly describes the right to freedom?
+> Which of the following statements is correct about Inclusion?
 
 **Options:**
-- **A)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
-- **B)** one of the most important rights of every Indian **(CORRECT ANSWER)**
-- **C)** affirmative way to ensure non-discrimination *(Distractor Origin: `typed_entity_pool`)*
-- **D)** ban on work in places such as factories *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Inclusion means to be good citizens—they stood up for someone who needed help and made sure everyone felt included. *(Distractor Origin: `source_definition_pool`)*
+- **B)** Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities. **(CORRECT ANSWER)**
+- **C)** Inclusion means living your rights while respecting others’ rights. *(Distractor Origin: `source_definition_pool`)*
+- **D)** Inclusion means the same benefits on account. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The right to freedom is one of the most important rights of every Indian."
+> "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities."
 
 **Explanation:**
-The source states: “The right to freedom is one of the most important rights of every Indian.” This identifies the stated role of The right to freedom as one of the most important rights of every Indian.
+The source states: “Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.” The correct statement preserves that value. The other options replace it with a value the source does not state for Inclusion.
 
 ---
 
 ### Question 11 [Q-P5-011]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
-
-**Stem:**
-> What happens when her friends found out?
-
-**Options:**
-- **A)** citizens to approach the Supreme Court if their fundamental rights are violated *(Distractor Origin: `source_causal_pool`)*
-- **B)** you a resident, but citizenship is a formal, legal membership in a country *(Distractor Origin: `source_object_pool`)*
-- **C)** some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status” **(CORRECT ANSWER)**
-- **D)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "When her friends found out, some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status”."
-
-**Explanation:**
-The source explicitly describes the relationship as: “When her friends found out, some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status”.” The answer preserves the stated direction of that relationship.
-
----
-
-### Question 12 [Q-P5-012]
 - **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **C**
 
 **Stem:**
 > What role is associated with Right to freedom of religion India?
@@ -281,8 +259,8 @@ The source explicitly describes the relationship as: “When her friends found o
 **Options:**
 - **A)** what we are all entitled to as human beings and members of society *(Distractor Origin: `typed_entity_pool`)*
 - **B)** one of the most important rights of every Indian *(Distractor Origin: `typed_entity_pool`)*
-- **C)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
-- **D)** diverse country where people follow many different religions **(CORRECT ANSWER)**
+- **C)** diverse country where people follow many different religions **(CORRECT ANSWER)**
+- **D)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Right to freedom of religion India is a diverse country where people follow many different religions."
@@ -292,25 +270,47 @@ The source states: “Right to freedom of religion India is a diverse country wh
 
 ---
 
-### Question 13 [Q-P5-013]
+### Question 12 [Q-P5-012]
 - **Subtype:** `cause_effect`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> What happens when someone’s rights are violated?
+
+**Options:**
+- **A)** the freedoms and benefits that every citizen enjoys *(Distractor Origin: `source_object_pool`)*
+- **B)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
+- **C)** One can go to court, seek remedies if they *(Distractor Origin: `source_object_pool`)*
+- **D)** even by the government, they can go to court for help **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "If someone’s rights are violated, even by the government, they can go to court for help."
+
+**Explanation:**
+The source explicitly describes the relationship as: “If someone’s rights are violated, even by the government, they can go to court for help.” The answer preserves the stated direction of that relationship.
+
+---
+
+### Question 13 [Q-P5-013]
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> What happens when children are made to work?
+> Which of the following statements is correct about the blind helps?
 
 **Options:**
-- **A)** they lose out on education, play, and a healthy childhood ̶ things that are essential for their growth and future **(CORRECT ANSWER)**
-- **B)** citizens to approach the Supreme Court if their fundamental rights are violated *(Distractor Origin: `source_causal_pool`)*
-- **C)** you a resident, but citizenship is a formal, legal membership in a country *(Distractor Origin: `source_object_pool`)*
-- **D)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
+- **A)** the blind helps facilitate the right to education. **(CORRECT ANSWER)**
+- **B)** the blind helps facilitate support to education. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** the blind helps facilitate their own schools to education. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** the blind helps facilitate the same benefits on account to education. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "When children are made to work, they lose out on education, play, and a healthy childhood ̶ things that are essential for their growth and future."
+> "the blind helps facilitate the right to education."
 
 **Explanation:**
-The source explicitly describes the relationship as: “When children are made to work, they lose out on education, play, and a healthy childhood ̶ things that are essential for their growth and future.” The answer preserves the stated direction of that relationship.
+The source states: “the blind helps facilitate the right to education.” The correct statement preserves that value. The other options replace it with a value the source does not state for the blind helps.
 
 ---
 
@@ -320,19 +320,19 @@ The source explicitly describes the relationship as: “When children are made t
 - **Answer Key:** **B**
 
 **Stem:**
-> What is the stated function of the blind helps?
+> Which of the following correctly describes People?
 
 **Options:**
-- **A)** support *(Distractor Origin: `typed_entity_pool`)*
-- **B)** the right **(CORRECT ANSWER)**
-- **C)** citizen *(Distractor Origin: `source_object_pool`)*
-- **D)** formal *(Distractor Origin: `source_object_pool`)*
+- **A)** what we are all entitled to as human beings and members of society *(Distractor Origin: `typed_entity_pool`)*
+- **B)** aghast when she decided to go the Woman’s Medical College of Pennsylvania **(CORRECT ANSWER)**
+- **C)** one of the most important rights of every Indian *(Distractor Origin: `typed_entity_pool`)*
+- **D)** being teased on the playground for her accent *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "the blind helps facilitate the right to education."
+> "People were aghast when she decided to go the Woman’s Medical College of Pennsylvania."
 
 **Explanation:**
-The source states: “the blind helps facilitate the right to education.” This identifies the stated function of the blind helps as the right.
+The source states: “People were aghast when she decided to go the Woman’s Medical College of Pennsylvania.” This identifies the stated role of People as aghast when she decided to go the Woman’s Medical College of Pennsylvania.
 
 ---
 
@@ -342,19 +342,19 @@ The source states: “the blind helps facilitate the right to education.” This
 - **Answer Key:** **C**
 
 **Stem:**
-> What does the right to freedom of religion allow?
+> What happens when her friends found out?
 
 **Options:**
-- **A)** citizens to approach the Supreme Court if their fundamental rights are violated *(Distractor Origin: `source_causal_pool`)*
-- **B)** you a resident, but citizenship is a formal, legal membership in a country *(Distractor Origin: `source_object_pool`)*
-- **C)** every person to choose, practise, and share their religion freely, while ensuring that no one is forced to follow, propagate or fund a particular religion **(CORRECT ANSWER)**
-- **D)** sure children between ages 6 and 14 years get an education *(Distractor Origin: `source_causal_pool`)*
+- **A)** someone in a project or a celebration just because of their social background, physical appearance, perception of intellectual ability *(Distractor Origin: `source_object_pool`)*
+- **B)** citizens to approach the Supreme Court if their fundamental rights are violated *(Distractor Origin: `source_causal_pool`)*
+- **C)** some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status” **(CORRECT ANSWER)**
+- **D)** someone in a project or a celebration just because of their social background *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The right to freedom of religion allows every person to choose, practise, and share their religion freely, while ensuring that no one is forced to follow, propagate or fund a particular religion."
+> "When her friends found out, some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status”."
 
 **Explanation:**
-The source explicitly describes the relationship as: “The right to freedom of religion allows every person to choose, practise, and share their religion freely, while ensuring that no one is forced to follow, propagate or fund a particular religion.” The answer preserves the stated direction of that relationship.
+The source explicitly describes the relationship as: “When her friends found out, some started ignoring her, whispering to each other that she “wasn’t fun”, “never joined anything”, or “was not of their status”.” The answer preserves the stated direction of that relationship.
 
 ---
 

@@ -14,7 +14,7 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | numeric_recall (4), entity_attribute (3), definition (1), classification_membership (3), cause_effect (3), multi_statement (1) |
+| **Production Questions** | 15 | multi_statement_3 (1), assertion_reason (1), numeric_recall (2), exception_reasoning (2), entity_attribute (2), definition (1), classification_membership (2), cause_effect (2), statement_option (2) |
 | **Conceptual Reasoning V2** | 2 | causal_reasoning (2) |
 | **Total** | **17** | Verified Evidence-Grounded Items |
 
@@ -23,17 +23,68 @@
 ## Part I: Verified Production Questions
 
 ### Question 1 [Q-P1-001]
-- **Subtype:** `numeric_recall`
+- **Subtype:** `multi_statement_3`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
+
+**Stem:**
+> Consider the following statements:
+
+**Statements:**
+- **1)** They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world.
+- **2)** However, professionals use maps that use the latitude and longitude coordinates a visual representation that allows us.
+- **3)** The ocean is a vast body of saltwater covering about 71 per cent of the Earth’s surface.
+
+Which of the statements given above is/are correct?
+
+**Options:**
+- **A)** 1 and 3 only **(CORRECT ANSWER)**
+- **B)** 1 only *(Distractor Origin: `statement_combination_pool`)*
+- **C)** 3 only *(Distractor Origin: `statement_combination_pool`)*
+- **D)** 1, 2 and 3 *(Distractor Origin: `statement_combination_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world."
+
+**Explanation:**
+Statement 1 is correct. The source states: “They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world.” This supports statement 1. Statement 2 is false. The source states: “However, professionals use maps that use the latitude and longitude coordinates (we saw these in Grade 6) which are more precise.” The stated value is (we saw these in Grade 6) which are more precise, not a visual representation that allows us. Statement 3 is correct. The source states: “The ocean is a vast body of saltwater covering about 71 per cent of the Earth’s surface.” This supports statement 3.
+
+---
+
+### Question 2 [Q-P1-002]
+- **Subtype:** `assertion_reason`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
+
+**Stem:**
+> Assertion (A): The Earth is an oblate spheroid. Reason (R): Earth on a flat surface is oblate spheroid. Which of the following is correct?
+
+**Options:**
+- **A)** Both A and R are true and R is the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **B)** A is true but R is false **(CORRECT ANSWER)**
+- **C)** Both A and R are true but R is NOT the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **D)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "The Earth is an oblate spheroid."
+
+**Explanation:**
+Assertion is correct: “The Earth is an oblate spheroid.” Reason is false: the source states “Earth on a flat surface is called a map projection.” The stated value is called a map projection, not oblate spheroid.
+
+---
+
+### Question 3 [Q-P1-003]
+- **Subtype:** `numeric_recall`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **C**
 
 **Stem:**
 > What measurement is stated for 40°C during the day?
 
 **Options:**
-- **A)** 5°C **(CORRECT ANSWER)**
-- **B)** 4°C *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 6°C *(Distractor Origin: `deterministic_value_offset`)*
+- **A)** 4°C *(Distractor Origin: `deterministic_value_offset`)*
+- **B)** 6°C *(Distractor Origin: `deterministic_value_offset`)*
+- **C)** 5°C **(CORRECT ANSWER)**
 - **D)** 3°C *(Distractor Origin: `deterministic_value_offset`)*
 
 **Supporting Textbook Excerpt:**
@@ -44,17 +95,39 @@ The source states: “40°C during the day to 5°C at night.” This identifies 
 
 ---
 
-### Question 2 [Q-P1-002]
+### Question 4 [Q-P1-004]
+- **Subtype:** `exception_reasoning`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> Which of the following is NOT included in Landforms of the world?
+
+**Options:**
+- **A)** mountains *(Distractor Origin: `source_member_pool`)*
+- **B)** plateaus *(Distractor Origin: `source_member_pool`)*
+- **C)** plains *(Distractor Origin: `source_member_pool`)*
+- **D)** about 350 **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "Landforms of the world include mountains, plateaus, and plains."
+
+**Explanation:**
+The source states: “Landforms of the world include mountains, plateaus, and plains.” The members listed are mountains, plateaus, plains. about 350 is not among them, so it is the exception.
+
+---
+
+### Question 5 [Q-P1-005]
 - **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
+- **Answer Key:** **A**
 
 **Stem:**
 > What role is associated with the Yellowstone National Park, located in the Rockies?
 
 **Options:**
-- **A)** called a map projection *(Distractor Origin: `typed_entity_pool`)*
-- **B)** example of ecosystem restoration **(CORRECT ANSWER)**
+- **A)** example of ecosystem restoration **(CORRECT ANSWER)**
+- **B)** called a map projection *(Distractor Origin: `typed_entity_pool`)*
 - **C)** constantly moving *(Distractor Origin: `typed_entity_pool`)*
 - **D)** oblate spheroid *(Distractor Origin: `typed_entity_pool`)*
 
@@ -66,18 +139,18 @@ The source states: “The Yellowstone National Park, located in the Rockies, is 
 
 ---
 
-### Question 3 [Q-P1-003]
+### Question 6 [Q-P1-006]
 - **Subtype:** `definition`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
+- **Answer Key:** **B**
 
 **Stem:**
 > What does the plain mean?
 
 **Options:**
 - **A)** a visual representation that allows us *(Distractor Origin: `typed_entity_pool`)*
-- **B)** freshwater through melting snow and glaciers *(Distractor Origin: `typed_entity_pool`)*
-- **C)** low-lying terrain, gentle rolling **(CORRECT ANSWER)**
+- **B)** low-lying terrain, gentle rolling **(CORRECT ANSWER)**
+- **C)** freshwater through melting snow and glaciers *(Distractor Origin: `typed_entity_pool`)*
 - **D)** food and shelter for about one-quarter of all ocean species *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
@@ -88,10 +161,10 @@ The source defines or describes The plain as follows: “The plain is characteri
 
 ---
 
-### Question 4 [Q-P1-004]
+### Question 7 [Q-P1-007]
 - **Subtype:** `classification_membership`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **C**
 
 **Stem:**
 > Which of the following is included in the Urals?
@@ -99,8 +172,8 @@ The source defines or describes The plain as follows: “The plain is characteri
 **Options:**
 - **A)** plains *(Distractor Origin: `controlled_category_pool`)*
 - **B)** plateaus *(Distractor Origin: `controlled_category_pool`)*
-- **C)** about 350 *(Distractor Origin: `controlled_category_pool`)*
-- **D)** zinc **(CORRECT ANSWER)**
+- **C)** zinc **(CORRECT ANSWER)**
+- **D)** about 350 *(Distractor Origin: `controlled_category_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The Urals are rich in mineral resources, including iron ore, copper, zinc, platinum, gold, and coal, as well as oil and natural gas."
@@ -110,19 +183,19 @@ The source states: “The Urals are rich in mineral resources, including iron or
 
 ---
 
-### Question 5 [Q-P1-005]
+### Question 8 [Q-P1-008]
 - **Subtype:** `cause_effect`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
+- **Answer Key:** **D**
 
 **Stem:**
 > What does Mining, hydropower generation, tourism and agriculture contribute to?
 
 **Options:**
-- **A)** the GDP **(CORRECT ANSWER)**
-- **B)** oblate spheroid *(Distractor Origin: `source_object_pool`)*
-- **C)** called a map projection *(Distractor Origin: `source_object_pool`)*
-- **D)** the monsoon in the Gangetic Plains *(Distractor Origin: `source_causal_pool`)*
+- **A)** bilbies *(Distractor Origin: `source_object_pool`)*
+- **B)** dingoes *(Distractor Origin: `source_object_pool`)*
+- **C)** the monsoon in the Gangetic Plains *(Distractor Origin: `source_causal_pool`)*
+- **D)** the GDP **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "Mining, hydropower generation, tourism and agriculture contribute to the GDP."
@@ -132,46 +205,40 @@ The source explicitly describes the relationship as: “Mining, hydropower gener
 
 ---
 
-### Question 6 [Q-P1-006]
-- **Subtype:** `multi_statement`
+### Question 9 [Q-P1-009]
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
+- **Answer Key:** **A**
 
 **Stem:**
-> Consider the following statements:
-
-**Statements:**
-- **1)** They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world.
-- **2)** The Earth is an called a map projection.
-
-Which of the statements given above is/are correct?
+> Which of the following statements is correct about the savannah?
 
 **Options:**
-- **A)** 2 only *(Distractor Origin: `statement_combination_pool`)*
-- **B)** 1 only **(CORRECT ANSWER)**
-- **C)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
-- **D)** Neither 1 nor 2 *(Distractor Origin: `statement_combination_pool`)*
+- **A)** The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall. **(CORRECT ANSWER)**
+- **B)** The savannah is a called a map projection that has wide open spaces, scattered trees, and seasonal rainfall. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The savannah is a oblate spheroid that has wide open spaces, scattered trees, and seasonal rainfall. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The savannah is a compromise that has wide open spaces, scattered trees, and seasonal rainfall. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world."
+> "The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall."
 
 **Explanation:**
-Statement 1 is correct. The source states: “They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world.” This supports statement 1. Statement 2 is false. The source states: “The Earth is an oblate spheroid.” The stated value is oblate spheroid, not called a map projection.
+The source states: “The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall.” The correct statement preserves that value. The other options replace it with a value the source does not state for the savannah.
 
 ---
 
-### Question 7 [Q-P1-007]
+### Question 10 [Q-P1-010]
 - **Subtype:** `numeric_recall`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
+- **Answer Key:** **B**
 
 **Stem:**
 > What measurement is stated for average wing span?
 
 **Options:**
 - **A)** 3.0 metres *(Distractor Origin: `deterministic_value_offset`)*
-- **B)** 3.5 metres *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 3.2 metres **(CORRECT ANSWER)**
+- **B)** 3.2 metres **(CORRECT ANSWER)**
+- **C)** 3.5 metres *(Distractor Origin: `deterministic_value_offset`)*
 - **D)** 2.7 metres *(Distractor Origin: `deterministic_value_offset`)*
 
 **Supporting Textbook Excerpt:**
@@ -182,91 +249,25 @@ The source states: “It has an average wing span of 3.2 metres, and is a signif
 
 ---
 
-### Question 8 [Q-P1-008]
-- **Subtype:** `entity_attribute`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
-
-**Stem:**
-> What role is associated with the savannah?
-
-**Options:**
-- **A)** called a map projection *(Distractor Origin: `typed_entity_pool`)*
-- **B)** constantly moving *(Distractor Origin: `typed_entity_pool`)*
-- **C)** oblate spheroid *(Distractor Origin: `typed_entity_pool`)*
-- **D)** tropical grassland ecosystem **(CORRECT ANSWER)**
-
-**Supporting Textbook Excerpt:**
-> "The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall."
-
-**Explanation:**
-The source states: “The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall.” This identifies the stated role of The savannah as tropical grassland ecosystem.
-
----
-
-### Question 9 [Q-P1-009]
-- **Subtype:** `classification_membership`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
-
-**Stem:**
-> Which of the following is listed as part of Landforms of the world?
-
-**Options:**
-- **A)** plains **(CORRECT ANSWER)**
-- **B)** about 350 *(Distractor Origin: `controlled_category_pool`)*
-- **C)** spread for over 8 *(Distractor Origin: `controlled_category_pool`)*
-- **D)** 000 square kilometres *(Distractor Origin: `controlled_category_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Landforms of the world include mountains, plateaus, and plains."
-
-**Explanation:**
-The source states: “Landforms of the world include mountains, plateaus, and plains.” This lists plains as a member of Landforms of the world.
-
----
-
-### Question 10 [Q-P1-010]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
-
-**Stem:**
-> What does the fertile soils here make possible?
-
-**Options:**
-- **A)** the region important for tourism and natural resource use *(Distractor Origin: `source_causal_pool`)*
-- **B)** it one of the most productive agricultural regions in the world **(CORRECT ANSWER)**
-- **C)** us to gauge size, shape, location, and distance across the whole world *(Distractor Origin: `source_causal_pool`)*
-- **D)** the monsoon in the Gangetic Plains *(Distractor Origin: `source_causal_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "The fertile soils here make it one of the most productive agricultural regions in the world."
-
-**Explanation:**
-The source explicitly describes the relationship as: “The fertile soils here make it one of the most productive agricultural regions in the world.” The answer preserves the stated direction of that relationship.
-
----
-
 ### Question 11 [Q-P1-011]
-- **Subtype:** `numeric_recall`
+- **Subtype:** `exception_reasoning`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> What measurement is stated for km from east?
+> Which one of the following is NOT a member of the deserts?
 
 **Options:**
-- **A)** 1,001 km *(Distractor Origin: `deterministic_value_offset`)*
-- **B)** 1,002 km *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 1,000 km **(CORRECT ANSWER)**
-- **D)** 1,005 km *(Distractor Origin: `deterministic_value_offset`)*
+- **A)** skinks *(Distractor Origin: `source_member_pool`)*
+- **B)** like reptiles *(Distractor Origin: `source_member_pool`)*
+- **C)** about 350 **(CORRECT ANSWER)**
+- **D)** home to many animals *(Distractor Origin: `source_member_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level."
+> "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels."
 
 **Explanation:**
-The source states: “The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.” This identifies the value for km from east as 1,000 km.
+The source states: “The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.” The members listed are home to many animals, like reptiles, skinks, wallabies, bilbies, feral camels. about 350 is not among them, so it is the exception.
 
 ---
 
@@ -298,19 +299,19 @@ The source states: “The Tibetan Plateau is the highest and largest plateau on 
 - **Answer Key:** **A**
 
 **Stem:**
-> Which one is mentioned as belonging to the deserts?
+> Which of the following is listed as part of Predators?
 
 **Options:**
-- **A)** wallabies **(CORRECT ANSWER)**
-- **B)** about 350 *(Distractor Origin: `controlled_category_pool`)*
-- **C)** mountains *(Distractor Origin: `controlled_category_pool`)*
-- **D)** plateaus *(Distractor Origin: `controlled_category_pool`)*
+- **A)** cats **(CORRECT ANSWER)**
+- **B)** plains *(Distractor Origin: `controlled_category_pool`)*
+- **C)** plateaus *(Distractor Origin: `controlled_category_pool`)*
+- **D)** about 350 *(Distractor Origin: `controlled_category_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels."
+> "Predators include dingoes, large lizards, cats, foxes, and snakes."
 
 **Explanation:**
-The source states: “The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.” This lists wallabies as a member of The deserts.
+The source states: “Predators include dingoes, large lizards, cats, foxes, and snakes.” This lists cats as a member of Predators.
 
 ---
 
@@ -320,41 +321,41 @@ The source states: “The deserts are home to many animals, like reptiles, skink
 - **Answer Key:** **B**
 
 **Stem:**
-> What does the distant Southern Indian Ocean influence?
+> What does the fertile soils here make possible?
 
 **Options:**
-- **A)** called a map projection *(Distractor Origin: `source_object_pool`)*
-- **B)** the monsoon in the Gangetic Plains **(CORRECT ANSWER)**
-- **C)** oblate spheroid *(Distractor Origin: `source_object_pool`)*
-- **D)** the region important for tourism and natural resource use *(Distractor Origin: `source_causal_pool`)*
+- **A)** several desert areas, among which is the Great Victoria Desert *(Distractor Origin: `source_object_pool`)*
+- **B)** it one of the most productive agricultural regions in the world **(CORRECT ANSWER)**
+- **C)** the region important for tourism and natural resource use *(Distractor Origin: `source_causal_pool`)*
+- **D)** us to gauge size, shape, location, and distance across the whole world *(Distractor Origin: `source_causal_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains."
+> "The fertile soils here make it one of the most productive agricultural regions in the world."
 
 **Explanation:**
-The source explicitly describes the relationship as: “Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.” The answer preserves the stated direction of that relationship.
+The source explicitly describes the relationship as: “The fertile soils here make it one of the most productive agricultural regions in the world.” The answer preserves the stated direction of that relationship.
 
 ---
 
 ### Question 15 [Q-P1-015]
-- **Subtype:** `numeric_recall`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> What measurement is stated for winter temperatures can drop?
+> Which of the following statements is correct about the Park?
 
 **Options:**
-- **A)** 29°C *(Distractor Origin: `deterministic_value_offset`)*
-- **B)** 31°C *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 30°C **(CORRECT ANSWER)**
-- **D)** 28°C *(Distractor Origin: `deterministic_value_offset`)*
+- **A)** The Park was vast body of saltwater covering about 71 per cent of the Earth’s surface. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The Park was called a map projection. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer. **(CORRECT ANSWER)**
+- **D)** The Park was oblate spheroid. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "Mongolia is called the ‘Land of the Eternal Blue Sky’ because it has about 8 to 9 months of sunny weather, but winter temperatures can drop to minus 30°C."
+> "The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer."
 
 **Explanation:**
-The source states: “Mongolia is called the ‘Land of the Eternal Blue Sky’ because it has about 8 to 9 months of sunny weather, but winter temperatures can drop to minus 30°C.” This identifies the value for winter temperatures can drop as 30°C.
+The source states: “The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer.” The correct statement preserves that value. The other options replace it with a value the source does not state for the Park.
 
 ---
 

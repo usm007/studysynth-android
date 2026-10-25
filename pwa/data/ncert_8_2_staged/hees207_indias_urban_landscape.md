@@ -5,7 +5,7 @@
 - **Discipline / Subject:** Geography / Sociology
 - **Target Standard:** NCERT Class 8 (Curriculum 8.2)
 - **Pages Processed:** 23 of 24 pages in textbook PDF
-- **Total Questions Generated:** 14 items (13 production items + 1 conceptual reasoning proof items)
+- **Total Questions Generated:** 16 items (15 production items + 1 conceptual reasoning proof items)
 - **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (Repair 002)
 
 ---
@@ -14,9 +14,9 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 13 | entity_attribute (6), definition (1), comparison (1), classification_membership (1), cause_effect (3), multi_statement (1) |
+| **Production Questions** | 15 | entity_attribute (4), definition (1), comparison (1), classification_membership (1), cause_effect (3), multi_statement (1), statement_option (3), assertion_reason (1) |
 | **Conceptual Reasoning V2** | 1 | causal_reasoning (1) |
-| **Total** | **14** | Verified Evidence-Grounded Items |
+| **Total** | **16** | Verified Evidence-Grounded Items |
 
 ---
 
@@ -33,8 +33,8 @@
 **Options:**
 - **A)** everybody **(CORRECT ANSWER)**
 - **B)** generally *(Distractor Origin: `source_object_pool`)*
-- **C)** fewer businesses *(Distractor Origin: `source_object_pool`)*
-- **D)** close-knit communities *(Distractor Origin: `source_object_pool`)*
+- **C)** Ghaziabad *(Distractor Origin: `source_object_pool`)*
+- **D)** 40 years *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody."
@@ -75,10 +75,10 @@ The source defines or describes BSE as follows: “With the setting up of the Bo
 > How does Cities compare to just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time?
 
 **Options:**
-- **A)** the grey built-up area on the right shows a complex network of buildings *(Distractor Origin: `source_comparison_pool`)*
-- **B)** Mumbai, Bengaluru, and Chennai are large metropolises, there are smaller urban centres that are less populous with emerging economic and infrastructure development and specialise in certain industries *(Distractor Origin: `source_comparison_pool`)*
+- **A)** Singapore is considered one of the blue zone cities where people have longer and healthier lives, focusing on overall wellbeing *(Distractor Origin: `source_object_pool`)*
+- **B)** social and economic value because of the concentration of diverse resources *(Distractor Origin: `source_object_pool`)*
 - **C)** more than just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time **(CORRECT ANSWER)**
-- **D)** villages that usually have lower populations *(Distractor Origin: `source_object_pool`)*
+- **D)** the grey built-up area on the right shows a complex network of buildings *(Distractor Origin: `source_comparison_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Cities are more than just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time."
@@ -120,9 +120,9 @@ The source states: “It includes data on various pollutants like particulate ma
 
 **Options:**
 - **A)** their urbanisation **(CORRECT ANSWER)**
-- **B)** close-knit communities *(Distractor Origin: `source_object_pool`)*
-- **C)** walkability and integrates *(Distractor Origin: `source_causal_pool`)*
-- **D)** everybody *(Distractor Origin: `source_object_pool`)*
+- **B)** fewer businesses *(Distractor Origin: `source_object_pool`)*
+- **C)** close-knit communities *(Distractor Origin: `source_object_pool`)*
+- **D)** walkability and integrates *(Distractor Origin: `source_causal_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "their location and other factors drive their urbanisation ."
@@ -141,14 +141,14 @@ The source explicitly describes the relationship as: “their location and other
 > Consider the following statements:
 
 **Statements:**
-- **1)** Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits.
-- **2)** Over time, cities can become crowded and expensive to live in, yet they offer jobs.
+- **1)** Sakchi was a designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities, due to its proximity to rich iron ore deposits.
+- **2)** The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities.
 
 Which of the statements given above is/are correct?
 
 **Options:**
-- **A)** 2 only *(Distractor Origin: `statement_combination_pool`)*
-- **B)** 1 only **(CORRECT ANSWER)**
+- **A)** 1 only *(Distractor Origin: `statement_combination_pool`)*
+- **B)** 2 only **(CORRECT ANSWER)**
 - **C)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
 - **D)** Neither 1 nor 2 *(Distractor Origin: `statement_combination_pool`)*
 
@@ -156,51 +156,51 @@ Which of the statements given above is/are correct?
 > "Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits."
 
 **Explanation:**
-Statement 1 is correct. The source states: “Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits.” This supports statement 1. Statement 2 is false. The source states: “Over time, cities can become crowded and expensive to live in, yet they offer social and economic value because of the concentration of diverse resources.” The stated value is social and economic value because of the concentration of diverse resources, not jobs.
+Statement 1 is false. The source states: “Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits.” The stated value is small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, not designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities. Statement 2 is correct. The source states: “The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities.” This supports statement 2.
 
 ---
 
 ### Question 7 [Q-P7-007]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> What role is associated with Improving housing, health, and education infrastructure for them?
+> Which of the following statements is correct about Improving housing, health, and education infrastructure for them?
 
 **Options:**
-- **A)** overcrowded city settlements with poor housing *(Distractor Origin: `typed_entity_pool`)*
-- **B)** created for national and international gatherings for sharing knowledge and ideas *(Distractor Origin: `typed_entity_pool`)*
-- **C)** key urban challenge **(CORRECT ANSWER)**
-- **D)** designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Improving housing, health, and education infrastructure for them is a designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Improving housing, health, and education infrastructure for them is a happening around the world through the exchange of information and ideas led to innovation. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Improving housing, health, and education infrastructure for them is a key urban challenge. **(CORRECT ANSWER)**
+- **D)** Improving housing, health, and education infrastructure for them is a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Improving housing, health, and education infrastructure for them is a key urban challenge."
 
 **Explanation:**
-The source states: “Improving housing, health, and education infrastructure for them is a key urban challenge.” This identifies the stated role of Improving housing, health, and education infrastructure for them as key urban challenge.
+The source states: “Improving housing, health, and education infrastructure for them is a key urban challenge.” The correct statement preserves that value. The other options replace it with a value the source does not state for Improving housing, health, and education infrastructure for them.
 
 ---
 
 ### Question 8 [Q-P7-008]
-- **Subtype:** `cause_effect`
+- **Subtype:** `assertion_reason`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **D**
 
 **Stem:**
-> What does the city promote?
+> Assertion (A): Spaces are created for national and international gatherings for sharing knowledge and ideas. Reason (R): Markets were built with shaded porches for the comfort of traders and travellers. Which of the following is correct?
 
 **Options:**
-- **A)** a list of adults from different generations in and around your neighbourhood *(Distractor Origin: `source_causal_pool`)*
-- **B)** pedestrians and cyclists to walk along the river *(Distractor Origin: `source_causal_pool`)*
-- **C)** villages that usually have lower populations *(Distractor Origin: `source_object_pool`)*
-- **D)** mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby **(CORRECT ANSWER)**
+- **A)** Both A and R are true and R is the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **B)** A is true but R is false *(Distractor Origin: `assertion_reason_code_pool`)*
+- **C)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
+- **D)** Both A and R are true but R is NOT the correct explanation of A **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
-> "The city promotes mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby."
+> "Spaces are created for national and international gatherings for sharing knowledge and ideas."
 
 **Explanation:**
-The source explicitly describes the relationship as: “The city promotes mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby.” The answer preserves the stated direction of that relationship.
+Assertion is correct: “Spaces are created for national and international gatherings for sharing knowledge and ideas.” Reason is correct: “Markets were built with shaded porches for the comfort of traders and travellers.” However, R does not state a cause or reason for A, so it is not the correct explanation of A.
 
 ---
 
@@ -232,41 +232,41 @@ The source states: “Ahmedabad’s Sabarmati Riverfront is one such example tha
 - **Answer Key:** **B**
 
 **Stem:**
-> What does Singapore’s urban planning promote?
+> What does the city promote?
 
 **Options:**
-- **A)** close-knit communities *(Distractor Origin: `source_object_pool`)*
-- **B)** walkability and integrates **(CORRECT ANSWER)**
-- **C)** their urbanisation *(Distractor Origin: `source_causal_pool`)*
-- **D)** everybody *(Distractor Origin: `source_object_pool`)*
+- **A)** designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities *(Distractor Origin: `source_object_pool`)*
+- **B)** mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby **(CORRECT ANSWER)**
+- **C)** a list of adults from different generations in and around your neighbourhood *(Distractor Origin: `source_causal_pool`)*
+- **D)** infrastructure but also nurtures creativity, diversity, and community *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "Singapore’s urban planning promotes walkability and integrates"
+> "The city promotes mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby."
 
 **Explanation:**
-The source explicitly describes the relationship as: “Singapore’s urban planning promotes walkability and integrates” The answer preserves the stated direction of that relationship.
+The source explicitly describes the relationship as: “The city promotes mixed-use spaces where homes, offices, and recreational spaces like parks and museums exist nearby.” The answer preserves the stated direction of that relationship.
 
 ---
 
 ### Question 11 [Q-P7-011]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> What is the stated function of a well-planned city not only?
+> Which of the following statements is correct about Exposure to what?
 
 **Options:**
-- **A)** social and economic value because of the concentration of diverse resources *(Distractor Origin: `typed_entity_pool`)*
-- **B)** opportunities without excluding the vulnerable, and provide comfort without exhausting resources *(Distractor Origin: `typed_entity_pool`)*
-- **C)** infrastructure but also nurtures creativity, diversity, and community **(CORRECT ANSWER)**
-- **D)** Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Exposure to what was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Exposure to what was small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Exposure to what was happening around the world through the exchange of information and ideas led to innovation. **(CORRECT ANSWER)**
+- **D)** Exposure to what was famous snack from Mumbai where a Maharashtrian-style potato dumpling is placed delicately inside a pāv (where pāo or bread and potatoes are Portuguese). *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "A well-planned city not only provides infrastructure but also nurtures creativity, diversity, and community."
+> "Exposure to what was happening around the world through the exchange of information and ideas led to innovation."
 
 **Explanation:**
-The source states: “A well-planned city not only provides infrastructure but also nurtures creativity, diversity, and community.” This identifies the stated function of A well-planned city not only as infrastructure but also nurtures creativity, diversity, and community.
+The source states: “Exposure to what was happening around the world through the exchange of information and ideas led to innovation.” The correct statement preserves that value. The other options replace it with a value the source does not state for Exposure to what.
 
 ---
 
@@ -276,41 +276,85 @@ The source states: “A well-planned city not only provides infrastructure but a
 - **Answer Key:** **D**
 
 **Stem:**
+> What is the stated function of a well-planned city not only?
+
+**Options:**
+- **A)** social and economic value because of the concentration of diverse resources *(Distractor Origin: `typed_entity_pool`)*
+- **B)** opportunities without excluding the vulnerable, and provide comfort without exhausting resources *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks *(Distractor Origin: `typed_entity_pool`)*
+- **D)** infrastructure but also nurtures creativity, diversity, and community **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "A well-planned city not only provides infrastructure but also nurtures creativity, diversity, and community."
+
+**Explanation:**
+The source states: “A well-planned city not only provides infrastructure but also nurtures creativity, diversity, and community.” This identifies the stated function of A well-planned city not only as infrastructure but also nurtures creativity, diversity, and community.
+
+---
+
+### Question 13 [Q-P7-013]
+- **Subtype:** `cause_effect`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **A**
+
+**Stem:**
+> What does Singapore’s urban planning promote?
+
+**Options:**
+- **A)** walkability and integrates **(CORRECT ANSWER)**
+- **B)** lower than in larger cities *(Distractor Origin: `source_object_pool`)*
+- **C)** helped to ease the pressure *(Distractor Origin: `source_object_pool`)*
+- **D)** a conceptual layout *(Distractor Origin: `source_object_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "Singapore’s urban planning promotes walkability and integrates"
+
+**Explanation:**
+The source explicitly describes the relationship as: “Singapore’s urban planning promotes walkability and integrates” The answer preserves the stated direction of that relationship.
+
+---
+
+### Question 14 [Q-P7-014]
+- **Subtype:** `statement_option`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
+
+**Stem:**
+> Which of the following statements is correct about the National Capital Region (NCR), frequently?
+
+**Options:**
+- **A)** The National Capital Region (NCR), for example, frequently records social and economic value because of the concentration of diverse resources to the residents. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The National Capital Region (NCR), for example, frequently records Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks to the residents. **(CORRECT ANSWER)**
+- **C)** The National Capital Region (NCR), for example, frequently records affordable housing to the residents. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The National Capital Region (NCR), for example, frequently records jobs to the residents. *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "The National Capital Region (NCR), for example, frequently records Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks to the residents."
+
+**Explanation:**
+The source states: “The National Capital Region (NCR), for example, frequently records Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks to the residents.” The correct statement preserves that value. The other options replace it with a value the source does not state for the National Capital Region (NCR), frequently.
+
+---
+
+### Question 15 [Q-P7-015]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **C**
+
+**Stem:**
 > Which of the following correctly describes Slums?
 
 **Options:**
 - **A)** key urban challenge *(Distractor Origin: `typed_entity_pool`)*
 - **B)** created for national and international gatherings for sharing knowledge and ideas *(Distractor Origin: `typed_entity_pool`)*
-- **C)** designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities *(Distractor Origin: `typed_entity_pool`)*
-- **D)** overcrowded city settlements with poor housing **(CORRECT ANSWER)**
+- **C)** overcrowded city settlements with poor housing **(CORRECT ANSWER)**
+- **D)** designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Slums are overcrowded city settlements with poor housing"
 
 **Explanation:**
 The source states: “Slums are overcrowded city settlements with poor housing” This identifies the stated role of Slums as overcrowded city settlements with poor housing.
-
----
-
-### Question 13 [Q-P7-013]
-- **Subtype:** `entity_attribute`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
-
-**Stem:**
-> What role is associated with Similarly, Gangtok’s Mahatma Gandhi Road?
-
-**Options:**
-- **A)** central shopping hub and a pedestrian-only zone brimming with shops **(CORRECT ANSWER)**
-- **B)** created for national and international gatherings for sharing knowledge and ideas *(Distractor Origin: `typed_entity_pool`)*
-- **C)** overcrowded city settlements with poor housing *(Distractor Origin: `typed_entity_pool`)*
-- **D)** designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities *(Distractor Origin: `typed_entity_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Similarly, Gangtok’s Mahatma Gandhi Road is a central shopping hub and a pedestrian-only zone brimming with shops,"
-
-**Explanation:**
-The source states: “Similarly, Gangtok’s Mahatma Gandhi Road is a central shopping hub and a pedestrian-only zone brimming with shops,” This identifies the stated role of Similarly, Gangtok’s Mahatma Gandhi Road as central shopping hub and a pedestrian-only zone brimming with shops.
 
 ---
 

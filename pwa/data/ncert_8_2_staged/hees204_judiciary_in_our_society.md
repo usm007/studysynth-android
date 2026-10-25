@@ -14,7 +14,7 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | entity_attribute (5), definition (3), classification_membership (3), cause_effect (3), multi_statement (1) |
+| **Production Questions** | 15 | exception_reasoning (1), entity_attribute (3), definition (2), classification_membership (2), cause_effect (2), multi_statement (1), statement_option (2), assertion_reason (2) |
 | **Conceptual Reasoning V2** | 2 | causal_reasoning (2) |
 | **Total** | **17** | Verified Evidence-Grounded Items |
 
@@ -23,16 +23,38 @@
 ## Part I: Verified Production Questions
 
 ### Question 1 [Q-P4-001]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `exception_reasoning`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
+
+**Stem:**
+> Which one of the following is NOT a member of Laws?
+
+**Options:**
+- **A)** within the framework of the Constitution **(CORRECT ANSWER)**
+- **B)** access to water fountains *(Distractor Origin: `source_member_pool`)*
+- **C)** even restaurants *(Distractor Origin: `source_member_pool`)*
+- **D)** public pools *(Distractor Origin: `source_member_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "This included access to water fountains, public pools, and even restaurants."
+
+**Explanation:**
+The source states: “This included access to water fountains, public pools, and even restaurants.” The members listed are access to water fountains, public pools, even restaurants. within the framework of the Constitution is not among them, so it is the exception.
+
+---
+
+### Question 2 [Q-P4-002]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
 
 **Stem:**
 > What is the stated function of Laws?
 
 **Options:**
-- **A)** individuals’ activities in a society and impose consequences for not following them **(CORRECT ANSWER)**
-- **B)** facilitate faster justice, use of digital evidence, and better protection for victims *(Distractor Origin: `typed_entity_pool`)*
+- **A)** facilitate faster justice, use of digital evidence, and better protection for victims *(Distractor Origin: `typed_entity_pool`)*
+- **B)** individuals’ activities in a society and impose consequences for not following them **(CORRECT ANSWER)**
 - **C)** that there shall be a High Court in each State *(Distractor Origin: `typed_entity_pool`)*
 - **D)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
 
@@ -44,18 +66,18 @@ The source states: “Laws are general rules made by the government to regulate 
 
 ---
 
-### Question 2 [Q-P4-002]
+### Question 3 [Q-P4-003]
 - **Subtype:** `definition`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
+- **Answer Key:** **C**
 
 **Stem:**
 > What does PIL mean?
 
 **Options:**
 - **A)** National Green Tribunal *(Distractor Origin: `source_definition_pool`)*
-- **B)** Public Interest Litigation **(CORRECT ANSWER)**
-- **C)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
+- **B)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Public Interest Litigation **(CORRECT ANSWER)**
 - **D)** that there shall be a High Court in each State *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
@@ -66,10 +88,10 @@ The source defines or describes PIL as follows: “Public Interest Litigation (P
 
 ---
 
-### Question 3 [Q-P4-003]
+### Question 4 [Q-P4-004]
 - **Subtype:** `classification_membership`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
+- **Answer Key:** **D**
 
 **Stem:**
 > Which one is mentioned as belonging to the High Court?
@@ -77,8 +99,8 @@ The source defines or describes PIL as follows: “Public Interest Litigation (P
 **Options:**
 - **A)** public pools *(Distractor Origin: `controlled_category_pool`)*
 - **B)** even restaurants *(Distractor Origin: `controlled_category_pool`)*
-- **C)** other Judges **(CORRECT ANSWER)**
-- **D)** Equality *(Distractor Origin: `controlled_category_pool`)*
+- **C)** Equality *(Distractor Origin: `controlled_category_pool`)*
+- **D)** other Judges **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "The High Court consists of a Chief Justice and other Judges."
@@ -88,19 +110,19 @@ The source states: “The High Court consists of a Chief Justice and other Judge
 
 ---
 
-### Question 4 [Q-P4-004]
+### Question 5 [Q-P4-005]
 - **Subtype:** `cause_effect`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **A**
 
 **Stem:**
 > What does Digital Initiatives Courts make possible?
 
 **Options:**
-- **A)** a society through laws and the power *(Distractor Origin: `controlled_effect_pool`)*
-- **B)** any decision, or impose a view on the parties *(Distractor Origin: `source_causal_pool`)*
-- **C)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
-- **D)** the judicial system more user-friendly **(CORRECT ANSWER)**
+- **A)** the judicial system more user-friendly **(CORRECT ANSWER)**
+- **B)** a society through laws and the power *(Distractor Origin: `controlled_effect_pool`)*
+- **C)** any decision, or impose a view on the parties *(Distractor Origin: `source_causal_pool`)*
+- **D)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly."
@@ -110,10 +132,10 @@ The source explicitly describes the relationship as: “Digital Initiatives Cour
 
 ---
 
-### Question 5 [Q-P4-005]
+### Question 6 [Q-P4-006]
 - **Subtype:** `multi_statement`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
+- **Answer Key:** **B**
 
 **Stem:**
 > Consider the following statements:
@@ -125,8 +147,8 @@ The source explicitly describes the relationship as: “Digital Initiatives Cour
 Which of the statements given above is/are correct?
 
 **Options:**
-- **A)** Neither 1 nor 2 **(CORRECT ANSWER)**
-- **B)** 1 only *(Distractor Origin: `statement_combination_pool`)*
+- **A)** 1 only *(Distractor Origin: `statement_combination_pool`)*
+- **B)** Neither 1 nor 2 **(CORRECT ANSWER)**
 - **C)** 2 only *(Distractor Origin: `statement_combination_pool`)*
 - **D)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
 
@@ -138,105 +160,61 @@ Statement 1 is false. The source states: “Injustice anywhere is a threat to ju
 
 ---
 
-### Question 6 [Q-P4-006]
-- **Subtype:** `entity_attribute`
+### Question 7 [Q-P4-007]
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
+- **Answer Key:** **C**
 
 **Stem:**
-> Which of the following correctly describes the Chief Justice of the Supreme Court?
+> Which of the following statements is correct about the Chief Justice of the Supreme Court?
 
 **Options:**
-- **A)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
-- **B)** designated as the Chief Justice of India **(CORRECT ANSWER)**
-- **C)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
-- **D)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
+- **A)** The Chief Justice of the Supreme Court is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The Chief Justice of the Supreme Court is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The Chief Justice of the Supreme Court is designated as the Chief Justice of India. **(CORRECT ANSWER)**
+- **D)** The Chief Justice of the Supreme Court is essential to ensure that disputes between parties are decided in a fair and just manner. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The Chief Justice of the Supreme Court is designated as the Chief Justice of India."
 
 **Explanation:**
-The source states: “The Chief Justice of the Supreme Court is designated as the Chief Justice of India.” This identifies the stated role of The Chief Justice of the Supreme Court as designated as the Chief Justice of India.
-
----
-
-### Question 7 [Q-P4-007]
-- **Subtype:** `definition`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
-
-**Stem:**
-> How is NGT defined or described?
-
-**Options:**
-- **A)** Public Interest Litigation *(Distractor Origin: `source_definition_pool`)*
-- **B)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
-- **C)** National Green Tribunal **(CORRECT ANSWER)**
-- **D)** that there shall be a High Court in each State *(Distractor Origin: `typed_entity_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
-
-**Explanation:**
-The source defines or describes NGT as follows: “Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).” The correct answer is National Green Tribunal.
+The source states: “The Chief Justice of the Supreme Court is designated as the Chief Justice of India.” The correct statement preserves that value. The other options replace it with a value the source does not state for the Chief Justice of the Supreme Court.
 
 ---
 
 ### Question 8 [Q-P4-008]
-- **Subtype:** `classification_membership`
+- **Subtype:** `assertion_reason`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **D**
 
 **Stem:**
-> Which one is mentioned as belonging to Laws?
+> Assertion (A): An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner. Reason (R): Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed. Which of the following is correct?
 
 **Options:**
-- **A)** Freedom of Speech *(Distractor Origin: `controlled_category_pool`)*
-- **B)** Right to Life *(Distractor Origin: `controlled_category_pool`)*
-- **C)** within the framework of the Constitution *(Distractor Origin: `controlled_category_pool`)*
-- **D)** access to water fountains **(CORRECT ANSWER)**
+- **A)** Both A and R are true and R is the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **B)** A is true but R is false *(Distractor Origin: `assertion_reason_code_pool`)*
+- **C)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
+- **D)** Both A and R are true but R is NOT the correct explanation of A **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
-> "This included access to water fountains, public pools, and even restaurants."
+> "An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner."
 
 **Explanation:**
-The source states: “This included access to water fountains, public pools, and even restaurants.” This lists access to water fountains as a member of Laws.
+Assertion is correct: “An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner.” Reason is correct: “Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.” However, R does not state a cause or reason for A, so it is not the correct explanation of A.
 
 ---
 
 ### Question 9 [Q-P4-009]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
-
-**Stem:**
-> What does a mediator make possible?
-
-**Options:**
-- **A)** any decision, or impose a view on the parties **(CORRECT ANSWER)**
-- **B)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
-- **C)** the judicial system more accessible and transparent *(Distractor Origin: `source_causal_pool`)*
-- **D)** the judicial system more user-friendly *(Distractor Origin: `source_causal_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "A mediator has no power to make any decision, or impose a view on the parties."
-
-**Explanation:**
-The source explicitly describes the relationship as: “A mediator has no power to make any decision, or impose a view on the parties.” The answer preserves the stated direction of that relationship.
-
----
-
-### Question 10 [Q-P4-010]
 - **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
+- **Answer Key:** **A**
 
 **Stem:**
 > What role is associated with the Indian Judicial system?
 
 **Options:**
-- **A)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
-- **B)** unified system **(CORRECT ANSWER)**
+- **A)** unified system **(CORRECT ANSWER)**
+- **B)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
 - **C)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
 - **D)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
 
@@ -248,32 +226,32 @@ The source states: “The Indian Judicial system is a unified system, comprising
 
 ---
 
-### Question 11 [Q-P4-011]
+### Question 10 [Q-P4-010]
 - **Subtype:** `definition`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
+- **Answer Key:** **B**
 
 **Stem:**
-> How is Procedural justice defined or described?
+> How is NGT defined or described?
 
 **Options:**
-- **A)** individuals’ activities in a society and impose consequences for not following them *(Distractor Origin: `typed_entity_pool`)*
-- **B)** that there shall be a High Court in each State *(Distractor Origin: `typed_entity_pool`)*
-- **C)** that every person involved gets a full opportunity of hearing, before a decision is taken by the court **(CORRECT ANSWER)**
-- **D)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Public Interest Litigation *(Distractor Origin: `source_definition_pool`)*
+- **B)** National Green Tribunal **(CORRECT ANSWER)**
+- **C)** a society through laws and the power *(Distractor Origin: `typed_entity_pool`)*
+- **D)** that there shall be a High Court in each State *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court."
+> "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
 
 **Explanation:**
-The source defines or describes Procedural justice as follows: “Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court.” The correct answer is that every person involved gets a full opportunity of hearing, before a decision is taken by the court.
+The source defines or describes NGT as follows: “Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).” The correct answer is National Green Tribunal.
 
 ---
 
-### Question 12 [Q-P4-012]
+### Question 11 [Q-P4-011]
 - **Subtype:** `classification_membership`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **C**
 
 **Stem:**
 > Which of the following is listed as part of the Fundamental Rights guaranteed to every citizen of India?
@@ -281,8 +259,8 @@ The source defines or describes Procedural justice as follows: “Procedural jus
 **Options:**
 - **A)** even restaurants *(Distractor Origin: `controlled_category_pool`)*
 - **B)** access to water fountains *(Distractor Origin: `controlled_category_pool`)*
-- **C)** Chief Justice *(Distractor Origin: `controlled_category_pool`)*
-- **D)** Freedom of Religion **(CORRECT ANSWER)**
+- **C)** Freedom of Religion **(CORRECT ANSWER)**
+- **D)** Chief Justice *(Distractor Origin: `controlled_category_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State."
@@ -292,47 +270,69 @@ The source states: “The Fundamental Rights guaranteed to every citizen of Indi
 
 ---
 
-### Question 13 [Q-P4-013]
+### Question 12 [Q-P4-012]
 - **Subtype:** `cause_effect`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> What does a mediator make possible?
+
+**Options:**
+- **A)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
+- **B)** the judicial system more accessible and transparent *(Distractor Origin: `source_causal_pool`)*
+- **C)** the judicial system more user-friendly *(Distractor Origin: `source_causal_pool`)*
+- **D)** any decision, or impose a view on the parties **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "A mediator has no power to make any decision, or impose a view on the parties."
+
+**Explanation:**
+The source explicitly describes the relationship as: “A mediator has no power to make any decision, or impose a view on the parties.” The answer preserves the stated direction of that relationship.
+
+---
+
+### Question 13 [Q-P4-013]
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> What does Digital technology make possible?
+> Which of the following statements is correct about the current strength of the Supreme Court?
 
 **Options:**
-- **A)** the judicial system more accessible and transparent **(CORRECT ANSWER)**
-- **B)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
-- **C)** any decision, or impose a view on the parties *(Distractor Origin: `source_causal_pool`)*
-- **D)** the judicial system more user-friendly *(Distractor Origin: `source_causal_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Digital technology has been introduced to make the judicial system more accessible and transparent."
-
-**Explanation:**
-The source explicitly describes the relationship as: “Digital technology has been introduced to make the judicial system more accessible and transparent.” The answer preserves the stated direction of that relationship.
-
----
-
-### Question 14 [Q-P4-014]
-- **Subtype:** `entity_attribute`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
-
-**Stem:**
-> Which of the following correctly describes the current strength of the Supreme Court?
-
-**Options:**
-- **A)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
-- **B)** 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges **(CORRECT ANSWER)**
-- **C)** resolved through dialogue, mediation, or adjudication by courts of law *(Distractor Origin: `typed_entity_pool`)*
-- **D)** essential to ensure that disputes between parties are decided in a fair and just manner *(Distractor Origin: `typed_entity_pool`)*
+- **A)** The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges. **(CORRECT ANSWER)**
+- **B)** The current strength of the Supreme Court is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The current strength of the Supreme Court is essential to ensure that disputes between parties are decided in a fair and just manner. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The current strength of the Supreme Court is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges."
 
 **Explanation:**
-The source states: “The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.” This identifies the stated role of The current strength of the Supreme Court as 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.
+The source states: “The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.” The correct statement preserves that value. The other options replace it with a value the source does not state for the current strength of the Supreme Court.
+
+---
+
+### Question 14 [Q-P4-014]
+- **Subtype:** `assertion_reason`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
+
+**Stem:**
+> Assertion (A): The judicial system is more accessible and transparent. Reason (R): Digital technology has been introduced to make the judicial system more accessible and transparent. Which of the following is correct?
+
+**Options:**
+- **A)** Both A and R are true but R is NOT the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
+- **B)** Both A and R are true and R is the correct explanation of A **(CORRECT ANSWER)**
+- **C)** A is true but R is false *(Distractor Origin: `assertion_reason_code_pool`)*
+- **D)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "Digital technology has been introduced to make the judicial system more accessible and transparent."
+
+**Explanation:**
+Assertion is correct: The judicial system is more accessible and transparent. Reason is correct and states the mechanism: “Digital technology has been introduced to make the judicial system more accessible and transparent.” Therefore R is the correct explanation of A.
 
 ---
 

@@ -5,7 +5,7 @@
 - **Discipline / Subject:** Art & Heritage
 - **Target Standard:** NCERT Class 8 (Curriculum 8.2)
 - **Pages Processed:** 40 of 40 pages in textbook PDF
-- **Total Questions Generated:** 8 items (8 production items + 0 conceptual reasoning proof items)
+- **Total Questions Generated:** 11 items (11 production items + 0 conceptual reasoning proof items)
 - **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (Repair 002)
 
 ---
@@ -14,9 +14,9 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 8 | entity_attribute (6), classification_membership (1), multi_statement (1) |
+| **Production Questions** | 11 | entity_attribute (5), classification_membership (1), multi_statement (1), statement_option (4) |
 | **Conceptual Reasoning V2** | 0 | None |
-| **Total** | **8** | Verified Evidence-Grounded Items |
+| **Total** | **11** | Verified Evidence-Grounded Items |
 
 ---
 
@@ -95,24 +95,24 @@ Statement 1 is false. The source states: “Almost every home had a bathing area
 ---
 
 ### Question 4 [Q-P3-004]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **D**
 
 **Stem:**
-> Which of the following correctly describes Mosques?
+> Which of the following statements is correct about Mosques?
 
 **Options:**
-- **A)** taken out of the city through an efficient network of drains *(Distractor Origin: `typed_entity_pool`)*
-- **B)** massive statue of a seated Buddha in a teaching pose *(Distractor Origin: `typed_entity_pool`)*
-- **C)** ancient temple complex associated with the Katyūrī *(Distractor Origin: `typed_entity_pool`)*
-- **D)** places of worship where followers of Islam gather for prayer **(CORRECT ANSWER)**
+- **A)** Mosques are taken out of the city through an efficient network of drains. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Mosques are massive statue of a seated Buddha in a teaching pose. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** Mosques are common in Jainism too. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** Mosques are places of worship where followers of Islam gather for prayer. **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "Mosques are places of worship where followers of Islam gather for prayer."
 
 **Explanation:**
-The source states: “Mosques are places of worship where followers of Islam gather for prayer.” This identifies the stated role of Mosques as places of worship where followers of Islam gather for prayer.
+The source states: “Mosques are places of worship where followers of Islam gather for prayer.” The correct statement preserves that value. The other options replace it with a value the source does not state for Mosques.
 
 ---
 
@@ -139,24 +139,24 @@ The source states: “Indo-Saracenic architecture is a distinctive colonial styl
 ---
 
 ### Question 6 [Q-P3-006]
-- **Subtype:** `entity_attribute`
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **B**
 
 **Stem:**
-> Who launched memorial to Maharaja Jaswant Singh II?
+> Which of the following statements is correct about the present structure?
 
 **Options:**
-- **A)** Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus *(Distractor Origin: `typed_entity_pool`)*
-- **B)** his son Maharaja Sardar Singh; it has served **(CORRECT ANSWER)**
-- **C)** Humayun’s chief wife, Bega Begum *(Distractor Origin: `typed_entity_pool`)*
-- **D)** it made extensive use of stone, as it was locally available *(Distractor Origin: `source_object_pool`)*
+- **A)** The present structure was taken out of the city through an efficient network of drains. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The present structure was built early in the 20 th century after the previous wooden palace was destroyed by fire. **(CORRECT ANSWER)**
+- **C)** The present structure was common in Jainism too. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The present structure was extensive city. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur’s royal family."
+> "The present structure was built early in the 20 th century after the previous wooden palace was destroyed by fire."
 
 **Explanation:**
-The source states: “memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur’s royal family.” This identifies the launching institution of memorial to Maharaja Jaswant Singh II as his son Maharaja Sardar Singh; it has served.
+The source states: “The present structure was built early in the 20 th century after the previous wooden palace was destroyed by fire.” The correct statement preserves that value. The other options replace it with a value the source does not state for the present structure.
 
 ---
 
@@ -166,12 +166,56 @@ The source states: “memorial to Maharaja Jaswant Singh II built by his son Mah
 - **Answer Key:** **C**
 
 **Stem:**
+> Who launched memorial to Maharaja Jaswant Singh II?
+
+**Options:**
+- **A)** minarets (towers) on either side of the domes *(Distractor Origin: `source_object_pool`)*
+- **B)** considered to be the holiest of the Sikh Shrines *(Distractor Origin: `source_object_pool`)*
+- **C)** his son Maharaja Sardar Singh; it has served **(CORRECT ANSWER)**
+- **D)** Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur’s royal family."
+
+**Explanation:**
+The source states: “memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur’s royal family.” This identifies the launching institution of memorial to Maharaja Jaswant Singh II as his son Maharaja Sardar Singh; it has served.
+
+---
+
+### Question 8 [Q-P3-008]
+- **Subtype:** `statement_option`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> Which of the following statements is correct about years?
+
+**Options:**
+- **A)** Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,499 years ago. *(Distractor Origin: `deterministic_value_offset`)*
+- **B)** Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,501 years ago. *(Distractor Origin: `deterministic_value_offset`)*
+- **C)** Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,498 years ago. *(Distractor Origin: `deterministic_value_offset`)*
+- **D)** Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago. **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago."
+
+**Explanation:**
+The source states: “Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago.” The correct statement preserves that value. The other options replace it with a value the source does not state for years.
+
+---
+
+### Question 9 [Q-P3-009]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **A**
+
+**Stem:**
 > Which of the following correctly describes the main alignment?
 
 **Options:**
-- **A)** massive statue of a seated Buddha in a teaching pose *(Distractor Origin: `typed_entity_pool`)*
-- **B)** ancient temple complex associated with the Katyūrī *(Distractor Origin: `typed_entity_pool`)*
-- **C)** generally east-west, with the garbhagṛiha facing east **(CORRECT ANSWER)**
+- **A)** generally east-west, with the garbhagṛiha facing east **(CORRECT ANSWER)**
+- **B)** massive statue of a seated Buddha in a teaching pose *(Distractor Origin: `typed_entity_pool`)*
+- **C)** ancient temple complex associated with the Katyūrī *(Distractor Origin: `typed_entity_pool`)*
 - **D)** taken out of the city through an efficient network of drains *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
@@ -182,25 +226,47 @@ The source states: “The main alignment is generally east-west, with the garbha
 
 ---
 
-### Question 8 [Q-P3-008]
-- **Subtype:** `entity_attribute`
+### Question 10 [Q-P3-010]
+- **Subtype:** `statement_option`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
+- **Answer Key:** **B**
 
 **Stem:**
-> Which of the following correctly describes the Harmandir Sahib or Golden Temple in Punjab?
+> Which of the following statements is correct about the Harmandir Sahib or Golden Temple in Punjab?
 
 **Options:**
-- **A)** ancient temple complex associated with the Katyūrī *(Distractor Origin: `typed_entity_pool`)*
-- **B)** massive statue of a seated Buddha in a teaching pose *(Distractor Origin: `typed_entity_pool`)*
-- **C)** taken out of the city through an efficient network of drains *(Distractor Origin: `typed_entity_pool`)*
-- **D)** considered to be the holiest of the Sikh Shrines **(CORRECT ANSWER)**
+- **A)** The Harmandir Sahib or Golden Temple in Punjab is taken out of the city through an efficient network of drains. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines. **(CORRECT ANSWER)**
+- **C)** The Harmandir Sahib or Golden Temple in Punjab is common in Jainism too. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The Harmandir Sahib or Golden Temple in Punjab is extensive city. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines."
 
 **Explanation:**
-The source states: “The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.” This identifies the stated role of The Harmandir Sahib or Golden Temple in Punjab as considered to be the holiest of the Sikh Shrines.
+The source states: “The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.” The correct statement preserves that value. The other options replace it with a value the source does not state for the Harmandir Sahib or Golden Temple in Punjab.
+
+---
+
+### Question 11 [Q-P3-011]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **C**
+
+**Stem:**
+> What role is associated with Entirely decorated with marble, the Taj Mahal?
+
+**Options:**
+- **A)** renowned centre of learning and a key site in the development of the Sharada script *(Distractor Origin: `typed_entity_pool`)*
+- **B)** taken out of the city through an efficient network of drains *(Distractor Origin: `typed_entity_pool`)*
+- **C)** example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e **(CORRECT ANSWER)**
+- **D)** massive statue of a seated Buddha in a teaching pose *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic"
+
+**Explanation:**
+The source states: “Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic” This identifies the stated role of Entirely decorated with marble, the Taj Mahal as example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e.
 
 ---
 

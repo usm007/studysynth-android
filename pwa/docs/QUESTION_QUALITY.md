@@ -72,7 +72,137 @@ not on the excerpt, and not on generator metadata.
   kinds (textbook chapter, notes, markdown, short text, user document).
   A rule that only works for one chapter is not a rule.
 
-## 4. Satisfactory threshold
+## 4. Mock-test forms (added 2026-10-25, informed by CTET practice books)
+
+A bank for a mock test, not just for revision, must include the
+forms real exams actually use. The practice books supplied for this
+work are dominated by statement evaluation, not by single-fact
+recall, and the generator must match that shape — without copying
+any question from those books, which are copyrighted material and
+are used here only as a pattern reference.
+
+- Exception: "Which of the following is NOT included in X?" The
+  correct answer must be an outsider from another list in the same
+  source, and all three distractors must be true members of X. NOT
+  must be capitalised in the stem, because a missed "not" flips the
+  whole question. An exception question and a membership question
+  for the same list must never both appear in one bank: they test
+  the same list twice.
+- Statement-option: "Which of the following statements is correct
+  about X?" Options are full sentences. The correct option is the
+  exact source sentence; each distractor is that sentence with its
+  value replaced by a value the source does not state for X. A
+  distractor that is actually supported elsewhere for X is rejected,
+  or the question would have two correct answers.
+- Three-statement: "Consider the following statements" with three
+  statements in source order, and four combination options chosen
+  from the subset patterns ("1 only", "2 only", "3 only",
+  "1 and 2 only", "1 and 3 only", "2 and 3 only", "1, 2 and 3").
+  Distractor combinations must be near misses (differing by one
+  statement from the correct set), so partial knowledge does not
+  guess the answer. An all-false triple is not generated.
+- Ordering: statements stay in source order with a truth value
+  each. Grouping all true statements first made "2 only" and
+  "1 and 3 only" unreachable, which is why no earlier bank contained
+  them. That grouping is now a defect, not a convention.
+- Distractor preference: where the source supplies distractors,
+  prefer facts about the same subject family over unrelated facts
+  from the same chapter. A distractor eliminable by topic alone
+  ("oblate spheroid" for a national park's role) is not a distractor.
+- "All of the above" / "None of the above" are deliberately NOT
+  generated as routine options, even though practice books use them
+  frequently: they let a student who knows only two options are
+  correct guess the answer without knowing the third. The only
+  "none" form used is the multi-statement "Neither 1 nor 2", where
+  it is a verified truth pattern, not a guessing shortcut.
+
+## 5. Assertion-Reason and matching (added 2026-10-25)
+
+- Assertion-Reason offers exactly the four standard judgements, in
+  CTET order: both true and R explains A; both true but R does NOT
+  explain A; A true but R false; A false but R true. The stem carries
+  both statements in full ("Assertion (A): … Reason (R): … Which of
+  the following is correct?"), and the question also stores
+  `assertion`, `reason` and `ar_pattern` for a future renderer.
+- Pattern (a) — R explains A — comes only from a causal fact whose
+  effect can be rendered as a standalone claim without inventing
+  content: either the effect already contains a finite verb, or it
+  is a short noun phrase followed by a comparative remainder, where
+  inserting "is" is the only change. Anything else yields no
+  type-(a) item. The Reason is the causal sentence itself, which
+  states the mechanism.
+- Patterns (b), (c) and (d) come from pairs of statements whose
+  truth is verified exactly as in multi-statement items (true =
+  exact source sentence, false = mutated value with a recorded
+  alteration, checked not to be supported elsewhere). For (b) the
+  two facts must share no content word and neither may be causal,
+  so "R does not explain A" is not debatable. For (c) and (d) the
+  explanation link is moot, because one statement is false.
+- Matching: four facts from the same section, each with a short
+  subject and a distinct, short object, become List I (A–D) and
+  List II (1–4, shuffled, never the trivial identity order). Options
+  are codes; distractors are near-miss codes obtained by swapping
+  two targets in the correct code, so matching three of four pairs
+  correctly still fails. A set is rejected if any object is also
+  supported for another subject in the set, or the matching would
+  be ambiguous. The question stores `lists` and `matching_pairs`
+  for a future renderer; the stem also carries both lists in text,
+  so the current renderer already shows the full question.
+- Length rules do not apply to Assertion-Reason or matching
+  options: their option lengths are fixed by the form (the two
+  "both true" options are inherently longer than the two short
+  ones, and codes are all the same length), so length cannot be a
+  content giveaway in the way it is for factual answers.
+- Gates that the first NCERT run forced (2026-10-25): effect claims
+  are comparative-only (a finite-verb branch produced garbled
+  claims like "You a resident, but citizenship is ...", so it was
+  removed); A-R statements must start with a capital, must not
+  start with a pronoun, modal or discourse marker, and must not
+  end with a dangling connector; A-R pairs that are near-duplicates
+  (one containing the other as a substring) are rejected, but
+  parallel sentences sharing template words are not duplicates;
+  A-R mutations are only allowed for short values (original object
+  and replacement each at most five words, non-clausal), because
+  mutating a long prose clause produces nonsense like "The right
+  to freedom is being teased on the playground"; matching List I
+  items must be entities or concepts, not sentences, gerund
+  phrases or bare definite nouns ("the temple", "the move"), and
+  List II items must not start with a pronoun or end with a
+  dangling connector or anaphoric word. A set that fails any of
+  these is rejected whole, not repaired by editing.
+- Yield, honestly stated: Assertion-Reason appears in the NCERT
+  banks (8 items across 6 chapters in the 2026-10-25 regeneration,
+  including one clean type-(a) item about the judicial system),
+  but matching appears in none of them, because NCERT prose rarely
+  yields four clean, same-theme, short subject-object pairs under
+  these gates. Matching is implemented and tested on structured
+  sets (four Articles, with shuffled List II and near-miss codes),
+  and will appear when the source is structured — lists, tables,
+  or notes with named entities — rather than by lowering the
+  gates to force a prose set into the form.
+
+## 6. Mock-test assembly (added 2026-10-25)
+
+A bank is a pool; a mock test is a selected paper, and it is judged
+separately. `assembleMockTest` must:
+
+- cover sections round-robin, so a paper does not come only from
+  the first section that yielded facts;
+- aim at a difficulty mix (default 30% easy / 50% medium / 20%
+  hard) without forcing it — if the bank has no surviving hard
+  question, the paper is short on hard questions and the audit says
+  so, rather than lowering the bar to fill the quota;
+- never reuse a relation key in one paper, and never let one
+  question's answer appear in another question's stem or statements
+  (an answer appearing as a distractor elsewhere is normal exam
+  practice and is not leakage);
+- balance answer keys so counts differ by at most one, without a
+  simple ABCD rotation a student could learn;
+- report an audit: total, difficulty actual vs target, subtype
+  counts, section counts, key distribution, and how many candidates
+  were rejected for leakage or reuse.
+
+## 7. Satisfactory threshold
 
 A bank is satisfactory only when, on a full scan:
 
@@ -91,7 +221,7 @@ questions it contains. Fewer, better questions are the intended
 outcome: a source that cannot support a good question must yield no
 question for that fact, not a weak one.
 
-## 5. What determinism is, and is not, here
+## 8. What determinism is, and is not, here
 
 Determinism is not the priority. Variety and quality are. A
 deterministic rule that produces a predictable, low-quality bank is

@@ -800,6 +800,153 @@ check('Multi-statement candidates include more than one truth pattern', () => {
   assert.ok(patterns.size >= 2, 'Multi candidates must span more than one truth pattern, got: ' + JSON.stringify([...patterns]));
 });
 
+check('Exception questions use a same-category outsider and true members only', () => {
+  const out = Analysis.analyzeSource(
+    'The three primary colours of light are red, green and blue. The secondary colours are yellow, orange and purple.',
+    'Exception fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const exc = candidates.find((q) => q.question_subtype === 'exception_reasoning');
+  assert.ok(exc, 'An exception candidate must be built from a membership list');
+  assert.ok(/NOT/.test(exc.stem), 'Exception stem must capitalise NOT, got: ' + exc.stem);
+  assert.ok(!['red', 'green', 'blue'].includes(exc.expected_answer.toLowerCase()), 'Exception answer must not be a member, got: ' + exc.expected_answer);
+  for (const opt of exc.options.filter((o) => !o.is_correct)) {
+    assert.ok(['red', 'green', 'blue'].includes(opt.text.toLowerCase()), 'Exception distractors must be true members, got: ' + opt.text);
+  }
+  const v = Engine.validateQuestion(exc, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Exception candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Statement-option questions use a full source sentence and near-miss claims', () => {
+  const out = Analysis.analyzeSource(
+    'The Battle of Buxar took place in 1764. The Battle of Plassey took place in 1757.',
+    'Statement-option fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const so = candidates.find((q) => q.question_subtype === 'statement_option');
+  assert.ok(so, 'A statement-option candidate must be built from a dated fact');
+  assert.ok(/statements is correct about/.test(so.stem), 'Statement-option stem must ask which statement is correct, got: ' + so.stem);
+  assert.ok(so.options.filter((o) => o.is_correct).length === 1, 'Exactly one statement option must be correct');
+  const v = Engine.validateQuestion(so, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Statement-option candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Three-statement candidates span subset patterns and validate', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.',
+    'Multi-3 fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const m3 = candidates.filter((q) => q.question_subtype === 'multi_statement_3');
+  assert.ok(m3.length >= 1, 'A three-statement candidate must be built');
+  const patterns = new Set(m3.map((q) => q.expected_answer));
+  assert.ok(patterns.size >= 2, 'Three-statement candidates must span more than one pattern, got: ' + JSON.stringify([...patterns]));
+  const sample = m3[0];
+  assert.strictEqual(sample.statements.length, 3, 'Three-statement questions must carry three statements');
+  const v = Engine.validateQuestion(sample, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Three-statement candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Ordered multi-statement candidates can answer "2 only"', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.',
+    'Ordered multi fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const twoOnly = candidates.find((q) => q.question_subtype === 'multi_statement' && q.expected_answer === '2 only');
+  assert.ok(twoOnly, 'An ordered multi-statement candidate with answer "2 only" must exist');
+  assert.strictEqual(twoOnly.statements[0].truth_value, false, 'For "2 only", statement 1 must be false');
+  assert.strictEqual(twoOnly.statements[1].truth_value, true, 'For "2 only", statement 2 must be true');
+});
+
+check('Mock-test assembler balances keys, covers sections, and never reuses a fact', () => {
+  const geo = Analysis.analyzeSource(
+    'The Ganga river originates from the Gangotri glacier. The Brahmaputra river flows through Assam. The Deccan Plateau is located in southern India. The Western Ghats run parallel to the western coast of India. The Battle of Buxar took place in 1764. The Battle of Plassey took place in 1757.',
+    'Geo'
+  );
+  const civ = Analysis.analyzeSource(
+    'Article 14 states that the State shall not deny to any person equality before the law. Article 19 protects freedom of speech and expression. Article 21 protects the right to life and personal liberty. Article 32 allows citizens to approach the Supreme Court if their fundamental rights are violated.',
+    'Civics'
+  );
+  const paper = Engine.assembleMockTest([...geo.questions, ...civ.questions], { targetCount: 6 });
+  assert.ok(paper.questions.length >= 5, 'Assembler must produce a paper, got: ' + paper.questions.length);
+  assert.strictEqual(paper.audit.sectionsCovered, 2, 'Paper must cover both sections, got: ' + JSON.stringify(paper.audit.bySection));
+  const keyValues = Object.values(paper.audit.keyDistribution);
+  assert.ok(Math.max(...keyValues) - Math.min(...keyValues) <= 1, 'Answer keys must be balanced, got: ' + JSON.stringify(paper.audit.keyDistribution));
+  const rels = paper.questions.flatMap((q) => q.relation_keys || []);
+  assert.strictEqual(new Set(rels).size, rels.length, 'No relation key may be reused in one paper');
+  for (const q of paper.questions) {
+    assert.strictEqual(q.options.filter((o) => o.is_correct).length, 1, 'Each paper question must have exactly one correct option');
+    assert.strictEqual(q.options.find((o) => o.key === q.answer_key).is_correct, true, 'answer_key must point at the correct option');
+  }
+});
+
+check('Assertion-Reason type (a) uses a rendered effect claim and a causal Reason', () => {
+  const out = Analysis.analyzeSource(
+    'Digital technology makes the judicial system more accessible and transparent. The Battle of Buxar took place in 1764.',
+    'AR type-a fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const ar = candidates.find((q) => q.question_subtype === 'assertion_reason' && q.ar_pattern === 'a');
+  assert.ok(ar, 'A type-(a) Assertion-Reason candidate must be built from a causal fact');
+  assert.strictEqual(ar.assertion, 'The judicial system is more accessible and transparent.', 'Effect claim must be rendered as a standalone sentence, got: ' + ar.assertion);
+  assert.ok(ar.reason.includes('Digital technology'), 'Reason must be the causal sentence');
+  assert.strictEqual(ar.expected_answer, 'Both A and R are true and R is the correct explanation of A', 'Type-(a) answer must be the explanation option');
+  const v = Engine.validateQuestion(ar, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Type-(a) candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Assertion-Reason patterns (b), (c) and (d) are all reachable and validate', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005. The Epsilon Commission was established in 2010. The Zeta Commission was established in 2015.',
+    'AR patterns fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const ars = candidates.filter((q) => q.question_subtype === 'assertion_reason');
+  const patterns = new Set(ars.map((q) => q.ar_pattern));
+  assert.ok(patterns.has('c') && patterns.has('d'), 'Patterns (c) and (d) must be reachable, got: ' + JSON.stringify([...patterns]));
+  for (const q of ars) {
+    const v = Engine.validateQuestion(q, out.facts, ctx);
+    assert.strictEqual(v.valid, true, 'Assertion-Reason candidate failed validation: ' + JSON.stringify(v.issues));
+    assert.strictEqual(q.options.length, 4, 'Assertion-Reason must have four standard options');
+  }
+});
+
+check('Matching questions use a shuffled List II and near-miss codes only', () => {
+  const out = Analysis.analyzeSource(
+    'Article 14 states that the State shall not deny to any person equality before the law. Article 19 protects freedom of speech and expression. Article 21 protects the right to life and personal liberty. Article 32 allows citizens to approach the Supreme Court if their fundamental rights are violated.',
+    'Matching fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const m = candidates.find((q) => q.question_subtype === 'matching');
+  assert.ok(m, 'A matching candidate must be built from four Article facts');
+  assert.strictEqual(m.matching_pairs.length, 4, 'Matching must carry four pairs');
+  assert.ok(!/A-1, B-2, C-3, D-4/.test(m.expected_answer), 'Correct code must not be the trivial identity order, got: ' + m.expected_answer);
+  for (const opt of m.options.filter((o) => !o.is_correct)) {
+    const nums = [...opt.text.matchAll(/-(\d)/g)].map((x) => Number(x[1])).sort().join(',');
+    assert.strictEqual(nums, '1,2,3,4', 'Distractor codes must be permutations, got: ' + opt.text);
+  }
+  const v = Engine.validateQuestion(m, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Matching candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Matching is not built when two subjects share the same object', () => {
+  const out = Analysis.analyzeSource(
+    'Article 14 protects freedom of speech. Article 19 protects freedom of speech. Article 21 protects life. Article 32 protects liberty.',
+    'Ambiguous matching fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  assert.strictEqual(candidates.filter((q) => q.question_subtype === 'matching').length, 0, 'Ambiguous matching sets must not be built');
+});
+
 runE2E().catch((err) => {
   console.error('Repair 002 regression tests failed:', err);
   process.exit(1);

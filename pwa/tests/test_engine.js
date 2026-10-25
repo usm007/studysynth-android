@@ -157,6 +157,20 @@ function assertQuestionContract(question, facts) {
     assert.strictEqual(good.text, fact.sequence_items.join(' → '), `${question.id}: sequence answer must preserve source order`);
   } else if (question.question_subtype === 'classification_membership') {
     assert(fact.members.some((m) => normalize(m) === normalize(good.text)), `${question.id}: membership answer must be a stated member`);
+  } else if (question.question_subtype === 'exception_reasoning') {
+    assert(fact.members && !fact.members.some((m) => normalize(m) === normalize(good.text)), `${question.id}: exception answer must not be a stated member`);
+    for (const opt of question.options.filter((o) => !o.is_correct)) {
+      assert(fact.members.some((m) => normalize(m) === normalize(opt.text)), `${question.id}: exception distractors must be true members`);
+    }
+  } else if (question.question_subtype === 'statement_option') {
+    assert.strictEqual(normalize(good.text), normalize(fact.source_text), `${question.id}: statement-option answer must be the exact source statement`);
+  } else if (question.question_subtype === 'assertion_reason') {
+    assert(question.assertion && question.reason, `${question.id}: assertion-reason must carry Assertion and Reason`);
+    assert(['a', 'b', 'c', 'd'].includes(question.ar_pattern), `${question.id}: assertion-reason must record a pattern`);
+  } else if (question.question_subtype === 'matching') {
+    assert(Array.isArray(question.matching_pairs) && question.matching_pairs.length === 4, `${question.id}: matching must carry four pairs`);
+  } else if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
+    assert(question.statements && question.statements.length >= 2, `${question.id}: multi-statement question must carry its statements`);
   } else {
     assert.strictEqual(normalize(good.text), normalize(fact.object), `${question.id}: keyed answer must equal the extracted fact value`);
   }
@@ -284,10 +298,22 @@ assert(membership, 'Membership fact must be extracted');
 assert.deepStrictEqual(membership.members.map(normalize), ['red', 'green', 'blue'], 'Only the three stated members may be extracted');
 assert.strictEqual(membership.exhaustive, true, 'The explicit three-member list must be marked as source-exhaustive');
 assert(analyzedD.bank, `Classification bank failed: ${analyzedD.error && analyzedD.error.message}`);
-const classification = analyzedD.bank.find((q) => q.question_subtype === 'classification_membership');
-assert(classification, 'A classification question must be generated from the explicit list');
+// Quality change (mock-test round): a single list can yield either a
+// membership question ("which is included?") or an exception question
+// ("which is NOT included?") — never both in one bank, because they
+// test the same list twice. The bank must contain one list question,
+// and whichever form it is, its members must be exactly the stated list.
+const listQuestion = analyzedD.bank.find((q) => q.question_subtype === 'classification_membership' || q.question_subtype === 'exception_reasoning');
+assert(listQuestion, 'A classification or exception question must be generated from the explicit list');
 for (const question of analyzedD.bank) assertQuestionContract(question, analyzedD.facts);
-assert(membership.members.map(normalize).includes(normalize(correctOption(classification).text)), 'Classification answer must be a stated member');
+if (listQuestion.question_subtype === 'classification_membership') {
+  assert(membership.members.map(normalize).includes(normalize(correctOption(listQuestion).text)), 'Classification answer must be a stated member');
+} else {
+  assert(!membership.members.map(normalize).includes(normalize(correctOption(listQuestion).text)), 'Exception answer must not be a stated member');
+  for (const opt of listQuestion.options.filter((o) => !o.is_correct)) {
+    assert(membership.members.map(normalize).includes(normalize(opt.text)), 'Exception distractors must be stated members');
+  }
+}
 const oxfordFacts = Engine.extractSourceFacts(parse('The approved flags are red, white, and blue.', 'Oxford List'));
 const oxfordMembership = findFact(oxfordFacts, 'members');
 assert.deepStrictEqual(oxfordMembership.members.map(normalize), ['red', 'white', 'blue'], 'An Oxford comma must not merge the final two members');

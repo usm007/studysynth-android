@@ -122,7 +122,11 @@
     classification_membership: 5,
     sequence_order: 6,
     cause_effect: 7,
-    multi_statement: 8
+    multi_statement: 8,
+    statement_option: 9,
+    multi_statement_3: 10,
+    assertion_reason: 11,
+    matching: 12
   };
   const SUBTYPE_FACT_TYPES = {
     date_recall: ['date'],
@@ -135,6 +139,10 @@
     sequence_order: ['sequence'],
     cause_effect: ['causal'],
     multi_statement: ['date', 'numeric', 'entity_attribute', 'definition'],
+    multi_statement_3: ['date', 'numeric', 'entity_attribute', 'definition'],
+    statement_option: ['date', 'numeric', 'entity_attribute', 'definition'],
+    assertion_reason: ['causal', 'date', 'numeric', 'entity_attribute', 'definition'],
+    matching: ['entity_attribute', 'definition', 'date', 'causal'],
 
     // V2 Conceptual Reasoning Subtypes
     rule_application: ['rule', 'entity_attribute', 'definition', 'causal'],
@@ -144,7 +152,7 @@
     process_sequence: ['sequence'],
     constraint_inference: ['entity_attribute', 'definition'],
     category_classification: ['membership', 'definition'],
-    exception_reasoning: ['entity_attribute', 'definition'],
+    exception_reasoning: ['entity_attribute', 'definition', 'membership'],
     contrastive_explanation: ['comparison', 'entity_attribute', 'causal'],
     evidence_conclusion: ['entity_attribute', 'causal', 'definition'],
     error_diagnosis: ['causal', 'comparison', 'entity_attribute'],
@@ -2711,9 +2719,20 @@
       const ctx = normalizeRegistry(factRegistry);
       const expected = cleanText(fact.object || '');
       const expectedLen = expected.length || 1;
+      // Misconception preference (mock-test quality): a distractor
+      // from a fact about the SAME subject family is a real test of
+      // knowledge, while a distractor from an unrelated part of the
+      // source is eliminable by topic alone — e.g. "oblate spheroid"
+      // as a distractor for Yellowstone's role. So the fallback pool
+      // is ordered by shared subject words first, then by length
+      // closeness, instead of raw source order.
+      const subjectWords = new Set(String(fact.subject || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !['about', 'which', 'their', 'these', 'those'].includes(w)));
       const pool = [];
       for (const other of ctx.facts || []) {
         if (!other || other.fact_id === fact.fact_id) continue;
+        const otherWords = new Set(String(other.subject || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4));
+        let overlap = 0;
+        for (const w of subjectWords) if (otherWords.has(w)) overlap++;
         const values = [];
         if (other.object) values.push(other.object);
         if (Array.isArray(other.members)) values.push(...other.members);
@@ -2724,22 +2743,16 @@
           if (/^(of|to|in|on|for|with|by|as)\b/i.test(cand)) continue;
           if (isEquivalentOption(cand, expected)) continue;
           if (isValueSupported(ctx.facts, fact.subject, fact.relation, cand, fact.temporal_scope)) continue;
-          // Length similarity: a one-word distractor against a long
-          // clause answer (or vice versa) is a giveaway.
-          // Extreme length outliers only: for short place names a
-          // longer descriptive place ("the western coast of India" vs
-          // "Assam") is still a plausible place distractor, not a
-          // giveaway. The strict length rule is enforced at bank
-          // rating time, not by blocking every short-source question.
           if (cand.length < expectedLen / 8 || cand.length > expectedLen * 8) continue;
-          if (!pool.some((item) => isEquivalentOption(item, cand))) pool.push(cand);
+          if (!pool.some((item) => isEquivalentOption(item.text, cand))) pool.push({ text: cand, overlap });
         }
       }
-      for (const cand of pool) {
+      pool.sort((a, b) => (b.overlap - a.overlap) || (Math.abs(a.text.length - expectedLen) - Math.abs(b.text.length - expectedLen)));
+      for (const item of pool) {
         if (results.length >= 6) break;
-        if (results.some((item) => isEquivalentOption(item.text, cand))) continue;
+        if (results.some((r) => isEquivalentOption(r.text, item.text))) continue;
         results.push({
-          text: cand,
+          text: item.text,
           origin: 'source_object_pool',
           confusion_type: 'partial_truth',
           distractor_purpose: 'confusable_fact'
@@ -2937,13 +2950,13 @@
   }
 
   function difficultyFor(subtype) {
-    if (subtype === 'multi_statement') return 'hard';
+    if (subtype === 'multi_statement' || subtype === 'multi_statement_3' || subtype === 'assertion_reason') return 'hard';
     if (subtype === 'date_recall' || subtype === 'numeric_recall') return 'easy';
     return 'medium';
   }
 
   function cognitiveFor(subtype) {
-    if (subtype === 'multi_statement') return 'analysis';
+    if (subtype === 'multi_statement' || subtype === 'multi_statement_3' || subtype === 'statement_option' || subtype === 'assertion_reason' || subtype === 'matching') return 'analysis';
     if (subtype === 'cause_effect' || subtype === 'comparison' || subtype === 'sequence_order') return 'understanding';
     if (subtype === 'classification_membership' || subtype === 'definition') return 'understanding';
     return 'recall';
@@ -3139,6 +3152,116 @@
     return candidate;
   }
 
+  // Mock-test form 1 (books: "Which of the following is NOT ...?").
+  // A membership fact gives a true list; the correct answer is an
+  // outsider from another list in the same source, and the three
+  // distractors are all true members. A student who only knows one
+  // member cannot answer it, and a student who knows the list can.
+  // NOT is capitalised in the stem: in a real exam a missed "not"
+  // flips the whole question, so it must be impossible to skim past.
+  function makeExceptionCandidate(fact, registry) {
+    if (!isUsableSubject(fact.subject)) return null;
+    const memSubject = inlineSubject(fact.subject);
+    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(memSubject)) return null;
+    if (/on the other hand/i.test(memSubject)) return null;
+    if (!fact.members || fact.members.length < 3) return null;
+    const members = fact.members.map((m) => cleanText(m)).filter((m) => m && !isFragmentPhrase(m) && !/^[^A-Za-z0-9]/.test(m));
+    if (members.length < 3) return null;
+    const ctx = normalizeRegistry(registry);
+    const outsiders = membershipAlternatives(fact, ctx).filter((cand) => {
+      const c = cleanText(cand);
+      if (!c || c.length < 3 || c.length > 150) return false;
+      if (isFragmentPhrase(c)) return false;
+      if (/^(of|to|in|on|for|with|by|as)\b/i.test(c)) return false;
+      if (members.some((m) => isEquivalentOption(m, c))) return false;
+      // The outsider must not be a member of the same category under
+      // any other fact in this source, or the "exception" is not one.
+      for (const other of ctx.facts || []) {
+        if (other.fact_id === fact.fact_id) continue;
+        if (other.fact_type !== 'membership') continue;
+        if (normalizeSubject(other.subject) !== normalizeSubject(fact.subject)) continue;
+        if (Array.isArray(other.members) && other.members.some((m) => isEquivalentOption(m, c))) return false;
+      }
+      return true;
+    });
+    if (!outsiders.length) return null;
+    const outsider = outsiders[0];
+    const distractors = members.slice(0, 3).map((m) => ({
+      text: m,
+      origin: 'source_member_pool',
+      confusion_type: 'partial_truth',
+      distractor_purpose: 'confusable_fact'
+    }));
+    if (distractors.length < 3) return null;
+    const subject = inlineSubject(fact.subject);
+    const stemVariants = [
+      `which of the following is NOT included in ${subject}?`,
+      `which of the following is NOT listed as part of ${subject}?`,
+      `which one of the following is NOT a member of ${subject}?`
+    ];
+    const stem = stemVariants[stableHash(fact.fact_id + 'exc') % stemVariants.length];
+    const explanation = `The source states: “${fact.supporting_excerpt}” The members listed are ${members.join(', ')}. ${outsider} is not among them, so it is the exception.`;
+    const candidate = buildSingleChoiceCandidate(
+      fact,
+      'exception_reasoning',
+      stem,
+      outsider,
+      distractors,
+      explanation,
+      { answer_relation_key: fact.fact_id + '|members', relation_keys: [fact.fact_id + '|members'] }
+    );
+    return candidate;
+  }
+
+  // Mock-test form 2 (books: "Which of the following statements is
+  // correct about X?"). The options are full sentences, not single
+  // entities, so the student must evaluate a complete claim. The
+  // correct option is the exact source sentence; each distractor is
+  // that same sentence with its value replaced by a value the source
+  // does not state for this subject — a near-miss claim, not a
+  // random other fact. A distractor that is actually supported
+  // elsewhere for this subject is rejected, or the question would
+  // have two correct answers.
+  function makeStatementOptionCandidate(fact, registry) {
+    if (!isUsableSubject(fact.subject)) return null;
+    const subject = inlineSubject(fact.subject);
+    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(subject)) return null;
+    if (/on the other hand/i.test(subject)) return null;
+    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(subject)) return null;
+    if (/\?/.test(subject)) return null;
+    const src = cleanText(fact.source_text || '');
+    if (!src || /^[^A-Za-z0-9]/.test(src) || !/[.!?]$/.test(src) || src.split(/\s+/).length < 5) return null;
+    if (!fact.object || src.indexOf(fact.object) === -1) return null;
+    const ctx = normalizeRegistry(registry);
+    let values = [];
+    if (fact.fact_type === 'date') values = buildDateDistractors(fact, ctx, 'date_recall');
+    else if (fact.fact_type === 'numeric') values = buildNumericDistractors(fact, ctx, 'numeric_recall');
+    else if (fact.fact_type === 'definition') values = buildDefinitionDistractors(fact, ctx, 'definition');
+    else if (fact.fact_type === 'entity_attribute') values = buildEntityDistractors(fact, ctx, 'entity_attribute');
+    else return null;
+    const distractors = [];
+    for (const v of values) {
+      if (distractors.length >= 3) break;
+      if (!v || !v.text) continue;
+      if (isEquivalentOption(v.text, fact.object)) continue;
+      if (isValueSupported(ctx.facts, fact.subject, fact.relation, v.text, fact.temporal_scope)) continue;
+      const sentence = replaceOnce(src, fact.object, v.text);
+      if (!sentence || /^[^A-Za-z0-9]/.test(sentence) || !/[.!?]$/.test(sentence) || sentence.split(/\s+/).length < 5) continue;
+      if (isFragmentPhrase(sentence)) continue;
+      if (distractors.some((d) => isEquivalentOption(d.text, sentence))) continue;
+      distractors.push({
+        text: sentence,
+        origin: v.origin || 'source_value_pool',
+        confusion_type: 'partial_truth',
+        distractor_purpose: 'confusable_fact'
+      });
+    }
+    if (distractors.length < 3) return null;
+    const stem = `which of the following statements is correct about ${subject}?`;
+    const explanation = `The source states: “${fact.supporting_excerpt}” The correct statement preserves that value. The other options replace it with a value the source does not state for ${subject}.`;
+    return buildSingleChoiceCandidate(fact, 'statement_option', stem, src, distractors, explanation);
+  }
+
   function permutations(items) {
     if (items.length <= 1) return [items.slice()];
     const result = [];
@@ -3244,39 +3367,74 @@
     };
   }
 
-  function makeMultiCandidate(trueStatements, falseStatements, trueFacts, falseFacts, sourceTitle) {
-    const statements = [];
-    let index = 1;
-    for (const item of trueStatements) {
-      const number = index++;
-      statements.push({
-        index: number,
-        number: number,
-        text: item.fact.source_text,
-        fact_id: item.fact.fact_id,
-        source_excerpt: item.fact.supporting_excerpt,
-        truth_value: true
-      });
+  // Combo text for a set of true statement numbers. For two
+  // statements this is the classic CTET form ("1 only", "2 only",
+  // "Both 1 and 2", "Neither 1 nor 2"); for three it is the
+  // corresponding subset ("1 and 3 only", "1, 2 and 3", ...).
+  function comboTextForTrueNumbers(trueNumbers, count) {
+    const set = new Set(trueNumbers);
+    if (count === 2) {
+      if (set.size === 2) return 'Both 1 and 2';
+      if (set.size === 1) return set.has(1) ? '1 only' : '2 only';
+      return 'Neither 1 nor 2';
     }
-    for (const item of falseStatements) {
-      const number = index++;
-      statements.push({
+    if (set.size === 0) return 'None of the above';
+    if (set.size === 3) return '1, 2 and 3';
+    const parts = [1, 2, 3].filter((n) => set.has(n));
+    if (parts.length === 1) return `${parts[0]} only`;
+    return `${parts.join(' and ')} only`;
+  }
+
+  function comboSetForText(text) {
+    const nums = [];
+    for (const m of String(text || '').matchAll(/[123]/g)) nums.push(Number(m[0]));
+    if (/neither|none/i.test(text)) return new Set();
+    return new Set(nums);
+  }
+
+  // Ordered multi-statement builder. Statements stay in the order
+  // their facts occur in the source, with a truth value each — this
+  // is what makes "2 only" and "1 and 3 only" reachable. The old
+  // builder grouped all true statements first, so the first statement
+  // was always true and "2 only" could never be the answer, which
+  // is why no selected bank ever contained it.
+  function makeOrderedMultiCandidate(items, sourceTitle) {
+    if (!Array.isArray(items) || items.length < 2 || items.length > 3) return null;
+    const count = items.length;
+    const statements = items.map((item, i) => {
+      const number = i + 1;
+      const s = {
         index: number,
         number: number,
         text: item.text,
         fact_id: item.fact.fact_id,
         source_excerpt: item.fact.supporting_excerpt,
-        truth_value: false,
-        alteration: item.alteration
-      });
+        truth_value: item.truth_value
+      };
+      if (item.alteration) s.alteration = item.alteration;
+      return s;
+    });
+    const trueNumbers = statements.filter((s) => s.truth_value).map((s) => s.number);
+    const correctText = comboTextForTrueNumbers(trueNumbers, count);
+    let optionTexts;
+    if (count === 2) {
+      optionTexts = ['1 only', '2 only', 'Both 1 and 2', 'Neither 1 nor 2'];
+    } else {
+      const allCombos = ['1 only', '2 only', '3 only', '1 and 2 only', '1 and 3 only', '2 and 3 only', '1, 2 and 3'];
+      const correctSet = comboSetForText(correctText);
+      const byDistance = allCombos.filter((c) => c !== correctText).map((c) => {
+        const s = comboSetForText(c);
+        let dist = 0;
+        for (const n of [1, 2, 3]) if (s.has(n) !== correctSet.has(n)) dist++;
+        return { text: c, dist };
+      }).sort((a, b) => a.dist - b.dist || allCombos.indexOf(a.text) - allCombos.indexOf(b.text));
+      // Distractors are near-miss combinations: a student who gets
+      // two of three statements right must still fail, and a student
+      // who gets one wrong must not be able to guess from a far-off
+      // combination.
+      const chosen = [correctText].concat(byDistance.slice(0, 3).map((d) => d.text));
+      optionTexts = allCombos.filter((c) => chosen.includes(c));
     }
-    if (statements.length !== 2) return null;
-    const trueCount = statements.filter((statement) => statement.truth_value).length;
-    let correctText = 'Neither 1 nor 2';
-    if (trueCount === 2) correctText = 'Both 1 and 2';
-    else if (trueCount === 1) correctText = statements[0].truth_value ? '1 only' : '2 only';
-
-    const optionTexts = ['1 only', '2 only', 'Both 1 and 2', 'Neither 1 nor 2'];
     const options = optionTexts.map((text, optionIndex) => {
       const correct = text === correctText;
       const result = { key: KEYS[optionIndex], text, is_correct: correct };
@@ -3288,7 +3446,7 @@
       return result;
     });
     const answerKey = options.find((option) => option.is_correct).key;
-    const allFacts = trueFacts.concat(falseFacts);
+    const allFacts = items.map((item) => item.fact);
     const excerptParts = allFacts.map((fact) => fact.supporting_excerpt);
     const explanationParts = statements.map((statement) => {
       if (statement.truth_value) {
@@ -3298,10 +3456,11 @@
       const replacement = statement.alteration ? statement.alteration.replacement : '';
       return `Statement ${statement.index} is false. The source states: “${statement.source_excerpt}” The stated value is ${original}, not ${replacement}.`;
     });
+    const subtype = count === 3 ? 'multi_statement_3' : 'multi_statement';
     return {
       id: '',
       type: 'multi_statement',
-      question_subtype: 'multi_statement',
+      question_subtype: subtype,
       // Phase 8 fix: do not put a section title in the stem. Section titles
       // are derived from textbook headings and numbered learning-objective
       // lists, and on real NCERT pages they arrive truncated or merged
@@ -3422,18 +3581,492 @@
         for (const v of rotated) variants.push(v);
       }
       for (const variant of variants) {
-        const candidate = makeMultiCandidate(
-          variant.trueItems,
-          variant.falseItems,
-          variant.trueFacts,
-          variant.falseFacts,
-          first.section_title
-        );
+        const orderedItems = pair.map((fact) => {
+          const trueItem = variant.trueItems.find((item) => item.fact.fact_id === fact.fact_id);
+          if (trueItem) return { fact, truth_value: true, text: fact.source_text };
+          const falseItem = variant.falseItems.find((item) => item.fact.fact_id === fact.fact_id);
+          return { fact, truth_value: false, text: falseItem.text, alteration: falseItem.alteration };
+        });
+        const candidate = makeOrderedMultiCandidate(orderedItems, first.section_title);
         if (candidate) {
           candidate.id = 'C-LITE-' + padNumber(seq++, 4);
           candidates.push(candidate);
         }
       }
+    }
+    return candidates;
+  }
+
+  // Three-statement form (books: "Consider the following three
+  // statements..."). A triple is taken in source order; each
+  // statement is true or mutated false. Variants with all three
+  // false are skipped: a question with no true statement is a
+  // "none correct" trick, not a test of the source. The correct
+  // combination is always a subset of {1,2,3}, and the distractors
+  // are near-miss subsets, so partial knowledge does not guess it.
+  function buildMulti3Candidates(ctx, seqStart) {
+    const facts = ctx.facts.filter(multiEligible).slice(0, 12);
+    if (facts.length < 3) return [];
+    const candidates = [];
+    let seq = seqStart;
+    const triples = [];
+    for (let i = 0; i < facts.length - 2 && triples.length < 6; i++) {
+      triples.push([facts[i], facts[i + 1], facts[i + 2]]);
+    }
+    for (const triple of triples) {
+      const falseValues = triple.map((fact) => buildFalseValue(fact, ctx));
+      const variants = [];
+      // All true.
+      variants.push([true, true, true]);
+      // Exactly one false, at each position.
+      for (let k = 0; k < 3; k++) {
+        if (falseValues[k]) {
+          const v = [true, true, true];
+          v[k] = false;
+          variants.push(v);
+        }
+      }
+      // Exactly one true, at each position.
+      for (let k = 0; k < 3; k++) {
+        const othersHaveFalse = triple.every((fact, idx) => idx === k || Boolean(falseValues[idx]));
+        if (othersHaveFalse) {
+          const v = [false, false, false];
+          v[k] = true;
+          variants.push(v);
+        }
+      }
+      const rotateBy = variants.length ? stableHash(triple.map((f) => f.source_text || '').join('|')) % variants.length : 0;
+      const rotated = variants.slice(rotateBy).concat(variants.slice(0, rotateBy));
+      for (const variant of rotated) {
+        const items = [];
+        let ok = true;
+        for (let idx = 0; idx < 3; idx++) {
+          const fact = triple[idx];
+          if (variant[idx]) {
+            items.push({ fact, truth_value: true, text: fact.source_text });
+          } else {
+            const falseStatement = falseStatementFor(fact, falseValues[idx]);
+            if (!falseStatement) { ok = false; break; }
+            items.push({ fact, truth_value: false, text: falseStatement.text, alteration: falseStatement.alteration });
+          }
+        }
+        if (!ok) continue;
+        const candidate = makeOrderedMultiCandidate(items, triple[0].section_title);
+        if (candidate) {
+          candidate.id = 'C-LITE-' + padNumber(seq++, 4);
+          candidates.push(candidate);
+        }
+      }
+    }
+    return candidates;
+  }
+
+  // Assertion-Reason standard options, in CTET order. These are
+  // the fixed code set for the form, not source-derived distractors:
+  // every A-R question in a real paper offers exactly these four
+  // judgements, and the student must pick the one that matches the
+  // truth of A, the truth of R, and whether R explains A.
+  const AR_OPTION_TEXTS = [
+    'Both A and R are true and R is the correct explanation of A',
+    'Both A and R are true but R is NOT the correct explanation of A',
+    'A is true but R is false',
+    'A is false but R is true'
+  ];
+
+  // Render an effect claim from a causal fact, only when it is safe.
+  // The effect phrase is often not a sentence ("the judicial system
+  // more accessible and transparent"), so it must be turned into one
+  // without inventing content: either it already contains a finite
+  // verb, or it is a short noun phrase followed by a comparative
+  // remainder, where inserting "is" is the only change. Anything
+  // else (a bare noun phrase, a verb phrase, a clause) returns null
+  // and the causal fact simply yields no type-(a) A-R item.
+  function renderEffectClaim(fact) {
+    const obj = cleanText(fact.object || '');
+    if (!obj || obj.length < 5 || obj.length > 150) return null;
+    if (/^(that|which|who|whom|whose|to|of|for|with|by|as|they|it|you|we|he|she)\b/i.test(obj)) return null;
+    if (/[,;]/.test(obj)) return null;
+    if (/\b(that|which|who|when|if|but)\b/i.test(obj)) return null;
+    const m = obj.match(/^((?:the|a|an)\s+(?:[A-Za-z'’-]+\s+){0,3}[A-Za-z'’-]+)\s+(more|less|better|greater|higher|lower|increasing|decreasing)\b(.*)$/i);
+    if (!m) return null;
+    const noun = m[1].trim();
+    const rest = (m[2] + (m[3] || '')).trim();
+    if (/\b(is|are|was|were|that|which|who|when|if|but)\b/i.test(rest)) return null;
+    let s = noun.charAt(0).toUpperCase() + noun.slice(1) + ' is ' + rest;
+    if (!/[.!?]$/.test(s)) s += '.';
+    if (s.split(/\s+/).length > 20) return null;
+    if (isFragmentPhrase(s)) return null;
+    return s;
+  }
+
+  function makeAROptionSet(pattern) {
+    const correctText = AR_OPTION_TEXTS[pattern === 'a' ? 0 : pattern === 'b' ? 1 : pattern === 'c' ? 2 : 3];
+    const options = AR_OPTION_TEXTS.map((text, idx) => {
+      const result = { key: KEYS[idx], text, is_correct: text === correctText };
+      if (!result.is_correct) {
+        result.distractor_origin = 'assertion_reason_code_pool';
+        result.confusion_type = 'partial_truth';
+        result.distractor_purpose = 'partial_truth';
+      }
+      return result;
+    });
+    return { options, correctText, answerKey: options.find((o) => o.is_correct).key };
+  }
+
+  function makeARCandidate(assertion, reason, pattern, truth, facts, explanation, alteration) {
+    if (!assertion || !reason || assertion === reason) return null;
+    for (const s of [assertion, reason]) {
+      if (/^[^A-Za-z0-9]/.test(s) || !/[.!?]$/.test(s) || s.split(/\s+/).length < 3) return null;
+    }
+    const { options, correctText, answerKey } = makeAROptionSet(pattern);
+    const first = facts[0];
+    const candidate = {
+      id: '',
+      type: 'single_choice',
+      question_subtype: 'assertion_reason',
+      stem: `Assertion (A): ${assertion} Reason (R): ${reason} Which of the following is correct?`,
+      assertion,
+      reason,
+      ar_pattern: pattern,
+      ar_truth: truth,
+      options,
+      answer_key: answerKey,
+      expected_answer: correctText,
+      knowledge_units: facts.map((fact) => ({ ku_id: fact.ku_id, fact_id: fact.fact_id, role: 'evidence' })),
+      source_title: first.section_title,
+      source_page: first.source_page,
+      supporting_excerpt: first.supporting_excerpt,
+      explanation,
+      difficulty: 'hard',
+      cognitive_level: 'analysis',
+      evidence: {
+        fact_ids: facts.map((fact) => fact.fact_id),
+        excerpts: facts.map((fact) => fact.supporting_excerpt),
+        source_offsets: facts.map((fact) => ({ fact_id: fact.fact_id, start: fact.source_start, end: fact.source_end })),
+        stem_relation: first.normalized_relation,
+        temporal_scope: first.temporal_scope || '',
+        fact_type: first.fact_type,
+        source_title: first.section_title,
+        source_page: first.source_page
+      },
+      verification: { status: 'candidate', rules: ['assertion_reason_pattern', 'explicit_alteration_or_source'] },
+      answer_relation_key: facts.map((fact) => fact.fact_id + '|' + normalizeObject(fact.object)).join('&'),
+      relation_keys: facts.map((fact) => fact.fact_id + '|' + normalizeObject(fact.object)),
+      candidate_sort: { source_start: first.source_start, fact_id: first.fact_id }
+    };
+    if (alteration) candidate.ar_alteration = alteration;
+    return candidate;
+  }
+
+  // Assertion-Reason builder. Pattern (a) — both true, R explains A —
+  // comes only from a causal fact whose effect can be rendered as a
+  // standalone claim (see renderEffectClaim); the Reason is the
+  // causal sentence itself, which states the mechanism. Patterns
+  // (b), (c) and (d) come from pairs of multi-eligible statements:
+  // (b) both true but unrelated, (c) A true / R mutated false,
+  // (d) A mutated false / R true. For (b) the two facts must share
+  // no content word and neither may be causal, so the claim "R does
+  // not explain A" is not debatable. For (c) and (d) the explanation
+  // link is moot (one statement is false), so the pair only needs
+  // to be topically coherent — same section when possible.
+  // Shared gates for the new forms, reusing the engine's existing
+  // subject quality rules and adding the ones the old builders
+  // already apply: a generic subject ("one important factor"), a
+  // bare definite noun ("the temple", "the range", "the main
+  // alignment"), an anaphoric subject ("a similar push") and a
+  // dangling object ("... from", "... if they") are not identifiable
+  // on their own, so a matching or Assertion-Reason item built from
+  // them is not an exam question, however technically correct its
+  // code is. These gates are why the first NCERT run's hees206
+  // matching set (subjects "This could potentially", "One important
+  // factor", objects ending in "from" and "if they") is rejected.
+  function isCleanNewFormSubject(subject) {
+    if (!isUsableSubject(subject)) return false;
+    const s = cleanText(subject);
+    if (/^(its|their|his|her|our|your)\b/i.test(s)) return false;
+    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(s)) return false;
+    if (/^(the|a)\s+(mosque|palace|temple|fort|building|structure|church|tomb|monument|range|alignment|region|area|place|site|period|phase|stage|level|type|kind|group|class|section|part|aspect|factor|move|event|development|change|process|situation|condition|trend|phenomenon|outcome|result|effect|impact|role|purpose|aim|objective|function|feature|side|form)$/i.test(s)) return false;
+    if (/^(the)\s+(present|main|current)\s+[a-z][a-z'’-]+$/i.test(s)) return false;
+    if (/\b(similar|such)\b/i.test(s)) return false;
+    if (/\b(also|often|broadly|here)\s*[.!?]?$/i.test(s)) return false;
+    if (/\?/.test(s) || /\bwhat\b/i.test(s)) return false;
+    return true;
+  }
+
+  function isCleanNewFormObject(obj) {
+    const o = cleanText(obj);
+    if (!o) return false;
+    if (isFragmentPhrase(o)) return false;
+    if (/^(of|to|in|on|for|with|by|as)\b/i.test(o)) return false;
+    if (/\s+(?:and|or|in|of|to|for|with|on|at|by|from|into|onto|under|over|about|if|that|when|they|them|it|these|those|this)\s*$/i.test(o)) return false;
+    if (/^like\b/i.test(o)) return false;
+    return true;
+  }
+
+  // A mutation value that is itself a clause or verb phrase ("better
+  // understand the people living") creates a double-predicate
+  // sentence when substituted into another sentence ("... manage
+  // better understand ..."). Only non-clausal values may be mutated
+  // into an Assertion-Reason statement.
+  function isClausalValue(value) {
+    return /\b(is|are|was|were|has|have|understand|understands|manage|manages|allocate|allocates|determine|determines|improve|improves|become|becomes|lead|leads|make|makes|made|help|helps|provide|provides|follow|follows|give|gives|take|takes)\b/i.test(String(value || ''));
+  }
+
+  function buildARCandidates(ctx, seqStart) {
+    const candidates = [];
+    let seq = seqStart;
+    const push = (cand) => {
+      if (!cand) return;
+      cand.id = 'C-LITE-' + padNumber(seq++, 4);
+      candidates.push(cand);
+    };
+    // Pattern (a): causal facts.
+    const causalFacts = ctx.facts.filter((f) => f && f.fact_type === 'causal' && !isFactUnsafe(f) && f.causal_direction !== 'effect_because_cause');
+    for (const fact of causalFacts.slice(0, 4)) {
+      const claim = renderEffectClaim(fact);
+      if (!claim) continue;
+      const reason = cleanText(fact.source_text);
+      if (!reason || reason === claim) continue;
+      const explanation = `Assertion is correct: ${claim} Reason is correct and states the mechanism: “${fact.supporting_excerpt}” Therefore R is the correct explanation of A.`;
+      push(makeARCandidate(claim, reason, 'a', { assertion: true, reason: true, explains: true }, [fact], explanation));
+    }
+    // Patterns (b), (c), (d): pairs of multi-eligible facts, further
+    // filtered to statements that are testable claims on their own:
+    // a clean subject, a statement that does not start with a
+    // pronoun, modal or discourse marker ("Let us", "Hence",
+    // "It clear"), and at most 25 words, so introductory meta-prose
+    // ("In a vast and diverse country ... we offer a few vignettes")
+    // never becomes an Assertion or a Reason.
+    const statementUsable = (fact) => {
+      if (!isCleanNewFormSubject(fact.subject)) return false;
+      const s = cleanText(fact.source_text || '');
+      if (!s || s.split(/\s+/).length > 25) return false;
+      if (!/^[A-Z]/.test(s)) return false;
+      if (/^(we|you|they|it|its|this|that|there|these|those|he|she|i|us|them|their|his|her|our|your|let|hence|therefore|thus|often|besides|while|although|however|in|on|at|by|for|with|from|to|of|in a vast|in this|as we|we will|for example)\b/i.test(s)) return false;
+      if (/\s+(?:and|or|in|of|to|for|with|on|at|by|from|if|that|when|they|them|it|these|those|this)\s*[.!?]?$/i.test(s)) return false;
+      return true;
+    };
+    const facts = ctx.facts.filter((f) => multiEligible(f) && statementUsable(f)).slice(0, 14);
+    const pairs = [];
+    for (let i = 0; i < facts.length - 1 && pairs.length < 8; i++) {
+      for (let j = i + 1; j < Math.min(i + 4, facts.length) && pairs.length < 8; j++) {
+        pairs.push([facts[i], facts[j]]);
+      }
+    }
+    const contentWords = (text) => new Set(String(text || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4));
+    // Near-duplicate means one statement contains the other as a
+    // contiguous substring (a restatement with a discourse prefix),
+    // not merely that two parallel sentences share template words
+    // ("The Alpha Commission was established in 1990" vs "The Beta
+    // Commission was established in 1995" share most words, but are
+    // different facts and a valid pair).
+    const nearDuplicate = (a, b) => {
+      const na = normalizeOption(a), nb = normalizeOption(b);
+      if (!na || !nb) return true;
+      return na.includes(nb) || nb.includes(na);
+    };
+    for (const pair of pairs) {
+      const [first, second] = pair;
+      // Two statements that are near-duplicates of each other (one
+      // restating the other with a discourse prefix) are not an
+      // Assertion-Reason pair; they are the same claim twice.
+      if (nearDuplicate(first.source_text, second.source_text)) continue;
+      const rotateBy = stableHash((first.source_text || '') + '|' + (second.source_text || '')) % 3;
+      const patterns = ['b', 'c', 'd'].slice(rotateBy).concat(['b', 'c', 'd'].slice(0, rotateBy));
+      for (const pattern of patterns) {
+        if (pattern === 'b') {
+          if (first.fact_type === 'causal' || second.fact_type === 'causal') continue;
+          const w1 = contentWords(first.subject + ' ' + first.source_text);
+          const w2 = contentWords(second.subject + ' ' + second.source_text);
+          let shared = false;
+          for (const w of w1) if (w2.has(w)) { shared = true; break; }
+          if (shared) continue;
+          const explanation = `Assertion is correct: “${first.supporting_excerpt}” Reason is correct: “${second.supporting_excerpt}” However, R does not state a cause or reason for A, so it is not the correct explanation of A.`;
+          push(makeARCandidate(cleanText(first.source_text), cleanText(second.source_text), 'b', { assertion: true, reason: true, explains: false }, [first, second], explanation));
+          break;
+        }
+        if (pattern === 'c') {
+          const falseValue = buildFalseValue(second, ctx);
+          if (!falseValue || isClausalValue(falseValue)) continue;
+          if (String(second.object || '').split(/\s+/).length > 5 || String(falseValue).split(/\s+/).length > 5) continue;
+          const falseStatement = falseStatementFor(second, falseValue);
+          if (!falseStatement) continue;
+          const explanation = `Assertion is correct: “${first.supporting_excerpt}” Reason is false: the source states “${second.supporting_excerpt}” The stated value is ${second.object}, not ${falseValue}.`;
+          push(makeARCandidate(cleanText(first.source_text), cleanText(falseStatement.text), 'c', { assertion: true, reason: false, explains: false }, [first, second], explanation, falseStatement.alteration));
+          break;
+        }
+        if (pattern === 'd') {
+          const falseValue = buildFalseValue(first, ctx);
+          if (!falseValue || isClausalValue(falseValue)) continue;
+          if (String(first.object || '').split(/\s+/).length > 5 || String(falseValue).split(/\s+/).length > 5) continue;
+          const falseStatement = falseStatementFor(first, falseValue);
+          if (!falseStatement) continue;
+          const explanation = `Assertion is false: the source states “${first.supporting_excerpt}” The stated value is ${first.object}, not ${falseValue}. Reason is correct: “${second.supporting_excerpt}”`;
+          push(makeARCandidate(cleanText(falseStatement.text), cleanText(second.source_text), 'd', { assertion: false, reason: true, explains: false }, [first, second], explanation, falseStatement.alteration));
+          break;
+        }
+      }
+    }
+    return candidates;
+  }
+
+  // Matching builder (books: "Match List I with List II").
+  // Four facts from the same section, each with a short subject and
+  // a distinct, short object, become List I (subjects, labelled A-D)
+  // and List II (objects, numbered 1-4, shuffled so the correct code
+  // is not the trivial A-1, B-2, C-3, D-4). The options are codes;
+  // the distractors are near-miss codes obtained by swapping two
+  // targets in the correct code, so a student who matches three of
+  // four pairs correctly still fails. A pair is rejected if its
+  // object is also supported for another subject in the set, or the
+  // matching would be ambiguous and have two correct codes.
+  function buildMatchingCandidates(ctx, seqStart) {
+    const candidates = [];
+    let seq = seqStart;
+    const eligible = ctx.facts.filter((f) => {
+      if (!f || isFactUnsafe(f)) return false;
+      if (!['entity_attribute', 'definition', 'date', 'causal'].includes(f.fact_type)) return false;
+      if (f.extraction_method === 'fallback' || f.fact_type === 'fallback') return false;
+      const subj = cleanText(f.subject || '');
+      const obj = cleanText(f.object || '');
+      if (!subj || !obj) return false;
+      if (!isCleanNewFormSubject(subj) || !isCleanNewFormObject(obj)) return false;
+      // Matching-only gates: List I items must be entities or
+      // concepts, not sentences or gerund phrases ("Children need
+      // special protection", "Living in a place", "the Indian
+      // Constitution came into effect in 1950"), and List II items
+      // must not start with a pronoun ("you a resident ...", "they
+      // depend ...", "it had no ..."), or the pair is a sentence
+      // fragment, not a matchable value. A set that fails any of
+      // these is rejected whole, not repaired by editing.
+      if (/\b(need|needs|want|wants|came|went|became|becomes|is|are|was|were|has|have|had|can|could|will|would|should|must|may|might|does|did|do)\b/i.test(subj)) return false;
+      const subjWords = subj.split(/\s+/);
+      if (subjWords.length >= 2 && /ing$/i.test(subjWords[0]) && /^(in|on|at|by|for|with|from|to|of|a|the)$/i.test(subjWords[1])) return false;
+      if (/^(you|they|it|we|he|she|this|that|these|those)\b/i.test(obj)) return false;
+      if (subj.split(/\s+/).length > 8 || obj.split(/\s+/).length > 15) return false;
+      if (obj.length > 100) return false;
+      if (!f.source_text || f.source_text.indexOf(f.object) === -1) return false;
+      return true;
+    });
+    // Two groupings, both tried, deduplicated by fact set. Grouping
+    // by section alone gives the Articles set (four Articles with
+    // different relations, one theme); grouping by section and
+    // relation as well gives coherent sets from a long chapter
+    // section where consecutive facts are unrelated (all "protects"
+    // facts, all "located" facts). Either grouping alone loses a
+    // real set, so both are tried and a fact set is used once.
+    const groupings = [];
+    const bySection = new Map();
+    for (const f of eligible) {
+      const key = f.section_title || 'Unknown';
+      if (!bySection.has(key)) bySection.set(key, []);
+      bySection.get(key).push(f);
+    }
+    groupings.push(bySection);
+    const byRelation = new Map();
+    for (const f of eligible) {
+      const key = (f.section_title || 'Unknown') + '|' + f.fact_type + '|' + (f.normalized_relation || f.relation || '');
+      if (!byRelation.has(key)) byRelation.set(key, []);
+      byRelation.get(key).push(f);
+    }
+    groupings.push(byRelation);
+    const seenSets = new Set();
+    for (const grouping of groupings) {
+    for (const [section, group] of grouping) {
+      // Take up to two matching sets per section, from consecutive
+      // facts, so a long section can yield more than one set.
+      for (let start = 0; start + 4 <= group.length && start < 8; start += 4) {
+        const set = group.slice(start, start + 4);
+        const setKey = set.map((f) => f.fact_id).sort().join('&');
+        if (seenSets.has(setKey)) continue;
+        seenSets.add(setKey);
+        const subjects = set.map((f) => normalizeSubject(f.subject));
+        const objects = set.map((f) => normalizeObject(f.object));
+        if (new Set(subjects).size !== 4 || new Set(objects).size !== 4) continue;
+        // Ambiguity check: no object may be supported for another
+        // subject in the set under the same relation.
+        let ambiguous = false;
+        for (let i = 0; i < 4 && !ambiguous; i++) {
+          for (let j = 0; j < 4; j++) {
+            if (i === j) continue;
+            if (isValueSupported(ctx.facts, set[i].subject, set[i].relation, set[j].object, set[i].temporal_scope)) { ambiguous = true; break; }
+          }
+        }
+        if (ambiguous) continue;
+        // List II order: sort by hash, then rotate if it happens to
+        // be the identity order (which would make the code trivial).
+        let list2Order = [0, 1, 2, 3].sort((a, b) => stableHash(set[a].subject + '|' + set[a].object) - stableHash(set[b].subject + '|' + set[b].object));
+        if (list2Order.every((v, idx) => v === idx)) list2Order = [1, 2, 3, 0];
+        // Correct code: for List I item i (A-D), the number of its
+        // object in List II (1-based).
+        const correctTargets = set.map((_, i) => list2Order.indexOf(i) + 1);
+        const formatCode = (targets) => targets.map((n, i) => `${String.fromCharCode(65 + i)}-${n}`).join(', ');
+        const correctCode = formatCode(correctTargets);
+        // Distractor codes: swap two targets at a time.
+        const distractorCodes = [];
+        const swaps = [[0, 1], [0, 2], [1, 3]];
+        for (const [a, b] of swaps) {
+          const targets = correctTargets.slice();
+          const tmp = targets[a]; targets[a] = targets[b]; targets[b] = tmp;
+          const code = formatCode(targets);
+          if (code !== correctCode && !distractorCodes.includes(code)) distractorCodes.push(code);
+        }
+        if (distractorCodes.length < 3) continue;
+        const list1 = set.map((f, i) => ({ label: String.fromCharCode(65 + i), text: cleanText(f.subject) }));
+        const list2 = list2Order.map((origIdx, pos) => ({ label: String(pos + 1), text: cleanText(set[origIdx].object) }));
+        const list1Text = list1.map((item) => `${item.label}. ${item.text}`).join('; ');
+        const list2Text = list2.map((item) => `${item.label}. ${item.text}`).join('; ');
+        const stem = `Match List I with List II and select the correct answer using the codes given below. List I: ${list1Text}. List II: ${list2Text}.`;
+        const optionTexts = [correctCode].concat(distractorCodes.slice(0, 3));
+        // Order options by hash so the correct code is not always first.
+        const ordered = optionTexts.map((text) => ({ text, h: stableHash(text) })).sort((a, b) => a.h - b.h).map((o) => o.text);
+        const options = ordered.map((text, idx) => {
+          const result = { key: KEYS[idx], text, is_correct: text === correctCode };
+          if (!result.is_correct) {
+            result.distractor_origin = 'matching_permutation_pool';
+            result.confusion_type = 'partial_truth';
+            result.distractor_purpose = 'partial_truth';
+          }
+          return result;
+        });
+        const answerKey = options.find((o) => o.is_correct).key;
+        const explanationParts = set.map((f, i) => `${list1[i].label} matches ${list2[correctTargets[i] - 1].label}: the source states “${f.supporting_excerpt}”`);
+        const first = set[0];
+        const candidate = {
+          id: 'C-LITE-' + padNumber(seq++, 4),
+          type: 'single_choice',
+          question_subtype: 'matching',
+          stem,
+          lists: { list1, list2 },
+          matching_pairs: set.map((f, i) => ({ subject: cleanText(f.subject), object: cleanText(f.object), list2_index: correctTargets[i] })),
+          options,
+          answer_key: answerKey,
+          expected_answer: correctCode,
+          knowledge_units: set.map((f) => ({ ku_id: f.ku_id, fact_id: f.fact_id, role: 'evidence' })),
+          source_title: first.section_title,
+          source_page: first.source_page,
+          supporting_excerpt: first.supporting_excerpt,
+          explanation: explanationParts.join(' '),
+          difficulty: 'medium',
+          cognitive_level: 'analysis',
+          evidence: {
+            fact_ids: set.map((f) => f.fact_id),
+            excerpts: set.map((f) => f.supporting_excerpt),
+            source_offsets: set.map((f) => ({ fact_id: f.fact_id, start: f.source_start, end: f.source_end })),
+            stem_relation: first.normalized_relation,
+            temporal_scope: first.temporal_scope || '',
+            fact_type: first.fact_type,
+            source_title: first.section_title,
+            source_page: first.source_page
+          },
+          verification: { status: 'candidate', rules: ['matching_pairs_verified', 'permutation_codes'] },
+          answer_relation_key: set.map((f) => f.fact_id + '|' + normalizeObject(f.object)).join('&'),
+          relation_keys: set.map((f) => f.fact_id + '|' + normalizeObject(f.object)),
+          candidate_sort: { source_start: first.source_start, fact_id: first.fact_id }
+        };
+        candidates.push(candidate);
+      }
+    }
     }
     return candidates;
   }
@@ -3492,6 +4125,10 @@
         if (!push(makeEntityCandidate(fact, ctx))) buildMetrics.missingOptions++;
       } else if (fact.fact_type === 'membership') {
         if (!push(makeMembershipCandidate(fact, ctx))) buildMetrics.missingOptions++;
+        // Exception form for the same list: relation_keys collide with
+        // the membership candidate, so a bank never tests the same
+        // list twice, once as "included" and once as "NOT included".
+        push(makeExceptionCandidate(fact, ctx));
       } else if (fact.fact_type === 'sequence') {
         if (!push(makeSequenceCandidate(fact, ctx))) buildMetrics.missingOptions++;
       } else if (fact.fact_type === 'causal') {
@@ -3501,9 +4138,27 @@
       }
     }
 
+    for (const fact of ctx.facts) {
+      if (!fact || fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') continue;
+      if (isFactUnsafe(fact)) continue;
+      if (!['date', 'numeric', 'definition', 'entity_attribute'].includes(fact.fact_type)) continue;
+      if (!multiEligible(fact)) continue;
+      const candidate = makeStatementOptionCandidate(fact, ctx);
+      if (candidate) {
+        candidate.id = 'C-LITE-' + padNumber(seq++, 4);
+        candidates.push(candidate);
+      }
+    }
+
     const multi = buildMultiCandidates(ctx, seq);
     if (!multi.length) buildMetrics.multiMissing++;
     for (const candidate of multi) candidates.push(candidate);
+    const multi3 = buildMulti3Candidates(ctx, seq + multi.length);
+    for (const candidate of multi3) candidates.push(candidate);
+    const ar = buildARCandidates(ctx, seq + multi.length + multi3.length);
+    for (const candidate of ar) candidates.push(candidate);
+    const matching = buildMatchingCandidates(ctx, seq + multi.length + multi3.length + ar.length);
+    for (const candidate of matching) candidates.push(candidate);
 
     Object.defineProperty(candidates, 'buildMetrics', { value: buildMetrics, enumerable: false });
     Object.defineProperty(candidates, 'facts', { value: ctx.facts, enumerable: false });
@@ -3627,7 +4282,7 @@
     // are exempt. This forces selection to pick a different fact
     // whose distractors are length-matched, rather than shipping a
     // giveaway.
-    if (question.question_subtype !== 'multi_statement' && correctOptions.length === 1) {
+    if (question.question_subtype !== 'multi_statement' && question.question_subtype !== 'multi_statement_3' && question.question_subtype !== 'assertion_reason' && question.question_subtype !== 'matching' && correctOptions.length === 1) {
       const distLens = options.filter((o) => !o.is_correct && o.text).map((o) => cleanText(o.text).length).sort((a, b) => a - b);
       if (distLens.length >= 3) {
         const median = distLens[Math.floor(distLens.length / 2)];
@@ -3637,9 +4292,10 @@
         }
       }
     }
-    if (question.question_subtype === 'multi_statement') {
-      if (!Array.isArray(question.statements) || question.statements.length !== 2) {
-        add('statement_count', 'Multi-statement questions must carry exactly two statements for rendering.');
+    if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
+      const expectedStatements = question.question_subtype === 'multi_statement_3' ? 3 : 2;
+      if (!Array.isArray(question.statements) || question.statements.length !== expectedStatements) {
+        add('statement_count', 'Multi-statement questions must carry exactly two (or three, for multi_statement_3) statements for rendering.');
       }
       if (/based on\s+\S/.test(question.stem || '') && /:/.test(question.stem || '')) {
         // The fixed stem is exactly "Consider the following statements:";
@@ -3702,10 +4358,11 @@
     }
 
     const correct = correctOptions[0];
-    if (question.question_subtype === 'multi_statement') {
+    if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
       if (question.type !== 'multi_statement') add('renderer_contract', 'Multi-statement subtype must use the multi_statement renderer type.');
       const statements = Array.isArray(question.statements) ? question.statements : [];
-      if (statements.length !== 2) add('statement_count', 'Multi-statement questions require exactly two verified statements.');
+      const expectedStatementCount = question.question_subtype === 'multi_statement_3' ? 3 : 2;
+      if (statements.length !== expectedStatementCount) add('statement_count', 'Multi-statement questions require exactly two (or three, for multi_statement_3) verified statements.');
       const seenTrue = [];
       for (const statement of statements) {
         const fact = facts.find((item) => item.fact_id === statement.fact_id);
@@ -3741,10 +4398,10 @@
           add('statement_truth', 'Every statement needs a verified truth value.', { fact_id: statement.fact_id });
         }
       }
-      const trueCount = statements.filter((statement) => statement.truth_value === true).length;
-      let expectedText = 'Neither 1 nor 2';
-      if (trueCount === 2) expectedText = 'Both 1 and 2';
-      else if (trueCount === 1) expectedText = statements[0] && statements[0].truth_value ? '1 only' : '2 only';
+      const trueNumbers = statements.filter((statement) => statement.truth_value === true).map((statement) => statement.number);
+      // Statements are in source order, so the correct combination is
+      // the set of true numbers, not just how many are true.
+      let expectedText = comboTextForTrueNumbers(trueNumbers, statements.length);
       if (normalizeOption(correct.text) !== normalizeOption(expectedText)) {
         add('truth_pattern', 'The keyed option must match the verified truth pattern.', { expected: expectedText, actual: correct.text });
       }
@@ -3776,7 +4433,95 @@
     }
 
     let expected = fact.object;
-    if (question.question_subtype === 'classification_membership') {
+    if (question.question_subtype === 'matching') {
+      // The correct option must be the code for the recorded pairs,
+      // and every pair must be a verified fact: the List I subject
+      // must have exactly that object in the source.
+      if (!Array.isArray(question.matching_pairs) || question.matching_pairs.length !== 4) {
+        add('source_answer', 'Matching questions must carry exactly four verified pairs.', {});
+      } else {
+        const pairs = question.matching_pairs;
+        for (const pair of pairs) {
+          const pf = facts.find((item) => normalizeSubject(item.subject) === normalizeSubject(pair.subject));
+          if (!pf) {
+            add('source_answer', 'Every matching pair must reference a real fact.', { subject: pair.subject });
+          } else if (normalizeObject(pf.object) !== normalizeObject(pair.object)) {
+            add('source_answer', 'Matching pair object must equal the extracted fact value.', { subject: pair.subject });
+          }
+        }
+        // Parse the correct code and compare it with the pairs.
+        const codeMap = {};
+        for (const m of String(correct.text || '').matchAll(/([A-D])-(\d)/g)) codeMap[m[1]] = Number(m[2]);
+        for (let i = 0; i < 4; i++) {
+          const letter = String.fromCharCode(65 + i);
+          if (codeMap[letter] !== pairs[i].list2_index) {
+            add('source_answer', 'Matching code must map each List I item to its verified List II number.', { letter, expected: pairs[i].list2_index, actual: codeMap[letter] });
+          }
+        }
+      }
+      // Every code option must be a permutation of 1-4.
+      for (const opt of options) {
+        const nums = [...String(opt.text || '').matchAll(/-(\d)/g)].map((m) => Number(m[1])).sort().join(',');
+        if (nums !== '1,2,3,4') {
+          add('source_answer', 'Matching code options must be permutations of 1, 2, 3 and 4.', { text: opt.text });
+        }
+      }
+      expected = correct.text;
+    } else if (question.question_subtype === 'assertion_reason') {
+      // A-R answers are codes, not fact values: the correct option
+      // must be the standard text for the recorded pattern, and the
+      // Assertion and Reason must be present, distinct, complete
+      // sentences. Truth re-derivation for (a) is builder-side (the
+      // effect claim is derived, not a source sentence); for other
+      // patterns the recorded truth is checked by the regression
+      // tests, not by re-running the builder here.
+      if (!question.assertion || !question.reason || question.assertion === question.reason) {
+        add('source_answer', 'Assertion-Reason questions must carry distinct Assertion and Reason statements.', {});
+      }
+      for (const s of [question.assertion, question.reason]) {
+        if (s && (!/[.!?]$/.test(s) || s.split(/\s+/).length < 3)) {
+          add('source_answer', 'Assertion and Reason must be complete sentences.', { text: s });
+        }
+      }
+      const patternIndex = { a: 0, b: 1, c: 2, d: 3 }[question.ar_pattern];
+      if (patternIndex == null) {
+        add('source_answer', 'Assertion-Reason questions must record a pattern a/b/c/d.', { pattern: question.ar_pattern });
+      } else {
+        const expectedTexts = [
+          'Both A and R are true and R is the correct explanation of A',
+          'Both A and R are true but R is NOT the correct explanation of A',
+          'A is true but R is false',
+          'A is false but R is true'
+        ];
+        if (normalizeOption(correct.text) !== normalizeOption(expectedTexts[patternIndex])) {
+          add('source_answer', 'Assertion-Reason key must match the recorded pattern.', { pattern: question.ar_pattern, actual: correct.text });
+        }
+        const optionTexts = options.map((o) => normalizeOption(o.text));
+        for (const et of expectedTexts) {
+          if (!optionTexts.includes(normalizeOption(et))) {
+            add('source_answer', 'Assertion-Reason options must be the four standard judgements.', { missing: et });
+          }
+        }
+      }
+      expected = correct.text;
+    } else if (question.question_subtype === 'exception_reasoning') {
+      // The correct answer must NOT be a member; every distractor
+      // must be a true member, or the "exception" is not one.
+      if (!Array.isArray(fact.members) || fact.members.some((member) => normalizeObject(member) === normalizeOption(correct.text))) {
+        add('source_answer', 'Exception answer must not be one of the stated members.', { answer: correct.text });
+      }
+      for (const opt of options) {
+        if (!opt.is_correct && (!Array.isArray(fact.members) || !fact.members.some((member) => normalizeObject(member) === normalizeOption(opt.text)))) {
+          add('source_answer', 'Exception distractors must all be true members.', { answer: opt.text });
+        }
+      }
+      expected = correct.text;
+    } else if (question.question_subtype === 'statement_option') {
+      if (normalizeOption(correct.text) !== normalizeOption(fact.source_text)) {
+        add('source_answer', 'Statement-option answer must be the exact source statement.', { answer: correct.text });
+      }
+      expected = correct.text;
+    } else if (question.question_subtype === 'classification_membership') {
       if (!Array.isArray(fact.members) || !fact.members.some((member) => normalizeObject(member) === normalizeOption(correct.text))) {
         add('source_answer', 'Membership answer must be one of the stated members.', { answer: correct.text });
       }
@@ -4034,6 +4779,40 @@
     const usedRelations = new Set();
     const usedStems = new Set();
     const subtypeUse = {};
+    // Fact-expensive forms first: a three-statement question consumes
+    // three facts for one question, so if direct questions claim
+    // those facts first, it can never be selected at all — which is
+    // why the first mock-test regeneration contained no multi_3
+    // items despite them existing as candidates. Give multi_3 and
+    // multi_statement first claim on their facts, one each, then
+    // fill normally. This is allocation, not a quota: if no triple
+    // survives, the bank simply has no multi_3 item.
+    // Only when facts are abundant: in a small source, a multi
+    // question that consumes three facts for one question starves
+    // the bank (a science sample fell from 5 to 4 questions), so
+    // the first pass is skipped there and the bank fills normally.
+    const distinctFactCount = new Set(validated.flatMap((c) => (c.evidence && c.evidence.fact_ids) || [])).size;
+    const factExpensiveFirst = distinctFactCount >= targetCount * 2;
+    for (const prioritySubtype of (factExpensiveFirst ? ['multi_statement_3', 'multi_statement', 'assertion_reason'] : [])) {
+      if (selected.length >= targetCount) break;
+      const pool = validated.filter((candidate) =>
+        candidate.question_subtype === prioritySubtype &&
+        !candidate.relation_keys.some((key) => usedRelations.has(key)) &&
+        !usedStems.has(normalizeOption(candidate.stem))
+      );
+      if (!pool.length) continue;
+      pool.sort((a, b) => {
+        const startA = a.candidate_sort ? a.candidate_sort.source_start : 0;
+        const startB = b.candidate_sort ? b.candidate_sort.source_start : 0;
+        if (startA !== startB) return startA - startB;
+        return String(a.id).localeCompare(String(b.id));
+      });
+      const chosen = pool[0];
+      selected.push(chosen);
+      for (const key of chosen.relation_keys) usedRelations.add(key);
+      usedStems.add(normalizeOption(chosen.stem));
+      subtypeUse[chosen.question_subtype] = (subtypeUse[chosen.question_subtype] || 0) + 1;
+    }
     while (selected.length < targetCount) {
       const available = validated.filter((candidate) => {
         if (candidate.relation_keys.some((key) => usedRelations.has(key))) return false;
@@ -4160,6 +4939,158 @@
     return accepted;
   }
 
+  // Mock-test assembly (not a bank dump). A bank is a pool of
+  // verified questions; a mock test is a selected paper with a
+  // blueprint: coverage across sections, a difficulty mix, no fact
+  // reused, no answer leaked by another question, and balanced
+  // answer keys. Selection is deterministic (input order + hashes),
+  // so the same bank always assembles the same paper, and a
+  // different bank assembles a different one.
+  function assembleMockTest(questions, options) {
+    const opts = options || {};
+    const all = Array.isArray(questions) ? questions.filter((q) => q && Array.isArray(q.options) && q.options.length === 4 && q.options.filter((o) => o.is_correct).length === 1) : [];
+    const target = Number.isFinite(opts.targetCount) && opts.targetCount > 0 ? Math.floor(opts.targetCount) : Math.min(20, all.length);
+    const mixRaw = opts.difficultyMix || { easy: 0.3, medium: 0.5, hard: 0.2 };
+    const mixSum = (mixRaw.easy || 0) + (mixRaw.medium || 0) + (mixRaw.hard || 0) || 1;
+    const mix = { easy: (mixRaw.easy || 0) / mixSum, medium: (mixRaw.medium || 0) / mixSum, hard: (mixRaw.hard || 0) / mixSum };
+    const patternAnswers = new Set(['1 only', '2 only', '3 only', 'both 1 and 2', 'neither 1 nor 2', '1 and 2 only', '1 and 3 only', '2 and 3 only', '1, 2 and 3', 'none of the above']);
+    function questionText(q) {
+      // Only stems and statements count as leakage: an answer that
+      // appears as a distractor in another question is normal exam
+      // practice (the same set of places, years, or terms recurs as
+      // options), not a giveaway. An answer stated in another
+      // question's stem or in a multi-statement, however, gives it
+      // away before the student even reads the options.
+      const parts = [q.stem || ''];
+      for (const s of q.statements || []) parts.push(s.text || '');
+      return normalizeOption(parts.join(' '));
+    }
+    function leaks(a, b) {
+      // Does a's answer appear in b's text, or b's answer in a's?
+      const pairs = [[a, b], [b, a]];
+      for (const [first, second] of pairs) {
+        const ans = normalizeOption(first.expected_answer || '');
+        if (!ans || ans.length < 3 || patternAnswers.has(ans)) continue;
+        if (questionText(second).includes(ans)) return true;
+      }
+      return false;
+    }
+    const sections = [];
+    for (const q of all) {
+      const s = q.source_title || 'Unknown';
+      if (!sections.includes(s)) sections.push(s);
+    }
+    const selected = [];
+    const rejected = new Set();
+    const usedRelations = new Set();
+    const usedStems = new Set();
+    const subtypeUse = {};
+    const difficultyUse = { easy: 0, medium: 0, hard: 0 };
+    let leakageRejected = 0;
+    let reuseRejected = 0;
+    let sectionCursor = 0;
+    // Round-robin across sections, so a paper does not come only
+    // from the first chapter section that happened to yield facts.
+    // Within a section, prefer the difficulty with the largest
+    // remaining deficit against the mix, then the least-used subtype.
+    while (selected.length < target) {
+      let progressed = false;
+      for (let round = 0; round < sections.length && selected.length < target; round++) {
+        const section = sections[(sectionCursor + round) % sections.length];
+        const pool = all.filter((q) => (q.source_title || 'Unknown') === section && !selected.includes(q) && !rejected.has(q));
+        if (!pool.length) continue;
+        const deficits = {};
+        for (const d of ['easy', 'medium', 'hard']) {
+          deficits[d] = Math.round(mix[d] * target) - (difficultyUse[d] || 0);
+        }
+        pool.sort((a, b) => {
+          const da = deficits[a.difficulty] || 0;
+          const db = deficits[b.difficulty] || 0;
+          if (db !== da) return db - da;
+          const ua = subtypeUse[a.question_subtype] || 0;
+          const ub = subtypeUse[b.question_subtype] || 0;
+          if (ua !== ub) return ua - ub;
+          return all.indexOf(a) - all.indexOf(b);
+        });
+        let chosen = null;
+        for (const cand of pool) {
+          const stemKey = normalizeOption(cand.stem || '');
+          const rels = Array.isArray(cand.relation_keys) ? cand.relation_keys : [];
+          // Relation keys (fact id + value) are the reuse identity:
+          // fact ids alone restart at F-LITE-001 for every source, so
+          // they cannot be used to detect reuse across combined banks.
+          if (usedStems.has(stemKey) || rels.some((r) => usedRelations.has(r))) {
+            rejected.add(cand);
+            reuseRejected++;
+            continue;
+          }
+          if (selected.some((s) => leaks(s, cand))) {
+            rejected.add(cand);
+            leakageRejected++;
+            continue;
+          }
+          chosen = cand;
+          break;
+        }
+        if (!chosen) continue;
+        selected.push(chosen);
+        usedStems.add(normalizeOption(chosen.stem || ''));
+        for (const r of chosen.relation_keys || []) usedRelations.add(r);
+        subtypeUse[chosen.question_subtype] = (subtypeUse[chosen.question_subtype] || 0) + 1;
+        difficultyUse[chosen.difficulty] = (difficultyUse[chosen.difficulty] || 0) + 1;
+        progressed = true;
+      }
+      sectionCursor = (sectionCursor + 1) % Math.max(1, sections.length);
+      if (!progressed) break;
+    }
+    // Key balancing: reassign keys so counts differ by at most one,
+    // choosing the least-used key per question (tie-broken by a hash
+    // of the question id, so the key sequence is not a simple ABCD
+    // rotation a student could learn). Input questions are copied,
+    // never mutated.
+    const keyCounts = { A: 0, B: 0, C: 0, D: 0 };
+    const balanced = selected.map((q) => {
+      const copy = Object.assign({}, q);
+      const correct = q.options.find((o) => o.is_correct);
+      const distractors = q.options.filter((o) => !o.is_correct);
+      let targetKey = KEYS[0];
+      let bestScore = Infinity;
+      for (const key of KEYS) {
+        const score = keyCounts[key] * 10 + (stableHash(q.id || q.stem || '') % 4 === KEYS.indexOf(key) ? 0 : 1);
+        if (score < bestScore) { bestScore = score; targetKey = key; }
+      }
+      keyCounts[targetKey]++;
+      const newOptions = [];
+      let dIdx = 0;
+      for (const key of KEYS) {
+        if (key === targetKey) newOptions.push(Object.assign({}, correct, { key }));
+        else newOptions.push(Object.assign({}, distractors[dIdx++], { key }));
+      }
+      copy.options = newOptions;
+      copy.answer_key = targetKey;
+      return copy;
+    });
+    const audit = {
+      total: balanced.length,
+      target,
+      byDifficulty: { easy: difficultyUse.easy || 0, medium: difficultyUse.medium || 0, hard: difficultyUse.hard || 0 },
+      difficultyTarget: { easy: Math.round(mix.easy * target), medium: Math.round(mix.medium * target), hard: Math.round(mix.hard * target) },
+      bySubtype: subtypeUse,
+      bySection: {},
+      keyDistribution: keyCounts,
+      sectionsCovered: 0,
+      sectionsAvailable: sections.length,
+      leakageRejected,
+      reuseRejected
+    };
+    for (const q of balanced) {
+      const s = q.source_title || 'Unknown';
+      audit.bySection[s] = (audit.bySection[s] || 0) + 1;
+    }
+    audit.sectionsCovered = Object.keys(audit.bySection).length;
+    return { questions: balanced, audit };
+  }
+
   const StudySynthEngine = {
     cleanText,
     classifySentenceRole,
@@ -4176,6 +5107,7 @@
     validateQuestion,
     validateQuestionBank,
     generateQuestionBank,
+    assembleMockTest,
     isUsableSubject,
     checkSubjectQuality,
     cleanNumericAttribute,
