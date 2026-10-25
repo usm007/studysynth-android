@@ -463,7 +463,15 @@
   function mapFactToProposition(fact) {
     if (!fact) return null;
     let relationType = RELATION_TYPES.HAS_PROPERTY;
-    if (fact.fact_type === 'causal' || fact.causal_direction) {
+    // Phase 8 fix (third round): a temporal conditional ("When X, Y")
+    // is not a causal mechanism. Mapping it to CAUSES let Operator B
+    // turn "When the work was nearly done, a reporter asked ..." into
+    // "the work causes a reporter ...". Conditionals map to
+    // CONDITIONAL_ON, which Operator D (conditional reasoning) can use,
+    // but Operator B (causal explanation) cannot.
+    if (fact.extraction_method === 'causal_conditional' || /^(if|when|unless)$/i.test(fact.relation_verb || '')) {
+      relationType = RELATION_TYPES.CONDITIONAL_ON;
+    } else if (fact.fact_type === 'causal' || fact.causal_direction) {
       relationType = RELATION_TYPES.CAUSES;
     } else if (fact.fact_type === 'definition') {
       relationType = RELATION_TYPES.DEFINITION_OF;
@@ -473,12 +481,25 @@
       relationType = RELATION_TYPES.HAS_PROPERTY;
     }
 
+    // Phase 8 fix (fourth round): production conditional facts store the
+    // condition as subject and the consequence as object (condition ->
+    // outcome), but the representation convention for CONDITIONAL_ON is
+    // outcome as subject and condition as object (outcome conditional on
+    // condition). Without this swap, Operator D asked "under what
+    // condition does [condition] occur?" with the consequence as the
+    // answer — the converse of the source conditional.
+    const bridgedSubject = relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional'
+      ? (fact.object || '')
+      : (fact.subject || '');
+    const bridgedObject = relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional'
+      ? (fact.subject || '')
+      : (fact.object || '');
     return createProposition({
       id: fact.fact_id,
-      subject: fact.subject || '',
+      subject: bridgedSubject,
       predicate: fact.relation_verb || fact.relation || 'has property',
       relation_type: relationType,
-      object: fact.object || '',
+      object: bridgedObject,
       polarity: fact.polarity === 'negative' ? POLARITY.NEGATIVE : POLARITY.POSITIVE,
       modality: MODALITY.FACT,
       quantification: QUANTIFICATION.UNSPECIFIED,
@@ -498,8 +519,24 @@
     const propositionMap = new Map();
 
     // 1. First, incorporate existing facts (ensures full baseline compatibility)
+    //    A fact explicitly tagged with a non-assertion sentence role is
+    //    never bridged into a proposition; facts without a role tag keep
+    //    their legacy behaviour (they were already production-validated).
     if (Array.isArray(existingFacts)) {
       for (const fact of existingFacts) {
+        if (fact && fact.sentence_role && fact.sentence_role !== 'assertion') continue;
+        // Phase 8 fix: a bridged causal fact with a fragment subject or
+        // object must not enter the graph, even if production validation
+        // let it through elsewhere.
+        if (fact && fact.fact_type === 'causal') {
+          const frag = (s) => {
+            const t = String(s || '').trim();
+            return !t || /^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(t)
+              || /^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)
+              || /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t);
+          };
+          if (frag(fact.subject) || frag(fact.object)) continue;
+        }
         const prop = mapFactToProposition(fact);
         if (prop) {
           propositions.push(prop);
@@ -519,6 +556,12 @@
 
         const sentences = Linguistics.splitSentencesWithOffsets(text);
         for (const s of sentences) {
+          // Sentence-role gate (Repair 002, Phase 4): only assertions may
+          // generate factual propositions. Interrogatives, instructions
+          // and ambiguous fragments are skipped before any relation
+          // extraction, including causal, conditional and definition.
+          const sentenceRole = Linguistics.classifySentenceRole(s.text);
+          if (sentenceRole !== 'assertion') continue;
           const analysis = Linguistics.analyzeSentenceLinguistics(s, text);
 
           // Extract all relation types
@@ -539,6 +582,7 @@
           ];
 
           for (const prop of allExtracted) {
+            prop.sentence_role = sentenceRole;
             // Deduplicate against existing by subject+relation+object
             const key = `${prop.subject_normalized}|${prop.relation_type}|${prop.object_normalized}`;
             if (!propositionMap.has(key)) {
@@ -560,7 +604,8 @@
     createProposition,
     compileSemanticRepresentation,
     mapFactToProposition,
-    resetPropositionCounter
+    resetPropositionCounter,
+    classifySentenceRole: Linguistics.classifySentenceRole
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = Representation;

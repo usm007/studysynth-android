@@ -1,5 +1,5 @@
 /**
- * StudySynth - Offline Service Worker (v36)
+ * StudySynth - Offline Service Worker (v37)
  * Caches the complete local workspace so the installed app opens and works
  * without a network. All paths are scope-relative for sub-path hosting.
  */
@@ -10,7 +10,7 @@ try {
   importScripts('./ctet_manifest.js');
 } catch (err) { /* no bundled content in this build */ }
 
-const CACHE_NAME = 'studysynth-v36';
+const CACHE_NAME = 'studysynth-v37';
 // Bump this whenever any runtime asset or bundled study-set body changes:
 // the worker is cache-first, so a stale name would keep serving old files.
 const BUNDLED_BODIES = (self.CTET_BUNDLED_BODIES || []);
@@ -23,6 +23,16 @@ const CORE_ASSETS = [
   './sample_data.js',
   './ctet_index.js',
   './engine/generator.js',
+  './engine/reasoning/types.js',
+  './engine/reasoning/linguistics.js',
+  './engine/reasoning/representation.js',
+  './engine/reasoning/graph.js',
+  './engine/reasoning/distractors.js',
+  './engine/reasoning/operators.js',
+  './engine/reasoning/constructors.js',
+  './engine/reasoning/validator.js',
+  './engine/reasoning/ranking.js',
+  './engine/reasoning/engine_v2.js',
   './engine/analyze.js',
   './engine/pdfParser.js',
   './engine/ocr.js',

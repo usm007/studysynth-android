@@ -23,6 +23,21 @@
     return String(str || '').toLowerCase().trim();
   }
 
+  // Phase 8 fix: a distractor object that is a bare pronoun, a preposition
+  // phrase, or a dangling fragment ("It", "to", "of the", "which") makes
+  // the whole distractor malformed, even if the template is grammatical.
+  function isFragmentObject(raw) {
+    const text = String(raw || '').trim();
+    if (!text || text.length < 2) return true;
+    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text)) return true;
+    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(text)) return true;
+    if (/\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(text)) return true;
+    if (text.includes(';') || text.includes('|')) return true;
+    if (/^[^A-Za-z0-9]+/.test(text)) return true;
+    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(text)) return true;
+    return false;
+  }
+
   /**
    * Builds 3 distinct, typed distractors for a derived proposition and target correct answer
    */
@@ -35,6 +50,14 @@
       const clean = text.trim();
       const norm = normalize(clean);
       if (clean.length < 3 || usedTexts.has(norm)) return false;
+      // Phase 8 fix: reject a distractor whose trailing concept is a
+      // fragment, e.g. "It operates independently without influencing It"
+      // or "... without influencing to". A candidate left with fewer than
+      // three distractors is dropped by the constructor, which is correct:
+      // do not backfill a malformed distractor to hit a target count.
+      const influenceMatch = clean.match(/without influencing\s+(.+)$/i);
+      if (influenceMatch && isFragmentObject(influenceMatch[1])) return false;
+      if (isFragmentObject(object) && clean.includes(object)) return false;
 
       // Closed-context verification: ensure distractor is not accidentally true in the source graph
       if (graph && typeof graph.findPropositions === 'function') {

@@ -48,6 +48,25 @@
     };
   }
 
+  // Phase 8 fix: fragment check for causal arguments. A cause/effect that
+  // is a bare pronoun, a preposition phrase, or a dangling fragment
+  // ("of the", "if needed", "to") cannot support a causal question.
+  function isFragmentPhrase(text) {
+    const t = String(text || '').trim();
+    if (!t || t.length < 2) return true;
+    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(t)) return true;
+    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)) return true;
+    if (/\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t)) return true;
+    if (t.includes(';') || t.includes('|')) return true;
+    if (/^[^A-Za-z0-9]+/.test(t)) return true;
+    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(t)) return true;
+    return false;
+  }
+
+  function normalizeForClauseCheck(text) {
+    return String(text || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+
   // ==========================================
   // OPERATOR A — Rule Application
   // ==========================================
@@ -116,6 +135,51 @@
     }
     if (causalProp.modality === MODALITY.POSSIBILITY) {
       return rejection(REJECTION_CODES.SPECULATIVE_MODALITY, 'Causal relation is tentative/speculative');
+    }
+    // Phase 8 fix: cause and effect must be usable concepts, and they
+    // must co-occur in the same clause of the supporting excerpt. This
+    // rejects the classic cross-clause misattribution: "Human lives are
+    // deeply connected to its many features; for instance, the distant
+    // Southern Indian Ocean influences the monsoon" must not yield
+    // "Human lives causes the monsoon", because Human lives is not in
+    // the causal clause after the semicolon.
+    if (isFragmentPhrase(causalProp.subject) || isFragmentPhrase(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject or object is a fragment, not a usable concept');
+    }
+    // Phase 8 fix (second round): an effect must be a clean concept, not
+    // a pronoun clause ("it has sunny weather"), a comma clause, or a
+    // compound predicate ("climate, and is home to a variety"). A cause
+    // containing a heading colon is not a concept either, and a naming
+    // explanation ("is called ... because ...") is not a mechanism.
+    if (/^(it|they|you|he|she|we)\b/i.test(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect starts with a pronoun, not a standalone concept');
+    }
+    // Phase 8 fix (third round): an effect that is a whole sentence
+    // (26 words, sentence punctuation, a second clause) is not a concept
+    // that a causal question can ask about.
+    if (causalProp.object.split(/\s+/).filter(Boolean).length > 12 || causalProp.subject.split(/\s+/).filter(Boolean).length > 12) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal argument is a sentence, not a concept');
+    }
+    if (/[.?]\s+\S/.test(causalProp.object) || /\s[ab]\)\s/.test(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect contains a second sentence or list marker');
+    }
+    if (causalProp.object.includes(',') || /\band\s+(is|are|was|were|has|have)\b/i.test(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect is a compound clause, not a single concept');
+    }
+    if (causalProp.subject.includes(':')) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject is a heading, not a concept');
+    }
+    if (causalProp.supporting_excerpt && /\bis called\b|\bknown as\b/i.test(causalProp.supporting_excerpt) && /\bbecause\b/i.test(causalProp.supporting_excerpt)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Naming explanation is not a causal mechanism');
+    }
+    if (causalProp.supporting_excerpt && typeof causalProp.supporting_excerpt === 'string' && causalProp.supporting_excerpt.includes(';')) {
+      const clause = causalProp.supporting_excerpt.slice(causalProp.supporting_excerpt.lastIndexOf(';') + 1);
+      const clauseNorm = normalizeForClauseCheck(clause);
+      const subjectNorm = normalizeForClauseCheck(causalProp.subject);
+      const objectNorm = normalizeForClauseCheck(causalProp.object);
+      if (subjectNorm && objectNorm && (!clauseNorm.includes(subjectNorm) || !clauseNorm.includes(objectNorm))) {
+        return rejection(REJECTION_CODES.UNSUPPORTED_PREMISE, 'Causal subject and effect do not co-occur in the causal clause of the excerpt');
+      }
     }
 
     const derived = Representation.createProposition({
@@ -197,6 +261,16 @@
     }
     if (condProp.relation_type !== RELATION_TYPES.CONDITIONAL_ON && condProp.relation_type !== RELATION_TYPES.REQUIRES) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a conditional or requirement');
+    }
+    // Phase 8 fix (fourth round): a conditional outcome must be a clean
+    // concept, not a long clause, a comma clause, or a pronoun. This
+    // rejects temporal "When X, Y" narratives that were bridged as
+    // conditionals, whose outcomes are whole sentences.
+    if (condProp.subject.split(/\s+/).filter(Boolean).length > 12 || condProp.object.split(/\s+/).filter(Boolean).length > 12) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Conditional argument is a sentence, not a concept');
+    }
+    if (condProp.subject.includes(',') || /^(it|they|you|he|she|we)\b/i.test(condProp.subject)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Conditional outcome is a clause, not a concept');
     }
 
     const derived = Representation.createProposition({

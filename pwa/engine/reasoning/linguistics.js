@@ -20,6 +20,93 @@
     'aug', 'sep', 'sept', 'oct', 'nov', 'dec'
   ]);
 
+  // ---------------------------------------------------------------------------
+  // Sentence-role classification (Repair 002, Phase 4). Deterministic and
+  // shared with the production generator: only 'assertion' sentences may
+  // generate ordinary factual propositions. Interrogatives, instructions
+  // and ambiguous fragments must never become factual claims.
+  // ---------------------------------------------------------------------------
+  const IMPERATIVE_PHRASES = [
+    'think about', 'look at'
+  ];
+  const IMPERATIVE_VERBS = [
+    'consider', 'imagine', 'take', 'observe', 'discuss', 'explain', 'compare',
+    'answer', 'try', 'use', 'draw', 'write', 'describe', 'suppose', 'assume'
+  ];
+  const INTERROGATIVE_WORDS = [
+    'what', 'who', 'whom', 'whose', 'which', 'when', 'where', 'why', 'how'
+  ];
+  const AUXILIARY_WORDS = [
+    'do', 'does', 'did', 'is', 'are', 'was', 'were', 'can', 'could', 'will',
+    'would', 'should', 'may', 'might', 'has', 'have', 'had'
+  ];
+
+  function classifySentenceRole(text) {
+    if (!text || typeof text !== 'string') return 'ambiguous';
+    const trimmed = String(text).trim().replace(/\s+/g, ' ');
+    if (!trimmed) return 'ambiguous';
+    // 1. Terminal question mark, including one followed by closing quotes
+    //    or brackets.
+    if (/\?\s*['"’”\)\]]*\s*$/.test(trimmed)) return 'interrogative';
+    const lower = trimmed.toLowerCase();
+    // 3 (checked before bare interrogative words, so "Explain why ..."
+    //    is an instruction, not a question): textbook imperatives at the
+    //    start of the sentence.
+    for (const phrase of IMPERATIVE_PHRASES) {
+      if (lower === phrase || lower.startsWith(phrase + ' ')) return 'instruction';
+    }
+    const firstWord = lower.split(/\s+/)[0].replace(/^[^a-z]+|[^a-z]+$/g, '');
+    if (IMPERATIVE_VERBS.includes(firstWord)) return 'instruction';
+    // 2. Interrogative constructions even when punctuation is missing.
+    if (INTERROGATIVE_WORDS.includes(firstWord)) {
+      // Subordinate-clause exception: "When light intensity increases,
+      // the rate of photosynthesis increases ..." is an assertion with
+      // a temporal clause, not a question. A question in this form
+      // would end with a question mark, which is handled above, so a
+      // when/where/why/how sentence with a comma followed by a main
+      // clause is not interrogative.
+      if (['when', 'where', 'why', 'how'].includes(firstWord)) {
+        const commaIndex = trimmed.indexOf(',');
+        if (commaIndex > 0 && trimmed.slice(commaIndex + 1).trim().split(/\s+/).length >= 2) {
+          // Fall through to assertion.
+        } else {
+          return 'interrogative';
+        }
+      } else {
+        return 'interrogative';
+      }
+    }
+    if (AUXILIARY_WORDS.includes(firstWord)) {
+      // A sentence opening with an auxiliary verb is a question in
+      // textbook prose ("Is the river...?", "Do human actions...?").
+      // An assertion that merely contains an auxiliary later in the
+      // sentence is unaffected, because only the first word is checked.
+      return 'interrogative';
+    }
+    // 4. Fragments, prompt-like text and unclear roles are ambiguous.
+    const words = trimmed.split(/\s+/).filter(Boolean);
+    if (words.length <= 2) return 'ambiguous';
+    if (/[:_]{2,}|_{3,}|\.\.\./.test(trimmed)) return 'ambiguous';
+    if (/^(q\.|question|activity|exercise|note|hint)\s*[:.]/i.test(trimmed)) return 'ambiguous';
+    // A three-word fragment ("Map of India") has no verb in the middle
+    // position; a three-word assertion ("Rain helps farmers.") does.
+    // The middle word ending in -s/-es is the usual third-person verb
+    // form in textbook prose, so it counts as a verb here.
+    if (words.length === 3) {
+      // A three-word sentence may be subject-verb-object ("Rain helps
+      // farmers.") or subject-verb ("The river floods."). Either the
+      // middle or the last word being verb-like makes it an assertion;
+      // a fragment such as "Map of India" has no verb in either place.
+      const verbLikeWord = (w) => {
+        const clean = w.replace(/[^a-z]/gi, '').toLowerCase();
+        return /^(is|are|was|were|has|have|had|causes?|leads?|means?|refers?|consists?|includes?|helps?|supports?|affects?|flows?|floods?|rises?|falls?|grows?)$/i.test(w)
+          || (clean.length > 3 && /s$/.test(clean) && !/ss$/.test(clean));
+      };
+      if (!verbLikeWord(words[1]) && !verbLikeWord(words[2])) return 'ambiguous';
+    }
+    return 'assertion';
+  }
+
   // Clean and normalize whitespace while preserving exact offset mapping if needed
   function cleanText(text) {
     if (!text) return '';
@@ -418,6 +505,7 @@
 
   const Linguistics = {
     cleanText,
+    classifySentenceRole,
     splitSentencesWithOffsets,
     analyzeSentenceLinguistics,
     detectModality,

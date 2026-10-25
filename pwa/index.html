@@ -467,6 +467,21 @@
   <!-- Offline Scripts -->
   <script src="./sample_data.js"></script>
   <script src="./ctet_index.js"></script>
+  <!-- Reasoning V2 dependency chain (Repair 002, Phase 6): engine_v2.js
+       captures its dependencies at load time, so every module it needs
+       must load before generator.js, in dependency order, exactly once.
+       Order: Types -> Linguistics -> Representation, Graph, Distractors
+       -> Operators -> Constructors -> Validator -> Ranking -> Engine V2. -->
+  <script src="./engine/reasoning/types.js"></script>
+  <script src="./engine/reasoning/linguistics.js"></script>
+  <script src="./engine/reasoning/representation.js"></script>
+  <script src="./engine/reasoning/graph.js"></script>
+  <script src="./engine/reasoning/distractors.js"></script>
+  <script src="./engine/reasoning/operators.js"></script>
+  <script src="./engine/reasoning/constructors.js"></script>
+  <script src="./engine/reasoning/validator.js"></script>
+  <script src="./engine/reasoning/ranking.js"></script>
+  <script src="./engine/reasoning/engine_v2.js"></script>
   <script src="./engine/generator.js"></script>
   <script src="./engine/analyze.js"></script>
   <script src="./engine/pdfParser.js"></script>

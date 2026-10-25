@@ -1,0 +1,715 @@
+/**
+ * StudySynth Lite — Repair 002 regression tests.
+ *
+ * Covers the five defect groups in STUDYSYNTH REPAIR 002:
+ *  1. Shared geometry-aware PDF layout extraction (pdfParser.js).
+ *  2. Paragraph and page boundaries (generator.js parseRawDocument).
+ *  3. Sentence-role classification (linguistics / representation / generator).
+ *  4. Causal-verb corrections (generator parseCause, V2 representation).
+ *  5. Validated Reasoning V2 integration + browser/worker loading.
+ *
+ * Framework: plain Node.js + assert, matching the existing test files.
+ * Run directly: node tests/test_repair002.js
+ * (npm test also runs it; see pwa/package.json.)
+ */
+
+'use strict';
+
+// Node.js polyfills required by the bundled PDF.js build, mirroring
+// pwa/tests/batch_generate_all_ncert.js.
+if (!Uint8Array.prototype.toHex) {
+  Uint8Array.prototype.toHex = function () {
+    return Buffer.from(this).toString('hex');
+  };
+}
+if (!Math.sumPrecise) {
+  Math.sumPrecise = function (arr) {
+    let sum = 0;
+    for (const n of arr) sum += Number(n) || 0;
+    return sum;
+  };
+}
+
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+
+const pwaDir = path.join(__dirname, '..');
+const Parser = require('../engine/pdfParser.js');
+const Engine = require('../engine/generator.js');
+const Analysis = require('../engine/analyze.js');
+const EngineV2 = require('../engine/reasoning/engine_v2.js');
+const Linguistics = require('../engine/reasoning/linguistics.js');
+const Representation = require('../engine/reasoning/representation.js');
+
+let passed = 0;
+function check(name, fn) {
+  fn();
+  passed++;
+  console.log('  ✓ ' + name);
+}
+
+// ---------------------------------------------------------------------------
+// Helpers: mocked PDF.js content (bottom-up coordinates, as PDF.js returns)
+// ---------------------------------------------------------------------------
+function item(str, x, yBottom, w, h) {
+  return { str: str, transform: [1, 0, 0, 1, x, yBottom], width: w, height: h || 12 };
+}
+function layout(items, pageNumber) {
+  return Parser.extractLayoutFromTextContent(
+    { items: items },
+    pageNumber || 1,
+    { width: 612, height: 792 }
+  );
+}
+function bodyBlockTexts(out) {
+  return out.blocks.filter((b) => b.type === 'body').map((b) => b.text);
+}
+
+// ---------------------------------------------------------------------------
+// 1. PDF layout
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: PDF layout ---');
+
+// Two-column prose with correct reading order, and a full-width heading
+// followed by two columns.
+check('Two-column prose reads left column before right column, heading first', () => {
+  const out = layout([
+    item('World Geography', 72, 720, 200, 18),
+    item('The river flows', 72, 680, 120, 12),
+    item('through the valley', 72, 664, 120, 12),
+    item('and reaches the sea.', 72, 648, 130, 12),
+    item('Mountains rise in', 320, 680, 120, 12),
+    item('the north and the', 320, 664, 110, 12),
+    item('plains lie south.', 320, 648, 110, 12)
+  ]);
+  assert.strictEqual(out.blocks[0].type, 'heading');
+  assert.strictEqual(out.blocks[0].text, 'World Geography');
+  const bodies = bodyBlockTexts(out);
+  assert.deepStrictEqual(bodies, [
+    'The river flows through the valley and reaches the sea.',
+    'Mountains rise in the north and the plains lie south.'
+  ]);
+  assert.ok(out.bodyText.indexOf('The river flows') < out.bodyText.indexOf('Mountains rise'));
+  assert.ok(out.stats.gutter, 'A gutter must be detected for two columns');
+  assert.ok(out.stats.gutter.width >= 0.04 * 612, 'Gutter must be at least 4% of page width');
+});
+
+check('Diagram/map labels interleaved with body text are not body prose', () => {
+  const out = layout([
+    item('The river flows through the valley.', 72, 680, 200, 12),
+    item('N', 400, 500, 10, 10),
+    item('Scale', 400, 480, 30, 10),
+    item('500 km', 400, 460, 40, 10),
+    item('The plains lie to the south.', 72, 640, 180, 12)
+  ]);
+  const types = out.blocks.map((b) => b.type);
+  assert.ok(types.includes('diagram'), 'Diagram labels must be classified as diagram');
+  assert.ok(!out.bodyText.includes('500 km'), 'Scale text must not enter body prose');
+  assert.ok(out.bodyText.includes('The river flows'));
+  assert.ok(out.bodyText.includes('The plains lie'));
+});
+
+check('Figure captions and running headers/footers are excluded from body', () => {
+  const out = layout([
+    item('Exploring Society', 72, 760, 150, 11),
+    item('The river flows through the valley.', 72, 680, 200, 12),
+    item('Fig. 1 Map of the region', 72, 600, 180, 11),
+    item('12', 300, 20, 15, 10)
+  ]);
+  const types = out.blocks.map((b) => b.type);
+  assert.ok(types.includes('caption'), 'Caption must be classified');
+  assert.ok(types.includes('page_furniture'), 'Header/footer must be classified');
+  assert.ok(!out.bodyText.includes('Fig. 1'));
+  assert.ok(!out.bodyText.includes('Exploring Society'));
+  assert.ok(out.bodyText.includes('The river flows'));
+});
+
+check('A paragraph continuing across visual lines stays one block', () => {
+  const out = layout([
+    item('The river flows', 72, 680, 120, 12),
+    item('through the valley', 72, 664, 120, 12),
+    item('and reaches the sea.', 72, 648, 130, 12)
+  ]);
+  const bodies = bodyBlockTexts(out);
+  assert.strictEqual(bodies.length, 1);
+  assert.strictEqual(bodies[0], 'The river flows through the valley and reaches the sea.');
+});
+
+check('An ambiguous block is preserved, not injected into body prose', () => {
+  const out = layout([
+    item('The river flows through the valley.', 72, 680, 200, 12),
+    item('§§§ ??? ### @@@ *** ~~~', 72, 600, 160, 12)
+  ]);
+  const ambiguous = out.blocks.filter((b) => b.type === 'ambiguous');
+  assert.ok(ambiguous.length >= 1, 'Non-prose block must be ambiguous, got: ' + JSON.stringify(out.blocks.map((b) => b.type)));
+  assert.ok(!out.bodyText.includes('§§§'), 'Ambiguous text must not enter body prose');
+  assert.ok(out.blocks.some((b) => b.text.includes('§§§')), 'Ambiguous text must be preserved in block diagnostics');
+});
+
+check('Layout output has the specified structured shape', () => {
+  const out = layout([item('The river flows through the valley.', 72, 680, 200, 12)]);
+  assert.strictEqual(out.pageNumber, 1);
+  assert.strictEqual(typeof out.bodyText, 'string');
+  assert.ok(Array.isArray(out.blocks));
+  const block = out.blocks[0];
+  assert.ok(block.id && block.pageNumber === 1 && block.type && block.text && block.bbox);
+  assert.ok(Number.isFinite(block.itemCount) && Number.isFinite(block.confidence) && block.reason);
+  assert.ok(out.stats && Number.isFinite(out.stats.totalItems) && out.stats.countsByType);
+});
+
+// ---------------------------------------------------------------------------
+// 2. Paragraph boundaries
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: Paragraph and page boundaries ---');
+
+check('Two paragraphs on one page remain separate', () => {
+  const secs = Engine.parseRawDocument(
+    '==Page 1==\nFirst paragraph line one\nwrapped line two.\n\nSecond paragraph here.',
+    'Doc'
+  );
+  assert.strictEqual(secs.length, 1);
+  assert.deepStrictEqual(secs[0].paragraphs, [
+    'First paragraph line one wrapped line two.',
+    'Second paragraph here.'
+  ]);
+});
+
+check('A heading flushes the previous paragraph', () => {
+  const secs = Engine.parseRawDocument(
+    'First paragraph.\n\n# A Heading\n\nSecond paragraph.',
+    'Doc'
+  );
+  assert.strictEqual(secs.length, 2);
+  assert.strictEqual(secs[0].paragraphs[0], 'First paragraph.');
+  assert.strictEqual(secs[1].title, 'A Heading');
+  assert.strictEqual(secs[1].paragraphs[0], 'Second paragraph.');
+});
+
+check('A page marker flushes the previous paragraph and updates page metadata', () => {
+  const secs = Engine.parseRawDocument(
+    '==Page 1==\nParagraph on page one.\n\n==Page 2==\nParagraph on page two.',
+    'Doc'
+  );
+  assert.strictEqual(secs.length, 2);
+  assert.strictEqual(secs[0].page, 1);
+  assert.strictEqual(secs[1].page, 2);
+  assert.strictEqual(secs[0].paragraphs[0], 'Paragraph on page one.');
+  assert.strictEqual(secs[1].paragraphs[0], 'Paragraph on page two.');
+  assert.strictEqual(secs[1].paragraphMeta[0].page, 2);
+});
+
+check('A line wrap inside a paragraph remains connected', () => {
+  const secs = Engine.parseRawDocument('==Page 1==\nThe river flows\nthrough the valley.', 'Doc');
+  assert.deepStrictEqual(secs[0].paragraphs, ['The river flows through the valley.']);
+});
+
+check('Plain text and Markdown continue to parse correctly', () => {
+  const secs = Engine.parseRawDocument('# Title\n\nPlain paragraph one.\n\nPlain paragraph two.', 'Doc');
+  assert.strictEqual(secs[0].title, 'Title');
+  assert.strictEqual(secs[0].paragraphs.length, 2);
+});
+
+// ---------------------------------------------------------------------------
+// 3. Sentence-role classification
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: Sentence-role classification ---');
+
+const roleCases = [
+  ['How do human actions trigger environmental issues?', 'interrogative'],
+  ['Explain why the river floods.', 'instruction'],
+  ['Increased rainfall causes flooding.', 'assertion'],
+  ['How do human actions trigger environmental issues', 'interrogative'],
+  ['What causes flooding', 'interrogative'],
+  ['Is the river long?', 'interrogative'],
+  ['Consider the map.', 'instruction'],
+  ['Think about the river.', 'instruction'],
+  ['The river', 'ambiguous'],
+  ['Map of India', 'ambiguous'],
+  ['Rain helps farmers.', 'assertion'],
+  ['The river floods.', 'assertion'],
+  ['When light intensity increases, the rate of photosynthesis increases.', 'assertion']
+];
+for (const [text, expected] of roleCases) {
+  check(`classifySentenceRole: "${text}" -> ${expected}`, () => {
+    assert.strictEqual(Engine.classifySentenceRole(text), expected);
+    assert.strictEqual(Linguistics.classifySentenceRole(text), expected);
+    assert.strictEqual(Representation.classifySentenceRole(text), expected);
+  });
+}
+
+check('Ambiguous fragments do not generate factual propositions', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Map of India. The river.', 'Doc'), {}
+  );
+  const realFacts = facts.filter((f) => f.fact_type !== 'fallback');
+  assert.strictEqual(realFacts.length, 0, 'Fragments must not become facts: ' + JSON.stringify(realFacts));
+});
+
+check('A question containing a causal verb cannot create a causal fact', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('How do human actions trigger environmental issues? Increased rainfall causes flooding.', 'Doc'), {}
+  );
+  const causal = facts.filter((f) => f.relation === 'causes');
+  assert.strictEqual(causal.length, 1, 'Only the assertion may create a causal fact');
+  assert.ok(/increased rainfall/i.test(causal[0].subject));
+  assert.ok(!facts.some((f) => /human actions/i.test(f.subject || '') && f.relation === 'causes'));
+});
+
+check('Interrogatives and instructions do not become facts through production extraction', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('How do human actions trigger issues? Explain why the river floods. Increased rainfall causes flooding.', 'Doc'), {}
+  );
+  assert.ok(!facts.some((f) => f.sentence_role && f.sentence_role !== 'assertion'), 'Every fact must carry an assertion role');
+  assert.ok(facts.some((f) => f.relation === 'causes' && /increased rainfall/i.test(f.subject)));
+});
+
+check('Interrogatives and instructions do not become V2 propositions', () => {
+  const compiled = Representation.compileSemanticRepresentation([{
+    id: 'SEC-001', title: 'Test', page: 1,
+    text: 'How do human actions trigger issues? Explain why the river floods. Increased rainfall causes flooding.'
+  }], []);
+  const fromQuestion = compiled.propositions.filter((p) => /human actions/i.test(p.subject + ' ' + p.object));
+  assert.strictEqual(fromQuestion.length, 0, 'V2 must not compile a question into a proposition');
+  assert.ok(compiled.propositions.some((p) => p.relation_type === 'CAUSES' || /causes/i.test(p.predicate || '')));
+});
+
+// ---------------------------------------------------------------------------
+// 4. Causal-verb corrections
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: Causal corrections ---');
+
+check('Supports and helps are not automatically direct causation', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('The library supports students. Rain helps farmers.', 'Doc'), {}
+  );
+  assert.strictEqual(
+    facts.filter((f) => f.relation === 'causes').length, 0,
+    'Bare supports/helps must not become CAUSES: ' + JSON.stringify(facts.map((f) => f.relation))
+  );
+});
+
+check('Affects is not automatically direct causation', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Pollution affects the river.', 'Doc'), {}
+  );
+  assert.strictEqual(facts.filter((f) => f.relation === 'causes').length, 0);
+});
+
+check('Direct causal verbs still work, with direction preserved', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Increased rainfall causes flooding. Friction causes the object to slow down.', 'Doc'), {}
+  );
+  const causal = facts.filter((f) => f.relation === 'causes');
+  assert.ok(causal.length >= 2);
+  assert.ok(causal.some((f) => /increased rainfall/i.test(f.subject) && /flooding/i.test(f.object)));
+  assert.ok(!causal.some((f) => /flooding/i.test(f.subject) && /increased rainfall/i.test(f.object)));
+});
+
+check('Allows with an explicit infinitive effect clause is preserved (existing Fixture C)', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('The reduction in friction allows the object to move more easily.', 'Doc'), {}
+  );
+  const causal = facts.filter((f) => f.relation === 'causes');
+  assert.strictEqual(causal.length, 1);
+  assert.ok(/reduction in friction/i.test(causal[0].subject));
+  assert.ok(/move more easily/i.test(causal[0].object));
+});
+
+// ---------------------------------------------------------------------------
+// 5. V2 integration
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: Validated V2 integration ---');
+
+check('Production generation uses the validated V2 question-bank API', () => {
+  const generatorJs = fs.readFileSync(path.join(pwaDir, 'engine', 'generator.js'), 'utf-8');
+  assert.ok(/generateReasoningQuestionBank\(/.test(generatorJs), 'Generator must call generateReasoningQuestionBank');
+  assert.ok(!/generateReasoningCandidates\(graph/.test(generatorJs), 'Generator must not merge raw V2 candidates');
+});
+
+check('A candidate rejected by production validation is not published', () => {
+  const source = [
+    'Photosynthesis is the process by which green plants use sunlight to synthesize food.',
+    'Evaporation is defined as the process by which a liquid becomes a gas.',
+    'Condensation refers to the process by which a gas becomes a liquid.',
+    'Sublimation means the process by which a solid changes directly into a gas.'
+  ].join(' ');
+  const analyzed = Analysis.analyzeSource(source, 'Definitions', null, 15);
+  assert.ok(analyzed.questions && analyzed.questions.length > 0);
+  for (const q of analyzed.questions) {
+    assert.ok(q.options && q.options.length === 4);
+    assert.ok(new Set(q.options.map((o) => o.text.trim().toLowerCase())).size === 4);
+  }
+});
+
+check('V2 errors are represented honestly in diagnostics, not as silent success', () => {
+  // Force a V2 failure by temporarily replacing the validated V2 API
+  // with a throwing function. Production candidates must still publish,
+  // but the bank's metrics must flag the V2 failure instead of silently
+  // presenting the bank as fully V2-validated.
+  const original = EngineV2.generateReasoningQuestionBank;
+  EngineV2.generateReasoningQuestionBank = () => { throw new Error('Simulated V2 failure for Repair 002'); };
+  try {
+    const analyzed = Analysis.analyzeSource(
+      'Photosynthesis is the process by which green plants use sunlight to synthesize food. ' +
+      'Evaporation is defined as the process by which a liquid becomes a gas. ' +
+      'Condensation refers to the process by which a gas becomes a liquid. ' +
+      'Sublimation means the process by which a solid changes directly into a gas.',
+      'Definitions', null, 15
+    );
+    assert.ok(analyzed.questions && analyzed.questions.length > 0, 'Production questions must still publish when V2 fails');
+    const generation = analyzed.questions.generation;
+    assert.ok(generation, 'Generation metrics must be present');
+    assert.strictEqual(generation.v2Failed, true, 'Metrics must flag the V2 failure');
+    assert.ok(generation.v2Error && generation.v2Error.includes('Simulated V2 failure'), 'Metrics must carry the V2 error message');
+    assert.ok((generation.rejectionCounts && generation.rejectionCounts.v2_error) >= 1, 'Rejection counts must record the V2 error');
+  } finally {
+    EngineV2.generateReasoningQuestionBank = original;
+  }
+  // After restoring V2, a normal run must report no V2 failure.
+  const restored = Analysis.analyzeSource(
+    'Friction causes the object to slow down. Heat leads to the metal expanding.',
+    'Causal', null, 5
+  );
+  assert.strictEqual(restored.questions.generation.v2Failed, false);
+});
+
+check('Deterministic output remains reproducible through the integrated pipeline', () => {
+  const source = 'Friction causes the object to slow down. Heat leads to the metal expanding. Pressure results in the volume decreasing. Gravity causes the apple to fall.';
+  const a = Analysis.analyzeSource(source, 'Causal', null, 15);
+  const b = Analysis.analyzeSource(source, 'Causal', null, 15);
+  assert.deepStrictEqual(
+    a.questions.map((q) => q.stem + '|' + q.answer_key),
+    b.questions.map((q) => q.stem + '|' + q.answer_key)
+  );
+});
+
+check('Browser and worker module loading provide the expected Reasoning V2 globals', () => {
+  const html = fs.readFileSync(path.join(pwaDir, 'index.html'), 'utf-8');
+  const workerJs = fs.readFileSync(path.join(pwaDir, 'engine', 'worker.js'), 'utf-8');
+  const htmlChain = [
+    'engine/reasoning/types.js', 'engine/reasoning/linguistics.js', 'engine/reasoning/representation.js',
+    'engine/reasoning/graph.js', 'engine/reasoning/distractors.js', 'engine/reasoning/operators.js',
+    'engine/reasoning/constructors.js', 'engine/reasoning/validator.js', 'engine/reasoning/ranking.js',
+    'engine/reasoning/engine_v2.js', 'engine/generator.js'
+  ];
+  const workerChain = [
+    './reasoning/types.js', './reasoning/linguistics.js', './reasoning/representation.js',
+    './reasoning/graph.js', './reasoning/distractors.js', './reasoning/operators.js',
+    './reasoning/constructors.js', './reasoning/validator.js', './reasoning/ranking.js',
+    './reasoning/engine_v2.js', './generator.js', './analyze.js'
+  ];
+  for (const [source, chain] of [[html, htmlChain], [workerJs, workerChain]]) {
+    let last = -1;
+    for (const asset of chain) {
+      const idx = source.indexOf(asset);
+      assert.ok(idx > last, `${asset} must load after earlier dependencies`);
+      last = idx;
+    }
+  }
+  // No duplicate loading through a competing path: each reasoning module
+  // appears exactly once in index.html script tags.
+  for (const asset of htmlChain.slice(0, 10)) {
+    const occurrences = (html.match(new RegExp(asset.replace(/\//g, '\\/'), 'g')) || []).length;
+    assert.strictEqual(occurrences, 1, `${asset} must load exactly once in index.html`);
+  }
+  // In-process (Node) globals mirror the browser globals.
+  assert.ok(EngineV2 && typeof EngineV2.generateReasoningQuestionBank === 'function');
+  assert.ok(typeof EngineV2.Validator.validateCandidate === 'function');
+});
+
+check('Browser-style global loading provides Reasoning V2 to the generator', () => {
+  // Load the scripts in a vm context with no CommonJS module/require, so
+  // every module must resolve its dependencies from browser globals, in
+  // the order index.html uses. This is not a CommonJS test.
+  const vm = require('vm');
+  const sandbox = { console: console };
+  sandbox.globalThis = sandbox;
+  sandbox.window = sandbox;
+  const browserContext = vm.createContext(sandbox);
+  const browserChain = [
+    'engine/reasoning/types.js', 'engine/reasoning/linguistics.js', 'engine/reasoning/representation.js',
+    'engine/reasoning/graph.js', 'engine/reasoning/distractors.js', 'engine/reasoning/operators.js',
+    'engine/reasoning/constructors.js', 'engine/reasoning/validator.js', 'engine/reasoning/ranking.js',
+    'engine/reasoning/engine_v2.js', 'engine/generator.js', 'engine/analyze.js'
+  ];
+  for (const rel of browserChain) {
+    vm.runInContext(fs.readFileSync(path.join(pwaDir, rel), 'utf-8'), browserContext, { filename: rel });
+  }
+  assert.ok(sandbox.StudySynthReasoningV2, 'Browser globals must include StudySynthReasoningV2');
+  assert.ok(typeof sandbox.StudySynthReasoningV2.generateReasoningQuestionBank === 'function');
+  assert.ok(sandbox.StudySynthEngine, 'Browser globals must include StudySynthEngine');
+  assert.ok(sandbox.StudySynthEngine.ReasoningV2, 'Generator loaded from globals must see Reasoning V2');
+  assert.ok(sandbox.StudySynthAnalysis, 'Browser globals must include StudySynthAnalysis');
+  const result = sandbox.StudySynthAnalysis.analyzeSource(
+    'Friction causes the object to slow down. Heat leads to the metal expanding.',
+    'Browser Loading', null, 5
+  );
+  assert.ok(result.questions && result.questions.length > 0, 'Browser-loaded pipeline must generate questions');
+});
+
+check('Service worker caches all reasoning modules and uses a bumped cache version', () => {
+  const sw = fs.readFileSync(path.join(pwaDir, 'sw.js'), 'utf-8');
+  assert.ok(/studysynth-v37/.test(sw), 'Cache version must be bumped from v36');
+  for (const asset of [
+    './engine/reasoning/types.js', './engine/reasoning/linguistics.js', './engine/reasoning/representation.js',
+    './engine/reasoning/graph.js', './engine/reasoning/distractors.js', './engine/reasoning/operators.js',
+    './engine/reasoning/constructors.js', './engine/reasoning/validator.js', './engine/reasoning/ranking.js',
+    './engine/reasoning/engine_v2.js'
+  ]) {
+    assert.ok(sw.includes(asset), `sw.js must cache ${asset}`);
+    assert.ok(fs.existsSync(path.join(pwaDir, asset.replace(/^\.\//, ''))), `${asset} must exist on disk`);
+  }
+});
+
+check('Batch generator uses the shared parser, not a duplicate layout algorithm', () => {
+  const batch = fs.readFileSync(path.join(__dirname, 'batch_generate_all_ncert.js'), 'utf-8');
+  assert.ok(/require\('\.\.\/engine\/pdfParser\.js'\)/.test(batch), 'Batch must require the shared parser');
+  assert.ok(/extractPageLayout\(/.test(batch), 'Batch must call the shared extractPageLayout');
+  assert.ok(!/buildBlockParagraphs/.test(batch), 'Batch must not keep its duplicate paragraph builder');
+});
+
+// ---------------------------------------------------------------------------
+// 6. Phase 8 fixes (found by inspecting the regenerated NCERT banks)
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002 Phase 8 fixes ---');
+
+check('Causal extraction does not cross a semicolon clause', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.', 'Doc'), {}
+  );
+  const causal = facts.filter((f) => f.relation === 'causes');
+  assert.strictEqual(causal.length, 1, 'Exactly one causal fact must be extracted');
+  assert.ok(/southern indian ocean/i.test(causal[0].subject), 'Cause must be the Southern Indian Ocean, got: ' + causal[0].subject);
+  assert.ok(!/human lives/i.test(causal[0].subject), 'An earlier clause must not supply the cause');
+  assert.ok(/monsoon/i.test(causal[0].object));
+});
+
+check('V2 Operator B rejects a cause that is not in the causal clause', () => {
+  const prop = Representation.createProposition({
+    subject: 'Human lives',
+    predicate: 'causes',
+    relation_type: 'CAUSES',
+    object: 'the monsoon in the Gangetic Plains',
+    supporting_excerpt: 'Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.',
+    polarity: 'positive',
+    modality: 'fact'
+  });
+  const result = EngineV2.Operators.executeOperatorB(prop);
+  assert.strictEqual(result.success, false, 'Operator B must reject a cross-clause cause');
+});
+
+check('V2 distractors never carry a fragment concept', () => {
+  const distractors = EngineV2.Distractors.generateMisconceptionDistractors(
+    { subject: 'the monsoon in the Gangetic Plains', object: 'It', relation_type: 'CAUSES' },
+    'the distant Southern Indian Ocean',
+    'OP_B_CAUSAL_EXPLANATION',
+    null
+  );
+  assert.ok(!distractors.some((d) => /without influencing\s+It\b/i.test(d.text)), 'A fragment distractor must not be generated');
+  assert.ok(!distractors.some((d) => /\bprevents It\b/i.test(d.text)), 'A fragment object must not be used as a distractor concept');
+});
+
+check('Multi-statement stem no longer depends on a section title', () => {
+  const multiSource = 'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.';
+  const analyzed = Analysis.analyzeSource(multiSource, 'Multi', null, 10);
+  const multi = analyzed.questions.find((q) => q.question_subtype === 'multi_statement');
+  assert.ok(multi, 'A multi-statement question must still be generated');
+  assert.strictEqual(multi.stem, 'Consider the following statements:');
+  assert.ok(Array.isArray(multi.statements) && multi.statements.length === 2, 'Multi-statement questions must carry two statements for rendering');
+  assert.ok(!/based on/i.test(multi.stem), 'Stem must not contain a truncated section title');
+  const batch = fs.readFileSync(path.join(__dirname, 'batch_generate_all_ncert.js'), 'utf-8');
+  assert.ok(/q\.statements/.test(batch), 'Batch markdown must render multi-statement statements');
+  assert.ok(/prompt_suffix/.test(batch), 'Batch markdown must render the multi-statement prompt suffix');
+});
+
+check('A merged year + count is not a numeric answer', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Late April 1908, two young members of this group tried to assassinate a British judge.', 'Doc'), {}
+  );
+  const numeric = facts.filter((f) => f.fact_type === 'numeric');
+  assert.ok(!numeric.some((f) => /1908,\s*two young members/i.test(f.object)), 'A merged year + count must not become a numeric fact');
+  const clean = Engine.extractSourceFacts(
+    Engine.parseRawDocument('The reef stretches over a length of 2,000 km.', 'Doc'), {}
+  );
+  assert.ok(clean.some((f) => f.fact_type === 'numeric' && f.object === '2,000 km'), 'A clean quantity must still be extracted');
+});
+
+check('Running book titles do not become facts, even at 83% page height', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Exploring Society: India and Beyond | G rade 8 Part 2 launched in 1906. The college was launched in 1906.', 'Doc'), {}
+  );
+  assert.ok(!facts.some((f) => f.fact_type !== 'fallback' && /exploring society/i.test(f.supporting_excerpt || '')), 'A running title must not become a fact');
+  const out = layout([
+    item('Exploring Society: India and Beyond | G rade 8 Part 2', 72, 130, 200, 12),
+    item('The river flows through the valley.', 72, 680, 200, 12)
+  ]);
+  assert.ok(out.blocks.some((b) => b.type === 'page_furniture'), 'A running footer at 83% height must be page furniture');
+  assert.ok(!out.bodyText.includes('Exploring Society'), 'Running title must not enter body prose');
+});
+
+check('Naming explanations and compound causal effects are rejected', () => {
+  const naming = Engine.extractSourceFacts(
+    Engine.parseRawDocument('Mountains are called water towers because they are at a height, and provide freshwater through melting snow and glaciers.', 'Doc'), {}
+  );
+  assert.ok(!naming.some((f) => f.relation === 'causes'), 'A naming explanation must not become a causal fact');
+  const compound = Engine.extractSourceFacts(
+    Engine.parseRawDocument('The Bay of Bengal influences climate, and is home to a variety of species.', 'Doc'), {}
+  );
+  assert.ok(!compound.some((f) => f.relation === 'causes' && /climate, and is home/i.test(f.object || '')), 'A compound predicate must not become a causal effect');
+  const prop = Representation.createProposition({
+    subject: 'Mongolia',
+    predicate: 'causes',
+    relation_type: 'CAUSES',
+    object: 'it has about 8 to 9 months of sunny weather',
+    supporting_excerpt: 'Mongolia is called the Land of the Eternal Blue Sky because it has about 8 to 9 months of sunny weather.',
+    polarity: 'positive',
+    modality: 'fact'
+  });
+  const result = EngineV2.Operators.executeOperatorB(prop);
+  assert.strictEqual(result.success, false, 'Operator B must reject a pronoun-clause effect and a naming explanation');
+});
+
+check('Temporal conditionals are not causal mechanisms, and pronoun effects are rejected', () => {
+  const whenFacts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('When the work was nearly done, a local reporter asked the youngest participants why they were spending their Sunday morning like this instead of playing.', 'Doc'), {}
+  );
+  const conditional = whenFacts.find((f) => f.extraction_method === 'causal_conditional');
+  assert.ok(conditional, 'A When-sentence must still be extracted as a conditional fact');
+  const compiled = Representation.compileSemanticRepresentation(
+    [{ id: 'SEC-001', title: 'Test', page: 1, text: 'When the work was nearly done, a local reporter asked questions.' }],
+    whenFacts
+  );
+  const causalProps = compiled.propositions.filter((p) => p.relation_type === 'CAUSES' && /local reporter/i.test(p.object || ''));
+  assert.strictEqual(causalProps.length, 0, 'A temporal conditional must not enter the graph as CAUSES');
+  const prop = Representation.createProposition({
+    subject: 'the work',
+    predicate: 'causes',
+    relation_type: 'CAUSES',
+    object: 'it means many children are being born',
+    supporting_excerpt: 'A young population means many children are being born.',
+    polarity: 'positive',
+    modality: 'fact'
+  });
+  const result = EngineV2.Operators.executeOperatorB(prop);
+  assert.strictEqual(result.success, false, 'Operator B must reject a pronoun-start effect');
+});
+
+check('Conditional subjects are full clauses, and conditional direction is not inverted', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('When senior Congress leaders were arrested, she hoisted the national flag at the Gowalia Tank Maidan in Bombay.', 'Doc'), {}
+  );
+  const conditional = facts.find((f) => f.extraction_method === 'causal_conditional');
+  assert.ok(conditional, 'A When-conditional must still be extracted');
+  assert.ok(/were arrested/i.test(conditional.subject), 'Conditional subject must be the full clause, got: ' + conditional.subject);
+  const iqbal = Engine.extractSourceFacts(
+    Engine.parseRawDocument('When Muhammad Iqbal, a philosopher and poet of Urdu, presided over the 1930 session.', 'Doc'), {}
+  );
+  assert.ok(!iqbal.some((f) => f.extraction_method === 'causal_conditional'), 'A proper name before an appositive comma is not a condition');
+  const compiled = Representation.compileSemanticRepresentation(
+    [{ id: 'SEC-001', title: 'Test', page: 1, text: 'If fewer babies are being born, the birth rate is low.' }],
+    facts
+  );
+  // Bridged conditional props must be CONDITIONAL_ON, not CAUSES, so
+  // Operator B cannot turn a temporal conditional into a causal claim.
+  assert.ok(!compiled.propositions.some((p) => p.relation_type === 'CAUSES' && /senior congress/i.test(p.subject || '')));
+});
+
+check('Figure-reference evidence is rejected by production validation', () => {
+  const analyzed = Analysis.analyzeSource(
+    'The Great Barrier Reef (Fig. 1.8), off Australia’s northeastern coast, stretches over a length of 2,000 km and covers about 350,000 square kilometres.',
+    'Fig Test', null, 15
+  );
+  const published = analyzed.questions || [];
+  assert.ok(!published.some((q) => /\(Fig\.|Fig\.\s*\d/i.test(q.supporting_excerpt || '')), 'No published question may use a figure-reference excerpt');
+});
+
+// ---------------------------------------------------------------------------
+// 7. End-to-end through the real parser API (real PDF.js, real parser)
+// ---------------------------------------------------------------------------
+console.log('--- Repair 002: End-to-end PDF.js + parser ---');
+
+function buildMinimalPdf(lines) {
+  // lines: [{ text, x, y }] — uncompressed, single page, Helvetica.
+  const content = lines.map((l) => `BT /F1 12 Tf ${l.x} ${l.y} Td (${l.text}) Tj ET`).join('\n') + '\n';
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    `<< /Length ${content.length} >>\nstream\n${content}endstream`
+  ];
+  let out = '%PDF-1.4\n';
+  const offsets = [0];
+  objects.forEach((o, i) => {
+    offsets.push(Buffer.byteLength(out));
+    out += `${i + 1} 0 obj\n${o}\nendobj\n`;
+  });
+  const xrefPos = Buffer.byteLength(out);
+  out += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+  for (let i = 1; i <= objects.length; i++) out += `${String(offsets[i]).padStart(10, '0')} 00000 n \n`;
+  out += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF\n`;
+  return Buffer.from(out, 'latin1');
+}
+
+async function runE2E() {
+  const buffer = buildMinimalPdf([
+    { text: 'Hello body text.', x: 72, y: 720 },
+    { text: 'Second line here.', x: 72, y: 700 }
+  ]);
+  const result = await Parser.extractTextFromPDFDetailed(buffer);
+  assert.ok(result.text.includes('Hello body text.'), 'Real PDF.js extraction must return body text');
+  assert.ok(result.text.includes('==Page 1=='), 'Real extraction must use the ==Page N== marker');
+  assert.strictEqual(result.fallbackUsed, false, 'Successful primary extraction must not use unstructured fallback');
+  assert.ok(result.pages && result.pages.length >= 1, 'Detailed result must carry page layouts');
+  assert.ok(result.pages[0].blocks.some((b) => b.type === 'body'), 'Page layout must contain a body block');
+  console.log('  ✓ End-to-end: real PDF.js page through the shared layout extractor');
+
+  const shortBuffer = buildMinimalPdf([{ text: 'Rivers flow south.', x: 72, y: 720 }]);
+  const shortResult = await Parser.extractTextFromPDFDetailed(shortBuffer);
+  assert.strictEqual(shortResult.fallbackUsed, false, 'A selectable PDF with little accepted body text must not trigger unstructured fallback');
+  assert.ok(shortResult.text.includes('Rivers flow south.'), 'Short body text must still be returned');
+  assert.ok(shortResult.lowConfidence, 'Short body text must be flagged low-confidence in diagnostics, not hidden by fallback');
+  console.log('  ✓ Short selectable text does not trigger unstructured fallback');
+
+  // Worker initialisation: load worker.js in a vm context with a fake
+  // importScripts/self, then send a real generate job and check the
+  // result message. This verifies the worker's import chain, not just
+  // its static text.
+  {
+    const vm = require('vm');
+    const messages = [];
+    const sandbox = { console: console };
+    sandbox.globalThis = sandbox;
+    sandbox.self = {};
+    sandbox.self.postMessage = (m) => messages.push(m);
+    sandbox.self.addEventListener = (type, fn) => { sandbox._workerHandler = fn; };
+    sandbox.importScripts = (...files) => {
+      for (const file of files) {
+        const rel = file.replace(/^\.\//, '');
+        vm.runInContext(fs.readFileSync(path.join(pwaDir, 'engine', rel), 'utf-8'), workerContext, { filename: rel });
+      }
+    };
+    const workerContext = vm.createContext(sandbox);
+    vm.runInContext(fs.readFileSync(path.join(pwaDir, 'engine', 'worker.js'), 'utf-8'), workerContext, { filename: 'worker.js' });
+    assert.ok(typeof sandbox._workerHandler === 'function', 'Worker must register a message handler');
+    sandbox._workerHandler({
+      data: {
+        type: 'generate', jobId: 'repair002-worker-1',
+        text: 'Friction causes the object to slow down. Heat leads to the metal expanding. Pressure results in the volume decreasing. Gravity causes the apple to fall.',
+        title: 'Worker Test', sourceMeta: {}, targetCount: 5
+      }
+    });
+    const resultMsg = messages.find((m) => m.type === 'result');
+    assert.ok(resultMsg, 'Worker must post a result message, got: ' + JSON.stringify(messages));
+    assert.ok(resultMsg.analyzed && resultMsg.analyzed.questions && resultMsg.analyzed.questions.length > 0, 'Worker must generate questions through the shared analysis pipeline');
+    assert.ok(resultMsg.analyzed.generation, 'Worker result must carry generation metrics');
+    console.log('  ✓ Worker initialisation: real generate job through importScripts chain');
+  }
+  console.log(`\n==========================================\nALL REPAIR 002 REGRESSION TESTS PASSED (${passed} checks + 3 end-to-end)\n==========================================`);
+}
+
+runE2E().catch((err) => {
+  console.error('Repair 002 regression tests failed:', err);
+  process.exit(1);
+});

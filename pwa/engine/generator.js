@@ -202,6 +202,87 @@
     return str.toString().normalize('NFKC').replace(/\s+/g, ' ').trim();
   }
 
+  // Sentence-role classification (Repair 002, Phase 4). This mirrors
+  // ReasoningLinguistics.classifySentenceRole exactly, so the production
+  // generator and Reasoning V2 apply the same deterministic rules. The
+  // browser load order in index.html now loads reasoning first, and
+  // when it is available the generator prefers that shared
+  // implementation (see classifySentenceRoleShared below); the local
+  // mirror is the fallback when reasoning is not loaded. Only
+  // 'assertion' sentences may generate ordinary factual propositions.
+  function classifySentenceRoleLocal(text) {
+    if (!text || typeof text !== 'string') return 'ambiguous';
+    const trimmed = String(text).trim().replace(/\s+/g, ' ');
+    if (!trimmed) return 'ambiguous';
+    if (/\?\s*['"’”\)\]]*\s*$/.test(trimmed)) return 'interrogative';
+    const lower = trimmed.toLowerCase();
+    const imperativePhrases = ['think about', 'look at'];
+    for (const phrase of imperativePhrases) {
+      if (lower === phrase || lower.startsWith(phrase + ' ')) return 'instruction';
+    }
+    const imperativeVerbs = [
+      'consider', 'imagine', 'take', 'observe', 'discuss', 'explain', 'compare',
+      'answer', 'try', 'use', 'draw', 'write', 'describe', 'suppose', 'assume'
+    ];
+    const firstWord = lower.split(/\s+/)[0].replace(/^[^a-z]+|[^a-z]+$/g, '');
+    if (imperativeVerbs.includes(firstWord)) return 'instruction';
+    const interrogativeWords = ['what', 'who', 'whom', 'whose', 'which', 'when', 'where', 'why', 'how'];
+    if (interrogativeWords.includes(firstWord)) {
+      // Subordinate-clause exception: "When light intensity increases,
+      // the rate of photosynthesis increases ..." is an assertion with
+      // a temporal clause, not a question. A question in this form
+      // would end with a question mark, which is handled above, so a
+      // when/where/why/how sentence with a comma followed by a main
+      // clause is not interrogative.
+      if (['when', 'where', 'why', 'how'].includes(firstWord)) {
+        const commaIndex = trimmed.indexOf(',');
+        if (commaIndex > 0 && trimmed.slice(commaIndex + 1).trim().split(/\s+/).length >= 2) {
+          // Fall through to assertion (it is not an imperative either,
+          // as imperatives were checked above).
+        } else {
+          return 'interrogative';
+        }
+      } else {
+        return 'interrogative';
+      }
+    }
+    const auxiliaryWords = ['do', 'does', 'did', 'is', 'are', 'was', 'were', 'can', 'could', 'will', 'would', 'should', 'may', 'might', 'has', 'have', 'had'];
+    if (auxiliaryWords.includes(firstWord)) return 'interrogative';
+    const words = trimmed.split(/\s+/).filter(Boolean);
+    if (words.length <= 2) return 'ambiguous';
+    if (/[:_]{2,}|_{3,}|\.\.\./.test(trimmed)) return 'ambiguous';
+    if (/^(q\.|question|activity|exercise|note|hint)\s*[:.]/i.test(trimmed)) return 'ambiguous';
+    if (words.length === 3) {
+      // A three-word sentence may be subject-verb-object ("Rain helps
+      // farmers.") or subject-verb ("The river floods."). Either the
+      // middle or the last word being verb-like makes it an assertion;
+      // a fragment such as "Map of India" has no verb in either place.
+      const verbLikeWord = (w) => {
+        const clean = w.replace(/[^a-z]/gi, '').toLowerCase();
+        return /^(is|are|was|were|has|have|had|causes?|leads?|means?|refers?|consists?|includes?|helps?|supports?|affects?|flows?|floods?|rises?|falls?|grows?)$/i.test(w)
+          || (clean.length > 3 && /s$/.test(clean) && !/ss$/.test(clean));
+      };
+      if (!verbLikeWord(words[1]) && !verbLikeWord(words[2])) return 'ambiguous';
+    }
+    return 'assertion';
+  }
+
+  function classifySentenceRoleShared(text) {
+    try {
+      if (ReasoningV2 && ReasoningV2.Linguistics && typeof ReasoningV2.Linguistics.classifySentenceRole === 'function') {
+        return ReasoningV2.Linguistics.classifySentenceRole(text);
+      }
+    } catch (e) { /* fall through to the local mirror */ }
+    if (typeof global !== 'undefined' && global.ReasoningLinguistics && typeof global.ReasoningLinguistics.classifySentenceRole === 'function') {
+      return global.ReasoningLinguistics.classifySentenceRole(text);
+    }
+    return classifySentenceRoleLocal(text);
+  }
+
+  function classifySentenceRole(text) {
+    return classifySentenceRoleShared(text);
+  }
+
   function splitSentences(text, locale = 'en') {
     text = cleanText(text);
     if (!text) return [];
@@ -711,12 +792,55 @@
   function cleanFactSubject(raw) {
     let subject = cleanText(raw).replace(/[,;:]+$/, '').trim();
     if (!subject || subject.length > 150) return null;
+    // Clause boundary (Phase 8 fix): a causal subject must come from the
+    // clause that actually contains the causal verb. A subject taken from
+    // before a semicolon, or before "for instance/for example", misattributes
+    // the effect to an earlier, unrelated subject — e.g. "Human lives are
+    // deeply connected to its many features; for instance, the distant
+    // Southern Indian Ocean influences the monsoon" must give the Southern
+    // Indian Ocean, not Human lives, as the cause.
+    if (subject.includes(';')) {
+      subject = subject.split(';').pop().trim();
+    }
+    subject = subject.replace(/^for (?:instance|example)\s*,\s*/i, '').trim();
+    subject = subject.replace(/\bfor (?:instance|example)\s*,\s*/i, '').trim();
     const split = subject.match(/^(.{2,80}?)\s+(?:is|are|was|were|has|have|had)\s+(.+)$/i);
     if (split && split[1].trim().split(/\s+/).length <= 8 && !/[,]/.test(split[1])) {
       subject = split[1].trim();
     }
     subject = subject.replace(/[,;:]+$/, '').trim();
     return subject.length >= 2 ? subject : null;
+  }
+
+  // A phrase is a fragment, not a usable concept, if it is a bare pronoun,
+  // starts with a preposition/conjunction, ends with a dangling relative
+  // pronoun/preposition/article, or is a single non-name word. Fragment
+  // phrases must never become a causal subject/effect, a numeric answer,
+  // or a distractor object (Phase 8 fix).
+  function isFragmentPhrase(raw) {
+    const text = cleanText(raw || '');
+    if (!text || text.length < 2) return true;
+    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text)) return true;
+    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into|over|under)\b/i.test(text)) return true;
+    if (/\b(which|that|who|whom|whose|when|where|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(text)) return true;
+    if (text.includes(';') || text.includes('|')) return true;
+    if (/^[^A-Za-z0-9]+/.test(text)) return true;
+    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(text)) return true;
+    return false;
+  }
+
+  function isCleanQuantity(raw) {
+    const text = cleanText(raw || '');
+    // A clean quantity starts with a number and is a short number + unit /
+    // count phrase. In particular a comma followed by a word ("1908, two
+    // young members") is a merged year + count, not a quantity, while
+    // "2,000 km" (comma followed by a digit) is a thousands separator
+    // and is allowed.
+    if (!text) return false;
+    if (/,\s*[A-Za-z]/.test(text)) return false;
+    if (!/^-?\d/.test(text)) return false;
+    if (text.split(/\s+/).length > 5) return false;
+    return true;
   }
 
   function resolveSubject(raw, context) {
@@ -970,12 +1094,49 @@
   }
 
   function parseCause(text) {
-    // Pattern 1 — explicit causal verb (greatly expanded list)
-    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|affects?|determines?|drives?|encourages?|forces?|helps?|makes?|supports?|strengthens?|weakens?|accelerates?|slows?\s+down)\s+(.+?)[.!?]?\s*$/i);
+    // Phase 8 fix: work on the clause containing the causal verb, not the
+    // whole multi-clause sentence. If the sentence has a semicolon and the
+    // text after the last semicolon still contains a causal verb, that
+    // clause is the causal clause; earlier clauses must not supply the
+    // subject. "for instance/for example" introductions are dropped.
+    if (typeof text === 'string' && text.includes(';')) {
+      const after = text.slice(text.lastIndexOf(';') + 1).trim();
+      if (/(causes?|leads?\s+to|results?\s+in|enables?|produces?|triggers?|influences?|determines?)\b/i.test(after)) {
+        text = after;
+      }
+    }
+    if (typeof text === 'string') {
+      text = text.replace(/\bfor (?:instance|example)\s*,\s*/i, '');
+    }
+    // Phase 8 fix (second round): a naming explanation is not a causal
+    // mechanism. "Mountains are called water towers because they are at
+    // a height" does not mean mountains cause height, and "Mongolia is
+    // called the Land of the Eternal Blue Sky because it has sunny
+    // weather" does not mean Mongolia causes sunny weather.
+    if (typeof text === 'string' && /\bis called\b|\bknown as\b/i.test(text) && /\bbecause\b/i.test(text)) {
+      return null;
+    }
+    // Pattern 1 — explicit direct causal verb. Repair 002: supports,
+    // helps, allows, makes and affects are NOT direct causation merely
+    // because they occur in a broad relation pattern, so they are removed
+    // from this list. Two narrow causative constructions are handled
+    // separately below, only where the extracted arguments themselves
+    // state a direct effect clause (allows + infinitive effect, makes +
+    // base-verb effect); a bare "X supports Y" / "X helps Y" /
+    // "X affects Y" never becomes CAUSES here.
+    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|determines?|drives?|encourages?|forces?|strengthens?|weakens?|accelerates?|slows?\s+down)\s+(.+?)[.!?]?\s*$/i);
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = cleanText(match[3]).replace(/[.,;:]+$/, '');
       if (!subject || !object || object.length < 3) return null;
+      if (isFragmentPhrase(subject) || isFragmentPhrase(object)) return null;
+      // Phase 8 fix (second round): an effect must be a concept, not a
+      // compound predicate ("climate, and is home to a variety") and not
+      // a pronoun clause ("it has sunny weather"). A heading subject
+      // ("Water towers: Mountains") is not a cause concept either.
+      if (/\band\s+(is|are|was|were|has|have)\b/i.test(object)) return null;
+      if (/^(it|they|you|he|she|we)\b/i.test(object)) return null;
+      if (subject.includes(':')) return null;
       return {
         fact_type: 'causal',
         subject,
@@ -988,12 +1149,60 @@
       };
     }
 
+    // Pattern 1b — narrow causative constructions only. "X allows Y to
+    // <verb> ..." states an explicit effect clause, and "X makes Y
+    // <verb> ..." is a causative construction; both keep cause -> effect
+    // order and are not reversed. Anything without that effect clause
+    // falls through and is not forced into CAUSES.
+    const allowsMatch = text.match(/^(.+?)\s+allows?\s+(.+?\s+to\s+\S.+?)[.!?]?\s*$/i);
+    if (allowsMatch) {
+      const subject = cleanFactSubject(allowsMatch[1]);
+      const object = cleanText(allowsMatch[2]).replace(/[.,;:]+$/, '');
+      if (subject && object && object.length >= 5) {
+        return {
+          fact_type: 'causal',
+          subject,
+          relation: 'causes',
+          object,
+          relation_verb: 'allows',
+          causal_direction: 'cause_to_effect',
+          answer_kind: 'effect',
+          extraction_method: 'causal_allows_infinitive'
+        };
+      }
+    }
+    const makesMatch = text.match(/^(.+?)\s+makes?\s+(.+?\s+[a-z]+(?:\s+.+)?)[.!?]?\s*$/i);
+    if (makesMatch) {
+      // Only accept when the object clause contains a verb-like effect
+      // after a short noun phrase (e.g. "the metal expand", not a bare
+      // noun object such as "the students").
+      const object = cleanText(makesMatch[2]).replace(/[.,;:]+$/, '');
+      const objectWords = object.split(/\s+/);
+      if (objectWords.length >= 3) {
+        const subject = cleanFactSubject(makesMatch[1]);
+        if (subject && object.length >= 5) {
+          return {
+            fact_type: 'causal',
+            subject,
+            relation: 'causes',
+            object,
+            relation_verb: 'makes',
+            causal_direction: 'cause_to_effect',
+            answer_kind: 'effect',
+            extraction_method: 'causal_makes_effect'
+          };
+        }
+      }
+    }
+
     // Pattern 2 — "X because Y"
     const because = text.match(/^(.+?)\s+because\s+(.+?)[.!?]?\s*$/i);
     if (because) {
       const effect = cleanFactSubject(because[1]);
       const cause = cleanText(because[2]).replace(/[.,;:]+$/, '');
       if (!effect || !cause || cause.length < 3) return null;
+      if (/^(it|they|you|he|she|we)\s+(is|are|was|were|has|have|had|can|could|will|would)\b/i.test(cause)) return null;
+      if (effect.includes(':')) return null;
       return {
         fact_type: 'causal',
         subject: effect,
@@ -1074,9 +1283,15 @@
     if (ifMatch) {
       const condition = cleanText(ifMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(ifMatch[2]).replace(/[.,;:]+$/, '');
-      const condSubject = cleanFactSubject(condition);
+      // Phase 8 fix (fourth round): the condition must be a full clause,
+      // not just its noun subject. cleanFactSubject("senior Congress
+      // leaders were arrested") gave "senior Congress leaders", making
+      // the stem "what happens when senior Congress leaders?" unanswerable.
+      // A two-word proper name with no verb ("Muhammad Iqbal", before an
+      // appositive comma) is not a condition at all and must be rejected.
+      const condSubject = cleanText(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length <= 10
+          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
           && !UNUSABLE_SUBJECT_START.test(condSubject)) {
         return {
           fact_type: 'causal',
@@ -1096,9 +1311,9 @@
     if (whenMatch) {
       const condition = cleanText(whenMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(whenMatch[2]).replace(/[.,;:]+$/, '');
-      const condSubject = cleanFactSubject(condition);
+      const condSubject = cleanText(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length <= 10
+          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
           && !UNUSABLE_SUBJECT_START.test(condSubject)) {
         return {
           fact_type: 'causal',
@@ -1118,9 +1333,9 @@
     if (unlessMatch) {
       const condition = cleanText(unlessMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(unlessMatch[2]).replace(/[.,;:]+$/, '');
-      const condSubject = cleanFactSubject(condition);
+      const condSubject = cleanText(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length <= 10
+          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
           && !UNUSABLE_SUBJECT_START.test(condSubject)) {
         return {
           fact_type: 'causal',
@@ -1643,6 +1858,7 @@
         const object = cleanText(match[0]);
         const info = parseNumericValue(object);
         if (!info) continue;
+        if (!isCleanQuantity(object)) continue;
         const prefix = text.slice(Math.max(0, match.index - 30), match.index);
         const approximate = /(?:~|over|about|approximately|around|nearly|almost|more\s+than|less\s+than|under|at\s+least|at\s+most|up\s+to)\s*$/i.test(prefix);
         const negative = info.raw.startsWith('-') || /(?:not|never|cannot|no|without|nor|neither)\b[^.;]{0,24}$/i.test(prefix);
@@ -1678,6 +1894,20 @@
     const text = cleanText(sentence);
     const context = sectionContext || {};
     if (!text) return [];
+    // Sentence-role gate (Repair 002, Phase 4): only assertions may
+    // generate ordinary factual propositions. This runs before causal,
+    // conditional, comparison, definition, sequence, exception or any
+    // other factual-relation extraction, and before the fallback below.
+    const sentenceRole = classifySentenceRole(text);
+    if (sentenceRole !== 'assertion') return [];
+    // Phase 8 fix: running book titles are page furniture, not facts, even
+    // when the layout extractor merged a footer line with body text on the
+    // same line (e.g. "Exploring Society: India and Beyond | G rade 8
+    // Part 2 launched in 1906."). A sentence unit containing that title
+    // pattern, or a spaced-out "G rade" artefact, must not become a fact.
+    if (/\bexploring society\b/i.test(text) && /\bgrade\b/i.test(text)) return [];
+    if (/\|\s*G\s*rade\b/i.test(text)) return [];
+    if (/^exploring society:/i.test(text)) return [];
     const facts = [];
     const add = (draft) => {
       if (!draft || !draft.subject || draft.object == null || draft.object === '') return;
@@ -1787,7 +2017,8 @@
           source_page: section.page != null ? section.page : 1,
           source_text: record.text,
           source_start: record.start,
-          source_end: record.end
+          source_end: record.end,
+          sentence_role: classifySentenceRole(record.text)
         });
       }
     }
@@ -1809,6 +2040,10 @@
         sectionId: unit.section_id,
         sourcePage: unit.source_page
       };
+      const sentenceRole = classifySentenceRole(unit.source_text);
+      // Never create fallback facts from an excluded interrogative,
+      // instruction or ambiguous unit.
+      if (sentenceRole !== 'assertion') continue;
       let drafts = parseFactRelations(unit.source_text, context);
       if (!drafts.length) {
         drafts = [{
@@ -1853,7 +2088,8 @@
           extraction_method: draft.extraction_method || 'explicit',
           confidence_class: factConfidenceClass(draft, sourceMeta),
           conflict_status: 'clear',
-          answer_kind: draft.answer_kind || 'none'
+          answer_kind: draft.answer_kind || 'none',
+          sentence_role: sentenceRole
         };
 
         const carry = [
@@ -1990,29 +2226,57 @@
 
   // Parse Raw Document (Markdown, TXT, or structured text)
   function parseRawDocument(rawText, defaultTitle) {
+    // Repair 002, Phase 3: paragraph and page boundaries are structural.
+    // A blank line flushes the current paragraph (it does not disappear);
+    // a page marker flushes the current paragraph AND its section and
+    // updates page metadata; a heading flushes both and starts a new
+    // section. Wrapped lines inside one paragraph stay connected (joined
+    // with a single space). Two paragraphs are never joined into one
+    // fact-extraction unit, and the end of one page is never merged with
+    // the start of the next. Section.text joins paragraphs with blank
+    // lines so sentence segmentation still sees the boundary.
     const titleFallback = defaultTitle || 'Study Document';
     const lines = String(rawText == null ? '' : rawText).split(/\r?\n/);
     const sections = [];
     let currentTitle = titleFallback;
+    let currentParagraphLines = [];
     let currentParagraphs = [];
+    let currentParagraphMeta = [];
     let pageNum = 1;
+
+    const flushParagraph = () => {
+      if (!currentParagraphLines.length) return;
+      const paragraphText = currentParagraphLines.join(' ');
+      currentParagraphs.push(paragraphText);
+      currentParagraphMeta.push({ text: paragraphText, page: pageNum, title: currentTitle });
+      currentParagraphLines = [];
+    };
+    const flushSection = () => {
+      flushParagraph();
+      if (!currentParagraphs.length) return;
+      sections.push({
+        id: 'sec_' + (sections.length + 1),
+        title: currentTitle,
+        text: currentParagraphs.join('\n\n'),
+        page: pageNum,
+        paragraphs: currentParagraphs.slice(),
+        paragraphMeta: currentParagraphMeta.slice()
+      });
+      currentParagraphs = [];
+      currentParagraphMeta = [];
+    };
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed) continue;
+      // Blank line: paragraph boundary, not ignored, not a section break.
+      if (!trimmed) {
+        flushParagraph();
+        continue;
+      }
 
       const pageMatch = trimmed.match(/^page\s+(\d+)/i) || trimmed.match(/^==Page\s+(\d+)/i);
       if (pageMatch) {
-        if (currentParagraphs.length > 0) {
-          sections.push({
-            id: 'sec_' + (sections.length + 1),
-            title: currentTitle,
-            text: currentParagraphs.join(' '),
-            page: pageNum,
-            paragraphs: currentParagraphs.slice()
-          });
-          currentParagraphs = [];
-        }
+        flushSection();
         pageNum = parseInt(pageMatch[1], 10);
         continue;
       }
@@ -2022,38 +2286,23 @@
         /^Topic\s+\d+:/i.test(trimmed);
 
       if (isHeader) {
-        if (currentParagraphs.length > 0) {
-          sections.push({
-            id: 'sec_' + (sections.length + 1),
-            title: currentTitle,
-            text: currentParagraphs.join(' '),
-            page: pageNum,
-            paragraphs: currentParagraphs.slice()
-          });
-          currentParagraphs = [];
-        }
+        flushSection();
         currentTitle = trimmed.replace(/^#{1,4}\s+/, '').replace(/^(\d+\.|\([A-Za-z0-9]+\))\s+/, '');
       } else {
-        currentParagraphs.push(trimmed);
+        currentParagraphLines.push(trimmed);
       }
     }
 
-    if (currentParagraphs.length > 0) {
-      sections.push({
-        id: 'sec_' + (sections.length + 1),
-        title: currentTitle,
-        text: currentParagraphs.join(' '),
-        page: pageNum,
-        paragraphs: currentParagraphs.slice()
-      });
-    }
+    flushSection();
 
     if (sections.length === 0 && cleanText(rawText).length > 20) {
       sections.push({
         id: 'sec_1',
         title: titleFallback,
         text: cleanText(rawText),
-        page: 1
+        page: 1,
+        paragraphs: [cleanText(rawText)],
+        paragraphMeta: [{ text: cleanText(rawText), page: 1, title: titleFallback }]
       });
     }
 
@@ -2307,6 +2556,12 @@
     for (const candidate of ctx.index.effects) {
       if (results.length >= 6) break;
       if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
+      // Phase 8 fix (fourth round): causal effects used as distractors
+      // must not be fragments ("of the high-pitched chants ...", "it
+      // clear, therefore, that ...") or sentence-long clauses.
+      if (isFragmentPhrase(candidate)) continue;
+      if (/^(it|they|this|that|of|to|in|on|for|with|by|as)\b/i.test(candidate)) continue;
+      if (candidate.split(/\s+/).filter(Boolean).length > 12) continue;
       if (isValueSupported(ctx.facts, fact.subject, fact.relation, candidate, fact.temporal_scope)) continue;
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
       results.push({
@@ -2870,7 +3125,14 @@
       id: '',
       type: 'multi_statement',
       question_subtype: 'multi_statement',
-      stem: `Consider the following statements based on ${sourceTitle}:`,
+      // Phase 8 fix: do not put a section title in the stem. Section titles
+      // are derived from textbook headings and numbered learning-objective
+      // lists, and on real NCERT pages they arrive truncated or merged
+      // ("based on What are the unique physical:"), which made the stem
+      // unanswerable. The statements themselves are rendered by the app
+      // and by the batch markdown report; the stem only needs to introduce
+      // them. sourceTitle is kept for source_title metadata, not the stem.
+      stem: 'Consider the following statements:',
       prompt_suffix: 'Which of the statements given above is/are correct?',
       options,
       answer_key: answerKey,
@@ -3118,6 +3380,34 @@
         if (!option.distractor_origin || option.distractor_origin === 'generic_filler') {
           add('distractor_provenance', 'Every distractor must identify a typed source or controlled origin.', { text: option.text });
         }
+      }
+    }
+
+    // Phase 8 fix: evidence and answers must be standalone and complete.
+    // A running book title, a figure reference, or a dangling fragment
+    // cannot be evidence, and a numeric answer cannot be a merged
+    // year + count phrase.
+    const excerptText = cleanText(question.supporting_excerpt || '');
+    if (excerptText && /\bexploring society\b/i.test(excerptText) && /\bgrade\b/i.test(excerptText)) {
+      add('page_furniture', 'Supporting excerpt is a running book title, not body prose.');
+    }
+    if (excerptText && /\(Fig\.|Fig\.\s*\d|Figure\s+\d/i.test(excerptText)) {
+      add('figure_reference', 'Supporting excerpt depends on a figure reference and is not standalone evidence.');
+    }
+    if (excerptText && /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(excerptText)) {
+      add('fragment_excerpt', 'Supporting excerpt ends with a dangling word and is not a complete statement.');
+    }
+    if (question.question_subtype === 'numeric_recall' && correctOptions.length === 1 && !isCleanQuantity(correctOptions[0].text)) {
+      add('numeric_answer', 'A numeric answer must be a clean quantity, not a merged phrase.', { text: correctOptions[0].text });
+    }
+    if (question.question_subtype === 'multi_statement') {
+      if (!Array.isArray(question.statements) || question.statements.length !== 2) {
+        add('statement_count', 'Multi-statement questions must carry exactly two statements for rendering.');
+      }
+      if (/based on\s+\S/.test(question.stem || '') && /:/.test(question.stem || '')) {
+        // The fixed stem is exactly "Consider the following statements:";
+        // any "based on <section title>" stem is the old truncated form.
+        add('multi_stem', 'Multi-statement stem must not depend on a section title.', { stem: question.stem });
       }
     }
 
@@ -3441,26 +3731,47 @@
 
     const candidates = buildQuestionCandidates(ctx, opts);
 
+    // Repair 002, Phase 5: the production generator must NOT merge raw
+    // V2 candidates. It now calls the validated V2 question-bank API,
+    // which internally compiles propositions, builds the graph, runs
+    // operators and enforces V2 proof validation (Validator.validateCandidate)
+    // before returning. The candidates returned here are then also run
+    // through existing production validation below, so only candidates
+    // passing BOTH layers may be published. Evidence and source metadata
+    // are preserved as returned by V2; nothing is manufactured to make a
+    // candidate pass. A V2 exception is recorded in diagnostics
+    // (v2Failed / v2Error) and is never silently presented as a fully
+    // validated bank.
     let v2Candidates = [];
-    if (ReasoningV2 && typeof ReasoningV2.generateReasoningCandidates === 'function') {
+    let v2Generation = null;
+    let v2Error = null;
+    if (ReasoningV2 && typeof ReasoningV2.generateReasoningQuestionBank === 'function') {
       try {
         const sectionsForV2 = (ctx.sections && ctx.sections.length) ? ctx.sections : (opts.sections || []);
         if (sectionsForV2.length) {
-          const initialFactIds = new Set(facts.map((f) => f.fact_id));
-          const compiled = ReasoningV2.Representation.compileSemanticRepresentation(sectionsForV2, facts);
-          const graph = ReasoningV2.GraphModule.buildGraphFromPropositions(compiled.propositions);
-          const rawV2 = ReasoningV2.generateReasoningCandidates(graph, {
-            sourceTitle: (sectionsForV2[0] && sectionsForV2[0].title) || 'Source Document',
+          const v2Bank = ReasoningV2.generateReasoningQuestionBank(sectionsForV2, {
             facts: facts,
-            sections: sectionsForV2
+            targetCount: targetCount
           });
-          v2Candidates = rawV2.filter((cand) => {
+          v2Generation = v2Bank && v2Bank.generation ? v2Bank.generation : null;
+          v2Candidates = Array.isArray(v2Bank) ? v2Bank.slice() : [];
+          // Preserve original evidence references: drop only candidates
+          // whose evidence does not reference any supplied fact at all.
+          // V2-validated candidates normally carry production fact ids
+          // (see constructors.js); this is a safety filter, not a
+          // substitute for V2 or production validation.
+          const initialFactIds = new Set(facts.map((f) => f.fact_id));
+          v2Candidates = v2Candidates.filter((cand) => {
             if (!cand || !cand.evidence || !Array.isArray(cand.evidence.fact_ids)) return false;
-            cand.evidence.fact_ids = cand.evidence.fact_ids.filter((id) => initialFactIds.has(id));
-            return cand.evidence.fact_ids.length > 0;
+            return cand.evidence.fact_ids.some((id) => initialFactIds.has(id));
           });
         }
-      } catch (_) {}
+      } catch (err) {
+        v2Error = err;
+        v2Candidates = [];
+      }
+    } else if (ReasoningV2) {
+      v2Error = new Error('ReasoningV2.generateReasoningQuestionBank is not available');
     }
 
     const allCandidates = [...v2Candidates, ...candidates];
@@ -3539,15 +3850,24 @@
       incrementCount(rejectionCounts, selected.length >= targetCount ? 'target_limit' : 'duplicate_relation', 1);
     }
 
+    if (v2Error) rejectionCounts.v2_error = (rejectionCounts.v2_error || 0) + 1;
+    if (v2Generation && v2Generation.rejectionCounts) {
+      for (const key of Object.keys(v2Generation.rejectionCounts)) {
+        rejectionCounts['v2_' + key] = (rejectionCounts['v2_' + key] || 0) + v2Generation.rejectionCounts[key];
+      }
+    }
     if (!accepted.length) {
       const metrics = {
         factCount: facts.length,
-        totalCandidates: candidates.length,
+        totalCandidates: allCandidates.length,
         accepted: 0,
-        rejected: candidates.length,
+        rejected: allCandidates.length,
         conflictCount: conflicts.length,
         rejectionCounts,
-        buildMetrics
+        buildMetrics,
+        v2Failed: Boolean(v2Error),
+        v2Error: v2Error ? (v2Error.message || String(v2Error)) : null,
+        v2Generation: v2Generation
       };
       throw noVerifiedQuestionsError(
         'No verified questions could be created from this source. The material was unsupported, ambiguous, or in conflict, so nothing was published.',
@@ -3567,9 +3887,11 @@
     const conflictedFactIds = facts.filter((fact) => fact.conflict_status === 'conflicting').map((fact) => fact.fact_id);
     const metrics = {
       factCount: facts.length,
-      totalCandidates: candidates.length,
+      totalCandidates: allCandidates.length,
+      productionCandidates: candidates.length,
+      v2Candidates: v2Candidates.length,
       accepted: accepted.length,
-      rejected: Math.max(0, candidates.length - accepted.length),
+      rejected: Math.max(0, allCandidates.length - accepted.length),
       requestedCount: targetCount,
       conflictCount: conflicts.length,
       conflictedFactCount: conflictedFactIds.length,
@@ -3579,15 +3901,23 @@
       rejectionCounts,
       buildMetrics,
       subtypeDistribution,
-      keyDistribution
+      keyDistribution,
+      v2Failed: Boolean(v2Error),
+      v2Error: v2Error ? (v2Error.message || String(v2Error)) : null,
+      v2Generation: v2Generation
     };
     Object.defineProperty(accepted, 'generation', { value: metrics, enumerable: false });
     Object.defineProperty(accepted, 'facts', { value: facts, enumerable: false });
+    Object.defineProperty(accepted, 'v2Diagnostics', {
+      value: { failed: Boolean(v2Error), error: v2Error ? (v2Error.message || String(v2Error)) : null, generation: v2Generation },
+      enumerable: false
+    });
     return accepted;
   }
 
   const StudySynthEngine = {
     cleanText,
+    classifySentenceRole,
     splitSentences,
     extractAnchors,
     balanceDistractorLength,

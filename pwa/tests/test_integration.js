@@ -248,7 +248,24 @@ assert(/engine\/analyze\.js/.test(sw), 'The shared analysis module must be preca
 assert(/engine\/jobs\.js/.test(sw), 'The job manager must be precached');
 assert(/new URL\('\.\/engine\/worker\.js', document\.baseURI\)/.test(appJs), 'The worker must resolve relative to the app base URL');
 assert(/Worker\(/.test(appJs) && /studysynth-generator/.test(appJs), 'Generation must run in a named worker');
-assert(/importScripts\('\.\/generator\.js', '\.\/analyze\.js'\)/.test(workerJs), 'The worker must reuse the real engine and shared analysis');
+// Repair 002: the worker loads the full Reasoning V2 chain before the
+// engine, so the exact two-file import is replaced by an ordered-chain
+// check that still requires the real engine and shared analysis.
+{
+  const workerChain = [
+    './reasoning/types.js', './reasoning/linguistics.js', './reasoning/representation.js',
+    './reasoning/graph.js', './reasoning/distractors.js', './reasoning/operators.js',
+    './reasoning/constructors.js', './reasoning/validator.js', './reasoning/ranking.js',
+    './reasoning/engine_v2.js', './generator.js', './analyze.js'
+  ];
+  assert(/importScripts\(/.test(workerJs), 'The worker must reuse the real engine and shared analysis');
+  let lastIndex = -1;
+  for (const asset of workerChain) {
+    const idx = workerJs.indexOf(`'${asset}'`);
+    assert(idx > lastIndex, `The worker must load ${asset} after earlier Reasoning V2 dependencies`);
+    lastIndex = idx;
+  }
+}
 assert(/startGeneration/.test(appJs) && /startImport/.test(appJs), 'The app must start jobs through the manager');
 assert(/Processing\.isBusy\(\)/.test(appJs), 'Duplicate processing must be rejected');
 assert(!/analyzeSource\(text, title, sourceMeta, 15\)/.test(appJs), 'The page must not run generation synchronously');
