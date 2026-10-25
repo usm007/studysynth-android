@@ -199,44 +199,37 @@
 
     // Evidence fact IDs: map premises strictly to valid fact IDs in context.facts
     const availableFacts = (context && Array.isArray(context.facts)) ? context.facts : [];
-    let evidenceFactIds = [];
-    if (proofTrace && Array.isArray(proofTrace.premises)) {
+    const evidenceFactIds = [];
+    const premiseExcerpts = [];
+    const premiseOffsets = [];
+
+    if (proofTrace && Array.isArray(proofTrace.premises) && proofTrace.premises.length > 0) {
       for (const pid of proofTrace.premises) {
-        if (availableFacts.some((f) => f.fact_id === pid)) {
-          if (!evidenceFactIds.includes(pid)) evidenceFactIds.push(pid);
-        } else {
-          const matched = availableFacts.find((f) =>
-            f.subject && derivedProp.subject && f.subject.toLowerCase() === derivedProp.subject.toLowerCase()
-          ) || availableFacts.find((f) =>
-            f.supporting_excerpt && excerpt && (f.supporting_excerpt.includes(excerpt) || excerpt.includes(f.supporting_excerpt))
-          );
-          if (matched && !evidenceFactIds.includes(matched.fact_id)) {
-            evidenceFactIds.push(matched.fact_id);
+        const fact = availableFacts.find((f) => f.fact_id === pid);
+        if (fact) {
+          if (!evidenceFactIds.includes(pid)) {
+            evidenceFactIds.push(pid);
+            if (fact.supporting_excerpt) premiseExcerpts.push(fact.supporting_excerpt);
+            if (fact.source_start != null && fact.source_end != null) {
+              premiseOffsets.push({ fact_id: pid, start: fact.source_start, end: fact.source_end });
+            }
+          }
+        } else if (graph && typeof graph.getProposition === 'function') {
+          const propNode = graph.getProposition(pid);
+          if (propNode && propNode.supporting_excerpt) {
+            premiseExcerpts.push(propNode.supporting_excerpt);
           }
         }
       }
     }
-    if (evidenceFactIds.length === 0) {
-      if (availableFacts.length > 0) {
-        const matched = availableFacts.find((f) =>
-          f.subject && derivedProp.subject && f.subject.toLowerCase() === derivedProp.subject.toLowerCase()
-        ) || availableFacts.find((f) =>
-          f.supporting_excerpt && excerpt && (f.supporting_excerpt.includes(excerpt) || excerpt.includes(f.supporting_excerpt))
-        ) || availableFacts[0];
-        evidenceFactIds = [matched.fact_id];
-      } else {
-        evidenceFactIds = [derivedProp.id];
-      }
+
+    // Strict evidence integrity: never substitute unrelated first fact
+    if (evidenceFactIds.length === 0 && availableFacts.length > 0) {
+      return null;
     }
 
-    const referencedFacts = evidenceFactIds
-      .map((id) => availableFacts.find((f) => f.fact_id === id))
-      .filter(Boolean);
-
-    let excerptQuote = excerpt;
-    if (referencedFacts.length > 0) {
-      excerptQuote = referencedFacts.map((f) => f.supporting_excerpt).join(' ');
-    }
+    // Quotation: multi-premise results retain distinct premise boundaries
+    const excerptQuote = premiseExcerpts.length > 0 ? premiseExcerpts.join(' [Premise]: ') : excerpt;
     const explanation = `Source verification: "${excerptQuote}". ` +
       `This confirms that ${derivedProp.subject} ${derivedProp.predicate} ${derivedProp.object}.`;
 
@@ -254,10 +247,12 @@
       knowledge_units: ['KU-REASONING-V2'],
       source_title: derivedProp.source_section || (context && context.sourceTitle) || 'Source Document',
       source_page: derivedProp.source_page != null ? derivedProp.source_page : 1,
-      supporting_excerpt: excerpt,
+      supporting_excerpt: excerptQuote,
       explanation: explanation,
       evidence: {
         fact_ids: evidenceFactIds,
+        excerpts: premiseExcerpts,
+        source_offsets: premiseOffsets,
         stem_relation: derivedProp.normalized_relation || derivedProp.predicate,
         temporal_scope: derivedProp.temporal_scope || ''
       },
@@ -277,9 +272,9 @@
       difficulty: difficulty,
       quality_scores: {
         conceptual_depth: difficulty === DIFFICULTY_LEVELS.SYNTHESIS ? 5 : difficulty === DIFFICULTY_LEVELS.ANALYSIS ? 4 : 3,
-        reasoning_validity: 1.0,
-        evidence_completeness: 1.0,
-        clarity: 1.0
+        reasoning_validity: Math.round(((proofTrace && proofTrace.steps && proofTrace.steps.length >= 2 ? 0.9 : 0.75) + (evidenceFactIds.length === (proofTrace ? proofTrace.premises.length : 1) ? 0.1 : 0)) * 100) / 100,
+        evidence_completeness: proofTrace && proofTrace.premises && proofTrace.premises.length > 0 ? Math.round((evidenceFactIds.length / proofTrace.premises.length) * 100) / 100 : 0.8,
+        clarity: (stem.length >= 25 && stem.length <= 150) ? 0.95 : 0.85
       }
     };
 

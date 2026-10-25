@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-25T04:56:07.370Z",
+    "pdfPath": "C:/Users/Admin/Desktop/NCERT/8.2/hees201.pdf",
+    "gitRevision": "HEAD",
+    "branch": "main",
+    "repair": "ENGINE_REPAIR_001"
+  },
+  "target1000kmCase": {
+    "contaminatedSubjectTested": "Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India",
+    "checkSubjectQualityResult": {
+      "valid": false,
+      "code": "INTERNAL_SENTENCE_BOUNDARY",
+      "reason": "Subject contains an internal sentence boundary, colon, or semicolon"
+    },
+    "isUsableSubject": false,
+    "contaminatedFactExtracted": false,
+    "status": "DEFECT_CLOSED_CONFIRMED"
+  },
+  "controlDefinitionCase": {
+    "sourceProse": "A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. Cartographers use map projections to represent geographic features accurately.",
+    "extractedFactCount": 2,
+    "questionsGenerated": 1,
+    "verifiedQuestion": {
+      "stem": "What role is associated with a map projection?",
+      "expected_answer": "mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper",
+      "valid": true
+    },
+    "status": "VALID_PROSE_PRESERVED"
+  },
+  "crossPageBoundaries": {
+    "sectionCount": 2,
+    "page9Section": {
+      "page": 9,
+      "textLength": 788,
+      "containsPage10Header": false
+    },
+    "page10Section": {
+      "page": 10,
+      "textLength": 1734
+    },
+    "pageFlushingVerified": true
+  },
+  "summary": {
+    "repair_001_complete": true,
+    "target_1000km_rejected": true,
+    "cross_page_boundaries_isolated": true,
+    "valid_definitions_preserved": true
+  }
+}

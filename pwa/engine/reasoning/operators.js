@@ -426,6 +426,47 @@
       return rejection(REJECTION_CODES.UNSUPPORTED_PREMISE, 'Missing contrastive premises');
     }
 
+    // Both propositions must have complete semantic subjects and objects
+    if (!propA.subject || !propB.subject || !propA.object || !propB.object) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Incomplete subject or object in contrast premises');
+    }
+
+    // Must be distinct concepts
+    if (propA.subject.toLowerCase().trim() === propB.subject.toLowerCase().trim()) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Cannot contrast an entity with itself');
+    }
+
+    // Precondition: Genuine contrast basis required.
+    // Either an explicit contrast/comparison relation, OR matching relation type describing differing values on a shared dimension
+    const isExplicitContrast = propA.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
+      propA.relation_type === RELATION_TYPES.COMPARES_WITH ||
+      propB.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
+      propB.relation_type === RELATION_TYPES.COMPARES_WITH;
+
+    const isCompatibleDimension = propA.relation_type === propB.relation_type &&
+      propA.object.toLowerCase().trim() !== propB.object.toLowerCase().trim() &&
+      [
+        RELATION_TYPES.DEFINITION_OF,
+        RELATION_TYPES.HAS_PROPERTY,
+        RELATION_TYPES.HAS_COMPONENT,
+        RELATION_TYPES.PART_OF,
+        RELATION_TYPES.MEMBER_OF,
+        RELATION_TYPES.INCREASES,
+        RELATION_TYPES.DECREASES
+      ].includes(propA.relation_type);
+
+    if (!isExplicitContrast && !isCompatibleDimension) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Propositions lack a genuine, shared contrast dimension');
+    }
+
+    // Contrast requires non-speculative positive ground premises
+    if (propA.modality === MODALITY.POSSIBILITY || propB.modality === MODALITY.POSSIBILITY) {
+      return rejection(REJECTION_CODES.SPECULATIVE_MODALITY, 'Cannot build contrast from speculative premise');
+    }
+    if (propA.polarity !== POLARITY.POSITIVE || propB.polarity !== POLARITY.POSITIVE) {
+      return rejection(REJECTION_CODES.AMBIGUOUS_NEGATION, 'Contrast requires positive ground premises');
+    }
+
     const derived = Representation.createProposition({
       subject: `${propA.subject} versus ${propB.subject}`,
       predicate: 'contrasts on',
@@ -442,9 +483,9 @@
       operator: REASONING_OPERATORS.OP_J_CONTRASTIVE_EXPLANATION,
       premises: [propA.id, propB.id],
       steps: [
-        `Premise A: ${propA.subject} exhibits ${propA.object}`,
-        `Premise B: ${propB.subject} exhibits ${propB.object}`,
-        `Established contrastive differentiation`
+        `Premise A: ${propA.subject} exhibits ${propA.object} (${propA.relation_type})`,
+        `Premise B: ${propB.subject} exhibits ${propB.object} (${propB.relation_type})`,
+        `Established contrastive differentiation along shared semantic dimension`
       ]
     };
 

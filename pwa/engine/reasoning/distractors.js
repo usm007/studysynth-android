@@ -36,17 +36,29 @@
       const norm = normalize(clean);
       if (clean.length < 3 || usedTexts.has(norm)) return false;
 
-      // Closed-context verification: ensure distractor is not accidentally true in the graph
-      if (graph && graph.hasContradiction && graph.hasContradiction(clean, derivedProp.relation_type, correctAnswerText)) {
-        // Excellent: it is explicitly contradicted!
+      // Closed-context verification: ensure distractor is not accidentally true in the source graph
+      if (graph && typeof graph.findPropositions === 'function') {
+        const matchingTrueProps = graph.findPropositions({ subject: derivedProp.subject });
+        if (matchingTrueProps.some((p) => normalize(p.object) === norm)) {
+          // Rejected: distractor statement is actually asserted as true in the source graph
+          return false;
+        }
+      }
+
+      // Verify whether explicitly contradicted or reasoning misconception
+      let finalOrigin = distractorOrigin || 'misconception_transformation';
+      let finalTransformation = transformationType || 'reasoning_error';
+
+      if (graph && typeof graph.hasContradiction === 'function' && graph.hasContradiction(clean, derivedProp.relation_type, correctAnswerText)) {
+        finalTransformation = 'explicit_contradiction';
       }
 
       usedTexts.add(norm);
       distractors.push({
         text: clean,
         is_correct: false,
-        distractor_origin: distractorOrigin || 'misconception_transformation',
-        transformation_type: transformationType || 'reasoning_error'
+        distractor_origin: finalOrigin,
+        transformation_type: finalTransformation
       });
       return true;
     }
@@ -165,22 +177,7 @@
       );
     }
 
-    // Fallback backfill from graph concepts to guarantee 3 typed distractors
-    if (distractors.length < 3 && graph && typeof graph.getAllConcepts === 'function') {
-      const allConcepts = graph.getAllConcepts();
-      for (const c of allConcepts) {
-        if (distractors.length >= 3) break;
-        const candidateText = c.primarySurface;
-        if (!usedTexts.has(normalize(candidateText))) {
-          addDistractor(
-            candidateText,
-            'confusable_fact',
-            DISTRACTOR_TYPES.CATEGORY_CONFUSION
-          );
-        }
-      }
-    }
-
+    // Require genuine, defensible distractors; do not backfill arbitrary concepts
     return distractors.slice(0, 3);
   }
 

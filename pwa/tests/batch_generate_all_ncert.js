@@ -1,8 +1,8 @@
 /**
- * StudySynth Lite — Batch NCERT Class 8 Question Generator
+ * StudySynth Lite — Batch NCERT Class 8 Question Generator (Targeted Repair 001)
  * Generates verified production questions and conceptual reasoning V2 questions
  * from all 8 NCERT Class 8 Social Science textbook PDFs.
- * Outputs individual markdown files for each PDF.
+ * Outputs individual markdown files into the staging directory: pwa/data/ncert_8_2_staged/
  */
 
 const fs = require('fs');
@@ -81,15 +81,162 @@ const CHAPTER_MANIFEST = [
   }
 ];
 
+function padNumber(num, size) {
+  let s = String(num);
+  while (s.length < size) s = '0' + s;
+  return s;
+}
+
+/**
+ * Layout-aware PDF page extraction that preserves geometric reading order
+ * and separates running furniture and diagram labels from narrative prose.
+ */
+async function extractPageLayoutText(page, pageNum) {
+  const content = await page.getTextContent();
+  const items = content.items.map((it, idx) => ({
+    idx,
+    str: it.str,
+    x: Math.round(it.transform[4] * 10) / 10,
+    y: Math.round(it.transform[5] * 10) / 10,
+    w: Math.round(it.width * 10) / 10,
+    h: Math.round(it.height * 10) / 10
+  })).filter(it => it.str.trim().length > 0);
+
+  const bodyItems = [];
+  const diagramLabels = [];
+  const furniture = [];
+
+  for (const it of items) {
+    const text = it.str.trim();
+
+    // 1. Running headers & footers (extreme top/bottom margins)
+    if ((it.y <= 126 || it.y >= 745) && (
+      /^\d+$/.test(text) ||
+      /\bExploring Society\b/i.test(text) ||
+      /\bIndia and the World\b/i.test(text) ||
+      /\b\d+\s*–\s*.*Geography/i.test(text) ||
+      /\bChapter\s+\d+\.indd\b/i.test(text) ||
+      /\bGovernance and Democracy\b/i.test(text) ||
+      /\bEconomic Life\b/i.test(text) ||
+      /\bTapestry of the Past\b/i.test(text) ||
+      /\bOur\s*Cultural\s*Heritage\b/i.test(text)
+    )) {
+      furniture.push(it);
+      continue;
+    }
+
+    // 2. Graphic scale bar, compass letters, legend labels
+    if (it.h <= 10.5 && (
+      /^[NESW]$/.test(text) ||
+      /^0$|^500$|^1000\s*km$|^2,?000\s*km$|^5000$/i.test(text) ||
+      /^(?:Legend|Route|City|Scale)$/i.test(text)
+    )) {
+      diagramLabels.push(it);
+      continue;
+    }
+
+    // 3. Isolated uppercase map labels & vertical map text artifacts in diagram zone (y=150..650)
+    if (it.y > 150 && it.y < 650 && (
+      (it.h <= 10.5 && /^[A-Z]{3,}$/.test(text)) ||
+      /^[A-Za-z]\s+[A-Za-z]$/.test(text) ||
+      /^(?:[A-Z]\s+){2,}[A-Z]$/.test(text)
+    )) {
+      diagramLabels.push(it);
+      continue;
+    }
+
+    // 4. Callout banners and activity box headers
+    if (/\b(?:DO\s+N['’]T\s+MISS\s+OUT|LET['’]S\s+EXPLORE|DID\s+YOU\s+KNOW|THINK\s+ABOUT\s+IT|ACTIVITY\s*\d*|EXERCISE)\b/i.test(text)) {
+      furniture.push(it);
+      continue;
+    }
+
+    // 5. Figure / Photo captions and diagram tags
+    if (/^Fig(?:\.|\b)\s*\d+/i.test(text) || /^Figure\s*\d+/i.test(text) || /^Photo\s*\d+/i.test(text)) {
+      diagramLabels.push(it);
+      continue;
+    }
+
+    bodyItems.push(it);
+  }
+
+  function buildBlockParagraphs(itemsList) {
+    if (!itemsList || itemsList.length === 0) return [];
+    const blockLines = [];
+    itemsList.forEach(it => {
+      let line = blockLines.find(l => Math.abs(l.y - it.y) <= 3.5);
+      if (!line) {
+        line = { y: it.y, items: [] };
+        blockLines.push(line);
+      }
+      line.items.push(it);
+    });
+    blockLines.forEach(l => {
+      l.items.sort((a, b) => a.x - b.x);
+      l.text = l.items.map(i => i.str).join(' ').trim();
+    });
+    blockLines.sort((a, b) => b.y - a.y);
+
+    const paras = [];
+    let cur = [];
+    let pY = null;
+    for (const l of blockLines) {
+      if (!l.text) continue;
+      if (pY !== null && Math.abs(pY - l.y) > 17) {
+        if (cur.length > 0) {
+          paras.push(cur.join(' '));
+          cur = [];
+        }
+      }
+      cur.push(l.text);
+      pY = l.y;
+    }
+    if (cur.length > 0) paras.push(cur.join(' '));
+    return paras;
+  }
+
+  // Detect multi-column layout on page
+  const leftCol = [];
+  const rightCol = [];
+  const fullWidth = [];
+
+  for (const it of bodyItems) {
+    if (it.x < 180 && (it.x + it.w) > 360) {
+      fullWidth.push(it);
+    } else if (it.x < 255) {
+      leftCol.push(it);
+    } else {
+      rightCol.push(it);
+    }
+  }
+
+  const isMultiColumn = leftCol.length >= 4 && rightCol.length >= 4;
+  const paragraphs = [];
+
+  if (isMultiColumn) {
+    if (fullWidth.length > 0) paragraphs.push(...buildBlockParagraphs(fullWidth));
+    paragraphs.push(...buildBlockParagraphs(leftCol));
+    paragraphs.push(...buildBlockParagraphs(rightCol));
+  } else {
+    paragraphs.push(...buildBlockParagraphs(bodyItems));
+  }
+
+  return {
+    text: paragraphs.join('\n\n'),
+    furnitureCount: furniture.length,
+    diagramCount: diagramLabels.length
+  };
+}
+
 function buildMarkdownReport(meta, prodQuestions, v2Questions, pagesAnalyzed, totalPages) {
-  let md = `# NCERT Class 8 Social Science — Generated Question Bank\n`;
+  let md = `# NCERT Class 8 Social Science — Generated Question Bank (Staged Repair 001)\n`;
   md += `## Chapter ${meta.chapterNum}: ${meta.title}\n\n`;
   md += `- **Source Document:** \`${meta.file}\`\n`;
   md += `- **Discipline / Subject:** ${meta.subject}\n`;
   md += `- **Target Standard:** NCERT Class 8 (Curriculum 8.2)\n`;
   md += `- **Pages Processed:** ${pagesAnalyzed} of ${totalPages} pages in textbook PDF\n`;
   md += `- **Total Questions Generated:** ${prodQuestions.length + v2Questions.length} items (${prodQuestions.length} production items + ${v2Questions.length} conceptual reasoning proof items)\n`;
-  md += `- **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (100% Offline, Zero-LLM)\n\n`;
+  md += `- **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (Targeted Repair 001)\n\n`;
   md += `---\n\n`;
 
   // Summary Table
@@ -109,10 +256,11 @@ function buildMarkdownReport(meta, prodQuestions, v2Questions, pagesAnalyzed, to
   md += `| **Total** | **${prodQuestions.length + v2Questions.length}** | Verified Evidence-Grounded Items |\n\n`;
   md += `---\n\n`;
 
-  // Part I: Production Questions
+  // Part I: Production Questions with deterministic unique namespaced IDs
   md += `## Part I: Verified Production Questions\n\n`;
   prodQuestions.forEach((q, idx) => {
-    md += `### Question ${idx + 1} [${q.id}]\n`;
+    const uniqueId = `Q-P${meta.chapterNum}-${padNumber(idx + 1, 3)}`;
+    md += `### Question ${idx + 1} [${uniqueId}]\n`;
     md += `- **Subtype:** \`${q.question_subtype}\`\n`;
     md += `- **Cognitive Category:** \`${q.cognitive_category || 'understanding'}\`\n`;
     md += `- **Answer Key:** **${q.answer_key}**\n\n`;
@@ -136,11 +284,12 @@ function buildMarkdownReport(meta, prodQuestions, v2Questions, pagesAnalyzed, to
     md += `---\n\n`;
   });
 
-  // Part II: Reasoning V2 Questions
+  // Part II: Reasoning V2 Questions with deterministic unique namespaced IDs
   if (v2Questions.length > 0) {
     md += `## Part II: Conceptual Reasoning V2 Items (With Inference & Proof Traces)\n\n`;
     v2Questions.forEach((q, idx) => {
-      md += `### Conceptual Item ${idx + 1} [${q.id}]\n`;
+      const uniqueId = `Q-C${meta.chapterNum}-${padNumber(idx + 1, 3)}`;
+      md += `### Conceptual Item ${idx + 1} [${uniqueId}]\n`;
       md += `- **Subtype:** \`${q.question_subtype}\`\n`;
       md += `- **Cognitive Difficulty:** \`${q.difficulty}\`\n`;
       md += `- **Reasoning Operator:** \`${q.proof_trace ? q.proof_trace.operator : q.primary_operator}\`\n`;
@@ -177,17 +326,19 @@ async function batchProcess() {
   const Analysis = require('../engine/analyze.js');
 
   const pdfDir = 'C:/Users/Admin/Desktop/NCERT/8.2';
-  const outDirLocal = path.resolve(__dirname, '../data/ncert_8_2');
-  const outDirDesktop = 'C:/Users/Admin/Desktop/NCERT/8.2';
+  // Staging output directory: preserves original question banks completely untouched
+  const outDirStaged = path.resolve(__dirname, '../data/ncert_8_2_staged');
+  fs.mkdirSync(outDirStaged, { recursive: true });
 
-  fs.mkdirSync(outDirLocal, { recursive: true });
+  // Optional page limit argument (e.g. "node batch_generate_all_ncert.js 20")
+  const pageLimitArg = process.argv[2] ? parseInt(process.argv[2], 10) : null;
 
   console.log(`========================================================================`);
-  console.log(`STUDYSYNTH LITE — NCERT CLASS 8 BATCH QUESTION GENERATOR`);
+  console.log(`STUDYSYNTH LITE — NCERT CLASS 8 BATCH GENERATOR (STAGED REPAIR 001)`);
   console.log(`========================================================================`);
   console.log(`Source Folder: ${pdfDir}`);
-  console.log(`Local Output Folder: ${outDirLocal}`);
-  console.log(`Desktop Output Folder: ${outDirDesktop}`);
+  console.log(`Staging Output Folder: ${outDirStaged}`);
+  console.log(`Page Processing Mode: ${pageLimitArg ? `Limited to first ${pageLimitArg} pages` : 'Full Chapter (ALL pages)'}`);
   console.log(`Chapters to process: ${CHAPTER_MANIFEST.length}`);
 
   const resultsSummary = [];
@@ -211,20 +362,14 @@ async function batchProcess() {
     }).promise;
 
     const totalPages = doc.numPages;
-    // Extract pages: analyze up to 20 substantive pages for comprehensive coverage
-    const pagesToRead = Math.min(20, totalPages);
+    const pagesToRead = pageLimitArg && pageLimitArg > 0 ? Math.min(pageLimitArg, totalPages) : totalPages;
     const pagesText = [];
 
     for (let pageNum = 1; pageNum <= pagesToRead; pageNum++) {
       const page = await doc.getPage(pageNum);
-      const content = await page.getTextContent();
-      const text = content.items
-        .map((i) => i.str)
-        .join(' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-      if (text.length > 50) {
-        pagesText.push(`==Page ${pageNum}==\n${text}`);
+      const layoutResult = await extractPageLayoutText(page, pageNum);
+      if (layoutResult.text && layoutResult.text.length > 30) {
+        pagesText.push(`==Page ${pageNum}==\n${layoutResult.text}`);
       }
       page.cleanup();
     }
@@ -261,40 +406,43 @@ async function batchProcess() {
     // 3. Build Markdown Report
     const mdContent = buildMarkdownReport(item, prodQuestions, v2Questions, pagesText.length, totalPages);
 
-    // Save to local pwa/data/ncert_8_2/
-    const localFilePath = path.join(outDirLocal, `${item.outBase}.md`);
+    // Save strictly to local staged directory: pwa/data/ncert_8_2_staged/
+    const localFilePath = path.join(outDirStaged, `${item.outBase}.md`);
     fs.writeFileSync(localFilePath, mdContent, 'utf-8');
 
-    // Also save directly to Desktop/NCERT/8.2/
-    const desktopFilePath = path.join(outDirDesktop, `${item.outBase}.md`);
-    fs.writeFileSync(desktopFilePath, mdContent, 'utf-8');
-
     console.log(`  ✓ Saved: ${localFilePath}`);
-    console.log(`  ✓ Saved: ${desktopFilePath}`);
 
     resultsSummary.push({
       chapter: item.chapterNum,
       title: item.title,
       file: item.file,
+      pagesProcessed: `${pagesText.length}/${totalPages}`,
       prodCount: prodQuestions.length,
       v2Count: v2Questions.length,
       total: prodQuestions.length + v2Questions.length,
-      localFile: localFilePath,
-      desktopFile: desktopFilePath
+      stagedFile: localFilePath
     });
   }
 
   console.log(`\n========================================================================`);
-  console.log(`BATCH PROCESSING COMPLETE`);
+  console.log(`BATCH PROCESSING COMPLETE (STAGED REPAIR 001)`);
   console.log(`========================================================================`);
   console.table(resultsSummary.map(r => ({
     Chapter: `Ch ${r.chapter}`,
-    Title: r.title.slice(0, 32),
+    Title: r.title.slice(0, 30),
     PDF: r.file,
+    Pages: r.pagesProcessed,
     'Prod Qs': r.prodCount,
     'V2 Qs': r.v2Count,
     Total: r.total
   })));
+
+  // Write summary manifest
+  fs.writeFileSync(
+    path.join(outDirStaged, 'summary_manifest.json'),
+    JSON.stringify(resultsSummary, null, 2),
+    'utf-8'
+  );
 }
 
 batchProcess().catch((err) => {

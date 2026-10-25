@@ -331,6 +331,130 @@ for (let i = 0; i < run1.length; i++) {
 }
 console.log(`  ✓ Deterministic reproducibility verified: 2 identical runs produced ${run1.length} identical verified questions.`);
 
+// =========================================================================
+// TEST SUITE 5: Targeted Repair 001 — Reasoning Safety & Proof Grounding
+// =========================================================================
+console.log('\n[Suite 5] Targeted Repair 001 — Reasoning Safety, Operator Preconditions, & Grounding...');
+
+// 5.1 Operator J: Unrelated propositions rejected for contrast
+{
+  const unrelatedProp1 = Representation.createProposition({
+    id: 'PROP-UNREL-1',
+    subject: 'Equator',
+    predicate: 'divides',
+    relation_type: RELATION_TYPES.DIVIDES || 'divides',
+    object: 'Northern and Southern Hemispheres',
+    supporting_excerpt: 'The Equator divides the Earth into hemispheres.'
+  });
+  const unrelatedProp2 = Representation.createProposition({
+    id: 'PROP-UNREL-2',
+    subject: 'Suez Canal',
+    predicate: 'connects',
+    relation_type: RELATION_TYPES.CONNECTS || 'connects',
+    object: 'Mediterranean and Red Sea',
+    supporting_excerpt: 'The Suez Canal connects two seas.'
+  });
+
+  const resUnrelatedJ = Operators.executeOperatorJ(unrelatedProp1, unrelatedProp2);
+  assert.strictEqual(resUnrelatedJ.success, false, 'Operator J must reject unrelated propositions with incompatible relations');
+  assert.strictEqual(resUnrelatedJ.rejection_code, REJECTION_CODES.PRECONDITION_NOT_MET);
+
+  // Legitimate contrast with shared relation and distinct subjects
+  const contrastProp1 = Representation.createProposition({
+    id: 'PROP-CONT-1',
+    subject: 'C3 plants',
+    predicate: 'exhibits carbon pathway',
+    relation_type: RELATION_TYPES.HAS_PROPERTY,
+    object: 'Rubisco enzyme in mesophyll',
+    supporting_excerpt: 'C3 plants fix carbon via Rubisco in mesophyll.'
+  });
+  const contrastProp2 = Representation.createProposition({
+    id: 'PROP-CONT-2',
+    subject: 'C4 plants',
+    predicate: 'exhibits carbon pathway',
+    relation_type: RELATION_TYPES.HAS_PROPERTY,
+    object: 'PEP carboxylase in bundle sheath',
+    supporting_excerpt: 'C4 plants fix carbon via PEP carboxylase in bundle sheath.'
+  });
+  const resValidJ = Operators.executeOperatorJ(contrastProp1, contrastProp2);
+  assert(resValidJ.success, 'Operator J must accept compatible propositions with shared relation on distinct subjects');
+  assert.strictEqual(resValidJ.operator, 'OP_J_CONTRASTIVE_EXPLANATION');
+  console.log('  ✓ Operator J requires genuine shared contrast dimension; unrelated pairs rejected.');
+}
+
+// 5.2 Operator L disabled in candidate generation
+{
+  const testSec = [{
+    id: 'SEC-OPL',
+    title: 'Causality Test',
+    page: 1,
+    text: 'Deforestation causes habitat loss. Overgrazing causes soil compaction.'
+  }];
+  const rep = Representation.compileSemanticRepresentation(testSec);
+  const graph = GraphModule.buildGraphFromPropositions(rep.propositions);
+  const candidates = EngineV2.generateReasoningCandidates(graph, { sections: testSec });
+  const opLCandidates = candidates.filter(c => c.operator === 'OP_L');
+  assert.strictEqual(opLCandidates.length, 0, 'Operator L (reversed causality) must NOT generate candidates unconditionally');
+  console.log('  ✓ Operator L speculative error-diagnosis disabled in candidate generation.');
+}
+
+// 5.3 Evidence lookup never falls back to availableFacts[0]
+{
+  const missingPremiseDerivation = {
+    success: true,
+    operator: 'OP_B',
+    derived: Representation.createProposition({
+      id: 'PROP-ORPHAN',
+      subject: 'Alpha',
+      predicate: 'causes',
+      relation_type: RELATION_TYPES.CAUSES,
+      object: 'Beta'
+    }),
+    proof_trace: {
+      operator: 'OP_B',
+      premises: ['NON_EXISTENT_PREMISE_ID'],
+      steps: ['Alpha -> Beta']
+    }
+  };
+  const dummyGraph = new GraphModule.KnowledgeGraph();
+  const dummyContext = {
+    facts: [{ fact_id: 'F-FALLBACK-001', subject: 'Unrelated Subject', predicate: 'is', object: 'Unrelated Object' }],
+    sections: [{ id: 'SEC-1', text: 'Unrelated context text.' }]
+  };
+  const constructed = EngineV2.Constructors.constructQuestionCandidate(missingPremiseDerivation, dummyGraph, dummyContext);
+  assert.strictEqual(constructed, null, 'Candidate must be rejected when premise ID cannot be resolved, with NO fallback to availableFacts[0]');
+  console.log('  ✓ Evidence lookup rejects ungrounded premise without falling back to availableFacts[0].');
+}
+
+// 5.4 Proof Validator substantive checks
+{
+  const invalidCandidate = {
+    id: 'Q-REASON-TEST',
+    operator: 'OP_B',
+    proof_trace: {
+      operator: 'OP_B',
+      premises: ['NON_EXISTENT_PREMISE_ID'],
+      steps: ['Alpha -> Beta']
+    },
+    stem: 'Why does Alpha happen?',
+    expected_answer: 'Beta',
+    options: [
+      { text: 'Beta', is_correct: true },
+      { text: 'Gamma', is_correct: false, distractor_origin: 'entity_substitution' },
+      { text: 'Delta', is_correct: false, distractor_origin: 'entity_substitution' },
+      { text: 'Epsilon', is_correct: false, distractor_origin: 'entity_substitution' }
+    ],
+    supporting_excerpt: 'Alpha causes Beta directly in experiments.',
+    explanation: 'As confirmed in the source: "Alpha causes Beta directly in experiments."'
+  };
+  const dummyGraph = new GraphModule.KnowledgeGraph();
+  const valResult = Validator.validateCandidate(invalidCandidate, dummyGraph, { facts: [] });
+  assert.strictEqual(valResult.valid, false, 'Validator must reject candidate when premise IDs do not resolve');
+  assert.strictEqual(valResult.code, REJECTION_CODES.UNSUPPORTED_PREMISE, 'Validator must flag UNSUPPORTED_PREMISE');
+  console.log('  ✓ Substantive proof validation enforces premise resolution and operator integrity.');
+}
+
 console.log('\n======================================================');
 console.log('ALL REASONING ENGINE V2 TESTS PASSED SUCCESSFULLY (0 ERRORS)');
 console.log('======================================================');
+

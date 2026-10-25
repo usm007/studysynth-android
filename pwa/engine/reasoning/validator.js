@@ -93,9 +93,44 @@
       return { valid: false, code: REJECTION_CODES.MISSING_EVIDENCE_SPAN, message: 'Explanation must quote supporting excerpt' };
     }
 
-    // 6. Proof trace structure check
-    if (!candidate.proof_trace || !Array.isArray(candidate.proof_trace.premises) || candidate.proof_trace.premises.length === 0) {
-      return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Proof trace premises are missing' };
+    // 6. Operator consistency check
+    if (!candidate.proof_trace || typeof candidate.proof_trace !== 'object') {
+      return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Proof trace object is missing' };
+    }
+    if (candidate.primary_operator && candidate.proof_trace.operator && candidate.primary_operator !== candidate.proof_trace.operator) {
+      return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Candidate operator does not match proof trace operator' };
+    }
+
+    // 7. Premise resolution check
+    const premises = Array.isArray(candidate.proof_trace.premises) ? candidate.proof_trace.premises : [];
+    if (premises.length === 0) {
+      return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Proof trace premises are empty' };
+    }
+    for (const pid of premises) {
+      const hasFact = context && Array.isArray(context.facts) && context.facts.some((f) => f.fact_id === pid);
+      const hasProp = graph && typeof graph.getProposition === 'function' && Boolean(graph.getProposition(pid));
+      if (!hasFact && !hasProp) {
+        return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: `Premise ${pid} does not resolve to a verified fact or proposition` };
+      }
+    }
+
+    // 8. Derived proposition entailment check
+    const derived = candidate.derived_proposition;
+    if (derived) {
+      if (derived.modality === 'possibility') {
+        return { valid: false, code: REJECTION_CODES.SPECULATIVE_MODALITY, message: 'Derived proposition is speculative' };
+      }
+      if (derived.polarity === 'negative' && candidate.question_subtype !== 'exception_reasoning') {
+        return { valid: false, code: REJECTION_CODES.AMBIGUOUS_NEGATION, message: 'Negative premise cannot derive an affirmative assertion' };
+      }
+      // Answer must match derived object or subject
+      const normExpected = normalize(candidate.expected_answer);
+      const normObj = normalize(derived.object);
+      const normSubj = normalize(derived.subject);
+      const normCond = normalize(derived.condition || '');
+      if (normExpected !== normObj && normExpected !== normSubj && normExpected !== normCond) {
+        return { valid: false, code: REJECTION_CODES.AMBIGUOUS_ANSWER, message: 'Expected answer does not match proposition claim' };
+      }
     }
 
     return { valid: true };

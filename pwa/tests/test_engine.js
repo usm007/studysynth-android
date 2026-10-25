@@ -656,6 +656,79 @@ const scienceValidation = Engine.validateQuestionBank(scienceBank, {
 assert.strictEqual(scienceValidation.valid, true, `Science bank failed validation: ${JSON.stringify(scienceValidation.issues)}`);
 console.log(`  ✓ Science sample produced ${scienceBank.length} verified questions.`);
 
+// ---------------------------------------------------------------------------
+// Targeted Engine Repair 001 Regression Suite
+// ---------------------------------------------------------------------------
+console.log('\n[Test 16] Targeted Engine Repair 001 — Geography, Page Boundaries, & Quality Gates...');
+
+// 16.1 Geography scale contamination rejection
+const contaminatedSubject = 'Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India';
+const qualityCheck = Engine.checkSubjectQuality(contaminatedSubject);
+assert.strictEqual(qualityCheck.valid, false, 'Contaminated map-scale string must be rejected as a subject');
+assert(
+  ['COMPASS_DIRECTION_SEQUENCE', 'MAP_LEGEND_ARTIFACT', 'RUNNING_FURNITURE', 'INTERNAL_SENTENCE_BOUNDARY'].includes(qualityCheck.code),
+  `Expected compass/legend/furniture/boundary rejection code, got ${qualityCheck.code}`
+);
+assert.strictEqual(Engine.isUsableSubject(contaminatedSubject), false, 'isUsableSubject must return false for contaminated subject');
+
+// 16.2 Compass directions, running headers, and map legends rejected
+assert.strictEqual(Engine.isUsableSubject('E W S N'), false, 'Compass direction sequence must be rejected');
+assert.strictEqual(Engine.isUsableSubject('N S E W'), false, 'Compass directions must be rejected');
+assert.strictEqual(Engine.isUsableSubject('Chapter 4.indd 15'), false, 'Print metadata must be rejected');
+assert.strictEqual(Engine.isUsableSubject('Exploring Society: India and Beyond 10'), false, 'Running header with page number must be rejected');
+
+// 16.3 Legitimate subjects with "and" are preserved
+assert.strictEqual(Engine.isUsableSubject('India and Beyond'), true, '"India and Beyond" must be a valid subject');
+assert.strictEqual(Engine.isUsableSubject('The population of India and China'), true, '"The population of India and China" must be a valid subject');
+assert.strictEqual(Engine.cleanNumericAttribute('the border between India and Pakistan'), 'border between India and Pakistan', 'cleanNumericAttribute must not truncate at internal "and"');
+assert.strictEqual(Engine.cleanNumericAttribute('the total area of India and Beyond'), 'total area of India and Beyond', 'cleanNumericAttribute must preserve "India and Beyond"');
+
+// 16.4 Page-boundary isolation in parseRawDocument
+const multiPageDoc = [
+  '==Page 9==',
+  'This is the end of page nine without trailing punctuation',
+  '==Page 10==',
+  'Exploring Society: India',
+  'This is the start of page ten.'
+].join('\n');
+const parsedPages = Engine.parseRawDocument(multiPageDoc, 'Multi-Page Test');
+assert.strictEqual(parsedPages.length, 2, 'Must create separate sections for separate pages');
+assert.strictEqual(parsedPages[0].page, 9, 'First section must be page 9');
+assert.strictEqual(parsedPages[1].page, 10, 'Second section must be page 10');
+assert(
+  !parsedPages[0].text.includes('Exploring Society'),
+  'Page 9 section text must not be contaminated by page 10 text'
+);
+assert(
+  !parsedPages[0].text.includes('start of page ten'),
+  'Page 9 must not merge with page 10 prose across boundary'
+);
+
+// 16.5 Valid definition of map projection produces question
+const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. Cartographers use map projections to represent geographic features accurately.';
+const mapDefAnalyzed = analyze(mapDefDoc, 'Map Projections');
+assert(mapDefAnalyzed.bank && mapDefAnalyzed.bank.length > 0, 'Valid map projection definition must produce verified questions');
+const mapDefQ = mapDefAnalyzed.bank.find(q => /map projection/i.test(q.stem));
+assert(mapDefQ, 'Must generate question testing map projection definition');
+
+// 16.6 Explicit numeric measurement generates verified question
+const numericDoc = 'The Great Barrier Reef extends for 2300 kilometres along the coast of Australia. The Great Barrier Reef contains 900 individual islands in the Pacific.';
+const numericAnalyzed = analyze(numericDoc, 'Barrier Reef');
+assert(numericAnalyzed.bank && numericAnalyzed.bank.length > 0, 'Explicit numeric measurement must generate a question');
+const numQ = numericAnalyzed.bank.find(q => q.question_subtype === 'numeric_recall');
+assert(numQ, 'Must generate numeric recall question for 2300 kilometres');
+assert(normalize(numQ.stem).includes('barrier reef'), 'Stem must identify Great Barrier Reef as subject');
+
+// 16.7 Numeric value with no supported subject/measurement is rejected
+const isolatedNumDoc = '1000 km. E W S N. Suez Canal Route 10.';
+const isolatedAnalyzed = analyze(isolatedNumDoc, 'Isolated Numbers');
+assert(
+  !isolatedAnalyzed.bank || isolatedAnalyzed.bank.length === 0,
+  'Isolated map labels and numbers without measurement relationship must not produce questions'
+);
+console.log('  ✓ Geography map contamination rejected, page boundaries isolated, and valid definitions/measurements preserved.');
+
 console.log('\n========================================');
 console.log('ALL PWA ENGINE TESTS PASSED SUCCESSFULLY');
 console.log('========================================\n');
+

@@ -122,12 +122,13 @@
         if (cand) candidates.push(cand);
       }
 
-      // Op L: Error Diagnosis
-      const resL = Operators.executeOperatorL(prop, 'reversed_causality');
-      if (resL.success) {
-        const cand = Constructors.constructQuestionCandidate(resL, graph, context);
-        if (cand) candidates.push(cand);
-      }
+      // Op L: Error Diagnosis (Disabled in candidate generation per Targeted Engine Repair 001
+      // until formal erroneous inference specifications and ground-truth constraint verification are implemented)
+      // const resL = Operators.executeOperatorL(prop, 'reversed_causality');
+      // if (resL.success) {
+      //   const cand = Constructors.constructQuestionCandidate(resL, graph, context);
+      //   if (cand) candidates.push(cand);
+      // }
 
       // Op M: Quantitative Reasoning
       const resM = Operators.executeOperatorM(prop);

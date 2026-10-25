@@ -563,22 +563,102 @@
   // Words that can never name the thing a question is about. A subject that
   // starts with one of these is a leftover pronoun, modal or connective, not a
   // noun phrase a learner could look up.
-  const UNUSABLE_SUBJECT_START = /^(?:we|you|they|it|this|that|there|these|those|he|she|i|us|them|will|would|shall|should|can|could|may|might|must|however|but|thus|therefore|hence|also|and|or|if|when|while|where|which|then|than|so|as|at|by|for|from|in|of|on|to|with|other|another|some|any|many|most|more|all|both|each|every|either|neither|such|together|only|even|now|here|again|still|yet|just|very|too|quite|rather|almost|about|around|over|under|between|among|through|across|along|behind|below|above|near|off|out|up|down)\b/i;
+  const UNUSABLE_SUBJECT_START = /^(?:we|you|they|it|this|that|there|these|those|he|she|i|us|them|has|have|had|is|are|was|were|do|does|did|will|would|shall|should|can|could|may|might|must|however|but|thus|therefore|hence|also|and|or|if|when|while|where|which|then|than|so|as|at|by|for|from|in|of|on|to|with|other|another|some|any|many|most|more|all|both|each|every|either|neither|such|together|only|even|now|here|again|still|yet|just|very|too|quite|rather|almost|about|around|over|under|between|among|through|across|along|behind|below|above|near|off|out|up|down)\b/i;
 
   // A subject has to be a noun phrase, not a sentence fragment. A lowercase
   // dummy pronoun anywhere inside it means extraction stopped mid-sentence.
   const DUMMY_SUBJECT_WORD = /\b(?:we|you|they|it|this|that|there|these|those|he|she)\b/;
 
-  function isUsableSubject(value) {
+  // Detailed explainable subject quality validation
+  function checkSubjectQuality(value) {
     const text = cleanText(value);
-    if (!text || text.length < 2) return false;
-    if (!/^[A-Za-z0-9"\u201c']/.test(text)) return false;
-    if (UNUSABLE_SUBJECT_START.test(text)) return false;
-    if (DUMMY_SUBJECT_WORD.test(text)) return false;
-    if ((text.match(/["\u201c\u201d]/g) || []).length % 2 !== 0) return false;
-    if ((text.match(/\(/g) || []).length !== (text.match(/\)/g) || []).length) return false;
-    if (!/[A-Za-z]{3}/.test(text)) return false;
-    return true;
+    if (!text || text.length < 2) {
+      return { valid: false, code: 'TOO_SHORT', reason: 'Subject is missing or under 2 characters' };
+    }
+    if (!/^[A-Za-z0-9"\u201c']/.test(text)) {
+      return { valid: false, code: 'INVALID_START', reason: 'Subject must start with an alphanumeric character or quote' };
+    }
+    if (/[.?!]$/.test(text)) {
+      return { valid: false, code: 'TERMINAL_PUNCTUATION_FRAGMENT', reason: 'Subject ends with sentence terminal punctuation' };
+    }
+    if (/(?<=[a-z0-9])\.\s+[A-Z]/.test(text) || text.includes(':') || text.includes(';')) {
+      return { valid: false, code: 'INTERNAL_SENTENCE_BOUNDARY', reason: 'Subject contains an internal sentence boundary, colon, or semicolon' };
+    }
+    if (UNUSABLE_SUBJECT_START.test(text)) {
+      return { valid: false, code: 'FORBIDDEN_START_WORD', reason: 'Subject starts with a pronoun, modal, auxiliary verb, or connective' };
+    }
+    if (DUMMY_SUBJECT_WORD.test(text)) {
+      return { valid: false, code: 'DUMMY_PRONOUN', reason: 'Subject contains an internal dummy pronoun' };
+    }
+    if ((text.match(/["\u201c\u201d]/g) || []).length % 2 !== 0) {
+      return { valid: false, code: 'UNBALANCED_QUOTES', reason: 'Subject contains unbalanced quotation marks' };
+    }
+    if ((text.match(/\(/g) || []).length !== (text.match(/\)/g) || []).length) {
+      return { valid: false, code: 'UNBALANCED_PARENS', reason: 'Subject contains unbalanced parentheses' };
+    }
+    if (!/[A-Za-z]{3}/.test(text)) {
+      return { valid: false, code: 'INSUFFICIENT_LETTERS', reason: 'Subject lacks a three-letter word' };
+    }
+
+    // 1. Map compass directions (e.g. "E W S N", "N S E W")
+    if (/\b[NESW]\b(?:\s+[NESW]\b)+/i.test(text) || /\b(?:north|south|east|west)\b.*\b(?:north|south|east|west)\b.*\b(?:north|south|east|west)\b/i.test(text)) {
+      return { valid: false, code: 'COMPASS_DIRECTION_SEQUENCE', reason: 'Subject contains a sequence of compass directions' };
+    }
+
+    // 2. Excessive or repeated single-letter tokens (e.g. isolated map initials "I I", "A A")
+    const singleLetters = text.match(/(?<![A-Za-z0-9.])[A-Za-z](?![A-Za-z0-9.])/g) || [];
+    if (singleLetters.length >= 2 || /\b([A-Za-z])\s+\1\b/i.test(text)) {
+      return { valid: false, code: 'EXCESSIVE_SINGLE_LETTERS', reason: 'Subject contains repeated or multiple isolated single-letter tokens' };
+    }
+
+    // 3. Textbook running headers / footers / print metadata
+    if (/\b(?:Exploring Society|Grade\s+\d+|Part\s+\d+|Chapter\s+\d+\.indd|\.indd\b|NCERT|Textbook)\b/i.test(text) ||
+        /\b(?:India and Beyond\s*\|\s*Grade)\b/i.test(text)) {
+      return { valid: false, code: 'RUNNING_FURNITURE', reason: 'Subject contains textbook running header or publication metadata' };
+    }
+
+    // 4. Map legend / figure furniture labels
+    if (/\b(?:Legend|Map\s+Scale|Route\s+City|Scale\s+Bar)\b/i.test(text) ||
+        (/\b(?:Legend)\b/i.test(text) && /\b(?:Route|City|Canal|Ocean)\b/i.test(text))) {
+      return { valid: false, code: 'MAP_LEGEND_ARTIFACT', reason: 'Subject contains map legend or cartographic labels' };
+    }
+
+    // 5. Concatenations of multiple all-caps geographical labels (e.g. "ASIA AFRICA Suez Canal")
+    const allCapsWords = text.match(/\b[A-Z]{3,}\b/g) || [];
+    if (allCapsWords.length >= 3) {
+      return { valid: false, code: 'ALL_CAPS_LABEL_CONCATENATION', reason: 'Subject contains three or more concatenated uppercase diagram labels' };
+    }
+
+    // 6. Dangling prepositions or conjunctions at the end
+    if (/\s+(?:and|or|in|of|to|for|with|on|at|by|from|into|onto|under|over|about)\s*$/i.test(text)) {
+      return { valid: false, code: 'DANGLING_CONNECTOR', reason: 'Subject ends with a dangling preposition or conjunction' };
+    }
+
+    // 7. Page numbering prefixes like "10 Exploring..."
+    if (/^\d+\s+[A-Z]/.test(text) && !/^\d+(?:st|nd|rd|th)\b/i.test(text)) {
+      return { valid: false, code: 'NUMERIC_HEADER_PREFIX', reason: 'Subject begins with an unpunctuated page or section number' };
+    }
+
+    // 8. Textbook callout banners and activity headers
+    if (/\b(?:DO\s+N['’]T\s+MISS\s+OUT|LET['’]S\s+EXPLORE|DID\s+YOU\s+KNOW|THINK\s+ABOUT\s+IT|ACTIVITY|EXERCISE)\b/i.test(text)) {
+      return { valid: false, code: 'CALLOUT_BANNER_ARTIFACT', reason: 'Subject contains callout box or activity banner' };
+    }
+
+    // 9. Figure, diagram, or table reference labels
+    if (/\b(?:Fig(?:\.|\b)\s*\d+|Figure\s*\d+|Table\s*\d+|Map\s*\d+)\b/i.test(text)) {
+      return { valid: false, code: 'FIGURE_REFERENCE_ARTIFACT', reason: 'Subject contains figure or table reference' };
+    }
+
+    // 10. Non-year numeric artifacts inside subjects (e.g. "Argentina 5000")
+    if (/\b\d{3,}\b/.test(text) && !/\b(?:1[0-9]{3}|20[0-9]{2})\b/.test(text) && !/\b\d+(?:st|nd|rd|th)\b/i.test(text)) {
+      return { valid: false, code: 'NUMERIC_MAP_ARTIFACT', reason: 'Subject contains ungrounded numeric map or contour code' };
+    }
+
+    return { valid: true };
+  }
+
+  function isUsableSubject(value) {
+    return checkSubjectQuality(value).valid;
   }
 
   // The source line shown before answering: the excerpt with the tested value
@@ -1486,15 +1566,18 @@
     let value = normalizeWhitespace(raw)
       .replace(/^\([^)]*\)\s*/, '')
       .replace(/^[,.;:)\]]+\s*/, '')
-      .replace(/^(?:of|the|a|an|in|on|for|under|to|with|from|by|at)\s+/i, '')
+      .replace(/^(?:of|the|a|an|in|on|for|under|to|with|from|by|at|has|have|had|is|are|was|were)\s+(?:an?|the)?\s*/i, '')
       .replace(/[),.;:]+$/, '')
       .replace(/[.;].*$/, '')
-      .replace(/\s+and\b[\s\S]*$/i, '')
+      .replace(/\s*,\s*(?:and|but|or)\s+(?:it|this|that|these|those|they|we|he|she)\b[\s\S]*$/i, '')
+      .replace(/\s*,\s*(?:which|who|where|when|that)\b[\s\S]*$/i, '')
       .replace(/\s+(?:which|that|was|were|is|are|has|have|had)\b[\s\S]*$/i, '')
       .replace(/\s+to\s+[a-z]+\b[\s\S]*$/i, '')
       .trim();
-    for (let i = 0; i < 3; i++) {
-      value = value.replace(/\s+(?:was|were|is|are|has|have|had|not|no|never)\s*$/i, '').trim();
+    for (let i = 0; i < 4; i++) {
+      value = value.replace(/(?<!\bwing)\s+spans?\s*$/i, '')
+        .replace(/\s+(?:was|were|is|are|has|have|had|not|no|never|extends?|stretches?|covers?|measures?|reaches?|amounts?\s+to|totals?|equals?|for|of|by|to|at|in|about|around)\s*$/i, '')
+        .trim();
     }
     if (value.length > 90) value = value.slice(0, 90).replace(/\s+\S*$/, '');
     if (!value || /^(?:value|number|amount|quantity|it|this|that|there)$/i.test(value)) return '';
@@ -1505,14 +1588,33 @@
     const object = cleanText(match[0]);
     if (kind === 'count') {
       const withoutNumber = object.replace(/^-?\d[\d,]*(?:\.\d+)?\s*/, '');
-      return cleanNumericAttribute(withoutNumber);
+      const cleaned = cleanNumericAttribute(withoutNumber);
+      return isUsableSubject(cleaned) ? cleaned : '';
     }
-    const after = text.slice(match.index + match[0].length);
-    const cleanedAfter = cleanNumericAttribute(after);
-    if (cleanedAfter && cleanedAfter.length >= 3) return cleanedAfter;
+
     const before = text.slice(0, match.index);
-    const words = before.trim().split(/\s+/).slice(-5).join(' ');
-    return cleanNumericAttribute(words);
+    const after = text.slice(match.index + match[0].length);
+
+    // 1. Inspect 'before': does preceding text establish the measured subject?
+    // Examples: "length of 2,000 km", "population of India is 1.4 billion", "area of 350,000 sq km"
+    const wordsBefore = before.trim().split(/\s+/).slice(-6).join(' ');
+    const cleanedBefore = cleanNumericAttribute(wordsBefore);
+    if (cleanedBefore && cleanedBefore.length >= 3 && isUsableSubject(cleanedBefore)) {
+      return cleanedBefore;
+    }
+
+    // 2. Inspect 'after': ONLY accept 'after' if it explicitly connects via a preposition
+    // or relational adjective (e.g. "of coastline", "in length", "long", "wide", "deep", "high").
+    // Rejects adjacent map/diagram labels (e.g. "1000 km Equator ASIA...").
+    if (/^\s*(?:of|in|across|throughout|from|to|long|wide|deep|high|tall|thick|broad)\b/i.test(after)) {
+      const cleanedAfter = cleanNumericAttribute(after);
+      if (cleanedAfter && cleanedAfter.length >= 3 && isUsableSubject(cleanedAfter)) {
+        return cleanedAfter;
+      }
+    }
+
+    // If neither before nor after establishes an explicit, valid subject relationship, return empty
+    return '';
   }
 
   function isInsideParentheses(text, index) {
@@ -1545,8 +1647,8 @@
         const approximate = /(?:~|over|about|approximately|around|nearly|almost|more\s+than|less\s+than|under|at\s+least|at\s+most|up\s+to)\s*$/i.test(prefix);
         const negative = info.raw.startsWith('-') || /(?:not|never|cannot|no|without|nor|neither)\b[^.;]{0,24}$/i.test(prefix);
         const attribute = numericAttribute(text, match, pattern.kind);
-        if (!attribute && pattern.kind !== 'percentage') continue;
-        const subject = attribute || 'the stated quantity';
+        if (!attribute) continue;
+        const subject = attribute;
         const answerKind = pattern.kind === 'currency' ? 'amount'
           : (pattern.kind === 'percentage' ? 'percentage'
             : (pattern.kind === 'measurement' ? 'measurement' : 'number'));
@@ -1901,6 +2003,16 @@
 
       const pageMatch = trimmed.match(/^page\s+(\d+)/i) || trimmed.match(/^==Page\s+(\d+)/i);
       if (pageMatch) {
+        if (currentParagraphs.length > 0) {
+          sections.push({
+            id: 'sec_' + (sections.length + 1),
+            title: currentTitle,
+            text: currentParagraphs.join(' '),
+            page: pageNum,
+            paragraphs: currentParagraphs.slice()
+          });
+          currentParagraphs = [];
+        }
         pageNum = parseInt(pageMatch[1], 10);
         continue;
       }
@@ -1915,7 +2027,8 @@
             id: 'sec_' + (sections.length + 1),
             title: currentTitle,
             text: currentParagraphs.join(' '),
-            page: pageNum
+            page: pageNum,
+            paragraphs: currentParagraphs.slice()
           });
           currentParagraphs = [];
         }
@@ -1930,7 +2043,8 @@
         id: 'sec_' + (sections.length + 1),
         title: currentTitle,
         text: currentParagraphs.join(' '),
-        page: pageNum
+        page: pageNum,
+        paragraphs: currentParagraphs.slice()
       });
     }
 
@@ -3488,6 +3602,8 @@
     validateQuestionBank,
     generateQuestionBank,
     isUsableSubject,
+    checkSubjectQuality,
+    cleanNumericAttribute,
     maskExpectedAnswer,
     buildStemContext,
     LOW_OCR_CONFIDENCE,
