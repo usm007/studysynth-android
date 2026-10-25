@@ -1,15 +1,16 @@
-# STUDYSYNTH REPAIR 002 — Repair Report (local, NOT pushed)
+# STUDYSYNTH REPAIR 002 — Repair Report
 
-**Status: implementation + regression tests complete. Phase 8 was re-run
-after fixing the defects found on inspection (see Phase 8 fix + re-run
-below): 132 questions (120 production + 12 V2), with the targeted defects
-gone — no truncated multi-statement stems, no figure-reference or running
-title excerpts, no merged numeric answers, and no fragment V2 distractors
-in the final scan. V2 counts fell honestly (40 → 12; hees203 and hees209
-have 0 V2) rather than by lowering validation. This report, and the
-working tree, have NOT been pushed to GitHub; pushing is a separate step
-that needs the user's approval and must reconcile local HEAD (7570689)
-with remote main (2e5442b).**
+**Status: implementation + regression tests complete, Phase 8 re-run
+inspected, and PUSHED to GitHub main on 2026-10-25 as commit
+`00a79d50dd6e2f67891990e236c489b83ef39705` ("fix(engine): repair
+production pipeline integrity and regenerate NCERT Class 8 banks
+(Repair 002)"), on top of remote main `2e5442b`. Phase 8 final: 132
+questions (120 production + 12 V2), with the targeted defects gone —
+no truncated multi-statement stems, no figure-reference or running
+title excerpts, no merged numeric answers, and no fragment V2
+distractors in the final scan. V2 counts fell honestly (40 → 12;
+hees203 and hees209 have 0 V2) rather than by lowering validation.
+No history was rewritten and no force-push was used.**
 
 ## Starting and ending state
 
@@ -17,10 +18,11 @@ with remote main (2e5442b).**
   (`fix(engine): repair page boundaries, subject quality, and reasoning
   validation (Repair 001)`, branch `main`, remote `origin`
   `https://github.com/usm007/studysynth-android.git`)
-- Ending state: **uncommitted working tree** on top of the same commit.
-  No commit, no push, no history rewrite, no force-push was performed.
-  `git status --short` at report time shows the files below as modified,
-  plus `pwa/tests/test_repair002.js` as untracked.
+- Ending state: **pushed to main** as commit
+  `00a79d50dd6e2f67891990e236c489b83ef39705` on 2026-10-25, on top of
+  remote main `2e5442b` (the NCERT folder commit). No history rewrite,
+  no force-push was performed. The files below were the files in that
+  commit (plus the report itself, updated to record the push).
 
 ## Files changed
 
@@ -441,8 +443,9 @@ sentences.
    The remaining limitations are: hees203 and hees209 have no V2 items
    under the stricter gates, a few V2 stems remain templated phrases,
    and production distractor pools outside the causal pool can still
-   be loose. Committing/pushing is still a separate, user-approved
-   step (see status at the top).
+   be loose. The repair was committed and pushed to main on 2026-10-25
+   as `00a79d5` (see status at the top); a follow-up commit updating
+   this report to record the push followed.
 2. Real-browser service-worker install / offline page load was not
    tested (no live browser for a subagent); see browser/worker section.
 3. The layout extractor is heuristic: table detection requires runs of
