@@ -1,0 +1,1571 @@
+{
+  "metadata": {
+    "timestamp": "2026-10-25T04:14:47.786Z",
+    "pdfPath": "C:/Users/Admin/Desktop/NCERT/8.2/hees201.pdf",
+    "gitRevision": "6f41314",
+    "branch": "main"
+  },
+  "stages": {
+    "stage1_pdf_pages": {
+      "totalPagesInDoc": 34,
+      "pagesAnalyzedCount": 20,
+      "inspectedPages": [
+        {
+          "pageNum": 2,
+          "totalItems": 149,
+          "sampleItems": [
+            {
+              "itemIndex": 0,
+              "str": "2",
+              "x": 79.5,
+              "y": 98.2,
+              "width": 6.4,
+              "height": 11.3,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 1,
+              "str": "Exploring Society: India and Beyond | Grade 8 Part 2",
+              "x": 87.4,
+              "y": 124.2,
+              "width": 202.9,
+              "height": 8,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 3,
+              "str": "The Earth has long been revered as a mother by indigenous",
+              "x": 183,
+              "y": 727.8,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 5,
+              "str": "communities and personified in India as a living deity, often",
+              "x": 183,
+              "y": 710.8,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 7,
+              "str": "known",
+              "x": 183,
+              "y": 693.8,
+              "width": 40.2,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 9,
+              "str": "as",
+              "x": 232.8,
+              "y": 693.8,
+              "width": 12.3,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 11,
+              "str": "Bhūdevī",
+              "x": 254.5,
+              "y": 693.8,
+              "width": 38.7,
+              "height": 12,
+              "fontName": "g_d0_f6"
+            },
+            {
+              "itemIndex": 13,
+              "str": "or",
+              "x": 310,
+              "y": 693.8,
+              "width": 12.7,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 15,
+              "str": "Vasudhā",
+              "x": 332.2,
+              "y": 693.8,
+              "width": 41.8,
+              "height": 12,
+              "fontName": "g_d0_f6"
+            },
+            {
+              "itemIndex": 16,
+              "str": ".",
+              "x": 374.2,
+              "y": 693.8,
+              "width": 3,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 18,
+              "str": "Human",
+              "x": 386.7,
+              "y": 693.8,
+              "width": 43.5,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 20,
+              "str": "lives",
+              "x": 439.7,
+              "y": 693.8,
+              "width": 26.8,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 22,
+              "str": "are",
+              "x": 476,
+              "y": 693.8,
+              "width": 19.1,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 24,
+              "str": "deeply",
+              "x": 504.6,
+              "y": 693.8,
+              "width": 38.7,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 26,
+              "str": "connected to its many features; for instance, the distant Southern",
+              "x": 183,
+              "y": 676.8,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            }
+          ]
+        },
+        {
+          "pageNum": 8,
+          "totalItems": 104,
+          "sampleItems": [
+            {
+              "itemIndex": 0,
+              "str": "8",
+              "x": 79.5,
+              "y": 98.2,
+              "width": 6.4,
+              "height": 11.3,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 1,
+              "str": "Exploring Society: India and Beyond | Grade 8 Part 2",
+              "x": 87.4,
+              "y": 124.2,
+              "width": 202.9,
+              "height": 8,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 3,
+              "str": "The Great Barrier Reef (Fig. 1.8), off Australia’s northeastern",
+              "x": 183,
+              "y": 519.4,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 5,
+              "str": "coast, stretches over a length of 2,000 km and covers about",
+              "x": 183,
+              "y": 502.4,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 7,
+              "str": "350,000 square kilometres. It is a complex, interconnected",
+              "x": 183,
+              "y": 485.4,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 9,
+              "str": "habitat housing hundreds of species of coral, thousands of",
+              "x": 183,
+              "y": 468.4,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 11,
+              "str": "species of fish and other sea animals. Recognised as a UNESCO",
+              "x": 183,
+              "y": 451.4,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 13,
+              "str": "World",
+              "x": 183,
+              "y": 434.4,
+              "width": 36.5,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 15,
+              "str": "Heritage",
+              "x": 227.1,
+              "y": 434.4,
+              "width": 51,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 17,
+              "str": "Site,",
+              "x": 285.8,
+              "y": 434.4,
+              "width": 25,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 19,
+              "str": "the",
+              "x": 318.4,
+              "y": 434.4,
+              "width": 18.7,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 21,
+              "str": "reef",
+              "x": 344.8,
+              "y": 434.4,
+              "width": 23.6,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 23,
+              "str": "is",
+              "x": 376.1,
+              "y": 434.4,
+              "width": 9.5,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 25,
+              "str": "one",
+              "x": 393.3,
+              "y": 434.4,
+              "width": 21.6,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 27,
+              "str": "of",
+              "x": 422.5,
+              "y": 434.4,
+              "width": 11.6,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            }
+          ]
+        },
+        {
+          "pageNum": 9,
+          "totalItems": 75,
+          "sampleItems": [
+            {
+              "itemIndex": 0,
+              "str": "9",
+              "x": 549.3,
+              "y": 98.2,
+              "width": 6.4,
+              "height": 11.3,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 2,
+              "str": "India and the World: Land and the People",
+              "x": 552.4,
+              "y": 124.2,
+              "width": 163.1,
+              "height": 8,
+              "fontName": "g_d0_f2"
+            },
+            {
+              "itemIndex": 4,
+              "str": "1 – World Geography: Some Glimpses",
+              "x": 562,
+              "y": 124.2,
+              "width": 146,
+              "height": 8,
+              "fontName": "g_d0_f2"
+            },
+            {
+              "itemIndex": 6,
+              "str": "trade between India and Europe for millennia. The bays provide",
+              "x": 85.8,
+              "y": 728.2,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 8,
+              "str": "safe havens for ports and dockyards shielding them from the",
+              "x": 85.8,
+              "y": 711.2,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 10,
+              "str": "strong winds of the open oceans.",
+              "x": 85.8,
+              "y": 694.2,
+              "width": 188.8,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 12,
+              "str": "D",
+              "x": 115.7,
+              "y": 662.7,
+              "width": 10.4,
+              "height": 14,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 13,
+              "str": "ON’T MISS OUT",
+              "x": 126.2,
+              "y": 662.7,
+              "width": 106,
+              "height": 14,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 15,
+              "str": "The Bay of Bengal is the world’s largest bay and has been",
+              "x": 100,
+              "y": 634.9,
+              "width": 353,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 17,
+              "str": "important in trade, influences climate, and is home to a variety",
+              "x": 100,
+              "y": 617.9,
+              "width": 353,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 19,
+              "str": "of flora and fauna.",
+              "x": 100,
+              "y": 600.9,
+              "width": 103.9,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 21,
+              "str": "The",
+              "x": 85.8,
+              "y": 135.2,
+              "width": 21.5,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 23,
+              "str": "Suez Canal",
+              "x": 113.4,
+              "y": 135.2,
+              "width": 69.3,
+              "height": 12,
+              "fontName": "g_d0_f7"
+            },
+            {
+              "itemIndex": 25,
+              "str": "is a human-made passage (opened in 1869)",
+              "x": 188.8,
+              "y": 135.2,
+              "width": 264.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 27,
+              "str": "connecting the Red Sea with the Mediterranean, creating a",
+              "x": 85.8,
+              "y": 118.2,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            }
+          ]
+        },
+        {
+          "pageNum": 10,
+          "totalItems": 81,
+          "sampleItems": [
+            {
+              "itemIndex": 0,
+              "str": "10",
+              "x": 76.2,
+              "y": 98.2,
+              "width": 12.9,
+              "height": 11.3,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 1,
+              "str": "Exploring Society: India and Beyond | Grade 8 Part 2",
+              "x": 87.4,
+              "y": 124.2,
+              "width": 202.9,
+              "height": 8,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 3,
+              "str": "The Continents: Variety on Land",
+              "x": 183,
+              "y": 722.8,
+              "width": 303.8,
+              "height": 17,
+              "fontName": "g_d0_f13"
+            },
+            {
+              "itemIndex": 5,
+              "str": "Landforms of the world include mountains, plateaus, and plains.",
+              "x": 183,
+              "y": 701.3,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 7,
+              "str": "We have encountered them across various chapters throughout",
+              "x": 183,
+              "y": 684.3,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f10"
+            },
+            {
+              "itemIndex": 9,
+              "str": "the Middle Stage, mainly in the context of India. Here we expand",
+              "x": 183,
+              "y": 667.3,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 11,
+              "str": "the scope to look briefly at these landforms across the world —",
+              "x": 183,
+              "y": 650.3,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 13,
+              "str": "where they are located, what some of their features are, and in",
+              "x": 183,
+              "y": 633.3,
+              "width": 367.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 15,
+              "str": "what ways they are connected to life.",
+              "x": 183,
+              "y": 616.3,
+              "width": 213.9,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 17,
+              "str": "LET",
+              "x": 183,
+              "y": 584.8,
+              "width": 24,
+              "height": 14,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 18,
+              "str": "’S REMEMBER",
+              "x": 207.1,
+              "y": 584.8,
+              "width": 92.9,
+              "height": 14,
+              "fontName": "g_d0_f1"
+            },
+            {
+              "itemIndex": 20,
+              "str": "Æ",
+              "x": 183,
+              "y": 557.7,
+              "width": 11.7,
+              "height": 12,
+              "fontName": "g_d0_f12"
+            },
+            {
+              "itemIndex": 22,
+              "str": "In Grade 6 we looked at the three main landforms —",
+              "x": 210,
+              "y": 557.7,
+              "width": 322.2,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 24,
+              "str": "mountains, plateaus and plains.",
+              "x": 210,
+              "y": 540.7,
+              "width": 183.7,
+              "height": 12,
+              "fontName": "g_d0_f11"
+            },
+            {
+              "itemIndex": 26,
+              "str": "Æ",
+              "x": 183,
+              "y": 519.2,
+              "width": 11.7,
+              "height": 12,
+              "fontName": "g_d0_f12"
+            }
+          ]
+        }
+      ]
+    },
+    "stage2_layout_items": {
+      "page9_figure_and_map_labels": [
+        {
+          "itemIndex": 0,
+          "str": "9",
+          "x": 549.3,
+          "y": 98.2,
+          "width": 6.4,
+          "height": 11.3,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 2,
+          "str": "India and the World: Land and the People",
+          "x": 552.4,
+          "y": 124.2,
+          "width": 163.1,
+          "height": 8,
+          "fontName": "g_d0_f2"
+        },
+        {
+          "itemIndex": 4,
+          "str": "1 – World Geography: Some Glimpses",
+          "x": 562,
+          "y": 124.2,
+          "width": 146,
+          "height": 8,
+          "fontName": "g_d0_f2"
+        },
+        {
+          "itemIndex": 6,
+          "str": "trade between India and Europe for millennia. The bays provide",
+          "x": 85.8,
+          "y": 728.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 8,
+          "str": "safe havens for ports and dockyards shielding them from the",
+          "x": 85.8,
+          "y": 711.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 10,
+          "str": "strong winds of the open oceans.",
+          "x": 85.8,
+          "y": 694.2,
+          "width": 188.8,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 12,
+          "str": "D",
+          "x": 115.7,
+          "y": 662.7,
+          "width": 10.4,
+          "height": 14,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 13,
+          "str": "ON’T MISS OUT",
+          "x": 126.2,
+          "y": 662.7,
+          "width": 106,
+          "height": 14,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 15,
+          "str": "The Bay of Bengal is the world’s largest bay and has been",
+          "x": 100,
+          "y": 634.9,
+          "width": 353,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 17,
+          "str": "important in trade, influences climate, and is home to a variety",
+          "x": 100,
+          "y": 617.9,
+          "width": 353,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 19,
+          "str": "of flora and fauna.",
+          "x": 100,
+          "y": 600.9,
+          "width": 103.9,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 21,
+          "str": "The",
+          "x": 85.8,
+          "y": 135.2,
+          "width": 21.5,
+          "height": 12,
+          "fontName": "g_d0_f10"
+        },
+        {
+          "itemIndex": 23,
+          "str": "Suez Canal",
+          "x": 113.4,
+          "y": 135.2,
+          "width": 69.3,
+          "height": 12,
+          "fontName": "g_d0_f7"
+        },
+        {
+          "itemIndex": 25,
+          "str": "is a human-made passage (opened in 1869)",
+          "x": 188.8,
+          "y": 135.2,
+          "width": 264.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 27,
+          "str": "connecting the Red Sea with the Mediterranean, creating a",
+          "x": 85.8,
+          "y": 118.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 29,
+          "str": "waterway from the Indian Ocean to Europe.",
+          "x": 85.8,
+          "y": 101.2,
+          "width": 253.9,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 31,
+          "str": "Fig. 1.10. The Suez Canal is the shortest maritime route from India to Europe.",
+          "x": 98,
+          "y": 165.1,
+          "width": 367.5,
+          "height": 10,
+          "fontName": "g_d0_f17"
+        },
+        {
+          "itemIndex": 33,
+          "str": "London",
+          "x": 181.3,
+          "y": 530.3,
+          "width": 34,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 35,
+          "str": "Europe",
+          "x": 189.1,
+          "y": 504,
+          "width": 31.7,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 37,
+          "str": "Mumbai",
+          "x": 411.7,
+          "y": 400.3,
+          "width": 38.8,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 39,
+          "str": "INDIAN",
+          "x": 375.5,
+          "y": 267,
+          "width": 34.7,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 41,
+          "str": "OCEAN",
+          "x": 377,
+          "y": 256.2,
+          "width": 31.6,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 43,
+          "str": "ATLANTIC",
+          "x": 104.9,
+          "y": 266.9,
+          "width": 44.2,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 45,
+          "str": "OCEAN",
+          "x": 111.2,
+          "y": 256.1,
+          "width": 31.6,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 47,
+          "str": "0",
+          "x": 99.5,
+          "y": 229.9,
+          "width": 5.1,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 49,
+          "str": "500",
+          "x": 125.8,
+          "y": 229.9,
+          "width": 15.5,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 51,
+          "str": "1000 km",
+          "x": 146.3,
+          "y": 229.9,
+          "width": 37.6,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 53,
+          "str": "Equator",
+          "x": 150.2,
+          "y": 334.4,
+          "width": 35.9,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 55,
+          "str": "ASIA",
+          "x": 368.4,
+          "y": 528.4,
+          "width": 22.9,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 57,
+          "str": "AFRICA",
+          "x": 231.8,
+          "y": 350.9,
+          "width": 35.9,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 59,
+          "str": "Suez",
+          "x": 237.4,
+          "y": 413.4,
+          "width": 20.6,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 61,
+          "str": "Canal",
+          "x": 235,
+          "y": 402.6,
+          "width": 25.4,
+          "height": 9,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 63,
+          "str": "Legend",
+          "x": 376.9,
+          "y": 227.1,
+          "width": 34.6,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 65,
+          "str": "Route",
+          "x": 385.7,
+          "y": 198.1,
+          "width": 27.9,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 67,
+          "str": "City",
+          "x": 385.6,
+          "y": 211.7,
+          "width": 18.4,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 69,
+          "str": "E",
+          "x": 132.4,
+          "y": 548.6,
+          "width": 5.2,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 70,
+          "str": "W",
+          "x": 88.4,
+          "y": 548.6,
+          "width": 9.1,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 72,
+          "str": "S",
+          "x": 112.9,
+          "y": 528.6,
+          "width": 5.2,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 74,
+          "str": "N",
+          "x": 111.7,
+          "y": 568.5,
+          "width": 7.6,
+          "height": 9.4,
+          "fontName": "g_d0_f1"
+        }
+      ],
+      "page10_header_and_body": [
+        {
+          "itemIndex": 0,
+          "str": "10",
+          "x": 76.2,
+          "y": 98.2,
+          "width": 12.9,
+          "height": 11.3,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 1,
+          "str": "Exploring Society: India and Beyond | Grade 8 Part 2",
+          "x": 87.4,
+          "y": 124.2,
+          "width": 202.9,
+          "height": 8,
+          "fontName": "g_d0_f1"
+        },
+        {
+          "itemIndex": 3,
+          "str": "The Continents: Variety on Land",
+          "x": 183,
+          "y": 722.8,
+          "width": 303.8,
+          "height": 17,
+          "fontName": "g_d0_f13"
+        },
+        {
+          "itemIndex": 5,
+          "str": "Landforms of the world include mountains, plateaus, and plains.",
+          "x": 183,
+          "y": 701.3,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 7,
+          "str": "We have encountered them across various chapters throughout",
+          "x": 183,
+          "y": 684.3,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f10"
+        },
+        {
+          "itemIndex": 9,
+          "str": "the Middle Stage, mainly in the context of India. Here we expand",
+          "x": 183,
+          "y": 667.3,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 11,
+          "str": "the scope to look briefly at these landforms across the world —",
+          "x": 183,
+          "y": 650.3,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 13,
+          "str": "where they are located, what some of their features are, and in",
+          "x": 183,
+          "y": 633.3,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 15,
+          "str": "what ways they are connected to life.",
+          "x": 183,
+          "y": 616.3,
+          "width": 213.9,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 17,
+          "str": "LET",
+          "x": 183,
+          "y": 584.8,
+          "width": 24,
+          "height": 14,
+          "fontName": "g_d0_f1"
+        }
+      ],
+      "page2_prose_definition": [
+        {
+          "itemIndex": 87,
+          "str": "to show the Earth on a flat surface. Take an orange; imagine that",
+          "x": 183,
+          "y": 295.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 89,
+          "str": "it represents the Earth. Now peel it and lay the peel flat without",
+          "x": 183,
+          "y": 278.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 95,
+          "str": "Earth on a flat surface is called a map projection.",
+          "x": 183,
+          "y": 227.2,
+          "width": 278.5,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 101,
+          "str": "projections of the Earth. They use different methods to draw the",
+          "x": 183,
+          "y": 193.2,
+          "width": 367.2,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 111,
+          "str": "look at multiple projections",
+          "x": 216.4,
+          "y": 120.7,
+          "width": 174.6,
+          "height": 12,
+          "fontName": "g_d0_f7"
+        },
+        {
+          "itemIndex": 114,
+          "str": "are two projections.",
+          "x": 183,
+          "y": 103.7,
+          "width": 114.7,
+          "height": 12,
+          "fontName": "g_d0_f11"
+        },
+        {
+          "itemIndex": 134,
+          "str": "flattened at",
+          "x": 100.6,
+          "y": 226.2,
+          "width": 55.2,
+          "height": 10,
+          "fontName": "g_d0_f15"
+        }
+      ]
+    },
+    "stage3_classification_status": {
+      "implemented": false,
+      "finding": "Neither batch_generate_all_ncert.js nor generator.js classifies text by coordinates, font, or element type (header, footer, caption, map label). All items in content.items are flattened via array join(\" \")."
+    },
+    "stage4_sections": {
+      "totalSectionsParsed": 1,
+      "sections": [
+        {
+          "id": "sec_1",
+          "title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+          "textLength": 23120,
+          "page": 20,
+          "contains1000km": true,
+          "containsMapProjection": true
+        }
+      ]
+    },
+    "stage5_sentences": {
+      "totalSentences": 201,
+      "targetFailureSentence": {
+        "text": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+        "length": 271,
+        "finding": "The entire block spanning Page 9 map labels, compass directions, Page 10 header, chapter subhead, and the first body sentence was merged into a single 272-character sentence because no terminal period existed in the map stream."
+      },
+      "control1Sentence": {
+        "text": "The process of showing the Earth on a flat surface is called a map projection.",
+        "length": 78
+      },
+      "control2Sentence": {
+        "text": "Great Barrier Reef Great Barrier Reef 8 Exploring Society: India and Beyond | Grade 8 Part 2 The Great Barrier Reef (Fig.",
+        "length": 121
+      }
+    },
+    "stage6_facts": {
+      "totalFactsExtracted": 229,
+      "targetFact": {
+        "fact_id": "F-LITE-092",
+        "ku_id": "KU-LITE-087",
+        "section_id": "sec_1",
+        "section_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+        "source_page": 20,
+        "source_text": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+        "supporting_excerpt": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+        "source_start": 9883,
+        "source_end": 10154,
+        "object_start": 9938,
+        "object_end": 9945,
+        "fact_type": "numeric",
+        "subject": "Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India",
+        "relation": "numeric_value",
+        "object": "1000 km",
+        "normalized_subject": "equator asia africa suez canal legend route city e w s n 10 exploring society: india",
+        "normalized_relation": "numeric_value",
+        "normalized_object": "1000 km",
+        "temporal_scope": "",
+        "extraction_method": "numeric_quantity",
+        "confidence_class": "verified",
+        "conflict_status": "clear",
+        "answer_kind": "measurement",
+        "attribute": "Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India",
+        "precision": "exact",
+        "polarity": "positive",
+        "numeric_kind": "measurement"
+      },
+      "control1Fact": {
+        "fact_id": "F-LITE-020",
+        "ku_id": "KU-LITE-020",
+        "section_id": "sec_1",
+        "section_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+        "source_page": 20,
+        "source_text": "The process of showing the Earth on a flat surface is called a map projection.",
+        "supporting_excerpt": "The process of showing the Earth on a flat surface is called a map projection.",
+        "source_start": 1885,
+        "source_end": 1963,
+        "object_start": 1939,
+        "object_end": 1962,
+        "fact_type": "entity_attribute",
+        "subject": "The process of showing the Earth on a flat surface",
+        "relation": "role",
+        "object": "called a map projection",
+        "normalized_subject": "process of showing the earth on a flat surface",
+        "normalized_relation": "role",
+        "normalized_object": "called a map projection",
+        "temporal_scope": "",
+        "extraction_method": "pattern_enriched",
+        "confidence_class": "verified",
+        "conflict_status": "clear",
+        "answer_kind": "role"
+      },
+      "control2Fact": {
+        "fact_id": "F-LITE-076",
+        "ku_id": "KU-LITE-073",
+        "section_id": "sec_1",
+        "section_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+        "source_page": 20,
+        "source_text": "Great Barrier Reef Great Barrier Reef 8 Exploring Society: India and Beyond | Grade 8 Part 2 The Great Barrier Reef (Fig. 1.8), off Australia’s northeastern coast, stretches over a length of 2,000 km and covers about 350,000 square kilometres.",
+        "supporting_excerpt": "Great Barrier Reef Great Barrier Reef 8 Exploring Society: India and Beyond | Grade 8 Part 2 The Great Barrier Reef (Fig. 1.8), off Australia’s northeastern coast, stretches over a length of 2,000 km and covers about 350,000 square kilometres.",
+        "source_start": 7781,
+        "source_end": 8024,
+        "object_start": 7781,
+        "object_end": 8024,
+        "fact_type": "membership",
+        "subject": "Great Barrier Reef Great Barrier Reef 8 Exploring Society: India and Beyond | Grade 8 Part 2 The Great Barrier Reef (Fig. 1.8), off Australia’s northeastern coast, stretches over a length of 2,000 km and",
+        "relation": "members",
+        "object": "about 350, 000 square kilometres",
+        "normalized_subject": "great barrier reef great barrier reef 8 exploring society: india and beyond | grade 8 part 2 the great barrier reef (fig. 1.8), off australia’s northeastern coast, stretches over a length of 2,000 km and",
+        "normalized_relation": "members",
+        "normalized_object": "about 350, 000 square kilometres",
+        "temporal_scope": "",
+        "extraction_method": "membership_list",
+        "confidence_class": "verified",
+        "conflict_status": "clear",
+        "answer_kind": "member",
+        "members": [
+          "about 350",
+          "000 square kilometres"
+        ],
+        "exhaustive": true,
+        "observed_by": null
+      }
+    },
+    "stage7_to_9_reasoning_v2": {
+      "v2QuestionCount": 5,
+      "v2Items": [
+        {
+          "id": "Q-LITE-001",
+          "subtype": "evidence_conclusion",
+          "operator": "OP_K_EVIDENCE_CONCLUSION",
+          "stem": "What primary empirical evidence does the text cite to substantiate the claim regarding ?",
+          "proof_steps": [
+            "Claim:  unclassified ",
+            "Source evidence quotation: \"1 India and the World: Land and the People 1 – World Geography: Some Glimpses World Geography: Some Glimpses CHAPTER 1 The modern age has brought the geography of the earth near to us, but made it difficult for us to come into touch with man.\"",
+            "Grounded claim directly in verifiable empirical evidence"
+          ]
+        },
+        {
+          "id": "Q-LITE-002",
+          "subtype": "error_diagnosis",
+          "operator": "OP_L_ERROR_DIAGNOSIS",
+          "stem": "Which logical fallacy or misinterpretation contradicts the source's findings on What?",
+          "proof_steps": [
+            "Source ground truth: What role the unique physical features of the continents",
+            "Constructed invalid diagnostic misconception: Incorrectly claims that the unique physical features of the continents causes What (reversing cause and effect)",
+            "Proved why the invalid transformation contradicts the source"
+          ]
+        },
+        {
+          "id": "Q-LITE-003",
+          "subtype": "conditional_reasoning",
+          "operator": "OP_D_CONDITIONAL_REASONING",
+          "stem": "Under what specific condition or prerequisite does we try to show the Earth on a flat surface occur?",
+          "proof_steps": [
+            "Extracted condition: we try to show the Earth on a flat surface requires we draw a map",
+            "Verified conditional scope without converse fallacy"
+          ]
+        },
+        {
+          "id": "Q-LITE-004",
+          "subtype": "causal_reasoning",
+          "operator": "OP_B_CAUSAL_EXPLANATION",
+          "stem": "According to the source, what causal mechanism directly produces environmental issues?",
+          "proof_steps": [
+            "Extracted source causal mechanism: How do human actions causes environmental issues",
+            "Derived mechanistic explanation for environmental issues"
+          ]
+        },
+        {
+          "id": "Q-LITE-005",
+          "subtype": "evidence_conclusion",
+          "operator": "OP_K_EVIDENCE_CONCLUSION",
+          "stem": "What primary empirical evidence does the text cite to substantiate the claim regarding Human lives?",
+          "proof_steps": [
+            "Claim: Human lives influences the monsoon in the Gangetic Plains",
+            "Source evidence quotation: \"Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.\"",
+            "Grounded claim directly in verifiable empirical evidence"
+          ]
+        }
+      ]
+    },
+    "stage10_to_12_questions": {
+      "targetFailure": {
+        "question": {
+          "id": "Q-LITE-001",
+          "type": "single_choice",
+          "question_subtype": "numeric_recall",
+          "stem": "According to the passage, what measurement is stated for Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India?",
+          "context": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 ______ Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+          "options": [
+            {
+              "key": "A",
+              "text": "1000 km",
+              "is_correct": true
+            },
+            {
+              "key": "B",
+              "text": "999 km",
+              "is_correct": false,
+              "distractor_origin": "deterministic_value_offset",
+              "confusion_type": "adjacent_value",
+              "distractor_purpose": "adjacent_value"
+            },
+            {
+              "key": "C",
+              "text": "1001 km",
+              "is_correct": false,
+              "distractor_origin": "deterministic_value_offset",
+              "confusion_type": "adjacent_value",
+              "distractor_purpose": "adjacent_value"
+            },
+            {
+              "key": "D",
+              "text": "998 km",
+              "is_correct": false,
+              "distractor_origin": "deterministic_value_offset",
+              "confusion_type": "adjacent_value",
+              "distractor_purpose": "adjacent_value"
+            }
+          ],
+          "answer_key": "A",
+          "expected_answer": "1000 km",
+          "knowledge_units": [
+            {
+              "ku_id": "KU-LITE-087",
+              "fact_id": "F-LITE-092",
+              "role": "primary"
+            }
+          ],
+          "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+          "source_page": 20,
+          "supporting_excerpt": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+          "explanation": "The source states: “London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.” This identifies the value for Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India as 1000 km.",
+          "difficulty": "easy",
+          "cognitive_level": "recall",
+          "evidence": {
+            "fact_ids": [
+              "F-LITE-092"
+            ],
+            "excerpts": [
+              "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains."
+            ],
+            "source_offsets": [
+              {
+                "fact_id": "F-LITE-092",
+                "start": 9883,
+                "end": 10154
+              }
+            ],
+            "stem_relation": "numeric_value",
+            "temporal_scope": "",
+            "fact_type": "numeric",
+            "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+            "source_page": 20
+          },
+          "verification": {
+            "status": "verified",
+            "rules": [
+              "source_fact",
+              "typed_options",
+              "evidence_quoted",
+              "answer_verified",
+              "scope_preserved"
+            ]
+          },
+          "answer_relation_key": "F-LITE-092|1000 km",
+          "relation_keys": [
+            "F-LITE-092|1000 km"
+          ],
+          "candidate_sort": {
+            "source_start": 9883,
+            "fact_id": "F-LITE-092"
+          }
+        },
+        "validationResult": {
+          "valid": true,
+          "issues": [],
+          "qid": "Q-LITE-001",
+          "expectedAnswer": "1000 km"
+        }
+      },
+      "control1": {
+        "question": {
+          "id": "Q-LITE-002",
+          "type": "single_choice",
+          "question_subtype": "entity_attribute",
+          "stem": "According to the passage, which of the following correctly describes the process of showing the Earth on a flat surface?",
+          "context": "The process of showing the Earth on a flat surface is ______.",
+          "options": [
+            {
+              "key": "A",
+              "text": "the unique physical features of the continents",
+              "is_correct": false,
+              "distractor_origin": "typed_entity_pool",
+              "confusion_type": "wrong_entity",
+              "distractor_purpose": "confusable_fact"
+            },
+            {
+              "key": "B",
+              "text": "called a map projection",
+              "is_correct": true
+            },
+            {
+              "key": "C",
+              "text": "compromise",
+              "is_correct": false,
+              "distractor_origin": "typed_entity_pool",
+              "confusion_type": "wrong_entity",
+              "distractor_purpose": "confusable_fact"
+            },
+            {
+              "key": "D",
+              "text": "two projections",
+              "is_correct": false,
+              "distractor_origin": "typed_entity_pool",
+              "confusion_type": "wrong_entity",
+              "distractor_purpose": "confusable_fact"
+            }
+          ],
+          "answer_key": "B",
+          "expected_answer": "called a map projection",
+          "knowledge_units": [
+            {
+              "ku_id": "KU-LITE-020",
+              "fact_id": "F-LITE-020",
+              "role": "primary"
+            }
+          ],
+          "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+          "source_page": 20,
+          "supporting_excerpt": "The process of showing the Earth on a flat surface is called a map projection.",
+          "explanation": "The source states: “The process of showing the Earth on a flat surface is called a map projection.” This identifies the stated role of The process of showing the Earth on a flat surface as called a map projection.",
+          "difficulty": "medium",
+          "cognitive_level": "recall",
+          "evidence": {
+            "fact_ids": [
+              "F-LITE-020"
+            ],
+            "excerpts": [
+              "The process of showing the Earth on a flat surface is called a map projection."
+            ],
+            "source_offsets": [
+              {
+                "fact_id": "F-LITE-020",
+                "start": 1885,
+                "end": 1963
+              }
+            ],
+            "stem_relation": "role",
+            "temporal_scope": "",
+            "fact_type": "entity_attribute",
+            "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+            "source_page": 20
+          },
+          "verification": {
+            "status": "verified",
+            "rules": [
+              "source_fact",
+              "typed_options",
+              "evidence_quoted",
+              "answer_verified",
+              "scope_preserved"
+            ]
+          },
+          "answer_relation_key": "F-LITE-020|called a map projection",
+          "relation_keys": [
+            "F-LITE-020|called a map projection"
+          ],
+          "candidate_sort": {
+            "source_start": 1885,
+            "fact_id": "F-LITE-020"
+          }
+        },
+        "validationResult": {
+          "valid": true,
+          "issues": [],
+          "qid": "Q-LITE-002",
+          "expectedAnswer": "called a map projection"
+        }
+      },
+      "control2": {
+        "question": {
+          "id": "Q-LITE-011",
+          "type": "single_choice",
+          "question_subtype": "classification_membership",
+          "stem": "According to the passage, which of the following is included in London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world?",
+          "context": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, ______, and plains.",
+          "options": [
+            {
+              "key": "A",
+              "text": "about 350",
+              "is_correct": false,
+              "distractor_origin": "controlled_category_pool",
+              "confusion_type": "partial_truth",
+              "distractor_purpose": "wrong_category"
+            },
+            {
+              "key": "B",
+              "text": "000 square kilometres",
+              "is_correct": false,
+              "distractor_origin": "controlled_category_pool",
+              "confusion_type": "partial_truth",
+              "distractor_purpose": "wrong_category"
+            },
+            {
+              "key": "C",
+              "text": "plateaus",
+              "is_correct": true
+            },
+            {
+              "key": "D",
+              "text": "largest reserves of freshwater outside the polar regions",
+              "is_correct": false,
+              "distractor_origin": "controlled_category_pool",
+              "confusion_type": "partial_truth",
+              "distractor_purpose": "wrong_category"
+            }
+          ],
+          "answer_key": "C",
+          "expected_answer": "plateaus",
+          "knowledge_units": [
+            {
+              "ku_id": "KU-LITE-087",
+              "fact_id": "F-LITE-091",
+              "role": "primary"
+            }
+          ],
+          "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+          "source_page": 20,
+          "supporting_excerpt": "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+          "explanation": "The source states: “London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.” This lists plateaus as a member of London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world.",
+          "difficulty": "medium",
+          "cognitive_level": "understanding",
+          "evidence": {
+            "fact_ids": [
+              "F-LITE-091"
+            ],
+            "excerpts": [
+              "London Europe Mumbai INDIAN OCEAN ATLANTIC OCEAN 0 500 1000 km Equator ASIA AFRICA Suez Canal Legend Route City E W S N 10 Exploring Society: India and Beyond | Grade 8 Part 2 The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains."
+            ],
+            "source_offsets": [
+              {
+                "fact_id": "F-LITE-091",
+                "start": 9883,
+                "end": 10154
+              }
+            ],
+            "stem_relation": "members",
+            "temporal_scope": "",
+            "fact_type": "membership",
+            "source_title": "NCERT Class 8 Geography — Chapter 1: World Geography: Some Glimpses",
+            "source_page": 20
+          },
+          "verification": {
+            "status": "verified",
+            "rules": [
+              "source_fact",
+              "typed_options",
+              "evidence_quoted",
+              "answer_verified",
+              "scope_preserved"
+            ]
+          },
+          "answer_relation_key": "F-LITE-091|members",
+          "relation_keys": [
+            "F-LITE-091|members"
+          ],
+          "candidate_sort": {
+            "source_start": 9883,
+            "fact_id": "F-LITE-091"
+          },
+          "expected_member": "plateaus"
+        },
+        "validationResult": {
+          "valid": true,
+          "issues": [],
+          "qid": "Q-LITE-011",
+          "expectedAnswer": "plateaus"
+        }
+      }
+    }
+  }
+}
