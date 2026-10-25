@@ -348,8 +348,15 @@ console.log('[Test 9] Fixture H — multi-statement truth values...');
 const multiSource = 'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.';
 const analyzedMulti = analyze(multiSource, 'Multi');
 const candidateList = Engine.buildQuestionCandidates(analyzedMulti.context, { targetCount: 10 });
-const multiCandidate = candidateList.find((q) => q.question_subtype === 'multi_statement');
-assert(multiCandidate, 'A multi-statement candidate must be built from unambiguous facts');
+// Quality change (2026-10-25): multi patterns are rotated by content,
+// so the first candidate is no longer always "1 only". Find a 1-only
+// candidate to check its truth values, and check that more than one
+// pattern is present in the candidate list at all.
+const multiCandidates = candidateList.filter((q) => q.question_subtype === 'multi_statement');
+assert(multiCandidates.length >= 1, 'A multi-statement candidate must be built from unambiguous facts');
+assert(new Set(multiCandidates.map((q) => q.expected_answer)).size >= 2, 'Multi candidates must span more than one truth pattern');
+const multiCandidate = multiCandidates.find((q) => q.expected_answer === '1 only');
+assert(multiCandidate, 'A 1-only multi-statement candidate must exist among the variants');
 assert.strictEqual(multiCandidate.statements.length, 2, 'Multi-statement questions use two independently verified statements');
 assert.strictEqual(multiCandidate.statements[0].truth_value, true, 'The first statement is the verified source statement');
 assert.strictEqual(multiCandidate.statements[1].truth_value, false, 'The second statement must be an explicit alteration');
@@ -538,30 +545,32 @@ assert(goodValidation.keyDistribution, 'Key distribution must be reported');
 console.log('  ✓ Duplicate options and unsupported explanations are rejected.');
 
 // ---------------------------------------------------------------------------
-// Fixture M: a stem that points at a passage must show that passage, with the
-// tested value blanked, and must never be about a pronoun or a loose fragment
+// Fixture M (quality rule, 2026-10-25): a stem must stand on its own in
+// an exam, with no passage in front of the student. "According to the
+// passage/source" must never appear in a stem. Any context the app
+// also shows is supplementary only: it must blank the tested value
+// and must never hand over the answer.
 // ---------------------------------------------------------------------------
-console.log('[Test 14b] Passage stems show masked source context...');
+console.log('[Test 14b] Stems never reference a passage, and any context is masked...');
 const fixtureContext = 'The University of Calcutta was established in 1857 as the first modern university in South Asia. The University of Bombay was established in 1887 near the docks of the growing city.';
 const analyzedContext = analyze(fixtureContext, 'Battle of Plassey');
-const passageStems = (analyzedContext.bank || []).filter((question) => /^According to the passage/i.test(question.stem));
-assert(passageStems.length >= 1, 'Fixture must produce at least one passage-referencing stem');
-for (const question of passageStems) {
-  assert(
-    typeof question.context === 'string' && question.context.trim().length > 0,
-    `Passage stem shows no source context: ${question.stem}`
-  );
-  assert(question.context.includes('______'), `Context must blank the tested value: ${question.context}`);
-  assert(
-    !normalize(question.context).includes(normalize(question.expected_answer)),
-    `Context must not hand over the answer: ${question.context}`
-  );
-  assert(
-    normalize(question.context) !== normalize(question.supporting_excerpt),
-    'Context must be the masked excerpt, not the raw one'
-  );
+assert((analyzedContext.bank || []).length >= 1, 'Fixture must still produce questions without passage references');
+const passageStems = (analyzedContext.bank || []).filter((question) => /according to the (passage|source)/i.test(question.stem));
+assert.strictEqual(passageStems.length, 0, 'No stem may reference a passage or source the student cannot see');
+for (const question of analyzedContext.bank || []) {
+  if (typeof question.context === 'string' && question.context.trim().length > 0) {
+    assert(question.context.includes('______'), `Context must blank the tested value: ${question.context}`);
+    assert(
+      !normalize(question.context).includes(normalize(question.expected_answer)),
+      `Context must not hand over the answer: ${question.context}`
+    );
+    assert(
+      normalize(question.context) !== normalize(question.supporting_excerpt),
+      'Context must be the masked excerpt, not the raw one'
+    );
+  }
 }
-console.log(`  ✓ ${passageStems.length} passage stem(s) carry masked source context.`);
+console.log(`  ✓ ${(analyzedContext.bank || []).length} question(s) with no passage-referencing stems.`);
 
 console.log('[Test 14c] Stems never ask about a pronoun or a loose fragment...');
 const fixturePronoun = [
@@ -582,8 +591,13 @@ for (const question of analyzedPronoun.bank) {
     `Stem asks about a punctuation fragment: ${question.stem}`
   );
 }
+// Quality change (2026-10-25): the old map definition question only
+// existed because of generic off-topic distractors ("statutory
+// regulator", etc.), which are no longer used. The passage must still
+// yield a question, and that question must still be about map facts
+// (its statements), without a pronoun/fragment stem.
 assert(
-  analyzedPronoun.bank.some((question) => /\bmap\b/i.test(question.stem)),
+  analyzedPronoun.bank.some((question) => /\bmap\b/i.test(question.stem) || (question.statements || []).some((s) => /\bmap\b/i.test(s.text))),
   'Dropping unusable stems must not remove the usable questions from the same passage'
 );
 console.log('  ✓ Pronoun and fragment subjects never reach a stem.');
@@ -704,12 +718,20 @@ assert(
   'Page 9 must not merge with page 10 prose across boundary'
 );
 
-// 16.5 Valid definition of map projection produces question
+// 16.5 Valid definition of map projection — quality change (2026-10-25):
+// a two-sentence source cannot supply three same-type distractors for a
+// definition MCQ, so a definition question must not be forced with
+// generic off-topic distractors ("statutory regulator", etc.). The
+// honest output for this thin source is at least one verified question
+// (multi-statement, from its two facts), with no generic-pool options.
 const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. Cartographers use map projections to represent geographic features accurately.';
 const mapDefAnalyzed = analyze(mapDefDoc, 'Map Projections');
 assert(mapDefAnalyzed.bank && mapDefAnalyzed.bank.length > 0, 'Valid map projection definition must produce verified questions');
-const mapDefQ = mapDefAnalyzed.bank.find(q => /map projection/i.test(q.stem));
-assert(mapDefQ, 'Must generate question testing map projection definition');
+for (const q of mapDefAnalyzed.bank) {
+  for (const o of q.options) {
+    assert(!/statutory regulator|advisory body|public broadcaster|communication relay|orbit correction|sample collection/i.test(o.text), 'No generic off-topic distractor may appear: ' + o.text);
+  }
+}
 
 // 16.6 Explicit numeric measurement generates verified question
 const numericDoc = 'The Great Barrier Reef extends for 2300 kilometres along the coast of Australia. The Great Barrier Reef contains 900 individual islands in the Pacific.';

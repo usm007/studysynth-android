@@ -709,6 +709,97 @@ async function runE2E() {
   console.log(`\n==========================================\nALL REPAIR 002 REGRESSION TESTS PASSED (${passed} checks + 3 end-to-end)\n==========================================`);
 }
 
+// ---------------------------------------------------------------------------
+// Quality standard (2026-10-25): self-contained stems, no passage
+// references, correct causal direction, varied multi patterns.
+// ---------------------------------------------------------------------------
+console.log('--- Quality standard: self-contained stems ---');
+
+check('A stem referencing a passage or source is rejected by validation', () => {
+  const q = {
+    type: 'single_choice', question_subtype: 'definition',
+    stem: 'According to the passage, what does the plain mean?',
+    options: [
+      { key: 'A', text: 'low-lying terrain', is_correct: true },
+      { key: 'B', text: 'high mountains', is_correct: false, distractor_origin: 'typed_entity_pool' },
+      { key: 'C', text: 'deep oceans', is_correct: false, distractor_origin: 'typed_entity_pool' },
+      { key: 'D', text: 'dense forests', is_correct: false, distractor_origin: 'typed_entity_pool' }
+    ],
+    answer_key: 'A', expected_answer: 'low-lying terrain',
+    explanation: 'The source states: "The plain is characterised by low-lying terrain."',
+    supporting_excerpt: 'The plain is characterised by low-lying terrain.',
+    evidence: { fact_ids: [] }
+  };
+  const result = Engine.validateQuestion(q, [], {});
+  assert.ok(result.issues.some((i) => i.rule === 'stem_source_reference'), 'Source-referencing stem must be rejected, got: ' + JSON.stringify(result.issues));
+});
+
+check('A bare-unit numeric fact does not produce "What number is stated?"', () => {
+  const out = Analysis.analyzeSource(
+    'At present, India has 28 States. The capital of India is New Delhi. The Ganga river flows through northern India. The Himalayas are the highest mountains in the world.',
+    'Quality fixture'
+  );
+  const stems = (out.questions || []).map((q) => q.stem);
+  assert.ok(!stems.some((s) => /^What (number|measurement) is stated\?$/.test(s)), 'Context-free numeric stem must not appear: ' + JSON.stringify(stems));
+  assert.ok(!stems.some((s) => /according to the (passage|source)/i.test(s)), 'No stem may reference a passage or source: ' + JSON.stringify(stems));
+});
+
+check('A "because" fact bridges to CAUSES with cause as subject, not effect', () => {
+  const prop = Representation.mapFactToProposition({
+    fact_id: 'F-1', fact_type: 'causal', causal_direction: 'effect_because_cause',
+    subject: 'The birth rate', object: 'families had many children',
+    relation_verb: 'because', source_page: 1
+  });
+  assert.strictEqual(prop.subject, 'families had many children', 'Bridged CAUSES subject must be the cause');
+  assert.strictEqual(prop.object, 'The birth rate', 'Bridged CAUSES object must be the effect');
+});
+
+check('V2 Operator B rejects participle and compound-verb effects', () => {
+  const EngineV2Local = require('../engine/reasoning/engine_v2.js');
+  // Direct operator test via the graph API is covered by the validator
+  // check below; here we assert the validator rejects a derived
+  // causal item whose effect is a fragment, using the same gate text.
+  const candidate = {
+    question_subtype: 'causal_reasoning',
+    stem: 'What causes walkability and integrates?',
+    expected_answer: 'Singapore’s urban planning',
+    options: [
+      { key: 'A', text: 'Singapore’s urban planning', is_correct: true, distractor_origin: 'source' },
+      { key: 'B', text: 'Other planning', is_correct: false, distractor_origin: 'source' },
+      { key: 'C', text: 'More planning', is_correct: false, distractor_origin: 'source' },
+      { key: 'D', text: 'Less planning', is_correct: false, distractor_origin: 'source' }
+    ],
+    supporting_excerpt: 'Singapore’s urban planning promotes walkability and integrates',
+    explanation: 'Singapore’s urban planning promotes walkability and integrates',
+    derived_proposition: { subject: 'walkability and integrates', object: 'Singapore’s urban planning', modality: 'fact', polarity: 'positive' },
+    proof_trace: { operator: 'OP_B_CAUSAL_EXPLANATION', premises: ['F-1'] },
+    primary_operator: 'OP_B_CAUSAL_EXPLANATION'
+  };
+  const result = EngineV2Local.Validator.validateCandidate(candidate, {}, { facts: [{ fact_id: 'F-1' }] });
+  assert.strictEqual(result.valid, false, 'Validator must reject a compound-predicate effect, got: ' + JSON.stringify(result));
+  assert.ok(/compound predicate/i.test(result.message), 'Rejection must name the compound predicate, got: ' + result.message);
+});
+
+check('A duplicated heading-plus-sentence phrase collapses to one phrase', () => {
+  const prop = Representation.createProposition({
+    subject: 'Right to constitutional remedies The right to constitutional remedies',
+    object: 'citizens to approach the Supreme Court',
+    relation_type: 'CAUSES'
+  });
+  assert.strictEqual(prop.subject, 'Right to constitutional remedies', 'Duplicated phrase must collapse, got: ' + prop.subject);
+});
+
+check('Multi-statement candidates include more than one truth pattern', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005. The Epsilon Commission was established in 2010. The Zeta Commission was established in 2015.',
+    'Multi variety fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const patterns = new Set(candidates.filter((q) => q.question_subtype === 'multi_statement').map((q) => q.expected_answer));
+  assert.ok(patterns.size >= 2, 'Multi candidates must span more than one truth pattern, got: ' + JSON.stringify([...patterns]));
+});
+
 runE2E().catch((err) => {
   console.error('Repair 002 regression tests failed:', err);
   process.exit(1);

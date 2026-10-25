@@ -5,7 +5,7 @@
 - **Discipline / Subject:** History
 - **Target Standard:** NCERT Class 8 (Curriculum 8.2)
 - **Pages Processed:** 50 of 50 pages in textbook PDF
-- **Total Questions Generated:** 17 items (15 production items + 2 conceptual reasoning proof items)
+- **Total Questions Generated:** 16 items (15 production items + 1 conceptual reasoning proof items)
 - **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (Repair 002)
 
 ---
@@ -14,47 +14,25 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | numeric_recall (2), date_recall (1), entity_attribute (3), definition (3), comparison (3), cause_effect (2), multi_statement (1) |
-| **Conceptual Reasoning V2** | 2 | causal_reasoning (2) |
-| **Total** | **17** | Verified Evidence-Grounded Items |
+| **Production Questions** | 15 | date_recall (1), numeric_recall (1), entity_attribute (6), definition (3), cause_effect (3), multi_statement (1) |
+| **Conceptual Reasoning V2** | 1 | causal_reasoning (1) |
+| **Total** | **16** | Verified Evidence-Grounded Items |
 
 ---
 
 ## Part I: Verified Production Questions
 
 ### Question 1 [Q-P2-001]
-- **Subtype:** `numeric_recall`
+- **Subtype:** `date_recall`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> According to the passage, what number is stated?
+> In which date was the resolution demanding Purna Swaraj passed?
 
 **Options:**
-- **A)** 18 months **(CORRECT ANSWER)**
-- **B)** 17 months *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 19 months *(Distractor Origin: `deterministic_value_offset`)*
-- **D)** 16 months *(Distractor Origin: `deterministic_value_offset`)*
-
-**Supporting Textbook Excerpt:**
-> "However, Tilak was charged with having published seditious articles which incited violence; although there was no evidence, he was sentenced to 18 months’ rigorous imprisonment."
-
-**Explanation:**
-The source states: “However, Tilak was charged with having published seditious articles which incited violence; although there was no evidence, he was sentenced to 18 months’ rigorous imprisonment.” This identifies the value for months as 18 months.
-
----
-
-### Question 2 [Q-P2-002]
-- **Subtype:** `date_recall`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
-
-**Stem:**
-> According to the passage, in which date was the resolution demanding Purna Swaraj passed?
-
-**Options:**
-- **A)** December 1926 *(Distractor Origin: `deterministic_value_offset`)*
-- **B)** December 1929 **(CORRECT ANSWER)**
+- **A)** December 1929 **(CORRECT ANSWER)**
+- **B)** December 1926 *(Distractor Origin: `deterministic_value_offset`)*
 - **C)** December 1932 *(Distractor Origin: `deterministic_value_offset`)*
 - **D)** December 1927 *(Distractor Origin: `deterministic_value_offset`)*
 
@@ -66,25 +44,47 @@ The source states: “The resolution demanding Purna Swaraj was passed in Decemb
 
 ---
 
+### Question 2 [Q-P2-002]
+- **Subtype:** `numeric_recall`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
+
+**Stem:**
+> What number is stated for long years?
+
+**Options:**
+- **A)** 89 long years *(Distractor Origin: `deterministic_value_offset`)*
+- **B)** 90 long years **(CORRECT ANSWER)**
+- **C)** 91 long years *(Distractor Origin: `deterministic_value_offset`)*
+- **D)** 88 long years *(Distractor Origin: `deterministic_value_offset`)*
+
+**Supporting Textbook Excerpt:**
+> "From 1857 to 1947 — for 90 long years — generations of Indians fought, suffered and sacrificed themselves for this objective."
+
+**Explanation:**
+The source states: “From 1857 to 1947 — for 90 long years — generations of Indians fought, suffered and sacrificed themselves for this objective.” This identifies the value for long years as 90 long years.
+
+---
+
 ### Question 3 [Q-P2-003]
 - **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> Which of the following correctly describes the second outcome?
+> What role is associated with rootedness in Indian thoughts and values?
 
 **Options:**
 - **A)** killed or tortured for his or her *(Distractor Origin: `typed_entity_pool`)*
 - **B)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
-- **C)** not part of the colonial calculations **(CORRECT ANSWER)**
-- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+- **C)** major focus **(CORRECT ANSWER)**
+- **D)** observed in India as National Youth Day *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The second outcome was not part of the colonial calculations."
+> "rootedness in Indian thoughts and values was a major focus."
 
 **Explanation:**
-The source states: “The second outcome was not part of the colonial calculations.” This identifies the stated role of The second outcome as not part of the colonial calculations.
+The source states: “rootedness in Indian thoughts and values was a major focus.” This identifies the stated role of rootedness in Indian thoughts and values as major focus.
 
 ---
 
@@ -94,12 +94,12 @@ The source states: “The second outcome was not part of the colonial calculatio
 - **Answer Key:** **D**
 
 **Stem:**
-> According to the passage, which of the following best describes INA?
+> Which of the following best describes INA?
 
 **Options:**
-- **A)** “those who uphold the name of God,” reflecting the movement’s emphasis on spiritual discipline and moral purity *(Distractor Origin: `source_definition_pool`)*
-- **B)** ‘tiger’, as Jatin once wrestled with a tiger with his bare hands), a leader of the Anushilan Samiti, collaborated with Rash Behari Bose in such plans *(Distractor Origin: `source_definition_pool`)*
-- **C)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
+- **A)** killed or tortured for his or her *(Distractor Origin: `source_object_pool`)*
+- **B)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
+- **C)** HRA reorganised itself as the Hindustan Socialist Republican Association *(Distractor Origin: `source_definition_pool`)*
 - **D)** Indian National Army **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
@@ -111,40 +111,18 @@ The source defines or describes INA as follows: “to Indonesia, Japan, and fina
 ---
 
 ### Question 5 [Q-P2-005]
-- **Subtype:** `comparison`
+- **Subtype:** `cause_effect`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **A**
 
 **Stem:**
-> What is explicitly stated about a British officer?
+> What is the effect of the continuing popular sentiment against the partition of Bengal?
 
 **Options:**
-- **A)** Allan Octavian Hume had become critical of the colonial policies, pointing to them as the cause of poverty in India; this did not go down well with the authorities **(CORRECT ANSWER)**
-- **B)** members of India’s elite often looked up to Europe as a model to ‘modernise’ India *(Distractor Origin: `source_comparison_pool`)*
-- **C)** the poem Bande Mataram was composed earlier, in 1875 *(Distractor Origin: `source_comparison_pool`)*
-- **D)** it initially represented a limited segment of the Muslim population, primarily the elite *(Distractor Origin: `source_comparison_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Though a British officer, Allan Octavian Hume had become critical of the colonial policies, pointing to them as the cause of poverty in India; this did not go down well with the authorities."
-
-**Explanation:**
-The source states: “Though a British officer, Allan Octavian Hume had become critical of the colonial policies, pointing to them as the cause of poverty in India; this did not go down well with the authorities.” This establishes the comparison in the stated direction.
-
----
-
-### Question 6 [Q-P2-006]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
-
-**Stem:**
-> According to the passage, what is the effect of the continuing popular sentiment against the partition of Bengal?
-
-**Options:**
-- **A)** India brighter, greater, much higher than she ever was *(Distractor Origin: `source_causal_pool`)*
-- **B)** the colonial government finally decided to withdraw it in 1911 **(CORRECT ANSWER)**
-- **C)** involving many thousands of personnel *(Distractor Origin: `source_causal_pool`)*
-- **D)** a quick exit *(Distractor Origin: `source_causal_pool`)*
+- **A)** the colonial government finally decided to withdraw it in 1911 **(CORRECT ANSWER)**
+- **B)** India brighter, greater, much higher than she ever was *(Distractor Origin: `source_causal_pool`)*
+- **C)** members of India’s elite often looked up to Europe as a model to ‘modernise’ India *(Distractor Origin: `source_object_pool`)*
+- **D)** killed or tortured for his or her *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Owing to the continuing popular sentiment against the partition of Bengal, the colonial government finally decided to withdraw it in 1911."
@@ -154,156 +132,46 @@ The source explicitly describes the relationship as: “Owing to the continuing 
 
 ---
 
-### Question 7 [Q-P2-007]
+### Question 6 [Q-P2-006]
 - **Subtype:** `multi_statement`
 - **Cognitive Category:** `understanding`
-- **Answer Key:** **C**
+- **Answer Key:** **B**
 
 **Stem:**
 > Consider the following statements:
 
 **Statements:**
 - **1)** For example, those employed in the army, civil services or universities would have a lesser pay than British employees in the same posts; most juries in courts would have a majority of British members and would be lenient towards crimes committed by Europeans against ‘natives’; in clubs, trains, specific areas of cities and some public spaces, Indians would not be allowed to mix with Europeans.
-- **2)** A person who is sub-magistrate in a district of Bengal
+- **2)** The table on the facing page provides to control the epidemic.
 
 Which of the statements given above is/are correct?
 
 **Options:**
 - **A)** 2 only *(Distractor Origin: `statement_combination_pool`)*
-- **B)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
-- **C)** 1 only **(CORRECT ANSWER)**
+- **B)** 1 only **(CORRECT ANSWER)**
+- **C)** Both 1 and 2 *(Distractor Origin: `statement_combination_pool`)*
 - **D)** Neither 1 nor 2 *(Distractor Origin: `statement_combination_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "For example, those employed in the army, civil services or universities would have a lesser pay than British employees in the same posts; most juries in courts would have a majority of British members and would be lenient towards crimes committed by Europeans against ‘natives’; in clubs, trains, specific areas of cities and some public spaces, Indians would not be allowed to mix with Europeans."
 
 **Explanation:**
-Statement 1 is correct. The source states: “For example, those employed in the army, civil services or universities would have a lesser pay than British employees in the same posts; most juries in courts would have a majority of British members and would be lenient towards crimes committed by Europeans against ‘natives’; in clubs, trains, specific areas of cities and some public spaces, Indians would not be allowed to mix with Europeans.” This supports statement 1. Statement 2 is false. The source states: “A person who is killed or tortured for his or her” The stated value is killed or tortured for his or her, not sub-magistrate in a district of Bengal.
+Statement 1 is correct. The source states: “For example, those employed in the army, civil services or universities would have a lesser pay than British employees in the same posts; most juries in courts would have a majority of British members and would be lenient towards crimes committed by Europeans against ‘natives’; in clubs, trains, specific areas of cities and some public spaces, Indians would not be allowed to mix with Europeans.” This supports statement 1. Statement 2 is false. The source states: “The table on the facing page provides a glimpse of a few reformers and their movements.” The stated value is a glimpse of a few reformers and their movements, not to control the epidemic.
 
 ---
 
-### Question 8 [Q-P2-008]
-- **Subtype:** `numeric_recall`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
-
-**Stem:**
-> According to the passage, what number is stated for long years?
-
-**Options:**
-- **A)** 89 long years *(Distractor Origin: `deterministic_value_offset`)*
-- **B)** 91 long years *(Distractor Origin: `deterministic_value_offset`)*
-- **C)** 88 long years *(Distractor Origin: `deterministic_value_offset`)*
-- **D)** 90 long years **(CORRECT ANSWER)**
-
-**Supporting Textbook Excerpt:**
-> "From 1857 to 1947 — for 90 long years — generations of Indians fought, suffered and sacrificed themselves for this objective."
-
-**Explanation:**
-The source states: “From 1857 to 1947 — for 90 long years — generations of Indians fought, suffered and sacrificed themselves for this objective.” This identifies the value for long years as 90 long years.
-
----
-
-### Question 9 [Q-P2-009]
+### Question 7 [Q-P2-007]
 - **Subtype:** `entity_attribute`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
-
-**Stem:**
-> According to the passage, what role is associated with rootedness in Indian thoughts and values?
-
-**Options:**
-- **A)** major focus **(CORRECT ANSWER)**
-- **B)** killed or tortured for his or her *(Distractor Origin: `typed_entity_pool`)*
-- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
-- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "rootedness in Indian thoughts and values was a major focus."
-
-**Explanation:**
-The source states: “rootedness in Indian thoughts and values was a major focus.” This identifies the stated role of rootedness in Indian thoughts and values as major focus.
-
----
-
-### Question 10 [Q-P2-010]
-- **Subtype:** `definition`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **B**
-
-**Stem:**
-> According to the passage, what does HRA mean?
-
-**Options:**
-- **A)** “those who uphold the name of God,” reflecting the movement’s emphasis on spiritual discipline and moral purity *(Distractor Origin: `source_definition_pool`)*
-- **B)** The Hindustan Republican Association **(CORRECT ANSWER)**
-- **C)** ‘tiger’, as Jatin once wrestled with a tiger with his bare hands), a leader of the Anushilan Samiti, collaborated with Rash Behari Bose in such plans *(Distractor Origin: `source_definition_pool`)*
-- **D)** HRA reorganised itself as the Hindustan Socialist Republican Association *(Distractor Origin: `source_definition_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts."
-
-**Explanation:**
-The source defines or describes HRA as follows: “The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts.” The correct answer is The Hindustan Republican Association.
-
----
-
-### Question 11 [Q-P2-011]
-- **Subtype:** `comparison`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
-
-**Stem:**
-> According to the passage, what is explicitly stated about virtually the entire leadership of the Congress?
-
-**Options:**
-- **A)** members of India’s elite often looked up to Europe as a model to ‘modernise’ India *(Distractor Origin: `source_comparison_pool`)*
-- **B)** the poem Bande Mataram was composed earlier, in 1875 *(Distractor Origin: `source_comparison_pool`)*
-- **C)** the popular movement continued, and mass protests and rallies erupted nationwide with ‘Quit India’ banners **(CORRECT ANSWER)**
-- **D)** Allan Octavian Hume had become critical of the colonial policies, pointing to them as the cause of poverty in India; this did not go down well with the authorities *(Distractor Origin: `source_comparison_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Even though virtually the entire leadership of the Congress was arrested, the popular movement continued, and mass protests and rallies erupted nationwide with ‘Quit India’ banners."
-
-**Explanation:**
-The source states: “Even though virtually the entire leadership of the Congress was arrested, the popular movement continued, and mass protests and rallies erupted nationwide with ‘Quit India’ banners.” This establishes the comparison in the stated direction.
-
----
-
-### Question 12 [Q-P2-012]
-- **Subtype:** `cause_effect`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
-
-**Stem:**
-> According to the passage, what happens when senior Congress leaders were arrested?
-
-**Options:**
-- **A)** India brighter, greater, much higher than she ever was *(Distractor Origin: `source_causal_pool`)*
-- **B)** the colonial government finally decided to withdraw it in 1911 *(Distractor Origin: `source_causal_pool`)*
-- **C)** involving many thousands of personnel *(Distractor Origin: `source_causal_pool`)*
-- **D)** she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance **(CORRECT ANSWER)**
-
-**Supporting Textbook Excerpt:**
-> "When senior Congress leaders were arrested, she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance."
-
-**Explanation:**
-The source explicitly describes the relationship as: “When senior Congress leaders were arrested, she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance.” The answer preserves the stated direction of that relationship.
-
----
-
-### Question 13 [Q-P2-013]
-- **Subtype:** `entity_attribute`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **A**
 
 **Stem:**
 > Which of the following correctly describes Aurobindo Ghose?
 
 **Options:**
-- **A)** asked to be the Bengal National College’s first principal and steer the new institution **(CORRECT ANSWER)**
-- **B)** killed or tortured for his or her *(Distractor Origin: `typed_entity_pool`)*
-- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
+- **A)** arrested and exiled to Burma, where he passed away in captivity, never to return home *(Distractor Origin: `typed_entity_pool`)*
+- **B)** faithful application of the colonial master’s ‘divide and rule’ policy — in this case *(Distractor Origin: `typed_entity_pool`)*
+- **C)** asked to be the Bengal National College’s first principal and steer the new institution **(CORRECT ANSWER)**
 - **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
@@ -314,19 +182,85 @@ The source states: “Aurobindo Ghose was asked to be the Bengal National Colleg
 
 ---
 
-### Question 14 [Q-P2-014]
+### Question 8 [Q-P2-008]
 - **Subtype:** `definition`
 - **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> What does HRA mean?
+
+**Options:**
+- **A)** killed or tortured for his or her *(Distractor Origin: `source_object_pool`)*
+- **B)** Indian National Army *(Distractor Origin: `source_definition_pool`)*
+- **C)** HRA reorganised itself as the Hindustan Socialist Republican Association *(Distractor Origin: `source_definition_pool`)*
+- **D)** The Hindustan Republican Association **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts."
+
+**Explanation:**
+The source defines or describes HRA as follows: “The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts.” The correct answer is The Hindustan Republican Association.
+
+---
+
+### Question 9 [Q-P2-009]
+- **Subtype:** `cause_effect`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **A**
+
+**Stem:**
+> What happens when senior Congress leaders were arrested?
+
+**Options:**
+- **A)** she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance **(CORRECT ANSWER)**
+- **B)** it clear, therefore, that freedom fighters not mentioned here are no less important than the few who illustrate our story *(Distractor Origin: `source_object_pool`)*
+- **C)** the colonial government finally decided to withdraw it in 1911 *(Distractor Origin: `source_causal_pool`)*
+- **D)** India brighter, greater, much higher than she ever was *(Distractor Origin: `source_causal_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "When senior Congress leaders were arrested, she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance."
+
+**Explanation:**
+The source explicitly describes the relationship as: “When senior Congress leaders were arrested, she hoisted the national flag at the Gowalia Tank Maidan in Bombay, becoming a powerful symbol of resistance.” The answer preserves the stated direction of that relationship.
+
+---
+
+### Question 10 [Q-P2-010]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
 - **Answer Key:** **B**
+
+**Stem:**
+> What role is associated with the Cellular Jail in the Andaman Islands?
+
+**Options:**
+- **A)** arrested and exiled to Burma, where he passed away in captivity, never to return home *(Distractor Origin: `typed_entity_pool`)*
+- **B)** huge colonial prison used by the British to exile and isolate revolutionaries **(CORRECT ANSWER)**
+- **C)** faithful application of the colonial master’s ‘divide and rule’ policy — in this case *(Distractor Origin: `typed_entity_pool`)*
+- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland."
+
+**Explanation:**
+The source states: “The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland.” This identifies the stated role of The Cellular Jail in the Andaman Islands as huge colonial prison used by the British to exile and isolate revolutionaries.
+
+---
+
+### Question 11 [Q-P2-011]
+- **Subtype:** `definition`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **C**
 
 **Stem:**
 > What does HSRA mean?
 
 **Options:**
-- **A)** “those who uphold the name of God,” reflecting the movement’s emphasis on spiritual discipline and moral purity *(Distractor Origin: `source_definition_pool`)*
-- **B)** HRA reorganised itself as the Hindustan Socialist Republican Association **(CORRECT ANSWER)**
-- **C)** ‘tiger’, as Jatin once wrestled with a tiger with his bare hands), a leader of the Anushilan Samiti, collaborated with Rash Behari Bose in such plans *(Distractor Origin: `source_definition_pool`)*
-- **D)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
+- **A)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
+- **B)** killed or tortured for his or her *(Distractor Origin: `source_object_pool`)*
+- **C)** HRA reorganised itself as the Hindustan Socialist Republican Association **(CORRECT ANSWER)**
+- **D)** it clear, therefore, that freedom fighters not mentioned here are no less important than the few who illustrate our story *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA)."
@@ -336,25 +270,91 @@ The source defines or describes HSRA as follows: “The HRA reorganised itself a
 
 ---
 
+### Question 12 [Q-P2-012]
+- **Subtype:** `cause_effect`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **D**
+
+**Stem:**
+> What happens when the British announced their departure?
+
+**Options:**
+- **A)** it clear, therefore, that freedom fighters not mentioned here are no less important than the few who illustrate our story *(Distractor Origin: `source_object_pool`)*
+- **B)** the colonial government finally decided to withdraw it in 1911 *(Distractor Origin: `source_causal_pool`)*
+- **C)** India brighter, greater, much higher than she ever was *(Distractor Origin: `source_causal_pool`)*
+- **D)** these states were given the option to join either India or Pakistan; they were also technically free to remain independent **(CORRECT ANSWER)**
+
+**Supporting Textbook Excerpt:**
+> "When the British announced their departure, these states were given the option to join either India or Pakistan; they were also technically free to remain independent."
+
+**Explanation:**
+The source explicitly describes the relationship as: “When the British announced their departure, these states were given the option to join either India or Pakistan; they were also technically free to remain independent.” The answer preserves the stated direction of that relationship.
+
+---
+
+### Question 13 [Q-P2-013]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **A**
+
+**Stem:**
+> Which of the following correctly describes the British government?
+
+**Options:**
+- **A)** not blind to the growing popular discontent **(CORRECT ANSWER)**
+- **B)** observed in India as National Youth Day *(Distractor Origin: `typed_entity_pool`)*
+- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
+- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "The British government was not blind to the growing popular discontent."
+
+**Explanation:**
+The source states: “The British government was not blind to the growing popular discontent.” This identifies the stated role of The British government as not blind to the growing popular discontent.
+
+---
+
+### Question 14 [Q-P2-014]
+- **Subtype:** `entity_attribute`
+- **Cognitive Category:** `understanding`
+- **Answer Key:** **B**
+
+**Stem:**
+> What role is associated with Its title?
+
+**Options:**
+- **A)** observed in India as National Youth Day *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ **(CORRECT ANSWER)**
+- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
+- **D)** killed or tortured for his or her *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "Its title is a Bengali version of the Sanskrit ‘ Vande Mātaram ’, literally ‘Praise to the Mother’ or ‘I bow to the Motherland’."
+
+**Explanation:**
+The source states: “Its title is a Bengali version of the Sanskrit ‘ Vande Mātaram ’, literally ‘Praise to the Mother’ or ‘I bow to the Motherland’.” This identifies the stated role of Its title as Bengali version of the Sanskrit ‘ Vande Mātaram ’.
+
+---
+
 ### Question 15 [Q-P2-015]
-- **Subtype:** `comparison`
+- **Subtype:** `entity_attribute`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> According to the passage, what is explicitly stated about temporarily uniting Hindus and Muslims?
+> Which of the following correctly describes the pact?
 
 **Options:**
-- **A)** members of India’s elite often looked up to Europe as a model to ‘modernise’ India *(Distractor Origin: `source_comparison_pool`)*
-- **B)** the poem Bande Mataram was composed earlier, in 1875 *(Distractor Origin: `source_comparison_pool`)*
-- **C)** it also reinforced the sense of separateness among Indian Muslims and encouraged more radical Muslim leaders to come up with fresh demands **(CORRECT ANSWER)**
-- **D)** Allan Octavian Hume had become critical of the colonial policies, pointing to them as the cause of poverty in India; this did not go down well with the authorities *(Distractor Origin: `source_comparison_pool`)*
+- **A)** arrested and exiled to Burma, where he passed away in captivity, never to return home *(Distractor Origin: `typed_entity_pool`)*
+- **B)** faithful application of the colonial master’s ‘divide and rule’ policy — in this case *(Distractor Origin: `typed_entity_pool`)*
+- **C)** criticised by younger Congress leaders as it did not guarantee Purna Swaraj **(CORRECT ANSWER)**
+- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "While temporarily uniting Hindus and Muslims, it also reinforced the sense of separateness among Indian Muslims and encouraged more radical Muslim leaders to come up with fresh demands."
+> "The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj."
 
 **Explanation:**
-The source states: “While temporarily uniting Hindus and Muslims, it also reinforced the sense of separateness among Indian Muslims and encouraged more radical Muslim leaders to come up with fresh demands.” This establishes the comparison in the stated direction.
+The source states: “The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj.” This identifies the stated role of The pact as criticised by younger Congress leaders as it did not guarantee Purna Swaraj.
 
 ---
 
@@ -367,7 +367,7 @@ The source states: “While temporarily uniting Hindus and Muslims, it also rein
 - **Answer Key:** **A**
 
 **Stem:**
-> According to the source, what causal mechanism directly produces the colonial government finally decided to withdraw it in 1911?
+> What causes the colonial government finally decided to withdraw it in 1911?
 
 **Options:**
 - **A)** the continuing popular sentiment against the partition of Bengal **(CORRECT ANSWER)**
@@ -384,33 +384,6 @@ The source states: “While temporarily uniting Hindus and Muslims, it also rein
 
 **Explanation:**
 Source verification: "Owing to the continuing popular sentiment against the partition of Bengal, the colonial government finally decided to withdraw it in 1911.". This confirms that the colonial government finally decided to withdraw it in 1911 is caused by mechanism the continuing popular sentiment against the partition of Bengal.
-
----
-
-### Conceptual Item 2 [Q-C2-002]
-- **Subtype:** `causal_reasoning`
-- **Cognitive Difficulty:** `comprehension`
-- **Reasoning Operator:** `OP_B_CAUSAL_EXPLANATION`
-- **Answer Key:** **B**
-
-**Stem:**
-> According to the source, what causal mechanism directly produces involving many thousands of personnel?
-
-**Options:**
-- **A)** It is caused by involving many thousands of personnel rather than causing it *(Distractor Strategy: `reversed_causality`)*
-- **B)** Besides, January 1946 witnessed a mutiny in the Royal Indian Air **(CORRECT ANSWER)**
-- **C)** It prevents Besides, January 1946 witnessed a mutiny in the Royal Indian Air from occurring *(Distractor Strategy: `opposite_effect`)*
-- **D)** It operates independently without influencing Besides, January 1946 witnessed a mutiny in the Royal Indian Air *(Distractor Strategy: `extended_speculation`)*
-
-**Proof Trace & Inference Steps:**
-- Extracted source causal mechanism: Besides, January 1946 witnessed a mutiny in the Royal Indian Air causes involving many thousands of personnel
-- Derived mechanistic explanation for involving many thousands of personnel
-
-**Supporting Textbook Excerpt:**
-> "Besides, January 1946 witnessed a mutiny in the Royal Indian Air Force involving many thousands of personnel."
-
-**Explanation:**
-Source verification: "Besides, January 1946 witnessed a mutiny in the Royal Indian Air Force involving many thousands of personnel.". This confirms that involving many thousands of personnel is caused by mechanism Besides, January 1946 witnessed a mutiny in the Royal Indian Air.
 
 ---
 

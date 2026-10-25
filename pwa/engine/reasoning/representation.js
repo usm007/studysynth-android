@@ -32,6 +32,33 @@
   /**
    * Typed Proposition Schema
    */
+  function collapseRepeatedPhrase(raw) {
+    let words = String(raw || '').split(/\s+/).filter(Boolean);
+    for (let round = 0; round < 3; round++) {
+      let changed = false;
+      const lower = words.map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''));
+      outer: for (let len = 6; len >= 3; len--) {
+        for (let i = 0; i + len <= words.length; i++) {
+          for (const gap of [0, 1]) {
+            const j = i + len + gap;
+            if (j + len > words.length) continue;
+            let match = true;
+            for (let k = 0; k < len; k++) {
+              if (lower[i + k] !== lower[j + k]) { match = false; break; }
+            }
+            if (!match) continue;
+            const removeFrom = (gap === 1 && /^(the|a|an)$/i.test(words[j - 1])) ? j - 1 : j;
+            words = words.slice(0, removeFrom).concat(words.slice(j + len));
+            changed = true;
+            break outer;
+          }
+        }
+      }
+      if (!changed) break;
+    }
+    return words.join(' ');
+  }
+
   function createProposition(fields) {
     const relType = fields.relation_type || RELATION_TYPES.HAS_PROPERTY;
     let defaultFactType = 'entity_attribute';
@@ -55,14 +82,14 @@
     return {
       id: propId,
       fact_id: propId,
-      subject: fields.subject || '',
-      subject_normalized: Linguistics.normalizeConcept(fields.subject),
+      subject: collapseRepeatedPhrase(fields.subject || ''),
+      subject_normalized: Linguistics.normalizeConcept(collapseRepeatedPhrase(fields.subject || '')),
       predicate: fields.predicate || '',
       relation_type: relType,
       relation: fields.predicate || 'relation',
       normalized_relation: fields.normalized_relation || fields.predicate || 'relation',
-      object: fields.object || '',
-      object_normalized: Linguistics.normalizeConcept(fields.object),
+      object: collapseRepeatedPhrase(fields.object || ''),
+      object_normalized: Linguistics.normalizeConcept(collapseRepeatedPhrase(fields.object || '')),
       polarity: fields.polarity || POLARITY.POSITIVE,
       modality: fields.modality || MODALITY.FACT,
       quantification: fields.quantification || QUANTIFICATION.UNSPECIFIED,
@@ -488,10 +515,19 @@
     // condition). Without this swap, Operator D asked "under what
     // condition does [condition] occur?" with the consequence as the
     // answer — the converse of the source conditional.
-    const bridgedSubject = relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional'
+    // Quality fix: production "because" facts store effect as subject and
+    // cause as object (causal_direction 'effect_because_cause'), but the
+    // CAUSES convention is cause -> effect. Without this swap, Operator B
+    // inverts an already-inverted fact and asks what produces the cause
+    // itself — e.g. "what produces families had many children?" answered
+    // by "The birth rate", when the excerpt says the birth rate was high
+    // BECAUSE families had many children. Swap exactly as for conditionals.
+    const swapBridged = (relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional')
+      || (relationType === RELATION_TYPES.CAUSES && fact.causal_direction === 'effect_because_cause');
+    const bridgedSubject = swapBridged
       ? (fact.object || '')
       : (fact.subject || '');
-    const bridgedObject = relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional'
+    const bridgedObject = swapBridged
       ? (fact.subject || '')
       : (fact.object || '');
     return createProposition({

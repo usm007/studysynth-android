@@ -146,6 +146,24 @@
     if (isFragmentPhrase(causalProp.subject) || isFragmentPhrase(causalProp.object)) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject or object is a fragment, not a usable concept');
     }
+    // Quality: an effect must be a complete concept, not a participle
+    // fragment ("involving many thousands of personnel") or a compound
+    // predicate whose second half is a verb ("walkability and
+    // integrates"). Both produced V2 items whose stem asked what causes
+    // a fragment, which no student can answer as a concept.
+    if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect starts with a participle, not a standalone concept');
+    }
+    if (/\band\s+(integrates?|promotes?|includes?|involves?|leads?|causes?|provides?|creates?|makes?|allows?|enables?|supports?|encourages?|drives?|enhances?|reduces?|increases?|decreases?)\b/i.test(causalProp.object)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect is a compound predicate, not a single concept');
+    }
+    // Quality: a modal phrase is not a cause. "This could potentially
+    // lead to a slow down…" must not yield a V2 item whose answer is
+    // "This could potentially".
+    if (/^(this|that|it)\s+(could|would|should|may|might|can)\b/i.test(causalProp.subject)
+      || /could potentially|may potentially/i.test(causalProp.subject)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject is a modal phrase, not a cause');
+    }
     // Phase 8 fix (second round): an effect must be a clean concept, not
     // a pronoun clause ("it has sunny weather"), a comma clause, or a
     // compound predicate ("climate, and is home to a variety"). A cause

@@ -163,6 +163,12 @@
         }
       }
       if (candidate.question_subtype === 'causal_reasoning') {
+        if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(derived.subject)) {
+          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect starts with a participle, not a standalone concept' };
+        }
+        if (/\band\s+(integrates?|promotes?|includes?|involves?|leads?|causes?|provides?|creates?|makes?|allows?|enables?|supports?|encourages?|drives?|enhances?|reduces?|increases?|decreases?)\b/i.test(derived.subject)) {
+          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect is a compound predicate, not a single concept' };
+        }
         if (/^(it|they|you|he|she|we)\b/i.test(derived.subject)) {
           return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect starts with a pronoun, not a standalone concept' };
         }

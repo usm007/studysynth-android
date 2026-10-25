@@ -63,17 +63,17 @@
 
     switch (operatorId) {
       case REASONING_OPERATORS.OP_A_RULE_APPLICATION:
-        stem = `Based on the established rule in the source, what is the expected outcome when ${subject} is evaluated?`;
+        stem = `What is the expected outcome when ${subject} is evaluated?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_B_CAUSAL_EXPLANATION:
-        stem = `According to the source, what causal mechanism directly produces ${subject}?`;
+        stem = `What causes ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_C_CAUSAL_CHAIN:
-        stem = `Through the multi-step causal sequence in the passage, what ultimate effect follows ${subject}?`;
+        stem = `What ultimate effect follows ${subject}?`;
         answerText = object;
         break;
 
@@ -83,22 +83,22 @@
         break;
 
       case REASONING_OPERATORS.OP_E_COMPARATIVE_REASONING:
-        stem = `How does the source characterize the relative comparison involving ${subject}?`;
+        stem = `How does ${subject} compare?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_F_PROCESS_SEQUENCE:
-        stem = `In the sequence described by the source, which step must occur prior to ${object}?`;
+        stem = `Which step must occur prior to ${object}?`;
         answerText = subject;
         break;
 
       case REASONING_OPERATORS.OP_G_CONSTRAINT_INFERENCE:
-        stem = `Applying the constraints specified in the passage, which alternative satisfies all stated criteria?`;
+        stem = `Which alternative satisfies all the stated criteria?`;
         answerText = subject;
         break;
 
       case REASONING_OPERATORS.OP_H_CATEGORY_INFERENCE:
-        stem = `Based on its defining attributes in the text, to which category or classification does ${subject} belong?`;
+        stem = `To which category or classification does ${subject} belong, based on its defining attributes?`;
         answerText = object;
         break;
 
@@ -113,17 +113,17 @@
         break;
 
       case REASONING_OPERATORS.OP_K_EVIDENCE_CONCLUSION:
-        stem = `What primary empirical evidence does the text cite to substantiate the claim regarding ${subject}?`;
+        stem = `What primary empirical evidence substantiates the claim regarding ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_L_ERROR_DIAGNOSIS:
-        stem = `Which logical fallacy or misinterpretation contradicts the source's findings on ${subject}?`;
+        stem = `Which logical fallacy or misinterpretation contradicts the findings on ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_M_QUANTITATIVE_REASONING:
-        stem = `Based on the quantitative relationships stated in the text, how does an increase in ${subject} affect ${object}?`;
+        stem = `How does an increase in ${subject} affect ${object}?`;
         answerText = object;
         break;
 
@@ -133,12 +133,12 @@
         break;
 
       case REASONING_OPERATORS.OP_O_MULTIHOP_SYNTHESIS:
-        stem = `Synthesizing the findings across the document, how does ${subject} relate to the broader conclusion?`;
+        stem = `How does ${subject} relate to the broader conclusion?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_P_COUNTERFACTUAL_REASONING:
-        stem = `Based on the directional principles established in the text, what consequence would follow ${subject}?`;
+        stem = `What consequence would follow ${subject}?`;
         answerText = object;
         break;
 

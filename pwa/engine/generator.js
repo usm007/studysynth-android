@@ -155,35 +155,15 @@
     single_choice: ['date', 'numeric', 'entity_attribute', 'definition', 'comparison', 'causal', 'membership', 'sequence']
   };
 
-  const CONTROLLED_PLACES = [
-    'New Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bengaluru', 'Hyderabad',
-    'Ahmedabad', 'Pune', 'Jaipur', 'Lucknow'
-  ];
-  const CONTROLLED_INSTITUTIONS = [
-    'Ministry of Finance', 'Reserve Bank of India', 'Election Commission of India',
-    'NITI Aayog', 'Supreme Court of India', 'Planning Commission',
-    'Ministry of External Affairs', 'University Grants Commission'
-  ];
-  const CONTROLLED_PERSONS = [
-    'C. V. Raman', 'Marie Curie', 'Isaac Newton', 'A. P. J. Abdul Kalam',
-    'Srinivasa Ramanujan', 'Jagadish Chandra Bose'
-  ];
-  const CONTROLLED_FUNCTIONS = [
-    'communication relay', 'sample collection', 'orbit correction',
-    'temperature measurement', 'power generation', 'data storage'
-  ];
-  const CONTROLLED_ROLES = [
-    'statutory regulator', 'advisory body', 'public broadcaster',
-    'research institution', 'implementing agency', 'judicial authority'
-  ];
-  const CONTROLLED_EQUIPMENT = [
-    'solid-propellant boosters', 'ion thrusters', 'solar sails',
-    'hydraulic actuators', 'electric batteries', 'mechanical springs'
-  ];
-  const CONTROLLED_EFFECTS = [
-    'the object to move more slowly', 'the object to remain stationary',
-    'the object to gain mass', 'the object to change colour'
-  ];
+  // Controlled distractor pools were removed (quality, cross-subject):
+  // distractors must now come from the source itself, not from hardcoded
+  // Indian/space topic lists that were off-topic for other subjects.
+  // Exception: classification category rules below are narrow, same-type
+  // alternatives (other colours for a colour list, other spacecraft for
+  // a spacecraft list). They only trigger when the category matches,
+  // and a single-list source cannot otherwise supply any distractors
+  // at all — without them, a source listing only red/green/blue could
+  // never produce a classification question.
   const CONTROLLED_CATEGORY_RULES = [
     { test: /colou?rs?\s+of\s+light|primary\s+colou?rs?/i, alternatives: ['yellow', 'orange', 'purple', 'violet'] },
     { test: /chandrayaan|spacecraft|lander/i, alternatives: ['Orion Capsule', 'Curiosity Rover', 'Cassini Orbiter', 'Artemis Lander'] },
@@ -762,20 +742,18 @@
   }
 
   function buildStemContext(stem, excerpt, expected) {
-    const text = String(stem || '');
-    if (!/^According to the passage\b/i.test(text)) {
-      return { stem: text, context: null };
-    }
+    // Quality rule: a stem must stand on its own in an exam, with no
+    // passage in front of the student. "According to the passage/source"
+    // is generator scaffolding, never part of the question, so it is
+    // always stripped here, whatever context the app may also show.
+    // The masked excerpt, when available, is returned only as
+    // supplementary app context; the stem must be answerable without it.
+    const raw = String(stem || '');
+    const text = raw
+      .replace(/^According to the (passage|source),\s*/i, '')
+      .replace(/^([a-z])/, (letter) => letter.toUpperCase());
     const context = maskExpectedAnswer(excerpt, expected);
-    if (context) return { stem: text, context };
-    // Nothing safe to show means the phrase would point at a passage the
-    // learner cannot see, so the stem has to stand on its own.
-    return {
-      stem: text
-        .replace(/^According to the passage,\s*/i, '')
-        .replace(/^([a-z])/, (letter) => letter.toUpperCase()),
-      context: null
-    };
+    return { stem: text, context: context || null };
   }
 
   function replaceOnce(text, needle, replacement) {
@@ -789,8 +767,42 @@
     return optionSignature(a) === optionSignature(b) || normalizeOption(a) === normalizeOption(b);
   }
 
+  // Collapse an immediately repeated phrase of 3+ words, which is
+  // almost always a PDF heading merged with the sentence that follows
+  // it ("Right to constitutional remedies The right to constitutional
+  // remedies", "Right to life The right to life also"), not natural
+  // repetition. The second occurrence, plus a preceding article, is
+  // removed. Legitimate short repetitions ("had had") are below the
+  // 3-word threshold and are left alone.
+  function collapseRepeatedPhrase(raw) {
+    let words = String(raw || '').split(/\s+/).filter(Boolean);
+    for (let round = 0; round < 3; round++) {
+      let changed = false;
+      const lower = words.map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''));
+      outer: for (let len = 6; len >= 3; len--) {
+        for (let i = 0; i + len <= words.length; i++) {
+          for (const gap of [0, 1]) {
+            const j = i + len + gap;
+            if (j + len > words.length) continue;
+            let match = true;
+            for (let k = 0; k < len; k++) {
+              if (lower[i + k] !== lower[j + k]) { match = false; break; }
+            }
+            if (!match) continue;
+            const removeFrom = (gap === 1 && /^(the|a|an)$/i.test(words[j - 1])) ? j - 1 : j;
+            words = words.slice(0, removeFrom).concat(words.slice(j + len));
+            changed = true;
+            break outer;
+          }
+        }
+      }
+      if (!changed) break;
+    }
+    return words.join(' ');
+  }
+
   function cleanFactSubject(raw) {
-    let subject = cleanText(raw).replace(/[,;:]+$/, '').trim();
+    let subject = collapseRepeatedPhrase(cleanText(raw).replace(/[,;:]+$/, '').trim());
     if (!subject || subject.length > 150) return null;
     // Clause boundary (Phase 8 fix): a causal subject must come from the
     // clause that actually contains the causal verb. A subject taken from
@@ -839,7 +851,12 @@
     if (!text) return false;
     if (/,\s*[A-Za-z]/.test(text)) return false;
     if (!/^-?\d/.test(text)) return false;
-    if (text.split(/\s+/).length > 5) return false;
+    if (text.split(/\s+/).length > 3) return false;
+    // A quantity is a number plus a unit, not a clause. "14 states that
+    // the State" (Article 14 states that the State…) is a merged article
+    // number + verb + noun, not a quantity, and must never become an
+    // answer.
+    if (/\b(that|which|who|shall|during|the|a|an)\b/i.test(text)) return false;
     return true;
   }
 
@@ -1971,6 +1988,41 @@
     parseEntityAttributes(text, context).forEach(add);
     if (!dates.length) numericDrafts(text).forEach(add);
 
+    // Generic relational-verb fallback (quality, cross-subject): for
+    // sentences that yielded nothing, try "[Subject] <verb> [object]"
+    // with common relational verbs. This is what lets geography and
+    // civics sources work, not just "is/was" textbook sentences:
+    // "The Ganga originates from the Gangotri glacier" and
+    // "Article 19 protects freedom of speech" are facts, even though
+    // no earlier parser recognised "originates from" or "protects".
+    // Only specific subjects and clean noun-phrase objects qualify;
+    // clauses ("states that the State shall…") are allowed only for
+    // "states", where the clause itself is the answer, and other
+    // clause objects are rejected.
+    if (!facts.length) {
+      const genericMatch = text.match(/^([A-Z][^,.:!?]{2,60}?)\s+(originates from|flows through|runs? parallel to|protects|guarantees|ensures|provides|contains|covers|states that|is known for|is famous for)\s+(.+?)[.!?]?\s*$/i);
+      if (genericMatch) {
+        const genericSubject = cleanFactSubject(genericMatch[1]);
+        let genericVerb = genericMatch[2].toLowerCase().replace(/\s+/g, '_');
+        if (genericVerb === 'run_parallel_to') genericVerb = 'runs_parallel_to';
+        const genericObject = cleanText(genericMatch[3]).replace(/[.,;:]+$/, '');
+        const isClauseObject = /^(that|the state shall|the state|it)\b/i.test(genericObject) && genericVerb !== 'states_that';
+        if (genericSubject && genericObject
+            && isUsableSubject(genericSubject)
+            && !isFragmentPhrase(genericObject)
+            && !isClauseObject
+            && genericObject.length >= 3 && genericObject.length <= 100) {
+          add({
+            fact_type: 'entity_attribute',
+            subject: genericSubject,
+            relation: genericVerb,
+            object: genericObject,
+            answer_kind: genericVerb === 'originates_from' ? 'place' : 'entity',
+            extraction_method: 'generic_relational_verb'
+          });
+        }
+      }
+    }
     // Pattern-enriched fallback: for sentences that yielded nothing, try a broad
     // "[ProperNoun] is/was [description]" extraction. Guards keep it safe.
     if (!facts.length) {
@@ -2432,13 +2484,20 @@
     const index = ctx.index;
     const facts = ctx.facts;
     let pool = [];
-    if (fact.answer_kind === 'place') pool = index.places.concat(CONTROLLED_PLACES);
-    else if (fact.answer_kind === 'institution') pool = index.institutions.concat(CONTROLLED_INSTITUTIONS);
-    else if (fact.answer_kind === 'person') pool = index.persons.concat(CONTROLLED_PERSONS);
-    else if (fact.answer_kind === 'role') pool = index.roles.concat(CONTROLLED_ROLES);
-    else if (fact.answer_kind === 'equipment') pool = index.equipment.concat(CONTROLLED_EQUIPMENT);
-    else if (fact.answer_kind === 'function') pool = index.functions.concat(CONTROLLED_FUNCTIONS);
-    else pool = index.functions.concat(index.roles, CONTROLLED_FUNCTIONS, CONTROLLED_ROLES);
+    // Quality, cross-subject: distractors must come from the source
+    // itself. The old controlled pools (Indian institutions, space
+    // functions, "statutory regulator", "orbit correction"…) produced
+    // off-topic options in science, history and pedagogy sources, where
+    // a student could eliminate them without knowing the topic. If the
+    // source does not supply three same-type distractors, the candidate
+    // is rejected — a missing question is better than a giveaway.
+    if (fact.answer_kind === 'place') pool = index.places.slice();
+    else if (fact.answer_kind === 'institution') pool = index.institutions.slice();
+    else if (fact.answer_kind === 'person') pool = index.persons.slice();
+    else if (fact.answer_kind === 'role') pool = index.roles.slice();
+    else if (fact.answer_kind === 'equipment') pool = index.equipment.slice();
+    else if (fact.answer_kind === 'function') pool = index.functions.slice();
+    else pool = index.functions.concat(index.roles);
 
     const sameSubjectPlaces = new Set();
     if (fact.answer_kind === 'place') {
@@ -2494,8 +2553,7 @@
     }
     // Fallback: functions, roles, comparisons as plausible wrong definitions
     if (results.length < 3) {
-      const fallback = [...ctx.index.functions, ...ctx.index.roles, ...ctx.index.comparisons,
-                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      const fallback = [...ctx.index.functions, ...ctx.index.roles, ...ctx.index.comparisons];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2574,7 +2632,7 @@
     // Fallback: functions, definitions, and comparisons as plausible wrong effects
     if (results.length < 3) {
       const fallback = [...ctx.index.functions, ...ctx.index.definitions,
-                        ...ctx.index.comparisons, ...CONTROLLED_FUNCTIONS, ...CONTROLLED_EFFECTS];
+                        ...ctx.index.comparisons];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2607,8 +2665,7 @@
     }
     // Fallback: effects, definitions, functions as plausible wrong comparisons
     if (results.length < 3) {
-      const fallback = [...ctx.index.effects, ...ctx.index.definitions, ...ctx.index.functions,
-                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      const fallback = [...ctx.index.effects, ...ctx.index.definitions, ...ctx.index.functions];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2634,13 +2691,62 @@
         : fact.object;
       return buildMembershipDistractors(fact, factRegistry, correct);
     }
-    if (questionSubtype === 'cause_effect') return buildCauseDistractors(fact, factRegistry, questionSubtype);
-    if (questionSubtype === 'comparison') return buildComparisonDistractors(fact, factRegistry, questionSubtype);
-    if (fact.fact_type === 'date') return buildDateDistractors(fact, factRegistry, questionSubtype);
-    if (fact.fact_type === 'numeric') return buildNumericDistractors(fact, factRegistry, questionSubtype);
-    if (fact.fact_type === 'definition') return buildDefinitionDistractors(fact, factRegistry, questionSubtype);
-    if (fact.fact_type === 'entity_attribute') return buildEntityDistractors(fact, factRegistry, questionSubtype);
-    return [];
+    let results = [];
+    if (questionSubtype === 'cause_effect') results = buildCauseDistractors(fact, factRegistry, questionSubtype);
+    else if (questionSubtype === 'comparison') results = buildComparisonDistractors(fact, factRegistry, questionSubtype);
+    else if (fact.fact_type === 'date') return buildDateDistractors(fact, factRegistry, questionSubtype);
+    else if (fact.fact_type === 'numeric') return buildNumericDistractors(fact, factRegistry, questionSubtype);
+    else if (fact.fact_type === 'definition') results = buildDefinitionDistractors(fact, factRegistry, questionSubtype);
+    else if (fact.fact_type === 'entity_attribute') results = buildEntityDistractors(fact, factRegistry, questionSubtype);
+    // General source-object fallback (quality, cross-subject): when the
+    // typed pool is too small — typical for short sources, notes, and
+    // user documents — fill from other facts' objects in the SAME
+    // source, with a similar length, rather than from generic pools or
+    // not at all. This is what rescues a science or civics excerpt:
+    // its own other effects, definitions and entities are plausible
+    // wrong answers, while "statutory regulator" for photosynthesis is
+    // not. Date and numeric questions are excluded: their distractors
+    // must be dates/numbers, not arbitrary objects.
+    if (results.length < 6) {
+      const ctx = normalizeRegistry(factRegistry);
+      const expected = cleanText(fact.object || '');
+      const expectedLen = expected.length || 1;
+      const pool = [];
+      for (const other of ctx.facts || []) {
+        if (!other || other.fact_id === fact.fact_id) continue;
+        const values = [];
+        if (other.object) values.push(other.object);
+        if (Array.isArray(other.members)) values.push(...other.members);
+        for (const value of values) {
+          const cand = cleanText(value);
+          if (!cand || cand.length < 3 || cand.length > 150) continue;
+          if (isFragmentPhrase(cand)) continue;
+          if (/^(of|to|in|on|for|with|by|as)\b/i.test(cand)) continue;
+          if (isEquivalentOption(cand, expected)) continue;
+          if (isValueSupported(ctx.facts, fact.subject, fact.relation, cand, fact.temporal_scope)) continue;
+          // Length similarity: a one-word distractor against a long
+          // clause answer (or vice versa) is a giveaway.
+          // Extreme length outliers only: for short place names a
+          // longer descriptive place ("the western coast of India" vs
+          // "Assam") is still a plausible place distractor, not a
+          // giveaway. The strict length rule is enforced at bank
+          // rating time, not by blocking every short-source question.
+          if (cand.length < expectedLen / 8 || cand.length > expectedLen * 8) continue;
+          if (!pool.some((item) => isEquivalentOption(item, cand))) pool.push(cand);
+        }
+      }
+      for (const cand of pool) {
+        if (results.length >= 6) break;
+        if (results.some((item) => isEquivalentOption(item.text, cand))) continue;
+        results.push({
+          text: cand,
+          origin: 'source_object_pool',
+          confusion_type: 'partial_truth',
+          distractor_purpose: 'confusable_fact'
+        });
+      }
+    }
+    return results;
   }
 
   const PAST_TENSE = {
@@ -2666,17 +2772,17 @@
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
     if (fact.relation === 'date_field') {
-      return `According to the passage, what date is recorded for ${subject}?`;
+      return `what date is recorded for ${subject}?`;
     }
     if (fact.answer_kind === 'range') {
-      return `According to the passage, which period is associated with ${subject}?`;
+      return `which period is associated with ${subject}?`;
     }
     const dateWord = fact.answer_kind === 'year' ? 'year' : 'date';
     if (fact.event_type === 'active') {
       const tail = fact.event_object ? ` to ${fact.event_object}` : '';
-      return `According to the passage, in which ${dateWord} did ${subject} ${fact.event_base}${tail}?`;
+      return `in which ${dateWord} did ${subject} ${fact.event_base}${tail}?`;
     }
-    return `According to the passage, in which ${dateWord} was ${subject} ${pastTense(fact.event_base)}?`;
+    return `in which ${dateWord} was ${subject} ${pastTense(fact.event_base)}?`;
   }
 
   function numericStem(fact) {
@@ -2688,79 +2794,117 @@
         : fact.answer_kind === 'measurement' ? 'measurement'
           : 'number';
     const expected = cleanText(fact.object).toLowerCase();
-    // "1,500 years" does not make "years" the thing being asked about: the
-    // unit repeats the answer, so the source line has to carry the meaning.
+    // "1,500 years" does not make "years" the thing being asked about, and
+    // a bare-unit question ("What number is stated?" for "28 States") is
+    // meaningless in an exam: it names no entity being counted. Reject
+    // such facts rather than generating a context-free stem; a future
+    // entity-extraction step may turn them into "How many States does
+    // India have?" questions, but a vague stem must never ship.
     if (attribute.split(/\s+/).length === 1 && expected.endsWith(attribute.toLowerCase())) {
-      return `According to the passage, what ${kind} is stated?`;
+      return null;
     }
-    return `According to the passage, what ${kind} is stated for ${inlineSubject(attribute)}?`;
+    return `what ${kind} is stated for ${inlineSubject(attribute)}?`;
   }
 
   function entityStem(fact) {
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
+    // Generic-subject gate (quality): a stem about "the following",
+    // "the air", "one important factor", a subject ending in an adverb
+    // ("the complex also", "subordinate courts broadly"), or a subject
+    // containing a question word ("exposure to what") is not
+    // identifiable on its own. Reject, do not ship a vague stem.
+    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(subject)) return null;
+    // A bare definite noun ("the mosque", "the palace", "the present
+    // structure") does not identify which mosque or palace, so the
+    // stem cannot be answered on its own. A named or modified version
+    // ("the Dilwara Temples", "the mosque at Mount Abu") is fine.
+    if (/^(the|a)\s+(mosque|palace|temple|fort|building|structure|church|tomb|monument)$/i.test(subject)) return null;
+    if (/^(the)\s+(present|main|current)\s+(structure|building|mosque|palace|temple)$/i.test(subject)) return null;
+    if (/\b(also|often|broadly|here)\s*[.!?]?$/i.test(subject)) return null;
+    if (/\?/.test(subject) || /\bwhat\b/i.test(subject)) return null;
     // Superlative: subject IS the description; question asks which entity fits it.
     if (fact.relation === 'superlative') {
-      return `According to the passage, which is described as ${subject}?`;
+      return `which is described as ${subject}?`;
     }
     // Pattern-enriched fallback facts get a more neutral, natural stem.
     if (fact.extraction_method === 'pattern_enriched') {
-      return `According to the passage, which of the following correctly describes ${subject}?`;
+      return `which of the following correctly describes ${subject}?`;
     }
     const stems = {
-      initial_location: `According to the passage, where was ${subject} initially located?`,
-      destination_location: `According to the passage, where did ${subject} move to?`,
-      location: `According to the passage, where is ${subject} located?`,
-      office: `According to the passage, which office did ${subject} hold?`,
-      launched_by: `According to the passage, who launched ${subject}?`,
-      implemented_by: `According to the passage, who implemented ${subject}?`,
-      developed_by: `According to the passage, who developed ${subject}?`,
-      function: `According to the passage, what is the stated function of ${subject}?`,
-      method: `According to the passage, what method is associated with ${subject}?`,
-      role: `According to the passage, what role is associated with ${subject}?`,
-      equipment: `According to the passage, what equipment is used by ${subject}?`
+      initial_location: `where was ${subject} initially located?`,
+      destination_location: `where did ${subject} move to?`,
+      location: `where is ${subject} located?`,
+      office: `which office did ${subject} hold?`,
+      launched_by: `who launched ${subject}?`,
+      implemented_by: `who implemented ${subject}?`,
+      developed_by: `who developed ${subject}?`,
+      function: `what is the stated function of ${subject}?`,
+      method: `what method is associated with ${subject}?`,
+      role: `what role is associated with ${subject}?`,
+      equipment: `what equipment is used by ${subject}?`,
+      originates_from: `where does ${subject} originate from?`,
+      flows_through: `through what does ${subject} flow?`,
+      runs_parallel_to: `what does ${subject} run parallel to?`,
+      protects: `what does ${subject} protect?`,
+      guarantees: `what does ${subject} guarantee?`,
+      ensures: `what does ${subject} ensure?`,
+      provides: `what does ${subject} provide?`,
+      contains: `what does ${subject} contain?`,
+      covers: `what does ${subject} cover?`,
+      states_that: `what does ${subject} state?`,
+      is_known_for: `what is ${subject} known for?`,
+      is_famous_for: `what is ${subject} famous for?`
     };
-    return stems[fact.relation] || `According to the passage, what does the source state about ${subject}?`;
+    // No recognised relation means no self-contained question: a vague
+    // "what does the source state about X?" stem must never ship.
+    return stems[fact.relation] || null;
   }
 
   function causeStem(fact) {
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
+    // A cause subject must be a concept, not a whole clause or a
+    // discourse starter: "Let us…", "Besides,…", "Though …" and
+    // subjects over 12 words ("the larger ones often include one or
+    // several domes…") produce stems that are not questions at all.
+    if (/^(let us|besides|though|while|although|however)\b/i.test(subject)) return null;
+    if (subject.split(/\s+/).filter(Boolean).length > 12) return null;
     const verb = cleanText(fact.relation_verb || 'causes').toLowerCase();
-    if (/^leads?\s+to$/.test(verb)) return `According to the passage, what does ${subject} lead to?`;
-    if (/^results?\s+in$/.test(verb)) return `According to the passage, what does ${subject} result in?`;
-    if (/^allows?$/.test(verb)) return `According to the passage, what does ${subject} allow?`;
-    if (/^enables?$/.test(verb)) return `According to the passage, what does ${subject} enable?`;
-    if (/^produces?$/.test(verb)) return `According to the passage, what does ${subject} produce?`;
-    if (/^brings?\s+about$/.test(verb)) return `According to the passage, what does ${subject} bring about?`;
-    if (/^triggers?$/.test(verb)) return `According to the passage, what does ${subject} trigger?`;
-    if (/^contributes?\s+to$/.test(verb)) return `According to the passage, what does ${subject} contribute to?`;
-    if (/^promotes?$/.test(verb)) return `According to the passage, what does ${subject} promote?`;
-    if (/^stimulates?$/.test(verb)) return `According to the passage, what does ${subject} stimulate?`;
-    if (/^inhibits?$/.test(verb)) return `According to the passage, what does ${subject} inhibit?`;
-    if (/^prevents?$/.test(verb)) return `According to the passage, what does ${subject} prevent?`;
-    if (/^reduces?$/.test(verb)) return `According to the passage, what does ${subject} reduce?`;
-    if (/^increases?$/.test(verb)) return `According to the passage, what does ${subject} increase?`;
-    if (/^decreases?$/.test(verb)) return `According to the passage, what does ${subject} decrease?`;
-    if (/^influences?$/.test(verb)) return `According to the passage, what does ${subject} influence?`;
-    if (/^affects?$/.test(verb)) return `According to the passage, what does ${subject} affect?`;
-    if (/^determines?$/.test(verb)) return `According to the passage, what does ${subject} determine?`;
-    if (/^drives?$/.test(verb)) return `According to the passage, what does ${subject} drive?`;
-    if (/^encourages?$/.test(verb)) return `According to the passage, what does ${subject} encourage?`;
-    if (/^generates?$/.test(verb)) return `According to the passage, what does ${subject} generate?`;
-    if (/^strengthens?$/.test(verb)) return `According to the passage, what does ${subject} strengthen?`;
-    if (/^weakens?$/.test(verb)) return `According to the passage, what does ${subject} weaken?`;
-    if (/^accelerates?$/.test(verb)) return `According to the passage, what does ${subject} accelerate?`;
-    if (/^helps?$/.test(verb)) return `According to the passage, what does ${subject} help achieve?`;
-    if (/^makes?$/.test(verb)) return `According to the passage, what does ${subject} make possible?`;
-    if (/^forces?$/.test(verb)) return `According to the passage, what does ${subject} force?`;
-    if (/^supports?$/.test(verb)) return `According to the passage, what does ${subject} support?`;
+    if (/^leads?\s+to$/.test(verb)) return `what does ${subject} lead to?`;
+    if (/^results?\s+in$/.test(verb)) return `what does ${subject} result in?`;
+    if (/^allows?$/.test(verb)) return `what does ${subject} allow?`;
+    if (/^enables?$/.test(verb)) return `what does ${subject} enable?`;
+    if (/^produces?$/.test(verb)) return `what does ${subject} produce?`;
+    if (/^brings?\s+about$/.test(verb)) return `what does ${subject} bring about?`;
+    if (/^triggers?$/.test(verb)) return `what does ${subject} trigger?`;
+    if (/^contributes?\s+to$/.test(verb)) return `what does ${subject} contribute to?`;
+    if (/^promotes?$/.test(verb)) return `what does ${subject} promote?`;
+    if (/^stimulates?$/.test(verb)) return `what does ${subject} stimulate?`;
+    if (/^inhibits?$/.test(verb)) return `what does ${subject} inhibit?`;
+    if (/^prevents?$/.test(verb)) return `what does ${subject} prevent?`;
+    if (/^reduces?$/.test(verb)) return `what does ${subject} reduce?`;
+    if (/^increases?$/.test(verb)) return `what does ${subject} increase?`;
+    if (/^decreases?$/.test(verb)) return `what does ${subject} decrease?`;
+    if (/^influences?$/.test(verb)) return `what does ${subject} influence?`;
+    if (/^affects?$/.test(verb)) return `what does ${subject} affect?`;
+    if (/^determines?$/.test(verb)) return `what does ${subject} determine?`;
+    if (/^drives?$/.test(verb)) return `what does ${subject} drive?`;
+    if (/^encourages?$/.test(verb)) return `what does ${subject} encourage?`;
+    if (/^generates?$/.test(verb)) return `what does ${subject} generate?`;
+    if (/^strengthens?$/.test(verb)) return `what does ${subject} strengthen?`;
+    if (/^weakens?$/.test(verb)) return `what does ${subject} weaken?`;
+    if (/^accelerates?$/.test(verb)) return `what does ${subject} accelerate?`;
+    if (/^helps?$/.test(verb)) return `what does ${subject} help achieve?`;
+    if (/^makes?$/.test(verb)) return `what does ${subject} make possible?`;
+    if (/^forces?$/.test(verb)) return `what does ${subject} force?`;
+    if (/^supports?$/.test(verb)) return `what does ${subject} support?`;
     if (/^(?:due\s+to|owing\s+to|because\s+of|as\s+a\s+result\s+of|as\s+a\s+consequence\s+of)$/.test(verb)) {
-      return `According to the passage, what is the effect of ${subject}?`;
+      return `what is the effect of ${subject}?`;
     }
-    if (/^is\s+responsible\s+for$/.test(verb)) return `According to the passage, what is ${subject} responsible for?`;
-    if (/^(?:if|when|unless)$/.test(verb)) return `According to the passage, what happens when ${subject}?`;
-    return `According to the passage, what does ${subject} cause?`;
+    if (/^is\s+responsible\s+for$/.test(verb)) return `what is ${subject} responsible for?`;
+    if (/^(?:if|when|unless)$/.test(verb)) return `what happens when ${subject}?`;
+    return `what does ${subject} cause?`;
   }
 
   function factExplanation(fact, subtype, expected, correct) {
@@ -2817,12 +2961,37 @@
     const usable = [];
     for (const distractor of distractors || []) {
       if (!distractor || !distractor.text) continue;
+      // Length matching is applied after collection (below): distractors
+      // are collected first, then the three closest in length to the
+      // correct answer are chosen, so a long clause answer does not sit
+      // next to only short one-word distractors as a giveaway.
+      // Quality: a fragment distractor must never become an option, and
+      // must not kill the whole question either — skip it and use the
+      // next clean distractor from the pool, if one exists. Without this
+      // central filter, a pool containing "type of" or "of its deep
+      // roots…" poisoned otherwise valid questions (notably hees209,
+      // which fell from 15 to 6 questions when validation alone
+      // rejected them).
+      const dt = cleanText(distractor.text);
+      if (isFragmentPhrase(dt)) continue;
+      if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(dt)) continue;
+      if (/^(of|to|in|on|for|with|by|as)\b/i.test(dt)) continue;
+      if (/^(type|path|kind) of$/i.test(dt)) continue;
+      if (/^[^A-Za-z0-9]/.test(dt)) continue;
       if (isEquivalentOption(distractor.text, expected)) continue;
       if (usable.some((item) => isEquivalentOption(item.text, distractor.text))) continue;
       usable.push(distractor);
-      if (usable.length === 3) break;
+      if (usable.length >= 10) break;
     }
     if (usable.length < 3) return null;
+    // Quality: choose the three distractors closest in length to the
+    // correct answer. The pool is already type-matched and
+    // source-derived; picking the first three in source order produced
+    // systematic length giveaways (a 100-char clause answer next to
+    // 10-char distractors). Length-matching keeps the options
+    // homogeneous without inventing new distractors.
+    usable.sort((a, b) => Math.abs(cleanText(a.text).length - cleanText(expected).length) - Math.abs(cleanText(b.text).length - cleanText(expected).length));
+    usable.length = 3;
 
     const options = [{ key: 'A', text: expected, is_correct: true }];
     usable.forEach((distractor, index) => {
@@ -2916,9 +3085,9 @@
     const subject = inlineSubject(fact.subject);
     // Rotate stem phrasing deterministically based on fact ID hash.
     const stemVariants = [
-      `According to the passage, what does ${subject} mean?`,
-      `According to the passage, which of the following best describes ${subject}?`,
-      `According to the passage, how is ${subject} defined or described?`
+      `what does ${subject} mean?`,
+      `which of the following best describes ${subject}?`,
+      `how is ${subject} defined or described?`
     ];
     const stem = stemVariants[stableHash(fact.fact_id) % stemVariants.length];
     const explanation = factExplanation(fact, 'definition', expected, expected);
@@ -2937,6 +3106,12 @@
 
   function makeMembershipCandidate(fact, registry) {
     if (!isUsableSubject(fact.subject)) return null;
+    // Same generic-subject gate as entity stems: a membership subject
+    // ending in an adverb or a discourse marker ("the complex also",
+    // "rural areas, on the other hand") is not a identifiable category.
+    const memSubject = inlineSubject(fact.subject);
+    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(memSubject)) return null;
+    if (/on the other hand/i.test(memSubject)) return null;
     if (!fact.members || !fact.members.length) return null;
     const corrected = fact.members[stableHash(fact.fact_id) % fact.members.length];
     const distractors = buildDistractorCandidates(fact, registry, 'classification_membership');
@@ -2944,9 +3119,9 @@
     const subject = inlineSubject(fact.subject);
     // Rotate stem phrasing deterministically.
     const stemVariants = [
-      `According to the passage, which of the following is included in ${subject}?`,
-      `According to the passage, which of the following is listed as part of ${subject}?`,
-      `According to the passage, which one is mentioned as belonging to ${subject}?`
+      `which of the following is included in ${subject}?`,
+      `which of the following is listed as part of ${subject}?`,
+      `which one is mentioned as belonging to ${subject}?`
     ];
     const stem = stemVariants[stableHash(fact.fact_id + 'stem') % stemVariants.length];
     const explanation = factExplanation(fact, 'classification_membership', corrected, corrected);
@@ -2989,7 +3164,7 @@
       confusion_type: 'scope_error',
       distractor_purpose: 'scope_error'
     }));
-    const stem = 'According to the passage, what is the correct order of the steps?';
+    const stem = 'What is the correct order of the steps?';
     const explanation = factExplanation(fact, 'sequence_order', expected, expected);
     return buildSingleChoiceCandidate(
       fact,
@@ -3023,13 +3198,15 @@
 
     let stem;
     if (subject && comp.subject_b && comp.direction === 'contrast') {
-      stem = `According to the passage, how does ${subject} compare to ${comp.subject_b}?`;
+      stem = `how does ${subject} compare to ${comp.subject_b}?`;
     } else if (subject && comp.subject_b && comp.direction === 'similar') {
-      stem = `According to the passage, in what way is ${subject} similar to ${comp.subject_b}?`;
-    } else if (subject) {
-      stem = `According to the passage, what is explicitly stated about ${subject}?`;
+      stem = `in what way is ${subject} similar to ${comp.subject_b}?`;
     } else {
-      stem = 'According to the passage, which comparison is explicitly stated?';
+      // A sentence that merely contains a contrast word is not a
+      // comparison question. Without two named entities and a direction,
+      // the only available stem ("what is stated about <whole clause>?")
+      // is vague and unanswerable on its own, so reject the candidate.
+      return null;
     }
 
     const explanation = factExplanation(fact, 'comparison', expected, expected);
@@ -3163,6 +3340,13 @@
   }
 
   function multiEligible(fact) {
+    // A multi-statement item is only as good as its two statements.
+    // Reject facts whose source sentence is a marker, a fragment, or
+    // does not end as a complete sentence — those produced garbled
+    // statement 2s such as "A person who is sub-magistrate in a
+    // district of Bengal" and statements starting with the "Æ" marker.
+    const src = cleanText(fact && fact.source_text ? fact.source_text : '');
+    if (!src || /^[^A-Za-z0-9]/.test(src) || !/[.!?]$/.test(src) || src.split(/\s+/).length < 5) return false;
     return fact &&
       !isFactUnsafe(fact) &&
       fact.object &&
@@ -3218,6 +3402,24 @@
             falseFacts: [first, second]
           });
         }
+      }
+      // Variety fix: rotate the variant order by a hash of the pair, so
+      // the selected pattern is not always the first variant ("1 only").
+      // Variants are, in order: 1-only, 2-only, Both, Neither. Rotating
+      // by content hash varies the pattern across chapters and pairs
+      // without depending on the pair's position in the source. This
+      // must happen after all variants (including Neither) are built,
+      // because selection picks the earliest-id variant for a pair.
+      {
+        // Rotate by the statements' actual text, not by fact_id:
+        // fact_ids are sequential (F-LITE-001, F-LITE-002…) and therefore
+        // identical for the first pair in every chapter, which made the
+        // "rotation" produce the same pattern everywhere. Content hash
+        // varies genuinely across chapters and pairs.
+        const rotateBy = variants.length ? stableHash((first.source_text || '') + '|' + (second.source_text || '')) % variants.length : 0;
+        const rotated = variants.slice(rotateBy).concat(variants.slice(0, rotateBy));
+        variants.length = 0;
+        for (const v of rotated) variants.push(v);
       }
       for (const variant of variants) {
         const candidate = makeMultiCandidate(
@@ -3399,6 +3601,41 @@
     }
     if (question.question_subtype === 'numeric_recall' && correctOptions.length === 1 && !isCleanQuantity(correctOptions[0].text)) {
       add('numeric_answer', 'A numeric answer must be a clean quantity, not a merged phrase.', { text: correctOptions[0].text });
+    }
+    // Quality gates: stems must be self-contained and must never
+    // reference a passage/source/text the student cannot see.
+    const stemText = String(question.stem || '');
+    if (/according to the (passage|source|text)\b|based on the (source|passage|text)\b|in the (passage|source|text)\b/i.test(stemText)) {
+      add('stem_source_reference', 'Stem must not reference a passage, source or text the student cannot see.', { stem: stemText });
+    }
+    if (/^what (number|measurement|amount|percentage|value) is stated\?$/i.test(stemText.trim())
+      || /^what is stated\?$/i.test(stemText.trim())
+      || /^which comparison is explicitly stated\?$/i.test(stemText.trim())) {
+      add('stem_context_free', 'Stem carries no subject or context and cannot be answered on its own.', { stem: stemText });
+    }
+    for (const option of options) {
+      if (option && !option.is_correct && option.text) {
+        const ot = cleanText(option.text);
+        if (/^[^A-Za-z0-9]/.test(ot) || /^(of|to|in|on|for|with|by|as)\b/i.test(ot) || /^type of$/i.test(ot) || /^path of$/i.test(ot)) {
+          add('fragment_distractor', 'Distractor must not be a fragment or preposition phrase.', { text: option.text });
+        }
+      }
+    }
+    // Length giveaway gate (quality): if the correct answer is more
+    // than 2.5x the median distractor length, a student can guess it
+    // by length alone. Multi-statement options are fixed patterns and
+    // are exempt. This forces selection to pick a different fact
+    // whose distractors are length-matched, rather than shipping a
+    // giveaway.
+    if (question.question_subtype !== 'multi_statement' && correctOptions.length === 1) {
+      const distLens = options.filter((o) => !o.is_correct && o.text).map((o) => cleanText(o.text).length).sort((a, b) => a - b);
+      if (distLens.length >= 3) {
+        const median = distLens[Math.floor(distLens.length / 2)];
+        const correctLen = cleanText(correctOptions[0].text).length;
+        if (median > 0 && correctLen > 2.5 * median) {
+          add('length_giveaway', 'Correct answer is far longer than the distractors and can be guessed by length.', { correct_length: correctLen, median_distractor_length: median });
+        }
+      }
     }
     if (question.question_subtype === 'multi_statement') {
       if (!Array.isArray(question.statements) || question.statements.length !== 2) {
@@ -3800,7 +4037,15 @@
     while (selected.length < targetCount) {
       const available = validated.filter((candidate) => {
         if (candidate.relation_keys.some((key) => usedRelations.has(key))) return false;
-        return !usedStems.has(normalizeOption(candidate.stem));
+        if (usedStems.has(normalizeOption(candidate.stem))) return false;
+        // Variety cap (quality): no subtype may exceed 40% of the
+        // bank. A descriptive chapter that only yields entity facts
+        // must yield a smaller, balanced bank, not a 67% entity bank.
+        // Target count is a maximum, not a quota to be filled by
+        // repeating one subtype.
+        const cap = Math.ceil(targetCount * 0.4);
+        if ((subtypeUse[candidate.question_subtype] || 0) >= cap) return false;
+        return true;
       });
       if (!available.length) break;
       available.sort((a, b) => {
