@@ -8,7 +8,16 @@
  */
 
 (function (global) {
-  'use strict';
+  let ReasoningV2 = null;
+  if (typeof require === 'function') {
+    try {
+      ReasoningV2 = require('./reasoning/engine_v2.js');
+    } catch (_) {
+      ReasoningV2 = (typeof global !== 'undefined' && global.StudySynthReasoningV2) || null;
+    }
+  } else {
+    ReasoningV2 = (typeof global !== 'undefined' && global.StudySynthReasoningV2) || null;
+  }
 
   const KEYS = ['A', 'B', 'C', 'D'];
   const DEFAULT_TARGET = 15;
@@ -59,22 +68,51 @@
     conducted: { relation: 'event_year', base: 'conduct', passive: true },
     organised: { relation: 'event_year', base: 'organise', passive: true },
     organized: { relation: 'event_year', base: 'organize', passive: true },
+    announced: { relation: 'approval_year', base: 'announce', passive: true },
+    declared: { relation: 'event_year', base: 'declare', passive: true },
+    passed: { relation: 'enactment_year', base: 'pass', passive: true },
+    ratified: { relation: 'adoption_year', base: 'ratify', passive: true },
+    published: { relation: 'launch_year', base: 'publish', passive: true },
+    released: { relation: 'launch_year', base: 'release', passive: true },
+    completed: { relation: 'completion_year', base: 'complete', passive: true },
+    awarded: { relation: 'event_year', base: 'award', passive: true },
+    renamed: { relation: 'event_year', base: 'rename', passive: true },
+    merged: { relation: 'event_year', base: 'merge', passive: true },
+    dissolved: { relation: 'event_year', base: 'dissolve', passive: true },
     occurred: { relation: 'event_year', base: 'occur', passive: false },
     happened: { relation: 'event_year', base: 'happen', passive: false },
     'took place': { relation: 'event_year', base: 'take place', passive: false }
   };
   const EVENT_VERB_RE = Object.keys(EVENT_META).sort((a, b) => b.length - a.length).map(escapeRegExp).join('|');
 
-  const BY_VERB_RE = 'launched|introduced|implemented|developed|approved|created|established|built|constructed|conducted|organised|organized|published|designed';
+  const BY_VERB_RE = 'launched|introduced|implemented|developed|approved|created|established|founded|built|constructed|conducted|organised|organized|published|designed|administered|commissioned|ratified|awarded|managed';
   const SINGLE_VALUED_RELATIONS = new Set([
     'establishment_year', 'completion_year', 'launch_year', 'implementation_year',
     'approval_year', 'enactment_year', 'adoption_year', 'signing_year', 'event_year',
     'move_year', 'date_field', 'event_range', 'numeric_value', 'definition',
     'initial_location', 'destination_location', 'location', 'office', 'launched_by',
     'implemented_by', 'developed_by', 'function', 'method', 'role', 'equipment',
-    'causes', 'comparison', 'members', 'sequence'
+    'causes', 'comparison', 'members', 'sequence', 'superlative'
   ]);
   const SUBTYPE_RANK = {
+    // V2 Reasoning Subtypes (Prioritized for Conceptual Understanding)
+    multihop_synthesis: 0,
+    contrastive_explanation: 0,
+    conceptual_discrimination: 0,
+    causal_reasoning: 0,
+    counterfactual_reasoning: 0,
+    rule_application: 0,
+    exception_reasoning: 0,
+    conditional_reasoning: 0,
+    comparative_reasoning: 0,
+    process_sequence: 0,
+    constraint_inference: 0,
+    evidence_conclusion: 0,
+    error_diagnosis: 0,
+    category_classification: 0,
+    quantitative_reasoning: 0,
+
+    // Legacy Factual Subtypes (Preserving baseline single-fact priority over multi-statement)
     date_recall: 0,
     numeric_recall: 0,
     entity_attribute: 1,
@@ -96,7 +134,25 @@
     classification_membership: ['membership'],
     sequence_order: ['sequence'],
     cause_effect: ['causal'],
-    multi_statement: ['date', 'numeric', 'entity_attribute', 'definition']
+    multi_statement: ['date', 'numeric', 'entity_attribute', 'definition'],
+
+    // V2 Conceptual Reasoning Subtypes
+    rule_application: ['rule', 'entity_attribute', 'definition', 'causal'],
+    causal_reasoning: ['causal'],
+    conditional_reasoning: ['conditional', 'entity_attribute'],
+    comparative_reasoning: ['comparison'],
+    process_sequence: ['sequence'],
+    constraint_inference: ['entity_attribute', 'definition'],
+    category_classification: ['membership', 'definition'],
+    exception_reasoning: ['entity_attribute', 'definition'],
+    contrastive_explanation: ['comparison', 'entity_attribute', 'causal'],
+    evidence_conclusion: ['entity_attribute', 'causal', 'definition'],
+    error_diagnosis: ['causal', 'comparison', 'entity_attribute'],
+    quantitative_reasoning: ['numeric', 'comparison'],
+    conceptual_discrimination: ['comparison', 'definition', 'entity_attribute'],
+    multihop_synthesis: ['causal', 'entity_attribute', 'definition'],
+    counterfactual_reasoning: ['causal', 'numeric', 'entity_attribute'],
+    single_choice: ['date', 'numeric', 'entity_attribute', 'definition', 'comparison', 'causal', 'membership', 'sequence']
   };
 
   const CONTROLLED_PLACES = [
@@ -700,17 +756,32 @@
   }
 
   function parseDefinition(text) {
+    // Pattern 1 — explicit definition verbs
     let match = text.match(/^(.+?)\s+(?:is|are)\s+defined\s+as\s+(.+?)[.!?]?\s*$/i);
-    if (!match) match = text.match(/^(.+?)\s+(?:means|refers? to)\s+(.+?)[.!?]?\s*$/i);
+    if (!match) match = text.match(/^(.+?)\s+(?:means|refers?\s+to)\s+(.+?)[.!?]?\s*$/i);
     if (!match) match = text.match(/^(.+?)\s+(?:is|are)\s+known\s+as\s+(.+?)[.!?]?\s*$/i);
     if (!match) {
-      match = text.match(/^(.+?)\s+(?:is|are)\s+(the\s+(?:process|term|study|practice|system|method|condition|phenomenon)\s+(?:by which|in which|that|where)\s+.+?)[.!?]?\s*$/i);
+      match = text.match(/^(.+?)\s+(?:is|are)\s+(the\s+(?:process|term|study|practice|system|method|condition|phenomenon|concept|principle|theory|approach|technique|procedure|mechanism|strategy|framework|policy|scheme)\s+(?:by\s+which|in\s+which|that|where|whereby|through\s+which)\s+.+?)[.!?]?\s*$/i);
     }
+    // Pattern 2 — described / characterised as
+    if (!match) match = text.match(/^(.+?)\s+(?:can\s+be|is|are|was|were)\s+described\s+as\s+(.+?)[.!?]?\s*$/i);
+    if (!match) match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+(?:characterized|characterised|distinguished|identified|recognized|recognised)\s+by\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 3 — classified / categorised as
+    if (!match) match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+(?:classified|categorized|categorised|grouped)\s+as\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 4 — a type/kind/form/example of
+    if (!match) match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+a\s+(?:type|kind|form|class|category|example|instance|variant)\s+of\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 5 — also called / also known as (standalone)
+    if (!match) match = text.match(/^(.+?)\s+(?:is\s+also\s+(?:called|known\s+as)|can\s+also\s+be\s+called)\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 6 — represents / denotes / signifies / stands for
+    if (!match) match = text.match(/^(.+?)\s+(?:represents?|denotes?|signifies?|stands?\s+for|symbolizes?|symbolises?)\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 7 — another name / term / word for
+    if (!match) match = text.match(/^(.+?)\s+(?:is|was)\s+another\s+(?:name|term|word|expression)\s+for\s+(.+?)[.!?]?\s*$/i);
     if (!match) return null;
     const subject = cleanFactSubject(match[1]);
     const object = cleanText(match[2]).replace(/[.,;:]+$/, '');
-    if (!subject || !object || object.length < 8 || object.length > 320) return null;
+    if (!subject || !object || object.length < 6 || object.length > 320) return null;
     if (/^(?:it|this|these|those|they)\b/i.test(subject)) return null;
+    if (UNUSABLE_SUBJECT_START.test(subject)) return null;
     return {
       fact_type: 'definition',
       subject,
@@ -718,6 +789,23 @@
       object,
       answer_kind: 'definition',
       extraction_method: 'definition_explicit'
+    };
+  }
+
+  // Abbreviation/acronym: "Full Name (ABBR)" — very common in study material.
+  function parseAbbreviation(text) {
+    const m = text.match(/\b([A-Z][A-Za-z]{1,}(?:\s+[A-Za-z]{1,}){1,8})\s+\(([A-Z]{2,8})\)/);
+    if (!m) return null;
+    const fullName = cleanText(m[1]).replace(/[.,;:]+$/, '');
+    const abbrev = m[2];
+    if (!fullName || fullName.split(/\s+/).length < 2) return null;
+    return {
+      fact_type: 'definition',
+      subject: abbrev,
+      relation: 'definition',
+      object: fullName,
+      answer_kind: 'definition',
+      extraction_method: 'definition_abbreviation'
     };
   }
 
@@ -745,11 +833,38 @@
     }
 
     if (!members) {
-      const listed = text.match(/^(.+?)\s+(includes?|included|consists?\s+of|comprised?|comprises?|contains?|carried|carries)\s+(.+?)[.!?]?\s*$/i);
+      const listed = text.match(/^(.+?)\s+(includes?|included|consists?\s+of|comprised?|comprises?|contains?|carried|carries|encompass(?:es)?|cover(?:s)?)\s+(.+?)[.!?]?\s*$/i);
       if (listed) {
         subject = resolveSubject(listed[1], context);
         members = splitList(listed[3]);
         exhaustive = /\b(?:two|three|four|five|six|seven|eight|nine|ten|\d+)\b/i.test(subject);
+      }
+    }
+
+    // "Among [the] X are Y, Z..." — rich listing pattern
+    if (!members) {
+      const among = text.match(/^Among\s+(?:the\s+)?(.+?)\s+are\s+(.+?)[.!?]?\s*$/i);
+      if (among && /\band\b|,/i.test(among[2])) {
+        subject = cleanText(among[1]).replace(/[.,;:]+$/, '');
+        members = splitList(among[2]);
+        exhaustive = false;
+      }
+    }
+
+    // "X and Y are [both] Z" — two items sharing a category
+    if (!members) {
+      const bothAre = text.match(/^([A-Z][^,]{2,50}?)\s+and\s+([^,]{2,50}?)\s+are\s+(?:both\s+)?(.{4,60}?)[.!?]?\s*$/i);
+      if (bothAre) {
+        const item1 = cleanMember(bothAre[1]);
+        const item2 = cleanMember(bothAre[2]);
+        const category = cleanText(bothAre[3]).replace(/[.,;:]+$/, '');
+        if (item1 && item2 && category.length >= 4 && category.length <= 60
+            && !/\b(?:is|are|was|were|has|have|had|not|also|very|quite)\b/i.test(category)
+            && !UNUSABLE_SUBJECT_START.test(item1)) {
+          subject = category;
+          members = [item1, item2];
+          exhaustive = false;
+        }
       }
     }
 
@@ -775,7 +890,8 @@
   }
 
   function parseCause(text) {
-    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about)\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 1 — explicit causal verb (greatly expanded list)
+    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|affects?|determines?|drives?|encourages?|forces?|helps?|makes?|supports?|strengthens?|weakens?|accelerates?|slows?\s+down)\s+(.+?)[.!?]?\s*$/i);
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = cleanText(match[3]).replace(/[.,;:]+$/, '');
@@ -791,51 +907,195 @@
         extraction_method: 'causal_explicit'
       };
     }
+
+    // Pattern 2 — "X because Y"
     const because = text.match(/^(.+?)\s+because\s+(.+?)[.!?]?\s*$/i);
-    if (!because) return null;
-    const effect = cleanFactSubject(because[1]);
-    const cause = cleanText(because[2]).replace(/[.,;:]+$/, '');
-    if (!effect || !cause || cause.length < 3) return null;
-    return {
-      fact_type: 'causal',
-      subject: effect,
-      relation: 'causes',
-      object: cause,
-      relation_verb: 'because',
-      causal_direction: 'effect_because_cause',
-      answer_kind: 'effect',
-      extraction_method: 'causal_because'
-    };
+    if (because) {
+      const effect = cleanFactSubject(because[1]);
+      const cause = cleanText(because[2]).replace(/[.,;:]+$/, '');
+      if (!effect || !cause || cause.length < 3) return null;
+      return {
+        fact_type: 'causal',
+        subject: effect,
+        relation: 'causes',
+        object: cause,
+        relation_verb: 'because',
+        causal_direction: 'effect_because_cause',
+        answer_kind: 'effect',
+        extraction_method: 'causal_because'
+      };
+    }
+
+    // Pattern 3 — "Due to / Owing to / Because of / As a result of X, Y"
+    const dueToMatch = text.match(/^(?:Due\s+to|Owing\s+to|Because\s+of|As\s+a\s+result\s+of|As\s+a\s+consequence\s+of|On\s+account\s+of)\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
+    if (dueToMatch) {
+      const cause = cleanText(dueToMatch[1]).replace(/[.,;:]+$/, '');
+      const effect = cleanText(dueToMatch[2]).replace(/[.,;:]+$/, '');
+      if (!cause || !effect || cause.length < 3 || effect.length < 5) return null;
+      const causeSubject = cleanFactSubject(cause);
+      if (!causeSubject || UNUSABLE_SUBJECT_START.test(causeSubject)) return null;
+      return {
+        fact_type: 'causal',
+        subject: causeSubject,
+        relation: 'causes',
+        object: effect,
+        relation_verb: 'due to',
+        causal_direction: 'cause_to_effect',
+        answer_kind: 'effect',
+        extraction_method: 'causal_due_to'
+      };
+    }
+
+    // Pattern 4 — "X is responsible for Y" / "X is the cause of Y"
+    const responsibleMatch = text.match(/^(.+?)\s+(?:is|was|are|were)\s+(?:responsible\s+for|the\s+(?:main\s+|primary\s+|direct\s+)?cause\s+of|the\s+reason\s+(?:for|behind))\s+(.+?)[.!?]?\s*$/i);
+    if (responsibleMatch) {
+      const subject = cleanFactSubject(responsibleMatch[1]);
+      const object = cleanText(responsibleMatch[2]).replace(/[.,;:]+$/, '');
+      if (!subject || !object || object.length < 3 || UNUSABLE_SUBJECT_START.test(subject)) return null;
+      return {
+        fact_type: 'causal',
+        subject,
+        relation: 'causes',
+        object,
+        relation_verb: 'is responsible for',
+        causal_direction: 'cause_to_effect',
+        answer_kind: 'effect',
+        extraction_method: 'causal_responsible'
+      };
+    }
+
+    // Pattern 5 — passive: "Y results from X" / "Y is caused by X"
+    const passiveMatch = text.match(/^(.+?)\s+(?:results?\s+from|(?:is|are|was|were)\s+caused\s+by|(?:is|are|was|were)\s+triggered\s+by|(?:is|are|was|were)\s+brought\s+about\s+by)\s+(.+?)[.!?]?\s*$/i);
+    if (passiveMatch) {
+      const effect = cleanFactSubject(passiveMatch[1]);
+      const cause = cleanText(passiveMatch[2]).replace(/[.,;:]+$/, '');
+      if (!effect || !cause || cause.length < 3 || UNUSABLE_SUBJECT_START.test(effect)) return null;
+      const causeSubject = cleanFactSubject(cause);
+      if (!causeSubject) return null;
+      return {
+        fact_type: 'causal',
+        subject: causeSubject,
+        relation: 'causes',
+        object: effect,
+        relation_verb: 'causes',
+        causal_direction: 'cause_to_effect',
+        answer_kind: 'effect',
+        extraction_method: 'causal_passive'
+      };
+    }
+
+    return null;
+  }
+
+  // Conditional/situational causal facts: if/when/unless sentence openers.
+  function parseConditional(text) {
+    // "If X, [then] Y"
+    const ifMatch = text.match(/^If\s+(.+?),\s*(?:then\s+)?(.+?)[.!?]?\s*$/i);
+    if (ifMatch) {
+      const condition = cleanText(ifMatch[1]).replace(/[.,;:]+$/, '');
+      const consequence = cleanText(ifMatch[2]).replace(/[.,;:]+$/, '');
+      const condSubject = cleanFactSubject(condition);
+      if (condSubject && consequence && consequence.length >= 8
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+        return {
+          fact_type: 'causal',
+          subject: condSubject,
+          relation: 'causes',
+          object: consequence,
+          relation_verb: 'if',
+          causal_direction: 'cause_to_effect',
+          answer_kind: 'effect',
+          extraction_method: 'causal_conditional'
+        };
+      }
+    }
+
+    // "When X, Y"
+    const whenMatch = text.match(/^When\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
+    if (whenMatch) {
+      const condition = cleanText(whenMatch[1]).replace(/[.,;:]+$/, '');
+      const consequence = cleanText(whenMatch[2]).replace(/[.,;:]+$/, '');
+      const condSubject = cleanFactSubject(condition);
+      if (condSubject && consequence && consequence.length >= 8
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+        return {
+          fact_type: 'causal',
+          subject: condSubject,
+          relation: 'causes',
+          object: consequence,
+          relation_verb: 'when',
+          causal_direction: 'cause_to_effect',
+          answer_kind: 'effect',
+          extraction_method: 'causal_conditional'
+        };
+      }
+    }
+
+    // "Unless X, Y"
+    const unlessMatch = text.match(/^Unless\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
+    if (unlessMatch) {
+      const condition = cleanText(unlessMatch[1]).replace(/[.,;:]+$/, '');
+      const consequence = cleanText(unlessMatch[2]).replace(/[.,;:]+$/, '');
+      const condSubject = cleanFactSubject(condition);
+      if (condSubject && consequence && consequence.length >= 8
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+        return {
+          fact_type: 'causal',
+          subject: condSubject,
+          relation: 'causes',
+          object: consequence,
+          relation_verb: 'unless',
+          causal_direction: 'cause_to_effect',
+          answer_kind: 'effect',
+          extraction_method: 'causal_conditional'
+        };
+      }
+    }
+
+    return null;
   }
 
   function parseComparison(text) {
+    // Pattern 1 — "Unlike X, Y"
     let match = text.match(/^Unlike\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
     if (match) {
+      const subA = cleanFactSubject(match[1]);
+      if (!subA) return null;
       return {
         fact_type: 'comparison',
-        subject: cleanFactSubject(match[1]),
+        subject: subA,
         relation: 'comparison',
         object: cleanText(match[2]).replace(/[.,;:]+$/, ''),
-        comparison: { subject_a: cleanFactSubject(match[1]), subject_b: null, direction: 'contrast' },
+        comparison: { subject_a: subA, subject_b: null, direction: 'contrast' },
         answer_kind: 'comparison',
         extraction_method: 'comparison_unlike'
       };
     }
+
+    // Pattern 2 — "X, whereas Y"
     match = text.match(/^(.+?),\s*whereas\s+(.+?)[.!?]?\s*$/i);
     if (match) {
+      const subA = cleanFactSubject(match[1]);
+      if (!subA) return null;
       return {
         fact_type: 'comparison',
-        subject: cleanFactSubject(match[1]),
+        subject: subA,
         relation: 'comparison',
         object: cleanText(match[2]).replace(/[.,;:]+$/, ''),
-        comparison: { subject_a: cleanFactSubject(match[1]), subject_b: null, direction: 'contrast' },
+        comparison: { subject_a: subA, subject_b: null, direction: 'contrast' },
         answer_kind: 'comparison',
         extraction_method: 'comparison_whereas'
       };
     }
-    match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+(higher|lower|larger|smaller|greater|less|more|fewer)\s+than\s+(.+?)[.!?]?\s*$/i);
+
+    // Pattern 3 — directional comparison (greatly expanded adjective list)
+    match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+(higher|lower|larger|smaller|greater|less|more|fewer|deeper|wider|taller|heavier|lighter|stronger|weaker|faster|slower|older|newer|richer|poorer|better|worse|longer|shorter|warmer|cooler|hotter|colder|denser|thinner|brighter|darker)\s+than\s+(.+?)[.!?]?\s*$/i);
     if (match) {
       const subject = cleanFactSubject(match[1]);
+      if (!subject) return null;
       const direction = match[2].toLowerCase();
       const other = cleanText(match[3]).replace(/[.,;:]+$/, '');
       return {
@@ -848,6 +1108,112 @@
         extraction_method: 'comparison_directional'
       };
     }
+
+    // Pattern 4 — "While/Although/Though X, Y"
+    match = text.match(/^(?:While|Although|Though|Even\s+though)\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
+    if (match) {
+      const subA = cleanFactSubject(match[1]);
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      if (!subA || !subB || subB.length < 6 || UNUSABLE_SUBJECT_START.test(subA)) return null;
+      return {
+        fact_type: 'comparison',
+        subject: subA,
+        relation: 'comparison',
+        object: subB,
+        comparison: { subject_a: subA, subject_b: null, direction: 'contrast' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_while'
+      };
+    }
+
+    // Pattern 5 — "X differs from Y in Z"
+    match = text.match(/^(.+?)\s+differs?\s+from\s+(.+?)\s+in\s+(?:that\s+|how\s+|its?\s+)?(.+?)[.!?]?\s*$/i);
+    if (match) {
+      const subA = cleanFactSubject(match[1]);
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      const aspect = cleanText(match[3]).replace(/[.,;:]+$/, '');
+      if (!subA || !subB || !aspect || UNUSABLE_SUBJECT_START.test(subA)) return null;
+      return {
+        fact_type: 'comparison',
+        subject: subA,
+        relation: 'comparison',
+        object: `differs from ${subB} in ${aspect}`,
+        comparison: { subject_a: subA, subject_b: subB, direction: 'contrast' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_differs'
+      };
+    }
+
+    // Pattern 6 — "Like X, Y" (similarity)
+    match = text.match(/^Like\s+(.+?),\s+(.+?)[.!?]?\s*$/i);
+    if (match) {
+      const subA = cleanFactSubject(match[1]);
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      if (!subA || !subB || subB.length < 6 || UNUSABLE_SUBJECT_START.test(subA)) return null;
+      return {
+        fact_type: 'comparison',
+        subject: subA,
+        relation: 'comparison',
+        object: subB,
+        comparison: { subject_a: subA, subject_b: null, direction: 'similar' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_like'
+      };
+    }
+
+    // Pattern 7 — "X is similar to Y [in Z]"
+    match = text.match(/^(.+?)\s+(?:is|are|was|were)\s+similar\s+to\s+(.+?)(?:\s+in\s+(.+?))?[.!?]?\s*$/i);
+    if (match) {
+      const subA = cleanFactSubject(match[1]);
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      if (!subA || !subB || UNUSABLE_SUBJECT_START.test(subA)) return null;
+      const aspect = match[3] ? cleanText(match[3]).replace(/[.,;:]+$/, '') : null;
+      const obj = aspect ? `similar to ${subB} in ${aspect}` : `similar to ${subB}`;
+      return {
+        fact_type: 'comparison',
+        subject: subA,
+        relation: 'comparison',
+        object: obj,
+        comparison: { subject_a: subA, subject_b: subB, direction: 'similar' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_similar'
+      };
+    }
+
+    // Pattern 8 — "X, on the other hand, Y"
+    match = text.match(/^(.+?),\s+on\s+the\s+other\s+hand,\s+(.+?)[.!?]?\s*$/i);
+    if (match) {
+      const subA = cleanFactSubject(match[1]);
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      if (!subA || !subB || subB.length < 6 || UNUSABLE_SUBJECT_START.test(subA)) return null;
+      return {
+        fact_type: 'comparison',
+        subject: subA,
+        relation: 'comparison',
+        object: subB,
+        comparison: { subject_a: subA, subject_b: null, direction: 'contrast' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_other_hand'
+      };
+    }
+
+    // Pattern 9 — "In contrast [to X], Y"
+    match = text.match(/^In\s+contrast(?:\s+to\s+(.+?))?,\s+(.+?)[.!?]?\s*$/i);
+    if (match && match[2] && match[2].length >= 8) {
+      const subA = match[1] ? cleanFactSubject(match[1]) : 'the previous';
+      const subB = cleanText(match[2]).replace(/[.,;:]+$/, '');
+      if (!subB || (match[1] && UNUSABLE_SUBJECT_START.test(subA))) return null;
+      return {
+        fact_type: 'comparison',
+        subject: subA || 'the previous',
+        relation: 'comparison',
+        object: subB,
+        comparison: { subject_a: subA, subject_b: null, direction: 'contrast' },
+        answer_kind: 'comparison',
+        extraction_method: 'comparison_contrast'
+      };
+    }
+
     return null;
   }
 
@@ -999,7 +1365,7 @@
       }
     }
 
-    match = text.match(/^(.+?)\s+(?:aims? to|is designed to|are designed to|serves? to|helps? to|works? to|is used to|are used to)\s+(.+?)[.!?]?\s*$/i);
+    match = text.match(/^(.+?)\s+(?:aims?\s+to|is\s+designed\s+to|are\s+designed\s+to|serves?\s+to|helps?\s+to|works?\s+to|is\s+used\s+to|are\s+used\s+to|is\s+intended\s+to|are\s+intended\s+to|is\s+meant\s+to|are\s+meant\s+to)\s+(.+?)[.!?]?\s*$/i);
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[2]);
@@ -1015,7 +1381,7 @@
       }
     }
 
-    match = text.match(/^(.+?)\s+(performed|provides?|offers?|delivers?|records?|measures?|carries?\s+out)\s+(.+?)[.!?]?\s*$/i);
+    match = text.match(/^(.+?)\s+(performed|provides?|offers?|delivers?|records?|measures?|carries?\s+out|coordinates?|monitors?|regulates?|oversees?|manages?|facilitates?|administers?|supervises?|governs?)\s+(.+?)[.!?]?\s*$/i);
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[3]);
@@ -1062,6 +1428,35 @@
           object,
           answer_kind: 'role',
           extraction_method: 'entity_role'
+        });
+      }
+    }
+
+    // Superlative attribute: "X is/was the first/only/largest/most... [context]"
+    // Flipped: subject = description, object = entity (so the question asks "which X is described as...?")
+    match = text.match(/^(.+?)\s+(?:is|was|remains?)\s+(the\s+(?:first|second|third|only|sole|largest|smallest|biggest|highest|lowest|tallest|longest|shortest|fastest|slowest|oldest|newest|richest|poorest|most\s+\w+(?:\s+\w+){0,2}|least\s+\w+(?:\s+\w+){0,2}))\s+(.{4,80}?)[.!?]?\s*$/i);
+    if (match) {
+      const entityRaw = cleanText(match[1]).replace(/[.,;:]+$/, '');
+      const superlative = cleanText(match[2]).toLowerCase();
+      const contextRaw = cleanText(match[3]).replace(/[.,;:]+$/, '');
+      const entitySubject = cleanFactSubject(entityRaw);
+      if (entitySubject && !UNUSABLE_SUBJECT_START.test(entitySubject) && !DUMMY_SUBJECT_WORD.test(entitySubject)
+          && contextRaw.length >= 3 && contextRaw.length <= 100) {
+        const answerKind = /\b(?:country|nation|state|city|town|district|province|region|place)\b/i.test(contextRaw + ' ' + entityRaw)
+          ? 'place'
+          : /\b(?:ministry|commission|court|council|board|agency|authority|organization|organisation|institute|university|mission)\b/i.test(entityRaw)
+          ? 'institution'
+          : /\b(?:person|leader|president|minister|scientist|writer|author|poet|artist|director)\b/i.test(contextRaw)
+          ? 'person'
+          : 'role';
+        drafts.push({
+          fact_type: 'entity_attribute',
+          subject: `${superlative} ${contextRaw}`,
+          relation: 'superlative',
+          object: entitySubject,
+          attribute: contextRaw.split(/\s+/).slice(-1)[0].toLowerCase(),
+          answer_kind: answerKind,
+          extraction_method: 'superlative_pattern'
         });
       }
     }
@@ -1210,22 +1605,32 @@
     const membership = parseMembership(text, context);
     if (membership) add(membership);
 
+    // Abbreviation extraction runs before definition to avoid duplicate on same sentence.
+    const abbreviation = parseAbbreviation(text);
+    if (abbreviation) add(abbreviation);
+
     const definition = parseDefinition(text);
     if (definition) {
       add(definition);
-      return facts;
+      // Don't return early — a sentence may also contain dates or entity attributes.
     }
 
     const cause = parseCause(text);
     if (cause) {
       add(cause);
-      return facts;
+      if (!facts.some((f) => f.fact_type === 'causal')) return facts;
+    }
+
+    const conditional = parseConditional(text);
+    if (conditional) {
+      add(conditional);
+      if (!facts.some((f) => f.fact_type !== 'causal' && f.fact_type !== 'fallback')) return facts;
     }
 
     const comparison = parseComparison(text);
     if (comparison) {
       add(comparison);
-      return facts;
+      if (!facts.some((f) => f.fact_type !== 'comparison' && f.fact_type !== 'fallback')) return facts;
     }
 
     const dates = parseDates(text, context);
@@ -1233,6 +1638,30 @@
 
     parseEntityAttributes(text, context).forEach(add);
     if (!dates.length) numericDrafts(text).forEach(add);
+
+    // Pattern-enriched fallback: for sentences that yielded nothing, try a broad
+    // "[ProperNoun] is/was [description]" extraction. Guards keep it safe.
+    if (!facts.length) {
+      const enrichMatch = text.match(/^([A-Z][^,.:!?]{2,50}?)\s+(?:is|was|are|were)\s+(.{10,100}?)[.!?]?\s*$/);
+      if (enrichMatch) {
+        const enrichSubject = cleanFactSubject(enrichMatch[1]);
+        const enrichObject = cleanText(enrichMatch[2]).replace(/[.,;:]+$/, '');
+        if (enrichSubject && enrichObject
+            && isUsableSubject(enrichSubject)
+            && !UNUSABLE_SUBJECT_START.test(enrichObject)
+            && enrichObject.length >= 10 && enrichObject.length <= 100) {
+          add({
+            fact_type: 'entity_attribute',
+            subject: enrichSubject,
+            relation: 'role',
+            object: enrichObject,
+            answer_kind: 'role',
+            extraction_method: 'pattern_enriched'
+          });
+        }
+      }
+    }
+
     return facts;
   }
 
@@ -1700,6 +2129,23 @@
         distractor_purpose: 'confusable_fact'
       });
     }
+    // Fallback: functions, roles, comparisons as plausible wrong definitions
+    if (results.length < 3) {
+      const fallback = [...ctx.index.functions, ...ctx.index.roles, ...ctx.index.comparisons,
+                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      for (const candidate of fallback) {
+        if (results.length >= 6) break;
+        if (!candidate) continue;
+        if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
+        if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
+        results.push({
+          text: candidate,
+          origin: 'typed_entity_pool',
+          confusion_type: 'partial_truth',
+          distractor_purpose: 'confusable_fact'
+        });
+      }
+    }
     return results;
   }
 
@@ -1756,9 +2202,14 @@
         distractor_purpose: 'confusable_fact'
       });
     }
-    if (results.length < 3 && /move|friction|motion/i.test(`${fact.subject} ${fact.object}`)) {
-      for (const candidate of CONTROLLED_EFFECTS) {
-        if (results.length >= 3) break;
+    // Fallback: functions, definitions, and comparisons as plausible wrong effects
+    if (results.length < 3) {
+      const fallback = [...ctx.index.functions, ...ctx.index.definitions,
+                        ...ctx.index.comparisons, ...CONTROLLED_FUNCTIONS, ...CONTROLLED_EFFECTS];
+      for (const candidate of fallback) {
+        if (results.length >= 6) break;
+        if (!candidate) continue;
+        if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
         if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
         results.push({
           text: candidate,
@@ -1784,6 +2235,23 @@
         confusion_type: 'scope_error',
         distractor_purpose: 'partial_truth'
       });
+    }
+    // Fallback: effects, definitions, functions as plausible wrong comparisons
+    if (results.length < 3) {
+      const fallback = [...ctx.index.effects, ...ctx.index.definitions, ...ctx.index.functions,
+                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      for (const candidate of fallback) {
+        if (results.length >= 6) break;
+        if (!candidate) continue;
+        if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
+        if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
+        results.push({
+          text: candidate,
+          origin: 'typed_entity_pool',
+          confusion_type: 'scope_error',
+          distractor_purpose: 'partial_truth'
+        });
+      }
     }
     return results;
   }
@@ -1814,6 +2282,9 @@
     approve: 'approved', open: 'opened', enact: 'enacted', adopt: 'adopted',
     sign: 'signed', build: 'built', construct: 'constructed', hold: 'held',
     conduct: 'conducted', organise: 'organised', organize: 'organized',
+    announce: 'announced', declare: 'declared', pass: 'passed', ratify: 'ratified',
+    publish: 'published', release: 'released', complete: 'completed',
+    award: 'awarded', rename: 'renamed', merge: 'merged', dissolve: 'dissolved',
     occur: 'occurred', happen: 'happened', 'take place': 'taken place',
     move: 'moved', record: 'recorded'
   };
@@ -1859,6 +2330,14 @@
   function entityStem(fact) {
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
+    // Superlative: subject IS the description; question asks which entity fits it.
+    if (fact.relation === 'superlative') {
+      return `According to the passage, which is described as ${subject}?`;
+    }
+    // Pattern-enriched fallback facts get a more neutral, natural stem.
+    if (fact.extraction_method === 'pattern_enriched') {
+      return `According to the passage, which of the following correctly describes ${subject}?`;
+    }
     const stems = {
       initial_location: `According to the passage, where was ${subject} initially located?`,
       destination_location: `According to the passage, where did ${subject} move to?`,
@@ -1885,6 +2364,33 @@
     if (/^enables?$/.test(verb)) return `According to the passage, what does ${subject} enable?`;
     if (/^produces?$/.test(verb)) return `According to the passage, what does ${subject} produce?`;
     if (/^brings?\s+about$/.test(verb)) return `According to the passage, what does ${subject} bring about?`;
+    if (/^triggers?$/.test(verb)) return `According to the passage, what does ${subject} trigger?`;
+    if (/^contributes?\s+to$/.test(verb)) return `According to the passage, what does ${subject} contribute to?`;
+    if (/^promotes?$/.test(verb)) return `According to the passage, what does ${subject} promote?`;
+    if (/^stimulates?$/.test(verb)) return `According to the passage, what does ${subject} stimulate?`;
+    if (/^inhibits?$/.test(verb)) return `According to the passage, what does ${subject} inhibit?`;
+    if (/^prevents?$/.test(verb)) return `According to the passage, what does ${subject} prevent?`;
+    if (/^reduces?$/.test(verb)) return `According to the passage, what does ${subject} reduce?`;
+    if (/^increases?$/.test(verb)) return `According to the passage, what does ${subject} increase?`;
+    if (/^decreases?$/.test(verb)) return `According to the passage, what does ${subject} decrease?`;
+    if (/^influences?$/.test(verb)) return `According to the passage, what does ${subject} influence?`;
+    if (/^affects?$/.test(verb)) return `According to the passage, what does ${subject} affect?`;
+    if (/^determines?$/.test(verb)) return `According to the passage, what does ${subject} determine?`;
+    if (/^drives?$/.test(verb)) return `According to the passage, what does ${subject} drive?`;
+    if (/^encourages?$/.test(verb)) return `According to the passage, what does ${subject} encourage?`;
+    if (/^generates?$/.test(verb)) return `According to the passage, what does ${subject} generate?`;
+    if (/^strengthens?$/.test(verb)) return `According to the passage, what does ${subject} strengthen?`;
+    if (/^weakens?$/.test(verb)) return `According to the passage, what does ${subject} weaken?`;
+    if (/^accelerates?$/.test(verb)) return `According to the passage, what does ${subject} accelerate?`;
+    if (/^helps?$/.test(verb)) return `According to the passage, what does ${subject} help achieve?`;
+    if (/^makes?$/.test(verb)) return `According to the passage, what does ${subject} make possible?`;
+    if (/^forces?$/.test(verb)) return `According to the passage, what does ${subject} force?`;
+    if (/^supports?$/.test(verb)) return `According to the passage, what does ${subject} support?`;
+    if (/^(?:due\s+to|owing\s+to|because\s+of|as\s+a\s+result\s+of|as\s+a\s+consequence\s+of)$/.test(verb)) {
+      return `According to the passage, what is the effect of ${subject}?`;
+    }
+    if (/^is\s+responsible\s+for$/.test(verb)) return `According to the passage, what is ${subject} responsible for?`;
+    if (/^(?:if|when|unless)$/.test(verb)) return `According to the passage, what happens when ${subject}?`;
     return `According to the passage, what does ${subject} cause?`;
   }
 
@@ -2038,7 +2544,14 @@
     const distractors = buildDistractorCandidates(fact, registry, 'definition');
     if (distractors.length < 3) return null;
     const expected = fact.object;
-    const stem = `According to the passage, what does ${inlineSubject(fact.subject)} mean?`;
+    const subject = inlineSubject(fact.subject);
+    // Rotate stem phrasing deterministically based on fact ID hash.
+    const stemVariants = [
+      `According to the passage, what does ${subject} mean?`,
+      `According to the passage, which of the following best describes ${subject}?`,
+      `According to the passage, how is ${subject} defined or described?`
+    ];
+    const stem = stemVariants[stableHash(fact.fact_id) % stemVariants.length];
     const explanation = factExplanation(fact, 'definition', expected, expected);
     return buildSingleChoiceCandidate(fact, 'definition', stem, expected, distractors, explanation);
   }
@@ -2059,7 +2572,14 @@
     const corrected = fact.members[stableHash(fact.fact_id) % fact.members.length];
     const distractors = buildDistractorCandidates(fact, registry, 'classification_membership');
     if (distractors.length < 3) return null;
-    const stem = `According to the passage, which of the following is included in ${inlineSubject(fact.subject)}?`;
+    const subject = inlineSubject(fact.subject);
+    // Rotate stem phrasing deterministically.
+    const stemVariants = [
+      `According to the passage, which of the following is included in ${subject}?`,
+      `According to the passage, which of the following is listed as part of ${subject}?`,
+      `According to the passage, which one is mentioned as belonging to ${subject}?`
+    ];
+    const stem = stemVariants[stableHash(fact.fact_id + 'stem') % stemVariants.length];
     const explanation = factExplanation(fact, 'classification_membership', corrected, corrected);
     const candidate = buildSingleChoiceCandidate(
       fact,
@@ -2128,7 +2648,21 @@
     const distractors = buildDistractorCandidates(fact, registry, 'comparison');
     if (distractors.length < 3) return null;
     const expected = fact.object;
-    const stem = 'According to the passage, which comparison is explicitly stated?';
+    const comp = fact.comparison || {};
+    const subjectUsable = isUsableSubject(fact.subject);
+    const subject = subjectUsable ? inlineSubject(fact.subject) : null;
+
+    let stem;
+    if (subject && comp.subject_b && comp.direction === 'contrast') {
+      stem = `According to the passage, how does ${subject} compare to ${comp.subject_b}?`;
+    } else if (subject && comp.subject_b && comp.direction === 'similar') {
+      stem = `According to the passage, in what way is ${subject} similar to ${comp.subject_b}?`;
+    } else if (subject) {
+      stem = `According to the passage, what is explicitly stated about ${subject}?`;
+    } else {
+      stem = 'According to the passage, which comparison is explicitly stated?';
+    }
+
     const explanation = factExplanation(fact, 'comparison', expected, expected);
     return buildSingleChoiceCandidate(fact, 'comparison', stem, expected, distractors, explanation);
   }
@@ -2267,13 +2801,17 @@
   }
 
   function buildMultiCandidates(ctx, seqStart) {
-    const facts = ctx.facts.filter(multiEligible).slice(0, 7);
+    // Expand fact pool and consider non-adjacent pairs within a sliding window.
+    const facts = ctx.facts.filter(multiEligible).slice(0, 14);
     if (facts.length < 2) return [];
     const candidates = [];
     let seq = seqStart;
     const pairs = [];
-    for (let i = 0; i < facts.length - 1 && pairs.length < 4; i++) {
-      pairs.push([facts[i], facts[i + 1]]);
+    // Non-adjacent pairs within a window of 3 positions, up to 8 total pairs.
+    for (let i = 0; i < facts.length - 1 && pairs.length < 8; i++) {
+      for (let j = i + 1; j < Math.min(i + 4, facts.length) && pairs.length < 8; j++) {
+        pairs.push([facts[i], facts[j]]);
+      }
     }
     for (const pair of pairs) {
       const first = pair[0];
@@ -2607,6 +3145,14 @@
       if (normalizeOption(correct.text) !== normalizeOption(expected)) {
         add('source_answer', 'Sequence answer must preserve the explicit source order.', { answer: correct.text });
       }
+    } else if (question.proof_trace && question.derived_proposition) {
+      if (normalizeOption(correct.text) !== normalizeOption(question.expected_answer)) {
+        add('source_answer', 'Keyed answer must equal the verified derived proposition.', {
+          expected: question.expected_answer,
+          actual: correct.text
+        });
+      }
+      expected = correct.text;
     } else if (normalizeOption(correct.text) !== normalizeObject(fact.object)) {
       add('source_answer', 'Keyed answer must equal the extracted source fact.', {
         expected: fact.object,
@@ -2780,6 +3326,30 @@
     };
 
     const candidates = buildQuestionCandidates(ctx, opts);
+
+    let v2Candidates = [];
+    if (ReasoningV2 && typeof ReasoningV2.generateReasoningCandidates === 'function') {
+      try {
+        const sectionsForV2 = (ctx.sections && ctx.sections.length) ? ctx.sections : (opts.sections || []);
+        if (sectionsForV2.length) {
+          const initialFactIds = new Set(facts.map((f) => f.fact_id));
+          const compiled = ReasoningV2.Representation.compileSemanticRepresentation(sectionsForV2, facts);
+          const graph = ReasoningV2.GraphModule.buildGraphFromPropositions(compiled.propositions);
+          const rawV2 = ReasoningV2.generateReasoningCandidates(graph, {
+            sourceTitle: (sectionsForV2[0] && sectionsForV2[0].title) || 'Source Document',
+            facts: facts,
+            sections: sectionsForV2
+          });
+          v2Candidates = rawV2.filter((cand) => {
+            if (!cand || !cand.evidence || !Array.isArray(cand.evidence.fact_ids)) return false;
+            cand.evidence.fact_ids = cand.evidence.fact_ids.filter((id) => initialFactIds.has(id));
+            return cand.evidence.fact_ids.length > 0;
+          });
+        }
+      } catch (_) {}
+    }
+
+    const allCandidates = [...v2Candidates, ...candidates];
     const buildMetrics = candidates.buildMetrics || {};
     const rejectionCounts = {};
     if (buildMetrics.missingOptions) rejectionCounts.missing_options = buildMetrics.missingOptions;
@@ -2788,7 +3358,7 @@
     if (buildMetrics.multiMissing) rejectionCounts.multi_missing = buildMetrics.multiMissing;
 
     const validated = [];
-    for (const candidate of candidates) {
+    for (const candidate of allCandidates) {
       const result = validateQuestion(candidate, facts, ctx);
       if (result.valid) {
         validated.push(candidate);
@@ -2920,7 +3490,8 @@
     isUsableSubject,
     maskExpectedAnswer,
     buildStemContext,
-    LOW_OCR_CONFIDENCE
+    LOW_OCR_CONFIDENCE,
+    ReasoningV2
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = StudySynthEngine;

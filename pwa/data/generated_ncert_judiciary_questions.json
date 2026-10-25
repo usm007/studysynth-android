@@ -1,0 +1,2149 @@
+{
+  "source": {
+    "file": "C:/Users/Admin/Desktop/NCERT/8.2/hees204.pdf",
+    "title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+    "total_pages_in_pdf": 18,
+    "pages_analyzed": 10
+  },
+  "production_question_bank": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0092",
+      "type": "single_choice",
+      "question_subtype": "comparative_reasoning",
+      "stem": "How does the source characterize the relative comparison involving The person accused?",
+      "options": [
+        {
+          "text": "might have thought that they should be given a chance to explain what had happened",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "What",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "might have thought that they should be given a chance to explain what had happened",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+      "explanation": "Source verification: \"The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.\". This confirms that The person accused comparison might have thought that they should be given a chance to explain what had happened.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-045"
+        ],
+        "stem_relation": "comparison",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_E_COMPARATIVE_REASONING",
+      "target_concepts": [
+        "The person accused",
+        "might have thought that they should be given a chance to explain what had happened"
+      ],
+      "relation_keys": [
+        "the person accused|COMPARED_WITH"
+      ],
+      "premises_used": [
+        "F-LITE-045"
+      ],
+      "inference_steps": [
+        "Extracted comparative relationship between The person accused and might have thought that they should be given a chance to explain what had happened",
+        "Preserved strict comparison direction: comparison"
+      ],
+      "proof_trace": {
+        "operator": "OP_E_COMPARATIVE_REASONING",
+        "premises": [
+          "F-LITE-045"
+        ],
+        "steps": [
+          "Extracted comparative relationship between The person accused and might have thought that they should be given a chance to explain what had happened",
+          "Preserved strict comparison direction: comparison"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_E_COMPARATIVE_REASONING-0095",
+        "fact_id": "PROP-OP_E_COMPARATIVE_REASONING-0095",
+        "subject": "The person accused",
+        "subject_normalized": "the person accused",
+        "predicate": "comparison",
+        "relation_type": "COMPARED_WITH",
+        "relation": "comparison",
+        "normalized_relation": "comparison",
+        "object": "might have thought that they should be given a chance to explain what had happened",
+        "object_normalized": "might have thought that they should be given a chance to explain what had happened",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "comparison",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+        "source_text": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+        "source_clause": "",
+        "supporting_excerpt": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_E_COMPARATIVE_REASONING",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "numeric_recall",
+      "stem": "According to the passage, what number is stated?",
+      "context": "The Qualifications for appointment as a Judge of the Supreme Court require that he/ she is a citizen of India, and additionally is required to have been: (i) a Judge of a High Court (or High Courts) for five years; or (ii) an Advocate of a High Court (or more than one High Court) for ten years; or (iii) a distinguished jurist, in the opinion of the President of India A Supreme Court Judge retires when he/she attains the age of ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "64 years",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "B",
+          "text": "65 years",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "66 years",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "D",
+          "text": "63 years",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "65 years",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-064",
+          "fact_id": "F-LITE-065",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "The Qualifications for appointment as a Judge of the Supreme Court require that he/ she is a citizen of India, and additionally is required to have been: (i) a Judge of a High Court (or High Courts) for five years; or (ii) an Advocate of a High Court (or more than one High Court) for ten years; or (iii) a distinguished jurist, in the opinion of the President of India A Supreme Court Judge retires when he/she attains the age of 65 years.",
+      "explanation": "The source states: “The Qualifications for appointment as a Judge of the Supreme Court require that he/ she is a citizen of India, and additionally is required to have been: (i) a Judge of a High Court (or High Courts) for five years; or (ii) an Advocate of a High Court (or more than one High Court) for ten years; or (iii) a distinguished jurist, in the opinion of the President of India A Supreme Court Judge retires when he/she attains the age of 65 years.” This identifies the value for years as 65 years.",
+      "difficulty": "easy",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-065"
+        ],
+        "excerpts": [
+          "The Qualifications for appointment as a Judge of the Supreme Court require that he/ she is a citizen of India, and additionally is required to have been: (i) a Judge of a High Court (or High Courts) for five years; or (ii) an Advocate of a High Court (or more than one High Court) for ten years; or (iii) a distinguished jurist, in the opinion of the President of India A Supreme Court Judge retires when he/she attains the age of 65 years."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-065",
+            "start": 7329,
+            "end": 7769
+          }
+        ],
+        "stem_relation": "numeric_value",
+        "temporal_scope": "",
+        "fact_type": "numeric",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-065|65 years",
+      "relation_keys": [
+        "F-LITE-065|65 years"
+      ],
+      "candidate_sort": {
+        "source_start": 7329,
+        "fact_id": "F-LITE-065"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with 125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere?",
+      "context": "125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere is a ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "the concept of justice",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "the structure and role of the judiciary in India",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "threat to justice everywhere",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "the alternative modes of dispute resolution",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "threat to justice everywhere",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-001",
+          "fact_id": "F-LITE-001",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere is a threat to justice everywhere.",
+      "explanation": "The source states: “125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere is a threat to justice everywhere.” This identifies the stated role of 125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere as threat to justice everywhere.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-001"
+        ],
+        "excerpts": [
+          "125 Governance and Democracy 4 – The Role of the Judiciary in Our Society CHAPTER The Role of the Judiciary in Our Society 4 Injustice anywhere is a threat to justice everywhere."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-001",
+            "start": 0,
+            "end": 178
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-001|threat to justice everywhere",
+      "relation_keys": [
+        "F-LITE-001|threat to justice everywhere"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-001"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "Which of the following best describes Procedural justice?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "Judiciary in Our Society Public Interest Litigation",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "National Green Tribunal",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "a society through laws and the power",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-048",
+          "fact_id": "F-LITE-049",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court.",
+      "explanation": "The source defines or describes Procedural justice as follows: “Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court.” The correct answer is that every person involved gets a full opportunity of hearing, before a decision is taken by the court.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-049"
+        ],
+        "excerpts": [
+          "Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-049",
+            "start": 5476,
+            "end": 5604
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-049|that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+      "relation_keys": [
+        "F-LITE-049|that every person involved gets a full opportunity of hearing, before a decision is taken by the court"
+      ],
+      "candidate_sort": {
+        "source_start": 5476,
+        "fact_id": "F-LITE-049"
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "single_choice",
+      "question_subtype": "comparison",
+      "stem": "According to the passage, what is explicitly stated about the person accused?",
+      "context": "The person accused, on the other hand, ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "might have thought that they should be given a chance to explain what had happened",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "the situation right",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "scope_error",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "if needed",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "scope_error",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "individuals to complain in case of a grievance, and for the affected person to be able to place their point of view so that justice is ensured (within the framework of the law and the Constitution), is called the judicial system",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "scope_error",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "might have thought that they should be given a chance to explain what had happened",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-044",
+          "fact_id": "F-LITE-045",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+      "explanation": "The source states: “The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.” This establishes the comparison in the stated direction.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-045"
+        ],
+        "excerpts": [
+          "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-045",
+            "start": 5127,
+            "end": 5249
+          }
+        ],
+        "stem_relation": "comparison",
+        "temporal_scope": "",
+        "fact_type": "comparison",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-045|might have thought that they should be given a chance to explain what had happened",
+      "relation_keys": [
+        "F-LITE-045|might have thought that they should be given a chance to explain what had happened"
+      ],
+      "candidate_sort": {
+        "source_start": 5127,
+        "fact_id": "F-LITE-045"
+      }
+    },
+    {
+      "id": "Q-LITE-006",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which of the following is included in the Fundamental Rights guaranteed to every citizen of India?",
+      "context": "The Fundamental Rights guaranteed to every citizen of India include Equality, ______, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State.",
+      "options": [
+        {
+          "key": "A",
+          "text": "within the framework of the Constitution",
+          "is_correct": false,
+          "distractor_origin": "controlled_category_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "B",
+          "text": "Liberty",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "that the executive does not overstep its role as outlined in the Constitution",
+          "is_correct": false,
+          "distractor_origin": "controlled_category_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "access to water fountains",
+          "is_correct": false,
+          "distractor_origin": "controlled_category_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "Liberty",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-066",
+          "fact_id": "F-LITE-067",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State.",
+      "explanation": "The source states: “The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State.” This lists Liberty as a member of The Fundamental Rights guaranteed to every citizen of India.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-067"
+        ],
+        "excerpts": [
+          "The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-067",
+            "start": 7981,
+            "end": 8488
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-067|members",
+      "relation_keys": [
+        "F-LITE-067|members"
+      ],
+      "candidate_sort": {
+        "source_start": 7981,
+        "fact_id": "F-LITE-067"
+      },
+      "expected_member": "Liberty"
+    },
+    {
+      "id": "Q-LITE-007",
+      "type": "single_choice",
+      "question_subtype": "cause_effect",
+      "stem": "According to the passage, what does Governments force?",
+      "context": "Governments were given the power to administer a society through laws and the power to enforce such laws, with force ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "the situation right",
+          "is_correct": false,
+          "distractor_origin": "source_causal_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "individuals to complain in case of a grievance, and for the affected person to be able to place their point of view so that justice is ensured (within the framework of the law and the Constitution), is called the judicial system",
+          "is_correct": false,
+          "distractor_origin": "source_causal_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "if needed",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "a society through laws and the power",
+          "is_correct": false,
+          "distractor_origin": "controlled_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "if needed",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-027",
+          "fact_id": "F-LITE-027",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.",
+      "explanation": "The source explicitly describes the relationship as: “Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.” The answer preserves the stated direction of that relationship.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-027"
+        ],
+        "excerpts": [
+          "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-027",
+            "start": 2496,
+            "end": 2623
+          }
+        ],
+        "stem_relation": "causes",
+        "temporal_scope": "",
+        "fact_type": "causal",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-027|if needed",
+      "relation_keys": [
+        "F-LITE-027|if needed"
+      ],
+      "candidate_sort": {
+        "source_start": 2496,
+        "fact_id": "F-LITE-027"
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on NCERT Class 8 Civics: The Role of the Judiciary in Our Society:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "1 only",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Justice is essential for maintaining peace and harmony in any society.",
+          "fact_id": "F-LITE-010",
+          "source_excerpt": "Justice is essential for maintaining peace and harmony in any society.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "An independent judiciary is threat to justice everywhere.",
+          "fact_id": "F-LITE-020",
+          "source_excerpt": "An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "essential to ensure that disputes between parties are decided in a fair and just manner",
+            "replacement": "threat to justice everywhere",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-010",
+          "fact_id": "F-LITE-010",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-020",
+          "fact_id": "F-LITE-020",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Justice is essential for maintaining peace and harmony in any society.",
+      "explanation": "Statement 1 is correct. The source states: “Justice is essential for maintaining peace and harmony in any society.” This supports statement 1. Statement 2 is false. The source states: “An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner.” The stated value is essential to ensure that disputes between parties are decided in a fair and just manner, not threat to justice everywhere.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-010",
+          "F-LITE-020"
+        ],
+        "excerpts": [
+          "Justice is essential for maintaining peace and harmony in any society.",
+          "An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-010",
+            "start": 702,
+            "end": 772
+          },
+          {
+            "fact_id": "F-LITE-020",
+            "start": 1532,
+            "end": 1648
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-010|essential for maintaining peace and harmony in any society&F-LITE-020|essential to ensure that disputes between parties are decided in a fair and just manner",
+      "relation_keys": [
+        "F-LITE-010|essential for maintaining peace and harmony in any society",
+        "F-LITE-020|essential to ensure that disputes between parties are decided in a fair and just manner"
+      ],
+      "candidate_sort": {
+        "source_start": 702,
+        "fact_id": "F-LITE-010"
+      }
+    },
+    {
+      "id": "Q-LITE-009",
+      "type": "single_choice",
+      "question_subtype": "numeric_recall",
+      "stem": "What number is stated?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "28 States",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "27 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "C",
+          "text": "29 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "D",
+          "text": "26 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "28 States",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-088",
+          "fact_id": "F-LITE-089",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "At present, India has 28 States.",
+      "explanation": "The source states: “At present, India has 28 States.” This identifies the value for States as 28 States.",
+      "difficulty": "easy",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-089"
+        ],
+        "excerpts": [
+          "At present, India has 28 States."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-089",
+            "start": 12027,
+            "end": 12059
+          }
+        ],
+        "stem_relation": "numeric_value",
+        "temporal_scope": "",
+        "fact_type": "numeric",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-089|28 states",
+      "relation_keys": [
+        "F-LITE-089|28 states"
+      ],
+      "candidate_sort": {
+        "source_start": 12027,
+        "fact_id": "F-LITE-089"
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes Often disputes between parties?",
+      "context": "Often disputes between parties are ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "the concept of justice",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "the structure and role of the judiciary in India",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "resolved through dialogue, mediation, or adjudication by courts of law",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-022",
+          "fact_id": "F-LITE-022",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.",
+      "explanation": "The source states: “Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.” This identifies the stated role of Often disputes between parties as resolved through dialogue, mediation, or adjudication by courts of law.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-022"
+        ],
+        "excerpts": [
+          "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-022",
+            "start": 1829,
+            "end": 1935
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-022|resolved through dialogue, mediation, or adjudication by courts of law",
+      "relation_keys": [
+        "F-LITE-022|resolved through dialogue, mediation, or adjudication by courts of law"
+      ],
+      "candidate_sort": {
+        "source_start": 1829,
+        "fact_id": "F-LITE-022"
+      }
+    },
+    {
+      "id": "Q-LITE-011",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "According to the passage, how is PIL defined or described?",
+      "context": "Writ Petition 131 Governance and Democracy 4 – The Role of the ______ (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "options": [
+        {
+          "key": "A",
+          "text": "that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "National Green Tribunal",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "Judiciary in Our Society Public Interest Litigation",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "a society through laws and the power",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "Judiciary in Our Society Public Interest Litigation",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-067",
+          "fact_id": "F-LITE-068",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Writ Petition 131 Governance and Democracy 4 – The Role of the Judiciary in Our Society Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "explanation": "The source defines or describes PIL as follows: “Writ Petition 131 Governance and Democracy 4 – The Role of the Judiciary in Our Society Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.” The correct answer is Judiciary in Our Society Public Interest Litigation.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-068"
+        ],
+        "excerpts": [
+          "Writ Petition 131 Governance and Democracy 4 – The Role of the Judiciary in Our Society Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-068",
+            "start": 8499,
+            "end": 8825
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-068|judiciary in our society public interest litigation",
+      "relation_keys": [
+        "F-LITE-068|judiciary in our society public interest litigation"
+      ],
+      "candidate_sort": {
+        "source_start": 8499,
+        "fact_id": "F-LITE-068"
+      }
+    },
+    {
+      "id": "Q-LITE-012",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what is the stated function of Governments?",
+      "context": "Governments were given the power to administer ______ to enforce such laws, with force if needed.",
+      "options": [
+        {
+          "key": "A",
+          "text": "individuals’ activities in a society and impose consequences for not following them",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "for the establishment of the Supreme Court of India, which is seated in New Delhi",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "that there shall be a High Court in each State",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "a society through laws and the power",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "a society through laws and the power",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-027",
+          "fact_id": "F-LITE-028",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.",
+      "explanation": "The source states: “Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.” This identifies the stated function of Governments as a society through laws and the power.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-028"
+        ],
+        "excerpts": [
+          "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-028",
+            "start": 2496,
+            "end": 2623
+          }
+        ],
+        "stem_relation": "function",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-028|a society through laws and the power",
+      "relation_keys": [
+        "F-LITE-028|a society through laws and the power"
+      ],
+      "candidate_sort": {
+        "source_start": 2496,
+        "fact_id": "F-LITE-028"
+      }
+    },
+    {
+      "id": "Q-LITE-013",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "According to the passage, how is NGT defined or described?",
+      "context": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like ______ (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "options": [
+        {
+          "key": "A",
+          "text": "National Green Tribunal",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "Judiciary in Our Society Public Interest Litigation",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "a society through laws and the power",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "National Green Tribunal",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-079",
+          "fact_id": "F-LITE-080",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "explanation": "The source defines or describes NGT as follows: “Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).” The correct answer is National Green Tribunal.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-080"
+        ],
+        "excerpts": [
+          "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-080",
+            "start": 10663,
+            "end": 10829
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-080|national green tribunal",
+      "relation_keys": [
+        "F-LITE-080|national green tribunal"
+      ],
+      "candidate_sort": {
+        "source_start": 10663,
+        "fact_id": "F-LITE-080"
+      }
+    },
+    {
+      "id": "Q-LITE-014",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what is the stated function of 127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to?",
+      "context": "127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to regulate ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "a society through laws and the power",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "individuals’ activities in a society and impose consequences for not following them",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "for the establishment of the Supreme Court of India, which is seated in New Delhi",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "that there shall be a High Court in each State",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "individuals’ activities in a society and impose consequences for not following them",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-029",
+          "fact_id": "F-LITE-030",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to regulate individuals’ activities in a society and impose consequences for not following them.",
+      "explanation": "The source states: “127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to regulate individuals’ activities in a society and impose consequences for not following them.” This identifies the stated function of 127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to as individuals’ activities in a society and impose consequences for not following them.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-030"
+        ],
+        "excerpts": [
+          "127 Governance and Democracy 4 – The Role of the Judiciary in Our Society Laws are general rules made by the government to regulate individuals’ activities in a society and impose consequences for not following them."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-030",
+            "start": 2722,
+            "end": 2938
+          }
+        ],
+        "stem_relation": "function",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-030|individuals' activities in a society and impose consequences for not following them",
+      "relation_keys": [
+        "F-LITE-030|individuals' activities in a society and impose consequences for not following them"
+      ],
+      "candidate_sort": {
+        "source_start": 2722,
+        "fact_id": "F-LITE-030"
+      }
+    },
+    {
+      "id": "Q-LITE-015",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes the Jim Crow Law?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "the concept of justice",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "officially repealed in the 1960s",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "the structure and role of the judiciary in India",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "officially repealed in the 1960s",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-038",
+          "fact_id": "F-LITE-039",
+          "role": "primary"
+        }
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "The Jim Crow Law was officially repealed in the 1960s.",
+      "explanation": "The source states: “The Jim Crow Law was officially repealed in the 1960s.” This identifies the stated role of The Jim Crow Law as officially repealed in the 1960s.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-039"
+        ],
+        "excerpts": [
+          "The Jim Crow Law was officially repealed in the 1960s."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-039",
+            "start": 4422,
+            "end": 4476
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-039|officially repealed in the 1960s",
+      "relation_keys": [
+        "F-LITE-039|officially repealed in the 1960s"
+      ],
+      "candidate_sort": {
+        "source_start": 4422,
+        "fact_id": "F-LITE-039"
+      }
+    }
+  ],
+  "conceptual_reasoning_v2_bank": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0010",
+      "type": "single_choice",
+      "question_subtype": "contrastive_explanation",
+      "stem": "What fundamental contrast or property is highlighted for you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus 133 and 134A)?",
+      "options": [
+        {
+          "text": "you experienced injustice vs the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "you experienced injustice",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "133 and 134A)",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "you experienced injustice vs the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+      "explanation": "Source verification: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).\". This confirms that you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus 133 and 134A) contrasts on you experienced injustice vs the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132.",
+      "evidence": {
+        "fact_ids": [
+          "PROP-OP_J_CONTRASTIVE_EXPLANATION-0013"
+        ],
+        "stem_relation": "contrasts on",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_J_CONTRASTIVE_EXPLANATION",
+      "target_concepts": [
+        "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus 133 and 134A)",
+        "you experienced injustice vs the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132"
+      ],
+      "relation_keys": [
+        "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way versus 133 and 134a|CONTRASTS_WITH"
+      ],
+      "premises_used": [
+        "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+        "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+      ],
+      "inference_steps": [
+        "Premise A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way exhibits you experienced injustice",
+        "Premise B: 133 and 134A) exhibits the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+        "Established contrastive differentiation"
+      ],
+      "proof_trace": {
+        "operator": "OP_J_CONTRASTIVE_EXPLANATION",
+        "premises": [
+          "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+          "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+        ],
+        "steps": [
+          "Premise A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way exhibits you experienced injustice",
+          "Premise B: 133 and 134A) exhibits the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+          "Established contrastive differentiation"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_J_CONTRASTIVE_EXPLANATION-0013",
+        "fact_id": "PROP-OP_J_CONTRASTIVE_EXPLANATION-0013",
+        "subject": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus 133 and 134A)",
+        "subject_normalized": "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way versus 133 and 134a",
+        "predicate": "contrasts on",
+        "relation_type": "CONTRASTS_WITH",
+        "relation": "contrasts on",
+        "normalized_relation": "contrasts on",
+        "object": "you experienced injustice vs the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+        "object_normalized": "you experienced injustice vs the high court itself certifies that the case involves interpretation of the constitution or substantial question of law articles 132",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "entity_attribute",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "section_id": "SEC-001",
+        "source_sentence": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_text": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_clause": "",
+        "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_J_CONTRASTIVE_EXPLANATION",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "candidate_id": "QC-V2-0011",
+      "type": "single_choice",
+      "question_subtype": "conceptual_discrimination",
+      "stem": "What is the primary factor that distinguishes you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way vs 133 and 134A) from other concepts?",
+      "options": [
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "you experienced injustice",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "133 and 134A)",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. Comparison: Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+      "explanation": "Source verification: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. Comparison: Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).\". This confirms that you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way vs 133 and 134A) is discriminated by you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not.",
+      "evidence": {
+        "fact_ids": [
+          "PROP-OP_N_CONCEPTUAL_DISCRIMINATION-0014"
+        ],
+        "stem_relation": "is discriminated by",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_N_CONCEPTUAL_DISCRIMINATION",
+      "target_concepts": [
+        "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way vs 133 and 134A)",
+        "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not"
+      ],
+      "relation_keys": [
+        "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way vs 133 and 134a|DIFFERENT_FROM"
+      ],
+      "premises_used": [
+        "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+        "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+      ],
+      "inference_steps": [
+        "Analyzed Concept A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+        "Analyzed Concept B: 133 and 134A)",
+        "Isolated explicit discriminating criterion: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not"
+      ],
+      "proof_trace": {
+        "operator": "OP_N_CONCEPTUAL_DISCRIMINATION",
+        "premises": [
+          "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+          "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+        ],
+        "steps": [
+          "Analyzed Concept A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "Analyzed Concept B: 133 and 134A)",
+          "Isolated explicit discriminating criterion: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_N_CONCEPTUAL_DISCRIMINATION-0014",
+        "fact_id": "PROP-OP_N_CONCEPTUAL_DISCRIMINATION-0014",
+        "subject": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way vs 133 and 134A)",
+        "subject_normalized": "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way vs 133 and 134a",
+        "predicate": "is discriminated by",
+        "relation_type": "DIFFERENT_FROM",
+        "relation": "is discriminated by",
+        "normalized_relation": "is discriminated by",
+        "object": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice, whereas 133 and 134A) does not",
+        "object_normalized": "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way conditional on you experienced injustice whereas 133 and 134a does not",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "entity_attribute",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "section_id": "SEC-001",
+        "source_sentence": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. Comparison: Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_text": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. Comparison: Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_clause": "",
+        "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. Comparison: Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_N_CONCEPTUAL_DISCRIMINATION",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "evidence_conclusion",
+      "stem": "What primary empirical evidence does the text cite to substantiate the claim regarding you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way?",
+      "options": [
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "you experienced injustice",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+          "is_correct": true,
+          "key": "C"
+        },
+        {
+          "text": "133 and 134A)",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+      "explanation": "Source verification: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.\". This confirms that you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way is evidenced by When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way..",
+      "evidence": {
+        "fact_ids": [
+          "PROP-OP_K_EVIDENCE_CONCLUSION-0005"
+        ],
+        "stem_relation": "is evidenced by",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_K_EVIDENCE_CONCLUSION",
+      "target_concepts": [
+        "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+        "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way."
+      ],
+      "relation_keys": [
+        "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way|SUPPORTS"
+      ],
+      "premises_used": [
+        "PROP-EXT_CONDITIONAL_IF_THEN-0001"
+      ],
+      "inference_steps": [
+        "Claim: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice",
+        "Source evidence quotation: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.\"",
+        "Grounded claim directly in verifiable empirical evidence"
+      ],
+      "proof_trace": {
+        "operator": "OP_K_EVIDENCE_CONCLUSION",
+        "premises": [
+          "PROP-EXT_CONDITIONAL_IF_THEN-0001"
+        ],
+        "steps": [
+          "Claim: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way conditional on you experienced injustice",
+          "Source evidence quotation: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.\"",
+          "Grounded claim directly in verifiable empirical evidence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_K_EVIDENCE_CONCLUSION-0005",
+        "fact_id": "PROP-OP_K_EVIDENCE_CONCLUSION-0005",
+        "subject": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+        "subject_normalized": "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way",
+        "predicate": "is evidenced by",
+        "relation_type": "SUPPORTS",
+        "relation": "is evidenced by",
+        "normalized_relation": "is evidenced by",
+        "object": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+        "object_normalized": "when you experienced injustice you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "entity_attribute",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "section_id": "SEC-001",
+        "source_sentence": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+        "source_text": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+        "source_clause": "",
+        "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_K_EVIDENCE_CONCLUSION",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "candidate_id": "QC-V2-0006",
+      "type": "single_choice",
+      "question_subtype": "error_diagnosis",
+      "stem": "Which logical fallacy or misinterpretation contradicts the source's findings on 133 and 134A)?",
+      "options": [
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "you experienced injustice",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "133 and 134A)",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)",
+          "is_correct": true,
+          "key": "D"
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+      "explanation": "Source verification: \"Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).\". This confirms that 133 and 134A) exhibits reasoning error Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect).",
+      "evidence": {
+        "fact_ids": [
+          "PROP-OP_L_ERROR_DIAGNOSIS-0009"
+        ],
+        "stem_relation": "exhibits reasoning error",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_L_ERROR_DIAGNOSIS",
+      "target_concepts": [
+        "133 and 134A)",
+        "Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)"
+      ],
+      "relation_keys": [
+        "133 and 134a|HAS_PROPERTY"
+      ],
+      "premises_used": [
+        "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+      ],
+      "inference_steps": [
+        "Source ground truth: 133 and 134A) conditional on the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+        "Constructed invalid diagnostic misconception: Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)",
+        "Proved why the invalid transformation contradicts the source"
+      ],
+      "proof_trace": {
+        "operator": "OP_L_ERROR_DIAGNOSIS",
+        "premises": [
+          "PROP-EXT_CONDITIONAL_IF_THEN-0002"
+        ],
+        "steps": [
+          "Source ground truth: 133 and 134A) conditional on the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+          "Constructed invalid diagnostic misconception: Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)",
+          "Proved why the invalid transformation contradicts the source"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_L_ERROR_DIAGNOSIS-0009",
+        "fact_id": "PROP-OP_L_ERROR_DIAGNOSIS-0009",
+        "subject": "133 and 134A)",
+        "subject_normalized": "133 and 134a",
+        "predicate": "exhibits reasoning error",
+        "relation_type": "HAS_PROPERTY",
+        "relation": "exhibits reasoning error",
+        "normalized_relation": "exhibits reasoning error",
+        "object": "Incorrectly claims that the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132 causes 133 and 134A) (reversing cause and effect)",
+        "object_normalized": "incorrectly claims that the high court itself certifies that the case involves interpretation of the constitution or substantial question of law articles 132 causes 133 and 134a reversing cause and effect",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "entity_attribute",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "section_id": "SEC-001",
+        "source_sentence": "Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_text": "Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "source_clause": "",
+        "supporting_excerpt": "Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc. 132 Exploring Society: India and Beyond | Grade 8 Part 2 Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_L_ERROR_DIAGNOSIS",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "candidate_id": "QC-V2-0012",
+      "type": "single_choice",
+      "question_subtype": "contrastive_explanation",
+      "stem": "What fundamental contrast or property is highlighted for you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus the Supreme Court can give its opinion to the President?",
+      "options": [
+        {
+          "text": "you experienced injustice vs the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "you experienced injustice",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "133 and 134A)",
+          "is_correct": false,
+          "distractor_origin": "confusable_fact",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "you experienced injustice vs the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.",
+      "explanation": "Source verification: \"When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.\". This confirms that you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus the Supreme Court can give its opinion to the President contrasts on you experienced injustice vs the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance.",
+      "evidence": {
+        "fact_ids": [
+          "PROP-OP_J_CONTRASTIVE_EXPLANATION-0015"
+        ],
+        "stem_relation": "contrasts on",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_J_CONTRASTIVE_EXPLANATION",
+      "target_concepts": [
+        "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus the Supreme Court can give its opinion to the President",
+        "you experienced injustice vs the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance"
+      ],
+      "relation_keys": [
+        "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way versus the supreme court can give its opinion to the president|CONTRASTS_WITH"
+      ],
+      "premises_used": [
+        "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+        "PROP-EXT_CONDITIONAL_IF_THEN-0003"
+      ],
+      "inference_steps": [
+        "Premise A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way exhibits you experienced injustice",
+        "Premise B: the Supreme Court can give its opinion to the President exhibits the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance",
+        "Established contrastive differentiation"
+      ],
+      "proof_trace": {
+        "operator": "OP_J_CONTRASTIVE_EXPLANATION",
+        "premises": [
+          "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+          "PROP-EXT_CONDITIONAL_IF_THEN-0003"
+        ],
+        "steps": [
+          "Premise A: you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way exhibits you experienced injustice",
+          "Premise B: the Supreme Court can give its opinion to the President exhibits the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance",
+          "Established contrastive differentiation"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_J_CONTRASTIVE_EXPLANATION-0015",
+        "fact_id": "PROP-OP_J_CONTRASTIVE_EXPLANATION-0015",
+        "subject": "you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way versus the Supreme Court can give its opinion to the President",
+        "subject_normalized": "you might have felt that the wrong-doer should be punished that you would feel better if they apologised or that you should be compensated in some way versus the supreme court can give its opinion to the president",
+        "predicate": "contrasts on",
+        "relation_type": "CONTRASTS_WITH",
+        "relation": "contrasts on",
+        "normalized_relation": "contrasts on",
+        "object": "you experienced injustice vs the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance",
+        "object_normalized": "you experienced injustice vs the president of india seeks the opinion of the supreme court on a question of law or fact of public importance",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "entity_attribute",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 1,
+        "source_section": "NCERT Class 8 Civics: The Role of the Judiciary in Our Society",
+        "section_id": "SEC-001",
+        "source_sentence": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.",
+        "source_text": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.",
+        "source_clause": "",
+        "supporting_excerpt": "When you experienced injustice, you might have felt that the wrong-doer should be punished, that you would feel better if they apologised, or that you should be compensated in some way. In contrast, Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_J_CONTRASTIVE_EXPLANATION",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "analysis",
+      "quality_scores": {
+        "conceptual_depth": 4,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 1
+      }
+    }
+  ]
+}
