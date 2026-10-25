@@ -1,0 +1,227 @@
+[
+  {
+    "chapter": 1,
+    "title": "World Geography: Some Glimpses",
+    "file": "hees201.pdf",
+    "outBase": "hees201_world_geography",
+    "coverage": {
+      "totalPages": 34,
+      "pagesProcessed": 34,
+      "pagesWithBody": 26,
+      "pagesWithoutBody": 8,
+      "textItemCount": 1642,
+      "blockTypes": {
+        "heading": 53,
+        "page_furniture": 84,
+        "diagram": 218,
+        "body": 61,
+        "caption": 34,
+        "ambiguous": 19,
+        "fragment": 52
+      }
+    },
+    "prodCount": 13,
+    "v2Count": 1,
+    "total": 14,
+    "factCount": 168,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees201_world_geography.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees201_world_geography.json"
+  },
+  {
+    "chapter": 2,
+    "title": "India’s Long Road to Independence",
+    "file": "hees202.pdf",
+    "outBase": "hees202_indias_road_to_independence",
+    "coverage": {
+      "totalPages": 50,
+      "pagesProcessed": 50,
+      "pagesWithBody": 48,
+      "pagesWithoutBody": 2,
+      "textItemCount": 2810,
+      "blockTypes": {
+        "heading": 19,
+        "page_furniture": 128,
+        "diagram": 40,
+        "body": 102,
+        "caption": 28,
+        "fragment": 28,
+        "ambiguous": 9
+      }
+    },
+    "prodCount": 13,
+    "v2Count": 2,
+    "total": 15,
+    "factCount": 420,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees202_indias_road_to_independence.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees202_indias_road_to_independence.json"
+  },
+  {
+    "chapter": 3,
+    "title": "A Journey Through Indian Architecture",
+    "file": "hees203.pdf",
+    "outBase": "hees203_journey_through_indian_architecture",
+    "coverage": {
+      "totalPages": 40,
+      "pagesProcessed": 40,
+      "pagesWithBody": 19,
+      "pagesWithoutBody": 21,
+      "textItemCount": 1860,
+      "blockTypes": {
+        "heading": 29,
+        "page_furniture": 103,
+        "diagram": 90,
+        "body": 37,
+        "ambiguous": 35,
+        "caption": 47,
+        "fragment": 18
+      }
+    },
+    "prodCount": 1,
+    "v2Count": 1,
+    "total": 2,
+    "factCount": 82,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees203_journey_through_indian_architecture.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees203_journey_through_indian_architecture.json"
+  },
+  {
+    "chapter": 4,
+    "title": "The Role of the Judiciary in Our Society",
+    "file": "hees204.pdf",
+    "outBase": "hees204_judiciary_in_our_society",
+    "coverage": {
+      "totalPages": 18,
+      "pagesProcessed": 18,
+      "pagesWithBody": 18,
+      "pagesWithoutBody": 0,
+      "textItemCount": 800,
+      "blockTypes": {
+        "heading": 16,
+        "page_furniture": 48,
+        "diagram": 25,
+        "body": 46,
+        "caption": 8,
+        "fragment": 9,
+        "table": 1,
+        "ambiguous": 1
+      }
+    },
+    "prodCount": 12,
+    "v2Count": 2,
+    "total": 14,
+    "factCount": 138,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees204_judiciary_in_our_society.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees204_judiciary_in_our_society.json"
+  },
+  {
+    "chapter": 5,
+    "title": "Citizenship: Rights and Duties",
+    "file": "hees205.pdf",
+    "outBase": "hees205_citizenship_rights_and_duties",
+    "coverage": {
+      "totalPages": 24,
+      "pagesProcessed": 24,
+      "pagesWithBody": 22,
+      "pagesWithoutBody": 2,
+      "textItemCount": 1271,
+      "blockTypes": {
+        "diagram": 45,
+        "page_furniture": 63,
+        "heading": 30,
+        "fragment": 31,
+        "ambiguous": 3,
+        "body": 70,
+        "caption": 13
+      }
+    },
+    "prodCount": 9,
+    "v2Count": 2,
+    "total": 11,
+    "factCount": 230,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees205_citizenship_rights_and_duties.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees205_citizenship_rights_and_duties.json"
+  },
+  {
+    "chapter": 6,
+    "title": "Dynamics of Population",
+    "file": "hees206.pdf",
+    "outBase": "hees206_dynamics_of_population",
+    "coverage": {
+      "totalPages": 24,
+      "pagesProcessed": 24,
+      "pagesWithBody": 20,
+      "pagesWithoutBody": 4,
+      "textItemCount": 1722,
+      "blockTypes": {
+        "heading": 45,
+        "page_furniture": 192,
+        "diagram": 239,
+        "body": 52,
+        "caption": 17,
+        "ambiguous": 14,
+        "fragment": 45
+      }
+    },
+    "prodCount": 7,
+    "v2Count": 3,
+    "total": 10,
+    "factCount": 99,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees206_dynamics_of_population.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees206_dynamics_of_population.json"
+  },
+  {
+    "chapter": 7,
+    "title": "India’s Urban Landscape",
+    "file": "hees207.pdf",
+    "outBase": "hees207_indias_urban_landscape",
+    "coverage": {
+      "totalPages": 24,
+      "pagesProcessed": 24,
+      "pagesWithBody": 23,
+      "pagesWithoutBody": 1,
+      "textItemCount": 1191,
+      "blockTypes": {
+        "heading": 16,
+        "page_furniture": 64,
+        "diagram": 42,
+        "body": 50,
+        "caption": 30,
+        "fragment": 15,
+        "ambiguous": 4
+      }
+    },
+    "prodCount": 3,
+    "v2Count": 1,
+    "total": 4,
+    "factCount": 144,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees207_indias_urban_landscape.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees207_indias_urban_landscape.json"
+  },
+  {
+    "chapter": 8,
+    "title": "Cultural Currents: 13th to 17th Centuries",
+    "file": "hees209.pdf",
+    "outBase": "hees209_cultural_currents_13th_to_17th_centuries",
+    "coverage": {
+      "totalPages": 35,
+      "pagesProcessed": 35,
+      "pagesWithBody": 31,
+      "pagesWithoutBody": 4,
+      "textItemCount": 2227,
+      "blockTypes": {
+        "heading": 10,
+        "diagram": 72,
+        "page_furniture": 66,
+        "body": 78,
+        "caption": 32,
+        "ambiguous": 9,
+        "fragment": 12
+      }
+    },
+    "prodCount": 14,
+    "v2Count": 0,
+    "total": 14,
+    "factCount": 231,
+    "stagedFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees209_cultural_currents_13th_to_17th_centuries.md",
+    "dataFile": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002\\hees209_cultural_currents_13th_to_17th_centuries.json"
+  }
+]

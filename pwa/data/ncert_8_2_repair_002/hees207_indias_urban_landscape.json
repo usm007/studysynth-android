@@ -1,0 +1,2521 @@
+{
+  "meta": {
+    "file": "hees207.pdf",
+    "chapterNum": 7,
+    "subject": "Geography / Sociology",
+    "title": "India’s Urban Landscape",
+    "outBase": "hees207_indias_urban_landscape",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 24,
+    "pagesProcessed": 24,
+    "pagesWithBody": 23,
+    "pagesWithoutBody": 1,
+    "textItemCount": 1191,
+    "blockTypes": {
+      "heading": 16,
+      "page_furniture": 64,
+      "diagram": 42,
+      "body": 50,
+      "caption": 30,
+      "fragment": 15,
+      "ambiguous": 4
+    }
+  },
+  "generation": {
+    "factCount": 144,
+    "totalCandidates": 29,
+    "accepted": 3,
+    "rejected": 26,
+    "requestedCount": 15,
+    "conflictCount": 2,
+    "conflictedFactCount": 5,
+    "conflictedFactIds": [
+      "F-LITE-057",
+      "F-LITE-074",
+      "F-LITE-102",
+      "F-LITE-135",
+      "F-LITE-137"
+    ],
+    "unusedFactCount": 140,
+    "unusedFactIds": [
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144"
+    ],
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_facts": 5,
+      "unsafe_spans": 12,
+      "unsupported_facts": 121,
+      "conflict": 1,
+      "duplicate_relation": 26
+    },
+    "buildMetrics": {
+      "missingOptions": 3,
+      "unsafeFacts": 5,
+      "unsupportedFacts": 121,
+      "multiMissing": 0,
+      "unsafeSpans": 12
+    },
+    "subtypeDistribution": {
+      "entity_attribute": 2,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 1,
+      "B": 1,
+      "C": 1
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 3,
+    "totalCandidates": 29,
+    "accepted": 3,
+    "rejected": 26,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_facts": 5,
+      "unsafe_spans": 12,
+      "unsupported_facts": 121,
+      "conflict": 1,
+      "duplicate_relation": 26
+    },
+    "subtypeDistribution": {
+      "entity_attribute": 2,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 1,
+      "B": 1,
+      "C": 1
+    },
+    "unusedFacts": 140,
+    "unusedFactIds": [
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144"
+    ],
+    "conflictedFacts": 5,
+    "conflictedFactIds": [
+      "F-LITE-057",
+      "F-LITE-074",
+      "F-LITE-102",
+      "F-LITE-135",
+      "F-LITE-137"
+    ]
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "Cities",
+      "relation": "launched_by",
+      "object": "everybody",
+      "source_text": "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.",
+      "source_start": 0,
+      "source_end": 124,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "concentration of human populations, different kinds of businesses and occupations, government institutions, and often elaborate transportation and communication systems.",
+      "source_start": 137,
+      "source_end": 306,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These areas are also referred to as ‘urban’, and have elected local bodies responsible for the development of infrastructure and other amenities of the area.",
+      "source_start": 307,
+      "source_end": 464,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "Rural areas, on the other hand,",
+      "relation": "members",
+      "object": "close-knit communities, larger number of agriculture-based occupations, fewer businesses, generally, less elaborate transport and communication systems compared to cities",
+      "source_text": "Rural areas, on the other hand, consist of villages that usually have lower populations, close-knit communities, a larger number of agriculture-based occupations, fewer businesses, and generally, less elaborate transport and communication systems compared to cities.",
+      "source_start": 465,
+      "source_end": 731,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "Rural areas",
+      "relation": "comparison",
+      "object": "consist of villages that usually have lower populations, close-knit communities, a larger number of agriculture-based occupations, fewer businesses, and generally, less elaborate transport and communication systems compared to cities",
+      "source_text": "Rural areas, on the other hand, consist of villages that usually have lower populations, close-knit communities, a larger number of agriculture-based occupations, fewer businesses, and generally, less elaborate transport and communication systems compared to cities.",
+      "source_start": 465,
+      "source_end": 731,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These areas are governed by gram panchayats, as you have read in the Grade 6 chapter, ‘Grassroots Democracy — Local Government in Rural Areas’.",
+      "source_start": 732,
+      "source_end": 875,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The exact definitions of cities and villages, as well as urban and rural, differ across the world.",
+      "source_start": 876,
+      "source_end": 974,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For instance, in Denmark, a place becomes urban if its population exceeds 220; in Japan, 50,000; and in India, 5,000.",
+      "source_start": 975,
+      "source_end": 1092,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Imagine you invite a few friends for a get-together at your home; you will have plenty of space to move around.",
+      "source_start": 0,
+      "source_end": 111,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This distribution of the number of people within a specific area reflects how densely or sparsely crowded a place is.",
+      "source_start": 184,
+      "source_end": 301,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "known as demographers , assess the number of people living per unit of area, called population density.",
+      "source_start": 315,
+      "source_end": 418,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is usually expressed as the number of people per square kilometre.",
+      "source_start": 419,
+      "source_end": 490,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Throughout history, we have seen places grow to become prominent urban centres through the advantages of location near rivers that afforded ease of transportation, at the crossroads of trade routes that facilitated the development of markets, as well as ease of access to agricultural produce and raw materials that supported the development of artisan communities and manufacturing.",
+      "source_start": 0,
+      "source_end": 383,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They became centres of economic activities as well as political and administrative power.",
+      "source_start": 384,
+      "source_end": 473,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "According to the United Nations’ estimates, by 2050, 68 per cent of the world’s population will be living in cities, compared to the 55 per cent now.",
+      "source_start": 475,
+      "source_end": 624,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A similar trend is expected in India, where the urban population has grown from 17 per cent in 1951 to around 40 per cent in 2025.",
+      "source_start": 625,
+      "source_end": 755,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ As a small group project, make a list of adults from different generations in and around your neighbourhood.",
+      "source_start": 0,
+      "source_end": 110,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Draft a questionnaire to enquire into their observations about their own village, town or city and how it has changed over the decades.",
+      "source_start": 111,
+      "source_end": 246,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Report on your project through a presentation to the class.",
+      "source_start": 473,
+      "source_end": 532,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "From villages to small towns to bustling megacities, areas and regions undergo a gradual transition from rural to urban.",
+      "source_start": 0,
+      "source_end": 120,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Development of new infrastructure: factories, hotels, government institutions, banks, entertainment, sports, etc.",
+      "source_start": 122,
+      "source_end": 235,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Over time, cities can become crowded and expensive to live in, yet they offer social and economic value because of the concentration of diverse resources.",
+      "source_start": 237,
+      "source_end": 391,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits.",
+      "source_start": 0,
+      "source_end": 163,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The vision of the Tata family was to develop the area into a township with modern facilities for all personnel working in the factory.",
+      "source_start": 164,
+      "source_end": 298,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sir Dorabji Tata even built a hospital in the village long before steel production began.",
+      "source_start": 299,
+      "source_end": 388,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sakchi grew from a small village into a bustling city and was renamed Jamshedpur in 1919.",
+      "source_start": 389,
+      "source_end": 478,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Today, it is the largest industrial city in Jharkhand.",
+      "source_start": 479,
+      "source_end": 533,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "The city",
+      "relation": "role",
+      "object": "designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+      "source_text": "The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities.",
+      "source_start": 534,
+      "source_end": 637,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "With its planned development, more factories emerged in the region, attracting people from within and outside the state for work opportunities.",
+      "source_start": 638,
+      "source_end": 781,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Urbanisation: favourable geographical location .",
+      "source_start": 783,
+      "source_end": 831,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Places near coastlines, Population rivers, or important trade routes tend to become economic shift from rural to urban hubs.",
+      "source_start": 832,
+      "source_end": 956,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, Mumbai’s location along the Arabian Sea areas and the and Kolkata’s nearness to the eastern coast made them vital corresponding decrease in the port cities for domestic and international trade.",
+      "source_start": 957,
+      "source_end": 1163,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many cities proportion of today started off as large villages or small towns.",
+      "source_start": 1164,
+      "source_end": 1241,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Over time, people living their location and other factors drive their urbanisation . in rural areas.",
+      "source_start": 1242,
+      "source_end": 1342,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "(Hint: Recall from your Grade 7 Chapter ‘Understanding Markets’.",
+      "source_start": 89,
+      "source_end": 153,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "BSE",
+      "relation": "definition",
+      "object": "With the setting up of the Bombay Stock Exchange",
+      "source_text": "With the setting up of the Bombay Stock Exchange (BSE) in 1875, the port city of Mumbai became the financial capital of the nation.",
+      "source_start": 156,
+      "source_end": 287,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Trade and commerce expanded, and Mumbai became a hub where talent from all sections of society began to congregate.",
+      "source_start": 288,
+      "source_end": 403,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "Exposure to what",
+      "relation": "role",
+      "object": "happening around the world through the exchange of information and ideas led to innovation",
+      "source_text": "Exposure to what was happening around the world through the exchange of information and ideas led to innovation.",
+      "source_start": 404,
+      "source_end": 516,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The film industry started in the 1910s and was flourishing by the 1930s.",
+      "source_start": 517,
+      "source_end": 589,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Today, the city has a vast network of modern physical infrastructure which enables a wide range of economic activities.",
+      "source_start": 590,
+      "source_end": 709,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Bengaluru, also known as the Silicon Valley of India, became an IT hub due to the concentration of software firms, new start-ups, and higher education institutions.",
+      "source_start": 711,
+      "source_end": 875,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Specialised industries grouped together in clusters turned it into a modern hub that offer jobs to skilled workers from different fields.",
+      "source_start": 876,
+      "source_end": 1013,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A close link between industries and educational institutions encouraged innovation and led to development of new products and services using advanced technologies like Artificial Intelligence.",
+      "source_start": 1014,
+      "source_end": 1206,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, Hyderabad has grown into a major centre for technology-based enterprises.",
+      "source_start": 0,
+      "source_end": 84,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "cities like Delhi",
+      "relation": "comparison",
+      "object": "Mumbai, Bengaluru, and Chennai are large metropolises, there are smaller urban centres that are less populous with emerging economic and infrastructure development and specialise in certain industries",
+      "source_text": "While cities like Delhi, Mumbai, Bengaluru, and Chennai are large metropolises, there are smaller urban centres that are less populous with emerging economic and infrastructure development and specialise in certain industries.",
+      "source_start": 85,
+      "source_end": 311,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, Moradabad is famous for brass work, Ludhiana and Tirupur for textile production, Jaipur for handicrafts and gem jewellery, Channapatna for wooden toys, Kanchipuram for silk sarees, and so on.",
+      "source_start": 312,
+      "source_end": 516,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "Other rapidly growing cities, such as Kochi, Indore, Lucknow, and Nagpur, are also lucrative for companies, as the cost of operations",
+      "relation": "comparison",
+      "object": "lower than in larger cities",
+      "source_text": "Other rapidly growing cities, such as Kochi, Indore, Lucknow, and Nagpur, are also lucrative for companies, as the cost of operations is lower than in larger cities.",
+      "source_start": 517,
+      "source_end": 682,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So, they establish warehouses and offices in these regions while serving customers across India, and globally.",
+      "source_start": 683,
+      "source_end": 793,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Apart from industrial development, some cities hold historical and cultural significance, and are home to famous monuments.",
+      "source_start": 794,
+      "source_end": 917,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "every year.",
+      "source_start": 0,
+      "source_end": 11,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Other cities like Amritsar and Varanasi thrive on pilgrims visiting these sacred places.",
+      "source_start": 12,
+      "source_end": 100,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This drives economic activity in sectors such as transportation, hospitality, local food vending, handicrafts, and more, providing livelihoods to the people.",
+      "source_start": 101,
+      "source_end": 258,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Business In the case of Delhi, the city has thrived as a centre of culture, Process trade and administration from the Iron Age.",
+      "source_start": 260,
+      "source_end": 387,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Rajputs, Outsourcing Turks and Mughals built forts, roads, and markets, while (BPO): A company the British built a new capital for their Indian empire and hiring another introduced railways and electricity.",
+      "source_start": 388,
+      "source_end": 598,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "After Independence, New service provider to Delhi became the capital of the Indian Republic with many do specific ministries, industries, universities, and research centres, business attracting people for jobs and education opportunities from functions or processes of across the country. their business.",
+      "source_start": 599,
+      "source_end": 903,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "Other rapidly growing cities, such as Kochi, Indore, Lucknow, and Nagpur, are also lucrative for companies, as the cost of operations reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to",
+      "relation": "members",
+      "object": "company, can get expert NOIDA (New Okhla Industrial Development Authority) professionals, Ghaziabad, helped to ease the pressure",
+      "source_text": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+      "source_start": 904,
+      "source_end": 1251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "NCR",
+      "relation": "definition",
+      "object": "Creation of the National Capital Region",
+      "source_text": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+      "source_start": 904,
+      "source_end": 1251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Better roads, to do their work. highways, and the metro rail system boosted the region’s expansion.",
+      "source_start": 1252,
+      "source_end": 1351,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since the 1990s, Gurugram has become a major IT and BPO (Business Process Outsourcing) hub, drawing global companies and driving the development of housing and commercial spaces.",
+      "source_start": 1352,
+      "source_end": 1530,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cities as Cultural Hubs Cities draw people from various regions, they create a potpourri of culture, languages, customs, traditions, food, festivals, and so on, which begin to be shared along with shared spaces.",
+      "source_start": 0,
+      "source_end": 211,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For instance, vaḍā pāv is a famous snack from Mumbai where a Maharashtrian-style potato dumpling is placed delicately inside a pāv (where pāo or bread and potatoes are Portuguese).",
+      "source_start": 212,
+      "source_end": 397,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This easy-to-make, easy-to-carry, easy-to-eat snack became very popular among workers in Mumbai’s textile mills.",
+      "source_start": 398,
+      "source_end": 510,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, Kolkata was once the capital of British-ruled India; even today, it has many institutions from the era, like the Indian Museum and Victoria Memorial.",
+      "source_start": 511,
+      "source_end": 671,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, it is also famous for the annual Durga Puja festivities.",
+      "source_start": 672,
+      "source_end": 737,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This five-day festival takes place every autumn, and Kolkata’s Durga Puja was inscribed on UNESCO’s list of Intangible Cultural Heritage of Humanity in 2021.",
+      "source_start": 738,
+      "source_end": 895,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cities also allocate resources to create other types of facilities — cultural centres, libraries, museums and sports stadiums — which become hubs for enrichment of socio-cultural aspects.",
+      "source_start": 896,
+      "source_end": 1083,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "Spaces",
+      "relation": "role",
+      "object": "created for national and international gatherings for sharing knowledge and ideas",
+      "source_text": "Spaces are created for national and international gatherings for sharing knowledge and ideas.",
+      "source_start": 1084,
+      "source_end": 1177,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They give inhabitants new and exciting experiences and help them interact, build relationships, and form networks.",
+      "source_start": 1178,
+      "source_end": 1292,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Pradhanmantri Sangrahalay in New Delhi tells the story of the prime ministers of India and their contributions to national development.",
+      "source_start": 0,
+      "source_end": 139,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "People from all walks of life visit here.",
+      "source_start": 140,
+      "source_end": 181,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Challenges Faced by Cities The influx of large populations into cities puts pressure on their resources, and increased demand for food, water, energy, housing, etc., strains infrastructure.",
+      "source_start": 158,
+      "source_end": 347,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Narrow and poorly maintained roads, the rapid development of unplanned residential areas with poor access to water, sanitation, energy, and waste management, a growing number of vehicles on the road, and rising temperatures on account of the creation of ‘heat islands’ are some of the problems that urban areas face.",
+      "source_start": 348,
+      "source_end": 664,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Pollution and waste are also on the rise.",
+      "source_start": 665,
+      "source_end": 706,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "NCR",
+      "relation": "definition",
+      "object": "The National Capital Region",
+      "source_text": "The National Capital Region (NCR), for example, frequently records Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks to the residents.",
+      "source_start": 707,
+      "source_end": 892,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "The National Capital Region (NCR), for example, frequently",
+      "relation": "function",
+      "object": "Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks",
+      "source_text": "The National Capital Region (NCR), for example, frequently records Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks to the residents.",
+      "source_start": 707,
+      "source_end": 892,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In addition, urban areas often experience higher crime rates than rural regions due to higher population density and economic inequality.",
+      "source_start": 893,
+      "source_end": 1030,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This affects the safety and wellbeing of urban residents, and necessitates greater policing and law enforcement.",
+      "source_start": 1031,
+      "source_end": 1143,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Slums are overcrowded city settlements with poor housing and limited water, sanitation, and other municipal services.",
+      "source_start": 1145,
+      "source_end": 1262,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Slums generally grow near city’s periphery, railway tracks, industrial areas where vacant land is available.",
+      "source_start": 1263,
+      "source_end": 1371,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is due to lack of enough affordable housing for everyone migrating to the city.",
+      "source_start": 1372,
+      "source_end": 1456,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These are present in most countries worldwide.",
+      "source_start": 1457,
+      "source_end": 1503,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Slum dwellers often support cities by performing informal work — vegetable vending, domestic",
+      "source_start": 1504,
+      "source_end": 1596,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "help, laundry services, construction work, plumbing, and so on.",
+      "source_start": 0,
+      "source_end": 63,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "Improving housing, health, and education infrastructure for them",
+      "relation": "role",
+      "object": "key urban challenge",
+      "source_text": "Improving housing, health, and education infrastructure for them is a key urban challenge.",
+      "source_start": 64,
+      "source_end": 154,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many government schemes try to address the issue, such as the Pradhan Mantri Aawaas Yojana, which provides affordable housing to economically weaker households.",
+      "source_start": 155,
+      "source_end": 315,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Let us look at efforts to mitigate another urban challenge — water scarcity.",
+      "source_start": 316,
+      "source_end": 392,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Power of collective action in the revival of Bengaluru lakes Bengaluru, a modern metropolis, faces water shortages in summer and flooding during the monsoon season due to poor urban planning.",
+      "source_start": 394,
+      "source_end": 585,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Overuse of groundwater, lack of rainwater harvesting, and encroachment of lake beds have worsened the crisis.",
+      "source_start": 586,
+      "source_end": 695,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The city once had around 1,000 lakes, but rapid urbanisation reduced the number to about 200, many of which were polluted by sewage and chemicals; wells also dried up.",
+      "source_start": 696,
+      "source_end": 863,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some lakes, like Bellandur and Varthur, got covered in foam, released toxic gases and even caught fire.",
+      "source_start": 864,
+      "source_end": 967,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some efforts by non- profit organisations, Resident Welfare Associations (RWAs) and communities are reviving the lakes through desilting, repairing bunds with natural materials, clearing drainage channels, planting native plant species, and restocking fish.",
+      "source_start": 968,
+      "source_end": 1225,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Such efforts can improve residents’ quality of life by increasing water availability and maintaining the surrounding area’s ecological balance.",
+      "source_start": 1226,
+      "source_end": 1369,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Planning Our Cities Cities need to be planned as dynamic systems with evolving needs to address these challenges, especially considering climate change.",
+      "source_start": 0,
+      "source_end": 152,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So, urban planners need to address many factors to improve the lives of the city’s inhabitants.",
+      "source_start": 153,
+      "source_end": 248,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Let us look at a couple of examples of planned cities.",
+      "source_start": 778,
+      "source_end": 832,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "India’s ‘Pink City’ Vidyadhar Bhattacharya was the chief architect and urban planner of Jaipur, Rajasthan, appointed by Maharaja Sawai Jai Singh II to design a new city in 1727.",
+      "source_start": 834,
+      "source_end": 1011,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Chosen for his knowledge and expertise in Indian architecture — vāstu shāstra , and s ́ hilpa shāstra, he designed the city using a grid pattern, dividing it into rectangular blocks or chowkris, and considering the east-west and north-south cardinal directions.",
+      "source_start": 1012,
+      "source_end": 1276,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The city plans had wide streets, open spaces, gardens, and nine public squares.",
+      "source_start": 1277,
+      "source_end": 1356,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "temples.",
+      "source_start": 93,
+      "source_end": 101,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-100",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For ensuring security, the city was enclosed by a 20-foot wall with seven gates.",
+      "source_start": 102,
+      "source_end": 182,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-101",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "it was originally designed — a marvel of traditional planning, sustainability, and aesthetics.",
+      "source_start": 533,
+      "source_end": 627,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-102",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "8,000 people",
+      "source_text": "Singapore, a small island nation with over 8,000 people per sq. km, is often seen as a model of urban planning.",
+      "source_start": 629,
+      "source_end": 740,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-103",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Despite its density, it has managed to grow while maintaining a high quality of life for the residents.",
+      "source_start": 741,
+      "source_end": 844,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-104",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The city has a Concept Plan for how the land must be used that looks up to 40 years ahead.",
+      "source_start": 845,
+      "source_end": 935,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-105",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Master Plan is updated every 5 years to reflect the changing needs of the city’s infrastructure, making the planning very flexible.",
+      "source_start": 936,
+      "source_end": 1071,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-106",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "From an overcrowded port in the 1960s, Singapore has transformed into a modern city-state with strong infrastructure in transport, electricity, water supply, and waste management.",
+      "source_start": 1072,
+      "source_end": 1251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-107",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The city’s mass public transport system connects rail, buses, cycling paths, and green walking corridors for pedestrians that reduce reliance on cars, encourage walking and help create vibrant public places.",
+      "source_start": 0,
+      "source_end": 207,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-108",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "To utilise the limited available land, Singapore developed sustainable high-rise buildings with rooftop and vertical gardens , earning the title of a ‘garden city’.",
+      "source_start": 208,
+      "source_end": 372,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-109",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is not only aesthetically pleasing but also reduces heat during summers and supports biodiversity.",
+      "source_start": 373,
+      "source_end": 476,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-110",
+      "subject": "Singapore’s urban planning",
+      "relation": "causes",
+      "object": "walkability and integrates residential housing for senior citizens with healthcare services, childcare facilities, diverse neighbourhoods, and green spaces",
+      "source_text": "Singapore’s urban planning promotes walkability and integrates residential housing for senior citizens with healthcare services, childcare facilities, diverse neighbourhoods, and green spaces.",
+      "source_start": 0,
+      "source_end": 192,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-111",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It serves as a model for intergenerational living and meeting diverse community needs within compact areas.",
+      "source_start": 194,
+      "source_end": 301,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-112",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "community-centred design for interaction and social connections, Singapore is considered one of the blue zone cities where people have longer and healthier lives, focusing on overall wellbeing.",
+      "source_start": 318,
+      "source_end": 511,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-113",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Singapore remains a prime example of urban planning through which economic prosperity and a good quality of life is possible using innovative approaches.",
+      "source_start": 512,
+      "source_end": 665,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-114",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In India, several urban redevelopment projects have created vibrant public spaces.",
+      "source_start": 0,
+      "source_end": 82,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-115",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These require integrating technology, citizen participation, efficient infrastructure and improved urban services such as waste management, water supply, public transport, energy efficiency, housing, and e-governance.",
+      "source_start": 83,
+      "source_end": 300,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-116",
+      "subject": "Ahmedabad’s Sabarmati Riverfront",
+      "relation": "role",
+      "object": "one such example that blends ecology and public utility",
+      "source_text": "Ahmedabad’s Sabarmati Riverfront is one such example that blends ecology and public utility.",
+      "source_start": 301,
+      "source_end": 393,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-117",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It features promenades, parks, markets, boating, and the Atal Bridge, which allows pedestrians and cyclists to walk along the river.",
+      "source_start": 394,
+      "source_end": 526,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-118",
+      "subject": "Gangtok’s Mahatma Gandhi Road",
+      "relation": "role",
+      "object": "central shopping hub and a pedestrian-only zone brimming with shops",
+      "source_text": "Similarly, Gangtok’s Mahatma Gandhi Road is a central shopping hub and a pedestrian-only zone brimming with shops, restaurants, and hotels.",
+      "source_start": 528,
+      "source_end": 667,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-119",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is also known for its cleanliness and vibrant atmosphere.",
+      "source_start": 668,
+      "source_end": 728,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-120",
+      "subject": "Cities",
+      "relation": "comparison",
+      "object": "more than just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time",
+      "source_text": "Cities are more than just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time.",
+      "source_start": 0,
+      "source_end": 143,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-121",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They are centres of consumption as well as production, which are important aspects of economic growth.",
+      "source_start": 144,
+      "source_end": 246,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-122",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In addition, these are spaces where ideas are born, where traditions meet modernity, and where people from different walks of life come together to shape a shared future.",
+      "source_start": 247,
+      "source_end": 417,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-123",
+      "subject": "A well-planned city not only",
+      "relation": "function",
+      "object": "infrastructure but also nurtures creativity, diversity, and community",
+      "source_text": "A well-planned city not only provides infrastructure but also nurtures creativity, diversity, and community.",
+      "source_start": 418,
+      "source_end": 526,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-124",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This further needs to be complemented by innovative technologies using ICT (Information and Communication Technology), such as intelligent traffic systems, digital surveillance, online grievance redressal platforms, and solar-powered public spaces, to make urban life more convenient and sustainable.",
+      "source_start": 527,
+      "source_end": 827,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-125",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cities also remind us of our responsibilities.",
+      "source_start": 828,
+      "source_end": 874,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-126",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rapid urbanisation brings challenges such as pollution, traffic congestion, inequality, and the loss of green spaces, affecting not only those who live in cities but also the rural areas connected to them.",
+      "source_start": 875,
+      "source_end": 1080,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-127",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A sustainable city of tomorrow must balance growth with care for people and Nature.",
+      "source_start": 1081,
+      "source_end": 1164,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-128",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It must offer opportunities without excluding the vulnerable, and provide comfort without exhausting resources.",
+      "source_start": 1165,
+      "source_end": 1276,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-129",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As urban landscapes evolve and expand, balancing growth with sustainability will shape the cities of tomorrow.",
+      "source_start": 1277,
+      "source_end": 1387,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-130",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Cities are large human settlements that are centres of diverse economic and cultural activities.",
+      "source_start": 0,
+      "source_end": 98,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-131",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many factors, such as locational advantage, the development of business clusters, tourism, and efficient infrastructure and so on, result in the growth of cities.",
+      "source_start": 99,
+      "source_end": 261,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-132",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ As cities grow, they face many challenges such as air and water pollution, expansion of slums, lack of green spaces, traffic jams, and waste generation and so on.",
+      "source_start": 262,
+      "source_end": 426,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-133",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Cities need to be planned dynamically, keeping in mind the constantly changing needs of the inhabitants in a sustainable manner.",
+      "source_start": 427,
+      "source_end": 557,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-134",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "With better planning, cities can remain centres of innovation, culture, and economic prosperity.",
+      "source_start": 558,
+      "source_end": 654,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-135",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "100 people",
+      "source_text": "Suppose your town, village or city has 100 people.",
+      "source_start": 162,
+      "source_end": 212,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-136",
+      "subject": "Imagine each square on the paper",
+      "relation": "definition",
+      "object": "a specific area of the place, like residential neighbourhoods, parks, schools, factories, post offices and so on",
+      "source_text": "Imagine each square on the paper represents a specific area of the place, like residential neighbourhoods, parks, schools, factories, post offices and so on.",
+      "source_start": 261,
+      "source_end": 418,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-137",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "100 people",
+      "source_text": "Now, distribute the 100 people throughout the area.",
+      "source_start": 419,
+      "source_end": 470,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-138",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You can decide where the people will live, whether they all live in the residential areas, or some live in the commercial or industrial areas.",
+      "source_start": 471,
+      "source_end": 613,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-139",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Write this number in each of the boxes.",
+      "source_start": 614,
+      "source_end": 653,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-140",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Learn about urban planning in other cities around the world.",
+      "source_start": 42,
+      "source_end": 102,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-141",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Explore and suggest action points with respect to urban planning in cities to mitigate the challenges below and write a report.",
+      "source_start": 178,
+      "source_end": 305,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-142",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Two have been completed for you.",
+      "source_start": 306,
+      "source_end": 338,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-143",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Waste Management : Conducting a ‘Segregate at Source’ awareness drive in residential areas with demos on dry/ wet waste disposal and composting.",
+      "source_start": 339,
+      "source_end": 483,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-144",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Traffic congestion: carpooling, high taxes on vehicle purchase, etc. Inadequate safety of residents Poor mobility within the city Expansion of slums Heat waves during summers 14.",
+      "source_start": 484,
+      "source_end": 662,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with Improving housing, health, and education infrastructure for them?",
+      "context": "Improving housing, health, and education infrastructure for them is a ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "key urban challenge",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "happening around the world through the exchange of information and ideas led to innovation",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "one such example that blends ecology and public utility",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "key urban challenge",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-096",
+          "fact_id": "F-LITE-084",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Interaction and networking among commuters",
+      "source_page": 15,
+      "supporting_excerpt": "Improving housing, health, and education infrastructure for them is a key urban challenge.",
+      "explanation": "The source states: “Improving housing, health, and education infrastructure for them is a key urban challenge.” This identifies the stated role of Improving housing, health, and education infrastructure for them as key urban challenge.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-084"
+        ],
+        "excerpts": [
+          "Improving housing, health, and education infrastructure for them is a key urban challenge."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-084",
+            "start": 64,
+            "end": 154
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Interaction and networking among commuters",
+        "source_page": 15
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-084|key urban challenge",
+      "relation_keys": [
+        "F-LITE-084|key urban challenge"
+      ],
+      "candidate_sort": {
+        "source_start": 64,
+        "fact_id": "F-LITE-084"
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on India’s Urban Landscape:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.",
+          "fact_id": "F-LITE-001",
+          "source_excerpt": "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "The city was happening around the world through the exchange of information and ideas led to innovation.",
+          "fact_id": "F-LITE-028",
+          "source_excerpt": "The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+            "replacement": "happening around the world through the exchange of information and ideas led to innovation",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-001",
+          "fact_id": "F-LITE-001",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-038",
+          "fact_id": "F-LITE-028",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "India’s Urban Landscape",
+      "source_page": 1,
+      "supporting_excerpt": "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.",
+      "explanation": "Statement 1 is correct. The source states: “Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.” This supports statement 1. Statement 2 is false. The source states: “The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities.” The stated value is designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities, not happening around the world through the exchange of information and ideas led to innovation.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-001",
+          "F-LITE-028"
+        ],
+        "excerpts": [
+          "Cities have the capability of providing something for everybody, only because, and only when, they are created by everybody.",
+          "The city was designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-001",
+            "start": 0,
+            "end": 124
+          },
+          {
+            "fact_id": "F-LITE-028",
+            "start": 534,
+            "end": 637
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "India’s Urban Landscape",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-001|everybody&F-LITE-028|designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+      "relation_keys": [
+        "F-LITE-001|everybody",
+        "F-LITE-028|designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-001"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Exposure to what?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "key urban challenge",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "happening around the world through the exchange of information and ideas led to innovation",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "one such example that blends ecology and public utility",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "happening around the world through the exchange of information and ideas led to innovation",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-049",
+          "fact_id": "F-LITE-038",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Just as Jamshedpur thrived on industries due to proximity to natural resources , cities often develop based on a",
+      "source_page": 8,
+      "supporting_excerpt": "Exposure to what was happening around the world through the exchange of information and ideas led to innovation.",
+      "explanation": "The source states: “Exposure to what was happening around the world through the exchange of information and ideas led to innovation.” This identifies the stated role of Exposure to what as happening around the world through the exchange of information and ideas led to innovation.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-038"
+        ],
+        "excerpts": [
+          "Exposure to what was happening around the world through the exchange of information and ideas led to innovation."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-038",
+            "start": 404,
+            "end": 516
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Just as Jamshedpur thrived on industries due to proximity to natural resources , cities often develop based on a",
+        "source_page": 8
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-038|happening around the world through the exchange of information and ideas led to innovation",
+      "relation_keys": [
+        "F-LITE-038|happening around the world through the exchange of information and ideas led to innovation"
+      ],
+      "candidate_sort": {
+        "source_start": 404,
+        "fact_id": "F-LITE-038"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines NCR?",
+      "options": [
+        {
+          "text": "Creation of the National Capital Region",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "Cities",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "everybody",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "The city",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "Creation of the National Capital Region",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "India’s Urban Landscape",
+      "source_page": 10,
+      "supporting_excerpt": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+      "explanation": "Source verification: \"This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.\". This confirms that NCR is defined as Creation of the National Capital Region.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-057"
+        ],
+        "excerpts": [
+          "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-057",
+            "start": 904,
+            "end": 1251
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "NCR",
+        "Creation of the National Capital Region"
+      ],
+      "relation_keys": [
+        "ncr|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-057"
+      ],
+      "inference_steps": [
+        "Extracted source definition: NCR -> Creation of the National Capital Region",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-057"
+        ],
+        "steps": [
+          "Extracted source definition: NCR -> Creation of the National Capital Region",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "subject": "NCR",
+        "subject_normalized": "ncr",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "Creation of the National Capital Region",
+        "object_normalized": "creation of the national capital region",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 10,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+        "source_text": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+        "source_clause": "",
+        "supporting_excerpt": "This reduces As the population in Delhi expanded, it put pressure on the costs for infrastructure like housing, and water and sewerage systems. the hiring Creation of the National Capital Region (NCR) to include company and can get expert NOIDA (New Okhla Industrial Development Authority) professionals and Ghaziabad, helped to ease the pressure.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-001",
+      "subject": "Cities",
+      "predicate": "launched_by",
+      "relation_type": "HAS_PROPERTY",
+      "object": "everybody",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-028",
+      "subject": "The city",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "designed with wide, tree-lined streets, gardens, open spaces, houses, and civic amenities",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-038",
+      "subject": "Exposure to what",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "happening around the world through the exchange of information and ideas led to innovation",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-057",
+      "subject": "NCR",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "Creation of the National Capital Region",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-074",
+      "subject": "NCR",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "The National Capital Region",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-075",
+      "subject": "The National Capital Region (NCR), for example, frequently",
+      "predicate": "function",
+      "relation_type": "HAS_PROPERTY",
+      "object": "Air Quality Index (AQI) levels over 400, far above the safe limit of 50, posing serious health risks",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-084",
+      "subject": "Improving housing, health, and education infrastructure for them",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "key urban challenge",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-102",
+      "subject": "people",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "8,000 people",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-123",
+      "subject": "A well-planned city not only",
+      "predicate": "function",
+      "relation_type": "HAS_PROPERTY",
+      "object": "infrastructure but also nurtures creativity, diversity, and community",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-135",
+      "subject": "people",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "100 people",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-137",
+      "subject": "people",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "100 people",
+      "is_derived": false
+    }
+  ]
+}

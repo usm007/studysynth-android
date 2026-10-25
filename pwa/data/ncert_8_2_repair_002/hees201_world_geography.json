@@ -1,0 +1,3938 @@
+{
+  "meta": {
+    "file": "hees201.pdf",
+    "chapterNum": 1,
+    "subject": "Geography",
+    "title": "World Geography: Some Glimpses",
+    "outBase": "hees201_world_geography",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 34,
+    "pagesProcessed": 34,
+    "pagesWithBody": 26,
+    "pagesWithoutBody": 8,
+    "textItemCount": 1642,
+    "blockTypes": {
+      "heading": 53,
+      "page_furniture": 84,
+      "diagram": 218,
+      "body": 61,
+      "caption": 34,
+      "ambiguous": 19,
+      "fragment": 52
+    }
+  },
+  "generation": {
+    "factCount": 168,
+    "totalCandidates": 46,
+    "accepted": 14,
+    "rejected": 32,
+    "requestedCount": 15,
+    "conflictCount": 0,
+    "conflictedFactCount": 0,
+    "conflictedFactIds": [],
+    "unusedFactCount": 154,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-153",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-159",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-166",
+      "F-LITE-167",
+      "F-LITE-168"
+    ],
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_facts": 6,
+      "unsafe_spans": 15,
+      "unsupported_facts": 130,
+      "duplicate_relation": 33
+    },
+    "buildMetrics": {
+      "missingOptions": 3,
+      "unsafeFacts": 6,
+      "unsupportedFacts": 130,
+      "multiMissing": 0,
+      "unsafeSpans": 15
+    },
+    "subtypeDistribution": {
+      "category_classification": 1,
+      "numeric_recall": 1,
+      "entity_attribute": 7,
+      "definition": 1,
+      "classification_membership": 3,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 14,
+    "totalCandidates": 46,
+    "accepted": 14,
+    "rejected": 32,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_facts": 6,
+      "unsafe_spans": 15,
+      "unsupported_facts": 130,
+      "duplicate_relation": 33
+    },
+    "subtypeDistribution": {
+      "category_classification": 1,
+      "numeric_recall": 1,
+      "entity_attribute": 7,
+      "definition": 1,
+      "classification_membership": 3,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    },
+    "unusedFacts": 154,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-153",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-159",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-166",
+      "F-LITE-167",
+      "F-LITE-168"
+    ],
+    "conflictedFacts": 0,
+    "conflictedFactIds": []
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The modern age has brought the geography of the earth near to us, but made it difficult for us to come into touch with man.",
+      "source_start": 0,
+      "source_end": 123,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Earth has long been revered as a mother by indigenous communities and personified in India as a living deity, often known as Bhūdevī or Vasudhā .",
+      "source_start": 0,
+      "source_end": 152,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "the distant Southern Indian Ocean",
+      "relation": "causes",
+      "object": "the monsoon in the Gangetic Plains",
+      "source_text": "Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.",
+      "source_start": 153,
+      "source_end": 302,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "From vast oceans to towering mountains and harsh deserts, humanity has long sought to understand the planet’s wonders.",
+      "source_start": 303,
+      "source_end": 421,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Let’s take a quick tour of our ‘blue planet’, our home, to give you a glimpse of a few of them.",
+      "source_start": 422,
+      "source_end": 517,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "The Earth",
+      "relation": "role",
+      "object": "oblate spheroid",
+      "source_text": "The Earth is an oblate spheroid.",
+      "source_start": 519,
+      "source_end": 551,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Now peel it and lay the peel flat without tearing it.",
+      "source_start": 670,
+      "source_end": 723,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As you will discover, it is quite impossible to do so.",
+      "source_start": 724,
+      "source_end": 778,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is why all maps have some distortion.",
+      "source_start": 779,
+      "source_end": 821,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The process of showing the Earth on a flat surface is called a map projection.",
+      "source_start": 822,
+      "source_end": 900,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cartographers have made several attempts at creating accurate representative projections of the Earth.",
+      "source_start": 901,
+      "source_end": 1003,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They use different methods to draw the world.",
+      "source_start": 1004,
+      "source_end": 1049,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some maps show the right shapes of countries but wrong sizes, while others show the right sizes but distorted shapes.",
+      "source_start": 1050,
+      "source_end": 1167,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Every map is a compromise.",
+      "source_start": 1168,
+      "source_end": 1194,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "To understand the world fairly, we must look at multiple projections , not just one.",
+      "source_start": 1195,
+      "source_end": 1279,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "Given below",
+      "relation": "role",
+      "object": "two projections",
+      "source_text": "Given below are two projections.",
+      "source_start": 1280,
+      "source_end": 1312,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the Mercator Projection Greenland looks larger than India whereas in fact it is smaller.",
+      "source_start": 66,
+      "source_end": 157,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As we saw, world map projections on a flat surface are tricky.",
+      "source_start": 0,
+      "source_end": 62,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They only provide a visual representation that allows us to gauge size, shape, location, and distance across the whole world.",
+      "source_start": 63,
+      "source_end": 188,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, professionals use maps that use the latitude and longitude coordinates (we saw these in Grade 6) which are more precise.",
+      "source_start": 189,
+      "source_end": 318,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "the Oceans The ocean",
+      "relation": "role",
+      "object": "vast body of saltwater covering about 71 per cent of the Earth’s surface",
+      "source_text": "the Oceans The ocean is a vast body of saltwater covering about 71 per cent of the Earth’s surface.",
+      "source_start": 320,
+      "source_end": 419,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is why the Earth looks blue from space and early astronauts called it the ‘blue planet’.",
+      "source_start": 420,
+      "source_end": 513,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The oceans hold 97 per cent of the Earth’s water.",
+      "source_start": 514,
+      "source_end": 563,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They support life, from tiny plankton to giant blue whales, and help regulate the climate by absorbing heat, slowly releasing it, and adding moisture to the air forming clouds and rainfall.",
+      "source_start": 564,
+      "source_end": 753,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As you may already know, the ocean floor is not flat!",
+      "source_start": 754,
+      "source_end": 807,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It has mountains, valleys, and plains like the land.",
+      "source_start": 808,
+      "source_end": 860,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Oceans give us almost half the oxygen we breathe.",
+      "source_start": 862,
+      "source_end": 911,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "Tiny marine organisms, such as plankton",
+      "relation": "causes",
+      "object": "this possible",
+      "source_text": "Tiny marine organisms, such as plankton, make this possible.",
+      "source_start": 912,
+      "source_end": 972,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Pacific, the Arctic, the Atlantic, and the Southern.",
+      "source_start": 0,
+      "source_end": 52,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These currents affect the climate of coastal areas.",
+      "source_start": 0,
+      "source_end": 51,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, the Gulf Stream flows north from near the Equator (where the water is warm) through the Atlantic Ocean towards Western Europe.",
+      "source_start": 52,
+      "source_end": 191,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This warm water makes places like the United Kingdom warmer than other places at the same latitude.",
+      "source_start": 192,
+      "source_end": 291,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "The Mariana Trench",
+      "relation": "role",
+      "object": "the deepest of these",
+      "source_text": "The Mariana Trench is the deepest of these.",
+      "source_start": 293,
+      "source_end": 336,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "trench",
+      "relation": "numeric_value",
+      "object": "2,000 metres",
+      "source_text": "trench is over 2,000 metres deeper than the height of Mount Everest.",
+      "source_start": 381,
+      "source_end": 449,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Its deepest section, the Challenger Deep, reaches over 11,000 metres below sea level.",
+      "source_start": 450,
+      "source_end": 535,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Scientists studying these trenches have found unique life forms.",
+      "source_start": 0,
+      "source_end": 64,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since there is no light, plants cannot use photosynthesis to make food.",
+      "source_start": 65,
+      "source_end": 136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Instead, they use energy from chemicals in the water to produce food.",
+      "source_start": 137,
+      "source_end": 206,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Life finds a way to survive and thrive even in such harsh conditions.",
+      "source_start": 207,
+      "source_end": 276,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "The Great Barrier Reef A reef",
+      "relation": "role",
+      "object": "ridge found at or near the surface of the ocean",
+      "source_text": "The Great Barrier Reef A reef is a ridge found at or near the surface of the ocean, formed either naturally or artificially.",
+      "source_start": 278,
+      "source_end": 402,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "Natural reefs can be made of rock or",
+      "relation": "launched_by",
+      "object": "tiny sea animals called corals",
+      "source_text": "Natural reefs can be made of rock or built by tiny sea animals called corals.",
+      "source_start": 403,
+      "source_end": 480,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "most diverse ecosystems on Earth, often called the ‘rainforests of the sea’, as they provide food and shelter for about one-quarter of all ocean species, including fish, crabs, turtles, and sponges.",
+      "source_start": 502,
+      "source_end": 700,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It helps differentiate among the various types of formations in the sea through a system of classification and naming — seas, straits, bays, gulfs and canals — as shown in the table below.",
+      "source_start": 0,
+      "source_end": 188,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These formations play an important role in supporting trade and transport.",
+      "source_start": 190,
+      "source_end": 264,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "The Continents: Variety on Land Landforms of the world",
+      "relation": "members",
+      "object": "mountains, plateaus, plains",
+      "source_text": "The Continents: Variety on Land Landforms of the world include mountains, plateaus, and plains.",
+      "source_start": 0,
+      "source_end": 95,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We have encountered them across various chapters throughout the Middle Stage, mainly in the context of India.",
+      "source_start": 96,
+      "source_end": 205,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Here we expand the scope to look briefly at these landforms across the world — where they are located, what some of their features are, and in what ways they are connected to life.",
+      "source_start": 206,
+      "source_end": 386,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ In Grade 6 we looked at the three main landforms — mountains, plateaus and plains.",
+      "source_start": 388,
+      "source_end": 472,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Mountains are landforms that are much higher than the surrounding landscape.",
+      "source_start": 473,
+      "source_end": 551,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They can be recognised by a broad base, steep slopes and a narrow summit.",
+      "source_start": 552,
+      "source_end": 625,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ A plateau is a landform that rises from the surrounding land and has a more or less flat surface; some of its sides are often steep slopes.",
+      "source_start": 626,
+      "source_end": 767,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Plains are landforms that have an extensive flat or gently undulating surface.",
+      "source_start": 768,
+      "source_end": 848,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They do not have any large hills or deep valleys.",
+      "source_start": 849,
+      "source_end": 898,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Deserts are considered to be large and dry expanses with very little precipitation.",
+      "source_start": 899,
+      "source_end": 984,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Their flora and fauna are also unique.",
+      "source_start": 985,
+      "source_end": 1023,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some deserts are hot, such as the Sahara Desert in Africa and the Thar Desert in the northwest of the Indian Subcontinent.",
+      "source_start": 1024,
+      "source_end": 1146,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "Others",
+      "relation": "role",
+      "object": "cold, like the Gobi Desert in Asia",
+      "source_text": "Others are cold, like the Gobi Desert in Asia.",
+      "source_start": 1147,
+      "source_end": 1193,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ A large continuous expanse of land is called a ‘continent’.",
+      "source_start": 1194,
+      "source_end": 1255,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The most common count is of seven continents — Africa, Antarctica, Asia, Australia, Europe, North America, and South America.",
+      "source_start": 1256,
+      "source_end": 1381,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We will tour the continents, spotlighting one or two landforms in each.",
+      "source_start": 1383,
+      "source_end": 1454,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We start from near home, Asia.",
+      "source_start": 1455,
+      "source_end": 1485,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since we have taken a tour of the major landforms of India in Part 1 of this textbook, our focus will be on other parts of the world.",
+      "source_start": 1486,
+      "source_end": 1619,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As we fly across the Himalayas, we encounter the Tibetan Plateau.",
+      "source_start": 0,
+      "source_end": 65,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "Studying plateaus",
+      "relation": "function",
+      "object": "us insights into the Earth’s geology, and their importance for both nature and human life",
+      "source_text": "Studying plateaus offers us insights into the Earth’s geology, and their importance for both nature and human life.",
+      "source_start": 66,
+      "source_end": 181,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "the highest and largest plateau on Earth",
+      "relation": "superlative",
+      "object": "The Tibetan Plateau",
+      "source_text": "The Tibetan Plateau is the highest and largest plateau on Earth.",
+      "source_start": 0,
+      "source_end": 64,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Located north of the Himalayan Range, it is the result of collisions between the Indo-Australian and Eurasian tectonic plates, which also led to the formation of the Himalayan mountain range.",
+      "source_start": 65,
+      "source_end": 256,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "highest and largest plateau on Earth east-west extent",
+      "relation": "numeric_value",
+      "object": "2,500 km",
+      "source_text": "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.",
+      "source_start": 257,
+      "source_end": 406,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "highest and largest plateau on Earth north-south extent",
+      "relation": "numeric_value",
+      "object": "1,000 km",
+      "source_text": "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.",
+      "source_start": 257,
+      "source_end": 406,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "highest and largest plateau on Earth average height",
+      "relation": "numeric_value",
+      "object": "4,500 metres",
+      "source_text": "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.",
+      "source_start": 257,
+      "source_end": 406,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The region plays an important role in influencing the climate of Asia, and is the source of many major rivers, including the Indus, Brahmaputra, and Yangtze.",
+      "source_start": 407,
+      "source_end": 564,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "Scientists call the Tibetan Plateau and its mountains the ‘Third Pole’; it",
+      "relation": "members",
+      "object": "largest reserves of freshwater outside the polar regions",
+      "source_text": "Scientists call the Tibetan Plateau and its mountains the ‘Third Pole’; it contains the largest reserves of freshwater outside the polar regions.",
+      "source_start": 566,
+      "source_end": 711,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "With climate change, snow-melt has led to the expansion of existing lakes and the creation of new ones.",
+      "source_start": 712,
+      "source_end": 815,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Gobi Desert in the ‘Land of the Eternal Blue Sky’ Deserts are large, extremely dry areas of land with low precipitation (less than 25 cm per year).",
+      "source_start": 0,
+      "source_end": 147,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "Deserts are found on every continent and",
+      "relation": "members",
+      "object": "about one-fifth of the Earth’s land area",
+      "source_text": "Deserts are found on every continent and cover about one-fifth of the Earth’s land area.",
+      "source_start": 148,
+      "source_end": 236,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "According to the National Geographic Society, around one billion people (one-eighth of the world’s population) live in deserts.",
+      "source_start": 237,
+      "source_end": 364,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As we move to the northeast, we arrive at the Gobi Desert in Mongolia (part of the desert is in north China).",
+      "source_start": 365,
+      "source_end": 474,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "winter temperatures can drop",
+      "relation": "numeric_value",
+      "object": "30°C",
+      "source_text": "Mongolia is called the ‘Land of the Eternal Blue Sky’ because it has about 8 to 9 months of sunny weather, but winter temperatures can drop to minus 30°C.",
+      "source_start": 475,
+      "source_end": 629,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The climate is harsh and vegetation sparse; herds migrate seasonally to access pastures supported by underground water supplies.",
+      "source_start": 630,
+      "source_end": 758,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We are now ready for better weather — we go north we arrive at the Steppes .",
+      "source_start": 0,
+      "source_end": 76,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "water bodies nearby serve as resting spots for migratory birds like the Siberian crane.",
+      "source_start": 78,
+      "source_end": 165,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "Mountains",
+      "relation": "role",
+      "object": "formed by tectonic forces, volcanic activity, and erosion",
+      "source_text": "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+      "source_start": 0,
+      "source_end": 72,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They play an important role in determining climates, serve as ‘ water towers ’, biodiversity hotspots and, in many cases, serve as natural boundaries between countries.",
+      "source_start": 73,
+      "source_end": 241,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Assess and describe the Himalayas from the perspective of these different roles.",
+      "source_start": 243,
+      "source_end": 323,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since we have gathered information about the Himalayas in the past, in this chapter we will explore a few mountain ranges in other parts of the world.",
+      "source_start": 325,
+      "source_end": 475,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Plains are vast flatlands formed by sediment deposition and are known for their fertile soils that support farming, trade, and dense populations.",
+      "source_start": 0,
+      "source_end": 145,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Valleys are carved by rivers and provide fertile soil, water, and transport routes that have nurtured some of the world’s earliest civilisations.",
+      "source_start": 146,
+      "source_end": 291,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Together, plains and river valleys sustain agriculture, and foster biodiversity.",
+      "source_start": 292,
+      "source_end": 372,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The European Plain , or the Great European Plain, is one of the largest flat lands in the world.",
+      "source_start": 374,
+      "source_end": 470,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "Mountains",
+      "relation": "members",
+      "object": "parts of several countries",
+      "source_text": "It covers parts of several countries.",
+      "source_start": 471,
+      "source_end": 508,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "The plain",
+      "relation": "definition",
+      "object": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "source_text": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "source_start": 509,
+      "source_end": 611,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Now turn to the political map of the world at the end of this textbook.",
+      "source_start": 48,
+      "source_end": 119,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "The fertile soils here",
+      "relation": "causes",
+      "object": "it one of the most productive agricultural regions in the world",
+      "source_text": "The fertile soils here make it one of the most productive agricultural regions in the world.",
+      "source_start": 186,
+      "source_end": 278,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Wheat, barley, rye, and potatoes are widely cultivated.",
+      "source_start": 279,
+      "source_end": 334,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The rivers of the region have played an important role in trade and transport.",
+      "source_start": 335,
+      "source_end": 413,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The region has deposits of coal, oil and natural gas, resources that have been important for economic growth.",
+      "source_start": 414,
+      "source_end": 523,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "The savannah",
+      "relation": "role",
+      "object": "tropical grassland ecosystem",
+      "source_text": "The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall.",
+      "source_start": 0,
+      "source_end": 113,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It lies mainly between tropical rainforests and deserts, the most famous one being in Africa.",
+      "source_start": 114,
+      "source_end": 207,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The savannah supports a rich diversity of wildlife, including elephants, lions, zebras, and giraffes, which depend on its grasses and waterholes.",
+      "source_start": 208,
+      "source_end": 353,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Its climate features a distinct wet and dry season, influencing plant growth and animal migration patterns.",
+      "source_start": 354,
+      "source_end": 461,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-100",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, human activities such as farming, deforestation, and climate change are threatening the balance of these vital ecosystems.",
+      "source_start": 462,
+      "source_end": 593,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-101",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Sahara has been home to nomadic tribes that herd livestock — sheep, goats and camels — and engage in trade for their livelihood.",
+      "source_start": 0,
+      "source_end": 132,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-102",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Ancient trade routes passed through here, carrying gold, salt, and ideas to the Mediterranean world.",
+      "source_start": 133,
+      "source_end": 233,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-103",
+      "subject": "world, the Nile, almost",
+      "relation": "numeric_value",
+      "object": "6,650 km",
+      "source_text": "The African continent has the longest river in the world, the Nile, almost 6,650 km long.",
+      "source_start": 234,
+      "source_end": 323,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-104",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Nile and its basin have been the cradle of the ancient Egyptian civilisation.",
+      "source_start": 324,
+      "source_end": 405,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-105",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For thousands of years, the river has provided irrigation, transforming dry lands into fertile agricultural areas that support crops such as wheat, barley, flax, fruits, and vegetables.",
+      "source_start": 406,
+      "source_end": 591,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-106",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The river also provides drinking water, fishing, and hydroelectric power, and it has served as an important transportation route for centuries.",
+      "source_start": 592,
+      "source_end": 735,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-107",
+      "subject": "The Andes",
+      "relation": "members",
+      "object": "vital source of freshwater for millions of people, feeding major rivers incuding the Amazon, world’s largest river by volume",
+      "source_text": "The Andes are a vital source of freshwater for millions of people, feeding major rivers incuding the Amazon, world’s largest river by volume.",
+      "source_start": 737,
+      "source_end": 878,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-108",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rich in biodiversity, the mountains are also home to thousands of species of mammals, birds, amphibians, reptiles, and fish, many of which are unique to the region.",
+      "source_start": 879,
+      "source_end": 1043,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-109",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, only about one-fourth of the original flora and fauna remains, making the Andes a critical conservation hotspot .",
+      "source_start": 1044,
+      "source_end": 1166,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-110",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In addition, the Andes are among the most resource-rich regions in the world, holding vast reserves of copper, zinc, silver, and lithium.",
+      "source_start": 1167,
+      "source_end": 1304,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-111",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Amazon River is the longest in South America and flows from the Andes Mountains in Peru and flows east towards the Atlantic Ocean.",
+      "source_start": 0,
+      "source_end": 136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-112",
+      "subject": "The river basin with all its tributaries",
+      "relation": "causes",
+      "object": "the Amazon Rainforest",
+      "source_text": "The river basin with all its tributaries supports the Amazon Rainforest .",
+      "source_start": 137,
+      "source_end": 210,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-113",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Almost 400 indigenous communities reside in the forest and play an important role in conserving the forest.",
+      "source_start": 212,
+      "source_end": 321,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-114",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Dust travels all the way from the Sahara to the Amazon rainforest, carrying with it phosphorous needed by the plants in the rainforest.",
+      "source_start": 376,
+      "source_end": 513,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-115",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Amazon Rainforest has been called the ‘Lungs of the Earth’.",
+      "source_start": 515,
+      "source_end": 580,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-116",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The countries in this region need land for development but risk losing the Amazon Rainforest.",
+      "source_start": 616,
+      "source_end": 711,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-117",
+      "subject": "stretching",
+      "relation": "numeric_value",
+      "object": "1,000 km",
+      "source_text": "stretching about 1,000 km.",
+      "source_start": 0,
+      "source_end": 26,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-118",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The temperature varies from 40°C during the day to 5°C at night.",
+      "source_start": 27,
+      "source_end": 91,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-119",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "some of the clearest night skies, and its rocky, Mars-like landscape has even been used by NASA to test rovers.",
+      "source_start": 93,
+      "source_end": 204,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-120",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, it has also become one of the world’s fastest- growing dumps for discarded clothes, caused by the rise of cheap fast fashio n .",
+      "source_start": 205,
+      "source_end": 341,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-121",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The UN has called this waste",
+      "source_start": 342,
+      "source_end": 370,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-122",
+      "subject": "The Yellowstone National Park, located in the Rockies",
+      "relation": "role",
+      "object": "example of ecosystem restoration",
+      "source_text": "The Yellowstone National Park, located in the Rockies, is an example of ecosystem restoration.",
+      "source_start": 0,
+      "source_end": 94,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-123",
+      "subject": "The Park",
+      "relation": "role",
+      "object": "experiencing an ecological imbalance due to overgrazing by elk, a type of deer",
+      "source_text": "The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer.",
+      "source_start": 95,
+      "source_end": 187,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-124",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In 1995, wolves were introduced here.",
+      "source_start": 188,
+      "source_end": 225,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-125",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "routes enabled indigenous communities to thrive.",
+      "source_start": 357,
+      "source_end": 405,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-126",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Like in other traditions, the mountains hold spiritual significance for the people here.",
+      "source_start": 406,
+      "source_end": 494,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-127",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The mountains have been vital for economic development providing coal, timber, and natural gas",
+      "source_start": 495,
+      "source_end": 589,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-128",
+      "subject": "The deserts",
+      "relation": "members",
+      "object": "home to many animals, like reptiles, skinks, wallabies, bilbies, feral camels",
+      "source_text": "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.",
+      "source_start": 0,
+      "source_end": 98,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-129",
+      "subject": "Predators",
+      "relation": "members",
+      "object": "dingoes, large lizards, cats, foxes, snakes",
+      "source_text": "Predators include dingoes, large lizards, cats, foxes, and snakes.",
+      "source_start": 99,
+      "source_end": 165,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-130",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "struggling to survive.",
+      "source_start": 253,
+      "source_end": 275,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-131",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Spinifex are an indigenous population of Australia who have lived in the desert for over 25,000 years.",
+      "source_start": 276,
+      "source_end": 382,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-132",
+      "subject": "being preserved by younger generations and attract tourists",
+      "relation": "members",
+      "object": "Their way of life, culture",
+      "source_text": "Their way of life and culture are being preserved by younger generations and attract tourists.",
+      "source_start": 383,
+      "source_end": 477,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-133",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Tourists also come to see the unique geography and wildlife.",
+      "source_start": 478,
+      "source_end": 538,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-134",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The word ‘desert’ conjures up images of a very hot and dry place.",
+      "source_start": 540,
+      "source_end": 605,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-135",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, there are cold deserts too.",
+      "source_start": 606,
+      "source_end": 642,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-136",
+      "subject": "The largest desert on Earth is Antarctica, which",
+      "relation": "members",
+      "object": "over 14 million square kilometres, more than four times the area of India",
+      "source_text": "The largest desert on Earth is Antarctica, which covers over 14 million square kilometres, more than four times the area of India.",
+      "source_start": 643,
+      "source_end": 773,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-137",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Through our whirlwind world tour we have visited most of the key geographical features of the Earth.",
+      "source_start": 848,
+      "source_end": 948,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-138",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "deposition.",
+      "source_start": 214,
+      "source_end": 225,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-139",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ These features influence climate, ecosystems, and human activities such as settlement, agriculture, and trade.",
+      "source_start": 226,
+      "source_end": 338,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-140",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Human actions like deforestation, overuse of resources, and pollution disturb this balance, causing issues like desertification, biodiversity loss, and climate change.",
+      "source_start": 339,
+      "source_end": 508,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-141",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Studying world geography helps us understand these features and the need to manage them wisely for sustainable development.",
+      "source_start": 509,
+      "source_end": 634,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-142",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Remember that in the chapter ‘The Colonial Era in India’ (Part 1 of this textbook), we saw how the Great Rebellion of 1857 was not an isolated flashpoint, but rather the culmination of a long history of resistance and uprisings against the British.",
+      "source_start": 0,
+      "source_end": 248,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-143",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Before we embark on the second leg of India’s long journey to independence, let us look back at two more important movements that took place in eastern India and serve as examples illustrating how deep-seated grievances over land revenue and the loss of sovereignty fuelled the desire for fairness and an end to colonial tyranny.",
+      "source_start": 249,
+      "source_end": 578,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-144",
+      "subject": "The Paika Sangram",
+      "relation": "role",
+      "object": "one of the earliest uprisings against colonial rule",
+      "source_text": "The Paika Sangram was one of the earliest uprisings against colonial rule.",
+      "source_start": 580,
+      "source_end": 654,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-145",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It took place at Khorda, in present-day Odisha and its roots lay in decades of British betrayal and exploitation.",
+      "source_start": 655,
+      "source_end": 768,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-146",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "After assisting the East India Company in 1803, the Raja of Khorda found his territories annexed by the Company and his religious authority over the Jagannath Temple stripped away.",
+      "source_start": 769,
+      "source_end": 949,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-147",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Resistance led by the royal preceptor, Jayee Rajguru, resulted in his execution in 1806, further fuelling local anger.",
+      "source_start": 950,
+      "source_end": 1068,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-148",
+      "subject": "A further source of distress",
+      "relation": "role",
+      "object": "the Company’s revenue policy",
+      "source_text": "A further source of distress was the Company’s revenue policy.",
+      "source_start": 1069,
+      "source_end": 1131,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-149",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The British began collecting tax even from revenue-free lands earlier granted to local officers and soldiers in return for service.",
+      "source_start": 1132,
+      "source_end": 1263,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-150",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Paikas—Odisha’s traditional peasant militia— lost their hereditary, rent-free lands because of these high tax demands imposed by the British.",
+      "source_start": 1264,
+      "source_end": 1409,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-151",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This economic distress was compounded by rise in salt prices and by forced payments in a new currency, as the East India Company abolished the traditional system of cowrie currency.",
+      "source_start": 1410,
+      "source_end": 1591,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-152",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "All this not only affected peasants but also tribal communities, as they suffered dispossession and hardship.",
+      "source_start": 1592,
+      "source_end": 1701,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-153",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Buxi (or Bakshi) Jagabandhu, the hereditary military commander of Khorda, emerged as the chief leader of resistance and mobilised the disaffected Paikas and tribal groups.",
+      "source_start": 0,
+      "source_end": 171,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-154",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Under his command, the rebels seized control of Puri and reinstated the Raja’s authority.",
+      "source_start": 172,
+      "source_end": 261,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-155",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The temple priests even declared the end of British rule, using Lord Jagannath of Puri as a symbol of Odia sovereignty to unite the masses.",
+      "source_start": 262,
+      "source_end": 401,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-156",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The rebellion spread across large parts of Odisha and involved thousands of fighters.",
+      "source_start": 402,
+      "source_end": 487,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-157",
+      "subject": "the British imposed martial law and eventually contained the main uprising by May 1817",
+      "relation": "comparison",
+      "object": "imprisoning and executing some of the rebels, Buxi Jagabandhu pursued a guerrilla campaign, taking advantage of forests and hills to launch surprise attacks, disrupt communications, and challenge British authority",
+      "source_text": "Though the British imposed martial law and eventually contained the main uprising by May 1817, imprisoning and executing some of the rebels, Buxi Jagabandhu pursued a guerrilla campaign, taking advantage of forests and hills to launch surprise attacks, disrupt communications, and challenge British authority.",
+      "source_start": 488,
+      "source_end": 797,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-158",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Even after his surrender in 1825, the spirit of defiance persisted through further revolts that continued into the 1830s.",
+      "source_start": 798,
+      "source_end": 919,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-159",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Today, the Paika Sangram is remembered as a broad-based and influential ‘people’s movement’ which equally involved peasants, tribal communities, religious institutions, and local elites.",
+      "source_start": 920,
+      "source_end": 1106,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-160",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Sambalpur Uprising: A Saga of Resilience Sambalpur, in present-day western Odisha, witnessed one of the longest regional resistances to British rule in eastern India, lasting from 1827 to 1862.",
+      "source_start": 1108,
+      "source_end": 1305,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-161",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It was sparked by colonial interference in royal succession, and the eventual British annexation of the state.",
+      "source_start": 1306,
+      "source_end": 1416,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-162",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The conflict began when the British refused to recognise Surendra Sai as the rightful ruler and annexed the state, imposing heavy land revenue that united local landlords and peasants against colonial injustice and economic exploitation.",
+      "source_start": 1417,
+      "source_end": 1654,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-163",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The resistance reached its peak during the Great Rebellion of 1857, when Surendra Sai, released from prison, led a valiant resistance with several members of his family, including his younger brothers Udanta Sai and Chhabila Sai, along with other local supporters, in defence of their land, regional autonomy, and right to self-rule.",
+      "source_start": 1655,
+      "source_end": 1988,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-164",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They used guerrilla tactics, taking advantage of the region’s dense forests and hills, converting hilltops into forts and using the terrain to repeatedly launch surprise attacks on the British forces.",
+      "source_start": 1989,
+      "source_end": 2189,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-165",
+      "subject": "The battle of Kudopali in December 1857",
+      "relation": "role",
+      "object": "historic landmark in this struggle",
+      "source_text": "The battle of Kudopali in December 1857 was a historic landmark in this struggle, in which fifty-seven fighters, led by Chhabila Sai, sacrificed their lives.",
+      "source_start": 2190,
+      "source_end": 2347,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-166",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Despite inflicting heavy casualties and executing numerous fighters, the British could not defeat the movement militarily.",
+      "source_start": 2348,
+      "source_end": 2470,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-167",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They ultimately resorted to deception to arrest Surendra Sai, who died in prison after 37 years of captivity.",
+      "source_start": 2471,
+      "source_end": 2580,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-168",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Sambalpur Uprising stands as a powerful example of courage, guerrilla warfare, mass martyrdom, and prolonged suffering in India’s",
+      "source_start": 2581,
+      "source_end": 2714,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines The plain?",
+      "options": [
+        {
+          "text": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "The Earth",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "trench",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Why do we need to understand",
+      "source_page": 17,
+      "supporting_excerpt": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "explanation": "Source verification: \"The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.\". This confirms that The plain is defined as low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-090"
+        ],
+        "excerpts": [
+          "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-090",
+            "start": 509,
+            "end": 611
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "The plain",
+        "low-lying terrain, gentle rolling hills, and several wide river valleys"
+      ],
+      "relation_keys": [
+        "the plain|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-090"
+      ],
+      "inference_steps": [
+        "Extracted source definition: The plain -> low-lying terrain, gentle rolling hills, and several wide river valleys",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-090"
+        ],
+        "steps": [
+          "Extracted source definition: The plain -> low-lying terrain, gentle rolling hills, and several wide river valleys",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0003",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0003",
+        "subject": "The plain",
+        "subject_normalized": "the plain",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+        "object_normalized": "low-lying terrain gentle rolling hills and several wide river valley",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 17,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "source_text": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "source_clause": "",
+        "supporting_excerpt": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "numeric_recall",
+      "stem": "According to the passage, what measurement is stated for highest and largest plateau on Earth north-south extent?",
+      "context": "The plateau stretches about 2,500 km from east to west and ______ from north to south, with an average height of over 4,500 metres above sea level.",
+      "options": [
+        {
+          "key": "A",
+          "text": "999 km",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "B",
+          "text": "1,000 km",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "1,001 km",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "D",
+          "text": "998 km",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1,000 km",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-076",
+          "fact_id": "F-LITE-068",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Roof of the world — the Tibetan Plateau",
+      "source_page": 12,
+      "supporting_excerpt": "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.",
+      "explanation": "The source states: “The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.” This identifies the value for highest and largest plateau on Earth north-south extent as 1,000 km.",
+      "difficulty": "easy",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-068"
+        ],
+        "excerpts": [
+          "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-068",
+            "start": 257,
+            "end": 406
+          }
+        ],
+        "stem_relation": "numeric_value",
+        "temporal_scope": "",
+        "fact_type": "numeric",
+        "source_title": "Roof of the world — the Tibetan Plateau",
+        "source_page": 12
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-068|1,000 km",
+      "relation_keys": [
+        "F-LITE-068|1,000 km"
+      ],
+      "candidate_sort": {
+        "source_start": 257,
+        "fact_id": "F-LITE-068"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which is described as the highest and largest plateau on Earth?",
+      "context": "______ is the highest and largest plateau on Earth.",
+      "options": [
+        {
+          "key": "A",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "The Tibetan Plateau",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "The Tibetan Plateau",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-074",
+          "fact_id": "F-LITE-065",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Roof of the world — the Tibetan Plateau",
+      "source_page": 12,
+      "supporting_excerpt": "The Tibetan Plateau is the highest and largest plateau on Earth.",
+      "explanation": "The source states: “The Tibetan Plateau is the highest and largest plateau on Earth.” This identifies superlative of the highest and largest plateau on Earth as The Tibetan Plateau.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-065"
+        ],
+        "excerpts": [
+          "The Tibetan Plateau is the highest and largest plateau on Earth."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-065",
+            "start": 0,
+            "end": 64
+          }
+        ],
+        "stem_relation": "superlative",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Roof of the world — the Tibetan Plateau",
+        "source_page": 12
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-065|the tibetan plateau",
+      "relation_keys": [
+        "F-LITE-065|the tibetan plateau"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-065"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "What does the plain mean?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-097",
+          "fact_id": "F-LITE-090",
+          "role": "primary"
+        }
+      ],
+      "source_title": "These mountains support diverse ecosystems, with coniferous taiga forests dominating the",
+      "source_page": 17,
+      "supporting_excerpt": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "explanation": "The source defines or describes The plain as follows: “The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.” The correct answer is low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-090"
+        ],
+        "excerpts": [
+          "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-090",
+            "start": 509,
+            "end": 611
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "These mountains support diverse ecosystems, with coniferous taiga forests dominating the",
+        "source_page": 17
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-090|low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "relation_keys": [
+        "F-LITE-090|low-lying terrain, gentle rolling hills, and several wide river valleys"
+      ],
+      "candidate_sort": {
+        "source_start": 509,
+        "fact_id": "F-LITE-090"
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which of the following is listed as part of the deserts?",
+      "context": "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "feral camels",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "mountains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "C",
+          "text": "plateaus",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "plains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "feral camels",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-142",
+          "fact_id": "F-LITE-128",
+          "role": "primary"
+        }
+      ],
+      "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+      "source_page": 30,
+      "supporting_excerpt": "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.",
+      "explanation": "The source states: “The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.” This lists feral camels as a member of The deserts.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-128"
+        ],
+        "excerpts": [
+          "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-128",
+            "start": 0,
+            "end": 98
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+        "source_page": 30
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-128|members",
+      "relation_keys": [
+        "F-LITE-128|members"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-128"
+      },
+      "expected_member": "feral camels"
+    },
+    {
+      "id": "Q-LITE-006",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on connecting the Red Sea with the Mediterranean, creating a:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+          "fact_id": "F-LITE-081",
+          "source_excerpt": "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Others are oblate spheroid.",
+          "fact_id": "F-LITE-057",
+          "source_excerpt": "Others are cold, like the Gobi Desert in Asia.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "cold, like the Gobi Desert in Asia",
+            "replacement": "oblate spheroid",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-088",
+          "fact_id": "F-LITE-081",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-066",
+          "fact_id": "F-LITE-057",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "The Eurasian Steppes",
+      "source_page": 15,
+      "supporting_excerpt": "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+      "explanation": "Statement 1 is correct. The source states: “Mountains are formed by tectonic forces, volcanic activity, and erosion.” This supports statement 1. Statement 2 is false. The source states: “Others are cold, like the Gobi Desert in Asia.” The stated value is cold, like the Gobi Desert in Asia, not oblate spheroid.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-081",
+          "F-LITE-057"
+        ],
+        "excerpts": [
+          "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+          "Others are cold, like the Gobi Desert in Asia."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-081",
+            "start": 0,
+            "end": 72
+          },
+          {
+            "fact_id": "F-LITE-057",
+            "start": 1147,
+            "end": 1193
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "The Eurasian Steppes",
+        "source_page": 15
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-081|formed by tectonic forces, volcanic activity, and erosion&F-LITE-057|cold, like the gobi desert in asia",
+      "relation_keys": [
+        "F-LITE-081|formed by tectonic forces, volcanic activity, and erosion",
+        "F-LITE-057|cold, like the gobi desert in asia"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-081"
+      }
+    },
+    {
+      "id": "Q-LITE-007",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with the savannah?",
+      "context": "The savannah is a ______ that has wide open spaces, scattered trees, and seasonal rainfall.",
+      "options": [
+        {
+          "key": "A",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "tropical grassland ecosystem",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "tropical grassland ecosystem",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-106",
+          "fact_id": "F-LITE-096",
+          "role": "primary"
+        }
+      ],
+      "source_title": "S U D A N S U D A N",
+      "source_page": 20,
+      "supporting_excerpt": "The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall.",
+      "explanation": "The source states: “The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall.” This identifies the stated role of The savannah as tropical grassland ecosystem.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-096"
+        ],
+        "excerpts": [
+          "The savannah is a tropical grassland ecosystem that has wide open spaces, scattered trees, and seasonal rainfall."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-096",
+            "start": 0,
+            "end": 113
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "S U D A N S U D A N",
+        "source_page": 20
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-096|tropical grassland ecosystem",
+      "relation_keys": [
+        "F-LITE-096|tropical grassland ecosystem"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-096"
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which one is mentioned as belonging to Predators?",
+      "context": "Predators include dingoes, large lizards, cats, ______, and snakes.",
+      "options": [
+        {
+          "key": "A",
+          "text": "mountains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "B",
+          "text": "plateaus",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "C",
+          "text": "plains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "foxes",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "foxes",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-143",
+          "fact_id": "F-LITE-129",
+          "role": "primary"
+        }
+      ],
+      "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+      "source_page": 30,
+      "supporting_excerpt": "Predators include dingoes, large lizards, cats, foxes, and snakes.",
+      "explanation": "The source states: “Predators include dingoes, large lizards, cats, foxes, and snakes.” This lists foxes as a member of Predators.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-129"
+        ],
+        "excerpts": [
+          "Predators include dingoes, large lizards, cats, foxes, and snakes."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-129",
+            "start": 99,
+            "end": 165
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+        "source_page": 30
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-129|members",
+      "relation_keys": [
+        "F-LITE-129|members"
+      ],
+      "candidate_sort": {
+        "source_start": 99,
+        "fact_id": "F-LITE-129"
+      },
+      "expected_member": "foxes"
+    },
+    {
+      "id": "Q-LITE-009",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with the Yellowstone National Park, located in the Rockies?",
+      "context": "The Yellowstone National Park, located in the Rockies, is an ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "example of ecosystem restoration",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "example of ecosystem restoration",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-135",
+          "fact_id": "F-LITE-122",
+          "role": "primary"
+        }
+      ],
+      "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+      "source_page": 28,
+      "supporting_excerpt": "The Yellowstone National Park, located in the Rockies, is an example of ecosystem restoration.",
+      "explanation": "The source states: “The Yellowstone National Park, located in the Rockies, is an example of ecosystem restoration.” This identifies the stated role of The Yellowstone National Park, located in the Rockies as example of ecosystem restoration.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-122"
+        ],
+        "excerpts": [
+          "The Yellowstone National Park, located in the Rockies, is an example of ecosystem restoration."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-122",
+            "start": 0,
+            "end": 94
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+        "source_page": 28
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-122|example of ecosystem restoration",
+      "relation_keys": [
+        "F-LITE-122|example of ecosystem restoration"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-122"
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "Which of the following is listed as part of Mountains?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "mountains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "B",
+          "text": "parts of several countries",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "plateaus",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "plains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "parts of several countries",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-096",
+          "fact_id": "F-LITE-089",
+          "role": "primary"
+        }
+      ],
+      "source_title": "These mountains support diverse ecosystems, with coniferous taiga forests dominating the",
+      "source_page": 17,
+      "supporting_excerpt": "It covers parts of several countries.",
+      "explanation": "The source states: “It covers parts of several countries.” This lists parts of several countries as a member of Mountains.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-089"
+        ],
+        "excerpts": [
+          "It covers parts of several countries."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-089",
+            "start": 471,
+            "end": 508
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "These mountains support diverse ecosystems, with coniferous taiga forests dominating the",
+        "source_page": 17
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-089|members",
+      "relation_keys": [
+        "F-LITE-089|members"
+      ],
+      "candidate_sort": {
+        "source_start": 471,
+        "fact_id": "F-LITE-089"
+      },
+      "expected_member": "parts of several countries"
+    },
+    {
+      "id": "Q-LITE-011",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes the Park?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "experiencing an ecological imbalance due to overgrazing by elk, a type of deer",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "experiencing an ecological imbalance due to overgrazing by elk, a type of deer",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-136",
+          "fact_id": "F-LITE-123",
+          "role": "primary"
+        }
+      ],
+      "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+      "source_page": 28,
+      "supporting_excerpt": "The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer.",
+      "explanation": "The source states: “The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer.” This identifies the stated role of The Park as experiencing an ecological imbalance due to overgrazing by elk, a type of deer.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-123"
+        ],
+        "excerpts": [
+          "The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-123",
+            "start": 95,
+            "end": 187
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "natural resource use. The Grand Canyon has had about 5 million",
+        "source_page": 28
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-123|experiencing an ecological imbalance due to overgrazing by elk, a type of deer",
+      "relation_keys": [
+        "F-LITE-123|experiencing an ecological imbalance due to overgrazing by elk, a type of deer"
+      ],
+      "candidate_sort": {
+        "source_start": 95,
+        "fact_id": "F-LITE-123"
+      }
+    },
+    {
+      "id": "Q-LITE-012",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "What role is associated with the Earth?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "cold, like the Gobi Desert in Asia",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "oblate spheroid",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "oblate spheroid",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-007",
+          "fact_id": "F-LITE-006",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The Complexity of Mapping the Earth",
+      "source_page": 2,
+      "supporting_excerpt": "The Earth is an oblate spheroid.",
+      "explanation": "The source states: “The Earth is an oblate spheroid.” This identifies the stated role of The Earth as oblate spheroid.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-006"
+        ],
+        "excerpts": [
+          "The Earth is an oblate spheroid."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-006",
+            "start": 519,
+            "end": 551
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The Complexity of Mapping the Earth",
+        "source_page": 2
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-006|oblate spheroid",
+      "relation_keys": [
+        "F-LITE-006|oblate spheroid"
+      ],
+      "candidate_sort": {
+        "source_start": 519,
+        "fact_id": "F-LITE-006"
+      }
+    },
+    {
+      "id": "Q-LITE-013",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes the Paika Sangram?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "one of the earliest uprisings against colonial rule",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "one of the earliest uprisings against colonial rule",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-161",
+          "fact_id": "F-LITE-144",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The Paika Sangram: Odisha’s Early Uprising Against Colonial Rule",
+      "source_page": 33,
+      "supporting_excerpt": "The Paika Sangram was one of the earliest uprisings against colonial rule.",
+      "explanation": "The source states: “The Paika Sangram was one of the earliest uprisings against colonial rule.” This identifies the stated role of The Paika Sangram as one of the earliest uprisings against colonial rule.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-144"
+        ],
+        "excerpts": [
+          "The Paika Sangram was one of the earliest uprisings against colonial rule."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-144",
+            "start": 580,
+            "end": 654
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The Paika Sangram: Odisha’s Early Uprising Against Colonial Rule",
+        "source_page": 33
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-144|one of the earliest uprisings against colonial rule",
+      "relation_keys": [
+        "F-LITE-144|one of the earliest uprisings against colonial rule"
+      ],
+      "candidate_sort": {
+        "source_start": 580,
+        "fact_id": "F-LITE-144"
+      }
+    },
+    {
+      "id": "Q-LITE-014",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with the battle of Kudopali in December 1857?",
+      "context": "The battle of Kudopali in December 1857 was a ______, in which fifty-seven fighters, led by Chhabila Sai, sacrificed their lives.",
+      "options": [
+        {
+          "key": "A",
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "historic landmark in this struggle",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "two projections",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "ridge found at or near the surface of the ocean",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "historic landmark in this struggle",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-182",
+          "fact_id": "F-LITE-165",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The Paika Sangram: Odisha’s Early Uprising Against Colonial Rule",
+      "source_page": 34,
+      "supporting_excerpt": "The battle of Kudopali in December 1857 was a historic landmark in this struggle, in which fifty-seven fighters, led by Chhabila Sai, sacrificed their lives.",
+      "explanation": "The source states: “The battle of Kudopali in December 1857 was a historic landmark in this struggle, in which fifty-seven fighters, led by Chhabila Sai, sacrificed their lives.” This identifies the stated role of The battle of Kudopali in December 1857 as historic landmark in this struggle.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-165"
+        ],
+        "excerpts": [
+          "The battle of Kudopali in December 1857 was a historic landmark in this struggle, in which fifty-seven fighters, led by Chhabila Sai, sacrificed their lives."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-165",
+            "start": 2190,
+            "end": 2347
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The Paika Sangram: Odisha’s Early Uprising Against Colonial Rule",
+        "source_page": 34
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-165|historic landmark in this struggle",
+      "relation_keys": [
+        "F-LITE-165|historic landmark in this struggle"
+      ],
+      "candidate_sort": {
+        "source_start": 2190,
+        "fact_id": "F-LITE-165"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines The plain?",
+      "options": [
+        {
+          "text": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "The Earth",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "oblate spheroid",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "trench",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Why do we need to understand",
+      "source_page": 17,
+      "supporting_excerpt": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "explanation": "Source verification: \"The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.\". This confirms that The plain is defined as low-lying terrain, gentle rolling hills, and several wide river valleys.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-090"
+        ],
+        "excerpts": [
+          "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-090",
+            "start": 509,
+            "end": 611
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "The plain",
+        "low-lying terrain, gentle rolling hills, and several wide river valleys"
+      ],
+      "relation_keys": [
+        "the plain|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-090"
+      ],
+      "inference_steps": [
+        "Extracted source definition: The plain -> low-lying terrain, gentle rolling hills, and several wide river valleys",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-090"
+        ],
+        "steps": [
+          "Extracted source definition: The plain -> low-lying terrain, gentle rolling hills, and several wide river valleys",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0003",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0003",
+        "subject": "The plain",
+        "subject_normalized": "the plain",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+        "object_normalized": "low-lying terrain gentle rolling hills and several wide river valley",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 17,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "source_text": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "source_clause": "",
+        "supporting_excerpt": "The plain is characterised by low-lying terrain, gentle rolling hills, and several wide river valleys.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-006",
+      "subject": "The Earth",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "oblate spheroid",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-034",
+      "subject": "trench",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "2,000 metres",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-057",
+      "subject": "Others",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "cold, like the Gobi Desert in Asia",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-065",
+      "subject": "the highest and largest plateau on Earth",
+      "predicate": "superlative",
+      "relation_type": "HAS_PROPERTY",
+      "object": "The Tibetan Plateau",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-067",
+      "subject": "highest and largest plateau on Earth east-west extent",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "2,500 km",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-068",
+      "subject": "highest and largest plateau on Earth north-south extent",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "1,000 km",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-069",
+      "subject": "highest and largest plateau on Earth average height",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "4,500 metres",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-077",
+      "subject": "winter temperatures can drop",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "30°C",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-081",
+      "subject": "Mountains",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "formed by tectonic forces, volcanic activity, and erosion",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-089",
+      "subject": "Mountains",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "parts of several countries",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-090",
+      "subject": "The plain",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "low-lying terrain, gentle rolling hills, and several wide river valleys",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-096",
+      "subject": "The savannah",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "tropical grassland ecosystem",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-103",
+      "subject": "world, the Nile, almost",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "6,650 km",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-117",
+      "subject": "stretching",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "1,000 km",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-122",
+      "subject": "The Yellowstone National Park, located in the Rockies",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "example of ecosystem restoration",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-123",
+      "subject": "The Park",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "experiencing an ecological imbalance due to overgrazing by elk, a type of deer",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-128",
+      "subject": "The deserts",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "home to many animals, like reptiles, skinks, wallabies, bilbies, feral camels",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-129",
+      "subject": "Predators",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "dingoes, large lizards, cats, foxes, snakes",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-144",
+      "subject": "The Paika Sangram",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "one of the earliest uprisings against colonial rule",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-165",
+      "subject": "The battle of Kudopali in December 1857",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "historic landmark in this struggle",
+      "is_derived": false
+    }
+  ]
+}

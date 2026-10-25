@@ -153,6 +153,20 @@ function assertQuestionContract(question, facts) {
   assert(fact, `${question.id}: primary source fact is required`);
   assert.strictEqual(question.expected_answer, good.text, `${question.id}: expected answer must equal the keyed option`);
 
+  // Proof-carrying V2 questions answer with the verified derived proposition,
+  // not with a single extracted fact value. The proof contract replaces the
+  // single-fact equality check while keeping evidence and answer binding.
+  if (question.proof_trace && question.derived_proposition) {
+    const derived = question.derived_proposition;
+    const allowed = [derived.object, derived.subject, derived.condition]
+      .filter(Boolean)
+      .map(normalize);
+    assert(allowed.includes(normalize(good.text)), `${question.id}: keyed answer must equal the verified derived proposition`);
+    assert(question.primary_operator, `${question.id}: proof-carrying question must name its operator`);
+    assert(Array.isArray(question.proof_trace.premises) && question.proof_trace.premises.length > 0, `${question.id}: proof trace must carry premises`);
+    return;
+  }
+
   if (question.question_subtype === 'sequence_order') {
     assert.strictEqual(good.text, fact.sequence_items.join(' → '), `${question.id}: sequence answer must preserve source order`);
   } else if (question.question_subtype === 'classification_membership') {
@@ -568,6 +582,9 @@ const fixturePronoun = [
   'Each centimetre on the map represents a certain distance on the ground.',
   'Let us suppose it is 500 metres; we say that the scale is 1 cm = 500 m.',
   'A map is a representation of the earth surface on a flat sheet of paper.',
+  'A globe is a model of the earth.',
+  'An atlas is a collection of maps.',
+  'A compass is an instrument for finding direction.',
   'The direction of north is shown by an arrow in the map.'
 ].join(' ');
 const analyzedPronoun = analyze(fixturePronoun, 'Map Scale');
@@ -705,7 +722,7 @@ assert(
 );
 
 // 16.5 Valid definition of map projection produces question
-const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. Cartographers use map projections to represent geographic features accurately.';
+const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. A globe is defined as a three-dimensional model of the earth. A compass is defined as an instrument that shows direction. Cartographers use map projections to represent geographic features accurately.';
 const mapDefAnalyzed = analyze(mapDefDoc, 'Map Projections');
 assert(mapDefAnalyzed.bank && mapDefAnalyzed.bank.length > 0, 'Valid map projection definition must produce verified questions');
 const mapDefQ = mapDefAnalyzed.bank.find(q => /map projection/i.test(q.stem));

@@ -1,0 +1,4580 @@
+{
+  "meta": {
+    "file": "hees209.pdf",
+    "chapterNum": 8,
+    "subject": "History / Culture",
+    "title": "Cultural Currents: 13th to 17th Centuries",
+    "outBase": "hees209_cultural_currents_13th_to_17th_centuries",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 35,
+    "pagesProcessed": 35,
+    "pagesWithBody": 31,
+    "pagesWithoutBody": 4,
+    "textItemCount": 2227,
+    "blockTypes": {
+      "heading": 10,
+      "diagram": 72,
+      "page_furniture": 66,
+      "body": 78,
+      "caption": 32,
+      "ambiguous": 9,
+      "fragment": 12
+    }
+  },
+  "generation": {
+    "factCount": 231,
+    "totalCandidates": 48,
+    "accepted": 14,
+    "rejected": 34,
+    "requestedCount": 15,
+    "conflictCount": 0,
+    "conflictedFactCount": 0,
+    "conflictedFactIds": [],
+    "unusedFactCount": 215,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-165",
+      "F-LITE-166",
+      "F-LITE-167",
+      "F-LITE-168",
+      "F-LITE-169",
+      "F-LITE-170",
+      "F-LITE-171",
+      "F-LITE-172",
+      "F-LITE-173",
+      "F-LITE-174",
+      "F-LITE-175",
+      "F-LITE-176",
+      "F-LITE-177",
+      "F-LITE-178",
+      "F-LITE-179",
+      "F-LITE-180",
+      "F-LITE-181",
+      "F-LITE-182",
+      "F-LITE-183",
+      "F-LITE-184",
+      "F-LITE-185",
+      "F-LITE-186",
+      "F-LITE-187",
+      "F-LITE-188",
+      "F-LITE-189",
+      "F-LITE-190",
+      "F-LITE-191",
+      "F-LITE-192",
+      "F-LITE-193",
+      "F-LITE-194",
+      "F-LITE-195",
+      "F-LITE-196",
+      "F-LITE-197",
+      "F-LITE-198",
+      "F-LITE-201",
+      "F-LITE-202",
+      "F-LITE-203",
+      "F-LITE-205",
+      "F-LITE-208",
+      "F-LITE-209",
+      "F-LITE-210",
+      "F-LITE-211",
+      "F-LITE-212",
+      "F-LITE-213",
+      "F-LITE-214",
+      "F-LITE-215",
+      "F-LITE-216",
+      "F-LITE-218",
+      "F-LITE-219",
+      "F-LITE-220",
+      "F-LITE-221",
+      "F-LITE-222",
+      "F-LITE-223",
+      "F-LITE-224",
+      "F-LITE-225",
+      "F-LITE-226",
+      "F-LITE-227",
+      "F-LITE-228",
+      "F-LITE-229",
+      "F-LITE-230",
+      "F-LITE-231"
+    ],
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_spans": 5,
+      "unsupported_facts": 207,
+      "duplicate_relation": 34
+    },
+    "buildMetrics": {
+      "missingOptions": 3,
+      "unsafeFacts": 0,
+      "unsupportedFacts": 207,
+      "multiMissing": 0,
+      "unsafeSpans": 5
+    },
+    "subtypeDistribution": {
+      "entity_attribute": 11,
+      "cause_effect": 1,
+      "multi_statement": 2
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 14,
+    "totalCandidates": 48,
+    "accepted": 14,
+    "rejected": 34,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 3,
+      "unsafe_spans": 5,
+      "unsupported_facts": 207,
+      "duplicate_relation": 34
+    },
+    "subtypeDistribution": {
+      "entity_attribute": 11,
+      "cause_effect": 1,
+      "multi_statement": 2
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    },
+    "unusedFacts": 215,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-165",
+      "F-LITE-166",
+      "F-LITE-167",
+      "F-LITE-168",
+      "F-LITE-169",
+      "F-LITE-170",
+      "F-LITE-171",
+      "F-LITE-172",
+      "F-LITE-173",
+      "F-LITE-174",
+      "F-LITE-175",
+      "F-LITE-176",
+      "F-LITE-177",
+      "F-LITE-178",
+      "F-LITE-179",
+      "F-LITE-180",
+      "F-LITE-181",
+      "F-LITE-182",
+      "F-LITE-183",
+      "F-LITE-184",
+      "F-LITE-185",
+      "F-LITE-186",
+      "F-LITE-187",
+      "F-LITE-188",
+      "F-LITE-189",
+      "F-LITE-190",
+      "F-LITE-191",
+      "F-LITE-192",
+      "F-LITE-193",
+      "F-LITE-194",
+      "F-LITE-195",
+      "F-LITE-196",
+      "F-LITE-197",
+      "F-LITE-198",
+      "F-LITE-201",
+      "F-LITE-202",
+      "F-LITE-203",
+      "F-LITE-205",
+      "F-LITE-208",
+      "F-LITE-209",
+      "F-LITE-210",
+      "F-LITE-211",
+      "F-LITE-212",
+      "F-LITE-213",
+      "F-LITE-214",
+      "F-LITE-215",
+      "F-LITE-216",
+      "F-LITE-218",
+      "F-LITE-219",
+      "F-LITE-220",
+      "F-LITE-221",
+      "F-LITE-222",
+      "F-LITE-223",
+      "F-LITE-224",
+      "F-LITE-225",
+      "F-LITE-226",
+      "F-LITE-227",
+      "F-LITE-228",
+      "F-LITE-229",
+      "F-LITE-230",
+      "F-LITE-231"
+    ],
+    "conflictedFacts": 0,
+    "conflictedFactIds": []
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "I do not want my house to be walled in on all sides and my windows to be stuffed.",
+      "source_start": 0,
+      "source_end": 81,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "I want the cultures of all the lands to be blown about my house as freely as possible.",
+      "source_start": 82,
+      "source_end": 168,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "But I refuse to be blown off my feet by any.",
+      "source_start": 169,
+      "source_end": 213,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "13 th century.",
+      "source_start": 0,
+      "source_end": 14,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As we saw earlier (in the chapter 2 ‘Reshaping of India’s Political Map’ in Grade 8 Part 1), for several centuries, India came under the influence of rulers who brought with them new and differing political ideas, administrative systems, art and architectural styles, religious beliefs, and a different worldview.",
+      "source_start": 15,
+      "source_end": 328,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This chapter surveys some of the cultural developments that occurred during the 13 th to 17 th centuries.",
+      "source_start": 329,
+      "source_end": 434,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In a vast and diverse country like India, it would be quite impossible to be comprehensive, so we offer a few vignettes that provide a broad picture of the cultural currents, continuity, and changes witnessed during this period.",
+      "source_start": 435,
+      "source_end": 663,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Throughout this turbulent period, we notice some common patterns: 1. continuation of traditional practices in Indian communities; 2. patronage from rulers of various backgrounds in the arts, languages, literature, and philosophy; and 3. active participation by people across all sections of society.",
+      "source_start": 664,
+      "source_end": 963,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "political instability created disruptions during this period",
+      "relation": "comparison",
+      "object": "Indian culture continued to grow ever richer and proved remarkably strong and adaptable",
+      "source_text": "While political instability created disruptions during this period, Indian culture continued to grow ever richer and proved remarkably strong and adaptable.",
+      "source_start": 964,
+      "source_end": 1120,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Developments took place across various dimensions — visual art and architecture, music and dance, language and literature, science and mathematics, as well as philosophy.",
+      "source_start": 1121,
+      "source_end": 1291,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In addition, under the patronage of the ruling Muslim class in several parts, it was but natural that Persian and Arabic influences would be witnessed in various aspects of the local culture, often creating new art forms.",
+      "source_start": 1292,
+      "source_end": 1513,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Belief Systems During this time, religious differences between the invaders and the local population were striking.",
+      "source_start": 0,
+      "source_end": 115,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The difference between a monotheistic Islam with one prophet, and a religion with several schools of thought and no single holy book, was quite stark at the time.",
+      "source_start": 116,
+      "source_end": 278,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The desire of many of the invaders to annihilate the ‘infidels’ — guided by their own version of Islam — led to the plunder and destruction of some of the oldest, and most sacred, sites and temples.",
+      "source_start": 279,
+      "source_end": 477,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Naturally, these differences led to various complexities; for a time, one may have felt that there could be no meeting ground, or that what had happened in other parts of the world, where rulers guided by their own militant versions of their faith had suppressed the indigenous faiths, might recur here.",
+      "source_start": 478,
+      "source_end": 781,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "And yet, more than a millennium after the first encounters with such invaders, the belief systems native to India continue, and Islam also continues to be practised in India along with other religions.",
+      "source_start": 782,
+      "source_end": 983,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "(see Grade 7, Part 2).",
+      "source_start": 0,
+      "source_end": 22,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The renewed popularity of the bhakti tradition during this period reflected cultural continuity and society’s search for spiritual resilience amid political and religious upheaval.",
+      "source_start": 23,
+      "source_end": 203,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Verses and songs were composed in local languages, expressing love, compassion, and equality, connecting people through songs, music, and dance.",
+      "source_start": 204,
+      "source_end": 348,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Regional saints and their messages In north India, Kabirdas (popularly called Kabir), presumably raised by a weaver couple, lived in the 15 th century in present-day Uttar Pradesh.",
+      "source_start": 350,
+      "source_end": 530,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "His compositions talk of one god and decry the rituals of both Hinduism and Islam.",
+      "source_start": 531,
+      "source_end": 613,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This appealed to many people and his compositions became popular.",
+      "source_start": 614,
+      "source_end": 679,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Ravidas (early 16 th century, born in a family of leather-workers) composed poetry that promoted the idea of equality and oneness of all, breaking down the rigid walls that had developed around varṇa and jāti .",
+      "source_start": 680,
+      "source_end": 892,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Guru Nanak journeyed across regions, spreading the message of one God and the equality of all people.",
+      "source_start": 894,
+      "source_end": 995,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "His teachings, along with the hymns of several Hindu saints, are preserved in the Guru Granth S ā hib , the sacred text of the Sikhs.",
+      "source_start": 996,
+      "source_end": 1130,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "examples are Mirabai in Rajasthan, Chaitanya Mahaprabhu in the east, Tukaram , Dnyaneshwar and Namdev in the west, and Purandaradasa and Kanakadasa in the south.",
+      "source_start": 0,
+      "source_end": 161,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They continued the traditions that had begun a few hundred years prior.",
+      "source_start": 162,
+      "source_end": 233,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "People from all sections of society participated in gatherings where these bhajans were sung accompanied by musical instruments and dancing, all as expressions of devotion to god.",
+      "source_start": 234,
+      "source_end": 413,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some of these bhajans reinforced the idea of the oneness of god (a concept that the Upaniṣhads discussed), and hence also connected with the idea of one god espoused by Islam; others brought people together in cultural unity and continuity.",
+      "source_start": 414,
+      "source_end": 655,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "kābā phir kāsī bhayā, Ram bhayā re Rahīm moṭ chūn maida bhayā baiṭhi Kabīrā jīm When wheat is ground into flour, all distinctions between individual grains disappear; they become one substance.",
+      "source_start": 657,
+      "source_end": 864,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, when one realises the divine, all differences between Ram and Rahim dissolve.",
+      "source_start": 865,
+      "source_end": 953,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For Kabir, once everything becomes one (like flour), he peacefully “sits to eat”.",
+      "source_start": 955,
+      "source_end": 1036,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "Sufism",
+      "relation": "role",
+      "object": "path of Islam",
+      "source_text": "Sufism is a path of Islam that focuses on devotion, and an inner and personal search for god.",
+      "source_start": 96,
+      "source_end": 189,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sufi music became an important part of spiritual life in India.",
+      "source_start": 190,
+      "source_end": 253,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sufi saints expressed their love of god and, to bring people closer to the divine, they sang devotional",
+      "source_start": 254,
+      "source_end": 357,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "songs called qaww ā līs , fusing local classical musical styles with their own.",
+      "source_start": 359,
+      "source_end": 440,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These songs had powerful lyrics about love, faith, and unity.",
+      "source_start": 441,
+      "source_end": 502,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Famous Sufi saints like Khwaja Moinuddin Chishti and Nizamuddin Auliya encouraged music as a way to connect with god.",
+      "source_start": 503,
+      "source_end": 620,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sufis also adopted yogic and Vedantic techniques, including inner silence, asceticism (renunciation of worldly desires), and meditation (like ) to achieve spiritual union, much like Vedantic paths to mokṣha .",
+      "source_start": 622,
+      "source_end": 831,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Figures like Dara Shikoh championed the unity of these paths, facilitating the translation of some Upanishads into Persian, and seeing Vedanta and Sufism as converging on universal truth, fostering mutual respect and understanding.",
+      "source_start": 832,
+      "source_end": 1063,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Thus, the Bhakti and Sufi traditions often overlapped.",
+      "source_start": 1065,
+      "source_end": 1119,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Poets brought together ideas from different religions, enriching Indian literature with themes of unity and devotion.",
+      "source_start": 1120,
+      "source_end": 1237,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "I am the same as he.",
+      "source_start": 58,
+      "source_end": 78,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "His essence speaks through me.",
+      "source_start": 79,
+      "source_end": 109,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "I have been looking for myself!",
+      "source_start": 110,
+      "source_end": 141,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Purandaradasa , the father of Carnatic music, lived in the 15 th –16 th century.",
+      "source_start": 144,
+      "source_end": 224,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "He is said to have given up his diamond business and become an ardent devotee of Kṛi ṣ h ṇ a.",
+      "source_start": 225,
+      "source_end": 320,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "He may have composed as many as 4,75,000 kīrtanās or musical compositions.",
+      "source_start": 321,
+      "source_end": 397,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Wandering around the Vijayanagara empire, his fame reached Krishnadevaraya’s court where eventually he was invited and became a part.",
+      "source_start": 398,
+      "source_end": 531,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Note that some of the paintings you see here were created almost two centuries after the lives of the sants , indicating that their influence continued much longer.",
+      "source_start": 533,
+      "source_end": 697,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In fact, the bhajans composed during that time continue to be sung today.",
+      "source_start": 698,
+      "source_end": 771,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Observe that the bhakti saints were often accompanied by musical instruments.",
+      "source_start": 772,
+      "source_end": 849,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In Tamil Nadu, the legacy of the Ā lvārs and Nāyanārs continued to thrive.",
+      "source_start": 0,
+      "source_end": 78,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Divya Prabandham of the Ā lvārs and the Tiruvāchakam of the Nāyanārs were being recited in homes and temples.",
+      "source_start": 79,
+      "source_end": 197,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They are devotional hymns composed in praise of Viṣhṇu and Ś hiva between the 6 th and 9 th centuries.",
+      "source_start": 198,
+      "source_end": 303,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Continuation and Evolution Music and dance-drama have been an integral part of Indian culture since ancient times, with very distinct local manifestations, even while the themes of the compositions may have been similar.",
+      "source_start": 454,
+      "source_end": 674,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Nātyaśhāstra text that you were introduced to in your Art Education classes formalised the traditions in an interdisciplinary way, bringing together dance, drama, music, science, mathematics, aesthetics, and mythology, yet they were flexible and had many regional streams.",
+      "source_start": 675,
+      "source_end": 954,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Traditional storytelling was also accompanied by song, dance and drama, varying from region to region, such as puppetry in Rajasthan and pa ṭṭ achitra ( pa ṭṭ a meaning ‘cloth’ and chitra meaning ‘picture’) in Odisha, West Bengal and Andhra Pradesh.",
+      "source_start": 955,
+      "source_end": 1208,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "The traditional themes of the pa ṭṭ achitra",
+      "relation": "role",
+      "object": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+      "source_text": "The traditional themes of the pa ṭṭ achitra were usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.",
+      "source_start": 1209,
+      "source_end": 1328,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These were used by travelling bards to tell stories from the epics, in village gatherings accompanied by song.",
+      "source_start": 1329,
+      "source_end": 1439,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Emotions of everyday life — love, grief, pain, longing — also entered these traditions,",
+      "source_start": 1440,
+      "source_end": 1527,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "reaching all sections of the population.",
+      "source_start": 0,
+      "source_end": 40,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "Music and dance",
+      "relation": "role",
+      "object": "performed in temples as well as in social gatherings and village melas",
+      "source_text": "Music and dance were performed in temples as well as in social gatherings and village melas.",
+      "source_start": 41,
+      "source_end": 133,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Explore, with your teachers and parents, the possibility of inviting practitioners to your school for a talk and demonstration.",
+      "source_start": 192,
+      "source_end": 319,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Amīr Khusro (also spelt Amīr Khusrau) was an Indo-Persian Sufi poet and singer who lived from the mid-13 th century to the early 14 th century.",
+      "source_start": 321,
+      "source_end": 466,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "He is credited with developing the qaww ā lī , a form of Sufi devotional song fusing Indian, Persian, and Arabic singing traditions.",
+      "source_start": 467,
+      "source_end": 601,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The other stream, Carnatic music (we referred to this when we met Purandaradāsa in the previous section) continued to develop independently, largely unaffected by Persian and Arabic influences.",
+      "source_start": 0,
+      "source_end": 194,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This period also saw the adaptation of instruments that continue to be used today.",
+      "source_start": 195,
+      "source_end": 277,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "exact origins remain debated by scholars",
+      "relation": "comparison",
+      "object": "modern forms of instruments like the sitar and tabla evolved during these centuries through experimentation by instrument makers and musicians from various backgrounds, even while the musical repertoires of these instruments came from the traditions of much older Indian instruments, e.g., the ancient pakhāwaj in the case of the tabla",
+      "source_text": "While exact origins remain debated by scholars, modern forms of instruments like the sitar and tabla evolved during these centuries through experimentation by instrument makers and musicians from various backgrounds, even while the musical repertoires of these instruments came from the traditions of much older Indian instruments, e.g., the ancient pakhāwaj in the case of the tabla.",
+      "source_start": 278,
+      "source_end": 663,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Miniature Paintings From cave art to the Ajanta murals, painting has long expressed human experience.",
+      "source_start": 665,
+      "source_end": 766,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Over time, murals and frescoes developed into refined art forms, and after paper reached India in the 10 th or 11 th century, artists began transferring these works from walls to paper.",
+      "source_start": 767,
+      "source_end": 952,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "The Rajput painting tradition",
+      "relation": "role",
+      "object": "thriving during the period from the 15 th century to the late 19 th century",
+      "source_text": "The Rajput painting tradition was thriving during the period from the 15 th century to the late 19 th century.",
+      "source_start": 953,
+      "source_end": 1063,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "peacocks, women with large eyes, people with different skin colours, and so on.",
+      "source_start": 0,
+      "source_end": 79,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "Abul Fazl in the Ain-i-Akbari",
+      "relation": "definition",
+      "object": "Hindu painters of the time, writing, “Their pictures surpass our conception of things",
+      "source_text": "Abul Fazl in the Ain-i-Akbari refers to Hindu painters of the time, writing, “Their pictures surpass our conception of things.",
+      "source_start": 80,
+      "source_end": 206,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "Few indeed in the whole world",
+      "relation": "role",
+      "object": "equal to them",
+      "source_text": "Few indeed in the whole world are equal to them.",
+      "source_start": 207,
+      "source_end": 255,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Mughal miniature painting flourished during this period as a genre distinct from Rajput art, shaped by Persian influences.",
+      "source_start": 258,
+      "source_end": 380,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These works depicted secular themes — landscapes, court scenes, and portraits.",
+      "source_start": 381,
+      "source_end": 459,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Known as court paintings, created due to Mughal royal patronage, they reached their height in Akbar’s atelier , where collaborations among artists were common — one artist would draw the lines, another fill the colours, and a third add finishing touches.",
+      "source_start": 460,
+      "source_end": 714,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Miniatures also appeared in manuscripts, including Persian translations of the Mah ā bh ā rata.",
+      "source_start": 715,
+      "source_end": 812,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Changing Landscapes — Gardens Gardens have been an essential aspect of urban landscapes for millennia, with words such as udyāna , vātikā , and nandana mentioned and described in the Ṛ igveda, Mahābhārata and Rāmāyaṇa.",
+      "source_start": 0,
+      "source_end": 227,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They were often built around temples with a pond or a tank.",
+      "source_start": 228,
+      "source_end": 287,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "With the arrival of the Mughals, gardens took on a new dimension, borrowing from the Persian charbagh design — four parts with gardens and waterways representing the rivers of Paradise mentioned in the Quran — including water channels, fountains, and terraces.",
+      "source_start": 288,
+      "source_end": 548,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Such gardens were developed around forts, tombs, and mosques, and continue to exist today.",
+      "source_start": 549,
+      "source_end": 639,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Mughal Gardens at Rashtrapathi Bhawan are very famous.",
+      "source_start": 640,
+      "source_end": 698,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "the taste of the patron ruler, the local traditions and materials, and the expertise of the craftsmen",
+      "relation": "role",
+      "object": "distinctive feature of the time",
+      "source_text": "the taste of the patron ruler, the local traditions and materials, and the expertise of the craftsmen, was a distinctive feature of the time.",
+      "source_start": 0,
+      "source_end": 141,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Take up a group project.",
+      "source_start": 143,
+      "source_end": 167,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Variations in Their Role and Status Abu Zaidu-l Hasan, a 10 th -century Arab chronicler, noted, “Most of the princes of India, when they hold court, allow their women to be seen by the men who attend it, whether they be natives or foreigners.",
+      "source_start": 342,
+      "source_end": 584,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "No veil conceals them from the eye of the visitor.",
+      "source_start": 585,
+      "source_end": 635,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "” However, the invasions and military campaigns from the 12 th century onwards impacted the status of women.",
+      "source_start": 635,
+      "source_end": 743,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "Women and children",
+      "relation": "role",
+      "object": "imprisoned and sold as slaves in the markets of West and Central Asia",
+      "source_text": "Women and children were imprisoned and sold as slaves in the markets of West and Central Asia.",
+      "source_start": 744,
+      "source_end": 838,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some women committed jauhar .",
+      "source_start": 839,
+      "source_end": 868,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the early 17 th century, Nur Jahan was one of the most influential women of the Mughal Empire.",
+      "source_start": 0,
+      "source_end": 97,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Married to Emperor Jahangir, she played an active role in governance, issuing royal orders and attending court meetings.",
+      "source_start": 98,
+      "source_end": 218,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Coins were also minted in her name.",
+      "source_start": 219,
+      "source_end": 254,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She was known for her intelligence, leadership, and sense of style, and she supported art, architecture, and trade.",
+      "source_start": 255,
+      "source_end": 370,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For the most part, the situation for women in south India did not change during this period.",
+      "source_start": 498,
+      "source_end": 590,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The societal norms of the past continued to rule their lives.",
+      "source_start": 591,
+      "source_end": 652,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Elite women continued to play a role in administration and other areas of public life.",
+      "source_start": 653,
+      "source_end": 739,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They exercised power, issued grants, and influenced political decisions.",
+      "source_start": 740,
+      "source_end": 812,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-100",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The wall engravings at Hampi depict women participating in many activities in public life.",
+      "source_start": 813,
+      "source_end": 903,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-101",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "From the chronicle of the Portuguese traveller to India, Fernão Nunes, who visited the Vijayanagar Empire: “He [the King] has also women who wrestle, and others who are astrologers and soothsayers; and he has women who write all the accounts of expenses that are incurred inside the gates, and others whose duty it is to write all the affairs of the kingdom and compare their books with those of the writers outside; he has women also for music, who play instruments and sing.",
+      "source_start": 905,
+      "source_end": 1381,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-102",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Women engaged with the royal family were educated and accomplished in the arts, and some were also poets.",
+      "source_start": 0,
+      "source_end": 105,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-103",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We will meet one of them in the next section.",
+      "source_start": 106,
+      "source_end": 151,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-104",
+      "subject": "Several inscriptions",
+      "relation": "function",
+      "object": "donations",
+      "source_text": "Several inscriptions record donations to temples made by queens and women from the richer strata of society.",
+      "source_start": 152,
+      "source_end": 260,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-105",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These included entire villages; a part of the crop cultivated would be the temple’s share.",
+      "source_start": 261,
+      "source_end": 351,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-106",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There are also records of community halls and wells being constructed at the initiative of women, all for public use.",
+      "source_start": 352,
+      "source_end": 469,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-107",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is clear that economic prosperity in this period could not have reached the heights it did without the active participation of women.",
+      "source_start": 569,
+      "source_end": 705,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-108",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Imagine that you are a historian in the 22 nd century looking at the lives and status of girls and women in 21 st -century society.",
+      "source_start": 707,
+      "source_end": 838,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-109",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Exchange your thoughts with your classmates.",
+      "source_start": 893,
+      "source_end": 937,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-110",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Education and Knowledge Traditions Invasions and military campaigns during this period disrupted India’s educational landscape as well.",
+      "source_start": 974,
+      "source_end": 1109,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-111",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Yet, from villages to temples, the tradition of learning persisted, and was safeguarded and nurtured by kings, saints, poets, and scholars, often against great odds.",
+      "source_start": 1110,
+      "source_end": 1275,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-112",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Institutions of learning Education thrived in gurukulas, maṭhas , temple schools, and Buddhist vihāras and Jain pallis , where students lived with their teachers and studied subjects like Sanskrit and Prakrit grammar, astronomy, law, medicine, and sacred texts.",
+      "source_start": 1277,
+      "source_end": 1539,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-113",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Villages had p ā ṭhaśh ā l ā s .",
+      "source_start": 1540,
+      "source_end": 1575,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-114",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "mathematics.",
+      "source_start": 0,
+      "source_end": 12,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-115",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Kerala School of Mathematics is renowned for path-breaking contributions to the field of mathematics and, in particular, laying the seeds of infinite series and calculus.",
+      "source_start": 13,
+      "source_end": 187,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-116",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Under Muslim rule, madras ā s offered instruction in Arabic, Persian, Hindavi , and Islamic studies.",
+      "source_start": 188,
+      "source_end": 289,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-117",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The jāti and ś hreṇi system for arts, craft and trade continued.",
+      "source_start": 291,
+      "source_end": 358,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-118",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The codes and norms that guided these institutions, and the associated apprenticeships, continued.",
+      "source_start": 359,
+      "source_end": 457,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-119",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These decentralised systems were not affected by political turmoil, except in cases",
+      "source_start": 458,
+      "source_end": 541,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-120",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the case of Vijayanagara, the rulers were guided by pūrvamaryade — a Kannada word meaning ‘following previously established practices of dharma and social norms’.",
+      "source_start": 543,
+      "source_end": 709,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-121",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Hence, support for institutions such as temples and mathās enabled education to continue.",
+      "source_start": 710,
+      "source_end": 800,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-122",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "An Italian traveller named Pietro Della Valle mentioned in letters (written in 1623) about schools where children were learning reading, writing and arithmetic in the coastal regions of Karnataka.",
+      "source_start": 0,
+      "source_end": 196,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-123",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We must remember that schools at that time were quite unlike what we have today.",
+      "source_start": 197,
+      "source_end": 277,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-124",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They were most likely places like a priest’s house or the ma ṇ ḍapa of a temple where students would gather.",
+      "source_start": 278,
+      "source_end": 387,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-125",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The destruction of large universities like N ā land ā and Vikramaśhil ā during invasions in the late 12 th century (see chapter ‘Turning Tides: 11 th and 12 th Centuries’ in the Grade 7 textbook) was an immense cultural loss to humanity.",
+      "source_start": 388,
+      "source_end": 628,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-126",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It also caused the dispersal of learned scholars and an entire ecosystem was disrupted.",
+      "source_start": 629,
+      "source_end": 716,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-127",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Vocational education and knowledge sharing Skill-based vocations had educational systems with hands-on training starting at a young age.",
+      "source_start": 900,
+      "source_end": 1036,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-128",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Here we look briefly at the case of textiles.",
+      "source_start": 1037,
+      "source_end": 1082,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-129",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This instance gives us a glimpse of the integration of new materials and techniques to take products to new heights.",
+      "source_start": 1083,
+      "source_end": 1199,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-130",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "India has a long tradition of weaving and unique textiles, with every region having its own speciality.",
+      "source_start": 0,
+      "source_end": 103,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-131",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The ancient weaving communities come under a broad umbrella called the Koshtis.",
+      "source_start": 104,
+      "source_end": 183,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-132",
+      "subject": "Knowledge and skills",
+      "relation": "role",
+      "object": "transferred through apprenticeships, either within a family or with a master in the guild",
+      "source_text": "Knowledge and skills were transferred through apprenticeships, either within a family or with a master in the guild.",
+      "source_start": 184,
+      "source_end": 300,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-133",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Weavers from Gujarat moved to Banaras, with Akbar’s encouragement, bringing their unique expertise.",
+      "source_start": 301,
+      "source_end": 400,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-134",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Mughals introduced zarī or zardozī , and brocades , which also became part of the ‘signature style’ of Banaras silk saris.",
+      "source_start": 401,
+      "source_end": 529,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-135",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They also feature designs inspired by nature (flora and fauna) as well as geometric patterns.",
+      "source_start": 530,
+      "source_end": 623,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-136",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The heritage has been kept alive through the same traditional training system.",
+      "source_start": 624,
+      "source_end": 702,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-137",
+      "subject": "GI",
+      "relation": "definition",
+      "object": "The Banarasi saris have a Geographical Indication",
+      "source_text": "The Banarasi saris have a Geographical Indication (GI) tag that gives the weavers of the area rights over the knowledge they hold, and restriction on who can call their saris ‘Banarasi’.",
+      "source_start": 704,
+      "source_end": 890,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-138",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Brocades from only some districts can be called ‘Banarasi’.",
+      "source_start": 891,
+      "source_end": 950,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-139",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since weavers have been using chemical dyes, leading to the pollution of the Ganga, efforts are being made to replace them with vegetable dyes with support from higher education institutions.",
+      "source_start": 951,
+      "source_end": 1142,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-140",
+      "subject": "Pashmina shawls",
+      "relation": "role",
+      "object": "renowned for their softness and warmth",
+      "source_text": "Pashmina shawls are renowned for their softness and warmth.",
+      "source_start": 0,
+      "source_end": 59,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-141",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They are woven from cashmere, a type of soft wool from the goats of Ladakh and Kashmir.",
+      "source_start": 60,
+      "source_end": 147,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-142",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "During the Mughal era, they gained the patronage of the emperors and became a symbol of nobility.",
+      "source_start": 148,
+      "source_end": 245,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-143",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They were exported to other countries in Asia and were in demand among fashionable Europeans too.",
+      "source_start": 246,
+      "source_end": 343,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-144",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The embroidery shows distinct Persian influence, featuring floral motifs.",
+      "source_start": 344,
+      "source_end": 417,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-145",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Growth of Literature and Language This era witnessed flourishing literature across several languages.",
+      "source_start": 419,
+      "source_end": 520,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-146",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Indian languages such as Sanskrit, Tamil, Telugu, Kannada, Odia, Hindavi, Bengali and Marathi began to thrive in both everyday communication and poetic expression.",
+      "source_start": 521,
+      "source_end": 684,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-147",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We look at a couple of illustrative cases.",
+      "source_start": 685,
+      "source_end": 727,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-148",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Bhakti literature further enriched the culture of writing, disseminating ideas through accessible poetry and song.",
+      "source_start": 728,
+      "source_end": 842,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-149",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, Chaitanya Mahāprabhu influenced 16 th -century Bengali",
+      "source_start": 843,
+      "source_end": 911,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-150",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "literature, including biographies and a new style of folk songs called Dhāmāli .",
+      "source_start": 0,
+      "source_end": 82,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-151",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The themes were about K ṛ iṣhṇa and episodes from his life; these also became part of kathak performances.",
+      "source_start": 83,
+      "source_end": 191,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-152",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Court-poet Kavindra Paramesvara (early 16 th century) translated the Mahābhārata into Bengali.",
+      "source_start": 192,
+      "source_end": 288,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-153",
+      "subject": "Persian poetry",
+      "relation": "role",
+      "object": "translated into Bengali",
+      "source_text": "Persian poetry was translated into Bengali.",
+      "source_start": 289,
+      "source_end": 332,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-154",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We see similar trends in other regional languages.",
+      "source_start": 333,
+      "source_end": 383,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-155",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In addition, secular themes emerged as subjects.",
+      "source_start": 384,
+      "source_end": 432,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-156",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It was a period of extraordinary creativity in regional language literature.",
+      "source_start": 433,
+      "source_end": 509,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-157",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Just as Krishnadevaraya patronised poets in south India, the Gajapati kings of Odisha fostered literary and spiritual thought, resulting in many vibrant texts.",
+      "source_start": 510,
+      "source_end": 669,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-158",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In Vijayanagara, it probably also helped that the kings and queens were themselves poets!",
+      "source_start": 670,
+      "source_end": 759,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-159",
+      "subject": "Tirumalamba",
+      "relation": "role",
+      "object": "celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya",
+      "source_text": "Tirumalamba was a celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya, whom we met in Part 1 of this textbook).",
+      "source_start": 761,
+      "source_end": 896,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-160",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She was a polymath and a polyglot who wrote Varadambika Parinaya, a kāvya in Sanskrit on the wedding of Achyutadevaraya and Princess Varadambika.",
+      "source_start": 897,
+      "source_end": 1043,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-161",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Over this period loan words from Persian also began to enter regional languages and literature.",
+      "source_start": 1045,
+      "source_end": 1140,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-162",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Today we can hardly identify them as having Persian roots.",
+      "source_start": 1141,
+      "source_end": 1199,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-163",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Create a list of words in your regional language that might have Persian roots.",
+      "source_start": 1200,
+      "source_end": 1279,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-164",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You may be surprised by your findings!",
+      "source_start": 1280,
+      "source_end": 1318,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-165",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since Persian was the language of the Mughals, it became the language of administration and courtly culture, producing histories, poetry, and other texts that often helped preserve Indian knowledge from earlier times.",
+      "source_start": 1320,
+      "source_end": 1537,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-166",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There was an influx of Persian scholars, poets, and astronomers who became part of the Mughal court and nobility.",
+      "source_start": 1538,
+      "source_end": 1651,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-167",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "vice versa.",
+      "source_start": 0,
+      "source_end": 11,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-168",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There are three translations of Bhāskarāchārya’s Līlavatī into Persian, the first one by Abu al-Faiz ibn Mubarak, popularly known by his pen-name, Faizi.",
+      "source_start": 12,
+      "source_end": 170,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-169",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Kalhaṇa’s Rājatarangiṇī was also translated into Persian.",
+      "source_start": 171,
+      "source_end": 232,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-170",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These are two examples of many such projects.",
+      "source_start": 233,
+      "source_end": 278,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-171",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The development of Urdu Urdu developed in the Ganga-Yamuna plains from the Hindi/ Hindavi spoken in this region, integrating words from Arabic and Persian.",
+      "source_start": 280,
+      "source_end": 435,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-172",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Urdu replaced Persian as an official language in the British government in India.",
+      "source_start": 436,
+      "source_end": 517,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-173",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is listed in the Eighth Schedule of the Constitution.",
+      "source_start": 518,
+      "source_end": 574,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-174",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "South of the Deccan, Urdu becomes Dakhini, taking on loan-words from local languages like Telugu and Marathi.",
+      "source_start": 575,
+      "source_end": 684,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-175",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So a person travelling from Lucknow to Hyderabad may find that the Urdu spoken there is quite unfamiliar!",
+      "source_start": 685,
+      "source_end": 790,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-176",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Amir Khusrau (we met him a little earlier) is known as the ‘father of Urdu literature’.",
+      "source_start": 791,
+      "source_end": 878,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-177",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "extensive knowledge of Sanskrit and wrote regularly in Punjabi and Braj Bhasha, too.",
+      "source_start": 0,
+      "source_end": 84,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-178",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The creative mixing of expressions and words from different languages in Khusrau’s and others’ writings, and as witnessed today in the poetry and literature of Urdu and other Indian languages, has added richness to the culture of India, and has become part of popular culture too through films and renowned singers.",
+      "source_start": 85,
+      "source_end": 400,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-179",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Well, the answer is that Indians have, since ancient times, had a culture of enquiry, asking questions, experimentation and learning.",
+      "source_start": 488,
+      "source_end": 621,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-180",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This culture led to a better understanding of the world around us from various perspectives.",
+      "source_start": 622,
+      "source_end": 714,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-181",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At the same time, in the spirit of ‘let noble thoughts come to us from all directions’, we have learnt from other cultures too.",
+      "source_start": 715,
+      "source_end": 842,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-182",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "India’s scientific and technological traditions continued to advance during this period, often supported by regional courts and temple institutions.",
+      "source_start": 843,
+      "source_end": 991,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-183",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The production of pure zinc reached its peak, with a special distillation process used for the first time in the world.",
+      "source_start": 992,
+      "source_end": 1111,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-184",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Major texts of chemistry and medicine were composed.",
+      "source_start": 1112,
+      "source_end": 1164,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-185",
+      "subject": "In the 14 th century, Narayana Pandita authored Ga ṇ itakaumud ī , a massive treatise of mathematics that",
+      "relation": "members",
+      "object": "important original developments",
+      "source_text": "In the 14 th century, Narayana Pandita authored Ga ṇ itakaumud ī , a massive treatise of mathematics that included important original developments.",
+      "source_start": 1165,
+      "source_end": 1314,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-186",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "About the same time, in the South, Madhava made pioneering contributions to the study of calculus, including the series expansion for trigonometric functions — a world first (you will learn about it in higher classes).",
+      "source_start": 1315,
+      "source_end": 1533,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-187",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This led to an exact value of π as an infinite series, another world first.",
+      "source_start": 1534,
+      "source_end": 1609,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-188",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "He and his followers are now known as the ‘Kerala School of Astronomy and Mathematics’, which produced many important works until the 19 th century.",
+      "source_start": 1610,
+      "source_end": 1758,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-189",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In 1500, Nilakantha Somayaj i, a distinguished scholar of this School, worked out a planetary model in which the interior planets (Mercury and Venus) went round the Sun in an orbit which did not enclose the Earth; Nilakantha’s model",
+      "source_start": 1759,
+      "source_end": 1991,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-190",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Applied chemistry was used to develop refrigeration and new types of perfumes.",
+      "source_start": 84,
+      "source_end": 162,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-191",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Indian saltpetre was used during Akbar’s",
+      "source_start": 163,
+      "source_end": 203,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-192",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "time to make gunpowder and also to cool water and beverages.",
+      "source_start": 205,
+      "source_end": 265,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-193",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Itr Jahangir , a type of rose-based perfume was also developed.",
+      "source_start": 266,
+      "source_end": 329,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-194",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Medical systems such as Ayurveda, Siddha, and Unani were widely practised, with knowledge transmitted through texts as well as oral traditions.",
+      "source_start": 331,
+      "source_end": 474,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-195",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These are only a few examples.",
+      "source_start": 476,
+      "source_end": 506,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-196",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They show us how, despite disruptions from the political context, the development of science and technology remained integral to Indian society.",
+      "source_start": 507,
+      "source_end": 651,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-197",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Between the 13 th and the 17 th centuries, Indian art and architecture reached remarkable heights, blending tradition with innovation across regions and dynasties.",
+      "source_start": 653,
+      "source_end": 816,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-198",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Temple building and reconstruction Under Krishnadevaraya’s rule, the Vijayanagara Empire witnessed a golden age of art, architecture, and cultural revival.",
+      "source_start": 0,
+      "source_end": 155,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-199",
+      "subject": "Hampi",
+      "relation": "role",
+      "object": "vibrant centre of urban planning and temple building",
+      "source_text": "Hampi was a vibrant centre of urban planning and temple building.",
+      "source_start": 156,
+      "source_end": 221,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-200",
+      "subject": "Grand temples",
+      "relation": "role",
+      "object": "constructed with remarkable skill",
+      "source_text": "Grand temples were constructed with remarkable skill,",
+      "source_start": 222,
+      "source_end": 275,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-201",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "devotion, and excellent knowledge of engineering.",
+      "source_start": 0,
+      "source_end": 49,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-202",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The empire’s dedication to sacred architecture not only reinforced religious devotion but also served as a testament to its prosperity and cultural vitality.",
+      "source_start": 50,
+      "source_end": 207,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-203",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Remember that these developments were taking place even while on the political front, wars were underway or the threat of war was present.",
+      "source_start": 208,
+      "source_end": 346,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-204",
+      "subject": "Traditions",
+      "relation": "role",
+      "object": "kept alive through all the turbulent times",
+      "source_text": "Traditions were kept alive through all the turbulent times.",
+      "source_start": 347,
+      "source_end": 406,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-205",
+      "subject": "The resilience and spirit",
+      "relation": "members",
+      "object": "sacred vigrahas reinstated",
+      "source_text": "The resilience and spirit are best exhibited by the reconstruction of temples that had been destroyed and sacred vigrahas reinstated.",
+      "source_start": 407,
+      "source_end": 540,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-206",
+      "subject": "The Sri Ranganathaswamy Temple in Srirangam",
+      "relation": "role",
+      "object": "example of such a restoration",
+      "source_text": "The Sri Ranganathaswamy Temple in Srirangam is an example of such a restoration.",
+      "source_start": 541,
+      "source_end": 621,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-207",
+      "subject": "Food Two-way",
+      "relation": "causes",
+      "object": "in cuisines and culinary practices naturally occurred, particularly among the ruling classes",
+      "source_text": "Food Two-way influence in cuisines and culinary practices naturally occurred, particularly among the ruling classes.",
+      "source_start": 0,
+      "source_end": 116,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-208",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Spices such as cardamom, clove, turmeric, coriander, and black pepper became a part of the imperial kitchens and also entered those of the common people.",
+      "source_start": 117,
+      "source_end": 270,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-209",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The use of curd for marination and ghee became popular.",
+      "source_start": 271,
+      "source_end": 326,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-210",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Khichri , a dish made of lentils and rice made for over a millennium, took on new flavours.",
+      "source_start": 327,
+      "source_end": 418,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-211",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Interestingly, Akbar is said to have tried to reduce meat consumption not only for himself but also for members of his court, partly under the influence of Jain and Hindu traditions prevailing at the time.",
+      "source_start": 419,
+      "source_end": 624,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-212",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Explore their origins and discover various cross-cultural influences.",
+      "source_start": 46,
+      "source_end": 115,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-213",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Clothing Indians have been very conscious of their attire since ancient times.",
+      "source_start": 117,
+      "source_end": 195,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-214",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Greek travellers to India recorded the fine clothing, dyes, hairstyles, footwear (including high heels) and jewellery they wore.",
+      "source_start": 196,
+      "source_end": 324,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-215",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So it seems quite natural that they would experiment with styles that they came across, especially among the ruling class.",
+      "source_start": 325,
+      "source_end": 447,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-216",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cotton, muslin, and silk production went up during this time.",
+      "source_start": 449,
+      "source_end": 510,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-217",
+      "subject": "The jama (a tunic-like dress) and pyjama",
+      "relation": "role",
+      "object": "adopted in court, with variations for women",
+      "source_text": "The jama (a tunic-like dress) and pyjama were adopted in court, with variations for women.",
+      "source_start": 511,
+      "source_end": 601,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-218",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Fine muslin sari-inspired dupattas added to the style.",
+      "source_start": 602,
+      "source_end": 656,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-219",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The sari, with its rich regional variations, continued to be part of the wardrobe.",
+      "source_start": 657,
+      "source_end": 739,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-220",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Cultural continuity as well as integration occurred in everyday aspects — from art, music and languages to clothing, food and more.",
+      "source_start": 0,
+      "source_end": 133,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-221",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The bhakti tradition became stronger and served as a unifying force during periods of political instability.",
+      "source_start": 134,
+      "source_end": 244,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-222",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The bhakti saints promoted ideas of equality and oneness of god, and broke down rigid social barriers.",
+      "source_start": 245,
+      "source_end": 347,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-223",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sufi saints also formed a valuable bridge between cultures, promoting unity, devotion, and music.",
+      "source_start": 348,
+      "source_end": 445,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-224",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Indian music evolved while maintaining its core distinct identity.",
+      "source_start": 446,
+      "source_end": 514,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-225",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Classical music developed in two related streams: Hindustani classical music in the North, and Carnatic music in the South.",
+      "source_start": 515,
+      "source_end": 638,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-226",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Miniature painting demonstrated exchanges between the Rajput and Mughal styles in terms of techniques, colours, and compositional elements.",
+      "source_start": 639,
+      "source_end": 780,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-227",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Architecture blended traditions to create new styles.",
+      "source_start": 781,
+      "source_end": 836,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-228",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Temple construction continued, and destroyed temples were rebuilt, demonstrating cultural resilience.",
+      "source_start": 837,
+      "source_end": 940,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-229",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Despite the destruction of major universities, education continued through decentralised systems.",
+      "source_start": 941,
+      "source_end": 1040,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-230",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The period saw some groundbreaking contributions to mathematics, in particular calculus.",
+      "source_start": 1041,
+      "source_end": 1129,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-231",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Scholars translated texts between Sanskrit and Persian.",
+      "source_start": 1130,
+      "source_end": 1185,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Pashmina shawls?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "renowned for their softness and warmth",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "renowned for their softness and warmth",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-162",
+          "fact_id": "F-LITE-140",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+      "source_page": 23,
+      "supporting_excerpt": "Pashmina shawls are renowned for their softness and warmth.",
+      "explanation": "The source states: “Pashmina shawls are renowned for their softness and warmth.” This identifies the stated role of Pashmina shawls as renowned for their softness and warmth.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-140"
+        ],
+        "excerpts": [
+          "Pashmina shawls are renowned for their softness and warmth."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-140",
+            "start": 0,
+            "end": 59
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+        "source_page": 23
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-140|renowned for their softness and warmth",
+      "relation_keys": [
+        "F-LITE-140|renowned for their softness and warmth"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-140"
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "cause_effect",
+      "stem": "What does Food Two-way influence?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "donations",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        },
+        {
+          "key": "B",
+          "text": "in cuisines and culinary practices naturally occurred, particularly among the ruling classes",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "The Banarasi saris have a Geographical Indication",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        },
+        {
+          "key": "D",
+          "text": "Indian culture continued to grow ever richer and proved remarkably strong and adaptable",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "in cuisines and culinary practices naturally occurred, particularly among the ruling classes",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-234",
+          "fact_id": "F-LITE-207",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 31,
+      "supporting_excerpt": "Food Two-way influence in cuisines and culinary practices naturally occurred, particularly among the ruling classes.",
+      "explanation": "The source explicitly describes the relationship as: “Food Two-way influence in cuisines and culinary practices naturally occurred, particularly among the ruling classes.” The answer preserves the stated direction of that relationship.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-207"
+        ],
+        "excerpts": [
+          "Food Two-way influence in cuisines and culinary practices naturally occurred, particularly among the ruling classes."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-207",
+            "start": 0,
+            "end": 116
+          }
+        ],
+        "stem_relation": "causes",
+        "temporal_scope": "",
+        "fact_type": "causal",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 31
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-207|in cuisines and culinary practices naturally occurred, particularly among the ruling classes",
+      "relation_keys": [
+        "F-LITE-207|in cuisines and culinary practices naturally occurred, particularly among the ruling classes"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-207"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on the passage:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Music and dance were performed in temples as well as in social gatherings and village melas.",
+          "fact_id": "F-LITE-063",
+          "source_excerpt": "Music and dance were performed in temples as well as in social gatherings and village melas.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Sufism is a usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās that focuses on devotion, and an inner and personal search for god.",
+          "fact_id": "F-LITE-033",
+          "source_excerpt": "Sufism is a path of Islam that focuses on devotion, and an inner and personal search for god.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "path of Islam",
+            "replacement": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-069",
+          "fact_id": "F-LITE-063",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-037",
+          "fact_id": "F-LITE-033",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "Musical Traditions —",
+      "source_page": 10,
+      "supporting_excerpt": "Music and dance were performed in temples as well as in social gatherings and village melas.",
+      "explanation": "Statement 1 is correct. The source states: “Music and dance were performed in temples as well as in social gatherings and village melas.” This supports statement 1. Statement 2 is false. The source states: “Sufism is a path of Islam that focuses on devotion, and an inner and personal search for god.” The stated value is path of Islam, not usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-063",
+          "F-LITE-033"
+        ],
+        "excerpts": [
+          "Music and dance were performed in temples as well as in social gatherings and village melas.",
+          "Sufism is a path of Islam that focuses on devotion, and an inner and personal search for god."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-063",
+            "start": 41,
+            "end": 133
+          },
+          {
+            "fact_id": "F-LITE-033",
+            "start": 96,
+            "end": 189
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "Musical Traditions —",
+        "source_page": 10
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-063|performed in temples as well as in social gatherings and village melas&F-LITE-033|path of islam",
+      "relation_keys": [
+        "F-LITE-063|performed in temples as well as in social gatherings and village melas",
+        "F-LITE-033|path of islam"
+      ],
+      "candidate_sort": {
+        "source_start": 41,
+        "fact_id": "F-LITE-063"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "What role is associated with Hampi?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "vibrant centre of urban planning and temple building",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "vibrant centre of urban planning and temple building",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-226",
+          "fact_id": "F-LITE-199",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 29,
+      "supporting_excerpt": "Hampi was a vibrant centre of urban planning and temple building.",
+      "explanation": "The source states: “Hampi was a vibrant centre of urban planning and temple building.” This identifies the stated role of Hampi as vibrant centre of urban planning and temple building.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-199"
+        ],
+        "excerpts": [
+          "Hampi was a vibrant centre of urban planning and temple building."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-199",
+            "start": 156,
+            "end": 221
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 29
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-199|vibrant centre of urban planning and temple building",
+      "relation_keys": [
+        "F-LITE-199|vibrant centre of urban planning and temple building"
+      ],
+      "candidate_sort": {
+        "source_start": 156,
+        "fact_id": "F-LITE-199"
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on From Walls to Paper —:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Few indeed in the whole world are equal to them.",
+          "fact_id": "F-LITE-075",
+          "source_excerpt": "Few indeed in the whole world are equal to them.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "The Rajput painting tradition was path of Islam.",
+          "fact_id": "F-LITE-072",
+          "source_excerpt": "The Rajput painting tradition was thriving during the period from the 15 th century to the late 19 th century.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "thriving during the period from the 15 th century to the late 19 th century",
+            "replacement": "path of Islam",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-083",
+          "fact_id": "F-LITE-075",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-079",
+          "fact_id": "F-LITE-072",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "From Walls to Paper —",
+      "source_page": 12,
+      "supporting_excerpt": "Few indeed in the whole world are equal to them.",
+      "explanation": "Statement 1 is correct. The source states: “Few indeed in the whole world are equal to them.” This supports statement 1. Statement 2 is false. The source states: “The Rajput painting tradition was thriving during the period from the 15 th century to the late 19 th century.” The stated value is thriving during the period from the 15 th century to the late 19 th century, not path of Islam.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-075",
+          "F-LITE-072"
+        ],
+        "excerpts": [
+          "Few indeed in the whole world are equal to them.",
+          "The Rajput painting tradition was thriving during the period from the 15 th century to the late 19 th century."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-075",
+            "start": 207,
+            "end": 255
+          },
+          {
+            "fact_id": "F-LITE-072",
+            "start": 953,
+            "end": 1063
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "From Walls to Paper —",
+        "source_page": 12
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-075|equal to them&F-LITE-072|thriving during the period from the 15 th century to the late 19 th century",
+      "relation_keys": [
+        "F-LITE-075|equal to them",
+        "F-LITE-072|thriving during the period from the 15 th century to the late 19 th century"
+      ],
+      "candidate_sort": {
+        "source_start": 207,
+        "fact_id": "F-LITE-075"
+      }
+    },
+    {
+      "id": "Q-LITE-006",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Knowledge and skills?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "transferred through apprenticeships, either within a family or with a master in the guild",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "transferred through apprenticeships, either within a family or with a master in the guild",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-154",
+          "fact_id": "F-LITE-132",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+      "source_page": 22,
+      "supporting_excerpt": "Knowledge and skills were transferred through apprenticeships, either within a family or with a master in the guild.",
+      "explanation": "The source states: “Knowledge and skills were transferred through apprenticeships, either within a family or with a master in the guild.” This identifies the stated role of Knowledge and skills as transferred through apprenticeships, either within a family or with a master in the guild.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-132"
+        ],
+        "excerpts": [
+          "Knowledge and skills were transferred through apprenticeships, either within a family or with a master in the guild."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-132",
+            "start": 184,
+            "end": 300
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+        "source_page": 22
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-132|transferred through apprenticeships, either within a family or with a master in the guild",
+      "relation_keys": [
+        "F-LITE-132|transferred through apprenticeships, either within a family or with a master in the guild"
+      ],
+      "candidate_sort": {
+        "source_start": 184,
+        "fact_id": "F-LITE-132"
+      }
+    },
+    {
+      "id": "Q-LITE-007",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Grand temples?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "constructed with remarkable skill",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "constructed with remarkable skill",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-227",
+          "fact_id": "F-LITE-200",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 29,
+      "supporting_excerpt": "Grand temples were constructed with remarkable skill,",
+      "explanation": "The source states: “Grand temples were constructed with remarkable skill,” This identifies the stated role of Grand temples as constructed with remarkable skill.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-200"
+        ],
+        "excerpts": [
+          "Grand temples were constructed with remarkable skill,"
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-200",
+            "start": 222,
+            "end": 275
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 29
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-200|constructed with remarkable skill",
+      "relation_keys": [
+        "F-LITE-200|constructed with remarkable skill"
+      ],
+      "candidate_sort": {
+        "source_start": 222,
+        "fact_id": "F-LITE-200"
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Persian poetry?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "translated into Bengali",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "translated into Bengali",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-175",
+          "fact_id": "F-LITE-153",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+      "source_page": 24,
+      "supporting_excerpt": "Persian poetry was translated into Bengali.",
+      "explanation": "The source states: “Persian poetry was translated into Bengali.” This identifies the stated role of Persian poetry as translated into Bengali.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-153"
+        ],
+        "excerpts": [
+          "Persian poetry was translated into Bengali."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-153",
+            "start": 289,
+            "end": 332
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+        "source_page": 24
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-153|translated into bengali",
+      "relation_keys": [
+        "F-LITE-153|translated into bengali"
+      ],
+      "candidate_sort": {
+        "source_start": 289,
+        "fact_id": "F-LITE-153"
+      }
+    },
+    {
+      "id": "Q-LITE-009",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Traditions?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "kept alive through all the turbulent times",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "kept alive through all the turbulent times",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-231",
+          "fact_id": "F-LITE-204",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 30,
+      "supporting_excerpt": "Traditions were kept alive through all the turbulent times.",
+      "explanation": "The source states: “Traditions were kept alive through all the turbulent times.” This identifies the stated role of Traditions as kept alive through all the turbulent times.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-204"
+        ],
+        "excerpts": [
+          "Traditions were kept alive through all the turbulent times."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-204",
+            "start": 347,
+            "end": 406
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 30
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-204|kept alive through all the turbulent times",
+      "relation_keys": [
+        "F-LITE-204|kept alive through all the turbulent times"
+      ],
+      "candidate_sort": {
+        "source_start": 347,
+        "fact_id": "F-LITE-204"
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes the jama (a tunic-like dress) and pyjama?",
+      "context": "The jama (a tunic-like dress) and pyjama were ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "adopted in court, with variations for women",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "adopted in court, with variations for women",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-245",
+          "fact_id": "F-LITE-217",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 32,
+      "supporting_excerpt": "The jama (a tunic-like dress) and pyjama were adopted in court, with variations for women.",
+      "explanation": "The source states: “The jama (a tunic-like dress) and pyjama were adopted in court, with variations for women.” This identifies the stated role of The jama (a tunic-like dress) and pyjama as adopted in court, with variations for women.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-217"
+        ],
+        "excerpts": [
+          "The jama (a tunic-like dress) and pyjama were adopted in court, with variations for women."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-217",
+            "start": 511,
+            "end": 601
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 32
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-217|adopted in court, with variations for women",
+      "relation_keys": [
+        "F-LITE-217|adopted in court, with variations for women"
+      ],
+      "candidate_sort": {
+        "source_start": 511,
+        "fact_id": "F-LITE-217"
+      }
+    },
+    {
+      "id": "Q-LITE-011",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with the Sri Ranganathaswamy Temple in Srirangam?",
+      "context": "The Sri Ranganathaswamy Temple in Srirangam is an ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "example of such a restoration",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "example of such a restoration",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-233",
+          "fact_id": "F-LITE-206",
+          "role": "primary"
+        }
+      ],
+      "source_title": "intricately carved temples of the South to the majestic forts",
+      "source_page": 30,
+      "supporting_excerpt": "The Sri Ranganathaswamy Temple in Srirangam is an example of such a restoration.",
+      "explanation": "The source states: “The Sri Ranganathaswamy Temple in Srirangam is an example of such a restoration.” This identifies the stated role of The Sri Ranganathaswamy Temple in Srirangam as example of such a restoration.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-206"
+        ],
+        "excerpts": [
+          "The Sri Ranganathaswamy Temple in Srirangam is an example of such a restoration."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-206",
+            "start": 541,
+            "end": 621
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "intricately carved temples of the South to the majestic forts",
+        "source_page": 30
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-206|example of such a restoration",
+      "relation_keys": [
+        "F-LITE-206|example of such a restoration"
+      ],
+      "candidate_sort": {
+        "source_start": 541,
+        "fact_id": "F-LITE-206"
+      }
+    },
+    {
+      "id": "Q-LITE-012",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Women and children?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "imprisoned and sold as slaves in the markets of West and Central Asia",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "imprisoned and sold as slaves in the markets of West and Central Asia",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-104",
+          "fact_id": "F-LITE-090",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Women in Society — Contextual",
+      "source_page": 16,
+      "supporting_excerpt": "Women and children were imprisoned and sold as slaves in the markets of West and Central Asia.",
+      "explanation": "The source states: “Women and children were imprisoned and sold as slaves in the markets of West and Central Asia.” This identifies the stated role of Women and children as imprisoned and sold as slaves in the markets of West and Central Asia.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-090"
+        ],
+        "excerpts": [
+          "Women and children were imprisoned and sold as slaves in the markets of West and Central Asia."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-090",
+            "start": 744,
+            "end": 838
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Women in Society — Contextual",
+        "source_page": 16
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-090|imprisoned and sold as slaves in the markets of west and central asia",
+      "relation_keys": [
+        "F-LITE-090|imprisoned and sold as slaves in the markets of west and central asia"
+      ],
+      "candidate_sort": {
+        "source_start": 744,
+        "fact_id": "F-LITE-090"
+      }
+    },
+    {
+      "id": "Q-LITE-013",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with Tirumalamba?",
+      "context": "Tirumalamba was a ______, whom we met in Part 1 of this textbook).",
+      "options": [
+        {
+          "key": "A",
+          "text": "celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-181",
+          "fact_id": "F-LITE-159",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+      "source_page": 24,
+      "supporting_excerpt": "Tirumalamba was a celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya, whom we met in Part 1 of this textbook).",
+      "explanation": "The source states: “Tirumalamba was a celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya, whom we met in Part 1 of this textbook).” This identifies the stated role of Tirumalamba as celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-159"
+        ],
+        "excerpts": [
+          "Tirumalamba was a celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya, whom we met in Part 1 of this textbook)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-159",
+            "start": 761,
+            "end": 896
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Sringeri were renowned for advanced learning in philosophy and",
+        "source_page": 24
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-159|celebrated poet at the court of achyutadevaraya (brother of krishnadevaraya",
+      "relation_keys": [
+        "F-LITE-159|celebrated poet at the court of achyutadevaraya (brother of krishnadevaraya"
+      ],
+      "candidate_sort": {
+        "source_start": 761,
+        "fact_id": "F-LITE-159"
+      }
+    },
+    {
+      "id": "Q-LITE-014",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes the traditional themes of the pa ṭṭ achitra?",
+      "context": "The traditional themes of the pa ṭṭ achitra were ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "path of Islam",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "performed in temples as well as in social gatherings and village melas",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "thriving during the period from the 15 th century to the late 19 th century",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-065",
+          "fact_id": "F-LITE-059",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Musical Traditions —",
+      "source_page": 9,
+      "supporting_excerpt": "The traditional themes of the pa ṭṭ achitra were usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.",
+      "explanation": "The source states: “The traditional themes of the pa ṭṭ achitra were usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.” This identifies the stated role of The traditional themes of the pa ṭṭ achitra as usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-059"
+        ],
+        "excerpts": [
+          "The traditional themes of the pa ṭṭ achitra were usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-059",
+            "start": 1209,
+            "end": 1328
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Musical Traditions —",
+        "source_page": 9
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-059|usually scenes from the rāmayaṇa, mahābhārata and the puraṇās",
+      "relation_keys": [
+        "F-LITE-059|usually scenes from the rāmayaṇa, mahābhārata and the puraṇās"
+      ],
+      "candidate_sort": {
+        "source_start": 1209,
+        "fact_id": "F-LITE-059"
+      }
+    }
+  ],
+  "reasoning_v2": [],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-033",
+      "subject": "Sufism",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "path of Islam",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-059",
+      "subject": "The traditional themes of the pa ṭṭ achitra",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-063",
+      "subject": "Music and dance",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "performed in temples as well as in social gatherings and village melas",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-072",
+      "subject": "The Rajput painting tradition",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "thriving during the period from the 15 th century to the late 19 th century",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-075",
+      "subject": "Few indeed in the whole world",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "equal to them",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-090",
+      "subject": "Women and children",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "imprisoned and sold as slaves in the markets of West and Central Asia",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-104",
+      "subject": "Several inscriptions",
+      "predicate": "function",
+      "relation_type": "HAS_PROPERTY",
+      "object": "donations",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-132",
+      "subject": "Knowledge and skills",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "transferred through apprenticeships, either within a family or with a master in the guild",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-140",
+      "subject": "Pashmina shawls",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "renowned for their softness and warmth",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-153",
+      "subject": "Persian poetry",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "translated into Bengali",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-159",
+      "subject": "Tirumalamba",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-199",
+      "subject": "Hampi",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "vibrant centre of urban planning and temple building",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-200",
+      "subject": "Grand temples",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "constructed with remarkable skill",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-204",
+      "subject": "Traditions",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "kept alive through all the turbulent times",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-205",
+      "subject": "The resilience and spirit",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "sacred vigrahas reinstated",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-206",
+      "subject": "The Sri Ranganathaswamy Temple in Srirangam",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "example of such a restoration",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-217",
+      "subject": "The jama (a tunic-like dress) and pyjama",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "adopted in court, with variations for women",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+      "subject": "all distinctions between individual grains disappear",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "wheat is ground into flour",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0002",
+      "subject": "all differences between Ram and Rahim dissolve",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "one realises the divine",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0003",
+      "subject": "largely unaffected by Persian and Arabic influences",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "we met Purandaradāsa in the previous section) continued to develop independently",
+      "is_derived": false
+    }
+  ]
+}

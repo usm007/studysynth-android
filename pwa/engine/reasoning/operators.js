@@ -105,8 +105,7 @@
     const validCausalTypes = [
       RELATION_TYPES.CAUSES,
       RELATION_TYPES.LEADS_TO,
-      RELATION_TYPES.PRODUCES,
-      RELATION_TYPES.ENABLES
+      RELATION_TYPES.PRODUCES
     ];
     if (!validCausalTypes.includes(causalProp.relation_type)) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a verified causal relation');
@@ -358,10 +357,11 @@
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a classification or definition');
     }
 
+    const isDefinition = instanceProp.relation_type === RELATION_TYPES.DEFINITION_OF;
     const derived = Representation.createProposition({
       subject: instanceProp.subject,
-      predicate: 'belongs to category',
-      relation_type: RELATION_TYPES.INSTANCE_OF,
+      predicate: isDefinition ? 'is defined as' : 'belongs to category',
+      relation_type: isDefinition ? RELATION_TYPES.DEFINITION_OF : RELATION_TYPES.INSTANCE_OF,
       object: instanceProp.object,
       source_page: instanceProp.source_page,
       source_section: instanceProp.source_section,
@@ -374,8 +374,10 @@
       operator: REASONING_OPERATORS.OP_H_CATEGORY_INFERENCE,
       premises: [instanceProp.id],
       steps: [
-        `Extracted taxonomic classification: ${instanceProp.subject} -> ${instanceProp.object}`,
-        `Verified category membership rule`
+        isDefinition
+          ? `Extracted source definition: ${instanceProp.subject} -> ${instanceProp.object}`
+          : `Extracted taxonomic classification: ${instanceProp.subject} -> ${instanceProp.object}`,
+        isDefinition ? 'Verified definitional equivalence' : 'Verified category membership rule'
       ]
     };
 
@@ -436,14 +438,37 @@
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Cannot contrast an entity with itself');
     }
 
-    // Precondition: Genuine contrast basis required.
-    // Either an explicit contrast/comparison relation, OR matching relation type describing differing values on a shared dimension
-    const isExplicitContrast = propA.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
-      propA.relation_type === RELATION_TYPES.COMPARES_WITH ||
-      propB.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
-      propB.relation_type === RELATION_TYPES.COMPARES_WITH;
+    // Both sides must be concise noun phrases. A run-on clause cannot be shown
+    // verbatim as an option, so it is rejected instead of being trimmed.
+    if (!Linguistics.isNounPhraseSpan(propA.subject, 70) ||
+        !Linguistics.isNounPhraseSpan(propB.subject, 70) ||
+        !Linguistics.isNounPhraseSpan(propA.object, 110) ||
+        !Linguistics.isNounPhraseSpan(propB.object, 110)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Contrast spans are not concise noun phrases');
+    }
 
-    const isCompatibleDimension = propA.relation_type === propB.relation_type &&
+    // Precondition: Genuine contrast basis required.
+    // Both premises must describe differing values on the same declared
+    // dimension: identical non-generic predicate, same relation type, distinct
+    // subjects and objects. A generic placeholder predicate ("relation", "role")
+    // is not a dimension, so two unrelated facts can never be paired.
+    const GENERIC_PREDICATES = new Set([
+      'relation', 'has property', 'role', 'numeric value', 'numeric_value',
+      'unclassified', 'is', 'has', 'property', 'definition', 'function',
+      'location', 'date', 'members', 'member', 'comparison', 'superlative',
+      'has component', 'component', 'part of', 'part', 'member of',
+      'instance of', 'instance', 'attribute', 'category',
+      'described as', 'known for', 'is defined as', 'is an instance of',
+      'belongs to category', 'contrasts on', ''
+    ]);
+    const predicateA = String(propA.predicate || propA.relation || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const predicateB = String(propB.predicate || propB.relation || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const sharedPredicate = Boolean(predicateA) &&
+      predicateA === predicateB &&
+      !GENERIC_PREDICATES.has(predicateA);
+
+    const isCompatibleDimension = sharedPredicate &&
+      propA.relation_type === propB.relation_type &&
       propA.object.toLowerCase().trim() !== propB.object.toLowerCase().trim() &&
       [
         RELATION_TYPES.DEFINITION_OF,
@@ -451,11 +476,13 @@
         RELATION_TYPES.HAS_COMPONENT,
         RELATION_TYPES.PART_OF,
         RELATION_TYPES.MEMBER_OF,
+        RELATION_TYPES.COMPARED_WITH,
+        RELATION_TYPES.CONTRASTS_WITH,
         RELATION_TYPES.INCREASES,
         RELATION_TYPES.DECREASES
       ].includes(propA.relation_type);
 
-    if (!isExplicitContrast && !isCompatibleDimension) {
+    if (!isCompatibleDimension) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Propositions lack a genuine, shared contrast dimension');
     }
 
@@ -478,6 +505,11 @@
       rule_id: 'OP_J_CONTRASTIVE_EXPLANATION',
       is_derived: true
     });
+
+    // The combined question must stay readable and complete.
+    if (!Linguistics.isSafeSpan(derived.subject, 120) || !Linguistics.isSafeSpan(derived.object, 150)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Combined contrast is too long to present as an option');
+    }
 
     const proofTrace = {
       operator: REASONING_OPERATORS.OP_J_CONTRASTIVE_EXPLANATION,

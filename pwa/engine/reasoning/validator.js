@@ -106,16 +106,82 @@
     if (premises.length === 0) {
       return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Proof trace premises are empty' };
     }
+    const premiseProps = [];
     for (const pid of premises) {
       const hasFact = context && Array.isArray(context.facts) && context.facts.some((f) => f.fact_id === pid);
-      const hasProp = graph && typeof graph.getProposition === 'function' && Boolean(graph.getProposition(pid));
-      if (!hasFact && !hasProp) {
+      const propNode = graph && typeof graph.getProposition === 'function' ? graph.getProposition(pid) : null;
+      if (!hasFact && !propNode) {
         return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: `Premise ${pid} does not resolve to a verified fact or proposition` };
+      }
+      if (propNode) premiseProps.push(propNode);
+    }
+
+    // 7b. Operator-specific proof contract
+    const operatorId = candidate.primary_operator || candidate.proof_trace.operator;
+    const PRODUCTION_OPERATORS = [
+      'OP_B_CAUSAL_EXPLANATION',
+      'OP_C_CAUSAL_CHAIN',
+      'OP_F_PROCESS_SEQUENCE',
+      'OP_H_CATEGORY_INFERENCE',
+      'OP_I_EXCEPTION_REASONING',
+      'OP_J_CONTRASTIVE_EXPLANATION'
+    ];
+    if (!PRODUCTION_OPERATORS.includes(operatorId)) {
+      return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: `Operator ${operatorId} is not enabled for production questions` };
+    }
+    if (premiseProps.length !== premises.length) {
+      return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Every premise must resolve to a graph proposition' };
+    }
+
+    const derived = candidate.derived_proposition;
+    const sameConcept = (a, b) => Boolean(normalize(a)) && normalize(a) === normalize(b);
+    if (operatorId === 'OP_B_CAUSAL_EXPLANATION') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['CAUSES', 'LEADS_TO', 'PRODUCES'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.object, premise.subject) || !sameConcept(derived.subject, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Causal explanation must invert exactly one verified causal premise' };
+      }
+    } else if (operatorId === 'OP_C_CAUSAL_CHAIN') {
+      if (premises.length !== 2 ||
+          !sameConcept(premiseProps[0].object, premiseProps[1].subject) ||
+          !derived || !sameConcept(derived.subject, premiseProps[0].subject) || !sameConcept(derived.object, premiseProps[1].object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Causal chain must traverse a shared intermediate concept' };
+      }
+    } else if (operatorId === 'OP_F_PROCESS_SEQUENCE') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['PRECEDES', 'FOLLOWS'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.subject, premise.subject) || !sameConcept(derived.object, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Sequence question must preserve the stated order' };
+      }
+    } else if (operatorId === 'OP_H_CATEGORY_INFERENCE') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['INSTANCE_OF', 'DEFINITION_OF'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.object, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Category question must preserve the stated category' };
+      }
+    } else if (operatorId === 'OP_I_EXCEPTION_REASONING') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !(premise.relation_type === 'EXCEPTION_TO' || premise.exception) ||
+          !derived || !sameConcept(derived.object, premise.subject)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Exception question must preserve the stated general rule' };
+      }
+    } else if (operatorId === 'OP_J_CONTRASTIVE_EXPLANATION') {
+      const a = premiseProps[0];
+      const b = premiseProps[1];
+      if (premises.length !== 2 ||
+          a.relation_type !== b.relation_type ||
+          normalize(a.predicate) !== normalize(b.predicate) ||
+          sameConcept(a.subject, b.subject) ||
+          sameConcept(a.object, b.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Contrast question requires a shared predicate on distinct values' };
       }
     }
 
     // 8. Derived proposition entailment check
-    const derived = candidate.derived_proposition;
     if (derived) {
       if (derived.modality === 'possibility') {
         return { valid: false, code: REJECTION_CODES.SPECULATIVE_MODALITY, message: 'Derived proposition is speculative' };

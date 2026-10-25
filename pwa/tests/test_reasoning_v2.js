@@ -287,6 +287,7 @@ console.log('\n[Suite 4] End-to-End Pipeline & Deterministic Reproducibility...'
 
 const sampleText = `
 Photosynthesis produces oxygen and glucose in green plants.
+Respiration produces carbon dioxide and water in living cells.
 Chlorophyll absorbs solar radiation to drive the chemical reaction.
 When light intensity increases, the rate of photosynthesis increases up to a saturation point.
 C3 plants are less water-efficient than CAM plants in arid environments.

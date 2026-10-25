@@ -248,7 +248,14 @@ assert(/engine\/analyze\.js/.test(sw), 'The shared analysis module must be preca
 assert(/engine\/jobs\.js/.test(sw), 'The job manager must be precached');
 assert(/new URL\('\.\/engine\/worker\.js', document\.baseURI\)/.test(appJs), 'The worker must resolve relative to the app base URL');
 assert(/Worker\(/.test(appJs) && /studysynth-generator/.test(appJs), 'Generation must run in a named worker');
-assert(/importScripts\('\.\/generator\.js', '\.\/analyze\.js'\)/.test(workerJs), 'The worker must reuse the real engine and shared analysis');
+assert(
+  /importScripts\(/.test(workerJs) &&
+  workerJs.includes('./generator.js') &&
+  workerJs.includes('./analyze.js') &&
+  workerJs.indexOf('./reasoning/engine_v2.js') !== -1 &&
+  workerJs.indexOf('./reasoning/engine_v2.js') < workerJs.indexOf('./generator.js'),
+  'The worker must load the reasoning engine before the real engine and shared analysis'
+);
 assert(/startGeneration/.test(appJs) && /startImport/.test(appJs), 'The app must start jobs through the manager');
 assert(/Processing\.isBusy\(\)/.test(appJs), 'Duplicate processing must be rejected');
 assert(!/analyzeSource\(text, title, sourceMeta, 15\)/.test(appJs), 'The page must not run generation synchronously');

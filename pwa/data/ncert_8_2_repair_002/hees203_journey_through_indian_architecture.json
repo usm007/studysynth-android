@@ -1,0 +1,1607 @@
+{
+  "meta": {
+    "file": "hees203.pdf",
+    "chapterNum": 3,
+    "subject": "Art & Heritage",
+    "title": "A Journey Through Indian Architecture",
+    "outBase": "hees203_journey_through_indian_architecture",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 40,
+    "pagesProcessed": 40,
+    "pagesWithBody": 19,
+    "pagesWithoutBody": 21,
+    "textItemCount": 1860,
+    "blockTypes": {
+      "heading": 29,
+      "page_furniture": 103,
+      "diagram": 90,
+      "body": 37,
+      "ambiguous": 35,
+      "caption": 47,
+      "fragment": 18
+    }
+  },
+  "generation": {
+    "factCount": 82,
+    "totalCandidates": 8,
+    "accepted": 2,
+    "rejected": 6,
+    "requestedCount": 15,
+    "conflictCount": 0,
+    "conflictedFactCount": 0,
+    "conflictedFactIds": [],
+    "unusedFactCount": 79,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082"
+    ],
+    "rejectionCounts": {
+      "missing_options": 4,
+      "unsafe_facts": 1,
+      "unsafe_spans": 3,
+      "unsupported_facts": 74,
+      "duplicate_relation": 7
+    },
+    "buildMetrics": {
+      "missingOptions": 4,
+      "unsafeFacts": 1,
+      "unsupportedFacts": 74,
+      "multiMissing": 0,
+      "unsafeSpans": 3
+    },
+    "subtypeDistribution": {
+      "category_classification": 1,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 1,
+      "B": 1
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 2,
+    "totalCandidates": 8,
+    "accepted": 2,
+    "rejected": 6,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 4,
+      "unsafe_facts": 1,
+      "unsafe_spans": 3,
+      "unsupported_facts": 74,
+      "duplicate_relation": 7
+    },
+    "subtypeDistribution": {
+      "category_classification": 1,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 1,
+      "B": 1
+    },
+    "unusedFacts": 79,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082"
+    ],
+    "conflictedFacts": 0,
+    "conflictedFactIds": []
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The craftsman is not an individual expressing individual whims, but a part of the universe, giving expression to ideals of eternal beauty and unchanging laws, even as do the trees and flowers whose natural and less ordered beauty is no less God-given.",
+      "source_start": 0,
+      "source_end": 251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We visited the Indus/Harappan/ Indus-Sarasvati civilisation in Grade 6 (chapter ‘The Beginnings of Indian Civilisation’).",
+      "source_start": 0,
+      "source_end": 121,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "architecture",
+      "relation": "definition",
+      "object": "the earliest known tradition of urban planning and construction",
+      "source_text": "architecture represents the earliest known tradition of urban planning and construction",
+      "source_start": 132,
+      "source_end": 219,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "with bricks, as they",
+      "relation": "location",
+      "object": "alluvial plains where clay is abundant",
+      "source_text": "with bricks, as they were located in alluvial plains where clay is abundant.",
+      "source_start": 221,
+      "source_end": 297,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You will find several depictions of beautiful panels of the Sanchi Stupa in textbooks of Grade 6 (check out chapter ‘India, That Is Bharat’) and Grade 7 (chapters ‘New Beginnings: Cities and States’, ‘The Rise of Empires’, ‘From the Rulers to the Ruled: Types of Government’).",
+      "source_start": 0,
+      "source_end": 276,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "massive scale, exquisite craftmanship and the mind-boggling technologies involved in their carving.",
+      "source_start": 0,
+      "source_end": 99,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You will find pictures of the Ellora caves in the Grade 6 textbook (chapter ‘India’s Cultural Roots’), of the Udayagiri- Khandagiri caves in the Grade 7 textbook (chapters ‘The Age of Reorganisation’ and ‘The Gupta Era: An Age of Tireless Creativity’), and the Ajanta caves in the Grade 6 textbook (chapter ‘The Gupta Era: An Age of Tireless Creativity’).",
+      "source_start": 126,
+      "source_end": 481,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Sharada Peetha Temple, Jammu and Kashmir Dedicated to Goddess Śhāradā (a form of Sarasvatī), Sharada Peetha was a renowned centre of learning and a key site in the development of the Sharada script.",
+      "source_start": 0,
+      "source_end": 200,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "flourished between the 6 th and 12 th centuries CE, and its legacy earned Kashmir the name Śhāradā Deśh (the land of Śhāradā).",
+      "source_start": 213,
+      "source_end": 339,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Though now in ruins, it remains an important part of India’s archaeological and cultural heritage.",
+      "source_start": 340,
+      "source_end": 438,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Hidimba Devi Temple, Himachal Pradesh Located in Manali amid the cedar forests of Dhungiri Van Vihar, the Hidimba Devi Temple is one of the oldest religious sites in the Kullu Valley.",
+      "source_start": 440,
+      "source_end": 625,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Built in the 16 th century CE, the shrine is dedicated to Hidimbā (Hirama), the wife of Bhīma from the Mahābhārata .",
+      "source_start": 626,
+      "source_end": 742,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A nearby temple dedicated to their son, Ghaṭotkacha, further reflects the site’s close association with the epic tradition.",
+      "source_start": 743,
+      "source_end": 866,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Jageshwar Group of Temples, Uttarakhand The Jageshwar Group of Temples, located in the Jatāgangā Valley of Uttarakhand’s Almora district, is an ancient temple complex associated with the Katyūrī, Chand, and Gurjara–Pratihāra dynasties (8 th –18 th centuries).",
+      "source_start": 867,
+      "source_end": 1128,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Comprising about 124 stone temples, it is renowned for its Swayambhu Linga , known as Nāgeśh Dārūkāvane.",
+      "source_start": 1129,
+      "source_end": 1233,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The garbha griha houses Jāgeśhwara Mahādeva, who is locally revered as Bāla Jägeśhwara (“Child Shiva”).",
+      "source_start": 1234,
+      "source_end": 1337,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Golden Temple, Punjab The gurudwara is the place of worship of the Sikhs.",
+      "source_start": 1338,
+      "source_end": 1417,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.",
+      "source_start": 1418,
+      "source_end": 1517,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "The temple",
+      "relation": "launched_by",
+      "object": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+      "source_text": "The temple was founded by Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus.",
+      "source_start": 1518,
+      "source_end": 1595,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "The construction of the temple and its sarovar",
+      "relation": "role",
+      "object": "continued by Guru Arjan Dev, the fifth Guru in 1588",
+      "source_text": "The construction of the temple and its sarovar was continued by Guru Arjan Dev, the fifth Guru in 1588.",
+      "source_start": 1596,
+      "source_end": 1699,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many of these traditional water structures suffer today from depleted water sources, maintenance issues, pollution, waste dumping, etc. Environmentalists, locals, and NGOs sometimes join hands to preserve them, but much remains to be done.",
+      "source_start": 0,
+      "source_end": 239,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "With antecedents in the stupa and rock-cut types of architecture, temples have been central to India’s cultural life for many centuries.",
+      "source_start": 0,
+      "source_end": 136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Whether Buddhist, Jain or Hindu, temples have been places of worship, but also of learning, literature, art (sculpture, dance, music, painting among others).",
+      "source_start": 137,
+      "source_end": 294,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Besides, they were centres",
+      "source_start": 295,
+      "source_end": 321,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Make a list of all the materials we have encountered so far in the carving or construction of structures; make a list of pros and cons for each of them.",
+      "source_start": 0,
+      "source_end": 154,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Observe the pictures of the four temples featured here.",
+      "source_start": 238,
+      "source_end": 295,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Identify a temple in your location.",
+      "source_start": 354,
+      "source_end": 391,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "the architecture of classical temples required highly skilled architects, engineers and craftsmen, as it involved elaborate construction techniques.",
+      "source_start": 0,
+      "source_end": 148,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Recent studies have shown that their planning involved a good deal of mathematics, especially some advanced geometry.",
+      "source_start": 149,
+      "source_end": 266,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "also true of many large sacred structures in other parts of the world, whether Egypt’s pyramids and temples, Athens’ Parthenon or medieval Europe’s gothic cathedrals.",
+      "source_start": 292,
+      "source_end": 458,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Jama Masjid in Delhi (Figs.",
+      "source_start": 0,
+      "source_end": 31,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "3.31 and 3.32) is India’s largest mosque.",
+      "source_start": 32,
+      "source_end": 73,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Mughal Emperor Shah Jahan built it in the mid-17 th century, after he moved his capital from Agra to Shahjahanabad (now Old Delhi).",
+      "source_start": 74,
+      "source_end": 205,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "He had a vision for a grand mosque where the city’s Muslims could gather for prayer.",
+      "source_start": 206,
+      "source_end": 290,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "About 5,000 workers were pressed into service for its construction.",
+      "source_start": 291,
+      "source_end": 358,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The mosque is made from red sandstone with white marble decorations, and has three large entrances.",
+      "source_start": 359,
+      "source_end": 458,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Two 40-metre tall minarets stand on either side.",
+      "source_start": 459,
+      "source_end": 507,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "25,000 people",
+      "source_text": "The main prayer hall has three large domes and the red-stone courtyard can accommodate up to 25,000 people.",
+      "source_start": 508,
+      "source_end": 615,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "The walls and arches",
+      "relation": "role",
+      "object": "decorated with calligraphy (decorative writing) of verses from the Qur’an",
+      "source_text": "The walls and arches are decorated with calligraphy (decorative writing) of verses from the Qur’an.",
+      "source_start": 616,
+      "source_end": 715,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As we already saw in a few earlier chapters of ‘Tapestry of the Past’, forts played an important role in Indian history—that of protecting a kingdom from the onslaught of invaders.",
+      "source_start": 0,
+      "source_end": 180,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They were therefore strategically located near important land or sea routes, and often atop a hill so as to command a view of the plains below.",
+      "source_start": 181,
+      "source_end": 324,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Forts also accommodated the residences of the ruling and military classes, and in some cases even an entire city, depending on their size.",
+      "source_start": 325,
+      "source_end": 463,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since some forts also sheltered a royal palace, we have clubbed these two categories together.",
+      "source_start": 464,
+      "source_end": 558,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Try to remember where earlier textbooks showed pictures of the forts of Jaisalmer, Kumbhalgarh, Raigad, and Sindhudurg.",
+      "source_start": 560,
+      "source_end": 679,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "fort complex.",
+      "source_start": 0,
+      "source_end": 13,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many of those buildings were destroyed by British troops of the East India Company in the 19 th century.",
+      "source_start": 14,
+      "source_end": 118,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Agra Fort had many fountains.",
+      "source_start": 120,
+      "source_end": 153,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Water from the Yamuna was lifted using Persian wheels (see chapter ‘Reshaping India’s Political Map’ in the Grade 8 Part 1 textbook) into overhead tanks on the walls of the fort.",
+      "source_start": 154,
+      "source_end": 332,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "From the tanks, water flowing down through terracotta pipes created fountains, which worked as eco-friendly ‘air-conditioners’, helping to keep the area cool.",
+      "source_start": 333,
+      "source_end": 491,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For religious reasons, in Islam and Christianity the dead are buried.",
+      "source_start": 0,
+      "source_end": 69,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "world, mausoleums—grand buildings housing a tomb or a group of them—were often built for prominent rulers, members of the royal household, or for some",
+      "source_start": 86,
+      "source_end": 236,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "also a political statement, as they stood as a testament to the greatness of the royalty",
+      "source_start": 238,
+      "source_end": 326,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "a common practice among people of other faiths; in Buddhism, Jainism and Hinduism, the dead are generally cremated; as a result, no tombs of rulers of such faiths exist in India in ancient times.",
+      "source_start": 328,
+      "source_end": 523,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This geometric symbol is found in several religious traditions.",
+      "source_start": 55,
+      "source_end": 118,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In Judaism, it is known as the ‘Star of David’, named after David, a king of the Hebrews mentioned in the Bible.",
+      "source_start": 119,
+      "source_end": 231,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In Islam, the same symbol is called the ‘Seal of Solomon’; Solomon (Sulaymān), David’s son, is regarded in Islam as both a model king and a prophet endowed with divine wisdom.",
+      "source_start": 232,
+      "source_end": 407,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In Hinduism, the six- pointed star appears in tantric symbolism, where it represents the fusion of puru ṣ ha or consciousness (the upward-pointing triangle) with prakṛiti or śhakti (the downward-pointing triangle), that is, the harmony of spirit and matter.",
+      "source_start": 408,
+      "source_end": 666,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the mid 17 th century, Shah Jahan built the Taj Mahal (Figs.",
+      "source_start": 668,
+      "source_end": 731,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "3.43 to 3.45) as a mausoleum for his queen Mumtaz Mahal’s tomb.",
+      "source_start": 732,
+      "source_end": 795,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "Entirely decorated with marble, the Taj Mahal",
+      "relation": "role",
+      "object": "example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e",
+      "source_text": "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur’an and intricate geometric patterns",
+      "source_start": 796,
+      "source_end": 1100,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "adorn the walls; Indian architecture added chhatrīs, lotus flower designs, and marble screens with detailed cutout patterns.",
+      "source_start": 0,
+      "source_end": 124,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The walls feature delicate inlay work where craftsmen embedded colourful semi-precious stones into the marble to create floral designs.",
+      "source_start": 125,
+      "source_end": 260,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The white marble appears to change colours as the sunlight shifts through the day.",
+      "source_start": 261,
+      "source_end": 343,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the 1970s, the effect of air pollution on the monument began to be noticed.",
+      "source_start": 0,
+      "source_end": 78,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It was caused by local industries using coal and other fossil fuels, which left a yellowish tinge on the marble.",
+      "source_start": 79,
+      "source_end": 191,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Following the recommendations of an expert committee and a PIL in the Supreme Court, a ban was imposed in the mid-1990s to prevent industrial pollution in the area.",
+      "source_start": 192,
+      "source_end": 356,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The design and architecture of houses in India have been as varied as the geography.",
+      "source_start": 0,
+      "source_end": 84,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many have developed distinct features that stand out.",
+      "source_start": 85,
+      "source_end": 138,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A general design commonly found in traditional houses for the richer classes, both in urban and rural contexts, is based on a central courtyard with the rooms organised around it, whether over one or several storeys.",
+      "source_start": 139,
+      "source_end": 355,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago.",
+      "source_start": 356,
+      "source_end": 487,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "( Hint: Think in terms of privacy, convenience, rainfall and cooling.",
+      "source_start": 539,
+      "source_end": 608,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "Indo-Saracenic architecture",
+      "relation": "role",
+      "object": "distinctive colonial style",
+      "source_text": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+      "source_start": 0,
+      "source_end": 143,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It blended Islamic, Hindu, and Gothic elements, featuring domes, pointed arches, minarets, and intricate decorative patterns inspired by Mughal and Rajput traditions (Figs.",
+      "source_start": 144,
+      "source_end": 316,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "3.52 to 3.54).",
+      "source_start": 317,
+      "source_end": 331,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ India’s architectural heritage is among the richest and most diverse in the world.",
+      "source_start": 333,
+      "source_end": 417,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Our selection here necessarily leaves out thousands of astonishing monuments of diverse styles.",
+      "source_start": 418,
+      "source_end": 513,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ There is much thought and spirituality behind those bricks and stones.",
+      "source_start": 514,
+      "source_end": 586,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Classical Buddhist, Jain and Hindu architectures seek to connect the human and the cosmic, or the human and the divine; they aim at expressing beauty and order.",
+      "source_start": 587,
+      "source_end": 747,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "And as with Islamic architecture, they involve advanced construction techniques.",
+      "source_start": 748,
+      "source_end": 828,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Anyone travelling through India and visiting some of the lesser-known monuments will notice that many are in a state of neglect.",
+      "source_start": 829,
+      "source_end": 959,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "bodies are theoretically responsible for this huge task, but in practice, much will be lost unless citizens feel equally responsible and, to begin with, learn to appreciate and admire this labour of our ancestors.",
+      "source_start": 0,
+      "source_end": 213,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If you revisit our Constitution’s ‘Fundamental Duties’, you will now understand the wisdom of one of them: “… to value and preserve the rich heritage of our composite culture”.",
+      "source_start": 214,
+      "source_end": 390,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines architecture?",
+      "options": [
+        {
+          "text": "the earliest known tradition of urban planning and construction",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "The temple",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "people",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "the earliest known tradition of urban planning and construction",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "A group of temples at Pattadakal, Karnataka",
+      "source_page": 6,
+      "supporting_excerpt": "architecture represents the earliest known tradition of urban planning and construction",
+      "explanation": "Source verification: \"architecture represents the earliest known tradition of urban planning and construction\". This confirms that architecture is defined as the earliest known tradition of urban planning and construction.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-003"
+        ],
+        "excerpts": [
+          "architecture represents the earliest known tradition of urban planning and construction"
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-003",
+            "start": 132,
+            "end": 219
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "architecture",
+        "the earliest known tradition of urban planning and construction"
+      ],
+      "relation_keys": [
+        "architecture|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-003"
+      ],
+      "inference_steps": [
+        "Extracted source definition: architecture -> the earliest known tradition of urban planning and construction",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-003"
+        ],
+        "steps": [
+          "Extracted source definition: architecture -> the earliest known tradition of urban planning and construction",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0002",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0002",
+        "subject": "architecture",
+        "subject_normalized": "architecture",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the earliest known tradition of urban planning and construction",
+        "object_normalized": "the earliest known tradition of urban planning and construction",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 6,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "architecture represents the earliest known tradition of urban planning and construction",
+        "source_text": "architecture represents the earliest known tradition of urban planning and construction",
+        "source_clause": "",
+        "supporting_excerpt": "architecture represents the earliest known tradition of urban planning and construction",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on the passage:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+          "fact_id": "F-LITE-072",
+          "source_excerpt": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Entirely decorated with marble, the Taj Mahal is an continued by Guru Arjan Dev, the fifth Guru in 1588., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur’an and intricate geometric patterns",
+          "fact_id": "F-LITE-060",
+          "source_excerpt": "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur’an and intricate geometric patterns",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e",
+            "replacement": "continued by Guru Arjan Dev, the fifth Guru in 1588",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-085",
+          "fact_id": "F-LITE-072",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-072",
+          "fact_id": "F-LITE-060",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "Before we move on ...",
+      "source_page": 39,
+      "supporting_excerpt": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+      "explanation": "Statement 1 is correct. The source states: “Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).” This supports statement 1. Statement 2 is false. The source states: “Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur’an and intricate geometric patterns” The stated value is example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e, not continued by Guru Arjan Dev, the fifth Guru in 1588.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-072",
+          "F-LITE-060"
+        ],
+        "excerpts": [
+          "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+          "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur’an and intricate geometric patterns"
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-072",
+            "start": 0,
+            "end": 143
+          },
+          {
+            "fact_id": "F-LITE-060",
+            "start": 796,
+            "end": 1100
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "Before we move on ...",
+        "source_page": 39
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-072|distinctive colonial style&F-LITE-060|example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e",
+      "relation_keys": [
+        "F-LITE-072|distinctive colonial style",
+        "F-LITE-060|example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-072"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines architecture?",
+      "options": [
+        {
+          "text": "the earliest known tradition of urban planning and construction",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "The temple",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "people",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "the earliest known tradition of urban planning and construction",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "A group of temples at Pattadakal, Karnataka",
+      "source_page": 6,
+      "supporting_excerpt": "architecture represents the earliest known tradition of urban planning and construction",
+      "explanation": "Source verification: \"architecture represents the earliest known tradition of urban planning and construction\". This confirms that architecture is defined as the earliest known tradition of urban planning and construction.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-003"
+        ],
+        "excerpts": [
+          "architecture represents the earliest known tradition of urban planning and construction"
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-003",
+            "start": 132,
+            "end": 219
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "architecture",
+        "the earliest known tradition of urban planning and construction"
+      ],
+      "relation_keys": [
+        "architecture|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-003"
+      ],
+      "inference_steps": [
+        "Extracted source definition: architecture -> the earliest known tradition of urban planning and construction",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-003"
+        ],
+        "steps": [
+          "Extracted source definition: architecture -> the earliest known tradition of urban planning and construction",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0002",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0002",
+        "subject": "architecture",
+        "subject_normalized": "architecture",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the earliest known tradition of urban planning and construction",
+        "object_normalized": "the earliest known tradition of urban planning and construction",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 6,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "architecture represents the earliest known tradition of urban planning and construction",
+        "source_text": "architecture represents the earliest known tradition of urban planning and construction",
+        "source_clause": "",
+        "supporting_excerpt": "architecture represents the earliest known tradition of urban planning and construction",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-003",
+      "subject": "architecture",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "the earliest known tradition of urban planning and construction",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-019",
+      "subject": "The temple",
+      "predicate": "launched_by",
+      "relation_type": "HAS_PROPERTY",
+      "object": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-038",
+      "subject": "people",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "25,000 people",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-072",
+      "subject": "Indo-Saracenic architecture",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "distinctive colonial style",
+      "is_derived": false
+    }
+  ]
+}

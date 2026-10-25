@@ -63,89 +63,48 @@
     return ordered;
   }
 
+  // Production operator set. The remaining operators stay implemented and
+  // directly testable, but are not allowed to publish questions: their proof
+  // contracts are not yet strong enough to guarantee source-bound answers.
+  const PRODUCTION_OPERATORS = Object.freeze([
+    'OP_B_CAUSAL_EXPLANATION',
+    'OP_C_CAUSAL_CHAIN',
+    'OP_F_PROCESS_SEQUENCE',
+    'OP_H_CATEGORY_INFERENCE',
+    'OP_I_EXCEPTION_REASONING',
+    'OP_J_CONTRASTIVE_EXPLANATION'
+  ]);
+
   /**
-   * Run all 16 reasoning operators over the Knowledge Graph
+   * Run the production reasoning operators over the Knowledge Graph
    */
   function generateReasoningCandidates(graph, context) {
     Constructors.resetCandidateCounter();
     const candidates = [];
     const allProps = graph.getAllPropositions();
 
-    // 1. Single-Proposition Operators
+    const pushCandidate = (result) => {
+      if (!result.success) return;
+      const cand = Constructors.constructQuestionCandidate(result, graph, context);
+      if (cand) candidates.push(cand);
+    };
+
+    // 1. Single-Proposition Operators (B, F, H, I)
     for (const prop of allProps) {
       // Op B: Causal Explanation
-      const resB = Operators.executeOperatorB(prop);
-      if (resB.success) {
-        const cand = Constructors.constructQuestionCandidate(resB, graph, context);
-        if (cand) candidates.push(cand);
-      }
-
-      // Op D: Conditional Reasoning
-      const resD = Operators.executeOperatorD(prop);
-      if (resD.success) {
-        const cand = Constructors.constructQuestionCandidate(resD, graph, context);
-        if (cand) candidates.push(cand);
-      }
-
-      // Op E: Comparative Reasoning
-      const resE = Operators.executeOperatorE(prop);
-      if (resE.success) {
-        const cand = Constructors.constructQuestionCandidate(resE, graph, context);
-        if (cand) candidates.push(cand);
-      }
+      pushCandidate(Operators.executeOperatorB(prop));
 
       // Op F: Process Sequence
-      const resF = Operators.executeOperatorF(prop);
-      if (resF.success) {
-        const cand = Constructors.constructQuestionCandidate(resF, graph, context);
-        if (cand) candidates.push(cand);
-      }
+      pushCandidate(Operators.executeOperatorF(prop));
 
       // Op H: Category Inference
-      const resH = Operators.executeOperatorH(prop);
-      if (resH.success) {
-        const cand = Constructors.constructQuestionCandidate(resH, graph, context);
-        if (cand) candidates.push(cand);
-      }
+      pushCandidate(Operators.executeOperatorH(prop));
 
       // Op I: Exception Reasoning
-      const resI = Operators.executeOperatorI(prop);
-      if (resI.success) {
-        const cand = Constructors.constructQuestionCandidate(resI, graph, context);
-        if (cand) candidates.push(cand);
-      }
-
-      // Op K: Evidence-Based Conclusion
-      const resK = Operators.executeOperatorK(prop);
-      if (resK.success) {
-        const cand = Constructors.constructQuestionCandidate(resK, graph, context);
-        if (cand) candidates.push(cand);
-      }
-
-      // Op L: Error Diagnosis (Disabled in candidate generation per Targeted Engine Repair 001
-      // until formal erroneous inference specifications and ground-truth constraint verification are implemented)
-      // const resL = Operators.executeOperatorL(prop, 'reversed_causality');
-      // if (resL.success) {
-      //   const cand = Constructors.constructQuestionCandidate(resL, graph, context);
-      //   if (cand) candidates.push(cand);
-      // }
-
-      // Op M: Quantitative Reasoning
-      const resM = Operators.executeOperatorM(prop);
-      if (resM.success) {
-        const cand = Constructors.constructQuestionCandidate(resM, graph, context);
-        if (cand) candidates.push(cand);
-      }
-
-      // Op P: Counterfactual Reasoning
-      const resP = Operators.executeOperatorP(prop);
-      if (resP.success) {
-        const cand = Constructors.constructQuestionCandidate(resP, graph, context);
-        if (cand) candidates.push(cand);
-      }
+      pushCandidate(Operators.executeOperatorI(prop));
     }
 
-    // 2. Pairwise Operators (bounded traversal)
+    // 2. Pairwise Operators (bounded traversal): C and J
     const maxPairs = 100;
     let pairsEvaluated = 0;
 
@@ -158,43 +117,13 @@
         // Op C: Causal Chain (p1 -> p2 or p2 -> p1)
         const resC1 = Operators.executeOperatorC(p1, p2);
         if (resC1.success) {
-          const cand = Constructors.constructQuestionCandidate(resC1, graph, context);
-          if (cand) candidates.push(cand);
+          pushCandidate(resC1);
         } else {
-          const resC2 = Operators.executeOperatorC(p2, p1);
-          if (resC2.success) {
-            const cand = Constructors.constructQuestionCandidate(resC2, graph, context);
-            if (cand) candidates.push(cand);
-          }
-        }
-
-        // Op A: Rule Application
-        const resA = Operators.executeOperatorA(p1, p2);
-        if (resA.success) {
-          const cand = Constructors.constructQuestionCandidate(resA, graph, context);
-          if (cand) candidates.push(cand);
+          pushCandidate(Operators.executeOperatorC(p2, p1));
         }
 
         // Op J: Contrastive Explanation
-        const resJ = Operators.executeOperatorJ(p1, p2);
-        if (resJ.success) {
-          const cand = Constructors.constructQuestionCandidate(resJ, graph, context);
-          if (cand) candidates.push(cand);
-        }
-
-        // Op N: Conceptual Discrimination
-        const resN = Operators.executeOperatorN(p1, p2);
-        if (resN.success) {
-          const cand = Constructors.constructQuestionCandidate(resN, graph, context);
-          if (cand) candidates.push(cand);
-        }
-
-        // Op O: Multi-Hop Synthesis
-        const resO = Operators.executeOperatorO(p1, p2);
-        if (resO.success) {
-          const cand = Constructors.constructQuestionCandidate(resO, graph, context);
-          if (cand) candidates.push(cand);
-        }
+        pushCandidate(Operators.executeOperatorJ(p1, p2));
       }
     }
 
@@ -262,6 +191,10 @@
       // Verify post-rotation
       const finalCheck = Validator.validateCandidate(cand, graph, context);
       if (finalCheck.valid) {
+        cand.verification = {
+          status: 'verified',
+          rules: ['source_fact', 'typed_options', 'evidence_quoted', 'answer_verified', 'scope_preserved', 'proof_trace_verified']
+        };
         accepted.push(cand);
         sequence++;
       }
@@ -294,6 +227,7 @@
     Constructors,
     Validator,
     Ranking,
+    PRODUCTION_OPERATORS,
     generateReasoningCandidates,
     generateReasoningQuestionBank
   };

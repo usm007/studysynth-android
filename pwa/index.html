@@ -467,6 +467,18 @@
   <!-- Offline Scripts -->
   <script src="./sample_data.js"></script>
   <script src="./ctet_index.js"></script>
+  <!-- Reasoning Engine V2: modules must load in dependency order before the
+       generator, which binds them at parse time. -->
+  <script src="./engine/reasoning/types.js"></script>
+  <script src="./engine/reasoning/linguistics.js"></script>
+  <script src="./engine/reasoning/representation.js"></script>
+  <script src="./engine/reasoning/graph.js"></script>
+  <script src="./engine/reasoning/operators.js"></script>
+  <script src="./engine/reasoning/distractors.js"></script>
+  <script src="./engine/reasoning/constructors.js"></script>
+  <script src="./engine/reasoning/validator.js"></script>
+  <script src="./engine/reasoning/ranking.js"></script>
+  <script src="./engine/reasoning/engine_v2.js"></script>
   <script src="./engine/generator.js"></script>
   <script src="./engine/analyze.js"></script>
   <script src="./engine/pdfParser.js"></script>

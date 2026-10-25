@@ -1,0 +1,3045 @@
+{
+  "meta": {
+    "file": "hees206.pdf",
+    "chapterNum": 6,
+    "subject": "Economics / Geography",
+    "title": "Dynamics of Population",
+    "outBase": "hees206_dynamics_of_population",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 24,
+    "pagesProcessed": 24,
+    "pagesWithBody": 20,
+    "pagesWithoutBody": 4,
+    "textItemCount": 1722,
+    "blockTypes": {
+      "heading": 45,
+      "page_furniture": 192,
+      "diagram": 239,
+      "body": 52,
+      "caption": 17,
+      "ambiguous": 14,
+      "fragment": 45
+    }
+  },
+  "generation": {
+    "factCount": 99,
+    "totalCandidates": 33,
+    "accepted": 10,
+    "rejected": 23,
+    "requestedCount": 15,
+    "conflictCount": 0,
+    "conflictedFactCount": 0,
+    "conflictedFactIds": [],
+    "unusedFactCount": 88,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099"
+    ],
+    "rejectionCounts": {
+      "missing_options": 5,
+      "unsafe_spans": 4,
+      "unsupported_facts": 83,
+      "duplicate_relation": 26
+    },
+    "buildMetrics": {
+      "missingOptions": 5,
+      "unsafeFacts": 0,
+      "unsupportedFacts": 83,
+      "multiMissing": 0,
+      "unsafeSpans": 4
+    },
+    "subtypeDistribution": {
+      "category_classification": 3,
+      "numeric_recall": 1,
+      "entity_attribute": 3,
+      "cause_effect": 1,
+      "multi_statement": 2
+    },
+    "keyDistribution": {
+      "A": 3,
+      "B": 3,
+      "C": 2,
+      "D": 2
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 10,
+    "totalCandidates": 33,
+    "accepted": 10,
+    "rejected": 23,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 5,
+      "unsafe_spans": 4,
+      "unsupported_facts": 83,
+      "duplicate_relation": 26
+    },
+    "subtypeDistribution": {
+      "category_classification": 3,
+      "numeric_recall": 1,
+      "entity_attribute": 3,
+      "cause_effect": 1,
+      "multi_statement": 2
+    },
+    "keyDistribution": {
+      "A": 3,
+      "B": 3,
+      "C": 2,
+      "D": 2
+    },
+    "unusedFacts": 88,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-081",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-099"
+    ],
+    "conflictedFacts": 0,
+    "conflictedFactIds": []
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Population ageing is poised to become one of the most significant social transformations of the twenty-first century, with implications for nearly all sectors of society.",
+      "source_start": 0,
+      "source_end": 170,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "size, structure , and composition.",
+      "source_start": 0,
+      "source_end": 34,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For instance, there are people from different age groups, such as children, adults, or the elderly; different genders, various levels of education; diverse occupations, and religion and so on.",
+      "source_start": 35,
+      "source_end": 227,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Moreover, many of these characteristics of population change over time due to births,",
+      "source_start": 228,
+      "source_end": 313,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "deaths, and movement of people within and across countries.",
+      "source_start": 315,
+      "source_end": 374,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The study of these features of the human population and how they change over time is called demography.",
+      "source_start": 375,
+      "source_end": 478,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "Demography",
+      "relation": "function",
+      "object": "better understand the people living in a region",
+      "source_text": "Demography helps to better understand the people living in a region.",
+      "source_start": 480,
+      "source_end": 548,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Governments can utilise such information to plan infrastructure, such as schools, hospitals, roads, and housing, as well as municipal services like water, energy, waste management, etc. For instance, if a place has many young children, more schools are needed; if the proportion of the elderly in a population is higher, more facilities for healthcare are required.",
+      "source_start": 549,
+      "source_end": 914,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, a higher proportion of young working-age population implies a greater need for gainful employment generation.",
+      "source_start": 915,
+      "source_end": 1035,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Businesses also assess their potential customers based on characteristics like age, gender, and income to create products that match people’s needs.",
+      "source_start": 1036,
+      "source_end": 1184,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Hence, determining a country’s population size and structure helps to better allocate and manage its resources.",
+      "source_start": 1185,
+      "source_end": 1296,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In India, the census is generally conducted every 10 years to assess the total population and its characteristics.",
+      "source_start": 0,
+      "source_end": 114,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is the official count of people living in a country in a particular period.",
+      "source_start": 115,
+      "source_end": 193,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "age, gender, marital status, educational levels, languages spoken, religion, family size, occupation, employment status,",
+      "source_start": 247,
+      "source_end": 367,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "The current population of any country",
+      "relation": "role",
+      "object": "result of years of gradual change in the number of babies born",
+      "source_text": "The current population of any country is a result of years of gradual change in the number of babies born, the number of deaths, and the movement of people in and out of the country over the years.",
+      "source_start": 58,
+      "source_end": 255,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "population in a year",
+      "relation": "numeric_value",
+      "object": "1,000 population in a year",
+      "source_text": "as the total number of live human births per 1,000 population in a year.",
+      "source_start": 257,
+      "source_end": 329,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "1,000 people",
+      "source_text": "The death rate, also known as the mortality rate, is the number of deaths in a population during a year, typically expressed as deaths per 1,000 people.",
+      "source_start": 331,
+      "source_end": 483,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "Migration",
+      "relation": "definition",
+      "object": "the movement of people from one place to another, could be within or outside the country",
+      "source_text": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+      "source_start": 485,
+      "source_end": 594,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Birth and fertility rates Birth rate helps us understand how fast a population is growing.",
+      "source_start": 0,
+      "source_end": 90,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If many babies are being born, the birth rate is high, and the population will grow faster.",
+      "source_start": 91,
+      "source_end": 182,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If fewer babies are being born, the birth rate is low, and the population might grow slowly or even start shrinking over time.",
+      "source_start": 183,
+      "source_end": 309,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "The fertility rate",
+      "relation": "role",
+      "object": "slightly different",
+      "source_text": "The fertility rate is slightly different.",
+      "source_start": 310,
+      "source_end": 351,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It tells us the average number of children a woman is likely to have in her lifetime.",
+      "source_start": 352,
+      "source_end": 437,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "A fertility rate of 2.1",
+      "relation": "definition",
+      "object": "that, on average, each woman has two children in her lifetime",
+      "source_text": "A fertility rate of 2.1 means that, on average, each woman has two children in her lifetime.",
+      "source_start": 438,
+      "source_end": 530,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is often referred to as the ‘replacement level fertility rate’ because it is the number of children needed to replace the parents in the population.",
+      "source_start": 531,
+      "source_end": 682,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This rate is crucial to maintain a stable population.",
+      "source_start": 683,
+      "source_end": 736,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If the fertility rate is above 2.1, the population is likely to grow; if it is below 2.1, the population might shrink over time.",
+      "source_start": 737,
+      "source_end": 865,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the 1970s, the Chinese government was worried that its fast-growing population would cause shortages of food, jobs, and housing.",
+      "source_start": 0,
+      "source_end": 131,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "To control this, it introduced the One-Child Policy in 1979, allowing most families to have only one child.",
+      "source_start": 132,
+      "source_end": 239,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Those who broke the rule faced fines or job loss.",
+      "source_start": 240,
+      "source_end": 289,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As a result, the fertility rate in China dropped from 7.5 in 1963 to 1 in 2025.",
+      "source_start": 290,
+      "source_end": 369,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "China’s population peaked at 1.43 billion in 2022 but has started to shrink.",
+      "source_start": 370,
+      "source_end": 446,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "By 2050, it is projected to fall to 1.31 billion; on the other hand, people are living longer due to access to better healthcare.",
+      "source_start": 447,
+      "source_end": 576,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So, the share of elderly (those above 65 years) in the total population is expected to rise sharply, i.e., from 14 per cent in 2023 to 26 per cent in 2050.",
+      "source_start": 577,
+      "source_end": 732,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As more people grow older and retire, there are fewer younger workers available to work in farms, factories, and offices.",
+      "source_start": 733,
+      "source_end": 854,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This could potentially lead to a slow down in the economic growth of the country.",
+      "source_start": 855,
+      "source_end": 936,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The One-Child Policy had a far-reaching impact on households and society.",
+      "source_start": 937,
+      "source_end": 1010,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A whole generation of children do not have siblings and kinship networks .",
+      "source_start": 1011,
+      "source_end": 1085,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many factors have contributed to falling fertility and birth rates.",
+      "source_start": 0,
+      "source_end": 67,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "One important factor",
+      "relation": "role",
+      "object": "improvements in access to quality education, especially among girls",
+      "source_text": "One important factor is improvements in access to quality education, especially among girls.",
+      "source_start": 68,
+      "source_end": 160,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As women are increasingly getting formal education and are working in formal jobs, they are more likely to marry at a later stage and have fewer",
+      "source_start": 161,
+      "source_end": 305,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "children.",
+      "source_start": 307,
+      "source_end": 316,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Also, with rapid urbanisation, the cost of living is high particularly in cities, so people prefer to have smaller families.",
+      "source_start": 317,
+      "source_end": 441,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Another important indicator of population growth is the death or mortality rate.",
+      "source_start": 0,
+      "source_end": 80,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A lower mortality rate indicates the availability of quality healthcare and better nutrition among people in the country.",
+      "source_start": 81,
+      "source_end": 202,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "India has made great progress by lowering child mortality from 271 per 1,000 in 1950 to 28 in 2023.",
+      "source_start": 203,
+      "source_end": 302,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, life expectancy at birth in India has risen from just 30 years",
+      "source_start": 303,
+      "source_end": 376,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "at independence to 70 years in 2024.",
+      "source_start": 378,
+      "source_end": 414,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Life expectancy is the average number of years a newborn is expected to live if they grow up with the same health, safety, and living conditions that people in their country have today.",
+      "source_start": 415,
+      "source_end": 600,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "expected to live about 70 years.",
+      "source_start": 694,
+      "source_end": 726,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It doesn’t mean every single person will live to be exactly 70, but that on an average an Indian can expect to live up to the age of 70 years.",
+      "source_start": 727,
+      "source_end": 869,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "People tend to migrate to other areas for better employment opportunities, education, and so on.",
+      "source_start": 871,
+      "source_end": 967,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sometimes, natural disasters and political instability in an area can push people to migrate.",
+      "source_start": 968,
+      "source_end": 1061,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Areas witnessing an influx of migrants see a rise in population over time.",
+      "source_start": 1062,
+      "source_end": 1136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, cities like Delhi, Mumbai, and Bengaluru have experienced significant population growth due to migration .",
+      "source_start": 1137,
+      "source_end": 1256,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, concentration of a very large population in a limited area can put pressure on resources like water, air,",
+      "source_start": 1257,
+      "source_end": 1371,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "and land, and strain services like transportation and housing.",
+      "source_start": 0,
+      "source_end": 62,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You will read more about some of the challenges of urban areas in the next chapter.",
+      "source_start": 63,
+      "source_end": 146,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Just as individuals experience various phases of life while growing up, such as childhood, adulthood, and old age, countries’ demographic characteristics also change over time with changes in birth and death rates of the population.",
+      "source_start": 276,
+      "source_end": 508,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Improvement in India’s sex ratio Population composition uses sex ratio as a key demographic indicator.",
+      "source_start": 0,
+      "source_end": 102,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "Sex ratio",
+      "relation": "definition",
+      "object": "the number of females per 1,000 males in the population",
+      "source_text": "Sex ratio represents the number of females per 1,000 males in the population.",
+      "source_start": 103,
+      "source_end": 180,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is used to measure gender balance within the population and reflects the country’s socio-economic and cultural dynamics.",
+      "source_start": 181,
+      "source_end": 304,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As per Census 2001, India’s sex ratio stood at 933 females per 1,000 males.",
+      "source_start": 306,
+      "source_end": 381,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "Sex ratio improved to 943 in 2011 where women",
+      "relation": "members",
+      "object": "48.5 per cent of the total population",
+      "source_text": "It improved to 943 in 2011 where women comprised 48.5 per cent of the total population.",
+      "source_start": 382,
+      "source_end": 469,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "A balanced sex ratio",
+      "relation": "role",
+      "object": "vital for equitable development, social stability, and sustainable population growth",
+      "source_text": "A balanced sex ratio is vital for equitable development, social stability, and sustainable population growth.",
+      "source_start": 470,
+      "source_end": 579,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Census figures of 2001 as well as 2011 show the overall number of females per 1,000 males being much less than 1,000.",
+      "source_start": 581,
+      "source_end": 698,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some states, however, had over 1,000 or near 1,000 (Kerala, Puducherry, Tamil Nadu).",
+      "source_start": 699,
+      "source_end": 783,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "the term ‘population pyramid’",
+      "relation": "comparison",
+      "object": "the representation on paper looks more like a triangle, parts of which have been pulled outwards or shrunk, into different shapes—a 3-dimensional concept represented in 2 dimensions",
+      "source_text": "While the term ‘population pyramid’ is used widely, the representation on paper looks more like a triangle, parts of which have been pulled outwards or shrunk, into different shapes—a 3-dimensional concept represented in 2 dimensions.",
+      "source_start": 0,
+      "source_end": 234,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the 1950s, India’s pyramid looked like a narrow triangle which meant that there were many children and young people, and fewer older people.",
+      "source_start": 236,
+      "source_end": 379,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The birth rate was high because families had many children.",
+      "source_start": 380,
+      "source_end": 439,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The life expectancy (average age people lived to) was low — around 30–35 years — because healthcare and nutrition were not as good.",
+      "source_start": 440,
+      "source_end": 571,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "better healthcare",
+      "relation": "causes",
+      "object": "nutrition, and living conditions",
+      "source_text": "because of better healthcare, nutrition, and living conditions.",
+      "source_start": 55,
+      "source_end": 118,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "earns money and pays taxes .",
+      "source_start": 0,
+      "source_end": 28,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The government uses that money to build schools, hospitals, roads, and parks.",
+      "source_start": 29,
+      "source_end": 106,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This economic growth potential of a nation resulting from a younger and productive age structure of a country is known as its demographic dividend.",
+      "source_start": 107,
+      "source_end": 254,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "and is now also declining.",
+      "source_start": 256,
+      "source_end": 282,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "After 2050, India’s population would begin to transition towards an older population.",
+      "source_start": 283,
+      "source_end": 368,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "An ageing population",
+      "relation": "definition",
+      "object": "more elderly people who need care and fewer young people working to support them",
+      "source_text": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+      "source_start": 370,
+      "source_end": 478,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This puts pressure on healthcare systems, as older adults need more",
+      "source_start": 479,
+      "source_end": 546,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "healthcare facilities.",
+      "source_start": 0,
+      "source_end": 22,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Governments also face challenges paying pensions and providing services because of fewer young taxpayers.",
+      "source_start": 117,
+      "source_end": 222,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Indian society has had the concept of ā shrama dharma where life is divided into four phases — brahmacharya , gṛihastāshrama , vānaprasta and sanyāsa .",
+      "source_start": 0,
+      "source_end": 156,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "older people begin to withdraw from economic activities",
+      "relation": "comparison",
+      "object": "they continue to play other important roles — share their knowledge and wisdom with family and society as needed",
+      "source_text": "Though older people begin to withdraw from economic activities, they continue to play other important roles — share their knowledge and wisdom with family and society as needed.",
+      "source_start": 157,
+      "source_end": 334,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cultural continuity becomes possible through their guidance in rituals, storytelling, etc. They hold knowledge that may not necessarily be in books.",
+      "source_start": 335,
+      "source_end": 483,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Nations need to prepare for the demographic transition.",
+      "source_start": 599,
+      "source_end": 654,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For developed countries, it is important to support an ageing society while maintaining productivity and innovation.",
+      "source_start": 655,
+      "source_end": 771,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "For instance, Japan has raised the retirement age, and has",
+      "relation": "method",
+      "object": "technology and automation",
+      "source_text": "For instance, Japan has raised the retirement age, and has employed technology and automation to compensate for labour shortages.",
+      "source_start": 772,
+      "source_end": 901,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There are large-scale community centres and robots and AI assistants to help care for older adults.",
+      "source_start": 902,
+      "source_end": 1001,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For developing countries, the challenge is to harness the demographic dividend through investment in good education, skilling and healthcare.",
+      "source_start": 1002,
+      "source_end": 1143,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At the same time, as societies develop and more women pursue formal jobs, they often face the ‘double burden’ — managing both job responsibilities and household duties.",
+      "source_start": 1144,
+      "source_end": 1312,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Lack of childcare facilities, joint family support system and flexible work hours can make it difficult for women to participate in workforce.",
+      "source_start": 1313,
+      "source_end": 1455,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Therefore, supportive family systems and childcare infrastructure like daycare centres can help the economy turn its demographic dividend into lasting progress.",
+      "source_start": 1456,
+      "source_end": 1616,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Policies in many nations have attempted to revive the fertility rate but have not been very successful so far.",
+      "source_start": 1617,
+      "source_end": 1727,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Demography is the study of population size, structure, and changes due to births, deaths, and migration in a region.",
+      "source_start": 0,
+      "source_end": 118,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Population of a country changes over time and follows patterns called demographic transition, moving from high birth and death rates to low birth and death rates.",
+      "source_start": 119,
+      "source_end": 283,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many developed countries around the world are experiencing shrinking and ageing population due to low birth rates.",
+      "source_start": 284,
+      "source_end": 398,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ India currently has a large young workforce (demographic dividend), which can boost the country’s growth through the development of human capital — education, employment, and healthcare.",
+      "source_start": 399,
+      "source_end": 587,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, the window of opportunity is limited as India’s population will begin to fall in the coming decades.",
+      "source_start": 588,
+      "source_end": 697,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For instance, find out how countries with ageing populations are managing this.",
+      "source_start": 76,
+      "source_end": 155,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Migration?",
+      "options": [
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "the movement of people from one place to another, could be within or outside the country",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 6,
+      "supporting_excerpt": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+      "explanation": "Source verification: \"Migration refers to the movement of people from one place to another, could be within or outside the country.\". This confirms that Migration is defined as the movement of people from one place to another, could be within or outside the country.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-018"
+        ],
+        "excerpts": [
+          "Migration refers to the movement of people from one place to another, could be within or outside the country."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-018",
+            "start": 485,
+            "end": 594
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Migration",
+        "the movement of people from one place to another, could be within or outside the country"
+      ],
+      "relation_keys": [
+        "migration|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-018"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Migration -> the movement of people from one place to another, could be within or outside the country",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-018"
+        ],
+        "steps": [
+          "Extracted source definition: Migration -> the movement of people from one place to another, could be within or outside the country",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0009",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0009",
+        "subject": "Migration",
+        "subject_normalized": "migration",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the movement of people from one place to another, could be within or outside the country",
+        "object_normalized": "the movement of people from one place to another could be within or outside the country",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 6,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "source_text": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "source_clause": "",
+        "supporting_excerpt": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "numeric_recall",
+      "stem": "According to the passage, what number is stated for population in a year?",
+      "context": "as the total number of live human births per ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "999 population in a year",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "B",
+          "text": "1,000 population in a year",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "1,001 population in a year",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "D",
+          "text": "998 population in a year",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1,000 population in a year",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-019",
+          "fact_id": "F-LITE-016",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The birth rate measures the number of individuals born during",
+      "source_page": 6,
+      "supporting_excerpt": "as the total number of live human births per 1,000 population in a year.",
+      "explanation": "The source states: “as the total number of live human births per 1,000 population in a year.” This identifies the value for population in a year as 1,000 population in a year.",
+      "difficulty": "easy",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-016"
+        ],
+        "excerpts": [
+          "as the total number of live human births per 1,000 population in a year."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-016",
+            "start": 257,
+            "end": 329
+          }
+        ],
+        "stem_relation": "numeric_value",
+        "temporal_scope": "",
+        "fact_type": "numeric",
+        "source_title": "The birth rate measures the number of individuals born during",
+        "source_page": 6
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-016|1,000 population in a year",
+      "relation_keys": [
+        "F-LITE-016|1,000 population in a year"
+      ],
+      "candidate_sort": {
+        "source_start": 257,
+        "fact_id": "F-LITE-016"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with the current population of any country?",
+      "context": "The current population of any country is a ______, the number of deaths, and the movement of people in and out of the country over the years.",
+      "options": [
+        {
+          "key": "A",
+          "text": "slightly different",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "improvements in access to quality education, especially among girls",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "result of years of gradual change in the number of babies born",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "vital for equitable development, social stability, and sustainable population growth",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "result of years of gradual change in the number of babies born",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-018",
+          "fact_id": "F-LITE-015",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The birth rate measures the number of individuals born during",
+      "source_page": 6,
+      "supporting_excerpt": "The current population of any country is a result of years of gradual change in the number of babies born, the number of deaths, and the movement of people in and out of the country over the years.",
+      "explanation": "The source states: “The current population of any country is a result of years of gradual change in the number of babies born, the number of deaths, and the movement of people in and out of the country over the years.” This identifies the stated role of The current population of any country as result of years of gradual change in the number of babies born.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-015"
+        ],
+        "excerpts": [
+          "The current population of any country is a result of years of gradual change in the number of babies born, the number of deaths, and the movement of people in and out of the country over the years."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-015",
+            "start": 58,
+            "end": 255
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The birth rate measures the number of individuals born during",
+        "source_page": 6
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-015|result of years of gradual change in the number of babies born",
+      "relation_keys": [
+        "F-LITE-015|result of years of gradual change in the number of babies born"
+      ],
+      "candidate_sort": {
+        "source_start": 58,
+        "fact_id": "F-LITE-015"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "cause_effect",
+      "stem": "What is the effect of better healthcare?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "better understand the people living in a region",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        },
+        {
+          "key": "B",
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        },
+        {
+          "key": "C",
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": false,
+          "distractor_origin": "source_effect_pool",
+          "confusion_type": "reversed_relation",
+          "distractor_purpose": "scope_error"
+        },
+        {
+          "key": "D",
+          "text": "nutrition, and living conditions",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "nutrition, and living conditions",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-082",
+          "fact_id": "F-LITE-072",
+          "role": "primary"
+        }
+      ],
+      "source_title": "balanced one — and in the future, it may start to age slowly, like",
+      "source_page": 16,
+      "supporting_excerpt": "because of better healthcare, nutrition, and living conditions.",
+      "explanation": "The source explicitly describes the relationship as: “because of better healthcare, nutrition, and living conditions.” The answer preserves the stated direction of that relationship.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-072"
+        ],
+        "excerpts": [
+          "because of better healthcare, nutrition, and living conditions."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-072",
+            "start": 55,
+            "end": 118
+          }
+        ],
+        "stem_relation": "causes",
+        "temporal_scope": "",
+        "fact_type": "causal",
+        "source_title": "balanced one — and in the future, it may start to age slowly, like",
+        "source_page": 16
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-072|nutrition, and living conditions",
+      "relation_keys": [
+        "F-LITE-072|nutrition, and living conditions"
+      ],
+      "candidate_sort": {
+        "source_start": 55,
+        "fact_id": "F-LITE-072"
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on The birth rate measures the number of individuals born during:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "The fertility rate is slightly different.",
+          "fact_id": "F-LITE-022",
+          "source_excerpt": "The fertility rate is slightly different.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "The death rate, also known as the mortality rate, is the number of deaths in a population during a year, typically expressed as deaths per 999 people.",
+          "fact_id": "F-LITE-017",
+          "source_excerpt": "The death rate, also known as the mortality rate, is the number of deaths in a population during a year, typically expressed as deaths per 1,000 people.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "1,000 people",
+            "replacement": "999 people",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-025",
+          "fact_id": "F-LITE-022",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-020",
+          "fact_id": "F-LITE-017",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "also drops. This slows down",
+      "source_page": 7,
+      "supporting_excerpt": "The fertility rate is slightly different.",
+      "explanation": "Statement 1 is correct. The source states: “The fertility rate is slightly different.” This supports statement 1. Statement 2 is false. The source states: “The death rate, also known as the mortality rate, is the number of deaths in a population during a year, typically expressed as deaths per 1,000 people.” The stated value is 1,000 people, not 999 people.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-022",
+          "F-LITE-017"
+        ],
+        "excerpts": [
+          "The fertility rate is slightly different.",
+          "The death rate, also known as the mortality rate, is the number of deaths in a population during a year, typically expressed as deaths per 1,000 people."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-022",
+            "start": 310,
+            "end": 351
+          },
+          {
+            "fact_id": "F-LITE-017",
+            "start": 331,
+            "end": 483
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "also drops. This slows down",
+        "source_page": 7
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-022|slightly different&F-LITE-017|1,000 people",
+      "relation_keys": [
+        "F-LITE-022|slightly different",
+        "F-LITE-017|1,000 people"
+      ],
+      "candidate_sort": {
+        "source_start": 310,
+        "fact_id": "F-LITE-022"
+      }
+    },
+    {
+      "id": "Q-LITE-006",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Sex ratio?",
+      "options": [
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "the number of females per 1,000 males in the population",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 14,
+      "supporting_excerpt": "Sex ratio represents the number of females per 1,000 males in the population.",
+      "explanation": "Source verification: \"Sex ratio represents the number of females per 1,000 males in the population.\". This confirms that Sex ratio is defined as the number of females per 1,000 males in the population.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-061"
+        ],
+        "excerpts": [
+          "Sex ratio represents the number of females per 1,000 males in the population."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-061",
+            "start": 103,
+            "end": 180
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Sex ratio",
+        "the number of females per 1,000 males in the population"
+      ],
+      "relation_keys": [
+        "sex ratio|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-061"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Sex ratio -> the number of females per 1,000 males in the population",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-061"
+        ],
+        "steps": [
+          "Extracted source definition: Sex ratio -> the number of females per 1,000 males in the population",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0010",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0010",
+        "subject": "Sex ratio",
+        "subject_normalized": "sex ratio",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the number of females per 1,000 males in the population",
+        "object_normalized": "the number of females per 1000 males in the population",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 14,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "source_text": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "source_clause": "",
+        "supporting_excerpt": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-007",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes One important factor?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "result of years of gradual change in the number of babies born",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "slightly different",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "improvements in access to quality education, especially among girls",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "vital for equitable development, social stability, and sustainable population growth",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "improvements in access to quality education, especially among girls",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-046",
+          "fact_id": "F-LITE-040",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Year Fig. 6.10. Fertility rates across select countries (2000–2023)",
+      "source_page": 9,
+      "supporting_excerpt": "One important factor is improvements in access to quality education, especially among girls.",
+      "explanation": "The source states: “One important factor is improvements in access to quality education, especially among girls.” This identifies the stated role of One important factor as improvements in access to quality education, especially among girls.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-040"
+        ],
+        "excerpts": [
+          "One important factor is improvements in access to quality education, especially among girls."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-040",
+            "start": 68,
+            "end": 160
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Year Fig. 6.10. Fertility rates across select countries (2000–2023)",
+        "source_page": 9
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-040|improvements in access to quality education, especially among girls",
+      "relation_keys": [
+        "F-LITE-040|improvements in access to quality education, especially among girls"
+      ],
+      "candidate_sort": {
+        "source_start": 68,
+        "fact_id": "F-LITE-040"
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on the passage:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "1 only",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Demography helps to better understand the people living in a region.",
+          "fact_id": "F-LITE-007",
+          "source_excerpt": "Demography helps to better understand the people living in a region.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Migration refers to that, on average, each woman has two children in her lifetime.",
+          "fact_id": "F-LITE-018",
+          "source_excerpt": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "the movement of people from one place to another, could be within or outside the country",
+            "replacement": "that, on average, each woman has two children in her lifetime",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-008",
+          "fact_id": "F-LITE-007",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-021",
+          "fact_id": "F-LITE-018",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "Have you ever wondered how many people live in the world? The human population is spread around the world, differing in",
+      "source_page": 2,
+      "supporting_excerpt": "Demography helps to better understand the people living in a region.",
+      "explanation": "Statement 1 is correct. The source states: “Demography helps to better understand the people living in a region.” This supports statement 1. Statement 2 is false. The source states: “Migration refers to the movement of people from one place to another, could be within or outside the country.” The stated value is the movement of people from one place to another, could be within or outside the country, not that, on average, each woman has two children in her lifetime.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-007",
+          "F-LITE-018"
+        ],
+        "excerpts": [
+          "Demography helps to better understand the people living in a region.",
+          "Migration refers to the movement of people from one place to another, could be within or outside the country."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-007",
+            "start": 480,
+            "end": 548
+          },
+          {
+            "fact_id": "F-LITE-018",
+            "start": 485,
+            "end": 594
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "Have you ever wondered how many people live in the world? The human population is spread around the world, differing in",
+        "source_page": 2
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-007|better understand the people living in a region&F-LITE-018|the movement of people from one place to another, could be within or outside the country",
+      "relation_keys": [
+        "F-LITE-007|better understand the people living in a region",
+        "F-LITE-018|the movement of people from one place to another, could be within or outside the country"
+      ],
+      "candidate_sort": {
+        "source_start": 480,
+        "fact_id": "F-LITE-007"
+      }
+    },
+    {
+      "id": "Q-LITE-009",
+      "candidate_id": "QC-V2-0003",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines An ageing population?",
+      "options": [
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "more elderly people who need care and fewer young people working to support them",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 18,
+      "supporting_excerpt": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+      "explanation": "Source verification: \"An ageing population means more elderly people who need care and fewer young people working to support them.\". This confirms that An ageing population is defined as more elderly people who need care and fewer young people working to support them.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-078"
+        ],
+        "excerpts": [
+          "An ageing population means more elderly people who need care and fewer young people working to support them."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-078",
+            "start": 370,
+            "end": 478
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "An ageing population",
+        "more elderly people who need care and fewer young people working to support them"
+      ],
+      "relation_keys": [
+        "an ageing population|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-078"
+      ],
+      "inference_steps": [
+        "Extracted source definition: An ageing population -> more elderly people who need care and fewer young people working to support them",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-078"
+        ],
+        "steps": [
+          "Extracted source definition: An ageing population -> more elderly people who need care and fewer young people working to support them",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0011",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0011",
+        "subject": "An ageing population",
+        "subject_normalized": "an ageing population",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "more elderly people who need care and fewer young people working to support them",
+        "object_normalized": "more elderly people who need care and fewer young people working to support them",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 18,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "source_text": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "source_clause": "",
+        "supporting_excerpt": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes a balanced sex ratio?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "result of years of gradual change in the number of babies born",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "vital for equitable development, social stability, and sustainable population growth",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "slightly different",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "improvements in access to quality education, especially among girls",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "vital for equitable development, social stability, and sustainable population growth",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-073",
+          "fact_id": "F-LITE-065",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Demographers have observed that populations have gone through transitions influenced by economic development,",
+      "source_page": 14,
+      "supporting_excerpt": "A balanced sex ratio is vital for equitable development, social stability, and sustainable population growth.",
+      "explanation": "The source states: “A balanced sex ratio is vital for equitable development, social stability, and sustainable population growth.” This identifies the stated role of A balanced sex ratio as vital for equitable development, social stability, and sustainable population growth.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-065"
+        ],
+        "excerpts": [
+          "A balanced sex ratio is vital for equitable development, social stability, and sustainable population growth."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-065",
+            "start": 470,
+            "end": 579
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Demographers have observed that populations have gone through transitions influenced by economic development,",
+        "source_page": 14
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-065|vital for equitable development, social stability, and sustainable population growth",
+      "relation_keys": [
+        "F-LITE-065|vital for equitable development, social stability, and sustainable population growth"
+      ],
+      "candidate_sort": {
+        "source_start": 470,
+        "fact_id": "F-LITE-065"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Migration?",
+      "options": [
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "the movement of people from one place to another, could be within or outside the country",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 6,
+      "supporting_excerpt": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+      "explanation": "Source verification: \"Migration refers to the movement of people from one place to another, could be within or outside the country.\". This confirms that Migration is defined as the movement of people from one place to another, could be within or outside the country.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-018"
+        ],
+        "excerpts": [
+          "Migration refers to the movement of people from one place to another, could be within or outside the country."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-018",
+            "start": 485,
+            "end": 594
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Migration",
+        "the movement of people from one place to another, could be within or outside the country"
+      ],
+      "relation_keys": [
+        "migration|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-018"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Migration -> the movement of people from one place to another, could be within or outside the country",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-018"
+        ],
+        "steps": [
+          "Extracted source definition: Migration -> the movement of people from one place to another, could be within or outside the country",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0009",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0009",
+        "subject": "Migration",
+        "subject_normalized": "migration",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the movement of people from one place to another, could be within or outside the country",
+        "object_normalized": "the movement of people from one place to another could be within or outside the country",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 6,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "source_text": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "source_clause": "",
+        "supporting_excerpt": "Migration refers to the movement of people from one place to another, could be within or outside the country.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Sex ratio?",
+      "options": [
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "the number of females per 1,000 males in the population",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 14,
+      "supporting_excerpt": "Sex ratio represents the number of females per 1,000 males in the population.",
+      "explanation": "Source verification: \"Sex ratio represents the number of females per 1,000 males in the population.\". This confirms that Sex ratio is defined as the number of females per 1,000 males in the population.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-061"
+        ],
+        "excerpts": [
+          "Sex ratio represents the number of females per 1,000 males in the population."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-061",
+            "start": 103,
+            "end": 180
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Sex ratio",
+        "the number of females per 1,000 males in the population"
+      ],
+      "relation_keys": [
+        "sex ratio|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-061"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Sex ratio -> the number of females per 1,000 males in the population",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-061"
+        ],
+        "steps": [
+          "Extracted source definition: Sex ratio -> the number of females per 1,000 males in the population",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0010",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0010",
+        "subject": "Sex ratio",
+        "subject_normalized": "sex ratio",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "the number of females per 1,000 males in the population",
+        "object_normalized": "the number of females per 1000 males in the population",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 14,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "source_text": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "source_clause": "",
+        "supporting_excerpt": "Sex ratio represents the number of females per 1,000 males in the population.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "candidate_id": "QC-V2-0003",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines An ageing population?",
+      "options": [
+        {
+          "text": "the movement of people from one place to another, could be within or outside the country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "the number of females per 1,000 males in the population",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "more elderly people who need care and fewer young people working to support them",
+          "is_correct": true,
+          "key": "C"
+        },
+        {
+          "text": "Demography",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "more elderly people who need care and fewer young people working to support them",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "Dynamics of Population",
+      "source_page": 18,
+      "supporting_excerpt": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+      "explanation": "Source verification: \"An ageing population means more elderly people who need care and fewer young people working to support them.\". This confirms that An ageing population is defined as more elderly people who need care and fewer young people working to support them.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-078"
+        ],
+        "excerpts": [
+          "An ageing population means more elderly people who need care and fewer young people working to support them."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-078",
+            "start": 370,
+            "end": 478
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "An ageing population",
+        "more elderly people who need care and fewer young people working to support them"
+      ],
+      "relation_keys": [
+        "an ageing population|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-078"
+      ],
+      "inference_steps": [
+        "Extracted source definition: An ageing population -> more elderly people who need care and fewer young people working to support them",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-078"
+        ],
+        "steps": [
+          "Extracted source definition: An ageing population -> more elderly people who need care and fewer young people working to support them",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0011",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0011",
+        "subject": "An ageing population",
+        "subject_normalized": "an ageing population",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "more elderly people who need care and fewer young people working to support them",
+        "object_normalized": "more elderly people who need care and fewer young people working to support them",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 18,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "source_text": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "source_clause": "",
+        "supporting_excerpt": "An ageing population means more elderly people who need care and fewer young people working to support them.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-007",
+      "subject": "Demography",
+      "predicate": "function",
+      "relation_type": "HAS_PROPERTY",
+      "object": "better understand the people living in a region",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-015",
+      "subject": "The current population of any country",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "result of years of gradual change in the number of babies born",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-016",
+      "subject": "population in a year",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "1,000 population in a year",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-017",
+      "subject": "people",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "1,000 people",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-018",
+      "subject": "Migration",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "the movement of people from one place to another, could be within or outside the country",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-022",
+      "subject": "The fertility rate",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "slightly different",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-040",
+      "subject": "One important factor",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "improvements in access to quality education, especially among girls",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-061",
+      "subject": "Sex ratio",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "the number of females per 1,000 males in the population",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-064",
+      "subject": "Sex ratio improved to 943 in 2011 where women",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "48.5 per cent of the total population",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-065",
+      "subject": "A balanced sex ratio",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "vital for equitable development, social stability, and sustainable population growth",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-078",
+      "subject": "An ageing population",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "more elderly people who need care and fewer young people working to support them",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_DEFINITION-0003",
+      "subject": "Migration",
+      "predicate": "is defined as",
+      "relation_type": "DEFINITION_OF",
+      "object": "the movement of people from one place to another, could be within or outside the country",
+      "is_derived": false
+    }
+  ]
+}

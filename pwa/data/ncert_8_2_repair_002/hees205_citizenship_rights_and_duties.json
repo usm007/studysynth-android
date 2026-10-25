@@ -1,0 +1,4615 @@
+{
+  "meta": {
+    "file": "hees205.pdf",
+    "chapterNum": 5,
+    "subject": "Civics",
+    "title": "Citizenship: Rights and Duties",
+    "outBase": "hees205_citizenship_rights_and_duties",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 24,
+    "pagesProcessed": 24,
+    "pagesWithBody": 22,
+    "pagesWithoutBody": 2,
+    "textItemCount": 1271,
+    "blockTypes": {
+      "diagram": 45,
+      "page_furniture": 63,
+      "heading": 30,
+      "fragment": 31,
+      "ambiguous": 3,
+      "body": 70,
+      "caption": 13
+    }
+  },
+  "generation": {
+    "factCount": 230,
+    "totalCandidates": 42,
+    "accepted": 11,
+    "rejected": 31,
+    "requestedCount": 15,
+    "conflictCount": 0,
+    "conflictedFactCount": 0,
+    "conflictedFactIds": [],
+    "unusedFactCount": 220,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-153",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-159",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-167",
+      "F-LITE-168",
+      "F-LITE-170",
+      "F-LITE-171",
+      "F-LITE-172",
+      "F-LITE-173",
+      "F-LITE-174",
+      "F-LITE-175",
+      "F-LITE-176",
+      "F-LITE-177",
+      "F-LITE-178",
+      "F-LITE-179",
+      "F-LITE-180",
+      "F-LITE-181",
+      "F-LITE-182",
+      "F-LITE-184",
+      "F-LITE-185",
+      "F-LITE-186",
+      "F-LITE-187",
+      "F-LITE-188",
+      "F-LITE-189",
+      "F-LITE-190",
+      "F-LITE-191",
+      "F-LITE-192",
+      "F-LITE-193",
+      "F-LITE-194",
+      "F-LITE-196",
+      "F-LITE-197",
+      "F-LITE-198",
+      "F-LITE-199",
+      "F-LITE-200",
+      "F-LITE-201",
+      "F-LITE-202",
+      "F-LITE-203",
+      "F-LITE-204",
+      "F-LITE-205",
+      "F-LITE-206",
+      "F-LITE-207",
+      "F-LITE-208",
+      "F-LITE-209",
+      "F-LITE-210",
+      "F-LITE-211",
+      "F-LITE-212",
+      "F-LITE-214",
+      "F-LITE-215",
+      "F-LITE-216",
+      "F-LITE-217",
+      "F-LITE-218",
+      "F-LITE-219",
+      "F-LITE-220",
+      "F-LITE-221",
+      "F-LITE-222",
+      "F-LITE-223",
+      "F-LITE-224",
+      "F-LITE-225",
+      "F-LITE-226",
+      "F-LITE-227",
+      "F-LITE-228",
+      "F-LITE-229",
+      "F-LITE-230"
+    ],
+    "rejectionCounts": {
+      "unsafe_facts": 1,
+      "unsafe_spans": 12,
+      "unsupported_facts": 207,
+      "duplicate_relation": 33
+    },
+    "buildMetrics": {
+      "missingOptions": 0,
+      "unsafeFacts": 1,
+      "unsupportedFacts": 207,
+      "multiMissing": 0,
+      "unsafeSpans": 12
+    },
+    "subtypeDistribution": {
+      "category_classification": 2,
+      "entity_attribute": 5,
+      "definition": 2,
+      "classification_membership": 1,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 3,
+      "B": 3,
+      "C": 3,
+      "D": 2
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 11,
+    "totalCandidates": 42,
+    "accepted": 11,
+    "rejected": 31,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "unsafe_facts": 1,
+      "unsafe_spans": 12,
+      "unsupported_facts": 207,
+      "duplicate_relation": 33
+    },
+    "subtypeDistribution": {
+      "category_classification": 2,
+      "entity_attribute": 5,
+      "definition": 2,
+      "classification_membership": 1,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 3,
+      "B": 3,
+      "C": 3,
+      "D": 2
+    },
+    "unusedFacts": 220,
+    "unusedFactIds": [
+      "F-LITE-001",
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-005",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-013",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-041",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-046",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-053",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-068",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-072",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-077",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-098",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-121",
+      "F-LITE-122",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138",
+      "F-LITE-139",
+      "F-LITE-140",
+      "F-LITE-141",
+      "F-LITE-142",
+      "F-LITE-143",
+      "F-LITE-144",
+      "F-LITE-145",
+      "F-LITE-146",
+      "F-LITE-147",
+      "F-LITE-148",
+      "F-LITE-149",
+      "F-LITE-150",
+      "F-LITE-151",
+      "F-LITE-152",
+      "F-LITE-153",
+      "F-LITE-154",
+      "F-LITE-155",
+      "F-LITE-156",
+      "F-LITE-157",
+      "F-LITE-158",
+      "F-LITE-159",
+      "F-LITE-160",
+      "F-LITE-161",
+      "F-LITE-162",
+      "F-LITE-163",
+      "F-LITE-164",
+      "F-LITE-167",
+      "F-LITE-168",
+      "F-LITE-170",
+      "F-LITE-171",
+      "F-LITE-172",
+      "F-LITE-173",
+      "F-LITE-174",
+      "F-LITE-175",
+      "F-LITE-176",
+      "F-LITE-177",
+      "F-LITE-178",
+      "F-LITE-179",
+      "F-LITE-180",
+      "F-LITE-181",
+      "F-LITE-182",
+      "F-LITE-184",
+      "F-LITE-185",
+      "F-LITE-186",
+      "F-LITE-187",
+      "F-LITE-188",
+      "F-LITE-189",
+      "F-LITE-190",
+      "F-LITE-191",
+      "F-LITE-192",
+      "F-LITE-193",
+      "F-LITE-194",
+      "F-LITE-196",
+      "F-LITE-197",
+      "F-LITE-198",
+      "F-LITE-199",
+      "F-LITE-200",
+      "F-LITE-201",
+      "F-LITE-202",
+      "F-LITE-203",
+      "F-LITE-204",
+      "F-LITE-205",
+      "F-LITE-206",
+      "F-LITE-207",
+      "F-LITE-208",
+      "F-LITE-209",
+      "F-LITE-210",
+      "F-LITE-211",
+      "F-LITE-212",
+      "F-LITE-214",
+      "F-LITE-215",
+      "F-LITE-216",
+      "F-LITE-217",
+      "F-LITE-218",
+      "F-LITE-219",
+      "F-LITE-220",
+      "F-LITE-221",
+      "F-LITE-222",
+      "F-LITE-223",
+      "F-LITE-224",
+      "F-LITE-225",
+      "F-LITE-226",
+      "F-LITE-227",
+      "F-LITE-228",
+      "F-LITE-229",
+      "F-LITE-230"
+    ],
+    "conflictedFacts": 0,
+    "conflictedFactIds": []
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The topics in this chapter — citizenship, rights, duties, discrimination, and inclusion — are complex.",
+      "source_start": 0,
+      "source_end": 102,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They have legal meanings too.",
+      "source_start": 103,
+      "source_end": 132,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, we have simplified them here to help you understand them.",
+      "source_start": 133,
+      "source_end": 199,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "You will delve deeper into them in higher grades.",
+      "source_start": 200,
+      "source_end": 249,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "New student Kruti was being teased on the playground for her accent.",
+      "source_start": 251,
+      "source_end": 319,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sonali and Harshada saw this happening and decided to help.",
+      "source_start": 320,
+      "source_end": 379,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They bravely told the bullies to stop teasing her.",
+      "source_start": 380,
+      "source_end": 430,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "But they didn’t just stop there.",
+      "source_start": 431,
+      "source_end": 463,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They also invited Kruti to join their badminton team so she would feel welcome and included.",
+      "source_start": 464,
+      "source_end": 556,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Kruti happily joined them and finally felt like she belonged.",
+      "source_start": 557,
+      "source_end": 618,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sonali and Harshada showed what it means to be good citizens—they stood up for someone who needed help and made sure everyone felt included.",
+      "source_start": 619,
+      "source_end": 759,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A citizen is someone who legally belongs to a country and is a member of its political community i. e. they can participate in the decision-making of the country.",
+      "source_start": 761,
+      "source_end": 923,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In a democracy, citizenship gives rights such as voting, free speech, and living and working safely, but these rights have limits.",
+      "source_start": 924,
+      "source_end": 1054,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At the same time, citizens have duties like obeying the law, paying taxes, respecting others, and helping keep society safe.",
+      "source_start": 1055,
+      "source_end": 1179,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Citizenship is both a legal identity and a social responsibility.",
+      "source_start": 1180,
+      "source_end": 1245,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As a legal identity, it formally connects people to their country.",
+      "source_start": 1246,
+      "source_end": 1312,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As a social responsibility, it creates a sense of belonging, and unites them through shared values, rights, and duties.",
+      "source_start": 1313,
+      "source_end": 1432,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Living in a place makes you a resident, but citizenship is a formal, legal membership in a country.",
+      "source_start": 1434,
+      "source_end": 1533,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "Not every resident of a country",
+      "relation": "role",
+      "object": "citizen",
+      "source_text": "Not every resident of a country is a citizen.",
+      "source_start": 1534,
+      "source_end": 1579,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A person can be a resident without being a citizen, and a citizen can even reside in another country.",
+      "source_start": 1580,
+      "source_end": 1681,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Citizenship is about active participation.",
+      "source_start": 1683,
+      "source_end": 1725,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It involves fulfilling duties like paying taxes, helping others in need, and protecting the environment.",
+      "source_start": 1726,
+      "source_end": 1830,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Crucially, citizenship also grants you rights: the power to question unfair practices and stand up for what is right, shaping the future of your society.",
+      "source_start": 1831,
+      "source_end": 1984,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "and ‘discrimination’ are specifically mentioned in our Constitution.",
+      "source_start": 0,
+      "source_end": 68,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "‘Inclusion’ is an affirmative way to ensure non-discrimination.",
+      "source_start": 70,
+      "source_end": 133,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rights: Freedoms like equality, free speech, religion, and education that let people live with dignity.",
+      "source_start": 135,
+      "source_end": 238,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Duties: Responsibilities or duties such as obeying laws, paying taxes, keeping clean, and helping others.",
+      "source_start": 240,
+      "source_end": 345,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Inclusion: Ensuring no one is left out because of language, religion, culture, ethnicity, caste, or gender.",
+      "source_start": 347,
+      "source_end": 454,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Every year, a town held a big festival.",
+      "source_start": 456,
+      "source_end": 495,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Children looked forward to it, as there were plays, debates, food stalls, and prayers at different places of worship.",
+      "source_start": 496,
+      "source_end": 613,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This year, a few problems arose.",
+      "source_start": 614,
+      "source_end": 646,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Together, they went to their teacher, who explained that the Constitution of India gives every citizen fundamental rights.",
+      "source_start": 0,
+      "source_end": 122,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "Not every resident of a country",
+      "relation": "members",
+      "object": "right to equality, right to freedom of speech and expression, right to freedom of religion, right to life and dignity, right to education",
+      "source_text": "These include the right to equality, the right to freedom of speech and expression, the right to freedom of religion, the right to life and dignity, and the right to education.",
+      "source_start": 123,
+      "source_end": 299,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If any of these rights are denied, citizens have the right to approach the courts for justice.",
+      "source_start": 300,
+      "source_end": 394,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Encouraged, the children spoke to the fair organisers.",
+      "source_start": 396,
+      "source_end": 450,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Slowly, changes were made.",
+      "source_start": 451,
+      "source_end": 477,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rights are what we are all entitled to as human beings and members of society.",
+      "source_start": 0,
+      "source_end": 78,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "But not everything we want can be called a right.",
+      "source_start": 79,
+      "source_end": 128,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rights are what we need to live with dignity, safety, and respect, like the right to education, to earn a living, or to express our ideas.",
+      "source_start": 129,
+      "source_end": 267,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These help us grow, learn, and live freely.",
+      "source_start": 268,
+      "source_end": 311,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, actions that cause harm to ourselves or others cannot be considered rights.",
+      "source_start": 312,
+      "source_end": 396,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "True rights are those that support the wellbeing and dignity of all.",
+      "source_start": 397,
+      "source_end": 465,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Hence, rights are justified claims.",
+      "source_start": 466,
+      "source_end": 501,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Constitution gives us Fundamental Rights – these are basic rights that every Indian citizen has.",
+      "source_start": 503,
+      "source_end": 603,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It lists six broad categories of fundamental rights that protect people’s freedom and dignity.",
+      "source_start": 604,
+      "source_end": 698,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These rights can be enforced by law, which means that if they are violated, people can approach the courts for justice.",
+      "source_start": 699,
+      "source_end": 818,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Fundamental rights protect people from unfair treatment by others; it also protects people from unfair actions by the government.",
+      "source_start": 0,
+      "source_end": 129,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rights ensure that every person is treated fairly, and that power is not misused.",
+      "source_start": 130,
+      "source_end": 211,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Right to equality The right to equality ensures that every person is treated equally before the law, has equal opportunities in jobs and education, and cannot be discriminated against because of religion, race, caste, gender, or place of birth.",
+      "source_start": 213,
+      "source_end": 457,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It also ends practices like untouchability and prevents the government from giving out special titles to individuals (except for military or academic honours).",
+      "source_start": 458,
+      "source_end": 617,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As you can see, sometimes providing the same thing to every individual does not provide the same benefits on account of differences among them.",
+      "source_start": 667,
+      "source_end": 810,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These differences can be due",
+      "source_start": 811,
+      "source_end": 839,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "to inequality and discrimination which may have been",
+      "relation": "members",
+      "object": "historically too",
+      "source_text": "to inequality and discrimination which may have been carried historically too.",
+      "source_start": 0,
+      "source_end": 78,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "To be able to ensure that everyone gets the support they need, we look at the principle of equity (as you can see in the figure on the right).",
+      "source_start": 79,
+      "source_end": 221,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There are many initiatives taken by the government as well as civil society organisations to ensure that equity is established in such cases.",
+      "source_start": 222,
+      "source_end": 363,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Beti Bachao Beti Padhao campaign was to build awareness in society as well as to provide support to girls’ education.",
+      "source_start": 364,
+      "source_end": 485,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "Right to freedom The right to freedom",
+      "relation": "role",
+      "object": "one of the most important rights of every Indian",
+      "source_text": "Right to freedom The right to freedom is one of the most important rights of every Indian.",
+      "source_start": 525,
+      "source_end": 615,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It allows people to express themselves, move freely, and choose how they want to live and work.",
+      "source_start": 616,
+      "source_end": 711,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, these freedoms are not unlimited; they come with reasonable restrictions so that they are not misused or harmful to others or the nation.",
+      "source_start": 712,
+      "source_end": 858,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It’s Sports Day at school.",
+      "source_start": 860,
+      "source_end": 886,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The weather is very hot.",
+      "source_start": 887,
+      "source_end": 911,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some students are told to wear full school uniforms with shoes, even though they will be running, playing games, and spending time outdoors.",
+      "source_start": 912,
+      "source_end": 1052,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A few students feel uncomfortable and wonder why they can’t wear lighter clothes like T-shirts and sports shoes for such activities.",
+      "source_start": 1053,
+      "source_end": 1185,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "One student starts a discussion at break time.",
+      "source_start": 1186,
+      "source_end": 1232,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "” Some classmates agree, saying that comfort and safety are important while playing sports.",
+      "source_start": 1307,
+      "source_end": 1398,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Others feel that wearing the school uniform shows discipline and equality among all students.",
+      "source_start": 1399,
+      "source_end": 1492,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A couple of teachers overhear the conversation and remind everyone that school rules about uniforms must be followed.",
+      "source_start": 1493,
+      "source_end": 1610,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The right to life protects a person’s life and liberty.",
+      "source_start": 0,
+      "source_end": 55,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It means that everyone has the right not only to live, but to live with dignity.",
+      "source_start": 56,
+      "source_end": 136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "Right to freedom The right to freedom also",
+      "relation": "members",
+      "object": "right to livelihood, education, health, clean environment, fair treatment under the law",
+      "source_text": "This also includes the right to livelihood, education, health, a clean environment, and fair treatment under the law.",
+      "source_start": 137,
+      "source_end": 254,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These rights ensure that people can live safely, freely, and respectfully.",
+      "source_start": 255,
+      "source_end": 329,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The right to life also protects children with disabilities, ensuring they receive the support they need to learn, play or participate fully in all aspects of life on an equal basis with others.",
+      "source_start": 330,
+      "source_end": 523,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It ensures that they can live with dignity, access education, healthcare, and a safe environment.",
+      "source_start": 524,
+      "source_end": 621,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Some countries have given rivers the same rights as people.",
+      "source_start": 623,
+      "source_end": 684,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Imagine if a tree could say, “Don’t cut me down!",
+      "source_start": 685,
+      "source_end": 733,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "” In New Zealand, the Whanganui River is legally treated as a living being.",
+      "source_start": 733,
+      "source_end": 808,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Costa Rica, too, protects Nature’s rights in its Constitution.",
+      "source_start": 809,
+      "source_end": 871,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ In 2017, the Uttarakhand High Court declared the rivers Ganga and Yamuna as legal entities, giving them the rights of a living person.",
+      "source_start": 872,
+      "source_end": 1008,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Court also appointed legal guardians responsible for protecting and conserving the rivers.",
+      "source_start": 1009,
+      "source_end": 1103,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "However, this decision was suspended and ultimately overturned by the Supreme Court of India, who called it ‘legally unsustainable’.",
+      "source_start": 1104,
+      "source_end": 1236,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "Exploitation",
+      "relation": "definition",
+      "object": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "source_text": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "source_start": 0,
+      "source_end": 110,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It can happen in many ways: when people are forced to work without fair wages (bonded labour), when they are traded or sold for profit (human trafficking), when women or children are abused or treated unfairly, or when children are made to work instead of going to school, particularly in hazardous situations (child labour).",
+      "source_start": 111,
+      "source_end": 436,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Children need special protection because they depend on adults for their safety and wellbeing.",
+      "source_start": 437,
+      "source_end": 531,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Children may not understand their rights or be able to stand up for themselves, or access help against unfair treatment or unsafe situations.",
+      "source_start": 532,
+      "source_end": 673,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The government has a helpline for children called Childline 1098.",
+      "source_start": 822,
+      "source_end": 887,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "(It is printed in your textbook too.",
+      "source_start": 888,
+      "source_end": 924,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": ") It is available all over the country and and is easy to remember; just count backwards from 10.",
+      "source_start": 924,
+      "source_end": 1021,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It started as an action project at an educational institution in the late 1990s and soon became a national-level helpline.",
+      "source_start": 1022,
+      "source_end": 1144,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "To stop such unfair treatment, the right against exploitation protects every person’s dignity and safety.",
+      "source_start": 1146,
+      "source_end": 1251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It makes it illegal to force anyone to work against their will or under unsafe conditions.",
+      "source_start": 1252,
+      "source_end": 1342,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In general, children below the age of 14 are not allowed to be employed, though they can help out in non-hazardous family enterprises, and only during vacations or after school hours.",
+      "source_start": 1343,
+      "source_end": 1526,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There is a ban on work in places such as factories, mines, or restaurants.",
+      "source_start": 1527,
+      "source_end": 1601,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "everyone, especially children, can live and work with freedom and respect.",
+      "source_start": 0,
+      "source_end": 74,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "children",
+      "relation": "numeric_value",
+      "object": "20 children",
+      "source_text": "In 2015, the Childline 1098 received a call from a concerned citizen about 20 children being forced to work in a factory that embroidered clothes.",
+      "source_start": 290,
+      "source_end": 436,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Based on this call, a team visited the place and found the children.",
+      "source_start": 437,
+      "source_end": 505,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Not only were they being forced to work, but the room they worked in was congested and unhealthy, and the food they received once a day was not nourishing at all.",
+      "source_start": 506,
+      "source_end": 668,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The team rescued the children, provided them with medical care and ensured that they would be taken care of.",
+      "source_start": 669,
+      "source_end": 777,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The culprits were arrested.",
+      "source_start": 778,
+      "source_end": 805,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "Right to freedom of religion India",
+      "relation": "role",
+      "object": "diverse country where people follow many different religions",
+      "source_text": "Right to freedom of religion India is a diverse country where people follow many different religions.",
+      "source_start": 807,
+      "source_end": 908,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-100",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The right to freedom of religion allows every person to choose, practise, and share their religion freely, while ensuring that no one is forced to follow, propagate or fund a particular religion.",
+      "source_start": 909,
+      "source_end": 1104,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-101",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At the same time, state-run or government-aided schools are not allowed to promote any particular religion.",
+      "source_start": 0,
+      "source_end": 107,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-102",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This helps protect India’s diversity and keeps all faiths equal in the eyes of the state.",
+      "source_start": 108,
+      "source_end": 197,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-103",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Cultural and educational rights The cultural and educational rights protect India’s rich cultural diversity and ensure equal access to education for all.",
+      "source_start": 199,
+      "source_end": 352,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-104",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Communities can preserve their language, script, and traditions, and no student can be denied admission to a government institution because of religion, caste, race, or language.",
+      "source_start": 353,
+      "source_end": 531,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-105",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Religious and linguistic minorities also have the right to set up and manage their own schools.",
+      "source_start": 532,
+      "source_end": 627,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-106",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These rights help maintain cultural identity while supporting equality and non-discrimination.",
+      "source_start": 628,
+      "source_end": 722,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-107",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Together, these rights safeguard cultural identity while promoting equal access to education.",
+      "source_start": 723,
+      "source_end": 816,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-108",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "On one hand, the Constitution seeks to protect the rights of minorities, while on the other, it also upholds equality and non-discrimination on the basis of religion.",
+      "source_start": 817,
+      "source_end": 983,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-109",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At times, these two aims can seem to be in conflict.",
+      "source_start": 984,
+      "source_end": 1036,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-110",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some people feel that minority protections (the special rights and safeguards given to groups with a different religion, language, or culture) may go against the idea of secularism.",
+      "source_start": 1037,
+      "source_end": 1218,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-111",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Right to constitutional remedies The right to constitutional remedies allows citizens to approach the Supreme Court if their fundamental rights are violated.",
+      "source_start": 1220,
+      "source_end": 1377,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-112",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It ensures that these rights are not just promises on paper but can actually be protected and enforced.",
+      "source_start": 1378,
+      "source_end": 1481,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-113",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "“If I was asked to name any particular article in this Constitution as the most important — an article without which this Constitution would be a nullity— I could not refer to any other article except this one [right to constitutional remedies].",
+      "source_start": 1483,
+      "source_end": 1728,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-114",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It is the very soul of the Constitution and the very heart of it…”, said Dr. B.R. Ambedkar during the Constituent Assembly Debates.",
+      "source_start": 1729,
+      "source_end": 1860,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-115",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "(Note: You need not memorise these, but as a citizen of India, you should be aware of them.",
+      "source_start": 0,
+      "source_end": 91,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-116",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These articles help us understand how the Constitution and the Judiciary protect the dignity and equality of every citizen.",
+      "source_start": 94,
+      "source_end": 217,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-117",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Children collected plastic wrappers and papers lying around, while their parents swept the streets and cleared drains that had been clogged with leaves and plastic bags.",
+      "source_start": 0,
+      "source_end": 169,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-118",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some residents planted saplings along the footpaths, hoping they would grow into tall, shady trees for the future.",
+      "source_start": 170,
+      "source_end": 284,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-119",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Others painted the walls with bright colours and positive messages, making the neighbourhood look cheerful and welcoming.",
+      "source_start": 285,
+      "source_end": 406,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-120",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Not stopping there, a group of older students went around placing bowls of water and food for the street dogs, showing kindness to the animals who shared their surroundings.",
+      "source_start": 407,
+      "source_end": 580,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-121",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A few mothers took the initiative to talk to younger children about saving water and electricity at home, while the senior citizens patiently guided everyone, sharing their wisdom and encouragement.",
+      "source_start": 581,
+      "source_end": 779,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-122",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A little girl, wiping the sweat from her forehead, replied confidently: “It’s our duty to care for our neighbourhood.",
+      "source_start": 966,
+      "source_end": 1083,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-123",
+      "subject": "” Her simple answer",
+      "relation": "members",
+      "object": "deep truth",
+      "source_text": "” Her simple answer carried a deep truth.",
+      "source_start": 1083,
+      "source_end": 1124,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-124",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Duties are not only about obeying laws or following rules, they are about the responsibility each one of us has towards our family, our community, our country, and even the environment.",
+      "source_start": 1125,
+      "source_end": 1310,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-125",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "That Sunday morning became more than just a clean-up; it turned into a reminder that when every citizen takes their duties seriously, society becomes a healthier, happier, and more harmonious place to live in.",
+      "source_start": 1311,
+      "source_end": 1520,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-126",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Constitution not only gives us rights, it also tells us what we should do as responsible citizens.",
+      "source_start": 17,
+      "source_end": 119,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-127",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These responsibilities are called fundamental duties.",
+      "source_start": 120,
+      "source_end": 173,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-128",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The idea behind incorporating them was to remind citizens of their duties, along with enjoying their fundamental rights.",
+      "source_start": 174,
+      "source_end": 294,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-129",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They were added in 1976 by an amendment to the Constitution.",
+      "source_start": 381,
+      "source_end": 441,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-130",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "At first, there were 10 duties listed in Article 51A (Part IV-A).",
+      "source_start": 442,
+      "source_end": 507,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-131",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In 2002, the 11 th duty was added, which stated that parents or guardians must make sure children between ages 6 and 14 years get an education.",
+      "source_start": 508,
+      "source_end": 651,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-132",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Understanding duties Fundamental duties help citizens play an active role in keeping our democracy strong and society healthy.",
+      "source_start": 653,
+      "source_end": 779,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-133",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They remind us that being a citizen is not just about enjoying rights but also about contributing to the country’s progress.",
+      "source_start": 780,
+      "source_end": 904,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-134",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They help maintain good governance, promote unity, protect nature, encourage learning, and build a society where everyone can live with dignity.",
+      "source_start": 905,
+      "source_end": 1049,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-135",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In short, these duties guide us to be responsible, caring, and active citizens.",
+      "source_start": 1050,
+      "source_end": 1129,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-136",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: During the morning assembly, when the anthem plays, everyone stands silently.",
+      "source_start": 0,
+      "source_end": 86,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-137",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A student who laughed was reminded that respect is part of citizenship.",
+      "source_start": 87,
+      "source_end": 158,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-138",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Follow the ideals of the freedom struggle.",
+      "source_start": 0,
+      "source_end": 42,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-139",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: After watching a play on Bhagat Singh, students discussed how speaking against bullying in school is also fighting injustice.",
+      "source_start": 43,
+      "source_end": 177,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-140",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Protect India’s unity, integrity and sovereignty.",
+      "source_start": 178,
+      "source_end": 227,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-141",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: Two classmates argued over language differences.",
+      "source_start": 228,
+      "source_end": 285,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-142",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Their friends encouraged them to learn phrases from each other’s languages, showing unity in diversity.",
+      "source_start": 286,
+      "source_end": 389,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-143",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Defend the nation and help in emergencies.",
+      "source_start": 390,
+      "source_end": 432,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-144",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: In a flood-hit village, NCC cadets rescued stranded people and distributed food packets.",
+      "source_start": 433,
+      "source_end": 530,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-145",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Promote harmony among all people and respect women.",
+      "source_start": 531,
+      "source_end": 582,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-146",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: When a group teased a girl, other students stopped them and told the teacher, showing respect for dignity.",
+      "source_start": 583,
+      "source_end": 698,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-147",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Preserve culture and heritage.",
+      "source_start": 699,
+      "source_end": 729,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-148",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: On a school trip, a student stopped his friend from writing on a fort wall, reminding him that it is a part of India’s heritage.",
+      "source_start": 730,
+      "source_end": 867,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-149",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Protect and improve the environment and have compassion towards animals.",
+      "source_start": 868,
+      "source_end": 940,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-150",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: Students planted trees in their locality and kept water bowls for stray dogs in summer.",
+      "source_start": 941,
+      "source_end": 1037,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-151",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "spirit of inquiry.",
+      "source_start": 1039,
+      "source_end": 1057,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-152",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: Not content with memorising notes on the purification of water, a group of students showed a disadvantaged community how to do basic filtering followed by boiling of water before drinking it.",
+      "source_start": 1058,
+      "source_end": 1258,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-153",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Protect public property and avoid violence.",
+      "source_start": 1259,
+      "source_end": 1302,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-154",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Example: After losing a football match, some boys wanted to break benches.",
+      "source_start": 1303,
+      "source_end": 1377,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-155",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Others reminded them it was school property, and accept winning and losing as part of sports.",
+      "source_start": 1378,
+      "source_end": 1471,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-156",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In the case of India, scholars have often debated this question.",
+      "source_start": 53,
+      "source_end": 117,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-157",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "‘Dharma’, of course, is often translated as ‘duty’, although it has a much wider range of meaning, including that which is beneficial to people and to the society.",
+      "source_start": 118,
+      "source_end": 281,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-158",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Another important ancient concept related to duty is that of ṛ iṇa or ‘debt’ — the debts we owe to devatās , ancestors and parents, gurus, fellow humans, and Nature, by the very fact of being born.",
+      "source_start": 282,
+      "source_end": 483,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-159",
+      "subject": "The duty of ‘repaying’ those ‘debts’ naturally follows; but it",
+      "relation": "comparison",
+      "object": "more than today’s sense of duty, since this ancient concept also creates deep connections with family, the society, nature and beyond",
+      "source_text": "The duty of ‘repaying’ those ‘debts’ naturally follows; but it is more than today’s sense of duty, since this ancient concept also creates deep connections with family, the society, nature and beyond.",
+      "source_start": 484,
+      "source_end": 684,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-160",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ ‘Rights’ is a more ambiguous concept.",
+      "source_start": 685,
+      "source_end": 724,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-161",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In many Indian languages, the word for rights is adhik ā ra .",
+      "source_start": 725,
+      "source_end": 786,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-162",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In ancient texts, however, adhik ā ra referred to capacity, competence or authority: if you were competent to perform a certain task in society, that gave you the right to do so.",
+      "source_start": 787,
+      "source_end": 965,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-163",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Rights, in other words, were not guaranteed universally, as they are now (in our Constitution, for instance), since they depended on one’s capacity.",
+      "source_start": 966,
+      "source_end": 1114,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-164",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There was one exception, though, as the concept of dharma implicitly gave everyone the right to justice — in theory at least.",
+      "source_start": 1115,
+      "source_end": 1240,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-165",
+      "subject": "Same Coin Rights",
+      "relation": "role",
+      "object": "the freedoms and benefits that every citizen enjoys",
+      "source_text": "Same Coin Rights are the freedoms and benefits that every citizen enjoys.",
+      "source_start": 59,
+      "source_end": 132,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-166",
+      "subject": "Duties",
+      "relation": "role",
+      "object": "the responsibilities that we must follow as members of a community",
+      "source_text": "Duties are the responsibilities that we must follow as members of a community.",
+      "source_start": 133,
+      "source_end": 211,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-167",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They are not opposites but go together.",
+      "source_start": 212,
+      "source_end": 251,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-168",
+      "subject": "Rights",
+      "relation": "causes",
+      "object": "us to live with dignity, while duties remind us to use our freedom wisely and respectfully",
+      "source_text": "Rights allow us to live with dignity, while duties remind us to use our freedom wisely and respectfully.",
+      "source_start": 252,
+      "source_end": 356,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-169",
+      "subject": "Rights",
+      "relation": "role",
+      "object": "protected by law",
+      "source_text": "Rights are protected by law.",
+      "source_start": 357,
+      "source_end": 385,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-170",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "If someone’s rights are violated, even by the government, they can go to court for help.",
+      "source_start": 386,
+      "source_end": 474,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-171",
+      "subject": "Duties",
+      "relation": "comparison",
+      "object": "are moral and social responsibilities",
+      "source_text": "Duties, on the other hand, are moral and social responsibilities.",
+      "source_start": 475,
+      "source_end": 540,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-172",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We are expected to follow them, but not doing so may not always lead to legal action.",
+      "source_start": 541,
+      "source_end": 626,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-173",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Fulfilling our duties helps protect everyone’s rights and keeps society fair and peaceful.",
+      "source_start": 627,
+      "source_end": 717,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-174",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Here are some everyday situations for reflection.",
+      "source_start": 719,
+      "source_end": 768,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-175",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Ravi decides not to join a protest march at school because he disagrees with it.",
+      "source_start": 804,
+      "source_end": 886,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-176",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some classmates say they will exclude him from their group unless he joins.",
+      "source_start": 887,
+      "source_end": 962,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-177",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ On School Culture Day, Rukmini wants to wear her family’s traditional dress from her village.",
+      "source_start": 0,
+      "source_end": 95,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-178",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some students laugh at her and say she should wear ‘modern’ clothes instead.",
+      "source_start": 96,
+      "source_end": 172,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-179",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ During the recess, some children were throwing chocolate wrappers on the playground, instead of the dustbin.",
+      "source_start": 173,
+      "source_end": 283,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-180",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The teacher then reminds them to keep their surroundings clean.",
+      "source_start": 284,
+      "source_end": 347,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-181",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ In a mock youth parliament activity, students use a voting app to share their ideas for improving school facilities.",
+      "source_start": 348,
+      "source_end": 466,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-182",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Even those who live in remote areas are able to join in the discussion online.",
+      "source_start": 467,
+      "source_end": 545,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-183",
+      "subject": "Discrimination Sanya",
+      "relation": "role",
+      "object": "excited to audition for the school play",
+      "source_text": "Discrimination Sanya was excited to audition for the school play.",
+      "source_start": 594,
+      "source_end": 659,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-184",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some students whispered that she did not “fit the image” of a lead actor and suggested she should try for a smaller role instead.",
+      "source_start": 660,
+      "source_end": 789,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-185",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Sanya felt discouraged but decided to audition anyway.",
+      "source_start": 790,
+      "source_end": 844,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-186",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "During the auditions, her expressive acting and confidence impressed the teachers, and she was chosen for an important role.",
+      "source_start": 845,
+      "source_end": 969,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-187",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The drama teacher later spoke to the class about how excluding someone or judging them because of their looks is unfair and a form of discrimination.",
+      "source_start": 970,
+      "source_end": 1119,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-188",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The students realised that talent and effort matter far more than appearance.",
+      "source_start": 1120,
+      "source_end": 1197,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-189",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Understanding discrimination Discrimination is mistreating any person or group because of their caste, religion, ethnicity, disability, race, physical appearance, gender, sexuality, or economic background.",
+      "source_start": 1199,
+      "source_end": 1404,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-190",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is not only unethical, but also legally prohibited.",
+      "source_start": 1405,
+      "source_end": 1461,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-191",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Discriminating against someone based on the above-mentioned backgrounds not only impacts the affected person or group (both psychologically and physically), but also the society as a whole.",
+      "source_start": 1462,
+      "source_end": 1651,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-192",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It could be as subtle as not talking or including a classmate in a group project because of their social or economic background, or even not letting someone sit next to you in a school bus, because of their social or economic background.",
+      "source_start": 0,
+      "source_end": 237,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-193",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Discrimination creates a social barrier on those subjected to it, hampering them from enjoying their fundamental rights.",
+      "source_start": 238,
+      "source_end": 358,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-194",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Additionally, if someone is discriminating against a person or a group, the person discriminating ethically ceases to be an active citizen of India, because they have breached the very core of the Indian Constitution, i.e., respect and unity.",
+      "source_start": 359,
+      "source_end": 601,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-195",
+      "subject": "The following",
+      "relation": "role",
+      "object": "two caselets",
+      "source_text": "The following are two caselets.",
+      "source_start": 0,
+      "source_end": 31,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-196",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Read them individually and discuss the questions at the end in small groups.",
+      "source_start": 32,
+      "source_end": 108,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-197",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ A group of students makes fun of Rohan’s weight; they nickname him ‘Drummy’.",
+      "source_start": 110,
+      "source_end": 188,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-198",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They make it difficult for him to join their football game, joking that he would be competing with the football.",
+      "source_start": 189,
+      "source_end": 301,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-199",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Everyone around notices this behaviour of the group.",
+      "source_start": 302,
+      "source_end": 354,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-200",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Mina’s school announced an overnight educational trip to a historical site.",
+      "source_start": 355,
+      "source_end": 432,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-201",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Many of her classmates were excited and enrolled immediately.",
+      "source_start": 433,
+      "source_end": 494,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-202",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Mina, however, did not; she knew that her family would not able to afford paying for it.",
+      "source_start": 495,
+      "source_end": 583,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-203",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Mina felt hurt and left out.",
+      "source_start": 742,
+      "source_end": 770,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-204",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Discrimination may not always be visible.",
+      "source_start": 971,
+      "source_end": 1012,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-205",
+      "subject": "The following may even be indirect, through taking a jibe at somebody, excluding someone or being unwilling to",
+      "relation": "members",
+      "object": "someone in a project or a celebration just because of their social background, physical appearance, perception of intellectual ability",
+      "source_text": "It may even be indirect, through taking a jibe at somebody, excluding someone or being unwilling to include someone in a project or a celebration just because of their social background, physical appearance, or perception of intellectual ability.",
+      "source_start": 1013,
+      "source_end": 1259,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-206",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The major issue with invisible discrimination is that it is difficult to prove, and hence difficult to penalise.",
+      "source_start": 1260,
+      "source_end": 1372,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-207",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Inclusion Smt. Amita noticed the number of books being borrowed from the library had dropped.",
+      "source_start": 1374,
+      "source_end": 1467,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-208",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She decided to start a reading club to get students back into the habit of reading.",
+      "source_start": 1468,
+      "source_end": 1551,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-209",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She found that only a few confident readers of English joined the club.",
+      "source_start": 1552,
+      "source_end": 1623,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-210",
+      "subject": "scope of the reading club to",
+      "relation": "members",
+      "object": "books in the regional language",
+      "source_text": "scope of the reading club to include books in the regional language.",
+      "source_start": 0,
+      "source_end": 68,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-211",
+      "subject": "Soon the club’s membership increased and its activities",
+      "relation": "members",
+      "object": "storytelling, puppetry from the region",
+      "source_text": "Soon the club’s membership increased and its activities included storytelling and puppetry from the region.",
+      "source_start": 69,
+      "source_end": 176,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-212",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "All children began to participate irrespective of their fluency in a particular language.",
+      "source_start": 177,
+      "source_end": 266,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-213",
+      "subject": "Inclusion",
+      "relation": "definition",
+      "object": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "source_text": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "source_start": 268,
+      "source_end": 407,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-214",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is especially important for groups that have historically been excluded because of their social or economic background.",
+      "source_start": 408,
+      "source_end": 532,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-215",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Inclusion goes beyond just giving reservations; it means making sure everyone feels accepted and supported.",
+      "source_start": 533,
+      "source_end": 640,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-216",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In our Constitution, fundamental rights and duties together support inclusion.",
+      "source_start": 641,
+      "source_end": 719,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-217",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, it can",
+      "source_start": 720,
+      "source_end": 739,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-218",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Imagine there is a student in your class who takes a little longer to read or write because they have a different way of learning.",
+      "source_start": 741,
+      "source_end": 871,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-219",
+      "subject": "Sometimes during group work, others do not wait for them or forget to",
+      "relation": "members",
+      "object": "them",
+      "source_text": "Sometimes during group work, others do not wait for them or forget to include them.",
+      "source_start": 872,
+      "source_end": 955,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-220",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Being a responsible, empathetic and active citizen means living your rights while respecting others’ rights.",
+      "source_start": 0,
+      "source_end": 110,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-221",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Constitution guarantees fundamental rights.",
+      "source_start": 111,
+      "source_end": 160,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-222",
+      "subject": "violated",
+      "relation": "members",
+      "object": "One can go to court, seek remedies if they",
+      "source_text": "One can go to court and seek remedies if they are violated.",
+      "source_start": 161,
+      "source_end": 220,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-223",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Discrimination based on caste, religion, gender, personal preferences like choice of clothing, etc., is against fundamental rights.",
+      "source_start": 221,
+      "source_end": 354,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-224",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Rights and duties work together — you cannot fulfil one while ignoring the other.",
+      "source_start": 355,
+      "source_end": 438,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-225",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Deliberate actions need to be taken to prevent discrimination and ensure inclusion.",
+      "source_start": 439,
+      "source_end": 524,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-226",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Actions matter: speak up against unfairness, follow the law, and help others feel respected and included.",
+      "source_start": 525,
+      "source_end": 632,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-227",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Democracy is strengthened through enabling and facilitating participation of all.",
+      "source_start": 633,
+      "source_end": 716,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-228",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ A peaceful society is built through everyday choices, words, and actions.",
+      "source_start": 717,
+      "source_end": 792,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-229",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Listening with empathy and acting with responsibility helps everyone feel valued and safe.",
+      "source_start": 793,
+      "source_end": 885,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-230",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "a) A school does not allow girls to join a mathematics or science club. b) A fellow student has dropped out of school because they are forced to work in a welding shop.",
+      "source_start": 0,
+      "source_end": 168,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Exploitation?",
+      "options": [
+        {
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Not every resident of a country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics — Chapter 5: Citizenship: Rights and Duties",
+      "source_page": 9,
+      "supporting_excerpt": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "explanation": "Source verification: \"Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.\". This confirms that Exploitation is defined as taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-081"
+        ],
+        "excerpts": [
+          "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-081",
+            "start": 0,
+            "end": 110
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Exploitation",
+        "taking unfair advantage of others, often by denying them basic respect, liberty and rights"
+      ],
+      "relation_keys": [
+        "exploitation|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-081"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Exploitation -> taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-081"
+        ],
+        "steps": [
+          "Extracted source definition: Exploitation -> taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0013",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0013",
+        "subject": "Exploitation",
+        "subject_normalized": "exploitation",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+        "object_normalized": "taking unfair advantage of others often by denying them basic respect liberty and right",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 9,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "source_text": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "source_clause": "",
+        "supporting_excerpt": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes the following?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "two caselets",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "diverse country where people follow many different religions",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "two caselets",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-216",
+          "fact_id": "F-LITE-195",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Rights and Duties: Two Sides of the",
+      "source_page": 20,
+      "supporting_excerpt": "The following are two caselets.",
+      "explanation": "The source states: “The following are two caselets.” This identifies the stated role of The following as two caselets.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-195"
+        ],
+        "excerpts": [
+          "The following are two caselets."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-195",
+            "start": 0,
+            "end": 31
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Rights and Duties: Two Sides of the",
+        "source_page": 20
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-195|two caselets",
+      "relation_keys": [
+        "F-LITE-195|two caselets"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-195"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "What does Exploitation mean?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-089",
+          "fact_id": "F-LITE-081",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Fundamental Rights in the Indian Constitution",
+      "source_page": 9,
+      "supporting_excerpt": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "explanation": "The source defines or describes Exploitation as follows: “Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.” The correct answer is taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-081"
+        ],
+        "excerpts": [
+          "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-081",
+            "start": 0,
+            "end": 110
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "Fundamental Rights in the Indian Constitution",
+        "source_page": 9
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-081|taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "relation_keys": [
+        "F-LITE-081|taking unfair advantage of others, often by denying them basic respect, liberty and rights"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-081"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which one is mentioned as belonging to Not every resident of a country?",
+      "context": "These include the right to equality, the right to freedom of speech and expression, the ______, the right to life and dignity, and the right to education.",
+      "options": [
+        {
+          "key": "A",
+          "text": "historically too",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "B",
+          "text": "right to livelihood",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "C",
+          "text": "education",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "right to freedom of religion",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "right to freedom of religion",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-033",
+          "fact_id": "F-LITE-033",
+          "role": "primary"
+        }
+      ],
+      "source_title": "India. We will focus on the following four concepts. ‘Rights’, ‘duties’",
+      "source_page": 4,
+      "supporting_excerpt": "These include the right to equality, the right to freedom of speech and expression, the right to freedom of religion, the right to life and dignity, and the right to education.",
+      "explanation": "The source states: “These include the right to equality, the right to freedom of speech and expression, the right to freedom of religion, the right to life and dignity, and the right to education.” This lists right to freedom of religion as a member of Not every resident of a country.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-033"
+        ],
+        "excerpts": [
+          "These include the right to equality, the right to freedom of speech and expression, the right to freedom of religion, the right to life and dignity, and the right to education."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-033",
+            "start": 123,
+            "end": 299
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "India. We will focus on the following four concepts. ‘Rights’, ‘duties’",
+        "source_page": 4
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-033|members",
+      "relation_keys": [
+        "F-LITE-033|members"
+      ],
+      "candidate_sort": {
+        "source_start": 123,
+        "fact_id": "F-LITE-033"
+      },
+      "expected_member": "right to freedom of religion"
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on NCERT Class 8 Civics — Chapter 5: Citizenship: Rights and Duties:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "Same Coin Rights are the freedoms and benefits that every citizen enjoys.",
+          "fact_id": "F-LITE-165",
+          "source_excerpt": "Same Coin Rights are the freedoms and benefits that every citizen enjoys.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Not every resident of a country is a one of the most important rights of every Indian.",
+          "fact_id": "F-LITE-019",
+          "source_excerpt": "Not every resident of a country is a citizen.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "citizen",
+            "replacement": "one of the most important rights of every Indian",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-184",
+          "fact_id": "F-LITE-165",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-019",
+          "fact_id": "F-LITE-019",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "Rights and Duties: Two Sides of the",
+      "source_page": 17,
+      "supporting_excerpt": "Same Coin Rights are the freedoms and benefits that every citizen enjoys.",
+      "explanation": "Statement 1 is correct. The source states: “Same Coin Rights are the freedoms and benefits that every citizen enjoys.” This supports statement 1. Statement 2 is false. The source states: “Not every resident of a country is a citizen.” The stated value is citizen, not one of the most important rights of every Indian.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-165",
+          "F-LITE-019"
+        ],
+        "excerpts": [
+          "Same Coin Rights are the freedoms and benefits that every citizen enjoys.",
+          "Not every resident of a country is a citizen."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-165",
+            "start": 59,
+            "end": 132
+          },
+          {
+            "fact_id": "F-LITE-019",
+            "start": 1534,
+            "end": 1579
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "Rights and Duties: Two Sides of the",
+        "source_page": 17
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-165|the freedoms and benefits that every citizen enjoys&F-LITE-019|citizen",
+      "relation_keys": [
+        "F-LITE-165|the freedoms and benefits that every citizen enjoys",
+        "F-LITE-019|citizen"
+      ],
+      "candidate_sort": {
+        "source_start": 59,
+        "fact_id": "F-LITE-165"
+      }
+    },
+    {
+      "id": "Q-LITE-006",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Inclusion?",
+      "options": [
+        {
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "Not every resident of a country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics — Chapter 5: Citizenship: Rights and Duties",
+      "source_page": 21,
+      "supporting_excerpt": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "explanation": "Source verification: \"Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.\". This confirms that Inclusion is defined as creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-213"
+        ],
+        "excerpts": [
+          "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-213",
+            "start": 268,
+            "end": 407
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Inclusion",
+        "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities"
+      ],
+      "relation_keys": [
+        "inclusion|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-213"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Inclusion -> creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-213"
+        ],
+        "steps": [
+          "Extracted source definition: Inclusion -> creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0014",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0014",
+        "subject": "Inclusion",
+        "subject_normalized": "inclusion",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+        "object_normalized": "creating an environment where everyone feels welcomed respected valued and included with equal access to opportunity",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 21,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "source_text": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "source_clause": "",
+        "supporting_excerpt": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-007",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Duties?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "the responsibilities that we must follow as members of a community",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "diverse country where people follow many different religions",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "the responsibilities that we must follow as members of a community",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-185",
+          "fact_id": "F-LITE-166",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Rights and Duties: Two Sides of the",
+      "source_page": 17,
+      "supporting_excerpt": "Duties are the responsibilities that we must follow as members of a community.",
+      "explanation": "The source states: “Duties are the responsibilities that we must follow as members of a community.” This identifies the stated role of Duties as the responsibilities that we must follow as members of a community.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-166"
+        ],
+        "excerpts": [
+          "Duties are the responsibilities that we must follow as members of a community."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-166",
+            "start": 133,
+            "end": 211
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Rights and Duties: Two Sides of the",
+        "source_page": 17
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-166|the responsibilities that we must follow as members of a community",
+      "relation_keys": [
+        "F-LITE-166|the responsibilities that we must follow as members of a community"
+      ],
+      "candidate_sort": {
+        "source_start": 133,
+        "fact_id": "F-LITE-166"
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "What does Inclusion mean?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-240",
+          "fact_id": "F-LITE-213",
+          "role": "primary"
+        }
+      ],
+      "source_title": "mean finding ways for people speaking different languages to communicate,",
+      "source_page": 21,
+      "supporting_excerpt": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "explanation": "The source defines or describes Inclusion as follows: “Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.” The correct answer is creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-213"
+        ],
+        "excerpts": [
+          "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-213",
+            "start": 268,
+            "end": 407
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "mean finding ways for people speaking different languages to communicate,",
+        "source_page": 21
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-213|creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "relation_keys": [
+        "F-LITE-213|creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities"
+      ],
+      "candidate_sort": {
+        "source_start": 268,
+        "fact_id": "F-LITE-213"
+      }
+    },
+    {
+      "id": "Q-LITE-009",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Rights?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "protected by law",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "diverse country where people follow many different religions",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "protected by law",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-188",
+          "fact_id": "F-LITE-169",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Rights and Duties: Two Sides of the",
+      "source_page": 17,
+      "supporting_excerpt": "Rights are protected by law.",
+      "explanation": "The source states: “Rights are protected by law.” This identifies the stated role of Rights as protected by law.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-169"
+        ],
+        "excerpts": [
+          "Rights are protected by law."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-169",
+            "start": 357,
+            "end": 385
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Rights and Duties: Two Sides of the",
+        "source_page": 17
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-169|protected by law",
+      "relation_keys": [
+        "F-LITE-169|protected by law"
+      ],
+      "candidate_sort": {
+        "source_start": 357,
+        "fact_id": "F-LITE-169"
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Discrimination Sanya?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "excited to audition for the school play",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "diverse country where people follow many different religions",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "excited to audition for the school play",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-204",
+          "fact_id": "F-LITE-183",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Rights and Duties: Two Sides of the",
+      "source_page": 18,
+      "supporting_excerpt": "Discrimination Sanya was excited to audition for the school play.",
+      "explanation": "The source states: “Discrimination Sanya was excited to audition for the school play.” This identifies the stated role of Discrimination Sanya as excited to audition for the school play.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-183"
+        ],
+        "excerpts": [
+          "Discrimination Sanya was excited to audition for the school play."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-183",
+            "start": 594,
+            "end": 659
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Rights and Duties: Two Sides of the",
+        "source_page": 18
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-183|excited to audition for the school play",
+      "relation_keys": [
+        "F-LITE-183|excited to audition for the school play"
+      ],
+      "candidate_sort": {
+        "source_start": 594,
+        "fact_id": "F-LITE-183"
+      }
+    },
+    {
+      "id": "Q-LITE-011",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, what role is associated with Right to freedom of religion India?",
+      "context": "Right to freedom of religion India is a ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "one of the most important rights of every Indian",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "diverse country where people follow many different religions",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "the freedoms and benefits that every citizen enjoys",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "diverse country where people follow many different religions",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-112",
+          "fact_id": "F-LITE-099",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Fundamental Rights in the Indian Constitution",
+      "source_page": 10,
+      "supporting_excerpt": "Right to freedom of religion India is a diverse country where people follow many different religions.",
+      "explanation": "The source states: “Right to freedom of religion India is a diverse country where people follow many different religions.” This identifies the stated role of Right to freedom of religion India as diverse country where people follow many different religions.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-099"
+        ],
+        "excerpts": [
+          "Right to freedom of religion India is a diverse country where people follow many different religions."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-099",
+            "start": 807,
+            "end": 908
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Fundamental Rights in the Indian Constitution",
+        "source_page": 10
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-099|diverse country where people follow many different religions",
+      "relation_keys": [
+        "F-LITE-099|diverse country where people follow many different religions"
+      ],
+      "candidate_sort": {
+        "source_start": 807,
+        "fact_id": "F-LITE-099"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Exploitation?",
+      "options": [
+        {
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Not every resident of a country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics — Chapter 5: Citizenship: Rights and Duties",
+      "source_page": 9,
+      "supporting_excerpt": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "explanation": "Source verification: \"Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.\". This confirms that Exploitation is defined as taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-081"
+        ],
+        "excerpts": [
+          "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-081",
+            "start": 0,
+            "end": 110
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Exploitation",
+        "taking unfair advantage of others, often by denying them basic respect, liberty and rights"
+      ],
+      "relation_keys": [
+        "exploitation|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-081"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Exploitation -> taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-081"
+        ],
+        "steps": [
+          "Extracted source definition: Exploitation -> taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0013",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0013",
+        "subject": "Exploitation",
+        "subject_normalized": "exploitation",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+        "object_normalized": "taking unfair advantage of others often by denying them basic respect liberty and right",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 9,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "source_text": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "source_clause": "",
+        "supporting_excerpt": "Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines Inclusion?",
+      "options": [
+        {
+          "text": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "Not every resident of a country",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "citizen",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "NCERT Class 8 Civics — Chapter 5: Citizenship: Rights and Duties",
+      "source_page": 21,
+      "supporting_excerpt": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "explanation": "Source verification: \"Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.\". This confirms that Inclusion is defined as creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-213"
+        ],
+        "excerpts": [
+          "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-213",
+            "start": 268,
+            "end": 407
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "Inclusion",
+        "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities"
+      ],
+      "relation_keys": [
+        "inclusion|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-213"
+      ],
+      "inference_steps": [
+        "Extracted source definition: Inclusion -> creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-213"
+        ],
+        "steps": [
+          "Extracted source definition: Inclusion -> creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0014",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0014",
+        "subject": "Inclusion",
+        "subject_normalized": "inclusion",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+        "object_normalized": "creating an environment where everyone feels welcomed respected valued and included with equal access to opportunity",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 21,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "source_text": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "source_clause": "",
+        "supporting_excerpt": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-019",
+      "subject": "Not every resident of a country",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "citizen",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-033",
+      "subject": "Not every resident of a country",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "right to equality, right to freedom of speech and expression, right to freedom of religion, right to life and dignity, right to education",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-081",
+      "subject": "Exploitation",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-094",
+      "subject": "children",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "20 children",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-099",
+      "subject": "Right to freedom of religion India",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "diverse country where people follow many different religions",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-165",
+      "subject": "Same Coin Rights",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "the freedoms and benefits that every citizen enjoys",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-166",
+      "subject": "Duties",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "the responsibilities that we must follow as members of a community",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-169",
+      "subject": "Rights",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "protected by law",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-183",
+      "subject": "Discrimination Sanya",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "excited to audition for the school play",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-195",
+      "subject": "The following",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "two caselets",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-213",
+      "subject": "Inclusion",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0006",
+      "subject": "everyone stands silently",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "the anthem plays",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0007",
+      "subject": "other students stopped them and told the teacher, showing respect for dignity",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "a group teased a girl",
+      "is_derived": false
+    }
+  ]
+}

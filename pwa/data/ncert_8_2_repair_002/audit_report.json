@@ -1,0 +1,239 @@
+{
+  "generated_at": "2026-10-25T06:43:08.053Z",
+  "target": "E:\\studysynth-android\\pwa\\data\\ncert_8_2_repair_002",
+  "production_operators": [
+    "OP_B",
+    "OP_C",
+    "OP_F",
+    "OP_H",
+    "OP_I",
+    "OP_J"
+  ],
+  "totals": {
+    "errors": 0,
+    "warnings": 0,
+    "facts": 1512,
+    "typedFacts": 203,
+    "production": 72,
+    "reasoningV2": 12
+  },
+  "chapters": [
+    {
+      "file": "hees201_world_geography.json",
+      "chapter": 1,
+      "title": "World Geography: Some Glimpses",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 168,
+        "typedFacts": 38,
+        "production": 13,
+        "reasoningV2": 1
+      },
+      "coverage": {
+        "pagesProcessed": 34,
+        "totalPages": 34,
+        "pagesWithBody": 26,
+        "blockTypes": {
+          "heading": 53,
+          "page_furniture": 84,
+          "diagram": 218,
+          "body": 61,
+          "caption": 34,
+          "ambiguous": 19,
+          "fragment": 52
+        }
+      }
+    },
+    {
+      "file": "hees202_indias_road_to_independence.json",
+      "chapter": 2,
+      "title": "India’s Long Road to Independence",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 420,
+        "typedFacts": 46,
+        "production": 13,
+        "reasoningV2": 2
+      },
+      "coverage": {
+        "pagesProcessed": 50,
+        "totalPages": 50,
+        "pagesWithBody": 48,
+        "blockTypes": {
+          "heading": 19,
+          "page_furniture": 128,
+          "diagram": 40,
+          "body": 102,
+          "caption": 28,
+          "fragment": 28,
+          "ambiguous": 9
+        }
+      }
+    },
+    {
+      "file": "hees203_journey_through_indian_architecture.json",
+      "chapter": 3,
+      "title": "A Journey Through Indian Architecture",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 82,
+        "typedFacts": 8,
+        "production": 1,
+        "reasoningV2": 1
+      },
+      "coverage": {
+        "pagesProcessed": 40,
+        "totalPages": 40,
+        "pagesWithBody": 19,
+        "blockTypes": {
+          "heading": 29,
+          "page_furniture": 103,
+          "diagram": 90,
+          "body": 37,
+          "ambiguous": 35,
+          "caption": 47,
+          "fragment": 18
+        }
+      }
+    },
+    {
+      "file": "hees204_judiciary_in_our_society.json",
+      "chapter": 4,
+      "title": "The Role of the Judiciary in Our Society",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 138,
+        "typedFacts": 25,
+        "production": 12,
+        "reasoningV2": 2
+      },
+      "coverage": {
+        "pagesProcessed": 18,
+        "totalPages": 18,
+        "pagesWithBody": 18,
+        "blockTypes": {
+          "heading": 16,
+          "page_furniture": 48,
+          "diagram": 25,
+          "body": 46,
+          "caption": 8,
+          "fragment": 9,
+          "table": 1,
+          "ambiguous": 1
+        }
+      }
+    },
+    {
+      "file": "hees205_citizenship_rights_and_duties.json",
+      "chapter": 5,
+      "title": "Citizenship: Rights and Duties",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 230,
+        "typedFacts": 23,
+        "production": 9,
+        "reasoningV2": 2
+      },
+      "coverage": {
+        "pagesProcessed": 24,
+        "totalPages": 24,
+        "pagesWithBody": 22,
+        "blockTypes": {
+          "diagram": 45,
+          "page_furniture": 63,
+          "heading": 30,
+          "fragment": 31,
+          "ambiguous": 3,
+          "body": 70,
+          "caption": 13
+        }
+      }
+    },
+    {
+      "file": "hees206_dynamics_of_population.json",
+      "chapter": 6,
+      "title": "Dynamics of Population",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 99,
+        "typedFacts": 16,
+        "production": 7,
+        "reasoningV2": 3
+      },
+      "coverage": {
+        "pagesProcessed": 24,
+        "totalPages": 24,
+        "pagesWithBody": 20,
+        "blockTypes": {
+          "heading": 45,
+          "page_furniture": 192,
+          "diagram": 239,
+          "body": 52,
+          "caption": 17,
+          "ambiguous": 14,
+          "fragment": 45
+        }
+      }
+    },
+    {
+      "file": "hees207_indias_urban_landscape.json",
+      "chapter": 7,
+      "title": "India’s Urban Landscape",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 144,
+        "typedFacts": 23,
+        "production": 3,
+        "reasoningV2": 1
+      },
+      "coverage": {
+        "pagesProcessed": 24,
+        "totalPages": 24,
+        "pagesWithBody": 23,
+        "blockTypes": {
+          "heading": 16,
+          "page_furniture": 64,
+          "diagram": 42,
+          "body": 50,
+          "caption": 30,
+          "fragment": 15,
+          "ambiguous": 4
+        }
+      }
+    },
+    {
+      "file": "hees209_cultural_currents_13th_to_17th_centuries.json",
+      "chapter": 8,
+      "title": "Cultural Currents: 13th to 17th Centuries",
+      "errors": [],
+      "warnings": [],
+      "counts": {
+        "facts": 231,
+        "typedFacts": 24,
+        "production": 14,
+        "reasoningV2": 0
+      },
+      "coverage": {
+        "pagesProcessed": 35,
+        "totalPages": 35,
+        "pagesWithBody": 31,
+        "blockTypes": {
+          "heading": 10,
+          "diagram": 72,
+          "page_furniture": 66,
+          "body": 78,
+          "caption": 32,
+          "ambiguous": 9,
+          "fragment": 12
+        }
+      }
+    }
+  ]
+}

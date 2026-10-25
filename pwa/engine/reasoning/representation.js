@@ -106,9 +106,13 @@
     const props = [];
     const raw = sentenceAnalysis.text;
 
-    // Pattern 1: X causes / leads to / results in Y
+    // Only strong, explicit causal verbs. Weak or associative wording
+    // ("induces", bare "because" clauses) is deliberately not treated as
+    // causation, and "enables" stays a separate ENABLES relation rather than
+    // being collapsed into CAUSES.
+    // Pattern 1: X causes / leads to / results in / produces / triggers Y
     // Example: "Increased carbon dioxide leads to ocean acidification."
-    const causalVerbRegex = /([^,.;]+?)\s+(?:causes|leads to|results in|produces|triggers|induces)\s+([^,.;]+)/gi;
+    const causalVerbRegex = /([^,.;]+?)\s+(?:causes|leads to|results in|produces|triggers)\s+([^,.;]+)/gi;
     let match;
     while ((match = causalVerbRegex.exec(raw)) !== null) {
       const subject = match[1].trim();
@@ -133,9 +137,9 @@
       }
     }
 
-    // Pattern 2: Y is caused by / produced by X
+    // Pattern 2: Y is caused by / produced by X (effect first, cause second)
     // Example: "Ocean acidification is caused by increased carbon dioxide."
-    const passiveCausalRegex = /([^,.;]+?)\s+(?:is caused by|is produced by|results from)\s+([^,.;]+)/gi;
+    const passiveCausalRegex = /([^,.;]+?)\s+(?:is caused by|is produced by|is triggered by|results from)\s+([^,.;]+)/gi;
     while ((match = passiveCausalRegex.exec(raw)) !== null) {
       const effect = match[1].trim();
       const cause = match[2].trim();
@@ -159,32 +163,7 @@
       }
     }
 
-    // Pattern 3: Y occurs because X / Y because X
-    const becauseRegex = /([^,.;]+?)\s+because\s+([^,.;]+)/gi;
-    while ((match = becauseRegex.exec(raw)) !== null) {
-      const effect = match[1].trim();
-      const cause = match[2].trim();
-      if (cause.length > 2 && effect.length > 2) {
-        props.push(createProposition({
-          subject: cause,
-          predicate: 'causes',
-          relation_type: RELATION_TYPES.CAUSES,
-          object: effect,
-          polarity: sentenceAnalysis.polarity,
-          modality: sentenceAnalysis.modality,
-          quantification: sentenceAnalysis.quantification,
-          source_page: sectionMeta.page,
-          source_section: sectionMeta.title,
-          source_sentence: raw,
-          supporting_excerpt: raw,
-          char_start: sentenceAnalysis.start,
-          char_end: sentenceAnalysis.end,
-          rule_id: 'EXT_CAUSAL_BECAUSE'
-        }));
-      }
-    }
-
-    // Pattern 4: X increases / decreases Y
+    // Pattern 3: X increases / decreases Y
     const changeRegex = /([^,.;]+?)\s+(increases|decreases|raises|lowers|reduces|enhances)\s+([^,.;]+)/gi;
     while ((match = changeRegex.exec(raw)) !== null) {
       const subject = match[1].trim();
@@ -459,11 +438,62 @@
     return props;
   }
 
+  // A proposition may only reach the operators when both of its spans can be
+  // shown verbatim as a concise option.
+  function isSafeProposition(prop) {
+    if (!prop) return false;
+    if (!Linguistics.isSafeSpan(prop.subject, 90)) return false;
+    if (!Linguistics.isSafeSpan(prop.object, 150)) return false;
+    // Every subject must be a noun phrase: a whole clause cannot label a
+    // question ("PIL filed under ... is an innovation" is not an entity).
+    if (!Linguistics.isNounPhraseSpan(prop.subject, 90)) return false;
+    if (prop.relation_type === RELATION_TYPES.COMPARED_WITH ||
+        prop.relation_type === RELATION_TYPES.GREATER_THAN ||
+        prop.relation_type === RELATION_TYPES.LESS_THAN) {
+      if (!Linguistics.isNounPhraseSpan(prop.object, 120)) return false;
+    }
+    if (prop.relation_type === RELATION_TYPES.DEFINITION_OF) {
+      if (prop.subject.split(/\s+/).length > 8) return false;
+      if (prop.object.split(/\s+/).length < 2) return false;
+      // The definition must be a phrase, not a clause with its own subject
+      // and finite verb ("The Banarasi saris have a Geographical Indication").
+      const head = prop.object.split(/\s+/).slice(0, 6).join(' ');
+      if (/\b(?:have|has|had|is|are|was|were|reorganised|reorganized|contains?|includes?)\b/i.test(head)) return false;
+    }
+    if (prop.relation_type === RELATION_TYPES.CAUSES ||
+        prop.relation_type === RELATION_TYPES.LEADS_TO ||
+        prop.relation_type === RELATION_TYPES.PRODUCES) {
+      if (!Linguistics.isNounPhraseSpan(prop.subject, 90)) return false;
+      if (!Linguistics.isNounPhraseSpan(prop.object, 120)) return false;
+      if (prop.object.split(/\s+/).length < 2) return false;
+    }
+    return true;
+  }
+
   // Map legacy fact to a rich typed Proposition (bridge contract)
   function mapFactToProposition(fact) {
     if (!fact) return null;
+
+    // The bridge only accepts complete, declarative assertions. Fallback
+    // records, empty subjects/objects, questions and prompts are structural
+    // text and must never become reasoning premises.
+    if (fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') return null;
+    const subject = String(fact.subject || '').trim();
+    const object = String(fact.object == null ? '' : fact.object).trim();
+    if (subject.length < 2 || object.length < 2) return null;
+    const excerpt = String(fact.supporting_excerpt || fact.source_text || '').trim();
+    if (excerpt && Linguistics.classifySentenceRole(excerpt) !== 'assertion') return null;
+    if (/\?["'”’)\]]*$/.test(subject)) return null;
+    if (/^(?:what|which|who|whom|whose|where|when|why|how)\b/i.test(subject)) return null;
+
     let relationType = RELATION_TYPES.HAS_PROPERTY;
     if (fact.fact_type === 'causal' || fact.causal_direction) {
+      // Only production-grade causal wording may become a CAUSES premise.
+      // Weak/associative verbs ("helps", "makes", "due to", "because") are
+      // not direct mechanisms and must not reach the causal operators.
+      const verb = String(fact.relation_verb || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      const strongCausal = /^(?:causes?|leads?\s+to|results?\s+in|produces?|triggers?|is\s+caused\s+by|are\s+caused\s+by|is\s+produced\s+by|are\s+produced\s+by|is\s+triggered\s+by|are\s+triggered\s+by|results?\s+from)$/.test(verb);
+      if (!strongCausal) return null;
       relationType = RELATION_TYPES.CAUSES;
     } else if (fact.fact_type === 'definition') {
       relationType = RELATION_TYPES.DEFINITION_OF;
@@ -473,7 +503,7 @@
       relationType = RELATION_TYPES.HAS_PROPERTY;
     }
 
-    return createProposition({
+    const prop = createProposition({
       id: fact.fact_id,
       subject: fact.subject || '',
       predicate: fact.relation_verb || fact.relation || 'has property',
@@ -489,6 +519,7 @@
       rule_id: 'EXT_LEGACY_FACT_BRIDGE',
       is_derived: false
     });
+    return isSafeProposition(prop) ? prop : null;
   }
 
   // Main compilation function: takes parsed document sections and optional legacy facts
@@ -519,6 +550,9 @@
 
         const sentences = Linguistics.splitSentencesWithOffsets(text);
         for (const s of sentences) {
+          // Assertion filtering: prompts, captions, headings, labels and
+          // questions are never compiled into reasoning premises.
+          if (Linguistics.classifySentenceRole(s.text) !== 'assertion') continue;
           const analysis = Linguistics.analyzeSentenceLinguistics(s, text);
 
           // Extract all relation types
@@ -539,6 +573,7 @@
           ];
 
           for (const prop of allExtracted) {
+            if (!isSafeProposition(prop)) continue;
             // Deduplicate against existing by subject+relation+object
             const key = `${prop.subject_normalized}|${prop.relation_type}|${prop.object_normalized}`;
             if (!propositionMap.has(key)) {

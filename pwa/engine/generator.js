@@ -155,42 +155,11 @@
     single_choice: ['date', 'numeric', 'entity_attribute', 'definition', 'comparison', 'causal', 'membership', 'sequence']
   };
 
-  const CONTROLLED_PLACES = [
-    'New Delhi', 'Mumbai', 'Kolkata', 'Chennai', 'Bengaluru', 'Hyderabad',
-    'Ahmedabad', 'Pune', 'Jaipur', 'Lucknow'
-  ];
-  const CONTROLLED_INSTITUTIONS = [
-    'Ministry of Finance', 'Reserve Bank of India', 'Election Commission of India',
-    'NITI Aayog', 'Supreme Court of India', 'Planning Commission',
-    'Ministry of External Affairs', 'University Grants Commission'
-  ];
-  const CONTROLLED_PERSONS = [
-    'C. V. Raman', 'Marie Curie', 'Isaac Newton', 'A. P. J. Abdul Kalam',
-    'Srinivasa Ramanujan', 'Jagadish Chandra Bose'
-  ];
-  const CONTROLLED_FUNCTIONS = [
-    'communication relay', 'sample collection', 'orbit correction',
-    'temperature measurement', 'power generation', 'data storage'
-  ];
-  const CONTROLLED_ROLES = [
-    'statutory regulator', 'advisory body', 'public broadcaster',
-    'research institution', 'implementing agency', 'judicial authority'
-  ];
-  const CONTROLLED_EQUIPMENT = [
-    'solid-propellant boosters', 'ion thrusters', 'solar sails',
-    'hydraulic actuators', 'electric batteries', 'mechanical springs'
-  ];
-  const CONTROLLED_EFFECTS = [
-    'the object to move more slowly', 'the object to remain stationary',
-    'the object to gain mass', 'the object to change colour'
-  ];
+  // Narrow, category-scoped alternatives for explicit classification items.
+  // They are only used when the source states an exhaustive member list of a
+  // known category, so the options stay same-kind rather than generic filler.
   const CONTROLLED_CATEGORY_RULES = [
-    { test: /colou?rs?\s+of\s+light|primary\s+colou?rs?/i, alternatives: ['yellow', 'orange', 'purple', 'violet'] },
-    { test: /chandrayaan|spacecraft|lander/i, alternatives: ['Orion Capsule', 'Curiosity Rover', 'Cassini Orbiter', 'Artemis Lander'] },
-    { test: /pragyan|rover|payload/i, alternatives: ['Magnetometer', 'Radiometer', 'Seismometer', 'Laser Altimeter'] },
-    { test: /regolith|lunar soil/i, alternatives: ['Gold', 'Lead', 'Mercury', 'Silver'] },
-    { test: /prasar\s+bharati|broadcaster/i, alternatives: ['NDTV', 'Zee Media', 'Star India', 'Sun TV Network'] },
-    { test: /electronic\s+components?|semiconductor/i, alternatives: ['solar panels', 'wind turbines', 'display panels', 'optical fibres'] }
+    { test: /colou?rs?\s+of\s+light|primary\s+colou?rs?/i, alternatives: ['yellow', 'orange', 'purple', 'violet'] }
   ];
 
   function escapeRegExp(value) {
@@ -710,6 +679,7 @@
 
   function cleanFactSubject(raw) {
     let subject = cleanText(raw).replace(/[,;:]+$/, '').trim();
+    subject = subject.replace(/^(?:hence|however|thus|therefore|moreover|furthermore|similarly|consequently|in\s+fact|indeed|also)\s*,?\s+/i, '').trim();
     if (!subject || subject.length > 150) return null;
     const split = subject.match(/^(.{2,80}?)\s+(?:is|are|was|were|has|have|had)\s+(.+)$/i);
     if (split && split[1].trim().split(/\s+/).length <= 8 && !/[,]/.test(split[1])) {
@@ -717,6 +687,81 @@
     }
     subject = subject.replace(/[,;:]+$/, '').trim();
     return subject.length >= 2 ? subject : null;
+  }
+
+  // A fact span must be a noun phrase, not a whole clause. These guards stop
+  // multi-clause sentences from donating a truncated subject or a run-on
+  // object to a relation.
+  const CLAUSE_BOUNDARY = /(?:;|\u2014|\u2013|\b(?:which|whom|whose|whereas|although|though)\b|,\s*(?:but|yet|so|and\s+then)\b)/i;
+  const FINITE_VERB_IN_SPAN = /\b(?:is|are|was|were|has|have|had|does|do|did|makes?|made|causes?|caused|shows?|showed|shown|means?|meant|said|states?|stated|includes?|included|becomes?|became|gives?|gave|takes?|took|comes?|came|goes?|went)\b/i;
+  const PARTICIPLE_OBJECT_START = /^(?:being|been|called|known|used|considered|regarded|made|given|taken|seen|found|located|based|named|termed|described|characteri[sz]ed|classified|defined|referred|thought|believed|said|told|shown)\b/i;
+
+  function isClauseLikeSpan(value) {
+    const text = cleanText(value);
+    if (!text) return true;
+    if (CLAUSE_BOUNDARY.test(text)) return true;
+    if (text.split(/\s+/).length > 2 && FINITE_VERB_IN_SPAN.test(text)) return true;
+    return false;
+  }
+
+  // Definitions legitimately contain relative clauses ("the process by which
+  // plants ..."), so only true run-on punctuation disqualifies an object.
+  function hasClausePunctuation(value) {
+    return /(?:;|\u2014|\u2013|,\s*(?:but|yet|so)\b)/i.test(cleanText(value));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Option-span integrity
+  //
+  // Options are rendered verbatim, so a fact may only become a question when
+  // both of its spans are complete, concise phrases. Anything longer or more
+  // clause-like is rejected rather than trimmed.
+  // ---------------------------------------------------------------------------
+  const SPAN_FUNCTION_WORD_END = /^(?:a|an|the|of|in|on|at|to|and|or|but|with|for|from|by|as|that|which|who|whom|whose|is|are|was|were|be|been|being|has|have|had|its|their|his|her|this|these|those|such|than|then|when|where|while|because|into|over|under|between|among|through|during|about|after|before|against|within|without|across|along|around|behind|below|above|near|regarding|including|per|via)$/i;
+  const SPAN_DISCOURSE_OPENER = /^(?:hence|however|thus|therefore|moreover|furthermore|similarly|likewise|consequently|in\s+fact|indeed|also|for\s+example|for\s+instance|given\s+below|given\s+above|on\s+the\s+other\s+hand|in\s+addition|as\s+a\s+result|meanwhile|nevertheless|in\s+contrast|by\s+contrast|this|these|those|it|they)\b/i;
+  const SPAN_SENTENCE_PUNCT = /(?:[;?!]|\.\s|\.$)/;
+  const SPAN_QUOTES = /["“”‘’]/;
+  const SPAN_BAD_START = /^(?:them|him|her|us|me|it|they|this|these|those|which|who|whom|whose|that|being|been|violated|reorganised|reorganized|created|continued|evolved|includes?|consists?|comprises?|contains?|integrates?|promotes?|provides?|helps?|allows?|enables?|imagine|soon|with|without|as|and|but|or)\b/i;
+  const SPAN_EMBEDDED_SENTENCE_START = /\s(?:The|A|An|This|These|Those|It|They|He|She|We|You|In|On|At|For|But|And|However|Therefore|Thus|Hence|Soon|Imagine|Historians|According|When|While|If|After|Before|During|With|Without)\s/;
+  const SPAN_COMPOUND_PREDICATE = /\b(?:and|but|then)\s+\w+(?:ed|es|s)\b/i;
+
+  function endsOnFunctionWord(value) {
+    const text = cleanText(value);
+    if (/(?:and\s+)?so\s+on$/i.test(text)) return false;
+    const tokens = text.split(/\s+/);
+    const rawLast = tokens.length ? tokens[tokens.length - 1] : '';
+    const token = rawLast.replace(/[.,;:!?"'”’)\]]+$/g, '');
+    if (!token || /[’']/.test(rawLast)) return false;
+    return SPAN_FUNCTION_WORD_END.test(token);
+  }
+
+  function isQuestionSafeSpan(value, maxLength) {
+    const text = cleanText(value);
+    const limit = Number.isFinite(maxLength) ? maxLength : 160;
+    if (!text || text.length < 2 || text.length > limit) return false;
+    if (SPAN_SENTENCE_PUNCT.test(text)) return false;
+    if (SPAN_QUOTES.test(text)) return false;
+    if (SPAN_DISCOURSE_OPENER.test(text)) return false;
+    if (SPAN_BAD_START.test(text)) return false;
+    if (SPAN_EMBEDDED_SENTENCE_START.test(text)) return false;
+    if (endsOnFunctionWord(text)) return false;
+    return true;
+  }
+
+  function isQuestionSafeFact(fact) {
+    if (!fact) return false;
+    if (!isQuestionSafeSpan(fact.subject, 90)) return false;
+    if (!isQuestionSafeSpan(fact.object, 145)) return false;
+    const relation = String(fact.relation || '');
+    if (relation === 'comparison') {
+      if (isClauseLikeSpan(fact.subject)) return false;
+      if (cleanText(fact.subject).split(/\s+/).length > 10) return false;
+      if (isClauseLikeSpan(fact.object)) return false;
+      if (SPAN_COMPOUND_PREDICATE.test(cleanText(fact.object))) return false;
+      if (/^(?:consists?|comprises?|contains?|includes?|integrates?|promotes?|provides?|helps?|allows?|enables?)\b/i.test(cleanText(fact.object))) return false;
+    }
+    if (relation === 'causes' && isClauseLikeSpan(fact.object)) return false;
+    return true;
   }
 
   function resolveSubject(raw, context) {
@@ -760,9 +805,12 @@
     // Commas are the primary separators. When the writer used an Oxford comma,
     // a bare "and" inside an item belongs to that item's noun phrase. Without
     // an Oxford comma, split the final "and" pair as well.
-    if (source.includes(',')) {
+    // A comma inside a number ("25,000") is a thousands separator, never a
+    // list boundary. Splitting it produced members such as "000 years".
+    const listComma = /(?<!\d),(?!\s*\d)/;
+    if (listComma.test(source)) {
       const oxford = /,\s*(?:and|or)\s+/i.test(source);
-      const parts = source.split(/\s*,\s*/i);
+      const parts = source.split(/(?<!\d)\s*,\s*(?!\d)/i);
       const expanded = oxford ? parts : parts.flatMap((part) => part.split(/\s+and\s+/i));
       return expanded
         .map(cleanMember)
@@ -862,6 +910,8 @@
     if (!subject || !object || object.length < 6 || object.length > 320) return null;
     if (/^(?:it|this|these|those|they)\b/i.test(subject)) return null;
     if (UNUSABLE_SUBJECT_START.test(subject)) return null;
+    if (isClauseLikeSpan(match[1]) || hasClausePunctuation(object)) return null;
+    if (!isUsableSubject(subject)) return null;
     return {
       fact_type: 'definition',
       subject,
@@ -905,7 +955,7 @@
 
     if (!members) {
       const plural = text.match(/^The\s+(.+?)\s+are\s+(.+?)[.!?]?\s*$/i);
-      if (plural && /\band\b|,/i.test(plural[2])) {
+      if (plural && /\band\b|(?<!\d),(?!\s*\d)/i.test(plural[2])) {
         subject = 'The ' + cleanText(plural[1]).replace(/[.,;:]+$/, '');
         members = splitList(plural[2]);
         exhaustive = /\b(?:two|three|four|five|six|seven|eight|nine|ten|\d+)\b/i.test(subject);
@@ -950,6 +1000,16 @@
 
     if (!subject || !members || !members.length) return null;
     if (members.length > 20) return null;
+    // A list member is a noun phrase. Relative clauses and finite-verb spans
+    // ("who have lived ... for 25,000 years") describe a category; they are not
+    // members of it.
+    members = members.filter((member) => {
+      const span = cleanText(member);
+      if (!span) return false;
+      if (/^(?:who|whom|whose|which|that)\b/i.test(span)) return false;
+      return !isClauseLikeSpan(span);
+    });
+    if (!members.length) return null;
     if (/^(?:features|these|they|it|this|there|some|many|several)$/i.test(subject)) return null;
     const unique = [];
     for (const member of members) {
@@ -969,13 +1029,25 @@
     };
   }
 
-  function parseCause(text) {
-    // Pattern 1 — explicit causal verb (greatly expanded list)
-    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|affects?|determines?|drives?|encourages?|forces?|helps?|makes?|supports?|strengthens?|weakens?|accelerates?|slows?\s+down)\s+(.+?)[.!?]?\s*$/i);
-    if (match) {
+  const EXPLICIT_CAUSAL_VERB = /(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|affects?|determines?|drives?|encourages?|forces?|makes?|supports?|strengthens?|weakens?|accelerates?|slows?\s+down)/i;
+  const DISCOURSE_OPENER = /^(?:for\s+(?:instance|example)|such\s+as|however|therefore|thus|hence|moreover|furthermore|in\s+fact|indeed|similarly|consequently)\s*,?\s*/i;
+  const FINITE_AUXILIARY = /\b(?:is|are|was|were|has|have|had|does|do|did)\b/i;
+
+  function parseExplicitCause(text) {
+    const clauses = cleanText(text).split(/\s*;\s*/).filter(Boolean);
+    for (const rawClause of clauses) {
+      const clause = rawClause.replace(DISCOURSE_OPENER, '').trim();
+      const match = clause.match(new RegExp('^(.+?)\\s+' + EXPLICIT_CAUSAL_VERB.source + '\\s+(.+?)[.!?]?\\s*$', 'i'));
+      if (!match) continue;
+      // A subject span must be a noun phrase, not a whole clause. If it still
+      // carries a finite verb or a clause boundary, the match is not safe.
+      if (/[;]/.test(match[1])) continue;
+      if (FINITE_AUXILIARY.test(match[1]) && match[1].trim().split(/\s+/).length > 6) continue;
       const subject = cleanFactSubject(match[1]);
       const object = cleanText(match[3]).replace(/[.,;:]+$/, '');
-      if (!subject || !object || object.length < 3) return null;
+      if (!subject || !object || object.length < 3) continue;
+      if (isClauseLikeSpan(match[1]) || isClauseLikeSpan(object)) continue;
+      if (!isUsableSubject(subject)) continue;
       return {
         fact_type: 'causal',
         subject,
@@ -987,23 +1059,35 @@
         extraction_method: 'causal_explicit'
       };
     }
+    return null;
+  }
 
-    // Pattern 2 — "X because Y"
-    const because = text.match(/^(.+?)\s+because\s+(.+?)[.!?]?\s*$/i);
+  function parseCause(text) {
+    // Pattern 1 — explicit causal verb, evaluated per clause so a leading
+    // context clause cannot donate its subject to the causal relation.
+    const explicit = parseExplicitCause(text);
+    if (explicit) return explicit;
+
+    // Pattern 2 — "X because Y" (but never "because of", which is a
+    // prepositional cause phrase handled by Pattern 3).
+    const because = text.match(/^(.+?)\s+because\s+(?!of\b)(.+?)[.!?]?\s*$/i);
     if (because) {
       const effect = cleanFactSubject(because[1]);
       const cause = cleanText(because[2]).replace(/[.,;:]+$/, '');
-      if (!effect || !cause || cause.length < 3) return null;
-      return {
-        fact_type: 'causal',
-        subject: effect,
-        relation: 'causes',
-        object: cause,
-        relation_verb: 'because',
-        causal_direction: 'effect_because_cause',
-        answer_kind: 'effect',
-        extraction_method: 'causal_because'
-      };
+      if (effect && cause && cause.length >= 3
+          && !isClauseLikeSpan(because[1]) && !isClauseLikeSpan(cause)
+          && isUsableSubject(effect) && isUsableSubject(cause)) {
+        return {
+          fact_type: 'causal',
+          subject: effect,
+          relation: 'causes',
+          object: cause,
+          relation_verb: 'because',
+          causal_direction: 'effect_because_cause',
+          answer_kind: 'effect',
+          extraction_method: 'causal_because'
+        };
+      }
     }
 
     // Pattern 3 — "Due to / Owing to / Because of / As a result of X, Y"
@@ -1012,8 +1096,9 @@
       const cause = cleanText(dueToMatch[1]).replace(/[.,;:]+$/, '');
       const effect = cleanText(dueToMatch[2]).replace(/[.,;:]+$/, '');
       if (!cause || !effect || cause.length < 3 || effect.length < 5) return null;
+      if (isClauseLikeSpan(cause) || isClauseLikeSpan(effect)) return null;
       const causeSubject = cleanFactSubject(cause);
-      if (!causeSubject || UNUSABLE_SUBJECT_START.test(causeSubject)) return null;
+      if (!causeSubject || UNUSABLE_SUBJECT_START.test(causeSubject) || !isUsableSubject(causeSubject)) return null;
       return {
         fact_type: 'causal',
         subject: causeSubject,
@@ -1032,6 +1117,7 @@
       const subject = cleanFactSubject(responsibleMatch[1]);
       const object = cleanText(responsibleMatch[2]).replace(/[.,;:]+$/, '');
       if (!subject || !object || object.length < 3 || UNUSABLE_SUBJECT_START.test(subject)) return null;
+      if (isClauseLikeSpan(responsibleMatch[1]) || isClauseLikeSpan(object) || !isUsableSubject(subject)) return null;
       return {
         fact_type: 'causal',
         subject,
@@ -1050,8 +1136,9 @@
       const effect = cleanFactSubject(passiveMatch[1]);
       const cause = cleanText(passiveMatch[2]).replace(/[.,;:]+$/, '');
       if (!effect || !cause || cause.length < 3 || UNUSABLE_SUBJECT_START.test(effect)) return null;
+      if (isClauseLikeSpan(passiveMatch[1]) || isClauseLikeSpan(cause)) return null;
       const causeSubject = cleanFactSubject(cause);
-      if (!causeSubject) return null;
+      if (!causeSubject || !isUsableSubject(causeSubject) || !isUsableSubject(effect)) return null;
       return {
         fact_type: 'causal',
         subject: causeSubject,
@@ -1077,7 +1164,9 @@
       const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
           && condSubject.split(/\s+/).length <= 10
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1099,7 +1188,9 @@
       const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
           && condSubject.split(/\s+/).length <= 10
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1121,7 +1212,9 @@
       const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
           && condSubject.split(/\s+/).length <= 10
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1449,7 +1542,9 @@
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[2]);
-      if (subject && object && object.length >= 4) {
+      if (subject && object && object.length >= 4
+          && !isClauseLikeSpan(match[1]) && !isClauseLikeSpan(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1465,7 +1560,9 @@
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[3]);
-      if (subject && object && object.length >= 4) {
+      if (subject && object && object.length >= 4
+          && !isClauseLikeSpan(match[1]) && !isClauseLikeSpan(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1499,8 +1596,12 @@
       const clauseLikeRole = /\b(?:has|have|had)\s+(?:held|said|stated|ruled|observed|noted|ordered|directed|announced|reported)\b/i.test(roleSubject)
         || /\b(?:that|which|who)\b/i.test(roleSubject);
       const subject = cleanFactSubject(roleSubject);
-      const object = cleanText(match[2]).replace(/[.,;:]+$/, '');
-      if (subject && object && object.length >= 4 && !clauseLikeRole && !/^(?:it|this|these|those|they)\b/i.test(subject)) {
+      const object = cleanText(match[2]).replace(/^called\s+/i, '').replace(/[.,;:]+$/, '');
+      if (subject && object && object.length >= 4 && !clauseLikeRole
+          && !/^(?:it|this|these|those|they)\b/i.test(subject)
+          && !isClauseLikeSpan(roleSubject) && !isClauseLikeSpan(object)
+          && !PARTICIPLE_OBJECT_START.test(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1584,31 +1685,103 @@
     return value;
   }
 
-  function numericAttribute(text, match, kind) {
+  const TIME_UNIT_ATTRIBUTE = /^(?:years?|months?|weeks?|days?|hours?|minutes?|seconds?|decades?|centuries|century|fortnights?)$/i;
+  const MEASURE_NOUN = /(average\s+|total\s+|maximum\s+|minimum\s+|mean\s+|annual\s+)?(length|width|height|depth|area|population|distance|elevation|altitude|extent|circumference|perimeter|density|rainfall|speed|capacity|volume|weight|mass|duration|age|temperature)/i;
+  const MEASURE_APPROX = /^(?:about|around|over|under|nearly|almost|approximately|approx\.?|roughly|more\s+than|less\s+than|up\s+to|at\s+least|at\s+most|of|is|was|reaches|measures|stands\s+at)\b/i;
+  const ENTITY_STOP_VERB = /^(?:is|are|was|were|has|have|had|stretches?|extends?|covers?|spans?|lies?|runs?|flows?|rises?|falls?|measures?|reaches?|occupies?|contains?|includes?|consists?|comprises?|forms?|makes?|borders?|separates?|connects?|divides?|begins?|starts?|ends?|occurs?|exists?|represents?|remains?|becomes?|grows?|produces?|receives?|gets?|holds?|keeps?|shows?|means?|refers?|depends?|requires?|allows?|helps?|prevents?|enables?|causes?|leads?|results?|triggers?|provides?|gives?|takes?|uses?|works?|serves?|stands?|sits?|appears?|seems?|indicates?|records?|experiences?|witnesses?|faces?)$/i;
+
+  // The entity a numeric claim is about: the leading noun phrase of the
+  // sentence, resolved through the carried subject when the sentence opens
+  // with an anaphor such as "The plateau ...".
+  function numericEntity(text, context) {
+    const clause = cleanText(text).split(/[,;:]/)[0];
+    const words = clause.split(/\s+/).filter(Boolean);
+    const picked = [];
+    for (const word of words) {
+      const bare = word.replace(/[^A-Za-z'’.-]/g, '');
+      if (!bare) break;
+      if (ENTITY_STOP_VERB.test(bare)) break;
+      if (/^(?:the|a|an)$/i.test(bare) && !picked.length) continue;
+      picked.push(bare);
+      if (picked.length >= 5) break;
+    }
+    let entity = picked.join(' ').replace(/[.,;:]+$/, '').replace(/^(?:the|a|an)\s+/i, '').trim();
+    const carried = context && context.previousSubject
+      ? String(cleanFactSubject(context.previousSubject) || '').replace(/^(?:the|a|an)\s+/i, '')
+      : null;
+    if (!entity) return carried && isUsableSubject(carried) ? carried : '';
+    if (!/^[A-Z]/.test(entity) && carried && isUsableSubject(carried) && normalizeSubject(carried) !== normalizeSubject(entity)) {
+      return carried;
+    }
+    if (!isUsableSubject(entity)) return carried && isUsableSubject(carried) ? carried : '';
+    return entity;
+  }
+
+  function numericAttribute(text, match, kind, context) {
+    // A numeric question must not reuse another number from the same sentence
+    // as its subject ("from 40°C ... to 5°C" must never ask about "40°C" while
+    // answering "5°C"). Any span that already carries a number is ambiguous.
+    const noNumber = (value) => (value && !/\d/.test(value) ? value : '');
+    const safeSpan = (value) => {
+      const candidate = noNumber(value);
+      if (!candidate) return '';
+      const text = String(candidate).trim();
+      if (text.length < 3) return '';
+      return isUsableSubject(text) ? text : '';
+    };
     const object = cleanText(match[0]);
     if (kind === 'count') {
       const withoutNumber = object.replace(/^-?\d[\d,]*(?:\.\d+)?\s*/, '');
       const cleaned = cleanNumericAttribute(withoutNumber);
-      return isUsableSubject(cleaned) ? cleaned : '';
+      // A bare time unit ("18 months") says when, not what: it cannot name
+      // the thing a numeric question is about.
+      if (TIME_UNIT_ATTRIBUTE.test(cleaned)) return '';
+      return safeSpan(cleaned);
     }
 
     const before = text.slice(0, match.index);
     const after = text.slice(match.index + match[0].length);
 
-    // 1. Inspect 'before': does preceding text establish the measured subject?
+    // 1. Directional extent: "2,500 km from east to west" / "north to south".
+    // The direction pair is part of the measured dimension, so the attribute
+    // keeps both the entity and the axis instead of a bare compass word.
+    const direction = after.match(/^\s*(?:from\s+)?(east|west|north|south)\s*(?:to|towards?|[-–—])\s*(east|west|north|south)\b/i);
+    if (direction) {
+      const pair = [direction[1].toLowerCase(), direction[2].toLowerCase()].sort().join('-');
+      const axis = pair === 'east-west' ? 'east-west' : (pair === 'north-south' ? 'north-south' : '');
+      if (axis) {
+        const entity = numericEntity(text, context);
+        if (entity) return safeSpan(`${entity} ${axis} extent`);
+      }
+    }
+
+    // 2. Explicit relational measurement: "average height of over 4,500 metres",
+    // "total area of ...", "population of ...". Only the named measurement is
+    // accepted, never an arbitrary noun phrase before the number.
+    const measure = before.match(new RegExp(MEASURE_NOUN.source + '(?:\\s+(?:of|is|was|reaches|measures|stands\\s+at))?\\s*(?:about|around|over|under|nearly|almost|approximately|roughly|more\\s+than|less\\s+than|up\\s+to|at\\s+least|at\\s+most)?\\s*$', 'i'));
+    if (measure) {
+      const qualifier = (measure[1] || '').trim().toLowerCase();
+      const measureText = (qualifier ? qualifier + ' ' : '') + measure[2].toLowerCase();
+      const entity = numericEntity(text, context);
+      if (entity && normalizeSubject(entity).indexOf(normalizeSubject(measure[2])) === -1) {
+        return safeSpan(`${entity} ${measureText}`);
+      }
+    }
+
+    // 3. Inspect 'before': does preceding text establish the measured subject?
     // Examples: "length of 2,000 km", "population of India is 1.4 billion", "area of 350,000 sq km"
     const wordsBefore = before.trim().split(/\s+/).slice(-6).join(' ');
-    const cleanedBefore = cleanNumericAttribute(wordsBefore);
-    if (cleanedBefore && cleanedBefore.length >= 3 && isUsableSubject(cleanedBefore)) {
+    const cleanedBefore = safeSpan(cleanNumericAttribute(wordsBefore));
+    if (cleanedBefore && cleanedBefore.length >= 3) {
       return cleanedBefore;
     }
 
-    // 2. Inspect 'after': ONLY accept 'after' if it explicitly connects via a preposition
+    // 4. Inspect 'after': ONLY accept 'after' if it explicitly connects via a preposition
     // or relational adjective (e.g. "of coastline", "in length", "long", "wide", "deep", "high").
     // Rejects adjacent map/diagram labels (e.g. "1000 km Equator ASIA...").
     if (/^\s*(?:of|in|across|throughout|from|to|long|wide|deep|high|tall|thick|broad)\b/i.test(after)) {
-      const cleanedAfter = cleanNumericAttribute(after);
-      if (cleanedAfter && cleanedAfter.length >= 3 && isUsableSubject(cleanedAfter)) {
+      const cleanedAfter = safeSpan(cleanNumericAttribute(after));
+      if (cleanedAfter && cleanedAfter.length >= 3) {
         return cleanedAfter;
       }
     }
@@ -1626,7 +1799,7 @@
     return depth > 0;
   }
 
-  function numericDrafts(text) {
+  function numericDrafts(text, context) {
     const drafts = [];
     const patterns = [
       { kind: 'currency', re: /(?:US\$|₹|\$)\s*-?\d[\d,]*(?:\.\d+)?(?:\s*(?:crore|billion|lakh|million|trillion))?/gi },
@@ -1645,8 +1818,11 @@
         if (!info) continue;
         const prefix = text.slice(Math.max(0, match.index - 30), match.index);
         const approximate = /(?:~|over|about|approximately|around|nearly|almost|more\s+than|less\s+than|under|at\s+least|at\s+most|up\s+to)\s*$/i.test(prefix);
-        const negative = info.raw.startsWith('-') || /(?:not|never|cannot|no|without|nor|neither)\b[^.;]{0,24}$/i.test(prefix);
-        const attribute = numericAttribute(text, match, pattern.kind);
+        const suffix = text.slice(match.index + match[0].length, match.index + match[0].length + 18);
+        const negative = info.raw.startsWith('-')
+          || /(?:not|never|cannot|no|without|nor|neither|minus|negative|below\s+zero|under\s+zero)\b[^.;]{0,24}$/i.test(prefix)
+          || /^\s*(?:below|under)\s+zero\b/i.test(suffix);
+        const attribute = numericAttribute(text, match, pattern.kind, context);
         if (!attribute) continue;
         const subject = attribute;
         const answerKind = pattern.kind === 'currency' ? 'amount'
@@ -1674,10 +1850,22 @@
     return drafts;
   }
 
+  let lastFactExtractionDiagnostics = null;
+
+  function classifySentenceRole(text) {
+    if (ReasoningV2 && ReasoningV2.Linguistics && typeof ReasoningV2.Linguistics.classifySentenceRole === 'function') {
+      return ReasoningV2.Linguistics.classifySentenceRole(text);
+    }
+    return 'assertion';
+  }
+
   function parseFactRelations(sentence, sectionContext) {
     const text = cleanText(sentence);
     const context = sectionContext || {};
     if (!text) return [];
+    // Only declarative assertions carry facts. Questions, prompts, captions,
+    // headings and labels are structural text, never evidence.
+    if (classifySentenceRole(text) !== 'assertion') return [];
     const facts = [];
     const add = (draft) => {
       if (!draft || !draft.subject || draft.object == null || draft.object === '') return;
@@ -1739,7 +1927,7 @@
     dates.forEach(add);
 
     parseEntityAttributes(text, context).forEach(add);
-    if (!dates.length) numericDrafts(text).forEach(add);
+    if (!dates.length) numericDrafts(text, context).forEach(add);
 
     // Pattern-enriched fallback: for sentences that yielded nothing, try a broad
     // "[ProperNoun] is/was [description]" extraction. Guards keep it safe.
@@ -1751,6 +1939,8 @@
         if (enrichSubject && enrichObject
             && isUsableSubject(enrichSubject)
             && !UNUSABLE_SUBJECT_START.test(enrichObject)
+            && !PARTICIPLE_OBJECT_START.test(enrichObject)
+            && !isClauseLikeSpan(enrichObject)
             && enrichObject.length >= 10 && enrichObject.length <= 100) {
           add({
             fact_type: 'entity_attribute',
@@ -1799,10 +1989,26 @@
     const sourceMeta = opts.sourceMeta || null;
     const facts = [];
     const units = collectSentenceUnits(sections);
+    const roleDiagnostics = {
+      sentences: 0,
+      assertions: 0,
+      rejected: {},
+      rejectedSentences: []
+    };
     let factSeq = 0;
     let previousSubject = '';
 
     for (const unit of units) {
+      roleDiagnostics.sentences += 1;
+      const role = classifySentenceRole(unit.source_text);
+      if (role !== 'assertion') {
+        roleDiagnostics.rejected[role] = (roleDiagnostics.rejected[role] || 0) + 1;
+        if (roleDiagnostics.rejectedSentences.length < 100) {
+          roleDiagnostics.rejectedSentences.push({ role, text: unit.source_text });
+        }
+        continue;
+      }
+      roleDiagnostics.assertions += 1;
       const context = {
         previousSubject,
         sectionTitle: unit.section_title,
@@ -1843,6 +2049,7 @@
           object_start: objectStart,
           object_end: objectEnd,
           fact_type: draft.fact_type || 'fallback',
+          sentence_role: 'assertion',
           subject: draft.subject || '',
           relation: draft.relation || 'unclassified',
           object: objectText,
@@ -1878,7 +2085,16 @@
         })[0];
       if (subjectSource) previousSubject = subjectSource.subject;
     }
+    lastFactExtractionDiagnostics = roleDiagnostics;
+    if (opts.diagnostics && typeof opts.diagnostics === 'object') {
+      opts.diagnostics.sentenceRoles = roleDiagnostics;
+    }
     return facts;
+  }
+
+  function getFactExtractionDiagnostics() {
+    if (!lastFactExtractionDiagnostics) return null;
+    return JSON.parse(JSON.stringify(lastFactExtractionDiagnostics));
   }
 
   function detectFactConflicts(facts) {
@@ -1989,30 +2205,54 @@
   }
 
   // Parse Raw Document (Markdown, TXT, or structured text)
+  //
+  // Paragraph integrity matters: wrapped lines inside one paragraph are joined
+  // with a space, while blank lines, page markers and headings end the current
+  // paragraph. Paragraphs inside one section are separated by a blank line so
+  // sentence segmentation never glues the last sentence of one paragraph onto
+  // the first sentence of the next.
   function parseRawDocument(rawText, defaultTitle) {
     const titleFallback = defaultTitle || 'Study Document';
     const lines = String(rawText == null ? '' : rawText).split(/\r?\n/);
     const sections = [];
     let currentTitle = titleFallback;
-    let currentParagraphs = [];
+    let paragraphs = [];
+    let currentParagraph = [];
     let pageNum = 1;
+
+    const flushParagraph = () => {
+      if (!currentParagraph.length) return;
+      paragraphs.push(currentParagraph.join(' ').replace(/\s+/g, ' ').trim());
+      currentParagraph = [];
+    };
+
+    const flushSection = () => {
+      flushParagraph();
+      const usable = paragraphs.filter(Boolean);
+      if (!usable.length) {
+        paragraphs = [];
+        return;
+      }
+      sections.push({
+        id: 'sec_' + (sections.length + 1),
+        title: currentTitle,
+        text: usable.join('\n\n'),
+        page: pageNum,
+        paragraphs: usable.slice()
+      });
+      paragraphs = [];
+    };
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed) continue;
+      if (!trimmed) {
+        flushParagraph();
+        continue;
+      }
 
       const pageMatch = trimmed.match(/^page\s+(\d+)/i) || trimmed.match(/^==Page\s+(\d+)/i);
       if (pageMatch) {
-        if (currentParagraphs.length > 0) {
-          sections.push({
-            id: 'sec_' + (sections.length + 1),
-            title: currentTitle,
-            text: currentParagraphs.join(' '),
-            page: pageNum,
-            paragraphs: currentParagraphs.slice()
-          });
-          currentParagraphs = [];
-        }
+        flushSection();
         pageNum = parseInt(pageMatch[1], 10);
         continue;
       }
@@ -2022,31 +2262,14 @@
         /^Topic\s+\d+:/i.test(trimmed);
 
       if (isHeader) {
-        if (currentParagraphs.length > 0) {
-          sections.push({
-            id: 'sec_' + (sections.length + 1),
-            title: currentTitle,
-            text: currentParagraphs.join(' '),
-            page: pageNum,
-            paragraphs: currentParagraphs.slice()
-          });
-          currentParagraphs = [];
-        }
+        flushSection();
         currentTitle = trimmed.replace(/^#{1,4}\s+/, '').replace(/^(\d+\.|\([A-Za-z0-9]+\))\s+/, '');
       } else {
-        currentParagraphs.push(trimmed);
+        currentParagraph.push(trimmed);
       }
     }
 
-    if (currentParagraphs.length > 0) {
-      sections.push({
-        id: 'sec_' + (sections.length + 1),
-        title: currentTitle,
-        text: currentParagraphs.join(' '),
-        page: pageNum,
-        paragraphs: currentParagraphs.slice()
-      });
-    }
+    flushSection();
 
     if (sections.length === 0 && cleanText(rawText).length > 20) {
       sections.push({
@@ -2183,13 +2406,13 @@
     const index = ctx.index;
     const facts = ctx.facts;
     let pool = [];
-    if (fact.answer_kind === 'place') pool = index.places.concat(CONTROLLED_PLACES);
-    else if (fact.answer_kind === 'institution') pool = index.institutions.concat(CONTROLLED_INSTITUTIONS);
-    else if (fact.answer_kind === 'person') pool = index.persons.concat(CONTROLLED_PERSONS);
-    else if (fact.answer_kind === 'role') pool = index.roles.concat(CONTROLLED_ROLES);
-    else if (fact.answer_kind === 'equipment') pool = index.equipment.concat(CONTROLLED_EQUIPMENT);
-    else if (fact.answer_kind === 'function') pool = index.functions.concat(CONTROLLED_FUNCTIONS);
-    else pool = index.functions.concat(index.roles, CONTROLLED_FUNCTIONS, CONTROLLED_ROLES);
+    if (fact.answer_kind === 'place') pool = index.places;
+    else if (fact.answer_kind === 'institution') pool = index.institutions;
+    else if (fact.answer_kind === 'person') pool = index.persons;
+    else if (fact.answer_kind === 'role') pool = index.roles;
+    else if (fact.answer_kind === 'equipment') pool = index.equipment;
+    else if (fact.answer_kind === 'function') pool = index.functions;
+    else pool = index.functions.concat(index.roles);
 
     const sameSubjectPlaces = new Set();
     if (fact.answer_kind === 'place') {
@@ -2220,7 +2443,7 @@
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
       results.push({
         text: candidate,
-        origin: fact.answer_kind === 'place' ? 'controlled_place_pool' : 'typed_entity_pool',
+        origin: fact.answer_kind === 'place' ? 'source_place_pool' : 'typed_entity_pool',
         confusion_type: fact.answer_kind === 'place' ? 'wrong_place' : 'wrong_entity',
         distractor_purpose: fact.answer_kind === 'place' ? 'wrong_entity' : 'confusable_fact'
       });
@@ -2245,8 +2468,7 @@
     }
     // Fallback: functions, roles, comparisons as plausible wrong definitions
     if (results.length < 3) {
-      const fallback = [...ctx.index.functions, ...ctx.index.roles, ...ctx.index.comparisons,
-                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      const fallback = [...ctx.index.functions, ...ctx.index.roles, ...ctx.index.comparisons];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2293,7 +2515,7 @@
       if (isEquivalentOption(candidate, correctMember)) continue;
       results.push({
         text: candidate,
-        origin: 'controlled_category_pool',
+        origin: 'source_member_pool',
         confusion_type: 'wrong_category',
         distractor_purpose: 'wrong_category'
       });
@@ -2319,7 +2541,7 @@
     // Fallback: functions, definitions, and comparisons as plausible wrong effects
     if (results.length < 3) {
       const fallback = [...ctx.index.functions, ...ctx.index.definitions,
-                        ...ctx.index.comparisons, ...CONTROLLED_FUNCTIONS, ...CONTROLLED_EFFECTS];
+                        ...ctx.index.comparisons];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2327,7 +2549,7 @@
         if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
         results.push({
           text: candidate,
-          origin: 'controlled_effect_pool',
+          origin: 'source_effect_pool',
           confusion_type: 'reversed_relation',
           distractor_purpose: 'scope_error'
         });
@@ -2352,8 +2574,7 @@
     }
     // Fallback: effects, definitions, functions as plausible wrong comparisons
     if (results.length < 3) {
-      const fallback = [...ctx.index.effects, ...ctx.index.definitions, ...ctx.index.functions,
-                        ...CONTROLLED_FUNCTIONS, ...CONTROLLED_ROLES];
+      const fallback = [...ctx.index.effects, ...ctx.index.definitions, ...ctx.index.functions];
       for (const candidate of fallback) {
         if (results.length >= 6) break;
         if (!candidate) continue;
@@ -2559,9 +2780,11 @@
   }
 
   function buildSingleChoiceCandidate(fact, subtype, stem, expected, distractors, explanation, extra) {
+    if (!isQuestionSafeSpan(expected, 150)) return null;
     const usable = [];
     for (const distractor of distractors || []) {
       if (!distractor || !distractor.text) continue;
+      if (!isQuestionSafeSpan(distractor.text, 150)) continue;
       if (isEquivalentOption(distractor.text, expected)) continue;
       if (usable.some((item) => isEquivalentOption(item.text, distractor.text))) continue;
       usable.push(distractor);
@@ -2813,8 +3036,7 @@
   }
 
   function makeMultiCandidate(trueStatements, falseStatements, trueFacts, falseFacts, sourceTitle) {
-    const statements = [];
-    let index = 1;
+    const statements = [];    let index = 1;
     for (const item of trueStatements) {
       const number = index++;
       statements.push({
@@ -2866,11 +3088,18 @@
       const replacement = statement.alteration ? statement.alteration.replacement : '';
       return `Statement ${statement.index} is false. The source states: “${statement.source_excerpt}” The stated value is ${original}, not ${replacement}.`;
     });
+    const rawTitle = cleanText(sourceTitle || '');
+    const cleanTitle = rawTitle &&
+      rawTitle.length <= 90 &&
+      !/[.;?!]/.test(rawTitle) &&
+      !/^(?:fig|figure|table|photo|source|chapter)\b/i.test(rawTitle)
+      ? rawTitle
+      : 'the passage';
     return {
       id: '',
       type: 'multi_statement',
       question_subtype: 'multi_statement',
-      stem: `Consider the following statements based on ${sourceTitle}:`,
+      stem: `Consider the following statements based on ${cleanTitle}:`,
       prompt_suffix: 'Which of the statements given above is/are correct?',
       options,
       answer_key: answerKey,
@@ -2903,6 +3132,9 @@
   function multiEligible(fact) {
     return fact &&
       !isFactUnsafe(fact) &&
+      isQuestionSafeFact(fact) &&
+      fact.sentence_role === 'assertion' &&
+      /^[A-Z0-9]/.test(String(fact.source_text || '')) &&
       fact.object &&
       typeof fact.object === 'string' &&
       fact.fact_type !== 'fallback' &&
@@ -3007,6 +3239,10 @@
         buildMetrics.unsafeFacts++;
         continue;
       }
+      if (!isQuestionSafeFact(fact)) {
+        buildMetrics.unsafeSpans = (buildMetrics.unsafeSpans || 0) + 1;
+        continue;
+      }
 
       if (fact.fact_type === 'date') {
         if (!push(makeDateCandidate(fact, ctx))) buildMetrics.missingOptions++;
@@ -3109,6 +3345,9 @@
         continue;
       }
       const normalized = normalizeOption(option.text);
+      if (!isQuestionSafeSpan(option.text, 160)) {
+        add('option_span', 'Option must be a complete, concise phrase.', { text: option.text });
+      }
       for (const filler of FILLER_PATTERNS) {
         if (normalized.includes(normalizeOption(filler))) {
           add('generic_filler', 'Option contains forbidden generic filler.', { text: option.text });
@@ -3228,20 +3467,23 @@
     }
 
     const fact = referenced[0];
+    // V2 proof-carrying questions are validated by the reasoning engine's own
+    // operator contract; the legacy stem/relation checks below do not apply.
+    const isV2Proof = Boolean(question.proof_trace && question.derived_proposition && question.primary_operator);
     const allowed = SUBTYPE_FACT_TYPES[question.question_subtype] || [];
-    if (!allowed.includes(fact.fact_type)) {
+    if (!isV2Proof && !allowed.includes(fact.fact_type)) {
       add('subtype_fact_mismatch', 'Question subtype is not supported by the primary fact type.', {
         subtype: question.question_subtype,
         fact_type: fact.fact_type
       });
     }
-    if (evidence.stem_relation && evidence.stem_relation !== fact.normalized_relation) {
+    if (!isV2Proof && evidence.stem_relation && evidence.stem_relation !== fact.normalized_relation) {
       add('stem_relation', 'Stem must target the same subject and relation as the answer fact.', {
         expected: fact.normalized_relation,
         actual: evidence.stem_relation
       });
     }
-    if (normalizeObject(evidence.temporal_scope || '') !== normalizeObject(fact.temporal_scope || '')) {
+    if (!isV2Proof && normalizeObject(evidence.temporal_scope || '') !== normalizeObject(fact.temporal_scope || '')) {
       add('stem_relation', 'Stem must preserve the extracted temporal scope.', {
         expected: fact.temporal_scope || '',
         actual: evidence.temporal_scope || ''
@@ -3442,20 +3684,22 @@
     const candidates = buildQuestionCandidates(ctx, opts);
 
     let v2Candidates = [];
-    if (ReasoningV2 && typeof ReasoningV2.generateReasoningCandidates === 'function') {
+    if (ReasoningV2 && typeof ReasoningV2.generateReasoningQuestionBank === 'function') {
       try {
         const sectionsForV2 = (ctx.sections && ctx.sections.length) ? ctx.sections : (opts.sections || []);
         if (sectionsForV2.length) {
           const initialFactIds = new Set(facts.map((f) => f.fact_id));
-          const compiled = ReasoningV2.Representation.compileSemanticRepresentation(sectionsForV2, facts);
-          const graph = ReasoningV2.GraphModule.buildGraphFromPropositions(compiled.propositions);
-          const rawV2 = ReasoningV2.generateReasoningCandidates(graph, {
-            sourceTitle: (sectionsForV2[0] && sectionsForV2[0].title) || 'Source Document',
+          // Run the full V2 pipeline (compile -> graph -> production operators
+          // -> proof validation -> coverage selection) rather than calling the
+          // raw candidate generator. V2 contributes at most 5 questions.
+          const v2Bank = ReasoningV2.generateReasoningQuestionBank(sectionsForV2, {
             facts: facts,
-            sections: sectionsForV2
+            targetCount: Math.min(5, targetCount)
           });
-          v2Candidates = rawV2.filter((cand) => {
+          v2Candidates = (Array.isArray(v2Bank) ? v2Bank : []).filter((cand) => {
             if (!cand || !cand.evidence || !Array.isArray(cand.evidence.fact_ids)) return false;
+            // Keep only reasoning that is grounded in the same verified fact
+            // registry the legacy bank uses.
             cand.evidence.fact_ids = cand.evidence.fact_ids.filter((id) => initialFactIds.has(id));
             return cand.evidence.fact_ids.length > 0;
           });
@@ -3468,6 +3712,7 @@
     const rejectionCounts = {};
     if (buildMetrics.missingOptions) rejectionCounts.missing_options = buildMetrics.missingOptions;
     if (buildMetrics.unsafeFacts) rejectionCounts.unsafe_facts = buildMetrics.unsafeFacts;
+    if (buildMetrics.unsafeSpans) rejectionCounts.unsafe_spans = buildMetrics.unsafeSpans;
     if (buildMetrics.unsupportedFacts) rejectionCounts.unsupported_facts = buildMetrics.unsupportedFacts;
     if (buildMetrics.multiMissing) rejectionCounts.multi_missing = buildMetrics.multiMissing;
 
@@ -3593,6 +3838,8 @@
     balanceDistractorLength,
     parseRawDocument,
     extractSourceFacts,
+    getFactExtractionDiagnostics,
+    classifySentenceRole,
     parseFactRelations,
     detectFactConflicts,
     buildKnowledgeInventory,

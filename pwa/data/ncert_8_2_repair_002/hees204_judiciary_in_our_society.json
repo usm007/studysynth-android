@@ -1,0 +1,3706 @@
+{
+  "meta": {
+    "file": "hees204.pdf",
+    "chapterNum": 4,
+    "subject": "Civics",
+    "title": "The Role of the Judiciary in Our Society",
+    "outBase": "hees204_judiciary_in_our_society",
+    "engine": "repair-002"
+  },
+  "coverage": {
+    "totalPages": 18,
+    "pagesProcessed": 18,
+    "pagesWithBody": 18,
+    "pagesWithoutBody": 0,
+    "textItemCount": 800,
+    "blockTypes": {
+      "heading": 16,
+      "page_furniture": 48,
+      "diagram": 25,
+      "body": 46,
+      "caption": 8,
+      "fragment": 9,
+      "table": 1,
+      "ambiguous": 1
+    }
+  },
+  "generation": {
+    "factCount": 138,
+    "totalCandidates": 45,
+    "accepted": 14,
+    "rejected": 31,
+    "requestedCount": 15,
+    "conflictCount": 1,
+    "conflictedFactCount": 2,
+    "conflictedFactIds": [
+      "F-LITE-014",
+      "F-LITE-028"
+    ],
+    "unusedFactCount": 125,
+    "unusedFactIds": [
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138"
+    ],
+    "rejectionCounts": {
+      "missing_options": 1,
+      "unsafe_facts": 2,
+      "unsafe_spans": 9,
+      "unsupported_facts": 113,
+      "duplicate_relation": 33
+    },
+    "buildMetrics": {
+      "missingOptions": 1,
+      "unsafeFacts": 2,
+      "unsupportedFacts": 113,
+      "multiMissing": 0,
+      "unsafeSpans": 9
+    },
+    "subtypeDistribution": {
+      "category_classification": 2,
+      "numeric_recall": 1,
+      "entity_attribute": 6,
+      "definition": 2,
+      "classification_membership": 2,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    }
+  },
+  "validation": {
+    "valid": true,
+    "total": 14,
+    "totalCandidates": 45,
+    "accepted": 14,
+    "rejected": 31,
+    "issues": [],
+    "byRule": {},
+    "rejectionCounts": {
+      "missing_options": 1,
+      "unsafe_facts": 2,
+      "unsafe_spans": 9,
+      "unsupported_facts": 113,
+      "duplicate_relation": 33
+    },
+    "subtypeDistribution": {
+      "category_classification": 2,
+      "numeric_recall": 1,
+      "entity_attribute": 6,
+      "definition": 2,
+      "classification_membership": 2,
+      "multi_statement": 1
+    },
+    "keyDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    },
+    "unusedFacts": 125,
+    "unusedFactIds": [
+      "F-LITE-002",
+      "F-LITE-003",
+      "F-LITE-004",
+      "F-LITE-006",
+      "F-LITE-007",
+      "F-LITE-008",
+      "F-LITE-009",
+      "F-LITE-010",
+      "F-LITE-011",
+      "F-LITE-012",
+      "F-LITE-014",
+      "F-LITE-015",
+      "F-LITE-016",
+      "F-LITE-017",
+      "F-LITE-018",
+      "F-LITE-019",
+      "F-LITE-020",
+      "F-LITE-021",
+      "F-LITE-022",
+      "F-LITE-023",
+      "F-LITE-024",
+      "F-LITE-025",
+      "F-LITE-026",
+      "F-LITE-027",
+      "F-LITE-028",
+      "F-LITE-029",
+      "F-LITE-030",
+      "F-LITE-031",
+      "F-LITE-032",
+      "F-LITE-033",
+      "F-LITE-034",
+      "F-LITE-035",
+      "F-LITE-036",
+      "F-LITE-037",
+      "F-LITE-038",
+      "F-LITE-039",
+      "F-LITE-040",
+      "F-LITE-042",
+      "F-LITE-043",
+      "F-LITE-044",
+      "F-LITE-045",
+      "F-LITE-047",
+      "F-LITE-048",
+      "F-LITE-049",
+      "F-LITE-050",
+      "F-LITE-051",
+      "F-LITE-052",
+      "F-LITE-054",
+      "F-LITE-055",
+      "F-LITE-056",
+      "F-LITE-057",
+      "F-LITE-058",
+      "F-LITE-059",
+      "F-LITE-060",
+      "F-LITE-061",
+      "F-LITE-062",
+      "F-LITE-063",
+      "F-LITE-064",
+      "F-LITE-065",
+      "F-LITE-066",
+      "F-LITE-067",
+      "F-LITE-069",
+      "F-LITE-070",
+      "F-LITE-071",
+      "F-LITE-073",
+      "F-LITE-074",
+      "F-LITE-075",
+      "F-LITE-076",
+      "F-LITE-078",
+      "F-LITE-079",
+      "F-LITE-080",
+      "F-LITE-082",
+      "F-LITE-083",
+      "F-LITE-084",
+      "F-LITE-085",
+      "F-LITE-086",
+      "F-LITE-087",
+      "F-LITE-088",
+      "F-LITE-089",
+      "F-LITE-090",
+      "F-LITE-091",
+      "F-LITE-092",
+      "F-LITE-093",
+      "F-LITE-094",
+      "F-LITE-095",
+      "F-LITE-096",
+      "F-LITE-097",
+      "F-LITE-099",
+      "F-LITE-100",
+      "F-LITE-101",
+      "F-LITE-102",
+      "F-LITE-103",
+      "F-LITE-104",
+      "F-LITE-105",
+      "F-LITE-106",
+      "F-LITE-107",
+      "F-LITE-108",
+      "F-LITE-109",
+      "F-LITE-110",
+      "F-LITE-111",
+      "F-LITE-112",
+      "F-LITE-113",
+      "F-LITE-114",
+      "F-LITE-115",
+      "F-LITE-116",
+      "F-LITE-117",
+      "F-LITE-118",
+      "F-LITE-119",
+      "F-LITE-120",
+      "F-LITE-123",
+      "F-LITE-124",
+      "F-LITE-125",
+      "F-LITE-126",
+      "F-LITE-127",
+      "F-LITE-128",
+      "F-LITE-129",
+      "F-LITE-130",
+      "F-LITE-131",
+      "F-LITE-132",
+      "F-LITE-133",
+      "F-LITE-134",
+      "F-LITE-135",
+      "F-LITE-136",
+      "F-LITE-137",
+      "F-LITE-138"
+    ],
+    "conflictedFacts": 2,
+    "conflictedFactIds": [
+      "F-LITE-014",
+      "F-LITE-028"
+    ]
+  },
+  "facts": [
+    {
+      "fact_id": "F-LITE-001",
+      "subject": "Injustice anywhere",
+      "relation": "role",
+      "object": "threat to justice everywhere",
+      "source_text": "Injustice anywhere is a threat to justice everywhere.",
+      "source_start": 0,
+      "source_end": 53,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-002",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "—Dr Martin Luther King Jr.",
+      "source_start": 54,
+      "source_end": 80,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-003",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Preamble to the Constitution of India promises all Indian citizens social, economic, and political justice.",
+      "source_start": 0,
+      "source_end": 111,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-004",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The founders of independent India laid the foundation for a sound judicial system in a democratic society.",
+      "source_start": 112,
+      "source_end": 218,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-005",
+      "subject": "Justice",
+      "relation": "role",
+      "object": "essential for maintaining peace and harmony in any society",
+      "source_text": "Justice is essential for maintaining peace and harmony in any society.",
+      "source_start": 219,
+      "source_end": 289,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-006",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It ensures that individuals in a society can live with equality and dignity.",
+      "source_start": 290,
+      "source_end": 366,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-007",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Judiciary is the institution which ensures fair adjudication of disputes in accordance with the law and that everyone is treated justly and with fairness.",
+      "source_start": 367,
+      "source_end": 525,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-008",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Think of a time when you felt that someone had not been fair to you.",
+      "source_start": 0,
+      "source_end": 68,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-009",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Share in small groups.",
+      "source_start": 226,
+      "source_end": 248,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-010",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "We know that the Judiciary is one of the three pillars of the government, which is independent from the legislature and the executive.",
+      "source_start": 250,
+      "source_end": 384,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-011",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner.",
+      "source_start": 385,
+      "source_end": 501,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-012",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Society has many complex interactions happening all the time, both personal and professional, therefore, disagreements and disputes may arise from diverse contexts and situations.",
+      "source_start": 503,
+      "source_end": 682,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-013",
+      "subject": "Often disputes between parties",
+      "relation": "role",
+      "object": "resolved through dialogue, mediation, or adjudication by courts of law",
+      "source_text": "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.",
+      "source_start": 683,
+      "source_end": 789,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-014",
+      "subject": "The judiciary plays a vital role in ensuring that the laws passed by the legislature",
+      "relation": "members",
+      "object": "within the framework of the Constitution",
+      "source_text": "The judiciary plays a vital role in ensuring that the laws passed by the legislature are within the framework of the Constitution, and that the executive does not overstep its role as outlined in the Constitution.",
+      "source_start": 790,
+      "source_end": 1003,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-015",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This chapter looks at the role and structure of this branch of the State, i.e., the Judiciary.",
+      "source_start": 1004,
+      "source_end": 1098,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-016",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Law and Justice As human societies grew larger and more complex, systems of governance started emerging.",
+      "source_start": 1100,
+      "source_end": 1204,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-017",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Societies expect fair treatment and peaceful living for everyone, but now this task has been given over to the government.",
+      "source_start": 1205,
+      "source_end": 1327,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-018",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.",
+      "source_start": 1328,
+      "source_end": 1455,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-019",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The government’s way to ensure that justice is achieved in any society is by the framing of laws.",
+      "source_start": 1456,
+      "source_end": 1553,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-020",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Laws are general rules made by the government to regulate individuals’ activities in a society and impose consequences for not following them.",
+      "source_start": 0,
+      "source_end": 142,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-021",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These consequences could be something as simple as paying a fine, giving compensation to the affected party or even imprisonment in some cases.",
+      "source_start": 143,
+      "source_end": 286,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-022",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The system that enables individuals to complain in case of a grievance, and for the affected person to be able to place their point of view so that justice is ensured (within the framework of the law and the Constitution), is called the judicial system.",
+      "source_start": 287,
+      "source_end": 540,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-023",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Post-independence, hundreds of laws framed during the colonial era were found to be discriminatory, and were contrary to the fundamental principles of a democratic polity.",
+      "source_start": 542,
+      "source_end": 713,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-024",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Over the years, the government has taken steps to review laws and has repealed over 1500 such laws, enacted during the British Rule.",
+      "source_start": 714,
+      "source_end": 846,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-025",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "For example, the Criminal Tribes Act, 1871, that labelled certain communities as criminals by birth; and the Vernacular Press Act, 1878, that restricted freedom of press, etc., have been repealed.",
+      "source_start": 847,
+      "source_end": 1043,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-026",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These laws were considered to be inconsistent with the values and principles of justice, and India as a democratic republic.",
+      "source_start": 1044,
+      "source_end": 1168,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-027",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Unjust laws existed in other counties, like the ‘Jim Crow laws’ in parts of the United States which prohibited African Americans and other people of colour from using public facilities reserved exclusively for white people.",
+      "source_start": 0,
+      "source_end": 223,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-028",
+      "subject": "The judiciary plays a vital role in ensuring that the laws passed by the legislature",
+      "relation": "members",
+      "object": "access to water fountains, public pools, even restaurants",
+      "source_text": "This included access to water fountains, public pools, and even restaurants.",
+      "source_start": 224,
+      "source_end": 300,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-029",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Similarly, during the apartheid era in South Africa (mid to late 20 th century), people were divided by law on the basis of race, with coloured people facing severe restrictions under a range of laws.",
+      "source_start": 357,
+      "source_end": 557,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-030",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These restrictions prevented the citizens of those countries from gaining access to public facilities and living a life with dignity.",
+      "source_start": 558,
+      "source_end": 691,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-031",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Such laws prevalent in South Africa were repealed in 1991.",
+      "source_start": 692,
+      "source_end": 750,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-032",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Let us revisit the exercise you did at the beginning of this chapter.",
+      "source_start": 752,
+      "source_end": 821,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-033",
+      "subject": "The person accused",
+      "relation": "comparison",
+      "object": "might have thought that they should be given a chance to explain what had happened",
+      "source_text": "The person accused, on the other hand, might have thought that they should be given a chance to explain what had happened.",
+      "source_start": 1008,
+      "source_end": 1130,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-034",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This brings us to two important aspects of justice — substantive justice and procedural justice.",
+      "source_start": 1131,
+      "source_end": 1227,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-035",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Substantive justice focuses on the final result or outcome.",
+      "source_start": 1229,
+      "source_end": 1288,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-036",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It asks whether the decision is actually fair, just, and reasonable.",
+      "source_start": 1289,
+      "source_end": 1357,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-037",
+      "subject": "Procedural justice",
+      "relation": "definition",
+      "object": "that every person involved gets a full opportunity of hearing, before a decision is taken by the court",
+      "source_text": "Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court.",
+      "source_start": 1358,
+      "source_end": 1486,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-038",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As a rule, it is presumed that every person is innocent, till proved guilty.",
+      "source_start": 1487,
+      "source_end": 1563,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-039",
+      "subject": "The Judicial System in India The Indian Judicial system",
+      "relation": "role",
+      "object": "unified system",
+      "source_text": "The Judicial System in India The Indian Judicial system is a unified system, comprising of a hierarchy of courts with the Supreme Court of India at the apex level, the High Courts at the State level and Subordinate Courts at the District level.",
+      "source_start": 0,
+      "source_end": 244,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-040",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Supreme Court of India The Supreme Court of India is the highest court of law in the country, which came into existence on the date when the Constitution of India came into effect, i.e., 26.01.1950.",
+      "source_start": 246,
+      "source_end": 448,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-041",
+      "subject": "The Supreme Court",
+      "relation": "role",
+      "object": "the final interpreter of the Constitution of India",
+      "source_text": "The Supreme Court is the final interpreter of the Constitution of India.",
+      "source_start": 449,
+      "source_end": 521,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-042",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Article 124 of the Constitution provides for the establishment of the Supreme Court of India, which is seated in New Delhi.",
+      "source_start": 522,
+      "source_end": 645,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-043",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This is the logo of the Supreme Court of India.",
+      "source_start": 647,
+      "source_end": 694,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-044",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Notice the Sanskrit motto, ‘ yato dharmastato jayah ’ — ‘Where there is dharma, there is victory.",
+      "source_start": 734,
+      "source_end": 831,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-045",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "’ (You might recall this motto from your Grade 6 textbook.",
+      "source_start": 831,
+      "source_end": 889,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-046",
+      "subject": "The Chief Justice of the Supreme Court",
+      "relation": "role",
+      "object": "designated as the Chief Justice of India",
+      "source_text": "The Chief Justice of the Supreme Court is designated as the Chief Justice of India.",
+      "source_start": 0,
+      "source_end": 83,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-047",
+      "subject": "The current strength of the Supreme Court",
+      "relation": "role",
+      "object": "33+1 i.e. the Chief Justice of India and 33 Supreme Court judges",
+      "source_text": "The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.",
+      "source_start": 84,
+      "source_end": 194,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-048",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "As per Article 124, the Judges of the Supreme Court are appointed by the President of India.",
+      "source_start": 195,
+      "source_end": 287,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-049",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Every Judge of the Supreme Court is appointed by the President of India.",
+      "source_start": 288,
+      "source_end": 360,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-050",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Qualifications for appointment as a Judge of the Supreme Court require that he/ she is a citizen of India, and additionally is required to have been: (i) a Judge of a High Court (or High Courts) for five years; or (ii) an Advocate of a High Court (or more than one High Court) for ten years; or (iii) a distinguished jurist, in the opinion of the President of India A Supreme Court Judge retires when he/she attains the age of 65 years.",
+      "source_start": 361,
+      "source_end": 801,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-051",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Writ jurisdiction has been conferred on the Constitutional Courts for enforcement of Fundamental Rights guaranteed by Part III of the Constitution of India.",
+      "source_start": 803,
+      "source_end": 959,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-052",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "to the violation of the Fundamental Rights of citizens within the territorial limits of the State.",
+      "source_start": 1181,
+      "source_end": 1279,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-053",
+      "subject": "PIL",
+      "relation": "definition",
+      "object": "Public Interest Litigation",
+      "source_text": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "source_start": 0,
+      "source_end": 238,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-054",
+      "subject": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation",
+      "relation": "launched_by",
+      "object": "the Supreme Court",
+      "source_text": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "source_start": 0,
+      "source_end": 238,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-055",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The first reported case of a PIL was a complaint made by a lawyer called Mrs. Kapila Hingorani.",
+      "source_start": 239,
+      "source_end": 334,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-056",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She had read in the newspaper that there were prisoners who were undergoing a trial, and who had been in jail for a period longer than what their punishment would have been if they were found guilty.",
+      "source_start": 335,
+      "source_end": 534,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-057",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "She filed a writ petition to secure the release of all such under-trial prisoners in Bihar.",
+      "source_start": 535,
+      "source_end": 626,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-058",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Supreme Court immediately ordered the release of such prisoners, and also issued guidelines to release almost 40,000 under-trial prisoners throughout India.",
+      "source_start": 627,
+      "source_end": 787,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-059",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some other important PIL cases are:",
+      "source_start": 788,
+      "source_end": 823,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-060",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "M.C. Mehta v.",
+      "source_start": 825,
+      "source_end": 838,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-061",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Union of India: Environmental issues such as cleaning of the River Ganga and the protection of the Taj Mahal, etc., were taken up by the Supreme Court.",
+      "source_start": 839,
+      "source_end": 990,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-062",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Vishaka & Ors. v.",
+      "source_start": 991,
+      "source_end": 1008,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-063",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "State of Rajasthan: Supreme Court in 1997 laid down guidelines against sexual harassment at workplace.",
+      "source_start": 1009,
+      "source_end": 1111,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-064",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Later in 2013, the Government enacted the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.",
+      "source_start": 1112,
+      "source_end": 1244,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-065",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Original Jurisdiction of the Supreme Court The Supreme Court has exclusive original jurisdiction (Article 131) to decide legal disputes arising between: (a) The Centre and a State; (b) The Centre and a State on one side, and another State on the other side; (c) Inter-state disputes, such as river water disputes, etc.",
+      "source_start": 1246,
+      "source_end": 1564,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-066",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Appellate Jurisdiction of the Supreme Court The Supreme Court can hear an appeal from any final order of the High Court, if the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132, 133 and 134A).",
+      "source_start": 0,
+      "source_end": 274,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-067",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Judgments of the High Court in criminal cases involving death sentence or where a judgment is certified as fit for appeal can be heard by the Supreme Court (Articles 134 and 134A).",
+      "source_start": 275,
+      "source_end": 455,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-068",
+      "subject": "NGT",
+      "relation": "definition",
+      "object": "National Green Tribunal",
+      "source_text": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "source_start": 456,
+      "source_end": 622,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-069",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Advisory Jurisdiction If the President of India seeks the opinion of the Supreme Court on a question of law or fact of public importance, the Supreme Court can give its opinion to the President.",
+      "source_start": 624,
+      "source_end": 818,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-070",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Such cases must be heard by a ‘Constitution Bench’ of not less than five (5) judges (Article 143).",
+      "source_start": 819,
+      "source_end": 917,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-071",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Special Leave Petitions (Article 136) The Supreme Court has an extraordinary discretionary jurisdiction to grant ‘Special Leave to Appeal’ from any judgment, decree or order made by any court or tribunal in the territory of India where a question of law of general public importance has arisen, or to do substantive justice between the parties.",
+      "source_start": 919,
+      "source_end": 1263,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-072",
+      "subject": "The law declared by the Supreme Court of India",
+      "relation": "role",
+      "object": "binding on all courts within the territory of India (Article 141)",
+      "source_text": "The law declared by the Supreme Court of India is binding on all courts within the territory of India (Article 141).",
+      "source_start": 1264,
+      "source_end": 1380,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-073",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Supreme Court has the power to pass any order that is necessary for doing complete justice (Article 142).",
+      "source_start": 1382,
+      "source_end": 1491,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-074",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "All civil and judicial authorities shall act in aid of the Supreme Court (Article 144).",
+      "source_start": 1492,
+      "source_end": 1579,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-075",
+      "subject": "the highest court at the State level",
+      "relation": "superlative",
+      "object": "High Court A High Court",
+      "source_text": "High Court A High Court is the highest court at the State level.",
+      "source_start": 0,
+      "source_end": 64,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-076",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Article 214 of the Constitution provides that there shall be a High Court in each State.",
+      "source_start": 65,
+      "source_end": 153,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-077",
+      "subject": "States",
+      "relation": "numeric_value",
+      "object": "28 States",
+      "source_text": "At present, India has 28 States.",
+      "source_start": 154,
+      "source_end": 186,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-078",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "There are 25 High Courts, since in some cases, two or more States or Union Territories share a common High Court, as follows:",
+      "source_start": 187,
+      "source_end": 312,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-079",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Several High Courts mentioned in the table have more th an one bench.",
+      "source_start": 0,
+      "source_end": 69,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-080",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Explore which High Courts have more than one bench with the help of your teachers.",
+      "source_start": 70,
+      "source_end": 152,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-081",
+      "subject": "The High Court",
+      "relation": "members",
+      "object": "Chief Justice, other Judges",
+      "source_text": "The High Court consists of a Chief Justice and other Judges.",
+      "source_start": 154,
+      "source_end": 214,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-082",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The number of judges in a High Court varies from State to State.",
+      "source_start": 215,
+      "source_end": 279,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-083",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Judges of the High Court are appointed by the President of India in consultation with the Chief Justice of India, the Governor of the State, and the Chief Justice of the concerned High Court.",
+      "source_start": 280,
+      "source_end": 471,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-084",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The qualifications for appointment as a judge of a High Court are provided in Article 217(2) of the Constitution of India.",
+      "source_start": 472,
+      "source_end": 594,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-085",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It provides that a High Court Judge should be a citizen of India, and must have held a judicial office in India, or been an advocate of a High Court or more than one High Court for ten years.",
+      "source_start": 595,
+      "source_end": 786,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-086",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "High Court Judges retire at the age of sixty-two years [Article 217(1) and 224(3)].",
+      "source_start": 787,
+      "source_end": 870,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-087",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Jurisdiction of the High Courts Each High Court exercises its powers within its territorial limits.",
+      "source_start": 872,
+      "source_end": 971,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-088",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The High Court also exercises writ jurisdiction (Article 226).",
+      "source_start": 972,
+      "source_end": 1034,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-089",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "decisions of certain tribunals.",
+      "source_start": 0,
+      "source_end": 31,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-090",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "It also exercises supervisory control on the functioning of all subordinate courts within its territorial limits.",
+      "source_start": 32,
+      "source_end": 145,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-091",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Every High Court has the power of superintendence over all courts and tribunals within its territorial jurisdiction (Article 227).",
+      "source_start": 146,
+      "source_end": 276,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-092",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This power is supervisory in nature and is exercised to ensure that the subordinate courts and tribunals act within the bounds of their authority and jurisdiction.",
+      "source_start": 277,
+      "source_end": 440,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-093",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This power is to be exercised sparingly.",
+      "source_start": 441,
+      "source_end": 481,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-094",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The writ and supervisory jurisdiction of the High Courts has also been declared to be part of the basic structure of the Constitution.",
+      "source_start": 482,
+      "source_end": 616,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-095",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Subordinate Courts In each State, there is a system of subordinate courts below the High Courts.",
+      "source_start": 618,
+      "source_end": 714,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-096",
+      "subject": "The Constitution",
+      "relation": "causes",
+      "object": "a few provisions in Articles 233 to 237 of the Constitution to regulate the organisation of these courts, and to ensure independence of the subordinate judiciary",
+      "source_text": "The Constitution makes a few provisions in Articles 233 to 237 of the Constitution to regulate the organisation of these courts, and to ensure independence of the subordinate judiciary.",
+      "source_start": 715,
+      "source_end": 900,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-097",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The subordinate judiciary constitutes a very important segment of the judicial system, as it is in these courts that the judiciary comes in close contact with the people.",
+      "source_start": 901,
+      "source_end": 1071,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-098",
+      "subject": "Subordinate Courts broadly",
+      "relation": "members",
+      "object": "District Courts, Sessions Courts, Revenue Courts, uphold the honour",
+      "source_text": "Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and uphold the honour and integrity of the subordinate judiciary in the concerned States.",
+      "source_start": 1072,
+      "source_end": 1319,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-099",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Governor of a State in consultation with the High Court appoints the District Judges (Article 233).",
+      "source_start": 1320,
+      "source_end": 1423,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-100",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Tribunals There are specialised tribunals which have been established under various enactments, which are quasi-judicial in nature, and decide on specific categories of disputes.",
+      "source_start": 1480,
+      "source_end": 1658,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-101",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "₹65 lakhs.",
+      "source_start": 0,
+      "source_end": 10,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-102",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The family visited the site regularly and found that even after four years, there was no sign of a building coming up where their flat was supposed to be constructed.",
+      "source_start": 11,
+      "source_end": 177,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-103",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This was a breach of the agreement with the builder.",
+      "source_start": 178,
+      "source_end": 230,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-104",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "So, the family went to the National Consumer Commission to complain about the builder.",
+      "source_start": 231,
+      "source_end": 317,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-105",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "After listening to both parties, the Commission ordered the builder to return the amount to the family with interest, and also to pay the cost of the litigation.",
+      "source_start": 318,
+      "source_end": 479,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-106",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "(The names of the concerned parties are not mentioned to protect their privacy.",
+      "source_start": 480,
+      "source_end": 559,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-107",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Bhartiya Nyaya Sanhita, 2023.",
+      "source_start": 0,
+      "source_end": 29,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-108",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Code of Criminal Procedure, 1973, has been replaced by the Bharatiya Nagarik Suraksha Sanhita, 2023.",
+      "source_start": 30,
+      "source_end": 136,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-109",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Indian Evidence Act, 1872 has been replaced by the Bharatiya Sakshya Adhiniyam, 2023.",
+      "source_start": 137,
+      "source_end": 228,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-110",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "These laws aim to facilitate faster justice, use of digital evidence, and better protection for victims while making the justice system modern, transparent and effective.",
+      "source_start": 229,
+      "source_end": 399,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-111",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Judicial System Digital technology has been introduced to make the judicial system more accessible and transparent.",
+      "source_start": 401,
+      "source_end": 516,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-112",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "One use of this technology is allowing litigants to directly check the details of their cases instead of only relying on their lawyers.",
+      "source_start": 517,
+      "source_end": 652,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-113",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Another example is making copies of court orders and judgements freely available to the public, in multiple languages, so that anyone can read and understand the proceedings of the court.",
+      "source_start": 653,
+      "source_end": 840,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-114",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly.",
+      "source_start": 0,
+      "source_end": 124,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-115",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Some examples are: Æ e-Filing Æ Hybrid hearings Æ Live Streaming of Court Proceedings Æ Translation of judgments in multiple Indian languages Æ National Judicial Data Grid",
+      "source_start": 125,
+      "source_end": 296,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-116",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Since 2024-2025, a large display screen dedicated to ‘Virtual Justice Clock’ has been prominently positioned at the main entrance gates of the Supreme Court of India.",
+      "source_start": 298,
+      "source_end": 464,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-117",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "This initiative reinforces the Court’s commitment to transparency, accountability and free access to real time judicial data.",
+      "source_start": 465,
+      "source_end": 590,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-118",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Resolution To further strengthen and reduce the burden on the judiciary, courts increasingly encourage litigants to settle disputes through alternate modes of dispute resolution such as arbitration, mediation/ conciliation, negotiation, Lok Adalat , etc. Arbitration: Arbitration is a mode of dispute resolution, where the parties agree to refer their disputes to an independent adjudicator or panel of adjudicators, referred to as ‘arbitrator’ or ‘panel of arbitrators’.",
+      "source_start": 592,
+      "source_end": 1063,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-119",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "An arbitrator can be a retired judge, a lawyer or an expert.",
+      "source_start": 1064,
+      "source_end": 1124,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-120",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In arriving at a decision, the arbitrator must follow certain basic requirements, such as to act fairly and impartially, allowing each party to put forth their respective case.",
+      "source_start": 1125,
+      "source_end": 1301,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-121",
+      "subject": "The decision of the arbitrator/ panel",
+      "relation": "role",
+      "object": "final and legally binding on the parties, and enforceable by a court of law",
+      "source_text": "The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law.",
+      "source_start": 1302,
+      "source_end": 1419,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-122",
+      "subject": "Arbitration in India",
+      "relation": "role",
+      "object": "conducted under the Arbitration and Conciliation Act, 1996",
+      "source_text": "Arbitration in India is conducted under the Arbitration and Conciliation Act, 1996.",
+      "source_start": 1420,
+      "source_end": 1503,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-123",
+      "subject": "the most common form of Alternate Dispute Resolution, where a neutral person is appointed as a Mediator",
+      "relation": "superlative",
+      "object": "Mediation: Mediation",
+      "source_text": "Mediation: Mediation is the most common form of Alternate Dispute Resolution, where a neutral person is appointed as a Mediator.",
+      "source_start": 0,
+      "source_end": 128,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-124",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "The Mediator assists the disputing parties in arriving at a mutual settlement.",
+      "source_start": 129,
+      "source_end": 207,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-125",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "A mediator has no power to make any decision, or impose a view on the parties.",
+      "source_start": 208,
+      "source_end": 286,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-126",
+      "subject": "Mediation in India",
+      "relation": "role",
+      "object": "governed by The Mediation Act, 2023",
+      "source_text": "Mediation in India is governed by The Mediation Act, 2023.",
+      "source_start": 287,
+      "source_end": 345,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-127",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Lok Adalats: Lok Adalats are special fora, where disputes/cases can be settled or resolved amicably.",
+      "source_start": 346,
+      "source_end": 446,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-128",
+      "subject": "Lok Adalats can resolve the disputes which",
+      "relation": "role",
+      "object": "pending in the courts",
+      "source_text": "Lok Adalats can resolve the disputes which are pending in the courts.",
+      "source_start": 447,
+      "source_end": 516,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-129",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "In some cases, the parties can even approach Lok Adalats even before going to the Court.",
+      "source_start": 517,
+      "source_end": 605,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-130",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Lok Adalats are rooted in the principles of access to justice and derive statutory recognition under the Legal Services Authorities Act, 1987.",
+      "source_start": 606,
+      "source_end": 748,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-131",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They function as people’s courts, aiming to reduce judicial backlog while promoting amicable dispute resolution without the rigours of formal adjudication.",
+      "source_start": 749,
+      "source_end": 904,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-132",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Gram Nyayalayas: Gram Nyayalayas are established under the Gram Nyayalayas Act, 2008, with the objective of decentralising the judicial system and reducing the burden on regular courts.",
+      "source_start": 905,
+      "source_end": 1090,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-133",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "They function as mobile, village-level courts, designed to adjudicate on disputes which follow a simplified procedure, with no technicalities.",
+      "source_start": 1091,
+      "source_end": 1233,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-134",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The judiciary is one of the three pillars of the government.",
+      "source_start": 1235,
+      "source_end": 1297,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-135",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The key roles of the judicial system are to ensure that justice is served and that laws are made within the framework of the Constitution.",
+      "source_start": 1298,
+      "source_end": 1438,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-136",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The Constitution prescribes separation of powers among the legislature, executive and judiciary, and that the judiciary remains independent of the other organs of the government.",
+      "source_start": 1439,
+      "source_end": 1619,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-137",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ The judicial system addresses huge number of cases on a regular basis which are resolved at different levels of courts as well as through alternative modes of dispute resolutions.",
+      "source_start": 1620,
+      "source_end": 1801,
+      "sentence_role": "assertion",
+      "page": null
+    },
+    {
+      "fact_id": "F-LITE-138",
+      "subject": "",
+      "relation": "unclassified",
+      "object": "",
+      "source_text": "Æ Citizens have a role in helping the judicial system by bringing to its notice social concerns that affect the rights of people, animals, and nature.",
+      "source_start": 0,
+      "source_end": 150,
+      "sentence_role": "assertion",
+      "page": null
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines PIL?",
+      "options": [
+        {
+          "text": "Public Interest Litigation",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "National Green Tribunal",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Injustice anywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "Public Interest Litigation",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "in Our Society",
+      "source_page": 8,
+      "supporting_excerpt": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "explanation": "Source verification: \"Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.\". This confirms that PIL is defined as Public Interest Litigation.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-053"
+        ],
+        "excerpts": [
+          "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-053",
+            "start": 0,
+            "end": 238
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "PIL",
+        "Public Interest Litigation"
+      ],
+      "relation_keys": [
+        "pil|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-053"
+      ],
+      "inference_steps": [
+        "Extracted source definition: PIL -> Public Interest Litigation",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-053"
+        ],
+        "steps": [
+          "Extracted source definition: PIL -> Public Interest Litigation",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0004",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0004",
+        "subject": "PIL",
+        "subject_normalized": "pil",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "Public Interest Litigation",
+        "object_normalized": "public interest litigation",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 8,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "source_text": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "source_clause": "",
+        "supporting_excerpt": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "type": "single_choice",
+      "question_subtype": "numeric_recall",
+      "stem": "What number is stated?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "27 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "B",
+          "text": "28 States",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "29 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        },
+        {
+          "key": "D",
+          "text": "26 States",
+          "is_correct": false,
+          "distractor_origin": "deterministic_value_offset",
+          "confusion_type": "adjacent_value",
+          "distractor_purpose": "adjacent_value"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "28 States",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-085",
+          "fact_id": "F-LITE-077",
+          "role": "primary"
+        }
+      ],
+      "source_title": "States / Union Territories Covered",
+      "source_page": 10,
+      "supporting_excerpt": "At present, India has 28 States.",
+      "explanation": "The source states: “At present, India has 28 States.” This identifies the value for States as 28 States.",
+      "difficulty": "easy",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-077"
+        ],
+        "excerpts": [
+          "At present, India has 28 States."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-077",
+            "start": 154,
+            "end": 186
+          }
+        ],
+        "stem_relation": "numeric_value",
+        "temporal_scope": "",
+        "fact_type": "numeric",
+        "source_title": "States / Union Territories Covered",
+        "source_page": 10
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-077|28 states",
+      "relation_keys": [
+        "F-LITE-077|28 states"
+      ],
+      "candidate_sort": {
+        "source_start": 154,
+        "fact_id": "F-LITE-077"
+      }
+    },
+    {
+      "id": "Q-LITE-003",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "What role is associated with Injustice anywhere?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "threat to justice everywhere",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "unified system",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "threat to justice everywhere",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-001",
+          "fact_id": "F-LITE-001",
+          "role": "primary"
+        }
+      ],
+      "source_title": "in Our Society",
+      "source_page": 1,
+      "supporting_excerpt": "Injustice anywhere is a threat to justice everywhere.",
+      "explanation": "The source states: “Injustice anywhere is a threat to justice everywhere.” This identifies the stated role of Injustice anywhere as threat to justice everywhere.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-001"
+        ],
+        "excerpts": [
+          "Injustice anywhere is a threat to justice everywhere."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-001",
+            "start": 0,
+            "end": 53
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "in Our Society",
+        "source_page": 1
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-001|threat to justice everywhere",
+      "relation_keys": [
+        "F-LITE-001|threat to justice everywhere"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-001"
+      }
+    },
+    {
+      "id": "Q-LITE-004",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "According to the passage, how is PIL defined or described?",
+      "context": "______ (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "options": [
+        {
+          "key": "A",
+          "text": "National Green Tribunal",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "Public Interest Litigation",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "Public Interest Litigation",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-062",
+          "fact_id": "F-LITE-053",
+          "role": "primary"
+        }
+      ],
+      "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+      "source_page": 8,
+      "supporting_excerpt": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "explanation": "The source defines or describes PIL as follows: “Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.” The correct answer is Public Interest Litigation.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-053"
+        ],
+        "excerpts": [
+          "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-053",
+            "start": 0,
+            "end": 238
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+        "source_page": 8
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-053|public interest litigation",
+      "relation_keys": [
+        "F-LITE-053|public interest litigation"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-053"
+      }
+    },
+    {
+      "id": "Q-LITE-005",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which one is mentioned as belonging to the High Court?",
+      "context": "The High Court consists of a Chief Justice and ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "other Judges",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "within the framework of the Constitution",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "C",
+          "text": "access to water fountains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "public pools",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "other Judges",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-089",
+          "fact_id": "F-LITE-081",
+          "role": "primary"
+        }
+      ],
+      "source_title": "States / Union Territories Covered",
+      "source_page": 11,
+      "supporting_excerpt": "The High Court consists of a Chief Justice and other Judges.",
+      "explanation": "The source states: “The High Court consists of a Chief Justice and other Judges.” This lists other Judges as a member of The High Court.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-081"
+        ],
+        "excerpts": [
+          "The High Court consists of a Chief Justice and other Judges."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-081",
+            "start": 154,
+            "end": 214
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "States / Union Territories Covered",
+        "source_page": 11
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-081|members",
+      "relation_keys": [
+        "F-LITE-081|members"
+      ],
+      "candidate_sort": {
+        "source_start": 154,
+        "fact_id": "F-LITE-081"
+      },
+      "expected_member": "other Judges"
+    },
+    {
+      "id": "Q-LITE-006",
+      "type": "multi_statement",
+      "question_subtype": "multi_statement",
+      "stem": "Consider the following statements based on the passage:",
+      "prompt_suffix": "Which of the statements given above is/are correct?",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 only",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "B",
+          "text": "1 only",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "Both 1 and 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        },
+        {
+          "key": "D",
+          "text": "Neither 1 nor 2",
+          "is_correct": false,
+          "distractor_origin": "statement_combination_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "partial_truth"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "1 only",
+      "statements": [
+        {
+          "index": 1,
+          "number": 1,
+          "text": "The Chief Justice of the Supreme Court is designated as the Chief Justice of India.",
+          "fact_id": "F-LITE-046",
+          "source_excerpt": "The Chief Justice of the Supreme Court is designated as the Chief Justice of India.",
+          "truth_value": true
+        },
+        {
+          "index": 2,
+          "number": 2,
+          "text": "Justice is threat to justice everywhere.",
+          "fact_id": "F-LITE-005",
+          "source_excerpt": "Justice is essential for maintaining peace and harmony in any society.",
+          "truth_value": false,
+          "alteration": {
+            "field": "object",
+            "original": "essential for maintaining peace and harmony in any society",
+            "replacement": "threat to justice everywhere",
+            "method": "deterministic_typed_alteration"
+          }
+        }
+      ],
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-054",
+          "fact_id": "F-LITE-046",
+          "role": "evidence"
+        },
+        {
+          "ku_id": "KU-LITE-005",
+          "fact_id": "F-LITE-005",
+          "role": "evidence"
+        }
+      ],
+      "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+      "source_page": 7,
+      "supporting_excerpt": "The Chief Justice of the Supreme Court is designated as the Chief Justice of India.",
+      "explanation": "Statement 1 is correct. The source states: “The Chief Justice of the Supreme Court is designated as the Chief Justice of India.” This supports statement 1. Statement 2 is false. The source states: “Justice is essential for maintaining peace and harmony in any society.” The stated value is essential for maintaining peace and harmony in any society, not threat to justice everywhere.",
+      "difficulty": "hard",
+      "cognitive_level": "analysis",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-046",
+          "F-LITE-005"
+        ],
+        "excerpts": [
+          "The Chief Justice of the Supreme Court is designated as the Chief Justice of India.",
+          "Justice is essential for maintaining peace and harmony in any society."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-046",
+            "start": 0,
+            "end": 83
+          },
+          {
+            "fact_id": "F-LITE-005",
+            "start": 219,
+            "end": 289
+          }
+        ],
+        "stem_relation": "multi_statement",
+        "temporal_scope": "",
+        "fact_type": "multi_statement",
+        "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+        "source_page": 7
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-046|designated as the chief justice of india&F-LITE-005|essential for maintaining peace and harmony in any society",
+      "relation_keys": [
+        "F-LITE-046|designated as the chief justice of india",
+        "F-LITE-005|essential for maintaining peace and harmony in any society"
+      ],
+      "candidate_sort": {
+        "source_start": 0,
+        "fact_id": "F-LITE-046"
+      }
+    },
+    {
+      "id": "Q-LITE-007",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines NGT?",
+      "options": [
+        {
+          "text": "Public Interest Litigation",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "Injustice anywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "National Green Tribunal",
+          "is_correct": true,
+          "key": "C"
+        },
+        {
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "National Green Tribunal",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "in Our Society",
+      "source_page": 9,
+      "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "explanation": "Source verification: \"Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).\". This confirms that NGT is defined as National Green Tribunal.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-068"
+        ],
+        "excerpts": [
+          "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-068",
+            "start": 456,
+            "end": 622
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "NGT",
+        "National Green Tribunal"
+      ],
+      "relation_keys": [
+        "ngt|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-068"
+      ],
+      "inference_steps": [
+        "Extracted source definition: NGT -> National Green Tribunal",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-068"
+        ],
+        "steps": [
+          "Extracted source definition: NGT -> National Green Tribunal",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "subject": "NGT",
+        "subject_normalized": "ngt",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "National Green Tribunal",
+        "object_normalized": "national green tribunal",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 9,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "source_text": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "source_clause": "",
+        "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-008",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes the Supreme Court?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "the final interpreter of the Constitution of India",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "the final interpreter of the Constitution of India",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-048",
+          "fact_id": "F-LITE-041",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The Connection Between",
+      "source_page": 6,
+      "supporting_excerpt": "The Supreme Court is the final interpreter of the Constitution of India.",
+      "explanation": "The source states: “The Supreme Court is the final interpreter of the Constitution of India.” This identifies the stated role of The Supreme Court as the final interpreter of the Constitution of India.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-041"
+        ],
+        "excerpts": [
+          "The Supreme Court is the final interpreter of the Constitution of India."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-041",
+            "start": 449,
+            "end": 521
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The Connection Between",
+        "source_page": 6
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-041|the final interpreter of the constitution of india",
+      "relation_keys": [
+        "F-LITE-041|the final interpreter of the constitution of india"
+      ],
+      "candidate_sort": {
+        "source_start": 449,
+        "fact_id": "F-LITE-041"
+      }
+    },
+    {
+      "id": "Q-LITE-009",
+      "type": "single_choice",
+      "question_subtype": "definition",
+      "stem": "According to the passage, how is NGT defined or described?",
+      "context": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like ______ (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "options": [
+        {
+          "key": "A",
+          "text": "National Green Tribunal",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "Public Interest Litigation",
+          "is_correct": false,
+          "distractor_origin": "source_definition_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "National Green Tribunal",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-076",
+          "fact_id": "F-LITE-068",
+          "role": "primary"
+        }
+      ],
+      "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+      "source_page": 9,
+      "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "explanation": "The source defines or describes NGT as follows: “Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).” The correct answer is National Green Tribunal.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-068"
+        ],
+        "excerpts": [
+          "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-068",
+            "start": 456,
+            "end": 622
+          }
+        ],
+        "stem_relation": "definition",
+        "temporal_scope": "",
+        "fact_type": "definition",
+        "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+        "source_page": 9
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-068|national green tribunal",
+      "relation_keys": [
+        "F-LITE-068|national green tribunal"
+      ],
+      "candidate_sort": {
+        "source_start": 456,
+        "fact_id": "F-LITE-068"
+      }
+    },
+    {
+      "id": "Q-LITE-010",
+      "type": "single_choice",
+      "question_subtype": "classification_membership",
+      "stem": "According to the passage, which of the following is listed as part of Subordinate Courts broadly?",
+      "context": "Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and ______ and integrity of the subordinate judiciary in the concerned States.",
+      "options": [
+        {
+          "key": "A",
+          "text": "within the framework of the Constitution",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "B",
+          "text": "uphold the honour",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "access to water fountains",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        },
+        {
+          "key": "D",
+          "text": "public pools",
+          "is_correct": false,
+          "distractor_origin": "source_member_pool",
+          "confusion_type": "partial_truth",
+          "distractor_purpose": "wrong_category"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "uphold the honour",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-107",
+          "fact_id": "F-LITE-098",
+          "role": "primary"
+        }
+      ],
+      "source_title": "States / Union Territories Covered",
+      "source_page": 12,
+      "supporting_excerpt": "Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and uphold the honour and integrity of the subordinate judiciary in the concerned States.",
+      "explanation": "The source states: “Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and uphold the honour and integrity of the subordinate judiciary in the concerned States.” This lists uphold the honour as a member of Subordinate Courts broadly.",
+      "difficulty": "medium",
+      "cognitive_level": "understanding",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-098"
+        ],
+        "excerpts": [
+          "Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and uphold the honour and integrity of the subordinate judiciary in the concerned States."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-098",
+            "start": 1072,
+            "end": 1319
+          }
+        ],
+        "stem_relation": "members",
+        "temporal_scope": "",
+        "fact_type": "membership",
+        "source_title": "States / Union Territories Covered",
+        "source_page": 12
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-098|members",
+      "relation_keys": [
+        "F-LITE-098|members"
+      ],
+      "candidate_sort": {
+        "source_start": 1072,
+        "fact_id": "F-LITE-098"
+      },
+      "expected_member": "uphold the honour"
+    },
+    {
+      "id": "Q-LITE-011",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes Often disputes between parties?",
+      "context": "Often disputes between parties are ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": true
+        },
+        {
+          "key": "D",
+          "text": "unified system",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "C",
+      "expected_answer": "resolved through dialogue, mediation, or adjudication by courts of law",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-017",
+          "fact_id": "F-LITE-013",
+          "role": "primary"
+        }
+      ],
+      "source_title": "The Connection Between",
+      "source_page": 3,
+      "supporting_excerpt": "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.",
+      "explanation": "The source states: “Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.” This identifies the stated role of Often disputes between parties as resolved through dialogue, mediation, or adjudication by courts of law.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-013"
+        ],
+        "excerpts": [
+          "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-013",
+            "start": 683,
+            "end": 789
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "The Connection Between",
+        "source_page": 3
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-013|resolved through dialogue, mediation, or adjudication by courts of law",
+      "relation_keys": [
+        "F-LITE-013|resolved through dialogue, mediation, or adjudication by courts of law"
+      ],
+      "candidate_sort": {
+        "source_start": 683,
+        "fact_id": "F-LITE-013"
+      }
+    },
+    {
+      "id": "Q-LITE-012",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes the law declared by the Supreme Court of India?",
+      "context": "The law declared by the Supreme Court of India is ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "binding on all courts within the territory of India (Article 141)",
+          "is_correct": true
+        }
+      ],
+      "answer_key": "D",
+      "expected_answer": "binding on all courts within the territory of India (Article 141)",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-080",
+          "fact_id": "F-LITE-072",
+          "role": "primary"
+        }
+      ],
+      "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+      "source_page": 9,
+      "supporting_excerpt": "The law declared by the Supreme Court of India is binding on all courts within the territory of India (Article 141).",
+      "explanation": "The source states: “The law declared by the Supreme Court of India is binding on all courts within the territory of India (Article 141).” This identifies the stated role of The law declared by the Supreme Court of India as binding on all courts within the territory of India (Article 141).",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-072"
+        ],
+        "excerpts": [
+          "The law declared by the Supreme Court of India is binding on all courts within the territory of India (Article 141)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-072",
+            "start": 1264,
+            "end": 1380
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "India ramification; or before the High Court (Article 226), which pertains",
+        "source_page": 9
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-072|binding on all courts within the territory of india (article 141)",
+      "relation_keys": [
+        "F-LITE-072|binding on all courts within the territory of india (article 141)"
+      ],
+      "candidate_sort": {
+        "source_start": 1264,
+        "fact_id": "F-LITE-072"
+      }
+    },
+    {
+      "id": "Q-LITE-013",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "According to the passage, which of the following correctly describes the decision of the arbitrator/ panel?",
+      "context": "The decision of the arbitrator/ panel is ______.",
+      "options": [
+        {
+          "key": "A",
+          "text": "final and legally binding on the parties, and enforceable by a court of law",
+          "is_correct": true
+        },
+        {
+          "key": "B",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "C",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "final and legally binding on the parties, and enforceable by a court of law",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-131",
+          "fact_id": "F-LITE-121",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Alternate Modes of Dispute",
+      "source_page": 15,
+      "supporting_excerpt": "The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law.",
+      "explanation": "The source states: “The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law.” This identifies the stated role of The decision of the arbitrator/ panel as final and legally binding on the parties, and enforceable by a court of law.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-121"
+        ],
+        "excerpts": [
+          "The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-121",
+            "start": 1302,
+            "end": 1419
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Alternate Modes of Dispute",
+        "source_page": 15
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-121|final and legally binding on the parties, and enforceable by a court of law",
+      "relation_keys": [
+        "F-LITE-121|final and legally binding on the parties, and enforceable by a court of law"
+      ],
+      "candidate_sort": {
+        "source_start": 1302,
+        "fact_id": "F-LITE-121"
+      }
+    },
+    {
+      "id": "Q-LITE-014",
+      "type": "single_choice",
+      "question_subtype": "entity_attribute",
+      "stem": "Which of the following correctly describes Arbitration in India?",
+      "context": null,
+      "options": [
+        {
+          "key": "A",
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "B",
+          "text": "conducted under the Arbitration and Conciliation Act, 1996",
+          "is_correct": true
+        },
+        {
+          "key": "C",
+          "text": "essential for maintaining peace and harmony in any society",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        },
+        {
+          "key": "D",
+          "text": "resolved through dialogue, mediation, or adjudication by courts of law",
+          "is_correct": false,
+          "distractor_origin": "typed_entity_pool",
+          "confusion_type": "wrong_entity",
+          "distractor_purpose": "confusable_fact"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "conducted under the Arbitration and Conciliation Act, 1996",
+      "knowledge_units": [
+        {
+          "ku_id": "KU-LITE-132",
+          "fact_id": "F-LITE-122",
+          "role": "primary"
+        }
+      ],
+      "source_title": "Alternate Modes of Dispute",
+      "source_page": 15,
+      "supporting_excerpt": "Arbitration in India is conducted under the Arbitration and Conciliation Act, 1996.",
+      "explanation": "The source states: “Arbitration in India is conducted under the Arbitration and Conciliation Act, 1996.” This identifies the stated role of Arbitration in India as conducted under the Arbitration and Conciliation Act, 1996.",
+      "difficulty": "medium",
+      "cognitive_level": "recall",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-122"
+        ],
+        "excerpts": [
+          "Arbitration in India is conducted under the Arbitration and Conciliation Act, 1996."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-122",
+            "start": 1420,
+            "end": 1503
+          }
+        ],
+        "stem_relation": "role",
+        "temporal_scope": "",
+        "fact_type": "entity_attribute",
+        "source_title": "Alternate Modes of Dispute",
+        "source_page": 15
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved"
+        ]
+      },
+      "answer_relation_key": "F-LITE-122|conducted under the arbitration and conciliation act, 1996",
+      "relation_keys": [
+        "F-LITE-122|conducted under the arbitration and conciliation act, 1996"
+      ],
+      "candidate_sort": {
+        "source_start": 1420,
+        "fact_id": "F-LITE-122"
+      }
+    }
+  ],
+  "reasoning_v2": [
+    {
+      "id": "Q-LITE-001",
+      "candidate_id": "QC-V2-0001",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines PIL?",
+      "options": [
+        {
+          "text": "Public Interest Litigation",
+          "is_correct": true,
+          "key": "A"
+        },
+        {
+          "text": "National Green Tribunal",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "B"
+        },
+        {
+          "text": "Injustice anywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "A",
+      "expected_answer": "Public Interest Litigation",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "in Our Society",
+      "source_page": 8,
+      "supporting_excerpt": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+      "explanation": "Source verification: \"Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.\". This confirms that PIL is defined as Public Interest Litigation.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-053"
+        ],
+        "excerpts": [
+          "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-053",
+            "start": 0,
+            "end": 238
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "PIL",
+        "Public Interest Litigation"
+      ],
+      "relation_keys": [
+        "pil|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-053"
+      ],
+      "inference_steps": [
+        "Extracted source definition: PIL -> Public Interest Litigation",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-053"
+        ],
+        "steps": [
+          "Extracted source definition: PIL -> Public Interest Litigation",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0004",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0004",
+        "subject": "PIL",
+        "subject_normalized": "pil",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "Public Interest Litigation",
+        "object_normalized": "public interest litigation",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 8,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "source_text": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "source_clause": "",
+        "supporting_excerpt": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    },
+    {
+      "id": "Q-LITE-002",
+      "candidate_id": "QC-V2-0002",
+      "type": "single_choice",
+      "question_subtype": "category_classification",
+      "stem": "According to the source, which statement best defines NGT?",
+      "options": [
+        {
+          "text": "Public Interest Litigation",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "A"
+        },
+        {
+          "text": "National Green Tribunal",
+          "is_correct": true,
+          "key": "B"
+        },
+        {
+          "text": "Injustice anywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "C"
+        },
+        {
+          "text": "threat to justice everywhere",
+          "is_correct": false,
+          "distractor_origin": "wrong_category",
+          "transformation_type": "category_confusion",
+          "key": "D"
+        }
+      ],
+      "answer_key": "B",
+      "expected_answer": "National Green Tribunal",
+      "knowledge_units": [
+        "KU-REASONING-V2"
+      ],
+      "source_title": "in Our Society",
+      "source_page": 9,
+      "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+      "explanation": "Source verification: \"Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).\". This confirms that NGT is defined as National Green Tribunal.",
+      "evidence": {
+        "fact_ids": [
+          "F-LITE-068"
+        ],
+        "excerpts": [
+          "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT)."
+        ],
+        "source_offsets": [
+          {
+            "fact_id": "F-LITE-068",
+            "start": 456,
+            "end": 622
+          }
+        ],
+        "stem_relation": "is defined as",
+        "temporal_scope": ""
+      },
+      "verification": {
+        "status": "verified",
+        "rules": [
+          "source_fact",
+          "typed_options",
+          "evidence_quoted",
+          "answer_verified",
+          "scope_preserved",
+          "proof_trace_verified"
+        ]
+      },
+      "primary_operator": "OP_H_CATEGORY_INFERENCE",
+      "target_concepts": [
+        "NGT",
+        "National Green Tribunal"
+      ],
+      "relation_keys": [
+        "ngt|DEFINITION_OF"
+      ],
+      "premises_used": [
+        "F-LITE-068"
+      ],
+      "inference_steps": [
+        "Extracted source definition: NGT -> National Green Tribunal",
+        "Verified definitional equivalence"
+      ],
+      "proof_trace": {
+        "operator": "OP_H_CATEGORY_INFERENCE",
+        "premises": [
+          "F-LITE-068"
+        ],
+        "steps": [
+          "Extracted source definition: NGT -> National Green Tribunal",
+          "Verified definitional equivalence"
+        ]
+      },
+      "derived_proposition": {
+        "id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "fact_id": "PROP-OP_H_CATEGORY_INFERENCE-0005",
+        "subject": "NGT",
+        "subject_normalized": "ngt",
+        "predicate": "is defined as",
+        "relation_type": "DEFINITION_OF",
+        "relation": "is defined as",
+        "normalized_relation": "is defined as",
+        "object": "National Green Tribunal",
+        "object_normalized": "national green tribunal",
+        "polarity": "POSITIVE",
+        "modality": "FACT",
+        "quantification": "UNSPECIFIED",
+        "fact_type": "definition",
+        "conflict_status": "supported",
+        "confidence_class": "verified",
+        "condition": null,
+        "exception": null,
+        "comparator": null,
+        "comparison_direction": null,
+        "temporal_order": null,
+        "numeric_value": null,
+        "unit": null,
+        "source_page": 9,
+        "source_section": "",
+        "section_id": "SEC-001",
+        "source_sentence": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "source_text": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "source_clause": "",
+        "supporting_excerpt": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+        "char_start": 0,
+        "char_end": 0,
+        "source_start": 0,
+        "source_end": 0,
+        "rule_id": "OP_H_CATEGORY_INFERENCE",
+        "is_derived": true,
+        "proof_trace": null,
+        "ambiguity_indicators": [],
+        "parse_status": "VERIFIED"
+      },
+      "difficulty": "comprehension",
+      "quality_scores": {
+        "conceptual_depth": 3,
+        "reasoning_validity": 1,
+        "evidence_completeness": 1,
+        "clarity": 0.95
+      }
+    }
+  ],
+  "graph_propositions": [
+    {
+      "id": "F-LITE-001",
+      "subject": "Injustice anywhere",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "threat to justice everywhere",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-005",
+      "subject": "Justice",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "essential for maintaining peace and harmony in any society",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-013",
+      "subject": "Often disputes between parties",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "resolved through dialogue, mediation, or adjudication by courts of law",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-041",
+      "subject": "The Supreme Court",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "the final interpreter of the Constitution of India",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-046",
+      "subject": "The Chief Justice of the Supreme Court",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "designated as the Chief Justice of India",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-053",
+      "subject": "PIL",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "Public Interest Litigation",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-068",
+      "subject": "NGT",
+      "predicate": "definition",
+      "relation_type": "DEFINITION_OF",
+      "object": "National Green Tribunal",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-072",
+      "subject": "The law declared by the Supreme Court of India",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "binding on all courts within the territory of India (Article 141)",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-077",
+      "subject": "States",
+      "predicate": "numeric_value",
+      "relation_type": "HAS_PROPERTY",
+      "object": "28 States",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-081",
+      "subject": "The High Court",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "Chief Justice, other Judges",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-098",
+      "subject": "Subordinate Courts broadly",
+      "predicate": "members",
+      "relation_type": "HAS_PROPERTY",
+      "object": "District Courts, Sessions Courts, Revenue Courts, uphold the honour",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-121",
+      "subject": "The decision of the arbitrator/ panel",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "final and legally binding on the parties, and enforceable by a court of law",
+      "is_derived": false
+    },
+    {
+      "id": "F-LITE-122",
+      "subject": "Arbitration in India",
+      "predicate": "role",
+      "relation_type": "HAS_PROPERTY",
+      "object": "conducted under the Arbitration and Conciliation Act, 1996",
+      "is_derived": false
+    },
+    {
+      "id": "PROP-EXT_CONDITIONAL_IF_THEN-0001",
+      "subject": "133 and 134A)",
+      "predicate": "conditional on",
+      "relation_type": "CONDITIONAL_ON",
+      "object": "the High Court itself certifies that the case involves interpretation of the Constitution or substantial question of law (Articles 132",
+      "is_derived": false
+    }
+  ]
+}

@@ -4,7 +4,20 @@
  * Progress messages are emitted only at real stage boundaries.
  */
 
-importScripts('./generator.js', './analyze.js');
+importScripts(
+  './reasoning/types.js',
+  './reasoning/linguistics.js',
+  './reasoning/representation.js',
+  './reasoning/graph.js',
+  './reasoning/operators.js',
+  './reasoning/distractors.js',
+  './reasoning/constructors.js',
+  './reasoning/validator.js',
+  './reasoning/ranking.js',
+  './reasoning/engine_v2.js',
+  './generator.js',
+  './analyze.js'
+);
 
 function post(message) {
   self.postMessage(message);

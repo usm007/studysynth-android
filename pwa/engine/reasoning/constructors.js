@@ -16,7 +16,11 @@
     ? require('./distractors.js')
     : global.ReasoningDistractors;
 
-  const { REASONING_OPERATORS, DIFFICULTY_LEVELS } = Types;
+  const Linguistics = (typeof module !== 'undefined' && module.exports)
+    ? require('./linguistics.js')
+    : global.ReasoningLinguistics;
+
+  const { REASONING_OPERATORS, DIFFICULTY_LEVELS, RELATION_TYPES } = Types;
 
   let candidateCounter = 0;
 
@@ -98,7 +102,9 @@
         break;
 
       case REASONING_OPERATORS.OP_H_CATEGORY_INFERENCE:
-        stem = `Based on its defining attributes in the text, to which category or classification does ${subject} belong?`;
+        stem = derivedProp.relation_type === RELATION_TYPES.DEFINITION_OF
+          ? `According to the source, which statement best defines ${subject}?`
+          : `Based on its defining attributes in the text, to which category or classification does ${subject} belong?`;
         answerText = object;
         break;
 
@@ -168,6 +174,11 @@
     if (!stem || stem.length <= 12 || !answerText || answerText.length < 2) {
       return null;
     }
+    // Correct answers are shown verbatim. Reject fragments and run-ons rather
+    // than publishing an option that cannot be read on its own.
+    if (!Linguistics.isSafeSpan(answerText, 150)) {
+      return null;
+    }
 
     // Generate 3 typed misconception distractors
     const distractors = Distractors.generateMisconceptionDistractors(
@@ -197,7 +208,9 @@
 
     const excerpt = derivedProp.supporting_excerpt || '';
 
-    // Evidence fact IDs: map premises strictly to valid fact IDs in context.facts
+    // Evidence fact IDs: every premise must resolve to a verified fact or a
+    // graph proposition. A candidate with any unresolved premise is dropped
+    // rather than attached to unrelated evidence.
     const availableFacts = (context && Array.isArray(context.facts)) ? context.facts : [];
     const evidenceFactIds = [];
     const premiseExcerpts = [];
@@ -214,17 +227,27 @@
               premiseOffsets.push({ fact_id: pid, start: fact.source_start, end: fact.source_end });
             }
           }
-        } else if (graph && typeof graph.getProposition === 'function') {
-          const propNode = graph.getProposition(pid);
-          if (propNode && propNode.supporting_excerpt) {
-            premiseExcerpts.push(propNode.supporting_excerpt);
+          continue;
+        }
+        const propNode = graph && typeof graph.getProposition === 'function'
+          ? graph.getProposition(pid)
+          : null;
+        if (!propNode || propNode.id !== pid) {
+          return null;
+        }
+        if (!evidenceFactIds.includes(pid)) {
+          evidenceFactIds.push(pid);
+          if (propNode.supporting_excerpt) premiseExcerpts.push(propNode.supporting_excerpt);
+          if (propNode.source_start != null && propNode.source_end != null) {
+            premiseOffsets.push({ fact_id: pid, start: propNode.source_start, end: propNode.source_end });
           }
         }
       }
     }
 
-    // Strict evidence integrity: never substitute unrelated first fact
-    if (evidenceFactIds.length === 0 && availableFacts.length > 0) {
+    // Strict evidence integrity: a question without resolved evidence is not
+    // publishable.
+    if (evidenceFactIds.length === 0) {
       return null;
     }
 
@@ -257,8 +280,8 @@
         temporal_scope: derivedProp.temporal_scope || ''
       },
       verification: {
-        status: 'verified',
-        rules: ['source_fact', 'typed_options', 'evidence_quoted', 'answer_verified', 'scope_preserved', 'proof_trace_verified']
+        status: 'provisional',
+        rules: ['source_fact', 'typed_options', 'evidence_quoted', 'answer_verified', 'scope_preserved', 'proof_trace_pending_validation']
       },
 
       // Proof-Carrying Metadata
