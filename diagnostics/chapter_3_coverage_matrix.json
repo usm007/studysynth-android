@@ -1,0 +1,3765 @@
+{
+ "schema_version": "1.0",
+ "chapter": "NCERT Class 8 Social Science, Chapter 3 — A Journey Through Indian Architecture (hees203)",
+ "source_pdf": {
+  "path_used": "/home/hatch/workspace/ncert_pdfs/hees203.pdf",
+  "sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+  "pages": 40,
+  "path_note": "Spec cites NCERT/hees203.pdf; that path does not exist in the checkout (NCERT/ holds only .gitkeep)."
+ },
+ "counting_rules": {
+  "row_unit": "One row per knowledge-inventory entry (160).",
+  "denominator": "Question-worthy entries only: question_suitable == yes (143). Excluded: 17 NOT_QUESTION_WORTHY (16 unsuitable incl. Minor-reference + 1 REVIEW_REQUIRED timeline entry counted separately, not in any denominator).",
+  "covered_definition": "COVERED only when at least one FINAL, VALID question genuinely tests the entry. Distractor mention, explanation mention, and invalid questions (Q-P3-003) do not count.",
+  "partially_definition": "PARTIALLY_COVERED when a valid final question tests only part of the entry or with a context defect (INV-3-067: alignment tested, tower half only a distractor; stem lacks \"of a temple\").",
+  "candidate_caveat": "candidate_status counts any candidate referencing the entry fact (tested or distractor role). For non-final candidates the two roles cannot be separated in production metrics; final-question tested facts are exact (evidence_fact_ids).",
+  "extraction_aggregation": "Worst matrix classification among items referencing the entry (severity: NOT_EXTRACTED/VISUAL_ONLY > CORRUPTION > INCOMPLETE > REVIEW_REQUIRED > FAITHFUL). Matrix unit is a source item (126 items), inventory unit is a learning point (160 entries); counts therefore differ by design.",
+  "representation_rule": "TYPED = a non-fallback fact faithfully expresses the entry; TYPED_CORRUPTED = typed fact exists but subject/object is a fragment, pronoun, figure reference, merge, or truncation; FALLBACK_ONLY = prose reached the fact layer only as an unclassified unit; NO_FACT = nothing extracted."
+ },
+ "summary": {
+  "inventory_total": 160,
+  "question_worthy_denominator": 143,
+  "covered": 5,
+  "partially_covered": 1,
+  "uncovered": 137,
+  "not_question_worthy": 16,
+  "review_required": 1,
+  "by_importance": {
+   "Core": {
+    "covered": 4,
+    "partially": 1,
+    "uncovered": 97,
+    "denominator": 102
+   },
+   "Supporting": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 40,
+    "denominator": 41
+   }
+  },
+  "by_section_question_worthy": {
+   "Introduction": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 3,
+    "denominator": 3
+   },
+   "The Beginnings …": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 9,
+    "denominator": 10
+   },
+   "Structural Stupa Architecture": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 8,
+    "denominator": 9
+   },
+   "Rock-Cut Architecture": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 9,
+    "denominator": 9
+   },
+   "DON'T MISS OUT": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 7,
+    "denominator": 8
+   },
+   "Water Structures": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 13,
+    "denominator": 13
+   },
+   "Classical Temple Architecture": {
+    "covered": 0,
+    "partially": 1,
+    "uncovered": 21,
+    "denominator": 22
+   },
+   "The Architecture of Mosques": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 14,
+    "denominator": 15
+   },
+   "Forts and Palaces": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 23,
+    "denominator": 23
+   },
+   "Tombs and Mausoleums": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 14,
+    "denominator": 14
+   },
+   "Traditional Houses": {
+    "covered": 1,
+    "partially": 0,
+    "uncovered": 7,
+    "denominator": 8
+   },
+   "Churches in India": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 5,
+    "denominator": 5
+   },
+   "Colonial Architecture": {
+    "covered": 0,
+    "partially": 0,
+    "uncovered": 4,
+    "denominator": 4
+   }
+  },
+  "extraction_aggregated": {
+   "EXTRACTED_FAITHFULLY": 76,
+   "EXTRACTED_INCOMPLETELY": 69,
+   "REVIEW_REQUIRED": 1,
+   "NOT_EXTRACTED": 6,
+   "VISUAL_ONLY_OR_UNSUPPORTED": 2,
+   "NOT_LEARNING_RELEVANT": 2,
+   "EXTRACTED_WITH_CORRUPTION": 4
+  },
+  "representation": {
+   "FALLBACK_ONLY": 128,
+   "REVIEW_REQUIRED": 1,
+   "NO_FACT": 8,
+   "TYPED": 12,
+   "TYPED_CORRUPTED": 11
+  },
+  "candidate_touching_entries": 13,
+  "entries_with_typed_representation": 23
+ },
+ "rows": [
+  {
+   "inventory_id": "INV-3-001",
+   "importance": "Minor-reference",
+   "section": "Chapter opening",
+   "pdf_page": 1,
+   "book_page": 85,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Coomaraswamy epigraph (INV-3-001)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "An epigraph attribution question would test the quote, not chapter knowledge; the quote states no checkable architectural fact."
+  },
+  {
+   "inventory_id": "INV-3-002",
+   "importance": "Supporting",
+   "section": "Chapter opening",
+   "pdf_page": 1,
+   "book_page": 85,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Three Big Questions (INV-3-002)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "These are open inquiry questions, not facts with a single correct answer."
+  },
+  {
+   "inventory_id": "INV-3-003",
+   "importance": "Core",
+   "section": "Introduction",
+   "pdf_page": 2,
+   "book_page": 86,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Architecture definition; evolution + geographical diversity (INV-3-003, INV-3-004)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-004",
+   "importance": "Core",
+   "section": "Introduction",
+   "pdf_page": 2,
+   "book_page": 86,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Architecture definition; evolution + geographical diversity (INV-3-003, INV-3-004)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-005",
+   "importance": "Supporting",
+   "section": "Introduction",
+   "pdf_page": 2,
+   "book_page": 86,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Journey method; map/timeline guidance (INV-3-005)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "States chapter method, not an architectural fact; a question on it would test the book's organisation, not the subject."
+  },
+  {
+   "inventory_id": "INV-3-006",
+   "importance": "Core",
+   "section": "Introduction",
+   "pdf_page": 2,
+   "book_page": 86,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.1 Sidi Saiyyed Jali caption (INV-3-006)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-007",
+   "importance": "REVIEW_REQUIRED",
+   "section": "Introduction",
+   "pdf_page": 3,
+   "book_page": 87,
+   "extraction_status": "REVIEW_REQUIRED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED",
+    "REVIEW_REQUIRED"
+   ],
+   "extraction_item_names": [
+    "Timeline structure-date pairings, all (INV-3-007)",
+    "Timeline labels as isolated tokens (Dholavira, Sanchi Stupa, 2600 BCE, 1010 CE, 1063 CE, 1424 CE)"
+   ],
+   "representation_status": "REVIEW_REQUIRED",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not assessed — timeline pairings unresolved",
+   "coverage_status": "REVIEW_REQUIRED",
+   "reason": "Timeline pairings cannot be confirmed without a visual read; do not use timeline dates as facts until confirmed."
+  },
+  {
+   "inventory_id": "INV-3-008",
+   "importance": "Supporting",
+   "section": "Introduction",
+   "pdf_page": 4,
+   "book_page": 88,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY",
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Map locations, sheet 1 (INV-3-008)",
+    "Fig. 3.3 caption"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Map positions cannot be turned into a self-contained stem without the map; body-text locations (INV entries per structure) are the question-ready form."
+  },
+  {
+   "inventory_id": "INV-3-009",
+   "importance": "Minor-reference",
+   "section": "Introduction",
+   "pdf_page": 5,
+   "book_page": 89,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Map locations, sheet 2 (INV-3-009)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Map positions only."
+  },
+  {
+   "inventory_id": "INV-3-010",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 6,
+   "book_page": 90,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Harappan earliest-tradition claim (INV-3-010)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-011",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 6,
+   "book_page": 90,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Harappan characteristics list (INV-3-011)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-012",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 6,
+   "book_page": 90,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Brick-because-clay cause (INV-3-012)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-013",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mohenjo-daro city, streets, drains, house-plan inference (INV-3-013, INV-3-014, INV-3-015, INV-3-017)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-012"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-012"
+   ],
+   "final_question_ids": [
+    "Q-P3-002"
+   ],
+   "context_independence_status": "satisfied — complete statement 1 carries its own subject.",
+   "coverage_status": "COVERED",
+   "reason": "Tested by a valid final question."
+  },
+  {
+   "inventory_id": "INV-3-014",
+   "importance": "Supporting",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mohenjo-daro city, streets, drains, house-plan inference (INV-3-013, INV-3-014, INV-3-015, INV-3-017)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-015",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mohenjo-daro city, streets, drains, house-plan inference (INV-3-013, INV-3-014, INV-3-015, INV-3-017)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-014"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-014"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Candidate(s) existed but none was selected (selection pool / dedup / subtype-cap bucket, not separable in production metrics)."
+  },
+  {
+   "inventory_id": "INV-3-016",
+   "importance": "Minor-reference",
+   "section": "The Beginnings …",
+   "pdf_page": 6,
+   "book_page": 90,
+   "extraction_status": "VISUAL_ONLY_OR_UNSUPPORTED",
+   "extraction_classifications": [
+    "VISUAL_ONLY_OR_UNSUPPORTED"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.4 caption + Fig. 3.5 plan (INV-3-014 part, INV-3-016)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Plan content cannot be stated without the image."
+  },
+  {
+   "inventory_id": "INV-3-017",
+   "importance": "Supporting",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mohenjo-daro city, streets, drains, house-plan inference (INV-3-013, INV-3-014, INV-3-015, INV-3-017)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-018",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Dholavira precise planning, stone use, Castle (INV-3-018, INV-3-019, INV-3-020)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-019",
+   "importance": "Core",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Dholavira precise planning, stone use, Castle (INV-3-018, INV-3-019, INV-3-020)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-016"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-020",
+   "importance": "Supporting",
+   "section": "The Beginnings …",
+   "pdf_page": 7,
+   "book_page": 91,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Dholavira precise planning, stone use, Castle (INV-3-018, INV-3-019, INV-3-020)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-021",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Buddhism → new forms; stupa definition; ritual-centre components; symbolic Buddha (INV-3-021 to INV-3-024)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-022",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Buddhism → new forms; stupa definition; ritual-centre components; symbolic Buddha (INV-3-021 to INV-3-024)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-023",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Buddhism → new forms; stupa definition; ritual-centre components; symbolic Buddha (INV-3-021 to INV-3-024)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-024",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Buddhism → new forms; stupa definition; ritual-centre components; symbolic Buddha (INV-3-021 to INV-3-024)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-025",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sanchi Ashoka patronage + earliest monumental stone phase (INV-3-025)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-026",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 8,
+   "book_page": 92,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Torana definition (INV-3-026)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-027",
+   "importance": "Core",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 9,
+   "book_page": 93,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Circumambulation + vedika (INV-3-027)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-028",
+   "importance": "Supporting",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 9,
+   "book_page": 93,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Bharhut depiction, railings, donor inscriptions (INV-3-028)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-029",
+   "importance": "Supporting",
+   "section": "Structural Stupa Architecture",
+   "pdf_page": 9,
+   "book_page": 93,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Jain stupas + spread (INV-3-029)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-025"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-025"
+   ],
+   "final_question_ids": [
+    "Q-P3-002"
+   ],
+   "context_independence_status": "satisfied — complete statement 2 carries its own subject.",
+   "coverage_status": "COVERED",
+   "reason": "Tested by a valid final question."
+  },
+  {
+   "inventory_id": "INV-3-030",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 10,
+   "book_page": 94,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Rock-cut definition + evolution pattern (INV-3-030, INV-3-031)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-031",
+   "importance": "Supporting",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 10,
+   "book_page": 94,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Rock-cut definition + evolution pattern (INV-3-030, INV-3-031)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-032",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 10,
+   "book_page": 94,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Udayagiri-Khandagiri complex, date, Jain monks, Kharavela inscription (INV-3-032, INV-3-033)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-033",
+   "importance": "Supporting",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 10,
+   "book_page": 94,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Udayagiri-Khandagiri complex, date, Jain monks, Kharavela inscription (INV-3-032, INV-3-033)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-034",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 10,
+   "book_page": 94,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Ajanta/Ellora reputation; Fig. 3.12 caption (INV-3-034)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-035",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 11,
+   "book_page": 95,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Kailasha Temple monolithic carving (INV-3-035)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-036",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 11,
+   "book_page": 95,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Cave no. 10 Buddha, arched roof, aisle, pradakshina (INV-3-036, INV-3-037, INV-3-038)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-033"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-033"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Candidate(s) existed but none was selected (selection pool / dedup / subtype-cap bucket, not separable in production metrics)."
+  },
+  {
+   "inventory_id": "INV-3-037",
+   "importance": "Supporting",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 11,
+   "book_page": 95,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Cave no. 10 Buddha, arched roof, aisle, pradakshina (INV-3-036, INV-3-037, INV-3-038)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-038",
+   "importance": "Core",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 11,
+   "book_page": 95,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Cave no. 10 Buddha, arched roof, aisle, pradakshina (INV-3-036, INV-3-037, INV-3-038)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-039",
+   "importance": "Minor-reference",
+   "section": "Rock-Cut Architecture",
+   "pdf_page": 11,
+   "book_page": 95,
+   "extraction_status": "NOT_LEARNING_RELEVANT",
+   "extraction_classifications": [
+    "NOT_LEARNING_RELEVANT"
+   ],
+   "extraction_item_names": [
+    "LET'S EXPLORE / LET'S REMEMBER activities (INV-3-039)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Open discussion prompts; the nave-term question has no answer in this chapter."
+  },
+  {
+   "inventory_id": "INV-3-040",
+   "importance": "Minor-reference",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "NOT_LEARNING_RELEVANT",
+   "extraction_classifications": [
+    "NOT_LEARNING_RELEVANT"
+   ],
+   "extraction_item_names": [
+    "Box header 'DON'T MISS OUT' (INV-3-040)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Box organisation, not content."
+  },
+  {
+   "inventory_id": "INV-3-041",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-037"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-042",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-043",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-044",
+   "importance": "Supporting",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-045",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-043"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-046",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-047",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-048",
+   "importance": "Core",
+   "section": "DON'T MISS OUT",
+   "pdf_page": 12,
+   "book_page": 96,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Sharada Peetha, Hidimba Devi, Jageshwar, Golden Temple boxes (INV-3-041 to INV-3-048)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-047",
+    "F-LITE-048"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-047",
+    "F-LITE-048"
+   ],
+   "final_question_ids": [
+    "Q-P3-004"
+   ],
+   "context_independence_status": "satisfied — Assertion carries its own subject.",
+   "coverage_status": "COVERED",
+   "reason": "Tested by a valid final question."
+  },
+  {
+   "inventory_id": "INV-3-049",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Monsoon thesis, region list, Harappan wells, Shringaverpur identity (INV-3-049 to INV-3-053)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-050",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Monsoon thesis, region list, Harappan wells, Shringaverpur identity (INV-3-049 to INV-3-053)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-051",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Monsoon thesis, region list, Harappan wells, Shringaverpur identity (INV-3-049 to INV-3-053)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-052",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Monsoon thesis, region list, Harappan wells, Shringaverpur identity (INV-3-049 to INV-3-053)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-053",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Monsoon thesis, region list, Harappan wells, Shringaverpur identity (INV-3-049 to INV-3-053)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-054",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 13,
+   "book_page": 97,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Shringaverpur feeding + silt-settling function (INV-3-054)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-055",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Silt-settling conclusion + explicit unknown (INV-3-055)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-056",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Wells materials sentence (INV-3-056)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Never extracted as text, or visual-only; no fact exists to build from."
+  },
+  {
+   "inventory_id": "INV-3-057",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Stepwell definition, Rani ki Vav features (INV-3-057, INV-3-058)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-058",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Stepwell definition, Rani ki Vav features (INV-3-057, INV-3-058)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-059",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Stepwell social function (INV-3-059)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-060",
+   "importance": "Core",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_WITH_CORRUPTION",
+   "extraction_classifications": [
+    "EXTRACTED_WITH_CORRUPTION"
+   ],
+   "extraction_item_names": [
+    "Pushkarini functions + stairways (INV-3-060)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-061",
+   "importance": "Supporting",
+   "section": "Water Structures",
+   "pdf_page": 14,
+   "book_page": 98,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Threats + preservation actors (INV-3-061)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-062",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-063",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-064",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-065",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-066",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-067",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Temple multi-function, Gupta emergence, shilpashastra, elements, tower names, east-west alignment (INV-3-062 to INV-3-067)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-067",
+    "F-LITE-068"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-067",
+    "F-LITE-068"
+   ],
+   "final_question_ids": [
+    "Q-P3-001"
+   ],
+   "context_independence_status": "partial — stem names no temple (\"Which of the following correctly describes the main alignment?\"); options carry temple terms (garbhagṛiha, śikhara/vimāna) but the stem alone does not say \"of a temple\". Tower half of this entry appears only as option D distractor, which is not coverage.",
+   "coverage_status": "PARTIALLY_COVERED",
+   "reason": "Tested, but context-independence is partial (see context field)."
+  },
+  {
+   "inventory_id": "INV-3-068",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 15,
+   "book_page": 99,
+   "extraction_status": "VISUAL_ONLY_OR_UNSUPPORTED",
+   "extraction_classifications": [
+    "VISUAL_ONLY_OR_UNSUPPORTED"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.18 plan labels + spatial arrangement (INV-3-068)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "The spatial arrangement (what lies where, 'from outer to inner') can only be assessed against the plan itself."
+  },
+  {
+   "inventory_id": "INV-3-069",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 16,
+   "book_page": 100,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Purusha body-temple claim, vertical head/feet equivalence, worship journey (INV-3-069, INV-3-070, INV-3-071)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-070",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 16,
+   "book_page": 100,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Purusha body-temple claim, vertical head/feet equivalence, worship journey (INV-3-069, INV-3-070, INV-3-071)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-071",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 16,
+   "book_page": 100,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Purusha body-temple claim, vertical head/feet equivalence, worship journey (INV-3-069, INV-3-070, INV-3-071)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-072",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 17,
+   "book_page": 101,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Temple scale trajectory 8th/9th → 10th century (INV-3-072)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-073",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 17,
+   "book_page": 101,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Kandariya/Angkor cross-reference; Fig. 3.20/3.21 captions (INV-3-073, INV-3-075)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "These are pointers to another textbook's content; asking about them would test Grade 7 material, not this chapter."
+  },
+  {
+   "inventory_id": "INV-3-074",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 17,
+   "book_page": 101,
+   "extraction_status": "EXTRACTED_WITH_CORRUPTION",
+   "extraction_classifications": [
+    "EXTRACTED_WITH_CORRUPTION"
+   ],
+   "extraction_item_names": [
+    "Brihadishvara builder, date, vimana height, Nandi (INV-3-074)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-076"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-076"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Candidate(s) existed but none was selected (selection pool / dedup / subtype-cap bucket, not separable in production metrics)."
+  },
+  {
+   "inventory_id": "INV-3-075",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 18,
+   "book_page": 102,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Kandariya/Angkor cross-reference; Fig. 3.20/3.21 captions (INV-3-073, INV-3-075)",
+    "Brihadishvara granite carvings (INV-3-075)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-076",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 18,
+   "book_page": 102,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shared Shiva dedication; Lingaraja date, mandapas, materials (INV-3-076, INV-3-077)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-077",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 18,
+   "book_page": 102,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shared Shiva dedication; Lingaraja date, mandapas, materials (INV-3-076, INV-3-077)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-078",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 19,
+   "book_page": 103,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Dilwara five temples, dynasty, marble, carvings (INV-3-078)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-083",
+    "F-LITE-084"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but no candidate tests it (no builder for its subtype, or it lost selection)."
+  },
+  {
+   "inventory_id": "INV-3-079",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 19,
+   "book_page": 103,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Bishnupur brick terracotta style + panel technique (INV-3-079, INV-3-080)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-080",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 19,
+   "book_page": 103,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Bishnupur brick terracotta style + panel technique (INV-3-079, INV-3-080)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-081",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 19,
+   "book_page": 103,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Pyramidal vimana observation (INV-3-081)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-082",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 20,
+   "book_page": 104,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "No-cement-mortar claim + materials activity (INV-3-082)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-083",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 21,
+   "book_page": 105,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Temple workforce + mathematics/geometry (INV-3-083)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-084",
+   "importance": "Supporting",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 21,
+   "book_page": 105,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Cross-civilisation comparison (INV-3-084)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-085",
+   "importance": "Core",
+   "section": "Classical Temple Architecture",
+   "pdf_page": 21,
+   "book_page": 105,
+   "extraction_status": "EXTRACTED_WITH_CORRUPTION",
+   "extraction_classifications": [
+    "EXTRACTED_WITH_CORRUPTION"
+   ],
+   "extraction_item_names": [
+    "Gothic gloss definition (INV-3-085)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-086",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 22,
+   "book_page": 106,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mosque functions, Mecca orientation, domes/minarets/muezzin (INV-3-086, INV-3-087, INV-3-088)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-092"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-092"
+   ],
+   "final_question_ids": [
+    "Q-P3-004"
+   ],
+   "context_independence_status": "satisfied — Reason carries its own subject.",
+   "coverage_status": "COVERED",
+   "reason": "Tested by a valid final question."
+  },
+  {
+   "inventory_id": "INV-3-087",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 22,
+   "book_page": 106,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mosque functions, Mecca orientation, domes/minarets/muezzin (INV-3-086, INV-3-087, INV-3-088)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-088",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 22,
+   "book_page": 106,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mosque functions, Mecca orientation, domes/minarets/muezzin (INV-3-086, INV-3-087, INV-3-088)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-095",
+    "F-LITE-096"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-089",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 22,
+   "book_page": 106,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Friday prayers + Jama Masjid etymology (INV-3-089)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-090",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 22,
+   "book_page": 106,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Ahmedabad builder + century (INV-3-090)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-091",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 23,
+   "book_page": 107,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.28/3.29 captions (INV-3-091 part)",
+    "Ahmedabad yellow sandstone, Hindu-Islamic blend, minaret bases, earthquake tops (INV-3-091)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-092",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Jalis + temple-style pillars + local-artisan inference, opening (INV-3-092 part)",
+    "Local-artisan inference conclusion + Indo-Islamic definition (INV-3-092, INV-3-093)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-093",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Local-artisan inference conclusion + Indo-Islamic definition (INV-3-092, INV-3-093)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-094",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Corbelled gloss definition (INV-3-094)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Never extracted as text, or visual-only; no fact exists to build from."
+  },
+  {
+   "inventory_id": "INV-3-095",
+   "importance": "Supporting",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Rajasthan jharokhas/chhatris (INV-3-095)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-096",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mihrab definition (INV-3-096)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-097",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Delhi Jama Masjid: largest, builder, capital move, workers, attributes (INV-3-097 to INV-3-100)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-098",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Delhi Jama Masjid: largest, builder, capital move, workers, attributes (INV-3-097 to INV-3-100)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-099",
+   "importance": "Supporting",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Delhi Jama Masjid: largest, builder, capital move, workers, attributes (INV-3-097 to INV-3-100)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-100",
+   "importance": "Core",
+   "section": "The Architecture of Mosques",
+   "pdf_page": 24,
+   "book_page": 108,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Delhi Jama Masjid: largest, builder, capital move, workers, attributes (INV-3-097 to INV-3-100)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-103",
+    "F-LITE-105",
+    "F-LITE-106"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-103"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Candidate(s) existed but none was selected (selection pool / dedup / subtype-cap bucket, not separable in production metrics)."
+  },
+  {
+   "inventory_id": "INV-3-101",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 25,
+   "book_page": 109,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Fort function + siting; residences; fort-palace clubbing (INV-3-101, INV-3-102)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-102",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 25,
+   "book_page": 109,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Fort function + siting; residences; fort-palace clubbing (INV-3-101, INV-3-102)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-103",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Mehrangarh start date, expansion, Jodhpur siting, red sandstone (INV-3-103)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-104",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Palace zoning; museum conversion (INV-3-104, INV-3-105)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-105",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Palace zoning; museum conversion (INV-3-104, INV-3-105)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-106",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Jaswant Thada memorial + cenotaph definition (INV-3-106, INV-3-107)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-107",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Jaswant Thada memorial + cenotaph definition (INV-3-106, INV-3-107)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-108",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Jodhpur blue houses + cooling features (INV-3-108, INV-3-109)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-109",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Jodhpur blue houses + cooling features (INV-3-108, INV-3-109)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-110",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 26,
+   "book_page": 110,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Latticework gloss definition (INV-3-110)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Never extracted as text, or visual-only; no fact exists to build from."
+  },
+  {
+   "inventory_id": "INV-3-111",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 27,
+   "book_page": 111,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Agra Red Fort brick origin, Akbar rebuild, programme, Dholpur sandstone name (INV-3-111, INV-3-112, INV-3-113)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-112",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 27,
+   "book_page": 111,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Agra Red Fort brick origin, Akbar rebuild, programme, Dholpur sandstone name (INV-3-111, INV-3-112, INV-3-113)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-118"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-113",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 27,
+   "book_page": 111,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Agra Red Fort brick origin, Akbar rebuild, programme, Dholpur sandstone name (INV-3-111, INV-3-112, INV-3-113)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-119"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-119"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Candidate(s) existed but none was selected (selection pool / dedup / subtype-cap bucket, not separable in production metrics)."
+  },
+  {
+   "inventory_id": "INV-3-114",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 27,
+   "book_page": 111,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Shah Jahan marble replacement + imprisonment (INV-3-114)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-115",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 28,
+   "book_page": 112,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Agra mosques count + East India Company destruction (INV-3-115)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-116",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 28,
+   "book_page": 112,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Agra fountains mechanism (INV-3-116)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-117",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 28,
+   "book_page": 112,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Orchha complex, palaces, Jahangir Mahal, chhatris, Ram Raja Temple (INV-3-117, INV-3-118, INV-3-119)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-118",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 28,
+   "book_page": 112,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Orchha complex, palaces, Jahangir Mahal, chhatris, Ram Raja Temple (INV-3-117, INV-3-118, INV-3-119)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-119",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 28,
+   "book_page": 112,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Orchha complex, palaces, Jahangir Mahal, chhatris, Ram Raja Temple (INV-3-117, INV-3-118, INV-3-119)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-130"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-120",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 29,
+   "book_page": 113,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mysuru Palace identity, fire rebuild, features, lights (INV-3-120 to INV-3-123)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-131"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no valid covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "appears only as distractor option A in invalid Q-P3-003 (and its typed fact F-LITE-131 is truncated). Distractor mention is not coverage."
+  },
+  {
+   "inventory_id": "INV-3-121",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 29,
+   "book_page": 113,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mysuru Palace identity, fire rebuild, features, lights (INV-3-120 to INV-3-123)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-133"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-133"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no valid covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "only question testing it (Q-P3-003) is INVALID: options A and B are also true of the Mysuru Palace, so the item has three defensible options and its explanation falsely claims otherwise. An invalid question does not count as coverage."
+  },
+  {
+   "inventory_id": "INV-3-122",
+   "importance": "Core",
+   "section": "Forts and Palaces",
+   "pdf_page": 29,
+   "book_page": 113,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mysuru Palace identity, fire rebuild, features, lights (INV-3-120 to INV-3-123)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-123",
+   "importance": "Supporting",
+   "section": "Forts and Palaces",
+   "pdf_page": 29,
+   "book_page": 113,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Mysuru Palace identity, fire rebuild, features, lights (INV-3-120 to INV-3-123)"
+   ],
+   "representation_status": "TYPED",
+   "representation_fact_ids": [
+    "F-LITE-135"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-135"
+   ],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no valid covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "appears only as distractor option B in invalid Q-P3-003. Distractor mention is not coverage."
+  },
+  {
+   "inventory_id": "INV-3-124",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 30,
+   "book_page": 114,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Burial premise, mausoleum definition, honorees, political statement (INV-3-124, INV-3-125)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-125",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 30,
+   "book_page": 114,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Burial premise, mausoleum definition, honorees, political statement (INV-3-124, INV-3-125)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-126",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 30,
+   "book_page": 114,
+   "extraction_status": "EXTRACTED_WITH_CORRUPTION",
+   "extraction_classifications": [
+    "EXTRACTED_WITH_CORRUPTION"
+   ],
+   "extraction_item_names": [
+    "Cremation → no ancient tombs (INV-3-126)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-127",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Medieval cenotaphs; symmetry + garden + features (INV-3-127, INV-3-128)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-128",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Medieval cenotaphs; symmetry + garden + features (INV-3-127, INV-3-128)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-139"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-129",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Humayun's Tomb commissioner, date, Persian architects, Dara Shikoh (INV-3-129)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-141",
+    "F-LITE-142"
+   ],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Typed fact exists but is corrupted (fragment/pronoun/figure-ref subject or truncated object); no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-130",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Six-pointed star + three traditions (INV-3-130 to INV-3-133)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-131",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Six-pointed star + three traditions (INV-3-130 to INV-3-133)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-132",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Six-pointed star + three traditions (INV-3-130 to INV-3-133)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-133",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Six-pointed star + three traditions (INV-3-130 to INV-3-133)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-134",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Taj Mahal builder, honoree, three-culture confluence (INV-3-134, INV-3-135)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-135",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 31,
+   "book_page": 115,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Taj Mahal builder, honoree, three-culture confluence (INV-3-134, INV-3-135)",
+    "Taj three-culture conclusion + inlay + colour change (INV-3-135, INV-3-136)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-136",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 32,
+   "book_page": 116,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Taj three-culture conclusion + inlay + colour change (INV-3-135, INV-3-136)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-137",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 33,
+   "book_page": 117,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.44 upper-floor detail (INV-3-137)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "The detail is only observable in the photograph; a stem naming 'upper floor detail' without the image is unanswerable."
+  },
+  {
+   "inventory_id": "INV-3-138",
+   "importance": "Supporting",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 33,
+   "book_page": 117,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Fig. 3.45 tombs arrangement (INV-3-138)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Left/centre positions are only verifiable in the photograph; without it the stem cannot be answered from text alone."
+  },
+  {
+   "inventory_id": "INV-3-139",
+   "importance": "Core",
+   "section": "Tombs and Mausoleums",
+   "pdf_page": 33,
+   "book_page": 117,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Taj pollution cause, yellowing, committee + PIL + mid-1990s ban (INV-3-139)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-140",
+   "importance": "Supporting",
+   "section": "Traditional Houses",
+   "pdf_page": 34,
+   "book_page": 118,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "House variety thesis, courtyard pattern, 4,500-year continuity (INV-3-140, INV-3-141, INV-3-142)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-141",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 34,
+   "book_page": 118,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "House variety thesis, courtyard pattern, 4,500-year continuity (INV-3-140, INV-3-141, INV-3-142)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-142",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 34,
+   "book_page": 118,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "House variety thesis, courtyard pattern, 4,500-year continuity (INV-3-140, INV-3-141, INV-3-142)"
+   ],
+   "representation_status": "TYPED_CORRUPTED",
+   "representation_fact_ids": [
+    "F-LITE-158"
+   ],
+   "candidate_status": "HAS_CANDIDATE",
+   "candidate_fact_ids": [
+    "F-LITE-158"
+   ],
+   "final_question_ids": [
+    "Q-P3-005"
+   ],
+   "context_independence_status": "satisfied via options — stem (\"correct about years?\") is weak alone, but every option is a full sentence carrying the design context.",
+   "coverage_status": "COVERED",
+   "reason": "Tested by a valid final question."
+  },
+  {
+   "inventory_id": "INV-3-143",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 35,
+   "book_page": 119,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shekhawati havelis, conversion, Chettinadu trade/materials/climate/courtyard uses (INV-3-143 to INV-3-147)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-144",
+   "importance": "Supporting",
+   "section": "Traditional Houses",
+   "pdf_page": 35,
+   "book_page": 119,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shekhawati havelis, conversion, Chettinadu trade/materials/climate/courtyard uses (INV-3-143 to INV-3-147)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-145",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 35,
+   "book_page": 119,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shekhawati havelis, conversion, Chettinadu trade/materials/climate/courtyard uses (INV-3-143 to INV-3-147)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-146",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 35,
+   "book_page": 119,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shekhawati havelis, conversion, Chettinadu trade/materials/climate/courtyard uses (INV-3-143 to INV-3-147)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-147",
+   "importance": "Core",
+   "section": "Traditional Houses",
+   "pdf_page": 35,
+   "book_page": 119,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Shekhawati havelis, conversion, Chettinadu trade/materials/climate/courtyard uses (INV-3-143 to INV-3-147)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-148",
+   "importance": "Core",
+   "section": "Churches in India",
+   "pdf_page": 36,
+   "book_page": 120,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Christian antiquity, Kerala-coast origin, European vs local contrast (INV-3-148, INV-3-149)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-149",
+   "importance": "Core",
+   "section": "Churches in India",
+   "pdf_page": 36,
+   "book_page": 120,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Christian antiquity, Kerala-coast origin, European vs local contrast (INV-3-148, INV-3-149)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-150",
+   "importance": "Core",
+   "section": "Churches in India",
+   "pdf_page": 36,
+   "book_page": 120,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "St. Philomena's Cathedral Gothic/colonial/foundation stone (INV-3-150)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-151",
+   "importance": "Core",
+   "section": "Churches in India",
+   "pdf_page": 37,
+   "book_page": 121,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "St. Thomas Mulanthuruthy + stambha borrowing (INV-3-151)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-152",
+   "importance": "Core",
+   "section": "Churches in India",
+   "pdf_page": 37,
+   "book_page": 121,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Kalloopara rebuild date + Kerala roof (INV-3-152)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-153",
+   "importance": "Supporting",
+   "section": "Churches in India",
+   "pdf_page": 37,
+   "book_page": 121,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Kalloopara interior oil lamps + wooden roof (INV-3-153)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Interior contents are only observable in the photograph."
+  },
+  {
+   "inventory_id": "INV-3-154",
+   "importance": "Core",
+   "section": "Colonial Architecture",
+   "pdf_page": 38,
+   "book_page": 122,
+   "extraction_status": "NOT_EXTRACTED",
+   "extraction_classifications": [
+    "NOT_EXTRACTED"
+   ],
+   "extraction_item_names": [
+    "Madras High Court completed 1892 + facade blend (INV-3-154)"
+   ],
+   "representation_status": "NO_FACT",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Never extracted as text, or visual-only; no fact exists to build from."
+  },
+  {
+   "inventory_id": "INV-3-155",
+   "importance": "Supporting",
+   "section": "Colonial Architecture",
+   "pdf_page": 39,
+   "book_page": 123,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Victoria Memorial Hall museum + arch/dome/balconies/chhatris (INV-3-155)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "The features are presented as things to 'note' in the photograph; without the image, 'central arch and dome, balconies and chhatris' is a bare list with no distinguishing proposition. A stem could still ask the current use (museum) — but that alone is thin; graded no to avoid figure-dependent stems."
+  },
+  {
+   "inventory_id": "INV-3-156",
+   "importance": "Core",
+   "section": "Colonial Architecture",
+   "pdf_page": 39,
+   "book_page": 123,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Indo-Saracenic definition (INV-3-156)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-157",
+   "importance": "Supporting",
+   "section": "Colonial Architecture",
+   "pdf_page": 39,
+   "book_page": 123,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Closing reflection, synthesis, preservation argument (INV-3-157, INV-3-158, INV-3-159)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "A superlative scope reflection, not a checkable fact; asking it would test opinion-like phrasing."
+  },
+  {
+   "inventory_id": "INV-3-158",
+   "importance": "Core",
+   "section": "Colonial Architecture",
+   "pdf_page": 39,
+   "book_page": 123,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Closing reflection, synthesis, preservation argument (INV-3-157, INV-3-158, INV-3-159)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-159",
+   "importance": "Supporting",
+   "section": "Colonial Architecture",
+   "pdf_page": 39,
+   "book_page": 123,
+   "extraction_status": "EXTRACTED_INCOMPLETELY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY",
+    "EXTRACTED_INCOMPLETELY"
+   ],
+   "extraction_item_names": [
+    "Closing reflection, synthesis, preservation argument (INV-3-157, INV-3-158, INV-3-159)",
+    "Preservation conclusion + Fundamental Duty quotation (INV-3-159)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — no covering question",
+   "coverage_status": "UNCOVERED",
+   "reason": "Present only as an unclassified fallback fact; no typed builder can use it, so no candidate tests it."
+  },
+  {
+   "inventory_id": "INV-3-160",
+   "importance": "Minor-reference",
+   "section": "Questions and activities",
+   "pdf_page": 40,
+   "book_page": 124,
+   "extraction_status": "EXTRACTED_FAITHFULLY",
+   "extraction_classifications": [
+    "EXTRACTED_FAITHFULLY"
+   ],
+   "extraction_item_names": [
+    "Ten questions and activities (INV-3-160)"
+   ],
+   "representation_status": "FALLBACK_ONLY",
+   "representation_fact_ids": [],
+   "candidate_status": "NO_CANDIDATE",
+   "candidate_fact_ids": [],
+   "final_question_ids": [],
+   "context_independence_status": "not applicable — entry is not question-worthy",
+   "coverage_status": "NOT_QUESTION_WORTHY",
+   "reason": "Open tasks and figure-dependent prompts, not facts with correct answers."
+  }
+ ]
+}
