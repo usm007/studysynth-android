@@ -1,0 +1,4642 @@
+{
+  "version": "phase2b-1",
+  "baseline_commit": "59e5372243a80e90c51448fd7158d57c52dbb4d2",
+  "pdf_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+  "entries_total": 160,
+  "linkage_summary": {
+    "entries_total": 160,
+    "matched_exact_span": 38,
+    "matched_normalized_text": 30,
+    "matched_multi_block_ordered_span": 23,
+    "matched_total_confirmed": 91,
+    "review_required_candidate_fuzzy": 53,
+    "review_required_ambiguous": 1,
+    "review_required_total": 54,
+    "unresolved_total": 15,
+    "typed_fact_linked": 37,
+    "typed_fact_unlinked": 123
+  },
+  "match_levels": [
+    "exact_span (confirmed)",
+    "normalized_text (confirmed)",
+    "multi_block_ordered_span (confirmed, single unit)",
+    "candidate_fuzzy >= 0.80 on entry page (REVIEW ONLY, never auto-counted as coverage)",
+    "ambiguous_review (multiple matches, review required)",
+    "unresolved_match"
+  ],
+  "rows": [
+    {
+      "entry_id": "INV-3-001",
+      "pdf_page": 1,
+      "book_page": 85,
+      "section": "Chapter opening",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "The craftsman is not an individual expressing individual whims, but a part of the universe, giving expression to ideals of eternal beauty and unchanging laws",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p1-b5",
+        "page": 1,
+        "block_ids": [
+          "p1-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-002",
+      "pdf_page": 1,
+      "book_page": 85,
+      "section": "Chapter opening",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "1. What role has architecture played in the Indian civilisation? 2. What are some of the key concepts and developments behind Indian architecture? 3. How is the heritage of Indian architecture of relevance today?",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-001",
+        "block_id": null,
+        "page": 1,
+        "block_ids": [
+          "p1-b4",
+          "p1-b5",
+          "p1-b6",
+          "p1-b7",
+          "p1-b8",
+          "p1-b10",
+          "p1-b11",
+          "p1-b14"
+        ],
+        "score": 1,
+        "candidates": [
+          "RU-001"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-003",
+      "pdf_page": 2,
+      "book_page": 86,
+      "section": "Introduction",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "'Architecture' - the art and techniques of design and construction, which combine functional and aesthetic aspects - is not only an art but also a highly technical field, in which India has excelled for several millennia.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p2-b3",
+        "page": 2,
+        "block_ids": [
+          "p2-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-004",
+      "pdf_page": 2,
+      "book_page": 86,
+      "section": "Introduction",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "these accomplishments have evolved in time and developed great geographical diversity",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p2-b3",
+        "page": 2,
+        "block_ids": [
+          "p2-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-005",
+      "pdf_page": 2,
+      "book_page": 86,
+      "section": "Introduction",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "we will go on a journey, visiting a few representative structures or monuments grouped in a few categories",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p2-b3",
+        "page": 2,
+        "block_ids": [
+          "p2-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-006",
+      "pdf_page": 2,
+      "book_page": 86,
+      "section": "Introduction",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.1. A large window of carved stone latticework in Ahmedabad's Sidi Saiyyed mosque. It is known as 'Sidi Saiyyed Jali'.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-002",
+        "block_id": null,
+        "page": 2,
+        "block_ids": [
+          "p2-b1",
+          "p2-b2"
+        ],
+        "score": 0.9166666666666666,
+        "candidates": [
+          "RU-002"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-007",
+      "pdf_page": 3,
+      "book_page": 87,
+      "section": "Introduction",
+      "importance": "REVIEW_REQUIRED",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.2. A timeline of the structures and monuments visited in this chapter",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-004",
+        "block_id": null,
+        "page": 3,
+        "block_ids": [
+          "p3-b63",
+          "p3-b64"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "REVIEW_REQUIRED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-008",
+      "pdf_page": 4,
+      "book_page": 88,
+      "section": "Introduction",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.3. Locations of the structures and monuments visited in this chapter",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p4-b18",
+        "page": 4,
+        "block_ids": [
+          "p4-b18"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-009",
+      "pdf_page": 5,
+      "book_page": 89,
+      "section": "Introduction",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.3 (continued over pp. 88-89) - map labels, second sheet",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0
+    },
+    {
+      "entry_id": "INV-3-010",
+      "pdf_page": 6,
+      "book_page": 90,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Harappan architecture represents the earliest known tradition of urban planning and construction in the Indian subcontinent.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-015",
+        "block_id": null,
+        "page": 6,
+        "block_ids": [
+          "p6-b4",
+          "p6-b6",
+          "p6-b7",
+          "p6-b8",
+          "p6-b9",
+          "p6-b12",
+          "p6-b14"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-015-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-011",
+      "pdf_page": 6,
+      "book_page": 90,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p6-b9",
+        "page": 6,
+        "block_ids": [
+          "p6-b9"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-015-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-012",
+      "pdf_page": 6,
+      "book_page": 90,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Most Harappan cities were constructed with bricks, as they were located in alluvial plains where clay is abundant.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-015",
+        "block_id": null,
+        "page": 6,
+        "block_ids": [
+          "p6-b4",
+          "p6-b6",
+          "p6-b7",
+          "p6-b8",
+          "p6-b9",
+          "p6-b12",
+          "p6-b14"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-015-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-013",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Mohenjo-daro (in present-day Sindh, Pakistan) was an extensive city.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b2",
+        "page": 7,
+        "block_ids": [
+          "p7-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-014",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.4 shows a densely inhabited area, with wide streets and narrow lanes roughly oriented to the cardinal directions.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b2",
+        "page": 7,
+        "block_ids": [
+          "p7-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-015",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Almost every home had a bathing area; used waters were taken out of the city through an efficient network of drains.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b2",
+        "page": 7,
+        "block_ids": [
+          "p7-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-016",
+      "pdf_page": 6,
+      "book_page": 90,
+      "section": "The Beginnings …",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.5. Plan of a large house in Mohenjo-daro",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p6-b13",
+        "page": 6,
+        "block_ids": [
+          "p6-b13"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-017",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The plan of a large house (Fig. 3.5) hints that while the servants lived downstairs, the owners probably lived upstairs, where they would be less exposed to the dust and noise from the streets around.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-019",
+        "block_id": null,
+        "page": 7,
+        "block_ids": [
+          "p7-b2",
+          "p7-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-018",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Noted for its precise urban planning (Fig. 3.7), Dholavira in the Rann of Kachchh is another large Harappan city.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b5",
+        "page": 7,
+        "block_ids": [
+          "p7-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-019",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Unlike most others, it made extensive use of stone, as it was locally available.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b5",
+        "page": 7,
+        "block_ids": [
+          "p7-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-020",
+      "pdf_page": 7,
+      "book_page": 91,
+      "section": "The Beginnings …",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In Fig. 3.6, you can picture yourself entering the city's highest and most fortified area (named 'Castle'). Notice the smooth surface of the blocks of stone and the large sentinel room on the left, where guards would have screened people moving in or out. Two highly polished segments of a stone pillar remain visible in the centre.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p7-b5",
+        "page": 7,
+        "block_ids": [
+          "p7-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-019-001",
+        "TF-REC-019-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-021",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "From the 4th or 3rd century BCE onward, with the rise of Buddhism several new architectural forms emerged in north India, slowly spreading to other regions.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-022",
+        "block_id": null,
+        "page": 8,
+        "block_ids": [
+          "p8-b4",
+          "p8-b7",
+          "p8-b8",
+          "p8-b9",
+          "p8-b10"
+        ],
+        "score": 0.8888888888888888,
+        "candidates": [
+          "RU-022"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-022",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Thousands of stupas (dome-shaped structures housing relics of the Buddha or revered monks) were constructed with bricks or stone.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p8-b4",
+        "page": 8,
+        "block_ids": [
+          "p8-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-023",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The larger ones became complex ritual centres with railings, gateways, and elaborate panels often narrating episodes in the Buddha's life.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7333333333333333,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 1
+    },
+    {
+      "entry_id": "INV-3-024",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "At this early stage, the Buddha was represented symbolically - through objects such as footprints, the wheel of dharma, or the stupa itself - rather than in human form.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p8-b8",
+        "page": 8,
+        "block_ids": [
+          "p8-b8"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-025",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Originally commissioned or patronised by Ashoka, the main stupa at Sanchi (Figs. 3.8 and 3.10) in Madhya Pradesh represents the earliest phase of monumental religious stone architecture in India.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-022",
+        "block_id": null,
+        "page": 8,
+        "block_ids": [
+          "p8-b4",
+          "p8-b7",
+          "p8-b8",
+          "p8-b9",
+          "p8-b10"
+        ],
+        "score": 0.9444444444444444,
+        "candidates": [
+          "RU-022"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-026",
+      "pdf_page": 8,
+      "book_page": 92,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Entering through one of its massive toranas (ornamental gateways depicting many scenes of urban as well as village life)",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.42857142857142855,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.5714285714285714
+    },
+    {
+      "entry_id": "INV-3-027",
+      "pdf_page": 9,
+      "book_page": 93,
+      "section": "Structural Stupa Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "a worshipper would circumambulate (i.e., walk around) the stupa inside the enclosure of railings (vedika).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-023",
+        "block_id": null,
+        "page": 9,
+        "block_ids": [
+          "p9-b1",
+          "p9-b2"
+        ],
+        "score": 0.9,
+        "candidates": [
+          "RU-023"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-028",
+      "pdf_page": 9,
+      "book_page": 93,
+      "section": "Structural Stupa Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The worship of stupas is explicitly depicted at Bharhut (Fig. 3.9), also in Madhya Pradesh; there, the stupa was similarly enclosed by richly carved stone railings and bore numerous inscriptions recording the names of donors.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p9-b2",
+        "page": 9,
+        "block_ids": [
+          "p9-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-023-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-029",
+      "pdf_page": 9,
+      "book_page": 93,
+      "section": "Structural Stupa Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Stupas are common in Jainism too. With diverse dimensions and shapes, this form of religious architecture will spread across India and beyond (remember Borobudur in the Grade 7 textbook).",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p9-b2",
+        "page": 9,
+        "block_ids": [
+          "p9-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-023-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-030",
+      "pdf_page": 10,
+      "book_page": 94,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Rock-cut architecture developed as an efficient and durable mode of construction for religious communities. By carving directly into the rock, builders created caves for worship, residence or assembly.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p10-b3",
+        "page": 10,
+        "block_ids": [
+          "p10-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-031",
+      "pdf_page": 10,
+      "book_page": 94,
+      "section": "Rock-Cut Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "These complexes often evolved over centuries, reflecting changing religious needs and patronage.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p10-b3",
+        "page": 10,
+        "block_ids": [
+          "p10-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-032",
+      "pdf_page": 10,
+      "book_page": 94,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Udayagiri-Khandagiri cave complex (Fig. 3.11) near Bhubaneswar in Odisha, whose carving began in the 2nd century BCE under royal patronage, are among India's first; most of them served as dwellings for Jain monks.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-028",
+        "block_id": null,
+        "page": 10,
+        "block_ids": [
+          "p10-b5",
+          "p10-b6",
+          "p10-b7",
+          "p10-b8",
+          "p10-b11",
+          "p10-b12",
+          "p10-b13"
+        ],
+        "score": 0.9615384615384616,
+        "candidates": [
+          "RU-028"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-033",
+      "pdf_page": 10,
+      "book_page": 94,
+      "section": "Rock-Cut Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "One cave shelters Kharavela's famous inscription",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-028",
+        "block_id": null,
+        "page": 10,
+        "block_ids": [
+          "p10-b5",
+          "p10-b6",
+          "p10-b7",
+          "p10-b8",
+          "p10-b11",
+          "p10-b12",
+          "p10-b13"
+        ],
+        "score": 0.8333333333333334,
+        "candidates": [
+          "RU-028"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-034",
+      "pdf_page": 10,
+      "book_page": 94,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Maharashtra boasts several magnificent rock-cut cave complexes. Those at Ajanta and Ellora are renowned for their massive scale, exquisite craftmanship and the mind-boggling technologies involved in their carving.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7619047619047619,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.6190476190476191
+    },
+    {
+      "entry_id": "INV-3-035",
+      "pdf_page": 11,
+      "book_page": 95,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Many thousands of tonnes of rock had to be chipped away to leave the colossal monolithic Kailasha Temple at Ellora",
+      "block_match": {
+        "match_method": "ambiguous_review",
+        "disposition": "review_required",
+        "unit_id": null,
+        "block_id": null,
+        "page": 11,
+        "block_ids": [],
+        "score": 0.9230769230769231,
+        "candidates": [
+          "multiple_units_at_score_0.92"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-036",
+      "pdf_page": 11,
+      "book_page": 95,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Ellora's cave no. 10 (Fig. 3.12) is of enormous proportions; leaning against a stupa is a massive statue of a seated Buddha in a teaching pose.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p11-b1",
+        "page": 11,
+        "block_ids": [
+          "p11-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-030-001",
+        "TF-REC-124-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-037",
+      "pdf_page": 11,
+      "book_page": 95,
+      "section": "Rock-Cut Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The cave's arched roof imitates beams of timber that existed in some of the urban buildings; in its aisle (Fig. 3.13), that is, the corridor outside the row of pillars, monks would circumambulate the stupa.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p11-b1",
+        "page": 11,
+        "block_ids": [
+          "p11-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-030-001",
+        "TF-REC-124-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-038",
+      "pdf_page": 11,
+      "book_page": 95,
+      "section": "Rock-Cut Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "This custom of pradakshina (which means 'going around in a clockwise direction') will persist in later classical temples.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-030",
+        "block_id": null,
+        "page": 11,
+        "block_ids": [
+          "p11-b1",
+          "p11-b4",
+          "p11-b6"
+        ],
+        "score": 0.9230769230769231,
+        "candidates": [
+          "RU-030"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-039",
+      "pdf_page": 11,
+      "book_page": 95,
+      "section": "Rock-Cut Architecture",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "LET'S EXPLORE: Form groups in the class to discuss the following: Imagine you have only hammers and iron chisels. How will you plan the carving of such a huge cave? [...] In classical temples, what Indian words would we use instead of 'nave'?",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-030",
+        "block_id": null,
+        "page": 11,
+        "block_ids": [
+          "p11-b1",
+          "p11-b4",
+          "p11-b6"
+        ],
+        "score": 0.9,
+        "candidates": [
+          "RU-030"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-040",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "DON'T MISS OUT (box set, p. 96) - four entries: Sharada Peetha Temple; Hidimba Devi Temple; Jageshwar Group of Temples; The Golden Temple",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.5625,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.75
+    },
+    {
+      "entry_id": "INV-3-041",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Dedicated to Goddess Sharada (a form of Sarasvati), Sharada Peetha was a renowned centre of learning and a key site in the development of the Sharada script.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-032",
+        "block_id": null,
+        "page": 12,
+        "block_ids": [
+          "p12-b2",
+          "p12-b3",
+          "p12-b4"
+        ],
+        "score": 0.9230769230769231,
+        "candidates": [
+          "RU-032"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-042",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Attracting scholars from different parts of India and the world, it flourished between the 6th and 12th centuries CE, and its legacy earned Kashmir the name Sharada Desh (the land of Sharada). Though now in ruins, it remains an important part of India's archaeological and cultural heritage.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-032",
+        "block_id": null,
+        "page": 12,
+        "block_ids": [
+          "p12-b2",
+          "p12-b3",
+          "p12-b4"
+        ],
+        "score": 0.8888888888888888,
+        "candidates": [
+          "RU-032"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-043",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Located in Manali amid the cedar forests of Dhungiri Van Vihar, the Hidimba Devi Temple is one of the oldest religious sites in the Kullu Valley. Built in the 16th century CE, the shrine is dedicated to Hidimba (Hirama), the wife of Bhima from the Mahabharata.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-032",
+        "block_id": null,
+        "page": 12,
+        "block_ids": [
+          "p12-b2",
+          "p12-b3",
+          "p12-b4"
+        ],
+        "score": 0.8846153846153846,
+        "candidates": [
+          "RU-032"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-044",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "A nearby temple dedicated to their son, Ghatotkacha, further reflects the site's close association with the epic tradition.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-032",
+        "block_id": null,
+        "page": 12,
+        "block_ids": [
+          "p12-b2",
+          "p12-b3",
+          "p12-b4"
+        ],
+        "score": 0.9230769230769231,
+        "candidates": [
+          "RU-032"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-045",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Jageshwar Group of Temples, located in the JataGanga Valley of Uttarakhand's Almora district, is an ancient temple complex associated with the Katyuri, Chand, and Gurjara-Pratihara dynasties (8th-18th centuries).",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7619047619047619,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.7619047619047619
+    },
+    {
+      "entry_id": "INV-3-046",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Comprising about 124 stone temples, it is renowned for its Swayambhu Linga, known as Nagesh Darukavane. The garbha griha houses Jageshwara Mahadeva, who is locally revered as Bala Jageshwara ('Child Shiva').",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7727272727272727,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.7727272727272727
+    },
+    {
+      "entry_id": "INV-3-047",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The gurudwara is the place of worship of the Sikhs.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p12-b2",
+        "page": 12,
+        "block_ids": [
+          "p12-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-032-001",
+        "TF-REC-032-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-048",
+      "pdf_page": 12,
+      "book_page": 96,
+      "section": "DON'T MISS OUT",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines. The temple was founded by Guru Ramdas Sahib the 4th of the 10th Sikh Gurus. The construction of the temple and its sarovar was continued by Guru Arjan Dev, the fifth Guru in 1588.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-032",
+        "block_id": null,
+        "page": 12,
+        "block_ids": [
+          "p12-b2",
+          "p12-b3",
+          "p12-b4"
+        ],
+        "score": 0.9090909090909091,
+        "candidates": [
+          "RU-032"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-049",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "For several millennia, India's monsoon-driven climate has led people to develop a great variety of structures for the harvesting, storage and distribution of water.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p13-b4",
+        "page": 13,
+        "block_ids": [
+          "p13-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-050",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "These structures, whether simple (such as a humble village pond) or highly sophisticated (such as the Grand Anicut, see chapter 'The Age of Reorganisation' in the Grade 7 textbook), have been very diverse owing to the different geological, climatic and environmental conditions of the land, from the Himalayan foothills, the Thar Desert, the Gangetic plains, the Western Ghats, to the Deccan plateau or the Northeast.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p13-b4",
+        "page": 13,
+        "block_ids": [
+          "p13-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-051",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "This tradition goes all the way back to the Harappan civilisation; remember Dholavira's large reservoirs, for instance.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p13-b4",
+        "page": 13,
+        "block_ids": [
+          "p13-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-052",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "the Harappans invented wells that cannot collapse inward under the pressure of underground infiltration, thanks to their trapezoid-shaped bricks that lock together (Fig. 3.14).",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p13-b4",
+        "page": 13,
+        "block_ids": [
+          "p13-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-053",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Shringverpur in Uttar Pradesh was known as Shringaverapura in the Ramayana (which describes it as the place where Rama, Sita and Lakshmana crossed the Ganga while starting on their exile).",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7368421052631579,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.7368421052631579
+    },
+    {
+      "entry_id": "INV-3-054",
+      "pdf_page": 13,
+      "book_page": 97,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Excavations there brought to light a series of large interconnected reservoirs (Fig. 3.15) fed by a channel from the Ganga during the river's seasonal flooding. The first reservoir or two allowed the silt suspended in water to settle down - a fairly common design.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.75,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.75
+    },
+    {
+      "entry_id": "INV-3-055",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Yet the precise working of the entire complex remains to be figured out.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p14-b1",
+        "page": 14,
+        "block_ids": [
+          "p14-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-056",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Wells have been constructed in many sizes and shapes from bricks, stones, or terracotta ring.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-039",
+        "block_id": null,
+        "page": 14,
+        "block_ids": [
+          "p14-b3",
+          "p14-b4",
+          "p14-b5",
+          "p14-b6",
+          "p14-b7",
+          "p14-b8",
+          "p14-b9",
+          "p14-b10",
+          "p14-b11",
+          "p14-b12",
+          "p14-b13",
+          "p14-b14",
+          "p14-b15",
+          "p14-b16",
+          "p14-b17",
+          "p14-b18",
+          "p14-b19",
+          "p14-b21",
+          "p14-b22",
+          "p14-b23",
+          "p14-b24",
+          "p14-b25",
+          "p14-b26",
+          "p14-b27"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-057",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "In classical times, a tradition of stepwells (vavs or baoris) developed in Gujarat and Rajasthan, many of them engineering marvels as well as spectacular works of art.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-039",
+        "block_id": null,
+        "page": 14,
+        "block_ids": [
+          "p14-b3",
+          "p14-b4",
+          "p14-b5",
+          "p14-b6",
+          "p14-b7",
+          "p14-b8",
+          "p14-b9",
+          "p14-b10",
+          "p14-b11",
+          "p14-b12",
+          "p14-b13",
+          "p14-b14",
+          "p14-b15",
+          "p14-b16",
+          "p14-b17",
+          "p14-b18",
+          "p14-b19",
+          "p14-b21",
+          "p14-b22",
+          "p14-b23",
+          "p14-b24",
+          "p14-b25",
+          "p14-b26",
+          "p14-b27"
+        ],
+        "score": 0.8823529411764706,
+        "candidates": [
+          "RU-039"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-058",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The stepwell at Rani ki Vav (Fig. 3.16) has multiple pillared levels and hundreds of magnificent statues.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p14-b22",
+        "page": 14,
+        "block_ids": [
+          "p14-b22"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-059",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Besides harvesting and storing rainwater, stepwells offered a social space where people could sit together, enjoy cooler temperatures and exchange all the news.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-039",
+        "block_id": null,
+        "page": 14,
+        "block_ids": [
+          "p14-b3",
+          "p14-b4",
+          "p14-b5",
+          "p14-b6",
+          "p14-b7",
+          "p14-b8",
+          "p14-b9",
+          "p14-b10",
+          "p14-b11",
+          "p14-b12",
+          "p14-b13",
+          "p14-b14",
+          "p14-b15",
+          "p14-b16",
+          "p14-b17",
+          "p14-b18",
+          "p14-b19",
+          "p14-b21",
+          "p14-b22",
+          "p14-b23",
+          "p14-b24",
+          "p14-b25",
+          "p14-b26",
+          "p14-b27"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-060",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Temples often had water reservoirs or pushkarinis attached to them, which were used for water harvesting as well as water-based rituals. Many of them were also works of art, with numerous stairways built into them (Fig. 3.17).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-039",
+        "block_id": null,
+        "page": 14,
+        "block_ids": [
+          "p14-b3",
+          "p14-b4",
+          "p14-b5",
+          "p14-b6",
+          "p14-b7",
+          "p14-b8",
+          "p14-b9",
+          "p14-b10",
+          "p14-b11",
+          "p14-b12",
+          "p14-b13",
+          "p14-b14",
+          "p14-b15",
+          "p14-b16",
+          "p14-b17",
+          "p14-b18",
+          "p14-b19",
+          "p14-b21",
+          "p14-b22",
+          "p14-b23",
+          "p14-b24",
+          "p14-b25",
+          "p14-b26",
+          "p14-b27"
+        ],
+        "score": 0.9565217391304348,
+        "candidates": [
+          "RU-039"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-061",
+      "pdf_page": 14,
+      "book_page": 98,
+      "section": "Water Structures",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Many of these traditional water structures suffer today from depleted water sources, maintenance issues, pollution, waste dumping, etc. Environmentalists, locals, and NGOs sometimes join hands to preserve them, but much remains to be done.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-040",
+        "block_id": null,
+        "page": 14,
+        "block_ids": [
+          "p14-b29",
+          "p14-b30",
+          "p14-b31",
+          "p14-b33"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-062",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "With antecedents in the stupa and rock-cut types of architecture, temples have been central to India's cultural life for many centuries. Whether Buddhist, Jain or Hindu, temples have been places of worship, but also of learning, literature, art (sculpture, dance, music, painting among others). Besides, they were centres of social intercourse and economic life.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p15-b12",
+        "page": 15,
+        "block_ids": [
+          "p15-b12"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-044-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-063",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Architecturally, they evolved into works of art that celebrate life and encourage bhakti as well as quiet contemplation.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p15-b12",
+        "page": 15,
+        "block_ids": [
+          "p15-b12"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-044-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-064",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Classical temples emerged during the Gupta era. Many were built thanks to royal patronage, as evidenced by inscriptions, but also by endowments from various donors.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p15-b12",
+        "page": 15,
+        "block_ids": [
+          "p15-b12"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-044-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-065",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Temple construction followed principles and techniques spelt out in treatises of shilpashastra - the discipline of arts and crafts, largely dedicated to architecture and sculpture.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-044",
+        "block_id": null,
+        "page": 15,
+        "block_ids": [
+          "p15-b5",
+          "p15-b10",
+          "p15-b12"
+        ],
+        "score": 0.9375,
+        "candidates": [
+          "RU-044"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-066",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "A temple's main elements are shown in Fig. 3.18: a ceremonial entrance (gopuram in south India; torana in some north Indian temples), one or several mandapas (pillared halls), and the garbhagriha, the innermost chamber where the image (murti) of the deity is kept.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-044",
+        "block_id": null,
+        "page": 15,
+        "block_ids": [
+          "p15-b5",
+          "p15-b10",
+          "p15-b12"
+        ],
+        "score": 0.8571428571428571,
+        "candidates": [
+          "RU-044"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-067",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Above the garbhagriha is a tower called shikhara (in north Indian temples) or vimana (in south Indian temples). The main alignment is generally east-west, with the garbhagriha facing east.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-044",
+        "block_id": null,
+        "page": 15,
+        "block_ids": [
+          "p15-b5",
+          "p15-b10",
+          "p15-b12"
+        ],
+        "score": 0.8125,
+        "candidates": [
+          "RU-044"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "PARTIALLY_COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-068",
+      "pdf_page": 15,
+      "book_page": 99,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.18. Simplified ground plan of the Brihadishvara Temple",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-041",
+        "block_id": null,
+        "page": 15,
+        "block_ids": [
+          "p15-b11"
+        ],
+        "score": 0.8333333333333334,
+        "candidates": [
+          "RU-041"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-069",
+      "pdf_page": 16,
+      "book_page": 100,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "both horizontally and vertically, a temple is planned as a representation of the human body - that of Purusha or the cosmic being.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-046",
+        "block_id": null,
+        "page": 16,
+        "block_ids": [
+          "p16-b1"
+        ],
+        "score": 0.9090909090909091,
+        "candidates": [
+          "RU-046"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-070",
+      "pdf_page": 16,
+      "book_page": 100,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.19 shows the vertical equivalence: from the top of the shikhara or vimana, which corresponds to the head, down to the platform on which the temple rests, which corresponds to the feet (you need not remember the technical terms for the shikhara's different parts shown in Fig. 3.19).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-046",
+        "block_id": null,
+        "page": 16,
+        "block_ids": [
+          "p16-b1"
+        ],
+        "score": 0.9166666666666666,
+        "candidates": [
+          "RU-046"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-071",
+      "pdf_page": 16,
+      "book_page": 100,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Temple worship can be understood as a journey from the outer world (left behind once one crosses the entrance) to the inner world awaiting the worshipper in the garbhagriha, mirroring our own spiritual journey.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-046",
+        "block_id": null,
+        "page": 16,
+        "block_ids": [
+          "p16-b1"
+        ],
+        "score": 0.9523809523809523,
+        "candidates": [
+          "RU-046"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-072",
+      "pdf_page": 17,
+      "book_page": 101,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Until the 8th or 9th century, temples were modest in size. From the 10th century onward, in different parts of India they grew in scale and began incorporating multiple shrines, amenities, and enclosures (prakaras), culminating in vast complexes.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-050",
+        "block_id": null,
+        "page": 17,
+        "block_ids": [
+          "p17-b2",
+          "p17-b3",
+          "p17-b4",
+          "p17-b7",
+          "p17-b9"
+        ],
+        "score": 0.84,
+        "candidates": [
+          "RU-050"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-073",
+      "pdf_page": 17,
+      "book_page": 101,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "we saw the magnificent Kandariya Mahadeva Temple of Khajuraho and Cambodia's colossal Angkor Wat Temple",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-050",
+        "block_id": null,
+        "page": 17,
+        "block_ids": [
+          "p17-b2",
+          "p17-b3",
+          "p17-b4",
+          "p17-b7",
+          "p17-b9"
+        ],
+        "score": 0.8,
+        "candidates": [
+          "RU-050"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-074",
+      "pdf_page": 17,
+      "book_page": 101,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "In Thanjavur, Tamil Nadu, the imposing Brihadishvara Temple (Fig. 3.20) was built by Rajaraja Chola I around 1010. It is renowned for its vast mandapas, a huge vimana, over 60 metres high, and a massive Nandi (sacred bull) statue carved from a single stone, which sits in a pavilion facing the main shrine.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-050",
+        "block_id": null,
+        "page": 17,
+        "block_ids": [
+          "p17-b2",
+          "p17-b3",
+          "p17-b4",
+          "p17-b7",
+          "p17-b9"
+        ],
+        "score": 0.8823529411764706,
+        "candidates": [
+          "RU-050"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-075",
+      "pdf_page": 18,
+      "book_page": 102,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The entire structure showcases exquisite craftsmanship, with intricate granite carvings and sculptures adorning its walls (Fig. 3.21).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-052",
+        "block_id": null,
+        "page": 18,
+        "block_ids": [
+          "p18-b4"
+        ],
+        "score": 0.9166666666666666,
+        "candidates": [
+          "RU-052"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-076",
+      "pdf_page": 18,
+      "book_page": 102,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Both the Brihadishvara Temple and the Lingaraja Temple in Bhubaneswar, Odisha (Fig. 3.22), are dedicated to Shiva, with several secondary shrines dedicated to goddess Parvati and other deities.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.75,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.75
+    },
+    {
+      "entry_id": "INV-3-077",
+      "pdf_page": 18,
+      "book_page": 102,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Built in the early 11th century, the Lingaraja Temple has three large mandapas used for different purposes. It is built from locally available sandstone and laterite stone and is rich in ornate carvings (Fig. 3.23).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-052",
+        "block_id": null,
+        "page": 18,
+        "block_ids": [
+          "p18-b4"
+        ],
+        "score": 0.8636363636363636,
+        "candidates": [
+          "RU-052"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-078",
+      "pdf_page": 19,
+      "book_page": 103,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Dilwara Temples at Mount Abu, Rajasthan, are a group of five exquisitely carved Jain temples built between the 11th and 13th centuries by the Solanki or Chaulukya dynasty. Made of white marble procured from the nearby Aravalli hills, they feature delicate carvings of the Jain tirthankaras, deities, dancers, musicians, and ornamental patterns that cover every surface.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-056",
+        "block_id": null,
+        "page": 19,
+        "block_ids": [
+          "p19-b4",
+          "p19-b6"
+        ],
+        "score": 0.9210526315789473,
+        "candidates": [
+          "RU-056"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-079",
+      "pdf_page": 19,
+      "book_page": 103,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Built in the 17th and 18th centuries, the terracotta temples of Bishnupur in West Bengal are of a very different style. They are brick structures with elaborate surface decorations on square panels, many of which depict themes associated with Radha, Krishna or Rama, as well as, scenes from everyday life.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-056",
+        "block_id": null,
+        "page": 19,
+        "block_ids": [
+          "p19-b4",
+          "p19-b6"
+        ],
+        "score": 0.84375,
+        "candidates": [
+          "RU-056"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-080",
+      "pdf_page": 19,
+      "book_page": 103,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Terracotta panels such as those seen in Fig. 3.27 were first carved by hand and then fired in a kiln in a precise manner.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-056",
+        "block_id": null,
+        "page": 19,
+        "block_ids": [
+          "p19-b4",
+          "p19-b6"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-056-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-081",
+      "pdf_page": 19,
+      "book_page": 103,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "note the pyramidal shape of Brihadishvara Temple's vimana",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.6666666666666666,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.6666666666666666
+    },
+    {
+      "entry_id": "INV-3-082",
+      "pdf_page": 20,
+      "book_page": 104,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Did you notice that none of the structures discussed so far use any cement mortar?",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p20-b7",
+        "page": 20,
+        "block_ids": [
+          "p20-b7"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-083",
+      "pdf_page": 21,
+      "book_page": 105,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Apart from a large manpower and accomplished sculptors, the architecture of classical temples required highly skilled architects, engineers and craftsmen, as it involved elaborate construction techniques. Recent studies have shown that their planning involved a good deal of mathematics, especially some advanced geometry.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-062",
+        "block_id": null,
+        "page": 21,
+        "block_ids": [
+          "p21-b3",
+          "p21-b10",
+          "p21-b4"
+        ],
+        "score": 0.8709677419354839,
+        "candidates": [
+          "RU-062"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-084",
+      "pdf_page": 21,
+      "book_page": 105,
+      "section": "Classical Temple Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "All this, of course, is also true of many large sacred structures in other parts of the world, whether Egypt's pyramids and temples, Athens' Parthenon or medieval Europe's gothic cathedrals.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-062",
+        "block_id": null,
+        "page": 21,
+        "block_ids": [
+          "p21-b3",
+          "p21-b10",
+          "p21-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-085",
+      "pdf_page": 21,
+      "book_page": 105,
+      "section": "Classical Temple Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Gothic: A European style of architecture prevalent from the 13th to the 18th centuries; key features include pointed arches and large windows decorated with stained glass.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-061",
+        "block_id": null,
+        "page": 21,
+        "block_ids": [
+          "p21-b1",
+          "p21-b2",
+          "p21-b7"
+        ],
+        "score": 0.8333333333333334,
+        "candidates": [
+          "RU-061"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-086",
+      "pdf_page": 22,
+      "book_page": 106,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Mosques are places of worship where followers of Islam gather for prayer. They also serve as centres for religious education, community gatherings, and venues for lectures and discussions.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p22-b3",
+        "page": 22,
+        "block_ids": [
+          "p22-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-065-001",
+        "TF-REC-065-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-087",
+      "pdf_page": 22,
+      "book_page": 106,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Mosques have a prayer hall oriented towards Mecca (the most sacred site in Islam, located in Saudi Arabia).",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p22-b3",
+        "page": 22,
+        "block_ids": [
+          "p22-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-065-001",
+        "TF-REC-065-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-088",
+      "pdf_page": 22,
+      "book_page": 106,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The larger ones often include one or several domes, and minarets (towers) on either side of the domes, from where the muezzin makes his call to prayer.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p22-b3",
+        "page": 22,
+        "block_ids": [
+          "p22-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-065-001",
+        "TF-REC-065-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-089",
+      "pdf_page": 22,
+      "book_page": 106,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Friday prayers are especially important in Islam; large mosques where these prayers are held are often called 'Jama Masjid' - jama means 'gathering' or 'assembly', while masjid means 'mosque'.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-066",
+        "block_id": null,
+        "page": 22,
+        "block_ids": [
+          "p22-b4",
+          "p22-b6",
+          "p22-b7",
+          "p22-b8",
+          "p22-b9",
+          "p22-b10",
+          "p22-b11",
+          "p22-b12",
+          "p22-b13",
+          "p22-b14",
+          "p22-b15",
+          "p22-b16",
+          "p22-b17"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-066-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-090",
+      "pdf_page": 22,
+      "book_page": 106,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Jama Masjid in Ahmedabad (Gujarat) was built by Sultan Ahmed Shah I in the 15th century.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-066",
+        "block_id": null,
+        "page": 22,
+        "block_ids": [
+          "p22-b4",
+          "p22-b6",
+          "p22-b7",
+          "p22-b8",
+          "p22-b9",
+          "p22-b10",
+          "p22-b11",
+          "p22-b12",
+          "p22-b13",
+          "p22-b14",
+          "p22-b15",
+          "p22-b16",
+          "p22-b17"
+        ],
+        "score": 0.9,
+        "candidates": [
+          "RU-066"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-091",
+      "pdf_page": 23,
+      "book_page": 107,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Architectural developments in Gujarat took on regional flavours, and this structure of yellow sandstone (Fig. 3.28) has a blend of Hindu and Islamic architectural elements. Its facade (front portion) displays elegant arches and the bases of two minarets (their top portions, which were destroyed in earthquakes, can be seen in a sketch in Fig. 3.29).",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-069",
+        "block_id": null,
+        "page": 23,
+        "block_ids": [
+          "p23-b1",
+          "p23-b2",
+          "p23-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-092",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The presence of intricate stone jalis (latticed screens, see an example in Fig. 3.1), pillars of the same style as found in some temples (but without decorations, Fig. 3.30), and some detailed carvings have led scholars to suggest that the mosque was constructed with the help of local Hindu and Jain artisans, masons and stone carvers.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-071",
+        "block_id": null,
+        "page": 24,
+        "block_ids": [
+          "p24-b6"
+        ],
+        "score": 0.8484848484848485,
+        "candidates": [
+          "RU-071"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-093",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "This is not uncommon in what has been called 'Indo-Islamic architecture', which blends Islamic building traditions with Indian craftsmanship. Some of its features are domes, arches (both pointed and corbelled), jalis, and floral motifs.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-071",
+        "block_id": null,
+        "page": 24,
+        "block_ids": [
+          "p24-b6"
+        ],
+        "score": 0.875,
+        "candidates": [
+          "RU-071"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-094",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Corbelled: Constructed by stacking blocks as in a staircase pattern",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-070",
+        "block_id": null,
+        "page": 24,
+        "block_ids": [
+          "p24-b1",
+          "p24-b7"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-095",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In Rajasthan, local architectural features such as ornate jharokhas (overhanging balconies) and chhatris (pavilion domes) were often integrated.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-072",
+        "block_id": null,
+        "page": 24,
+        "block_ids": [
+          "p24-b3",
+          "p24-b8",
+          "p24-b4",
+          "p24-b5"
+        ],
+        "score": 0.8571428571428571,
+        "candidates": [
+          "RU-072"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-096",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.32. A man praying facing the 'mihrab', i.e., the niche in the wall that points to the direction of Mecca.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p24-b5",
+        "page": 24,
+        "block_ids": [
+          "p24-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-072-001",
+        "TF-REC-072-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-097",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Jama Masjid in Delhi (Figs. 3.31 and 3.32) is India's largest mosque.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p24-b3",
+        "page": 24,
+        "block_ids": [
+          "p24-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-072-001",
+        "TF-REC-072-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-098",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Mughal Emperor Shah Jahan built it in the mid-17th century, after he moved his capital from Agra to Shahjahanabad (now Old Delhi). He had a vision for a grand mosque where the city's Muslims could gather for prayer.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-072",
+        "block_id": null,
+        "page": 24,
+        "block_ids": [
+          "p24-b3",
+          "p24-b8",
+          "p24-b4",
+          "p24-b5"
+        ],
+        "score": 0.9629629629629629,
+        "candidates": [
+          "RU-072"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-099",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "About 5,000 workers were pressed into service for its construction.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p24-b4",
+        "page": 24,
+        "block_ids": [
+          "p24-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-072-001",
+        "TF-REC-072-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-100",
+      "pdf_page": 24,
+      "book_page": 108,
+      "section": "The Architecture of Mosques",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The mosque is made from red sandstone with white marble decorations, and has three large entrances. Two 40-metre tall minarets stand on either side. The main prayer hall has three large domes and the red-stone courtyard can accommodate up to 25,000 people. The walls and arches are decorated with calligraphy (decorative writing) of verses from the Qur'an.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p24-b4",
+        "page": 24,
+        "block_ids": [
+          "p24-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-072-001",
+        "TF-REC-072-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-101",
+      "pdf_page": 25,
+      "book_page": 109,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "forts played an important role in Indian history - that of protecting a kingdom from the onslaught of invaders. They were therefore strategically located near important land or sea routes, and often atop a hill so as to command a view of the plains below.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p25-b3",
+        "page": 25,
+        "block_ids": [
+          "p25-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-102",
+      "pdf_page": 25,
+      "book_page": 109,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Forts also accommodated the residences of the ruling and military classes, and in some cases even an entire city, depending on their size. Since some forts also sheltered a royal palace, we have clubbed these two categories together.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p25-b3",
+        "page": 25,
+        "block_ids": [
+          "p25-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-103",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The construction of the Mehrangarh Fort in Rajasthan (Fig. 3.33) began in the mid-15th century; Rajput rulers continued to expand it over the next two centuries or so. Overlooking the city of Jodhpur, this imposing structure is made of massive blocks of locally sourced red sandstone.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-078",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b6",
+          "p26-b7",
+          "p26-b8",
+          "p26-b9",
+          "p26-b10",
+          "p26-b17",
+          "p26-b19"
+        ],
+        "score": 0.9655172413793104,
+        "candidates": [
+          "RU-078"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-104",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Within the fort complex, a large palace (Fig. 3.34) has several areas for the royalty, separate quarters for the men and women, living quarters for the staff, and stables and barracks.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-078",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b6",
+          "p26-b7",
+          "p26-b8",
+          "p26-b9",
+          "p26-b10",
+          "p26-b17",
+          "p26-b19"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-105",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Today, many parts of the fort have been converted into a museum to preserve and showcase the fort's and Rajasthan's cultural heritage.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-078",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b6",
+          "p26-b7",
+          "p26-b8",
+          "p26-b9",
+          "p26-b10",
+          "p26-b17",
+          "p26-b19"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-106",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Jaswant Thada in Fig. 3.33 is a more recent building, a memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur's royal family.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-079",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b23",
+          "p26-b11"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-107",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Such monuments in the memory of a historical figure are called 'cenotaphs'; they are not tombs, as the deceased person remembered is not buried at the spot.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p26-b11",
+        "page": 26,
+        "block_ids": [
+          "p26-b11"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-108",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Jodhpur is also noted for the blue colour of traditional houses close to the fort. This is due to the application of a solution of copper sulphate mixed with lime on the walls, which is said to repel termites.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-080",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b26",
+          "p26-b12",
+          "p26-b27"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-109",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Other features of Jodhpur include meandering streets, open courtyards, jali windows for ventilation, thick walls and balconies, all of which work together to keep houses cool.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-080",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b26",
+          "p26-b12",
+          "p26-b27"
+        ],
+        "score": 0.9523809523809523,
+        "candidates": [
+          "RU-080"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-110",
+      "pdf_page": 26,
+      "book_page": 110,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Latticework: Open framework with criss-crossing or decorative designs. Here, it is both functional (allowing ventilation) and aesthetic in design.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-077",
+        "block_id": null,
+        "page": 26,
+        "block_ids": [
+          "p26-b18",
+          "p26-b1",
+          "p26-b20",
+          "p26-b2",
+          "p26-b22",
+          "p26-b24",
+          "p26-b3",
+          "p26-b25",
+          "p26-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-111",
+      "pdf_page": 27,
+      "book_page": 111,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The historical Red Fort at Agra (not be mistaken for Delhi's Red Fort) was originally made of brick, and had fallen to ruin when Akbar decided to make his capital there and rebuild the fort.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p27-b2",
+        "page": 27,
+        "block_ids": [
+          "p27-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-083-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-112",
+      "pdf_page": 27,
+      "book_page": 111,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "It was designed to include palaces and gardens, living quarters, halls for public and private audiences, and living quarters for the maids and other servants.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p27-b2",
+        "page": 27,
+        "block_ids": [
+          "p27-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-083-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-113",
+      "pdf_page": 27,
+      "book_page": 111,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The fort's name comes from the red sandstone (Fig. 3.35) that was mined from Dholpur in Rajasthan, some 60 km away.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p27-b2",
+        "page": 27,
+        "block_ids": [
+          "p27-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-083-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-114",
+      "pdf_page": 27,
+      "book_page": 111,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "However, Akbar's grandson, Shah Jahan was fond of marble and replaced many of the sandstone buildings with marble ones, in particular the palaces (Figs. 3.36 and 3.37); he was imprisoned until his death in one of them (Fig. 3.36) by his son, Aurangzeb.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p27-b2",
+        "page": 27,
+        "block_ids": [
+          "p27-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-083-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-115",
+      "pdf_page": 28,
+      "book_page": 112,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "He also had three mosques built within the fort complex. Many of those buildings were destroyed by British troops of the East India Company in the 19th century.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.6111111111111112,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.8333333333333334
+    },
+    {
+      "entry_id": "INV-3-116",
+      "pdf_page": 28,
+      "book_page": 112,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Agra Fort had many fountains. Water from the Yamuna was lifted using Persian wheels (see chapter 'Reshaping India's Political Map' in the Grade 8 Part 1 textbook) into overhead tanks on the walls of the fort. From the tanks, water flowing down through terracotta pipes created fountains, which worked as eco-friendly 'air-conditioners', helping to keep the area cool.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p28-b5",
+        "page": 28,
+        "block_ids": [
+          "p28-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-117",
+      "pdf_page": 28,
+      "book_page": 112,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Orchha Fort-Palace complex (Fig. 3.38) was built in the mid-16th century by the Bundela Rajput kings on the banks of the river Betwa in Madhya Pradesh. The complex features three main palaces - Raja Mahal, Jahangir Mahal, and Rai Praveen Mahal.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-087",
+        "block_id": null,
+        "page": 28,
+        "block_ids": [
+          "p28-b6"
+        ],
+        "score": 0.9615384615384616,
+        "candidates": [
+          "RU-087"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-118",
+      "pdf_page": 28,
+      "book_page": 112,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Jahangir Mahal (Fig. 3.39), built to commemorate Emperor Jahangir's visit, showcases a blend of Rajput and Mughal architectural styles. It has ornate chambers, intricate stone carvings, and beautiful courtyards.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p28-b6",
+        "page": 28,
+        "block_ids": [
+          "p28-b6"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-119",
+      "pdf_page": 28,
+      "book_page": 112,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The complex also includes elegant chhatris (cenotaphs in the shape of a parasol) on the riverbank, and is connected to the town's famous Ram Raja Temple.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-087",
+        "block_id": null,
+        "page": 28,
+        "block_ids": [
+          "p28-b6"
+        ],
+        "score": 0.9333333333333333,
+        "candidates": [
+          "RU-087"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-120",
+      "pdf_page": 29,
+      "book_page": 113,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Mysuru Palace, also known as Amba Vilas Palace (Fig. 3.40), is a magnificent example of Indo-Saracenic architecture (see further below the section under that name). It is the residence of the Wadiyar dynasty, and a symbol of Mysuru's royal heritage.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p29-b4",
+        "page": 29,
+        "block_ids": [
+          "p29-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-091-001",
+        "TF-REC-091-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-121",
+      "pdf_page": 29,
+      "book_page": 113,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The present structure was built early in the 20th century after the previous wooden palace was destroyed by fire.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-091",
+        "block_id": null,
+        "page": 29,
+        "block_ids": [
+          "p29-b4"
+        ],
+        "score": 0.9166666666666666,
+        "candidates": [
+          "RU-091"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-122",
+      "pdf_page": 29,
+      "book_page": 113,
+      "section": "Forts and Palaces",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The palace is renowned for its intricately carved wooden doors, ornate ceiling paintings, stained-glass windows, and the spectacular golden throne (singhasana) displayed during the Dasara festival.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-091",
+        "block_id": null,
+        "page": 29,
+        "block_ids": [
+          "p29-b4"
+        ],
+        "score": 0.95,
+        "candidates": [
+          "RU-091"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-123",
+      "pdf_page": 29,
+      "book_page": 113,
+      "section": "Forts and Palaces",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The palace is illuminated by nearly 100,000 lights every Sunday evening and during festivals.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p29-b4",
+        "page": 29,
+        "block_ids": [
+          "p29-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-091-001",
+        "TF-REC-091-002"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-124",
+      "pdf_page": 30,
+      "book_page": 114,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "For religious reasons, in Islam and Christianity the dead are buried. In the Islamic world, mausoleums - grand buildings housing a tomb or a group of them - were often built for prominent rulers, members of the royal household, or for some renowned mystics.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p30-b3",
+        "page": 30,
+        "block_ids": [
+          "p30-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-125",
+      "pdf_page": 30,
+      "book_page": 114,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "They were also a political statement, as they stood as a testament to the greatness of the royalty or their dynasty.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p30-b3",
+        "page": 30,
+        "block_ids": [
+          "p30-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-126",
+      "pdf_page": 30,
+      "book_page": 114,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "This is not a common practice among people of other faiths; in Buddhism, Jainism and Hinduism, the dead are generally cremated; as a result, no tombs of rulers of such faiths exist in India in ancient times.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-094",
+        "block_id": null,
+        "page": 30,
+        "block_ids": [
+          "p30-b3",
+          "p30-b6",
+          "p30-b7"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-127",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In the medieval era, cenotaphs appeared, especially in Rajasthan and central India, but they only marked the places where a king or his family member was cremated (we saw an example in Fig. 3.33).",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-128",
+        "block_id": null,
+        "page": 30,
+        "block_ids": [
+          "p30-b7",
+          "p31-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-128",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "these monuments' elegant architecture embedded strict concepts of symmetry, which extended to the gardens around. Common features (also found in some of the larger mosques, as we saw) included arches, floral motifs, latticework, and calligraphy of verses from the Qur'an.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p31-b1",
+        "page": 31,
+        "block_ids": [
+          "p31-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-129",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The renowned Humayun's Tomb (Figs. 3.41 and 3.42) is a significant landmark of Delhi. It was commissioned by Humayun's chief wife, Bega Begum, in 1558, and designed by Persian architects, who brought with them Persian aesthetics that became part of the Mughal architectural tradition. The complex also houses the tombs of several Mughals, including that of Dara Shikoh (whom we met in Part 1 of this textbook).",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p31-b1",
+        "page": 31,
+        "block_ids": [
+          "p31-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-130",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Did you notice the six-pointed star on Humayun's tomb? This geometric symbol is found in several religious traditions.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p31-b3",
+        "page": 31,
+        "block_ids": [
+          "p31-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-131",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In Judaism, it is known as the 'Star of David', named after David, a king of the Hebrews mentioned in the Bible.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p31-b3",
+        "page": 31,
+        "block_ids": [
+          "p31-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-132",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In Islam, the same symbol is called the 'Seal of Solomon'; Solomon (Sulayman), David's son, is regarded in Islam as both a model king and a prophet endowed with divine wisdom.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-096",
+        "block_id": null,
+        "page": 31,
+        "block_ids": [
+          "p31-b3"
+        ],
+        "score": 0.9411764705882353,
+        "candidates": [
+          "RU-096"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-133",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "In Hinduism, the six-pointed star appears in tantric symbolism, where it represents the fusion of purusha or consciousness (the upward-pointing triangle) with prakriti or shakti (the downward-pointing triangle), that is, the harmony of spirit and matter.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-096",
+        "block_id": null,
+        "page": 31,
+        "block_ids": [
+          "p31-b3"
+        ],
+        "score": 0.8571428571428571,
+        "candidates": [
+          "RU-096"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-134",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "In the mid 17th century, Shah Jahan built the Taj Mahal (Figs. 3.43 to 3.45) as a mausoleum for his queen Mumtaz Mahal's tomb.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-097",
+        "block_id": null,
+        "page": 31,
+        "block_ids": [
+          "p31-b4",
+          "p31-b6"
+        ],
+        "score": 0.9285714285714286,
+        "candidates": [
+          "RU-097"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-135",
+      "pdf_page": 31,
+      "book_page": 115,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched doorways are of Persian inspiration; Arabic calligraphy from the Qur'an and intricate geometric patterns adorn the walls; Indian architecture added chhatris, lotus flower designs, and marble screens with detailed cutout patterns.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.725
+    },
+    {
+      "entry_id": "INV-3-136",
+      "pdf_page": 32,
+      "book_page": 116,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The walls feature delicate inlay work where craftsmen embedded colourful semi-precious stones into the marble to create floral designs. The white marble appears to change colours as the sunlight shifts through the day.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p32-b2",
+        "page": 32,
+        "block_ids": [
+          "p32-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-137",
+      "pdf_page": 33,
+      "book_page": 117,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.44. A detail of the upper floor; note the arch, the inlaid marble floral motifs and the calligraphy on both sides.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-100",
+        "block_id": null,
+        "page": 33,
+        "block_ids": [
+          "p33-b1",
+          "p33-b2"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-138",
+      "pdf_page": 33,
+      "book_page": 117,
+      "section": "Tombs and Mausoleums",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.45. The tombs of Mumtaz (in the centre) and Shah Jahan (on the left)",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-102",
+        "block_id": null,
+        "page": 33,
+        "block_ids": [
+          "p33-b4"
+        ],
+        "score": 0.8571428571428571,
+        "candidates": [
+          "RU-102"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-139",
+      "pdf_page": 33,
+      "book_page": 117,
+      "section": "Tombs and Mausoleums",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "In the 1970s, the effect of air pollution on the monument began to be noticed. It was caused by local industries using coal and other fossil fuels, which left a yellowish tinge on the marble. Following the recommendations of an expert committee and a PIL in the Supreme Court, a ban was imposed in the mid-1990s to prevent industrial pollution in the area.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-103",
+        "block_id": null,
+        "page": 33,
+        "block_ids": [
+          "p33-b6",
+          "p33-b8"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-140",
+      "pdf_page": 34,
+      "book_page": 118,
+      "section": "Traditional Houses",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "The design and architecture of houses in India have been as varied as the geography. Many have developed distinct features that stand out.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p34-b3",
+        "page": 34,
+        "block_ids": [
+          "p34-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-105-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-141",
+      "pdf_page": 34,
+      "book_page": 118,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "A general design commonly found in traditional houses for the richer classes, both in urban and rural contexts, is based on a central courtyard with the rooms organised around it, whether over one or several storeys.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p34-b3",
+        "page": 34,
+        "block_ids": [
+          "p34-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-105-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-142",
+      "pdf_page": 34,
+      "book_page": 118,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p34-b3",
+        "page": 34,
+        "block_ids": [
+          "p34-b3"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-105-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "COVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-143",
+      "pdf_page": 35,
+      "book_page": 119,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Havelis (traditional mansions) in Rajasthan's Shekhawati region have a central courtyard and elaborate decorations, including intricate painted frescoes (Fig. 3.46). Those were the homes of the region's nobility and rich merchant class.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p35-b1",
+        "page": 35,
+        "block_ids": [
+          "p35-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-144",
+      "pdf_page": 35,
+      "book_page": 119,
+      "section": "Traditional Houses",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Partly because they are difficult to maintain nowadays, or are too large for today's families, many havelis have been converted into hotels or museums.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p35-b1",
+        "page": 35,
+        "block_ids": [
+          "p35-b1"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-145",
+      "pdf_page": 35,
+      "book_page": 119,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "The Chettinadu houses of Tamil Nadu (Fig. 3.47) belong to a community of merchants who traded in rice, spices and gems with Southeast Asia.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p35-b4",
+        "page": 35,
+        "block_ids": [
+          "p35-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-146",
+      "pdf_page": 35,
+      "book_page": 119,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Materials for the construction were sourced from several parts of the world, including teakwood from Burma and marble from Italy; craftsmen from all over India worked on the frescoes and other artistic elements. As with havelis, some of these houses are almost like palaces.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p35-b4",
+        "page": 35,
+        "block_ids": [
+          "p35-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-147",
+      "pdf_page": 35,
+      "book_page": 119,
+      "section": "Traditional Houses",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Their artistry apart, they are known for being well adapted to the local climate and environment. The central courtyard served as a place for rituals and community gatherings, as well as for sun-drying papads and chillies.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-109",
+        "block_id": null,
+        "page": 35,
+        "block_ids": [
+          "p35-b4"
+        ],
+        "score": 0.9545454545454546,
+        "candidates": [
+          "RU-109"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-148",
+      "pdf_page": 36,
+      "book_page": 120,
+      "section": "Churches in India",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "As we saw in the chapter 'India, a Home to Many', some Christian communities have been living in India for many centuries. According to tradition, the first churches were built in the coastal areas of Kerala.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p36-b5",
+        "page": 36,
+        "block_ids": [
+          "p36-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-149",
+      "pdf_page": 36,
+      "book_page": 120,
+      "section": "Churches in India",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Over time, different types of churches were built, sometimes imitating classic European styles (Fig. 3.48), at other times (especially in Kerala) incorporating local architectural traditions (Figs. 3.49 to 3.51).",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p36-b5",
+        "page": 36,
+        "block_ids": [
+          "p36-b5"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-150",
+      "pdf_page": 36,
+      "book_page": 120,
+      "section": "Churches in India",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.48. The iconic St. Philomena's Cathedral in Mysuru was built in the Gothic style during the colonial period, with the then Maharaja of Mysore, Krishnarajendra Wadiyar, laying the foundation stone.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.7368421052631579,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 1
+    },
+    {
+      "entry_id": "INV-3-151",
+      "pdf_page": 37,
+      "book_page": 121,
+      "section": "Churches in India",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.49. The St. Thomas Orthodox church at Mulanthuruthy near Kochi, Kerala, with a stambha (flag post) in front, a feature borrowed from temple architecture.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-115",
+        "block_id": null,
+        "page": 37,
+        "block_ids": [
+          "p37-b2"
+        ],
+        "score": 0.875,
+        "candidates": [
+          "RU-115"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-152",
+      "pdf_page": 37,
+      "book_page": 121,
+      "section": "Churches in India",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.50. The Kalloopara church in Travancore, rebuilt in the 18th century, with a sloped tiled roof typical of Kerala architecture.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-113",
+        "block_id": null,
+        "page": 37,
+        "block_ids": [
+          "p37-b3",
+          "p37-b4"
+        ],
+        "score": 0.8461538461538461,
+        "candidates": [
+          "RU-113"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-153",
+      "pdf_page": 37,
+      "book_page": 121,
+      "section": "Churches in India",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.51. The interior of the Kalloopara church with oil lamps and a traditional wooden roof.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-114",
+        "block_id": null,
+        "page": 37,
+        "block_ids": [
+          "p37-b6",
+          "p37-b7",
+          "p37-b9"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-154",
+      "pdf_page": 38,
+      "book_page": 122,
+      "section": "Colonial Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Fig. 3.52. A general view of the Madras High Court, completed in 1892. The red sandstone facade features Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style.",
+      "block_match": {
+        "match_method": "multi_block_ordered_span",
+        "disposition": "matched",
+        "unit_id": "RU-117",
+        "block_id": null,
+        "page": 38,
+        "block_ids": [
+          "p38-b2",
+          "p38-b3",
+          "p38-b4"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [
+        "TF-REC-117-001"
+      ],
+      "typed_fact_linkage": "linked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-155",
+      "pdf_page": 39,
+      "book_page": 123,
+      "section": "Colonial Architecture",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "Fig. 3.54. The imposing Victoria Memorial Hall in Kolkata - now a museum. Note the central arch and dome, the balconies and the chhatris.",
+      "block_match": {
+        "match_method": "unresolved_match",
+        "disposition": "unresolved_match",
+        "unit_id": null,
+        "block_id": null,
+        "page": null,
+        "block_ids": [],
+        "score": 0.5714285714285714,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)",
+      "page_word_overlap": 0.9285714285714286
+    },
+    {
+      "entry_id": "INV-3-156",
+      "pdf_page": 39,
+      "book_page": 123,
+      "section": "Colonial Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19th to early 20th century). It blended Islamic, Hindu, and Gothic elements, featuring domes, pointed arches, minarets, and intricate decorative patterns inspired by Mughal and Rajput traditions (Figs. 3.52 to 3.54).",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-120",
+        "block_id": null,
+        "page": 39,
+        "block_ids": [
+          "p39-b2",
+          "p39-b3",
+          "p39-b4",
+          "p39-b5"
+        ],
+        "score": 0.9411764705882353,
+        "candidates": [
+          "RU-120"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-157",
+      "pdf_page": 39,
+      "book_page": 123,
+      "section": "Colonial Architecture",
+      "importance": "Supporting",
+      "question_suitable": "no",
+      "reference_quotation": "India's architectural heritage is among the richest and most diverse in the world. Our selection here necessarily leaves out thousands of astonishing monuments of diverse styles.",
+      "block_match": {
+        "match_method": "normalized_text",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p39-b7",
+        "page": 39,
+        "block_ids": [
+          "p39-b7"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "normalized_text",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-158",
+      "pdf_page": 39,
+      "book_page": 123,
+      "section": "Colonial Architecture",
+      "importance": "Core",
+      "question_suitable": "yes",
+      "reference_quotation": "There is much thought and spirituality behind those bricks and stones. Classical Buddhist, Jain and Hindu architectures seek to connect the human and the cosmic, or the human and the divine; they aim at expressing beauty and order. And as with Islamic architecture, they involve advanced construction techniques.",
+      "block_match": {
+        "match_method": "exact_span",
+        "disposition": "matched",
+        "unit_id": null,
+        "block_id": "hees203:p39-b7",
+        "page": 39,
+        "block_ids": [
+          "p39-b7"
+        ],
+        "score": null,
+        "candidates": []
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "exact_span",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-159",
+      "pdf_page": 39,
+      "book_page": 123,
+      "section": "Colonial Architecture",
+      "importance": "Supporting",
+      "question_suitable": "yes",
+      "reference_quotation": "Anyone travelling through India and visiting some of the lesser-known monuments will notice that many are in a state of neglect. Preserving this heritage is indeed very challenging: how to adequately conserve India's thousands of monuments, many of them centuries-old? Government bodies are theoretically responsible for this huge task, but in practice, much will be lost unless citizens feel equally responsible and, to begin with, learn to appreciate and admire this labour of our ancestors. If you revisit our Constitution's 'Fundamental Duties', you will now understand the wisdom of one of them: '... to value and preserve the rich heritage of our composite culture'.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-129",
+        "block_id": null,
+        "page": 39,
+        "block_ids": [
+          "p39-b9",
+          "p40-b1"
+        ],
+        "score": 0.8688524590163934,
+        "candidates": [
+          "RU-129"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "UNCOVERED",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    },
+    {
+      "entry_id": "INV-3-160",
+      "pdf_page": 40,
+      "book_page": 124,
+      "section": "Questions and activities",
+      "importance": "Minor-reference",
+      "question_suitable": "no",
+      "reference_quotation": "Questions and activities 1. In Fig. 3.5, calculate the full width of the house; compare with the length of your classroom. How many staircases can you make out? [...] 10. Highlight the biggest threats to our architectural heritage today and discuss how can we protect it.",
+      "block_match": {
+        "match_method": "candidate_fuzzy",
+        "disposition": "review_required",
+        "unit_id": "RU-122",
+        "block_id": null,
+        "page": 40,
+        "block_ids": [
+          "p40-b1",
+          "p40-b3",
+          "p40-b4",
+          "p40-b5",
+          "p40-b6",
+          "p40-b7",
+          "p40-b8",
+          "p40-b9",
+          "p40-b10",
+          "p40-b11",
+          "p40-b13",
+          "p40-b15"
+        ],
+        "score": 0.9259259259259259,
+        "candidates": [
+          "RU-122"
+        ]
+      },
+      "typed_fact_ids": [],
+      "typed_fact_linkage": "unlinked",
+      "phase2a_match_method": "unresolved_match",
+      "question_coverage_phase1": "NOT_QUESTION_WORTHY",
+      "question_coverage_phase1_provenance": "carried from chapter_3_coverage_matrix.json (Phase 1 verdict, not re-judged in Phase 2B)"
+    }
+  ]
+}

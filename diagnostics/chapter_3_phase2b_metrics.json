@@ -1,0 +1,1401 @@
+{
+  "version": "phase2b-1",
+  "baseline_commit": "59e5372243a80e90c51448fd7158d57c52dbb4d2",
+  "pdf_path": "/home/hatch/workspace/ncert_pdfs/hees203.pdf",
+  "pdf_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+  "pdf_pages": 40,
+  "body_text": {
+    "total_chars": 34867,
+    "pages_with_body_text": 40
+  },
+  "production_reproduction": {
+    "staged_stems": 5,
+    "reproduced_stems": 5,
+    "production_questions": 0
+  },
+  "document_model_accounting": {
+    "pages_encountered": 40,
+    "blocks_total": 475,
+    "blocks_by_type": {
+      "page_furniture": 28,
+      "heading": 70,
+      "fragment": 109,
+      "body": 132,
+      "ambiguous": 27,
+      "caption": 52,
+      "table": 57
+    },
+    "blocks_with_usable_text": 475,
+    "blocks_excluded": 28,
+    "blocks_requiring_review": 114,
+    "dispositions": {
+      "excluded_furniture": 28,
+      "included_prose": 202,
+      "preserved_fragment": 109,
+      "preserved_ambiguous": 27,
+      "included_caption": 52,
+      "included_table": 57
+    },
+    "dispositions_by_type_and_reason": {
+      "page_furniture|excluded_furniture|page_furniture": 28,
+      "heading|included_prose|section_heading": 70,
+      "fragment|preserved_fragment|fragment_preserved_not_assertion": 109,
+      "body|included_prose|body_text": 132,
+      "ambiguous|preserved_ambiguous|ambiguous_preserved_for_review": 27,
+      "caption|included_caption|caption_first_class": 52,
+      "table|included_table|table_relationship_unresolved": 53,
+      "table|included_table|table_rows_parsed": 4
+    },
+    "sections_reconstructed": 70,
+    "blocks_with_unknown_section": 1,
+    "paragraphs_reconstructed": 132,
+    "captions_associated": 18,
+    "captions_unassociated": 34,
+    "tables_with_rows": 4,
+    "tables_unresolved": 53,
+    "lists_detected": 0,
+    "continuation_candidates": 10,
+    "continuation_strong": 4,
+    "continuation_weak": 6
+  },
+  "document_model_reconciliation": {
+    "ok": true,
+    "disposition_sum": 475,
+    "blocks_total": 475,
+    "per_page_ok": true
+  },
+  "reconstruction_accounting": {
+    "pages_covered": 40,
+    "blocks_total": 475,
+    "units_total": 129,
+    "units_by_type": {
+      "body_prose": 58,
+      "caption": 52,
+      "unresolved": 10,
+      "glossary_definition": 2,
+      "cross_page_continuation_candidate": 3,
+      "cross_page_continuation": 4
+    },
+    "units_by_certainty": {
+      "verbatim_column_join": 58,
+      "caption_stitched": 52,
+      "unresolved_fragment": 13,
+      "glossary_margin_column": 2,
+      "cross_page_strong": 4
+    },
+    "units_by_rule": {
+      "reconstruct-v1/column-passage": 58,
+      "reconstruct-v1/caption-continuation": 52,
+      "reconstruct-v1/unresolved-fragment-passage": 10,
+      "reconstruct-v1/margin-gloss": 2,
+      "reconstruct-v1/cross-page-weak": 3,
+      "reconstruct-v1/cross-page-strong": 4
+    },
+    "blocks_in_units": 323,
+    "exclusions_total": 87,
+    "exclusions_by_reason": {
+      "page_furniture": 18,
+      "running_title_furniture": 13,
+      "page_number": 38,
+      "aggregate_duplicates_granular_segments": 6,
+      "callout_banner_artifact": 12
+    },
+    "section_markers": 65,
+    "stripped_furniture_tails": 10,
+    "cross_page_continuations_skipped": 3,
+    "blocks_by_bucket": {
+      "excluded:page_furniture": 18,
+      "excluded:running_title_furniture": 13,
+      "excluded:page_number": 38,
+      "unit_block": 313,
+      "section_marker": 65,
+      "stripped_furniture_tail": 10,
+      "excluded:aggregate_duplicates_granular_segments": 6,
+      "excluded:callout_banner_artifact": 12
+    }
+  },
+  "reconstruction_reconciliation": {
+    "ok": true,
+    "bucketed_blocks": 475,
+    "blocks_total": 475,
+    "blocks_in_units_unique": 323
+  },
+  "reconstruction_exclusions_by_reason": {
+    "page_furniture": 18,
+    "running_title_furniture": 13,
+    "page_number": 38,
+    "aggregate_duplicates_granular_segments": 6,
+    "callout_banner_artifact": 12
+  },
+  "typed_old_accounting": {
+    "units_total": 368,
+    "units_by_role": {
+      "ambiguous": 79,
+      "assertion": 269,
+      "interrogative": 18,
+      "instruction": 2
+    },
+    "units_typed": 16,
+    "units_unparsed": 352,
+    "units_table": 0,
+    "typed_facts_total": 16,
+    "typed_facts_by_type": {
+      "entity_attribute": 11,
+      "membership": 2,
+      "numeric": 3
+    },
+    "typed_facts_with_complete_evidence": 16,
+    "multi_claim_units": 0,
+    "multi_claim_facts": 0,
+    "units_producing_no_facts_by_reason": {
+      "ambiguous_relation": 78,
+      "unsupported_pattern": 149,
+      "interrogative_or_instruction": 20,
+      "fragment": 96,
+      "cross_page_continuation_unresolved": 7,
+      "layout_relationship_unresolved": 2
+    },
+    "partial_rejections_by_reason": {
+      "fragment": 1
+    },
+    "partial_rejections_total": 1,
+    "baseline": {
+      "facts_total": 179,
+      "usable_facts": 30,
+      "fallback_facts": 149,
+      "table_facts": 0
+    }
+  },
+  "typed_new_accounting": {
+    "units_input": 129,
+    "units_skipped": 13,
+    "units_dropped": 0,
+    "units_with_facts": 16,
+    "typed_facts_total": 21,
+    "typed_facts_by_type": {
+      "definition": 1,
+      "entity_attribute": 14,
+      "membership": 2,
+      "numeric": 3,
+      "date": 1
+    },
+    "typed_facts_by_evidence_source": {
+      "reconstructed_prose": 18,
+      "caption": 2,
+      "cross_page_merged": 1
+    },
+    "unparsed_units_total": 380,
+    "unparsed_units_by_reason": {
+      "unsupported_pattern": 218,
+      "interrogative_or_instruction": 29,
+      "fragment": 71,
+      "ambiguous_relation": 60,
+      "layout_relationship_unresolved": 1,
+      "furniture_contamination": 1
+    }
+  },
+  "typed_comparison": {
+    "old_typed_facts_total": 16,
+    "new_typed_facts_total_raw": 21,
+    "new_typed_facts_unique_by_key": 20,
+    "duplicate_merged_facts": 1,
+    "shared_fact_keys": 16,
+    "new_only_fact_keys": 4,
+    "lost_fact_keys": 0,
+    "new_only_keys": [
+      "definition|harappan architecture|the earliest known tradition of urban planning and construction in the indian subcontinent",
+      "entity_attribute|jama masjid in ahmedabad (gujarat)|sultan ahmed shah i",
+      "date|general view of the madras high court|1892",
+      "entity_attribute|indo-saracenic architecture|distinctive colonial style"
+    ],
+    "lost_keys": []
+  },
+  "typed_new_facts": [
+    {
+      "fact_id": "TF-REC-015-001",
+      "fact_type": "definition",
+      "subject": "Harappan architecture",
+      "relation": "definition",
+      "object": "the earliest known tradition of urban planning and construction in the Indian subcontinent",
+      "evidence": "Harappan architecture represents the earliest known tradition of urban planning and construction in the Indian subcontinent.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-015",
+      "block_ids": [
+        "p6-b4",
+        "p6-b6",
+        "p6-b7",
+        "p6-b8",
+        "p6-b9",
+        "p6-b12",
+        "p6-b14"
+      ],
+      "page_range": [
+        6
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-019-001",
+      "fact_type": "entity_attribute",
+      "subject": "Mohenjo-daro (in present- day Sindh, Pakistan)",
+      "relation": "role",
+      "object": "extensive city",
+      "evidence": "Mohenjo-daro (in present- day Sindh, Pakistan) was an extensive city.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-019",
+      "block_ids": [
+        "p7-b2",
+        "p7-b5"
+      ],
+      "page_range": [
+        7
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-019-002",
+      "fact_type": "entity_attribute",
+      "subject": "used waters",
+      "relation": "role",
+      "object": "taken out of the city through an efficient network of drains",
+      "evidence": "Almost every home had a bathing area; used waters were taken out of the city through an efficient network of drains.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-019",
+      "block_ids": [
+        "p7-b2",
+        "p7-b5"
+      ],
+      "page_range": [
+        7
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-023-001",
+      "fact_type": "entity_attribute",
+      "subject": "Stupas",
+      "relation": "role",
+      "object": "common in Jainism too",
+      "evidence": "Stupas are common in Jainism too.",
+      "evidence_source": "caption",
+      "reconstructed_unit_id": "RU-023",
+      "block_ids": [
+        "p9-b1",
+        "p9-b2"
+      ],
+      "page_range": [
+        9
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-030-001",
+      "fact_type": "entity_attribute",
+      "subject": "leaning against a stupa",
+      "relation": "role",
+      "object": "massive statue of a seated Buddha in a teaching pose",
+      "evidence": "Ellora’s cave no. 10 (Fig. 3.12) is of enormous proportions; leaning against a stupa is a massive statue of a seated Buddha in a teaching pose.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-030",
+      "block_ids": [
+        "p11-b1",
+        "p11-b4",
+        "p11-b6"
+      ],
+      "page_range": [
+        11
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-032-001",
+      "fact_type": "entity_attribute",
+      "subject": "The Harmandir Sahib or Golden Temple in Punjab",
+      "relation": "role",
+      "object": "considered to be the holiest of the Sikh Shrines",
+      "evidence": "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-032",
+      "block_ids": [
+        "p12-b2",
+        "p12-b3",
+        "p12-b4"
+      ],
+      "page_range": [
+        12
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-032-002",
+      "fact_type": "entity_attribute",
+      "subject": "The temple",
+      "relation": "launched_by",
+      "object": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+      "evidence": "The temple was founded by Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-032",
+      "block_ids": [
+        "p12-b2",
+        "p12-b3",
+        "p12-b4"
+      ],
+      "page_range": [
+        12
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-044-001",
+      "fact_type": "entity_attribute",
+      "subject": "The main alignment",
+      "relation": "role",
+      "object": "generally east-west, with the garbhagṛiha facing east",
+      "evidence": "The main alignment is generally east-west, with the garbhagṛiha facing east.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-044",
+      "block_ids": [
+        "p15-b5",
+        "p15-b10",
+        "p15-b12"
+      ],
+      "page_range": [
+        15
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-056-001",
+      "fact_type": "membership",
+      "subject": "The Dilwara Temples at Mount Abu, Rajasthan",
+      "relation": "members",
+      "object": "group of five exquisitely carved Jain temples built between the 11 th, 13 th centuries by the Solanki or Chaulukya dynasty",
+      "evidence": "The Dilwara Temples at Mount Abu, Rajasthan, are a group of five exquisitely carved Jain temples built between the 11 th and 13 th centuries by the Solanki or Chaulukya dynasty.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-056",
+      "block_ids": [
+        "p19-b4",
+        "p19-b6"
+      ],
+      "page_range": [
+        19
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-065-001",
+      "fact_type": "entity_attribute",
+      "subject": "Mosques",
+      "relation": "role",
+      "object": "places of worship where followers of Islam gather for prayer",
+      "evidence": "Mosques are places of worship where followers of Islam gather for prayer.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-065",
+      "block_ids": [
+        "p22-b3"
+      ],
+      "page_range": [
+        22
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-065-002",
+      "fact_type": "membership",
+      "subject": "The larger ones often",
+      "relation": "members",
+      "object": "one or several domes, minarets (towers) on either side of the domes, from where the muezzin makes his call to prayer",
+      "evidence": "The larger ones often include one or several domes, and minarets (towers) on either side of the domes, from where the muezzin makes his call to prayer.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-065",
+      "block_ids": [
+        "p22-b3"
+      ],
+      "page_range": [
+        22
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-066-001",
+      "fact_type": "entity_attribute",
+      "subject": "The Jama Masjid in Ahmedabad (Gujarat)",
+      "relation": "launched_by",
+      "object": "Sultan Ahmed Shah I",
+      "evidence": "The Jama Masjid in Ahmedabad (Gujarat) was built by Sultan Ahmed Shah I in the 15 th century.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-066",
+      "block_ids": [
+        "p22-b4",
+        "p22-b6",
+        "p22-b7",
+        "p22-b8",
+        "p22-b9",
+        "p22-b10",
+        "p22-b11",
+        "p22-b12",
+        "p22-b13",
+        "p22-b14",
+        "p22-b15",
+        "p22-b16",
+        "p22-b17"
+      ],
+      "page_range": [
+        22
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-072-001",
+      "fact_type": "entity_attribute",
+      "subject": "The mosque",
+      "relation": "role",
+      "object": "made from red sandstone with white marble decorations, and has three large entrances",
+      "evidence": "The mosque is made from red sandstone with white marble decorations, and has three large entrances.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-072",
+      "block_ids": [
+        "p24-b3",
+        "p24-b8",
+        "p24-b4",
+        "p24-b5"
+      ],
+      "page_range": [
+        24
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-072-002",
+      "fact_type": "numeric",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "25,000 people",
+      "evidence": "The main prayer hall has three large domes and the red-stone courtyard can accommodate up to 25,000 people.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-072",
+      "block_ids": [
+        "p24-b3",
+        "p24-b8",
+        "p24-b4",
+        "p24-b5"
+      ],
+      "page_range": [
+        24
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-083-001",
+      "fact_type": "numeric",
+      "subject": "mined from Dholpur in Rajasthan, some",
+      "relation": "numeric_value",
+      "object": "60 km",
+      "evidence": "The fort’s name comes from the red sandstone (Fig. 3.35) that was mined from Dholpur in Rajasthan, some 60 km away.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-083",
+      "block_ids": [
+        "p27-b2"
+      ],
+      "page_range": [
+        27
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-091-001",
+      "fact_type": "entity_attribute",
+      "subject": "The present structure",
+      "relation": "role",
+      "object": "built early in the 20 th century after the previous wooden palace was destroyed by fire",
+      "evidence": "The present structure was built early in the 20 th century after the previous wooden palace was destroyed by fire.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-091",
+      "block_ids": [
+        "p29-b4"
+      ],
+      "page_range": [
+        29
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-091-002",
+      "fact_type": "entity_attribute",
+      "subject": "The palace",
+      "relation": "role",
+      "object": "illuminated by nearly 100,000 lights every Sunday evening and during festivals",
+      "evidence": "The palace is illuminated by nearly 100,000 lights every Sunday evening and during festivals.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-091",
+      "block_ids": [
+        "p29-b4"
+      ],
+      "page_range": [
+        29
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-105-001",
+      "fact_type": "numeric",
+      "subject": "years",
+      "relation": "numeric_value",
+      "object": "4,500 years",
+      "evidence": "Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-105",
+      "block_ids": [
+        "p34-b3"
+      ],
+      "page_range": [
+        34
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-117-001",
+      "fact_type": "date",
+      "subject": "A general view of the Madras High Court",
+      "relation": "completion_year",
+      "object": "1892",
+      "evidence": "A general view of the Madras High Court, completed in 1892.",
+      "evidence_source": "caption",
+      "reconstructed_unit_id": "RU-117",
+      "block_ids": [
+        "p38-b2",
+        "p38-b3",
+        "p38-b4"
+      ],
+      "page_range": [
+        38
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-120-001",
+      "fact_type": "entity_attribute",
+      "subject": "Indo-Saracenic architecture",
+      "relation": "role",
+      "object": "distinctive colonial style",
+      "evidence": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-120",
+      "block_ids": [
+        "p39-b2",
+        "p39-b3",
+        "p39-b4",
+        "p39-b5"
+      ],
+      "page_range": [
+        39
+      ],
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-124-001",
+      "fact_type": "entity_attribute",
+      "subject": "leaning against a stupa",
+      "relation": "role",
+      "object": "massive statue of a seated Buddha in a teaching pose",
+      "evidence": "Ellora’s cave no. 10 (Fig. 3.12) is of enormous proportions; leaning against a stupa is a massive statue of a seated Buddha in a teaching pose.",
+      "evidence_source": "cross_page_merged",
+      "reconstructed_unit_id": "RU-124",
+      "block_ids": [
+        "p10-b13",
+        "p11-b1"
+      ],
+      "page_range": [
+        10,
+        11
+      ],
+      "validation_state": "verified"
+    }
+  ],
+  "reference_linkage_summary": {
+    "entries_total": 160,
+    "matched_exact_span": 38,
+    "matched_normalized_text": 30,
+    "matched_multi_block_ordered_span": 23,
+    "matched_total_confirmed": 91,
+    "review_required_candidate_fuzzy": 53,
+    "review_required_ambiguous": 1,
+    "review_required_total": 54,
+    "unresolved_total": 15,
+    "typed_fact_linked": 37,
+    "typed_fact_unlinked": 123
+  },
+  "case_checks": [
+    {
+      "case": "case1_wells_stepwells",
+      "pass": true,
+      "detail": "unit RU-039 blocks p14-b3,p14-b4,p14-b5,p14-b6,p14-b7,p14-b8,p14-b9,p14-b10,p14-b11,p14-b12,p14-b13,p14-b14,p14-b15,p14-b16,p14-b17,p14-b18,p14-b19,p14-b21,p14-b22,p14-b23,p14-b24,p14-b25,p14-b26,p14-b27"
+    },
+    {
+      "case": "case1_aggregate_never_prose_source",
+      "pass": true,
+      "detail": "p14-b2/p22-b5 in a unit: false"
+    },
+    {
+      "case": "case1_threats_sentence",
+      "pass": true,
+      "detail": "unit RU-040"
+    },
+    {
+      "case": "case2_nandi_sentence_no_furniture",
+      "pass": true,
+      "detail": "unit RU-050 flags contains_demoted_heading,section_corrected_from_demoted_heading"
+    },
+    {
+      "case": "case2_false_heading_demoted",
+      "pass": true,
+      "detail": "flags contains_demoted_heading,section_corrected_from_demoted_heading"
+    },
+    {
+      "case": "case3_jama_builder_etymology",
+      "pass": true,
+      "detail": "unit RU-066"
+    },
+    {
+      "case": "case3_fig329_caption_no_referent",
+      "pass": true,
+      "detail": "unit RU-064 binding facts 0"
+    },
+    {
+      "case": "case4_latticework_gloss",
+      "pass": true,
+      "detail": "unit RU-077 blocks p26-b18,p26-b1,p26-b20,p26-b2,p26-b22,p26-b24,p26-b3,p26-b25,p26-b4"
+    },
+    {
+      "case": "case4_mehrangarh_subject",
+      "pass": true,
+      "detail": "unit RU-078"
+    },
+    {
+      "case": "case5_fig352_caption",
+      "pass": true,
+      "detail": "unit RU-117"
+    },
+    {
+      "case": "case5_fig353_pronoun_unresolved",
+      "pass": true,
+      "detail": "unit RU-118 binding facts 0"
+    },
+    {
+      "case": "timeline_no_body_prose_no_date_facts",
+      "pass": true,
+      "detail": "p3 prose/table/gloss units 0, date facts 0"
+    },
+    {
+      "case": "map_no_typed_facts",
+      "pass": true,
+      "detail": "typed facts from pp.4-5 units: 0"
+    }
+  ],
+  "timeline_record": [
+    {
+      "pdf_page": 3,
+      "blocks": [
+        {
+          "block_id": "p3-b1",
+          "type": "fragment",
+          "text": "2600 BCE"
+        },
+        {
+          "block_id": "p3-b2",
+          "type": "fragment",
+          "text": "Khandagiri rock-cut caves"
+        },
+        {
+          "block_id": "p3-b3",
+          "type": "heading",
+          "text": "3 rd –1 st centuries BCE"
+        },
+        {
+          "block_id": "p3-b4",
+          "type": "fragment",
+          "text": "Dholavira"
+        },
+        {
+          "block_id": "p3-b5",
+          "type": "heading",
+          "text": "1 st BCE–"
+        },
+        {
+          "block_id": "p3-b6",
+          "type": "heading",
+          "text": "Shringaverpur"
+        },
+        {
+          "block_id": "p3-b7",
+          "type": "heading",
+          "text": "1 st CE"
+        },
+        {
+          "block_id": "p3-b8",
+          "type": "heading",
+          "text": "Ellora rock-cut caves"
+        },
+        {
+          "block_id": "p3-b9",
+          "type": "heading",
+          "text": "Rani ki Vav stepwell"
+        },
+        {
+          "block_id": "p3-b10",
+          "type": "heading",
+          "text": "1010 CE"
+        },
+        {
+          "block_id": "p3-b11",
+          "type": "heading",
+          "text": "Brihadiswara Temple"
+        },
+        {
+          "block_id": "p3-b12",
+          "type": "heading",
+          "text": "1063 CE"
+        },
+        {
+          "block_id": "p3-b13",
+          "type": "heading",
+          "text": "Jageshwar group"
+        },
+        {
+          "block_id": "p3-b14",
+          "type": "heading",
+          "text": "8 th"
+        },
+        {
+          "block_id": "p3-b15",
+          "type": "fragment",
+          "text": "Sharada Peeth temple"
+        },
+        {
+          "block_id": "p3-b16",
+          "type": "heading",
+          "text": "St. Thomas Orthodox Cathedral,"
+        },
+        {
+          "block_id": "p3-b17",
+          "type": "heading",
+          "text": "12 th century"
+        },
+        {
+          "block_id": "p3-b18",
+          "type": "heading",
+          "text": "Mulanthuruthy (1 st stage)"
+        },
+        {
+          "block_id": "p3-b19",
+          "type": "heading",
+          "text": "Orchha fort-"
+        },
+        {
+          "block_id": "p3-b20",
+          "type": "table",
+          "text": "Jama Masjid,"
+        },
+        {
+          "block_id": "p3-b21",
+          "type": "table",
+          "text": "Ahmedabad"
+        },
+        {
+          "block_id": "p3-b22",
+          "type": "heading",
+          "text": "15 th century"
+        },
+        {
+          "block_id": "p3-b23",
+          "type": "heading",
+          "text": "16 th century"
+        },
+        {
+          "block_id": "p3-b24",
+          "type": "heading",
+          "text": "Hidimba Golden"
+        },
+        {
+          "block_id": "p3-b25",
+          "type": "fragment",
+          "text": "Agra Fort Humayun"
+        },
+        {
+          "block_id": "p3-b26",
+          "type": "heading",
+          "text": "Devi temple temple"
+        },
+        {
+          "block_id": "p3-b27",
+          "type": "heading",
+          "text": "17 th century"
+        },
+        {
+          "block_id": "p3-b28",
+          "type": "fragment",
+          "text": "Tomb"
+        },
+        {
+          "block_id": "p3-b29",
+          "type": "heading",
+          "text": "18 th century"
+        },
+        {
+          "block_id": "p3-b30",
+          "type": "heading",
+          "text": "Bishnupur terracotta"
+        },
+        {
+          "block_id": "p3-b31",
+          "type": "heading",
+          "text": "17 th –19 th centuries"
+        },
+        {
+          "block_id": "p3-b32",
+          "type": "fragment",
+          "text": "temples;"
+        },
+        {
+          "block_id": "p3-b33",
+          "type": "heading",
+          "text": "Havelis of Shekhawati"
+        },
+        {
+          "block_id": "p3-b34",
+          "type": "heading",
+          "text": "Taj Jama Masjid,"
+        },
+        {
+          "block_id": "p3-b35",
+          "type": "table",
+          "text": "Delhi"
+        },
+        {
+          "block_id": "p3-b36",
+          "type": "heading",
+          "text": "19 th century"
+        },
+        {
+          "block_id": "p3-b37",
+          "type": "heading",
+          "text": "Madras High Court"
+        },
+        {
+          "block_id": "p3-b38",
+          "type": "heading",
+          "text": "20 th century"
+        },
+        {
+          "block_id": "p3-b39",
+          "type": "body",
+          "text": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneythroughIndianArchitecture"
+        },
+        {
+          "block_id": "p3-b40",
+          "type": "fragment",
+          "text": "87"
+        },
+        {
+          "block_id": "p3-b41",
+          "type": "heading",
+          "text": "Mysuru Palace"
+        },
+        {
+          "block_id": "p3-b42",
+          "type": "ambiguous",
+          "text": "Sanchi Stupa Bharhut Udayagiri–"
+        },
+        {
+          "block_id": "p3-b43",
+          "type": "fragment",
+          "text": "Stupa"
+        },
+        {
+          "block_id": "p3-b44",
+          "type": "fragment",
+          "text": "water structures"
+        },
+        {
+          "block_id": "p3-b45",
+          "type": "fragment",
+          "text": "600–900 CE"
+        },
+        {
+          "block_id": "p3-b46",
+          "type": "fragment",
+          "text": "of temples"
+        },
+        {
+          "block_id": "p3-b47",
+          "type": "fragment",
+          "text": "century"
+        },
+        {
+          "block_id": "p3-b49",
+          "type": "table",
+          "text": "11 th –13 th"
+        },
+        {
+          "block_id": "p3-b50",
+          "type": "table",
+          "text": "Lingaraja"
+        },
+        {
+          "block_id": "p3-b51",
+          "type": "table",
+          "text": "Dilwara"
+        },
+        {
+          "block_id": "p3-b52",
+          "type": "table",
+          "text": "centuries"
+        },
+        {
+          "block_id": "p3-b53",
+          "type": "table",
+          "text": "Temple"
+        },
+        {
+          "block_id": "p3-b54",
+          "type": "table",
+          "text": "Temples"
+        },
+        {
+          "block_id": "p3-b55",
+          "type": "table",
+          "text": "Mehrangarh"
+        },
+        {
+          "block_id": "p3-b56",
+          "type": "table",
+          "text": "palace complex;"
+        },
+        {
+          "block_id": "p3-b57",
+          "type": "table",
+          "text": "1424 CE"
+        },
+        {
+          "block_id": "p3-b58",
+          "type": "table",
+          "text": "fort-palace"
+        },
+        {
+          "block_id": "p3-b59",
+          "type": "table",
+          "text": "Vijayanagara"
+        },
+        {
+          "block_id": "p3-b60",
+          "type": "fragment",
+          "text": "water structures"
+        },
+        {
+          "block_id": "p3-b61",
+          "type": "table",
+          "text": "Mahal"
+        },
+        {
+          "block_id": "p3-b62",
+          "type": "table",
+          "text": "Chettinad mansions;"
+        },
+        {
+          "block_id": "p3-b63",
+          "type": "caption",
+          "text": "Fig. 3.2. A timeline of the structures and"
+        },
+        {
+          "block_id": "p3-b64",
+          "type": "ambiguous",
+          "text": "monuments visited in this chapter"
+        }
+      ]
+    }
+  ],
+  "map_record": [
+    {
+      "pdf_page": 4,
+      "blocks": [
+        {
+          "block_id": "p4-b1",
+          "type": "heading",
+          "text": "Shekhawati havelis"
+        },
+        {
+          "block_id": "p4-b2",
+          "type": "fragment",
+          "text": "Golden temple"
+        },
+        {
+          "block_id": "p4-b3",
+          "type": "fragment",
+          "text": "Sharada Peeth temple"
+        },
+        {
+          "block_id": "p4-b4",
+          "type": "heading",
+          "text": "Mehrangarh"
+        },
+        {
+          "block_id": "p4-b5",
+          "type": "heading",
+          "text": "Dilwara temple"
+        },
+        {
+          "block_id": "p4-b6",
+          "type": "heading",
+          "text": "Dholavira"
+        },
+        {
+          "block_id": "p4-b7",
+          "type": "heading",
+          "text": "Rani ki Vav"
+        },
+        {
+          "block_id": "p4-b8",
+          "type": "ambiguous",
+          "text": "Ellora’s rock- cut caves"
+        },
+        {
+          "block_id": "p4-b9",
+          "type": "fragment",
+          "text": "Jama Masjid, Ahmedabad"
+        },
+        {
+          "block_id": "p4-b10",
+          "type": "fragment",
+          "text": "Vijayanagara water structures"
+        },
+        {
+          "block_id": "p4-b11",
+          "type": "heading",
+          "text": "Mysuru palace"
+        },
+        {
+          "block_id": "p4-b12",
+          "type": "heading",
+          "text": "St. Thomas Orthodox"
+        },
+        {
+          "block_id": "p4-b13",
+          "type": "heading",
+          "text": "Cathedral"
+        },
+        {
+          "block_id": "p4-b14",
+          "type": "heading",
+          "text": "88"
+        },
+        {
+          "block_id": "p4-b15",
+          "type": "fragment",
+          "text": "fort-palace"
+        },
+        {
+          "block_id": "p4-b16",
+          "type": "fragment",
+          "text": "stepwell"
+        },
+        {
+          "block_id": "p4-b18",
+          "type": "caption",
+          "text": "Fig. 3.3. Locations of the structures and monuments visited in this chapter"
+        }
+      ]
+    },
+    {
+      "pdf_page": 5,
+      "blocks": [
+        {
+          "block_id": "p5-b1",
+          "type": "heading",
+          "text": "Jama Masjid, Delhi"
+        },
+        {
+          "block_id": "p5-b2",
+          "type": "heading",
+          "text": "Humayun tomb"
+        },
+        {
+          "block_id": "p5-b3",
+          "type": "fragment",
+          "text": "Taj Mahal"
+        },
+        {
+          "block_id": "p5-b4",
+          "type": "fragment",
+          "text": "Hidimba Devi temple"
+        },
+        {
+          "block_id": "p5-b5",
+          "type": "heading",
+          "text": "Agra fort"
+        },
+        {
+          "block_id": "p5-b6",
+          "type": "ambiguous",
+          "text": "Jageshwar group of temples"
+        },
+        {
+          "block_id": "p5-b7",
+          "type": "fragment",
+          "text": "Shringaverpur water structures"
+        },
+        {
+          "block_id": "p5-b8",
+          "type": "ambiguous",
+          "text": "Orchha fort- palace complex"
+        },
+        {
+          "block_id": "p5-b9",
+          "type": "fragment",
+          "text": "Sanchi stupas"
+        },
+        {
+          "block_id": "p5-b10",
+          "type": "fragment",
+          "text": "Bharhut"
+        },
+        {
+          "block_id": "p5-b11",
+          "type": "heading",
+          "text": "Bishnupur"
+        },
+        {
+          "block_id": "p5-b12",
+          "type": "heading",
+          "text": "Udayagiri-Khandagiri"
+        },
+        {
+          "block_id": "p5-b13",
+          "type": "fragment",
+          "text": "rock-cut caves"
+        },
+        {
+          "block_id": "p5-b14",
+          "type": "fragment",
+          "text": "Lingaraja temple complex"
+        },
+        {
+          "block_id": "p5-b15",
+          "type": "heading",
+          "text": "Madras High Court"
+        },
+        {
+          "block_id": "p5-b16",
+          "type": "heading",
+          "text": "Brihadeswara temple"
+        },
+        {
+          "block_id": "p5-b17",
+          "type": "fragment",
+          "text": "Chettinad houses"
+        },
+        {
+          "block_id": "p5-b19",
+          "type": "heading",
+          "text": "89"
+        },
+        {
+          "block_id": "p5-b20",
+          "type": "fragment",
+          "text": "terracotta temples"
+        }
+      ]
+    }
+  ],
+  "unresolved_units": [
+    {
+      "unit_id": "RU-005",
+      "pages": [
+        3
+      ],
+      "block_ids": [
+        "p3-b42",
+        "p3-b43"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Sanchi Stupa Bharhut Udayagiri– Stupa"
+    },
+    {
+      "unit_id": "RU-006",
+      "pages": [
+        3
+      ],
+      "block_ids": [
+        "p3-b2",
+        "p3-b35",
+        "p3-b61",
+        "p3-b62"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Khandagiri rock-cut caves Delhi Mahal Chettinad mansions;"
+    },
+    {
+      "unit_id": "RU-007",
+      "pages": [
+        3
+      ],
+      "block_ids": [
+        "p3-b1",
+        "p3-b4",
+        "p3-b44",
+        "p3-b45",
+        "p3-b46",
+        "p3-b47",
+        "p3-b15",
+        "p3-b49",
+        "p3-b50",
+        "p3-b51",
+        "p3-b52",
+        "p3-b53",
+        "p3-b54",
+        "p3-b20",
+        "p3-b55",
+        "p3-b56",
+        "p3-b57",
+        "p3-b21",
+        "p3-b58",
+        "p3-b59",
+        "p3-b60",
+        "p3-b25",
+        "p3-b28",
+        "p3-b32"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "2600 BCE Dholavira water structures 600–900 CE of temples century Sharada Peeth temple 11 th –13 th Lingaraja Dilwara centuries Temple Temples Jama Masjid, Mehrangarh palace complex; 1424 CE Ahmedabad"
+    },
+    {
+      "unit_id": "RU-009",
+      "pages": [
+        4
+      ],
+      "block_ids": [
+        "p4-b3",
+        "p4-b9",
+        "p4-b10"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Sharada Peeth temple Jama Masjid, Ahmedabad Vijayanagara water structures"
+    },
+    {
+      "unit_id": "RU-010",
+      "pages": [
+        4
+      ],
+      "block_ids": [
+        "p4-b2",
+        "p4-b15",
+        "p4-b16",
+        "p4-b8"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Golden temple fort-palace stepwell Ellora’s rock- cut caves"
+    },
+    {
+      "unit_id": "RU-011",
+      "pages": [
+        5
+      ],
+      "block_ids": [
+        "p5-b4",
+        "p5-b6",
+        "p5-b7",
+        "p5-b8",
+        "p5-b9",
+        "p5-b10",
+        "p5-b20",
+        "p5-b14"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Hidimba Devi temple Jageshwar group of temples Shringaverpur water structures Orchha fort- palace complex Sanchi stupas Bharhut terracotta temples Lingaraja temple complex"
+    },
+    {
+      "unit_id": "RU-012",
+      "pages": [
+        5
+      ],
+      "block_ids": [
+        "p5-b3",
+        "p5-b13",
+        "p5-b17"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "Taj Mahal rock-cut caves Chettinad houses"
+    },
+    {
+      "unit_id": "RU-042",
+      "pages": [
+        15
+      ],
+      "block_ids": [
+        "p15-b8",
+        "p15-b9"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "secondary shrines maṇḍapa"
+    },
+    {
+      "unit_id": "RU-043",
+      "pages": [
+        15
+      ],
+      "block_ids": [
+        "p15-b2",
+        "p15-b3",
+        "p15-b4"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "garbhagṛiha prākāra pradakṣhina corridor"
+    },
+    {
+      "unit_id": "RU-116",
+      "pages": [
+        37
+      ],
+      "block_ids": [
+        "p37-b5"
+      ],
+      "certainty": "unresolved_fragment",
+      "review_flags": [
+        "no_body_anchor"
+      ],
+      "text": "architecture."
+    }
+  ],
+  "limitations": [
+    "Browser layout path not verified: layouts come from the vendored pdf.js build under Node (same code as browser/worker) with batch polyfills; no real browser run was performed and none is claimed.",
+    "Merged cross-page units duplicate complete sentences already present in per-page passages; merged facts are deduped by fact key in typed_comparison, and raw counts are reported alongside unique counts.",
+    "Glossary definition facts and wells/stepwells facts are not yet produced by the typed parsers (unsupported_pattern): reconstruction success and classification success are separate outcomes.",
+    "Caption typing is partial: only the Fig. 3.52 date fact types from captions in this chapter; other caption claims remain unparsed with reasons."
+  ]
+}

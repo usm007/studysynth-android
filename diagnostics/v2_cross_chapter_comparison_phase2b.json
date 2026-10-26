@@ -1,0 +1,730 @@
+{
+  "version": "phase2b-1",
+  "baseline_commit": "59e5372243a80e90c51448fd7158d57c52dbb4d2",
+  "legacy_representation_ref": "a536a3c94cd92b81b85ca724a671fab1a97c5b06",
+  "legacy_verification": "pinned-ref fetch; no classifyPropositionEligibility/graphRejections markers; byte-identical to Phase 2A legacy copy",
+  "target_count": 5,
+  "chapters_complete": 8,
+  "chapters_total": 8,
+  "missing_inputs": [],
+  "comparison_complete": true,
+  "fact_type_taxonomy": {
+    "fallback": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 1298,
+      "gate_eligible": 0,
+      "gate_rejected_by_reason": {
+        "fallback_unclassified": 1298
+      }
+    },
+    "causal": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 59,
+      "gate_eligible": 42,
+      "gate_rejected_by_reason": {
+        "fragment_object": 8,
+        "fragment_subject": 9
+      }
+    },
+    "entity_attribute": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 171,
+      "gate_eligible": 146,
+      "gate_rejected_by_reason": {
+        "conflicting_values": 5,
+        "fragment_subject": 17,
+        "fragment_object": 3
+      }
+    },
+    "numeric": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 40,
+      "gate_eligible": 21,
+      "gate_rejected_by_reason": {
+        "conflicting_values": 19
+      }
+    },
+    "membership": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 50,
+      "gate_eligible": 41,
+      "gate_rejected_by_reason": {
+        "fragment_object": 4,
+        "conflicting_values": 2,
+        "fragment_subject": 3
+      }
+    },
+    "comparison": {
+      "chapters": [
+        "hees201",
+        "hees202",
+        "hees203",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 25,
+      "gate_eligible": 23,
+      "gate_rejected_by_reason": {
+        "fragment_subject": 1,
+        "fragment_object": 1
+      }
+    },
+    "definition": {
+      "chapters": [
+        "hees202",
+        "hees204",
+        "hees205",
+        "hees206",
+        "hees207",
+        "hees209"
+      ],
+      "total": 20,
+      "gate_eligible": 16,
+      "gate_rejected_by_reason": {
+        "fragment_object": 2,
+        "conflicting_values": 2
+      }
+    },
+    "date": {
+      "chapters": [
+        "hees202"
+      ],
+      "total": 1,
+      "gate_eligible": 1,
+      "gate_rejected_by_reason": {}
+    }
+  },
+  "classify_proposition_eligibility_finding": "classifyPropositionEligibility is a rejection list, not an allowlist: it rejects fallback_unclassified, missing_subject, missing_object, fragment_subject, fragment_object, conflicting_values and ocr_unverified, and admits every other fact type with non-fragment subject/object. An allowlist equal to TYPED_FACT_TYPES (date, numeric, definition, entity_attribute, membership, sequence, causal, comparison, table) would change NOTHING for production fact types, because the producer set minus fallback is exactly that set; it would only change behaviour for non-production inputs (multi_statement, numeric_statistic, arbitrary strings), which currently pass when structurally sound. No V2 gate change is justified by this comparison: the gate already removes exactly the vacuous propositions, and the per-chapter deltas below measure its effect.",
+  "chapters": [
+    {
+      "chapter": "hees201",
+      "title": "NCERT Class 8 — World Geography",
+      "status": "complete",
+      "pdf_sha256": "68f119b33395c16a5c63819596d46aacadde9a17aec5c4cf978d0b03e85a84a4",
+      "pdf_pages": 34,
+      "production_facts_total": 229,
+      "production_fact_types": {
+        "fallback": 153,
+        "causal": 8,
+        "entity_attribute": 32,
+        "numeric": 17,
+        "membership": 18,
+        "comparison": 1
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 153,
+        "eligible": 63,
+        "rejected:fragment_object": 4,
+        "rejected:conflicting_values": 9
+      },
+      "legacy": {
+        "propositions": 234,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 2,
+        "candidates_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validated_total": 2,
+        "validated_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validator_rejection_counts": {},
+        "accepted": 2,
+        "bank_generation": {
+          "proposition_count": 234,
+          "total_candidates": 2,
+          "validated_candidates": 2,
+          "accepted": 2
+        }
+      },
+      "current": {
+        "propositions": 69,
+        "graph_rejections_total": 167,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 153,
+          "fragment_causal": 1,
+          "fragment_object": 4,
+          "conflicting_values": 9
+        },
+        "candidates_total": 2,
+        "candidates_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validated_total": 2,
+        "validated_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validator_rejection_counts": {},
+        "accepted": 2,
+        "bank_generation": {
+          "proposition_count": 69,
+          "total_candidates": 2,
+          "validated_candidates": 2,
+          "accepted": 2
+        }
+      },
+      "deltas": {
+        "propositions": -165,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees202",
+      "title": "NCERT Class 8 — India's Long Road to Independence",
+      "status": "complete",
+      "pdf_sha256": "5a02c626a57ba3222cf90204cbeb065b0d46ff081f117269a4bb212527b74eae",
+      "pdf_pages": 50,
+      "production_facts_total": 454,
+      "production_fact_types": {
+        "fallback": 385,
+        "causal": 10,
+        "entity_attribute": 34,
+        "comparison": 12,
+        "numeric": 5,
+        "definition": 4,
+        "membership": 3,
+        "date": 1
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 385,
+        "eligible": 52,
+        "rejected:fragment_subject": 12,
+        "rejected:conflicting_values": 3,
+        "rejected:fragment_object": 2
+      },
+      "legacy": {
+        "propositions": 471,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 471,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "current": {
+        "propositions": 73,
+        "graph_rejections_total": 403,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 385,
+          "fragment_subject": 12,
+          "fragment_causal": 1,
+          "conflicting_values": 3,
+          "fragment_object": 2
+        },
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 73,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "deltas": {
+        "propositions": -398,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees203",
+      "title": "NCERT Class 8 — Indian Architecture",
+      "status": "complete",
+      "pdf_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+      "pdf_pages": 40,
+      "production_facts_total": 179,
+      "production_fact_types": {
+        "fallback": 149,
+        "entity_attribute": 19,
+        "comparison": 1,
+        "membership": 5,
+        "causal": 2,
+        "numeric": 3
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 149,
+        "eligible": 26,
+        "rejected:fragment_subject": 4
+      },
+      "legacy": {
+        "propositions": 180,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 180,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "current": {
+        "propositions": 28,
+        "graph_rejections_total": 153,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 149,
+          "fragment_subject": 4
+        },
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 28,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "deltas": {
+        "propositions": -152,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees204",
+      "title": "NCERT Class 8 — Judiciary",
+      "status": "complete",
+      "pdf_sha256": "87f5e404e8c2dbf6c95612068ef78108653946b761ebf62b4f4bdd8825845184",
+      "pdf_pages": 18,
+      "production_facts_total": 140,
+      "production_fact_types": {
+        "entity_attribute": 27,
+        "fallback": 99,
+        "membership": 5,
+        "comparison": 1,
+        "definition": 3,
+        "numeric": 1,
+        "causal": 4
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "eligible": 38,
+        "rejected:fallback_unclassified": 99,
+        "rejected:fragment_object": 1,
+        "rejected:fragment_subject": 2
+      },
+      "legacy": {
+        "propositions": 144,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 2,
+        "candidates_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validated_total": 2,
+        "validated_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validator_rejection_counts": {},
+        "accepted": 2,
+        "bank_generation": {
+          "proposition_count": 144,
+          "total_candidates": 2,
+          "validated_candidates": 2,
+          "accepted": 2
+        }
+      },
+      "current": {
+        "propositions": 42,
+        "graph_rejections_total": 102,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 99,
+          "fragment_object": 1,
+          "fragment_subject": 2
+        },
+        "candidates_total": 2,
+        "candidates_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validated_total": 2,
+        "validated_by_subtype": {
+          "causal_reasoning": 2
+        },
+        "validator_rejection_counts": {},
+        "accepted": 2,
+        "bank_generation": {
+          "proposition_count": 42,
+          "total_candidates": 2,
+          "validated_candidates": 2,
+          "accepted": 2
+        }
+      },
+      "deltas": {
+        "propositions": -102,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees205",
+      "title": "NCERT Class 8 — Citizenship",
+      "status": "complete",
+      "pdf_sha256": "4567ca3602ac05a7b45cf78e21528a66fd0bc380830561209d767e777f11ac28",
+      "pdf_pages": 24,
+      "production_facts_total": 211,
+      "production_fact_types": {
+        "fallback": 161,
+        "entity_attribute": 17,
+        "definition": 3,
+        "causal": 18,
+        "membership": 8,
+        "numeric": 2,
+        "comparison": 2
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 161,
+        "eligible": 36,
+        "rejected:fragment_object": 5,
+        "rejected:conflicting_values": 3,
+        "rejected:fragment_subject": 6
+      },
+      "legacy": {
+        "propositions": 227,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 227,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "current": {
+        "propositions": 59,
+        "graph_rejections_total": 175,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 161,
+          "fragment_object": 5,
+          "conflicting_values": 3,
+          "fragment_subject": 6
+        },
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 59,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "deltas": {
+        "propositions": -168,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees206",
+      "title": "NCERT Class 8 — Dynamics of Population",
+      "status": "complete",
+      "pdf_sha256": "832a4ee039e5d79c61c4259e38593378ed4f295699df864bdffc599a6562317f",
+      "pdf_pages": 24,
+      "production_facts_total": 121,
+      "production_fact_types": {
+        "fallback": 85,
+        "entity_attribute": 9,
+        "numeric": 7,
+        "causal": 11,
+        "definition": 4,
+        "comparison": 3,
+        "membership": 2
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 85,
+        "eligible": 25,
+        "rejected:conflicting_values": 7,
+        "rejected:fragment_object": 4
+      },
+      "legacy": {
+        "propositions": 136,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 1,
+        "candidates_by_subtype": {
+          "causal_reasoning": 1
+        },
+        "validated_total": 1,
+        "validated_by_subtype": {
+          "causal_reasoning": 1
+        },
+        "validator_rejection_counts": {},
+        "accepted": 1,
+        "bank_generation": {
+          "proposition_count": 136,
+          "total_candidates": 1,
+          "validated_candidates": 1,
+          "accepted": 1
+        }
+      },
+      "current": {
+        "propositions": 41,
+        "graph_rejections_total": 96,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 85,
+          "conflicting_values": 7,
+          "fragment_object": 4
+        },
+        "candidates_total": 1,
+        "candidates_by_subtype": {
+          "causal_reasoning": 1
+        },
+        "validated_total": 1,
+        "validated_by_subtype": {
+          "causal_reasoning": 1
+        },
+        "validator_rejection_counts": {},
+        "accepted": 1,
+        "bank_generation": {
+          "proposition_count": 41,
+          "total_candidates": 1,
+          "validated_candidates": 1,
+          "accepted": 1
+        }
+      },
+      "deltas": {
+        "propositions": -95,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees207",
+      "title": "NCERT Class 8 — India's Urban Landscape",
+      "status": "complete",
+      "pdf_sha256": "0ed56f0852d29059962d3d581bd52fb340c4a319fe21c09bb32ceaa2bc9eb540",
+      "pdf_pages": 24,
+      "production_facts_total": 135,
+      "production_fact_types": {
+        "entity_attribute": 14,
+        "fallback": 102,
+        "membership": 4,
+        "comparison": 4,
+        "causal": 4,
+        "definition": 3,
+        "numeric": 4
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "eligible": 24,
+        "rejected:fallback_unclassified": 102,
+        "rejected:fragment_subject": 2,
+        "rejected:fragment_object": 1,
+        "rejected:conflicting_values": 6
+      },
+      "legacy": {
+        "propositions": 140,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 140,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "current": {
+        "propositions": 29,
+        "graph_rejections_total": 113,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 102,
+          "fragment_subject": 3,
+          "fragment_object": 1,
+          "conflicting_values": 6,
+          "fragment_causal": 1
+        },
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 29,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "deltas": {
+        "propositions": -111,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    },
+    {
+      "chapter": "hees209",
+      "title": "NCERT Class 8 — Cultural Currents 13th–17th C",
+      "status": "complete",
+      "pdf_sha256": "cfdd8e4a732582926a6e06f6f779b28732a0ae23c8383e3136f4ba612933ff29",
+      "pdf_pages": 35,
+      "production_facts_total": 195,
+      "production_fact_types": {
+        "fallback": 164,
+        "definition": 3,
+        "membership": 5,
+        "causal": 2,
+        "entity_attribute": 19,
+        "comparison": 1,
+        "numeric": 1
+      },
+      "current_gate_verdicts_on_production_facts": {
+        "rejected:fallback_unclassified": 164,
+        "eligible": 26,
+        "rejected:fragment_subject": 4,
+        "rejected:fragment_object": 1
+      },
+      "legacy": {
+        "propositions": 202,
+        "graph_rejections_total": 0,
+        "graph_rejections_by_reason": {},
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 202,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "current": {
+        "propositions": 33,
+        "graph_rejections_total": 170,
+        "graph_rejections_by_reason": {
+          "fallback_unclassified": 164,
+          "fragment_subject": 5,
+          "fragment_object": 1
+        },
+        "candidates_total": 0,
+        "candidates_by_subtype": {},
+        "validated_total": 0,
+        "validated_by_subtype": {},
+        "validator_rejection_counts": {},
+        "accepted": 0,
+        "bank_generation": {
+          "proposition_count": 33,
+          "total_candidates": 0,
+          "validated_candidates": 0,
+          "accepted": 0
+        }
+      },
+      "deltas": {
+        "propositions": -169,
+        "candidates_total": 0,
+        "validated_total": 0,
+        "accepted": 0
+      },
+      "legacy_deterministic": true,
+      "current_deterministic": true
+    }
+  ]
+}

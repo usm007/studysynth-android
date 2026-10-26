@@ -2746,6 +2746,142 @@
     };
   }
 
+  // Phase 2B shadow adapter: analyse reconstructed source units with the
+  // SAME typed-knowledge gates as buildTypedKnowledge, while preserving
+  // reconstruction provenance. It does NOT feed production question
+  // builders and does NOT change buildTypedKnowledge, extractSourceFacts
+  // or any validator. Design notes, all deliberate:
+  // - One synthetic section per reconstructed unit, so every gate in
+  //   buildTypedKnowledge (sentence role, completeness, furniture, pipe,
+  //   parser drafts, typed classification) runs exactly as it does for
+  //   production sections. No gate is reimplemented here, so no drift.
+  // - The previous-subject chain resets per unit: reconstructed units
+  //   are not in production's page-ordered prose chain, and sharing a
+  //   chain across shadow units would invent cross-unit coreference.
+  // - Fact/unparsed IDs are remapped to stable TF-REC-/UU-REC- IDs
+  //   (unit order + within-unit order); the typed layer's own IDs are
+  //   kept in source.typed_layer_fact_id / typed_layer_unit_id.
+  // - Unresolved units and weak cross-page candidates are NEVER typed
+  //   input: they are reported in skipped_units, not facts.
+  // - Units the sentence segmenter reduces to zero units (e.g. shorter
+  //   than 6 alphanumeric characters) are reported in dropped_units.
+  // - Reconstruction success and fact-classification success are
+  //   separate outcomes: a unit that types to zero facts still counts
+  //   as reconstructed, and its unparsed record carries the reason.
+  function buildTypedKnowledgeFromReconstructedUnits(reconstructedUnits, options) {
+    const opts = options || {};
+    const sourceMeta = opts.sourceMeta || null;
+    const documentId = opts.documentId || 'unknown-document';
+    const list = Array.isArray(reconstructedUnits) ? reconstructedUnits : [];
+
+    const typedFacts = [];
+    const unparsedUnits = [];
+    const skippedUnits = [];
+    const droppedUnits = [];
+    const typedFactsByType = {};
+    const typedFactsByEvidenceSource = {};
+    const unparsedByReason = {};
+    let unitsWithFacts = 0;
+
+    list.forEach((unit, unitIndex) => {
+      const unitId = (unit && unit.unit_id) || ('RU-' + padNumber(unitIndex + 1, 3));
+      const unitType = (unit && unit.type) || 'unknown';
+      const pages = (unit && Array.isArray(unit.pages) && unit.pages.length)
+        ? unit.pages.slice() : [1];
+      const blockIds = (unit && Array.isArray(unit.block_ids)) ? unit.block_ids.slice() : [];
+      if (unitType === 'unresolved' || unitType === 'cross_page_continuation_candidate') {
+        skippedUnits.push({
+          reconstructed_unit_id: unitId, type: unitType,
+          reason: 'unresolved_unit_not_typed_input'
+        });
+        return;
+      }
+      if (!unit || !cleanText(unit.text)) {
+        skippedUnits.push({ reconstructed_unit_id: unitId, type: unitType, reason: 'empty_unit_text' });
+        return;
+      }
+      const evidenceSource = unitType === 'caption' ? 'caption'
+        : unitType === 'glossary_definition' ? 'glossary'
+        : unitType === 'cross_page_continuation' ? 'cross_page_merged'
+        : unitType === 'table' ? 'table'
+        : unitType === 'list' ? 'reconstructed_list'
+        : 'reconstructed_prose';
+      const section = {
+        id: unitId,
+        title: unit.section_title || unitType,
+        text: unit.text,
+        page: pages[0]
+      };
+      const result = buildTypedKnowledge([section], { sourceMeta: sourceMeta, documentId: documentId });
+      if (!result.accounting.units_total) {
+        droppedUnits.push({
+          reconstructed_unit_id: unitId, type: unitType,
+          reason: 'segmented_to_zero_units',
+          detail: 'sentence segmenter produced no units from this text'
+        });
+        return;
+      }
+      let factsForUnit = 0;
+      result.typed_facts.forEach((fact, factIndex) => {
+        factsForUnit++;
+        typedFactsByType[fact.fact_type] = (typedFactsByType[fact.fact_type] || 0) + 1;
+        typedFactsByEvidenceSource[evidenceSource] =
+          (typedFactsByEvidenceSource[evidenceSource] || 0) + 1;
+        const remapped = Object.assign({}, fact, {
+          fact_id: 'TF-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(factIndex + 1, 3),
+          source: Object.assign({}, fact.source, {
+            typed_layer_fact_id: fact.fact_id,
+            reconstructed_unit_id: unitId,
+            reconstructed_unit_type: unitType,
+            block_ids: blockIds,
+            page_range: pages,
+            evidence_source: evidenceSource,
+            section_id: unit.section_id || fact.source.section_id,
+            section_title: unit.section_title || fact.source.section_title
+          })
+        });
+        typedFacts.push(remapped);
+      });
+      result.unparsed_units.forEach((entry, entryIndex) => {
+        unparsedByReason[entry.reason] = (unparsedByReason[entry.reason] || 0) + 1;
+        const remapped = Object.assign({}, entry, {
+          unparsed_id: 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3),
+          source: Object.assign({}, entry.source, {
+            typed_layer_unit_id: entry.unparsed_id,
+            reconstructed_unit_id: unitId,
+            reconstructed_unit_type: unitType,
+            block_ids: blockIds,
+            page_range: pages,
+            evidence_source: evidenceSource,
+            section_id: unit.section_id || entry.source.section_id,
+            section_title: unit.section_title || entry.source.section_title
+          })
+        });
+        unparsedUnits.push(remapped);
+      });
+      if (factsForUnit > 0) unitsWithFacts++;
+    });
+
+    return {
+      version: TYPED_FACT_VERSION,
+      typed_facts: typedFacts,
+      unparsed_units: unparsedUnits,
+      skipped_units: skippedUnits,
+      dropped_units: droppedUnits,
+      accounting: {
+        units_input: list.length,
+        units_skipped: skippedUnits.length,
+        units_dropped: droppedUnits.length,
+        units_with_facts: unitsWithFacts,
+        typed_facts_total: typedFacts.length,
+        typed_facts_by_type: typedFactsByType,
+        typed_facts_by_evidence_source: typedFactsByEvidenceSource,
+        unparsed_units_total: unparsedUnits.length,
+        unparsed_units_by_reason: unparsedByReason
+      }
+    };
+  }
+
   function collectSentenceUnits(sections) {
     const units = [];
     let kuSeq = 0;
@@ -6581,6 +6717,7 @@
     parseFactRelations,
     parseAllFactRelations,
     buildTypedKnowledge,
+    buildTypedKnowledgeFromReconstructedUnits,
     classifyTypedDraft,
     isFurnitureContaminated,
     TYPED_FACT_VERSION,
