@@ -5,7 +5,7 @@
 - **Discipline / Subject:** History
 - **Target Standard:** NCERT Class 8 (Curriculum 8.2)
 - **Pages Processed:** 50 of 50 pages in textbook PDF
-- **Total Questions Generated:** 15 items (15 production items + 0 conceptual reasoning proof items)
+- **Total Questions Generated:** 14 items (14 production items + 0 conceptual reasoning proof items)
 - **Engine Version:** StudySynth Lite — Deterministic Reasoning Engine V2 (Repair 002)
 
 ---
@@ -14,9 +14,9 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | date_recall (1), entity_attribute (4), definition (3), cause_effect (1), multi_statement (1), statement_option (4), assertion_reason (1) |
+| **Production Questions** | 14 | date_recall (1), entity_attribute (2), definition (2), cause_effect (1), multi_statement (1), statement_option (6), assertion_reason (1) |
 | **Conceptual Reasoning V2** | 0 | None |
-| **Total** | **15** | Verified Evidence-Grounded Items |
+| **Total** | **14** | Verified Evidence-Grounded Items |
 
 ---
 
@@ -52,19 +52,19 @@ The source states: “The resolution demanding Purna Swaraj was passed in Decemb
 - **Answer Key:** **B**
 
 **Stem:**
-> What role is associated with rootedness in Indian thoughts and values?
+> Which of the following correctly describes Women?
 
 **Options:**
-- **A)** widely opposed *(Distractor Origin: `typed_entity_pool`)*
-- **B)** major focus **(CORRECT ANSWER)**
-- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
-- **D)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+- **B)** especially targeted, facing abductions and assaults **(CORRECT ANSWER)**
+- **C)** an integral part of India, which has evolved over ages *(Distractor Origin: `typed_entity_pool`)*
+- **D)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "rootedness in Indian thoughts and values was a major focus."
+> "Women were especially targeted, facing abductions and assaults."
 
 **Explanation:**
-The source states: “rootedness in Indian thoughts and values was a major focus.” This identifies the stated role of rootedness in Indian thoughts and values as major focus. Why the other options are wrong: “widely opposed” is a different entity of the same kind, not the one the source states for this subject. “sub-magistrate in a district of Bengal” is a different entity of the same kind, not the one the source states for this subject. “Bengali version of the Sanskrit ‘ Vande Mātaram ’” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “Women were especially targeted, facing abductions and assaults.” This identifies the stated role of Women as especially targeted, facing abductions and assaults. Why the other options are wrong: “Bengali version of the Sanskrit ‘ Vande Mātaram ’” is a different entity of the same kind, not the one the source states for this subject. “an integral part of India, which has evolved over ages” is a different entity of the same kind, not the one the source states for this subject. “sub-magistrate in a district of Bengal” is a different entity of the same kind, not the one the source states for this subject.
 
 ---
 
@@ -75,19 +75,19 @@ The source states: “rootedness in Indian thoughts and values was a major focus
 - **Answer Key:** **C**
 
 **Stem:**
-> Which of the following best describes INA?
+> How is HRA defined or described?
 
 **Options:**
-- **A)** a transition *(Distractor Origin: `typed_entity_pool`)*
-- **B)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
-- **C)** Indian National Army **(CORRECT ANSWER)**
-- **D)** intellectual, moral and physical training *(Distractor Origin: `typed_entity_pool`)*
+- **A)** intellectual, moral and physical training *(Distractor Origin: `typed_entity_pool`)*
+- **B)** a transition *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The Hindustan Republican Association **(CORRECT ANSWER)**
+- **D)** work for millions of impoverished villagers, and a direct challenge *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA) from Indian prisoners of war and volunteers, and declared the formation of the Azad Hind (‘free India’) government ."
+> "The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts."
 
 **Explanation:**
-The source defines or describes INA as follows: “to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA) from Indian prisoners of war and volunteers, and declared the formation of the Azad Hind (‘free India’) government .” The correct answer is Indian National Army. Why the other options are wrong: “a transition” is not the value the source states for this subject. “The Hindustan Republican Association” is a definition stated elsewhere in the source, not the definition of this subject. “intellectual, moral and physical training” is not the value the source states for this subject.
+The source defines or describes HRA as follows: “The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts.” The correct answer is The Hindustan Republican Association. Why the other options are wrong: “intellectual, moral and physical training” is not the value the source states for this subject. “a transition” is not the value the source states for this subject. “work for millions of impoverished villagers, and a direct challenge” is not the value the source states for this subject.
 
 ---
 
@@ -196,19 +196,19 @@ Assertion is correct: “Maniram Dewan and Piyali Baruah were publicly hanged by
 - **Answer Key:** **D**
 
 **Stem:**
-> What role is associated with the Cellular Jail in the Andaman Islands?
+> Which of the following correctly describes Sardar Patel?
 
 **Options:**
-- **A)** arrested and exiled to Burma, where he passed away in captivity, never to return home *(Distractor Origin: `typed_entity_pool`)*
-- **B)** faithful application of the colonial master’s ‘divide and rule’ policy — in this case *(Distractor Origin: `typed_entity_pool`)*
-- **C)** sharpened division between the two communities: most Muslim leaders ended up defending the partition *(Distractor Origin: `typed_entity_pool`)*
-- **D)** huge colonial prison used by the British to exile and isolate revolutionaries **(CORRECT ANSWER)**
+- **A)** especially targeted, facing abductions and assaults *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
+- **C)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
+- **D)** an integral part of India, which has evolved over ages **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
-> "The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland."
+> "Sardar Patel had always believed that states were an integral part of India, which has evolved over ages."
 
 **Explanation:**
-The source states: “The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland.” This identifies the stated role of The Cellular Jail in the Andaman Islands as huge colonial prison used by the British to exile and isolate revolutionaries. Why the other options are wrong: “arrested and exiled to Burma, where he passed away in captivity, never to return home” is a different entity of the same kind, not the one the source states for this subject. “faithful application of the colonial master’s ‘divide and rule’ policy — in this case” is a different entity of the same kind, not the one the source states for this subject. “sharpened division between the two communities: most Muslim leaders ended up defending the partition” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “Sardar Patel had always believed that states were an integral part of India, which has evolved over ages.” This identifies the stated role of Sardar Patel as an integral part of India, which has evolved over ages. Why the other options are wrong: “especially targeted, facing abductions and assaults” is a different entity of the same kind, not the one the source states for this subject. “Bengali version of the Sanskrit ‘ Vande Mātaram ’” is a different entity of the same kind, not the one the source states for this subject. “sub-magistrate in a district of Bengal” is a different entity of the same kind, not the one the source states for this subject.
 
 ---
 
@@ -219,19 +219,19 @@ The source states: “The Cellular Jail in the Andaman Islands was a huge coloni
 - **Answer Key:** **A**
 
 **Stem:**
-> What does HRA mean?
+> How is HSRA defined or described?
 
 **Options:**
-- **A)** The Hindustan Republican Association **(CORRECT ANSWER)**
-- **B)** intellectual, moral and physical training *(Distractor Origin: `typed_entity_pool`)*
-- **C)** Indian National Army *(Distractor Origin: `source_definition_pool`)*
-- **D)** a transition *(Distractor Origin: `typed_entity_pool`)*
+- **A)** HRA reorganised itself as the Hindustan Socialist Republican Association **(CORRECT ANSWER)**
+- **B)** work for millions of impoverished villagers, and a direct challenge *(Distractor Origin: `typed_entity_pool`)*
+- **C)** its action with the help of his brother, Barindra Kumar Ghose (also known as Barin Ghose) *(Distractor Origin: `typed_entity_pool`)*
+- **D)** intellectual, moral and physical training *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts."
+> "The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA)."
 
 **Explanation:**
-The source defines or describes HRA as follows: “The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts.” The correct answer is The Hindustan Republican Association. Why the other options are wrong: “intellectual, moral and physical training” is not the value the source states for this subject. “Indian National Army” is a definition stated elsewhere in the source, not the definition of this subject. “a transition” is not the value the source states for this subject.
+The source defines or describes HSRA as follows: “The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA).” The correct answer is HRA reorganised itself as the Hindustan Socialist Republican Association. Why the other options are wrong: “work for millions of impoverished villagers, and a direct challenge” is not the value the source states for this subject. “its action with the help of his brother, Barindra Kumar Ghose (also known as Barin Ghose)” is not the value the source states for this subject. “intellectual, moral and physical training” is not the value the source states for this subject.
 
 ---
 
@@ -242,12 +242,35 @@ The source defines or describes HRA as follows: “The Hindustan Republican Asso
 - **Answer Key:** **B**
 
 **Stem:**
+> Which of the following statements is correct about the Cellular Jail in the Andaman Islands?
+
+**Options:**
+- **A)** The Cellular Jail in the Andaman Islands was a faithful application of the colonial master’s ‘divide and rule’ policy — in this case, far from the mainland. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland. **(CORRECT ANSWER)**
+- **C)** The Cellular Jail in the Andaman Islands was a Bengali version of the Sanskrit ‘ Vande Mātaram ’, far from the mainland. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The Cellular Jail in the Andaman Islands was a widely opposed, far from the mainland. *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland."
+
+**Explanation:**
+The source states: “The Cellular Jail in the Andaman Islands was a huge colonial prison used by the British to exile and isolate revolutionaries, far from the mainland.” The correct statement preserves that value. The other options replace it with a value the source does not state for the Cellular Jail in the Andaman Islands.
+
+---
+
+### Question 11 [Q-P2-011]
+- **Subtype:** `statement_option`
+- **Difficulty:** `hard`
+- **Cognitive Category:** `analysis`
+- **Answer Key:** **C**
+
+**Stem:**
 > Which of the following statements is correct about the British government?
 
 **Options:**
 - **A)** The British government was Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
-- **B)** The British government was not blind to the growing popular discontent. **(CORRECT ANSWER)**
-- **C)** The British government was widely opposed. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The British government was widely opposed. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The British government was not blind to the growing popular discontent. **(CORRECT ANSWER)**
 - **D)** The British government was faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
@@ -258,49 +281,26 @@ The source states: “The British government was not blind to the growing popula
 
 ---
 
-### Question 11 [Q-P2-011]
-- **Subtype:** `entity_attribute`
-- **Difficulty:** `medium`
-- **Cognitive Category:** `recall`
-- **Answer Key:** **C**
+### Question 12 [Q-P2-012]
+- **Subtype:** `statement_option`
+- **Difficulty:** `hard`
+- **Cognitive Category:** `analysis`
+- **Answer Key:** **D**
 
 **Stem:**
-> Which of the following correctly describes the pact?
+> Which of the following statements is correct about the pact?
 
 **Options:**
-- **A)** arrested and exiled to Burma, where he passed away in captivity, never to return home *(Distractor Origin: `typed_entity_pool`)*
-- **B)** faithful application of the colonial master’s ‘divide and rule’ policy — in this case *(Distractor Origin: `typed_entity_pool`)*
-- **C)** criticised by younger Congress leaders as it did not guarantee Purna Swaraj **(CORRECT ANSWER)**
-- **D)** sharpened division between the two communities: most Muslim leaders ended up defending the partition *(Distractor Origin: `typed_entity_pool`)*
+- **A)** The pact was faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The pact was Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The pact was widely opposed. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj. **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj."
 
 **Explanation:**
-The source states: “The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj.” This identifies the stated role of The pact as criticised by younger Congress leaders as it did not guarantee Purna Swaraj. Why the other options are wrong: “arrested and exiled to Burma, where he passed away in captivity, never to return home” is a different entity of the same kind, not the one the source states for this subject. “faithful application of the colonial master’s ‘divide and rule’ policy — in this case” is a different entity of the same kind, not the one the source states for this subject. “sharpened division between the two communities: most Muslim leaders ended up defending the partition” is a different entity of the same kind, not the one the source states for this subject.
-
----
-
-### Question 12 [Q-P2-012]
-- **Subtype:** `definition`
-- **Difficulty:** `medium`
-- **Cognitive Category:** `understanding`
-- **Answer Key:** **D**
-
-**Stem:**
-> What does HSRA mean?
-
-**Options:**
-- **A)** its action with the help of his brother, Barindra Kumar Ghose (also known as Barin Ghose) *(Distractor Origin: `typed_entity_pool`)*
-- **B)** intellectual, moral and physical training *(Distractor Origin: `typed_entity_pool`)*
-- **C)** The Hindustan Republican Association *(Distractor Origin: `source_definition_pool`)*
-- **D)** HRA reorganised itself as the Hindustan Socialist Republican Association **(CORRECT ANSWER)**
-
-**Supporting Textbook Excerpt:**
-> "The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA)."
-
-**Explanation:**
-The source defines or describes HSRA as follows: “The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA).” The correct answer is HRA reorganised itself as the Hindustan Socialist Republican Association. Why the other options are wrong: “its action with the help of his brother, Barindra Kumar Ghose (also known as Barin Ghose)” is not the value the source states for this subject. “intellectual, moral and physical training” is not the value the source states for this subject. “The Hindustan Republican Association” is a definition stated elsewhere in the source, not the definition of this subject.
+The source states: “The pact was criticised by younger Congress leaders as it did not guarantee Purna Swaraj.” The correct statement preserves that value. The other options replace it with a value the source does not state for the pact.
 
 ---
 
@@ -311,59 +311,36 @@ The source defines or describes HSRA as follows: “The HRA reorganised itself a
 - **Answer Key:** **A**
 
 **Stem:**
-> Which of the following statements is correct about Women?
+> Which of the following statements is correct about a similar demand for Swaraj?
 
 **Options:**
-- **A)** Women were especially targeted, facing abductions and assaults. **(CORRECT ANSWER)**
-- **B)** Women were Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
-- **C)** Women were faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
-- **D)** Women were sharpened division between the two communities: most Muslim leaders ended up defending the partition. *(Distractor Origin: `typed_entity_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Women were especially targeted, facing abductions and assaults."
-
-**Explanation:**
-The source states: “Women were especially targeted, facing abductions and assaults.” The correct statement preserves that value. The other options replace it with a value the source does not state for Women.
-
----
-
-### Question 14 [Q-P2-014]
-- **Subtype:** `entity_attribute`
-- **Difficulty:** `medium`
-- **Cognitive Category:** `recall`
-- **Answer Key:** **B**
-
-**Stem:**
-> Which of the following correctly describes a similar demand for Swaraj?
-
-**Options:**
-- **A)** sub-magistrate in a district of Bengal *(Distractor Origin: `typed_entity_pool`)*
-- **B)** expressed by V.D. Savarkar in 1925 **(CORRECT ANSWER)**
-- **C)** Bengali version of the Sanskrit ‘ Vande Mātaram ’ *(Distractor Origin: `typed_entity_pool`)*
-- **D)** widely opposed *(Distractor Origin: `typed_entity_pool`)*
+- **A)** A similar demand for Swaraj was expressed by V.D. Savarkar in 1925. **(CORRECT ANSWER)**
+- **B)** A similar demand for Swaraj was Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** A similar demand for Swaraj was widely opposed. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** A similar demand for Swaraj was faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "A similar demand for Swaraj was expressed by V.D. Savarkar in 1925."
 
 **Explanation:**
-The source states: “A similar demand for Swaraj was expressed by V.D. Savarkar in 1925.” This identifies the stated role of A similar demand for Swaraj as expressed by V.D. Savarkar in 1925. Why the other options are wrong: “sub-magistrate in a district of Bengal” is a different entity of the same kind, not the one the source states for this subject. “Bengali version of the Sanskrit ‘ Vande Mātaram ’” is a different entity of the same kind, not the one the source states for this subject. “widely opposed” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “A similar demand for Swaraj was expressed by V.D. Savarkar in 1925.” The correct statement preserves that value. The other options replace it with a value the source does not state for a similar demand for Swaraj.
 
 ---
 
-### Question 15 [Q-P2-015]
+### Question 14 [Q-P2-014]
 - **Subtype:** `statement_option`
 - **Difficulty:** `hard`
 - **Cognitive Category:** `analysis`
-- **Answer Key:** **C**
+- **Answer Key:** **B**
 
 **Stem:**
 > Which of the following statements is correct about the move?
 
 **Options:**
-- **A)** The move was Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
-- **B)** The move was faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
-- **C)** The move was widely opposed. **(CORRECT ANSWER)**
-- **D)** The move was sharpened division between the two communities: most Muslim leaders ended up defending the partition. *(Distractor Origin: `typed_entity_pool`)*
+- **A)** The move was not part of the colonial calculations. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The move was widely opposed. **(CORRECT ANSWER)**
+- **C)** The move was Bengali version of the Sanskrit ‘ Vande Mātaram ’. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The move was faithful application of the colonial master’s ‘divide and rule’ policy — in this case. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "The move was widely opposed."

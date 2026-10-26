@@ -671,6 +671,30 @@
     if (DUMMY_SUBJECT_WORD.test(text)) {
       return { valid: false, code: 'DUMMY_PRONOUN', reason: 'Subject contains an internal dummy pronoun' };
     }
+    // Full-path repair, subjects (P0): a measurement fragment is not
+    // a subject. "km from east" is a leftover of a measurement phrase
+    // ("stretches 2,500 km from east to west"), not the thing a
+    // question is about; a bare measurement phrase ("long years") is
+    // not one either. The direction rule is deliberately narrow so a
+    // genuine subject such as "Years of struggle" still passes.
+    if (/^(?:km|kilometres?|kilometers?|metres?|meters?|cm|mm|kg|kilograms?|grams?|hectares?|sq\.?\s*km)\s+(?:from|to|east|west|north|south)\b/i.test(text)) {
+      return { valid: false, code: 'UNIT_FRAGMENT', reason: 'Subject is a measurement fragment, not a noun phrase' };
+    }
+    if (/^(?:about|over|around|approximately|nearly|almost|long)\s+(?:km|kilometres?|kilometers?|metres?|meters?|years?|days?|months?)\s*$/i.test(text)) {
+      return { valid: false, code: 'UNIT_FRAGMENT', reason: 'Subject is a bare measurement phrase, not a noun phrase' };
+    }
+    // Fronted-modifier backstop (see cleanFactSubject): if a
+    // participial/adverbial opening survived cleaning, the subject is
+    // still not usable.
+    {
+      const frontedCheck = text.match(/^([^,]{2,60}),\s+the\s+/i);
+      if (frontedCheck) {
+        const fw = frontedCheck[1].trim().split(/\s+/)[0].toLowerCase();
+        if (/ly$/.test(fw) || ['built', 'located', 'situated', 'founded', 'constructed', 'decorated', 'surrounded', 'established', 'designed', 'known', 'called', 'carved', 'painted', 'adorned', 'covered', 'dedicated', 'named'].includes(fw)) {
+          return { valid: false, code: 'FRONTED_MODIFIER', reason: 'Subject starts with a participial/adverbial phrase, not the noun it describes' };
+        }
+      }
+    }
     // Manual-read gates: a subject that is a discourse fragment
     // ("Few indeed in the whole world"), contains a question word
     // ("Exposure to what"), contains a finite verb ("Soon the
@@ -861,6 +885,19 @@
     }
     subject = subject.replace(/^for (?:instance|example)\s*,\s*/i, '').trim();
     subject = subject.replace(/\bfor (?:instance|example)\s*,\s*/i, '').trim();
+    // Full-path repair, subjects (P0): a fronted participial or
+    // adverbial phrase is not part of the subject. "Entirely
+    // decorated with marble, the Taj Mahal is ..." must give the
+    // subject "the Taj Mahal", not the sentence opening.
+    {
+      const fronted = subject.match(/^([^,]{2,60}),\s+(the\s+.+)$/i);
+      if (fronted) {
+        const firstWord = fronted[1].trim().split(/\s+/)[0].toLowerCase();
+        if (/ly$/.test(firstWord) || ['built', 'located', 'situated', 'founded', 'constructed', 'decorated', 'surrounded', 'established', 'designed', 'known', 'called', 'carved', 'painted', 'adorned', 'covered', 'dedicated', 'named'].includes(firstWord)) {
+          subject = fronted[2].trim();
+        }
+      }
+    }
     const split = subject.match(/^(.{2,80}?)\s+(?:is|are|was|were|has|have|had)\s+(.+)$/i);
     if (split && split[1].trim().split(/\s+/).length <= 8 && !/[,]/.test(split[1])) {
       subject = split[1].trim();
@@ -1176,6 +1213,23 @@
     }
     if (typeof text === 'string') {
       text = text.replace(/\bfor (?:instance|example)\s*,\s*/i, '');
+    }
+    // Full-path repair, negation (P0): a negated causal claim is not
+    // a positive causal fact. "A mediator has no power to make any
+    // decision" must never become "mediator makes X possible" — the
+    // negation IS the meaning, and cleanFactSubject's has-split would
+    // otherwise strip "has no power to" and invert the answer. Only
+    // negation BEFORE the causal verb counts: "X causes Y, not Z"
+    // still states a positive claim about Y, so negation after the
+    // verb does not block. "not only" is positive and is stripped
+    // before the test.
+    {
+      const verbPos = text.search(/\b(causes?|leads?\s+to|results?\s+in|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|determines?|drives?|encourages?|forces?|strengthens?|weakens?|accelerates?|slows?\s+down|allows?|makes?|is\s+responsible\s+for)\b/i);
+      const beforeVerb = verbPos >= 0 ? text.slice(0, verbPos) : text;
+      const negationBefore = beforeVerb.replace(/\bnot\s+only\b/gi, '');
+      if (/(?:\bnot\b|\bnever\b|n't\b|\bcannot\b|\bcan\s+not\b|\bno\s+(?:power|authority|right|ability)\b|\bunabl\w+\s+to\b)/i.test(negationBefore)) {
+        return null;
+      }
     }
     // Phase 8 fix (second round): a naming explanation is not a causal
     // mechanism. "Mountains are called water towers because they are at
@@ -2318,6 +2372,16 @@
       // Never create fallback facts from an excluded interrogative,
       // instruction or ambiguous unit.
       if (sentenceRole !== 'assertion') continue;
+      // Full-path repair, evidence (P1): a unit that starts lowercase
+      // is a continuation fragment ("to Indonesia, Japan, ..."), and
+      // a unit with no terminal punctuation was cut mid-sentence
+      // ("... gentle rolling"). Neither is a complete statement, so
+      // neither can support a question or its evidence.
+      {
+        const unitText = cleanText(unit.source_text);
+        if (/^[a-z]/.test(unitText)) continue;
+        if (!/[.!?"'\u201d)\]]$/.test(unitText)) continue;
+      }
       let drafts = parseFactRelations(unit.source_text, context);
       if (!drafts.length) {
         drafts = [{
@@ -2742,10 +2806,23 @@
     });
   }
 
+  function sameSectionObjectSet(ctx, fact) {
+    // Normalized objects of facts from the question's own section, for
+    // same-section-first distractor ordering in the typed pools.
+    const set = new Set();
+    if (!fact || !fact.section_id) return set;
+    for (const other of ctx.facts || []) {
+      if (other && other.section_id === fact.section_id && other.object) set.add(normalizeObject(other.object));
+    }
+    return set;
+  }
+
   function buildEntityDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
     const pool = entityPool(fact, ctx);
+    const sameSection = sameSectionObjectSet(ctx, fact);
+    pool.sort((a, b) => ((sameSection.has(normalizeObject(b)) ? 1 : 0) - (sameSection.has(normalizeObject(a)) ? 1 : 0)));
     for (const candidate of pool) {
       if (results.length >= 6) break;
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
@@ -2753,7 +2830,8 @@
         text: candidate,
         origin: fact.answer_kind === 'place' ? 'controlled_place_pool' : 'typed_entity_pool',
         confusion_type: fact.answer_kind === 'place' ? 'wrong_place' : 'wrong_entity',
-        distractor_purpose: fact.answer_kind === 'place' ? 'wrong_entity' : 'confusable_fact'
+        distractor_purpose: fact.answer_kind === 'place' ? 'wrong_entity' : 'confusable_fact',
+        same_section: sameSection.has(normalizeObject(candidate))
       });
     }
     return results;
@@ -2762,7 +2840,9 @@
   function buildDefinitionDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
-    for (const candidate of ctx.index.definitions) {
+    const sameSectionDefs = sameSectionObjectSet(ctx, fact);
+    const orderedDefinitions = ctx.index.definitions.slice().sort((a, b) => ((sameSectionDefs.has(normalizeObject(b)) ? 1 : 0) - (sameSectionDefs.has(normalizeObject(a)) ? 1 : 0)));
+    for (const candidate of orderedDefinitions) {
       if (results.length >= 6) break;
       if (isFragmentPhrase(candidate)) continue;
       if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
@@ -2839,7 +2919,9 @@
   function buildCauseDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
-    for (const candidate of ctx.index.effects) {
+    const sameSectionEffects = sameSectionObjectSet(ctx, fact);
+    const orderedEffects = ctx.index.effects.slice().sort((a, b) => ((sameSectionEffects.has(normalizeObject(b)) ? 1 : 0) - (sameSectionEffects.has(normalizeObject(a)) ? 1 : 0)));
+    for (const candidate of orderedEffects) {
       if (results.length >= 6) break;
       if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
       // Phase 8 fix (fourth round): causal effects used as distractors
@@ -2950,6 +3032,12 @@
       const pool = [];
       for (const other of ctx.facts || []) {
         if (!other || other.fact_id === fact.fact_id) continue;
+        // Full-path repair, distractors (P0): a distractor from the
+        // same section is a real test of knowledge; one from another
+        // part of the chapter is eliminable by topic alone
+        // ("called a map projection" for Yellowstone). Section is
+        // therefore the first sort key, before type and overlap.
+        var sameSection = !!(fact.section_id && other.section_id && fact.section_id === other.section_id);
         if (other.fact_type === 'numeric' || other.fact_type === 'date') continue;
         const otherWords = new Set(String(other.subject || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4));
         let overlap = 0;
@@ -2968,7 +3056,7 @@
           if (isEquivalentOption(cand, expected)) continue;
           if (isValueSupported(ctx.facts, fact.subject, fact.relation, cand, fact.temporal_scope)) continue;
           if (cand.length < expectedLen / 8 || cand.length > expectedLen * 8) continue;
-          if (!pool.some((item) => isEquivalentOption(item.text, cand))) pool.push({ text: cand, overlap, sameType: other.fact_type === fact.fact_type });
+          if (!pool.some((item) => isEquivalentOption(item.text, cand))) pool.push({ text: cand, overlap, sameType: other.fact_type === fact.fact_type, sameSection });
         }
       }
       // Same-type distractors first: in a large source they are
@@ -2976,7 +3064,7 @@
       // only supplies cross-type options when no same-type option
       // exists (small sources, where dropping the question would
       // leave nothing at all).
-      pool.sort((a, b) => ((b.sameType ? 1 : 0) - (a.sameType ? 1 : 0)) || (b.overlap - a.overlap) || (Math.abs(a.text.length - expectedLen) - Math.abs(b.text.length - expectedLen)));
+      pool.sort((a, b) => ((b.sameSection ? 1 : 0) - (a.sameSection ? 1 : 0)) || ((b.sameType ? 1 : 0) - (a.sameType ? 1 : 0)) || (b.overlap - a.overlap) || (Math.abs(a.text.length - expectedLen) - Math.abs(b.text.length - expectedLen)));
       for (const item of pool) {
         if (results.length >= 6) break;
         if (results.some((r) => isEquivalentOption(r.text, item.text))) continue;
@@ -2984,7 +3072,8 @@
           text: item.text,
           origin: 'source_object_pool',
           confusion_type: 'partial_truth',
-          distractor_purpose: 'confusable_fact'
+          distractor_purpose: 'confusable_fact',
+          same_section: item.sameSection
         });
       }
     }
@@ -3326,6 +3415,15 @@
     usable.sort((a, b) => Math.abs(cleanText(a.text).length - cleanText(expected).length) - Math.abs(cleanText(b.text).length - cleanText(expected).length));
     usable.length = 3;
 
+    // Entity gate: a direct entity question ships only if at least
+    // one of its three options comes from the question's own
+    // section. A question whose every option is chapter-wide
+    // (Yellowstone with "called a map projection") is answerable by
+    // topic alone, so it is dropped, not published. Statement
+    // options are exempt: their options are mutations of the
+    // question's own sentence, on-topic by construction.
+    if (subtype === 'entity_attribute' && !usable.some((d) => d.same_section)) return null;
+
     const options = [{ key: 'A', text: expected, is_correct: true }];
     usable.forEach((distractor, index) => {
       options.push({
@@ -3431,6 +3529,11 @@
     if (distractors.length < 3) return null;
     const expected = fact.object;
     if (isFragmentPhrase(expected)) return null;
+    // Full-path repair, truncation (P1): a definition answer cut
+    // before its head noun ("low-lying terrain, gentle rolling") is
+    // not an answer. A trailing participle phrase after a comma is
+    // the signature of that cut.
+    if (/,\s*[^,]*\b\w+ing\s*$/.test(cleanText(expected))) return null;
     const subject = inlineSubject(fact.subject);
     // Rotate stem phrasing deterministically based on fact ID hash.
     const stemVariants = [
@@ -4921,6 +5024,43 @@
     }
     if (excerptText && /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(excerptText)) {
       add('fragment_excerpt', 'Supporting excerpt ends with a dangling word and is not a complete statement.');
+    }
+    // Full-path repair, evidence completeness (P1 backstop): an
+    // excerpt that starts mid-sentence or ends without terminal
+    // punctuation is a truncated fragment, not evidence. Table
+    // questions are exempt: their excerpt is pipe-delimited table
+    // text, not a sentence, by design.
+    if (excerptText && question.question_subtype !== 'table_question' && /^[a-z]/.test(excerptText)) {
+      add('fragment_excerpt', 'Supporting excerpt starts mid-sentence and is not a complete statement.');
+    }
+    if (excerptText && question.question_subtype !== 'table_question' && !/[.!?"'\u201d)\]]$/.test(excerptText)) {
+      add('fragment_excerpt', 'Supporting excerpt ends mid-sentence and is not a complete statement.');
+    }
+    // Full-path repair, negation (P0 backstop): an answer that appears
+    // in the excerpt only under a negation contradicts its own
+    // evidence ("A mediator has no power to make any decision"
+    // cannot support "any decision" as what a mediator makes
+    // possible). Statement, multi, Assertion-Reason and matching
+    // forms are exempt: their answer IS the sentence or a code, not
+    // a value lifted from inside it. A contrast pivot ("but",
+    // "rather", "instead", ", it is") between the negation and the
+    // answer exempts it too: "The capital is not Mumbai, it is
+    // Delhi" genuinely supports Delhi.
+    if (excerptText && correctOptions.length === 1 && !['statement_option', 'multi_statement', 'multi_statement_3', 'assertion_reason', 'matching', 'table_question'].includes(question.question_subtype)) {
+      const negMatch = excerptText.match(/\b(not|never|no|n't|cannot|can\s+not|unabl\w+\s+to)\b/i);
+      const correctText = cleanText(correctOptions[0].text);
+      if (negMatch && correctText) {
+        const lowerExcerpt = excerptText.toLowerCase();
+        const negPos = lowerExcerpt.indexOf(negMatch[0].toLowerCase());
+        const ansPos = lowerExcerpt.indexOf(correctText.toLowerCase());
+        if (ansPos > negPos && ansPos - negPos <= 80) {
+          const span = lowerExcerpt.slice(negPos, ansPos);
+          const hasPivot = /\b(but|rather|instead|however)\b/.test(span) || /,\s*(it|this|that)\s+(is|are|was|were)\b/.test(span) || /[.!?]/.test(span);
+          if (!hasPivot) {
+            add('answer_contradicts_excerpt', 'The correct answer appears in the excerpt under a negation and contradicts its evidence.', { excerpt: excerptText, answer: correctText });
+          }
+        }
+      }
     }
     if (question.question_subtype === 'numeric_recall' && correctOptions.length === 1 && !isCleanQuantity(correctOptions[0].text)) {
       add('numeric_answer', 'A numeric answer must be a clean quantity, not a merged phrase.', { text: correctOptions[0].text });

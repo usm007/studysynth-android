@@ -142,6 +142,81 @@ console.log('\n[Suite 2] Composable Reasoning Operators...');
   console.log('  ✓ Operator B (Causal Explanation) executed with proof trace.');
 }
 
+// 2.2b Operator B: contribution is preserved, not collapsed into causation
+{
+  const contribProp = Representation.createProposition({
+    id: 'PROP-CAUSAL-2',
+    subject: 'Mining, hydropower generation, tourism and agriculture',
+    predicate: 'contributes to',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'the GDP',
+    supporting_excerpt: 'Mining, hydropower generation, tourism and agriculture contribute to the GDP.'
+  });
+  const resC = Operators.executeOperatorB(contribProp);
+  assert(resC.success, 'Operator B must accept a contributory premise');
+  assert.strictEqual(resC.derived.predicate, 'is contributed to by', 'Contribution must keep its own predicate, got: ' + resC.derived.predicate);
+  assert.strictEqual(resC.derived.subject, 'the GDP');
+  assert.strictEqual(resC.derived.object, 'Mining, hydropower generation, tourism and agriculture');
+  assert(resC.proof_trace.steps[0].includes('contributes to'), 'Proof step must use the source verb, got: ' + resC.proof_trace.steps[0]);
+  const contribGraph = GraphModule.buildGraphFromPropositions([contribProp, resC.derived]);
+  const contribCandidate = EngineV2.Constructors.constructQuestionCandidate(resC, contribGraph, {});
+  assert(contribCandidate, 'A contributes-to candidate must be constructed');
+  assert.strictEqual(contribCandidate.stem, 'What contributes to the GDP?', 'Stem must ask with the source verb, got: ' + contribCandidate.stem);
+  assert(contribCandidate.explanation.includes('is contributed to by'), 'Explanation must keep the contributory relation, got: ' + contribCandidate.explanation);
+  // Base verb form ("contribute to" for a plural subject) must map
+  // the same way as the singular form, or the item is lost.
+  const contribPlural = Representation.createProposition({
+    id: 'PROP-CAUSAL-2b',
+    subject: 'Mining, hydropower generation, tourism and agriculture',
+    predicate: 'contribute to',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'the GDP',
+    supporting_excerpt: 'Mining, hydropower generation, tourism and agriculture contribute to the GDP.'
+  });
+  const resC2 = Operators.executeOperatorB(contribPlural);
+  assert(resC2.success, 'Operator B must accept the base verb form "contribute to"');
+  assert.strictEqual(resC2.derived.predicate, 'is contributed to by');
+  const gdpGraph = GraphModule.buildGraphFromPropositions([contribPlural, resC2.derived]);
+  const gdpCandidate = EngineV2.Constructors.constructQuestionCandidate(resC2, gdpGraph, {});
+  assert(gdpCandidate, 'A GDP contributes-to candidate must be constructed');
+  assert.strictEqual(gdpCandidate.stem, 'What contributes to the GDP?', 'GDP stem must use the source verb, got: ' + gdpCandidate.stem);
+  // "makes" comparatives keep the causal predicate so the "What
+  // makes ...?" branch still fires.
+  const makesProp = Representation.createProposition({
+    id: 'PROP-CAUSAL-2c',
+    subject: 'Digital technology',
+    predicate: 'makes',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'the judicial system more accessible and transparent',
+    supporting_excerpt: 'Digital technology makes the judicial system more accessible and transparent.'
+  });
+  const resM = Operators.executeOperatorB(makesProp);
+  assert(resM.success, 'Operator B must accept a "makes" comparative premise');
+  assert.strictEqual(resM.derived.predicate, 'is caused by mechanism');
+  console.log('  ✓ Operator B preserves contribution instead of claiming causation.');
+
+// 2.2c V2 distractors speak the derived relation's own verb
+{
+  const contribDistractors = EngineV2.Distractors.generateMisconceptionDistractors(
+    { subject: 'the GDP', object: 'Mining, hydropower generation, tourism and agriculture', predicate: 'is contributed to by', relation_type: 'CAUSES' },
+    'Mining, hydropower generation, tourism and agriculture',
+    'OP_B_CAUSAL_EXPLANATION',
+    null
+  );
+  assert.strictEqual(contribDistractors.length, 3, 'A contributes-to item must still get 3 distractors');
+  assert.ok(contribDistractors.some((d) => /is contributed to by/i.test(d.text)), 'A contributes-to distractor must not say "caused by": ' + JSON.stringify(contribDistractors.map((d) => d.text)));
+  assert.ok(!contribDistractors.some((d) => /is caused by/i.test(d.text)), 'No contributes-to distractor may use causal wording');
+  const causalDistractors = EngineV2.Distractors.generateMisconceptionDistractors(
+    { subject: 'Sea level rise', object: 'Global warming', predicate: 'is caused by mechanism', relation_type: 'CAUSES' },
+    'Global warming',
+    'OP_B_CAUSAL_EXPLANATION',
+    null
+  );
+  assert.ok(causalDistractors.some((d) => /is caused by/i.test(d.text)), 'A causal item keeps its causal distractor wording');
+  console.log('  ✓ V2 distractors match the derived relation verb.');
+}
+}
+
 // 2.3 Operator C: Forward Causal-Chain Reasoning
 {
   const prop1 = Representation.createProposition({
@@ -167,6 +242,89 @@ console.log('\n[Suite 2] Composable Reasoning Operators...');
   assert.strictEqual(resC.derived.object, 'Sea level rise');
   assert.strictEqual(resC.proof_trace.premises.length, 2);
   console.log('  ✓ Operator C (Forward Causal Chain) traversed intermediate concept.');
+
+// 2.3b Operator C: a chain must not upgrade a contribution into a cause
+{
+  const chain1 = Representation.createProposition({
+    id: 'PROP-CHAIN-C1',
+    subject: 'Mining, hydropower generation, tourism and agriculture',
+    predicate: 'contributes to',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'the GDP',
+    supporting_excerpt: 'Mining, hydropower generation, tourism and agriculture contribute to the GDP.'
+  });
+  const chain2 = Representation.createProposition({
+    id: 'PROP-CHAIN-C2',
+    subject: 'the GDP',
+    predicate: 'causes',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'Economic growth',
+    supporting_excerpt: 'The GDP causes economic growth.'
+  });
+  const resContrib = Operators.executeOperatorC(chain1, chain2);
+  assert(resContrib.success, 'Operator C must accept a contributory first link');
+  assert.strictEqual(resContrib.derived.predicate, 'indirectly contributes to via the GDP', 'A contributory link must stay contributory, got: ' + resContrib.derived.predicate);
+
+  const infl1 = Representation.createProposition({
+    id: 'PROP-CHAIN-I1',
+    subject: 'Greenhouse gas emissions',
+    predicate: 'causes',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'Global warming',
+    supporting_excerpt: 'Greenhouse gas emissions cause global warming.'
+  });
+  const infl2 = Representation.createProposition({
+    id: 'PROP-CHAIN-I2',
+    subject: 'Global warming',
+    predicate: 'influences',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'Sea level rise',
+    supporting_excerpt: 'Global warming influences sea level rise.'
+  });
+  const resInfl = Operators.executeOperatorC(infl1, infl2);
+  assert(resInfl.success, 'Operator C must accept a contributory second link');
+  assert.strictEqual(resInfl.derived.predicate, 'indirectly influences via Global warming', 'A contributory second link must stay contributory, got: ' + resInfl.derived.predicate);
+
+  const causal1 = Representation.createProposition({
+    id: 'PROP-CHAIN-K1',
+    subject: 'Greenhouse gas emissions',
+    predicate: 'leads to',
+    relation_type: RELATION_TYPES.LEADS_TO,
+    object: 'Global warming',
+    supporting_excerpt: 'Greenhouse gas emissions lead to global warming.'
+  });
+  const causal2 = Representation.createProposition({
+    id: 'PROP-CHAIN-K2',
+    subject: 'Global warming',
+    predicate: 'causes',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'Sea level rise',
+    supporting_excerpt: 'Global warming causes sea level rise.'
+  });
+  const resCausal = Operators.executeOperatorC(causal1, causal2);
+  assert(resCausal.success, 'Operator C must accept two strict-causal links');
+  assert.strictEqual(resCausal.derived.predicate, 'indirectly causes via Global warming', 'Two causal links keep the causal chain, got: ' + resCausal.derived.predicate);
+
+  const unk1 = Representation.createProposition({
+    id: 'PROP-CHAIN-U1',
+    subject: 'A',
+    predicate: 'correlates with',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'B',
+    supporting_excerpt: 'A correlates with B.'
+  });
+  const unk2 = Representation.createProposition({
+    id: 'PROP-CHAIN-U2',
+    subject: 'B',
+    predicate: 'causes',
+    relation_type: RELATION_TYPES.CAUSES,
+    object: 'C',
+    supporting_excerpt: 'B causes C.'
+  });
+  const resUnk = Operators.executeOperatorC(unk1, unk2);
+  assert.strictEqual(resUnk.success, false, 'An unknown chain verb must be rejected, not guessed into "causes"');
+  console.log('  ✓ Operator C preserves contributory verbs and rejects unknown verbs.');
+}
 }
 
 // 2.4 Operator D: Conditional Reasoning

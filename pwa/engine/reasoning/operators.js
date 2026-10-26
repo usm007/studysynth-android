@@ -115,6 +115,59 @@
   }
 
   // ==========================================
+  // Verb tables shared by OP_B and OP_C: strict causatives keep
+  // the causal predicate; contributory/influence verbs keep their
+  // own converse predicate. Moved to module scope so a causal
+  // chain cannot upgrade a contribution into a cause.
+  const STRICT_CAUSAL = /^(causes?|leads?\s+to|results?\s+in|produces?|triggers?|brings?\s+about|generates?|forces?|is\s+responsible\s+for|because|due\s+to|is\s+caused\s+by\s+mechanism)$/;
+  // Both verb forms occur: Pattern 1 captures the sentence's own
+  // form ("contribute to" for a plural subject, "contributes to"
+  // for a singular one), so each verb is listed in both forms.
+  const CONVERSE_VERB = {
+    'contribute to': ['is contributed to by', 'contributes to'],
+    'contributes to': ['is contributed to by', 'contributes to'],
+    'influences': ['is influenced by', 'influences'],
+    'influence': ['is influenced by', 'influences'],
+    'affects': ['is affected by', 'affects'],
+    'affect': ['is affected by', 'affects'],
+    'promotes': ['is promoted by', 'promotes'],
+    'promote': ['is promoted by', 'promotes'],
+    'encourages': ['is encouraged by', 'encourages'],
+    'encourage': ['is encouraged by', 'encourages'],
+    'supports': ['is supported by', 'supports'],
+    'support': ['is supported by', 'supports'],
+    'helps': ['is helped by', 'helps'],
+    'help': ['is helped by', 'helps'],
+    'stimulates': ['is stimulated by', 'stimulates'],
+    'stimulate': ['is stimulated by', 'stimulates'],
+    'increases': ['is increased by', 'increases'],
+    'increase': ['is increased by', 'increases'],
+    'decreases': ['is decreased by', 'decreases'],
+    'decrease': ['is decreased by', 'decreases'],
+    'prevents': ['is prevented by', 'prevents'],
+    'prevent': ['is prevented by', 'prevents'],
+    'inhibits': ['is inhibited by', 'inhibits'],
+    'inhibit': ['is inhibited by', 'inhibits'],
+    'reduces': ['is reduced by', 'reduces'],
+    'reduce': ['is reduced by', 'reduces'],
+    'strengthens': ['is strengthened by', 'strengthens'],
+    'strengthen': ['is strengthened by', 'strengthens'],
+    'weakens': ['is weakened by', 'weakens'],
+    'weaken': ['is weakened by', 'weakens'],
+    'drives': ['is driven by', 'drives'],
+    'drive': ['is driven by', 'drives'],
+    'accelerates': ['is accelerated by', 'accelerates'],
+    'accelerate': ['is accelerated by', 'accelerates'],
+    'slows down': ['is slowed down by', 'slows down'],
+    'slow down': ['is slowed down by', 'slows down'],
+    'enables': ['is enabled by', 'enables'],
+    'enable': ['is enabled by', 'enables'],
+    'allows': ['is allowed by', 'allows'],
+    'allow': ['is allowed by', 'allows'],
+    'determines': ['is determined by', 'determines'],
+    'determine': ['is determined by', 'determines'],
+  };
+
   // OPERATOR B — Causal Explanation
   // ==========================================
   function executeOperatorB(causalProp) {
@@ -200,9 +253,36 @@
       }
     }
 
+    // Full-path repair, relation preservation (P0): the derived
+    // proposition must keep the source relationship, not collapse it
+    // into causation. "Mining ... contribute to the GDP" is a
+    // contribution, not a cause: rendering it as "What causes the
+    // GDP?" overstates the source. Strict causal verbs keep the
+    // causal predicate; contributory and influence verbs keep their
+    // own converse predicate ("is contributed to by"), which the
+    // constructor renders as "What contributes to ...?". A verb
+    // outside both lists is rejected, never guessed into "causes".
+    const sourceVerb = String(causalProp.predicate || '').toLowerCase().trim();
+    let derivedPredicate;
+    let activeVerb;
+    // "makes" comparatives ("makes the judicial system more
+    // accessible") are genuine causatives rendered by the
+    // constructor's "What makes ...?" branch; they keep the causal
+    // predicate so that branch still fires.
+    if (sourceVerb === 'makes' || sourceVerb === 'make') {
+      derivedPredicate = 'is caused by mechanism';
+      activeVerb = 'makes';
+    } else if (STRICT_CAUSAL.test(sourceVerb)) {
+      derivedPredicate = 'is caused by mechanism';
+      activeVerb = 'causes';
+    } else if (CONVERSE_VERB[sourceVerb]) {
+      [derivedPredicate, activeVerb] = CONVERSE_VERB[sourceVerb];
+    } else {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal premise verb is not a known strict-causal or contributory verb, so no causal question is formed');
+    }
     const derived = Representation.createProposition({
       subject: causalProp.object, // Effect
-      predicate: 'is caused by mechanism',
+      predicate: derivedPredicate,
       relation_type: RELATION_TYPES.CAUSES,
       object: causalProp.subject, // Cause
       source_page: causalProp.source_page,
@@ -216,7 +296,7 @@
       operator: REASONING_OPERATORS.OP_B_CAUSAL_EXPLANATION,
       premises: [causalProp.id],
       steps: [
-        `Extracted source causal mechanism: ${causalProp.subject} causes ${causalProp.object}`,
+        `Extracted source causal mechanism: ${causalProp.subject} ${activeVerb} ${causalProp.object}`,
         `Derived mechanistic explanation for ${causalProp.object}`
       ]
     };
@@ -245,9 +325,34 @@
       return rejection(REJECTION_CODES.CYCLIC_DEPENDENCY, 'Causal chain contains a cycle (A causes A)');
     }
 
+    // Relation preservation (same rule as OP_B): a chain must not
+    // upgrade a contribution or influence into causation. Both links
+    // strict-causal keep "indirectly causes via ..."; if either link
+    // is contributory, the derived link carries that weaker verb (the
+    // second link governs the effect, else the first); an unknown verb
+    // rejects the chain rather than guessing "causes".
+    const verbOf = (v) => {
+      if (v === 'makes' || v === 'make') return { causal: true, active: 'causes' };
+      if (STRICT_CAUSAL.test(v)) return { causal: true, active: 'causes' };
+      if (CONVERSE_VERB[v]) return { causal: false, active: CONVERSE_VERB[v][1] };
+      return null;
+    };
+    const verb1 = String(prop1.predicate || '').toLowerCase().trim();
+    const verb2 = String(prop2.predicate || '').toLowerCase().trim();
+    const link1 = verbOf(verb1);
+    const link2 = verbOf(verb2);
+    if (!link1 || !link2) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Chain premise verb is not a known strict-causal or contributory verb, so no causal chain is formed');
+    }
+    const derivedActive = (link1.causal && link2.causal)
+      ? 'causes'
+      : (!link2.causal ? link2.active : link1.active);
+    const derivedPredicate = (link1.causal && link2.causal)
+      ? 'indirectly causes via ' + prop1.object
+      : 'indirectly ' + derivedActive + ' via ' + prop1.object;
     const derived = Representation.createProposition({
       subject: prop1.subject,
-      predicate: 'indirectly causes via ' + prop1.object,
+      predicate: derivedPredicate,
       relation_type: RELATION_TYPES.LEADS_TO,
       object: prop2.object,
       source_page: prop1.source_page,
@@ -261,9 +366,9 @@
       operator: REASONING_OPERATORS.OP_C_CAUSAL_CHAIN,
       premises: [prop1.id, prop2.id],
       steps: [
-        `Step 1: ${prop1.subject} leads to ${prop1.object}`,
-        `Step 2: ${prop2.subject} leads to ${prop2.object}`,
-        `Synthesis: Traversed intermediate mediator '${prop1.object}' to deduce that ${prop1.subject} leads to ${prop2.object}`
+        `Step 1: ${prop1.subject} ${verb1} ${prop1.object}`,
+        `Step 2: ${prop2.subject} ${verb2} ${prop2.object}`,
+        `Synthesis: Traversed intermediate mediator '${prop1.object}' to deduce that ${prop1.subject} indirectly ${derivedActive} ${prop2.object}`
       ]
     };
 

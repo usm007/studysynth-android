@@ -14,7 +14,7 @@
 
 | Category | Count | Question Types / Subtypes |
 | :--- | :--- | :--- |
-| **Production Questions** | 15 | exception_reasoning (1), entity_attribute (3), definition (2), classification_membership (2), cause_effect (2), multi_statement (1), statement_option (2), assertion_reason (2) |
+| **Production Questions** | 15 | exception_reasoning (1), entity_attribute (4), definition (2), classification_membership (1), cause_effect (2), multi_statement (1), statement_option (3), assertion_reason (1) |
 | **Conceptual Reasoning V2** | 2 | causal_reasoning (2) |
 | **Total** | **17** | Verified Evidence-Grounded Items |
 
@@ -52,19 +52,19 @@ The source states: “This included access to water fountains, public pools, and
 - **Answer Key:** **B**
 
 **Stem:**
-> Which of the following correctly describes the Chief Justice of the Supreme Court?
+> What role is associated with the Indian Judicial system?
 
 **Options:**
-- **A)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
-- **B)** designated as the Chief Justice of India **(CORRECT ANSWER)**
-- **C)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
-- **D)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
+- **A)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
+- **B)** unified system **(CORRECT ANSWER)**
+- **C)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
+- **D)** the final interpreter of the Constitution of India *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The Chief Justice of the Supreme Court is designated as the Chief Justice of India."
+> "The Indian Judicial system is a unified system, comprising of a hierarchy of courts with the Supreme Court of India at the apex level, the High Courts at the State level and Subordinate Courts at the District level."
 
 **Explanation:**
-The source states: “The Chief Justice of the Supreme Court is designated as the Chief Justice of India.” This identifies the stated role of The Chief Justice of the Supreme Court as designated as the Chief Justice of India. Why the other options are wrong: “officially repealed in the 1960s” is a different entity of the same kind, not the one the source states for this subject. “threat to justice everywhere” is a different entity of the same kind, not the one the source states for this subject. “essential for maintaining peace and harmony in any society” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “The Indian Judicial system is a unified system, comprising of a hierarchy of courts with the Supreme Court of India at the apex level, the High Courts at the State level and Subordinate Courts at the District level.” This identifies the stated role of The Indian Judicial system as unified system. Why the other options are wrong: “threat to justice everywhere” is a different entity of the same kind, not the one the source states for this subject. “officially repealed in the 1960s” is a different entity of the same kind, not the one the source states for this subject. “the final interpreter of the Constitution of India” is a different entity of the same kind, not the one the source states for this subject.
 
 ---
 
@@ -98,19 +98,19 @@ The source defines or describes PIL as follows: “Public Interest Litigation (P
 - **Answer Key:** **D**
 
 **Stem:**
-> Which one is mentioned as belonging to the High Court?
+> Which of the following is included in the High Court?
 
 **Options:**
 - **A)** public pools *(Distractor Origin: `controlled_category_pool`)*
 - **B)** even restaurants *(Distractor Origin: `controlled_category_pool`)*
 - **C)** Equality *(Distractor Origin: `controlled_category_pool`)*
-- **D)** other Judges **(CORRECT ANSWER)**
+- **D)** Chief Justice **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
 > "The High Court consists of a Chief Justice and other Judges."
 
 **Explanation:**
-The source states: “The High Court consists of a Chief Justice and other Judges.” This lists other Judges as a member of The High Court. Why the other options are wrong: “public pools” is not a member of this list. “even restaurants” is not a member of this list. “Equality” is not a member of this list.
+The source states: “The High Court consists of a Chief Justice and other Judges.” This lists Chief Justice as a member of The High Court. Why the other options are wrong: “public pools” is not a member of this list. “even restaurants” is not a member of this list. “Equality” is not a member of this list.
 
 ---
 
@@ -126,14 +126,14 @@ The source states: “The High Court consists of a Chief Justice and other Judge
 **Options:**
 - **A)** the judicial system more user-friendly **(CORRECT ANSWER)**
 - **B)** a society through laws and the power *(Distractor Origin: `controlled_effect_pool`)*
-- **C)** any decision, or impose a view on the parties *(Distractor Origin: `source_causal_pool`)*
-- **D)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
+- **C)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
+- **D)** the judicial system more accessible and transparent *(Distractor Origin: `source_causal_pool`)*
 
 **Supporting Textbook Excerpt:**
 > "Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly."
 
 **Explanation:**
-The source explicitly describes the relationship as: “Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly.” The answer preserves the stated direction of that relationship. Why the other options are wrong: “a society through laws and the power” is an effect stated elsewhere in the source, not the effect of this cause. “any decision, or impose a view on the parties” is an effect stated elsewhere in the source, not the effect of this cause. “that there shall be a High Court in each State” is an effect stated elsewhere in the source, not the effect of this cause.
+The source explicitly describes the relationship as: “Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly.” The answer preserves the stated direction of that relationship. Why the other options are wrong: “a society through laws and the power” is an effect stated elsewhere in the source, not the effect of this cause. “that there shall be a High Court in each State” is an effect stated elsewhere in the source, not the effect of this cause. “the judicial system more accessible and transparent” is an effect stated elsewhere in the source, not the effect of this cause.
 
 ---
 
@@ -173,19 +173,19 @@ Statement 1 is correct. The source states: “Injustice anywhere is a threat to 
 - **Answer Key:** **C**
 
 **Stem:**
-> Which of the following statements is correct about the current strength of the Supreme Court?
+> Which of the following statements is correct about the Chief Justice of the Supreme Court?
 
 **Options:**
-- **A)** The current strength of the Supreme Court is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
-- **B)** The current strength of the Supreme Court is resolved through dialogue, mediation, or adjudication by courts of law. *(Distractor Origin: `typed_entity_pool`)*
-- **C)** The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges. **(CORRECT ANSWER)**
-- **D)** The current strength of the Supreme Court is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **A)** The Chief Justice of the Supreme Court is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The Chief Justice of the Supreme Court is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The Chief Justice of the Supreme Court is designated as the Chief Justice of India. **(CORRECT ANSWER)**
+- **D)** The Chief Justice of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges. *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges."
+> "The Chief Justice of the Supreme Court is designated as the Chief Justice of India."
 
 **Explanation:**
-The source states: “The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.” The correct statement preserves that value. The other options replace it with a value the source does not state for the current strength of the Supreme Court.
+The source states: “The Chief Justice of the Supreme Court is designated as the Chief Justice of India.” The correct statement preserves that value. The other options replace it with a value the source does not state for the Chief Justice of the Supreme Court.
 
 ---
 
@@ -219,19 +219,19 @@ Assertion is correct: “An independent judiciary is essential to ensure that di
 - **Answer Key:** **A**
 
 **Stem:**
-> What role is associated with the Indian Judicial system?
+> Which is described as the highest court at the State level?
 
 **Options:**
-- **A)** unified system **(CORRECT ANSWER)**
-- **B)** threat to justice everywhere *(Distractor Origin: `typed_entity_pool`)*
-- **C)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
-- **D)** the final interpreter of the Constitution of India *(Distractor Origin: `typed_entity_pool`)*
+- **A)** A High Court **(CORRECT ANSWER)**
+- **B)** designated as the Chief Justice of India *(Distractor Origin: `source_object_pool`)*
+- **C)** that there shall be a High Court in each State *(Distractor Origin: `source_object_pool`)*
+- **D)** the final interpreter of the Constitution of India *(Distractor Origin: `source_object_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The Indian Judicial system is a unified system, comprising of a hierarchy of courts with the Supreme Court of India at the apex level, the High Courts at the State level and Subordinate Courts at the District level."
+> "A High Court is the highest court at the State level."
 
 **Explanation:**
-The source states: “The Indian Judicial system is a unified system, comprising of a hierarchy of courts with the Supreme Court of India at the apex level, the High Courts at the State level and Subordinate Courts at the District level.” This identifies the stated role of The Indian Judicial system as unified system. Why the other options are wrong: “threat to justice everywhere” is a different entity of the same kind, not the one the source states for this subject. “officially repealed in the 1960s” is a different entity of the same kind, not the one the source states for this subject. “the final interpreter of the Constitution of India” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “A High Court is the highest court at the State level.” This identifies superlative of the highest court at the State level as A High Court. Why the other options are wrong: “designated as the Chief Justice of India” is stated in the source, but not for this subject. “that there shall be a High Court in each State” is stated in the source, but not for this subject. “the final interpreter of the Constitution of India” is stated in the source, but not for this subject.
 
 ---
 
@@ -242,7 +242,7 @@ The source states: “The Indian Judicial system is a unified system, comprising
 - **Answer Key:** **B**
 
 **Stem:**
-> How is NGT defined or described?
+> What does NGT mean?
 
 **Options:**
 - **A)** Public Interest Litigation *(Distractor Origin: `source_definition_pool`)*
@@ -259,63 +259,86 @@ The source defines or describes NGT as follows: “Supreme Court also has jurisd
 ---
 
 ### Question 11 [Q-P4-011]
-- **Subtype:** `classification_membership`
+- **Subtype:** `cause_effect`
 - **Difficulty:** `medium`
 - **Cognitive Category:** `understanding`
 - **Answer Key:** **C**
 
 **Stem:**
-> Which of the following is listed as part of the Fundamental Rights guaranteed to every citizen of India?
+> What does Digital technology make possible?
 
 **Options:**
-- **A)** even restaurants *(Distractor Origin: `controlled_category_pool`)*
-- **B)** access to water fountains *(Distractor Origin: `controlled_category_pool`)*
-- **C)** Freedom of Religion **(CORRECT ANSWER)**
-- **D)** Chief Justice *(Distractor Origin: `controlled_category_pool`)*
+- **A)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
+- **B)** the judicial system more user-friendly *(Distractor Origin: `source_causal_pool`)*
+- **C)** the judicial system more accessible and transparent **(CORRECT ANSWER)**
+- **D)** a society through laws and the power *(Distractor Origin: `controlled_effect_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State."
+> "Digital technology has been introduced to make the judicial system more accessible and transparent."
 
 **Explanation:**
-The source states: “The Fundamental Rights guaranteed to every citizen of India include Equality, Liberty, Right to Life, Freedom of Speech, Freedom of Religion, etc. For enforcement of Fundamental Rights, a citizen has the right under the Constitution to file a “Writ Petition” directly before the Supreme Court (Article 32), where the issue has an all India ramification; or before the High Court (Article 226), which pertains to the violation of the Fundamental Rights of citizens within the territorial limits of the State.” This lists Freedom of Religion as a member of The Fundamental Rights guaranteed to every citizen of India. Why the other options are wrong: “even restaurants” is not a member of this list. “access to water fountains” is not a member of this list. “Chief Justice” is not a member of this list.
+The source explicitly describes the relationship as: “Digital technology has been introduced to make the judicial system more accessible and transparent.” The answer preserves the stated direction of that relationship. Why the other options are wrong: “that there shall be a High Court in each State” is an effect stated elsewhere in the source, not the effect of this cause. “the judicial system more user-friendly” is an effect stated elsewhere in the source, not the effect of this cause. “a society through laws and the power” is an effect stated elsewhere in the source, not the effect of this cause.
 
 ---
 
 ### Question 12 [Q-P4-012]
-- **Subtype:** `cause_effect`
-- **Difficulty:** `medium`
-- **Cognitive Category:** `understanding`
+- **Subtype:** `statement_option`
+- **Difficulty:** `hard`
+- **Cognitive Category:** `analysis`
 - **Answer Key:** **D**
 
 **Stem:**
-> What does a mediator make possible?
+> Which of the following statements is correct about the current strength of the Supreme Court?
 
 **Options:**
-- **A)** that there shall be a High Court in each State *(Distractor Origin: `controlled_effect_pool`)*
-- **B)** the judicial system more accessible and transparent *(Distractor Origin: `source_causal_pool`)*
-- **C)** the judicial system more user-friendly *(Distractor Origin: `source_causal_pool`)*
-- **D)** any decision, or impose a view on the parties **(CORRECT ANSWER)**
+- **A)** The current strength of the Supreme Court is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** The current strength of the Supreme Court is designated as the Chief Justice of India. *(Distractor Origin: `typed_entity_pool`)*
+- **C)** The current strength of the Supreme Court is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **D)** The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges. **(CORRECT ANSWER)**
 
 **Supporting Textbook Excerpt:**
-> "A mediator has no power to make any decision, or impose a view on the parties."
+> "The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges."
 
 **Explanation:**
-The source explicitly describes the relationship as: “A mediator has no power to make any decision, or impose a view on the parties.” The answer preserves the stated direction of that relationship. Why the other options are wrong: “that there shall be a High Court in each State” is an effect stated elsewhere in the source, not the effect of this cause. “the judicial system more accessible and transparent” is an effect stated elsewhere in the source, not the effect of this cause. “the judicial system more user-friendly” is an effect stated elsewhere in the source, not the effect of this cause.
+The source states: “The current strength of the Supreme Court is 33+1 i.e. the Chief Justice of India and 33 Supreme Court judges.” The correct statement preserves that value. The other options replace it with a value the source does not state for the current strength of the Supreme Court.
 
 ---
 
 ### Question 13 [Q-P4-013]
+- **Subtype:** `entity_attribute`
+- **Difficulty:** `medium`
+- **Cognitive Category:** `recall`
+- **Answer Key:** **A**
+
+**Stem:**
+> Which of the following correctly describes Often disputes between parties?
+
+**Options:**
+- **A)** resolved through dialogue, mediation, or adjudication by courts of law **(CORRECT ANSWER)**
+- **B)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
+- **C)** essential to ensure that disputes between parties are decided in a fair and just manner *(Distractor Origin: `typed_entity_pool`)*
+- **D)** the final interpreter of the Constitution of India *(Distractor Origin: `typed_entity_pool`)*
+
+**Supporting Textbook Excerpt:**
+> "Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law."
+
+**Explanation:**
+The source states: “Often disputes between parties are resolved through dialogue, mediation, or adjudication by courts of law.” This identifies the stated role of Often disputes between parties as resolved through dialogue, mediation, or adjudication by courts of law. Why the other options are wrong: “essential for maintaining peace and harmony in any society” is a different entity of the same kind, not the one the source states for this subject. “essential to ensure that disputes between parties are decided in a fair and just manner” is a different entity of the same kind, not the one the source states for this subject. “the final interpreter of the Constitution of India” is a different entity of the same kind, not the one the source states for this subject.
+
+---
+
+### Question 14 [Q-P4-014]
 - **Subtype:** `statement_option`
 - **Difficulty:** `hard`
 - **Cognitive Category:** `analysis`
-- **Answer Key:** **A**
+- **Answer Key:** **B**
 
 **Stem:**
 > Which of the following statements is correct about Mediation in India?
 
 **Options:**
-- **A)** Mediation in India is governed by The Mediation Act, 2023. **(CORRECT ANSWER)**
-- **B)** Mediation in India is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **A)** Mediation in India is threat to justice everywhere. *(Distractor Origin: `typed_entity_pool`)*
+- **B)** Mediation in India is governed by The Mediation Act, 2023. **(CORRECT ANSWER)**
 - **C)** Mediation in India is essential for maintaining peace and harmony in any society. *(Distractor Origin: `typed_entity_pool`)*
 - **D)** Mediation in India is resolved through dialogue, mediation, or adjudication by courts of law. *(Distractor Origin: `typed_entity_pool`)*
 
@@ -327,29 +350,6 @@ The source states: “Mediation in India is governed by The Mediation Act, 2023.
 
 ---
 
-### Question 14 [Q-P4-014]
-- **Subtype:** `assertion_reason`
-- **Difficulty:** `hard`
-- **Cognitive Category:** `analysis`
-- **Answer Key:** **B**
-
-**Stem:**
-> Assertion (A): The judicial system is more accessible and transparent. Reason (R): Digital technology has been introduced to make the judicial system more accessible and transparent. Which of the following is correct?
-
-**Options:**
-- **A)** Both A and R are true but R is NOT the correct explanation of A *(Distractor Origin: `assertion_reason_code_pool`)*
-- **B)** Both A and R are true and R is the correct explanation of A **(CORRECT ANSWER)**
-- **C)** A is true but R is false *(Distractor Origin: `assertion_reason_code_pool`)*
-- **D)** A is false but R is true *(Distractor Origin: `assertion_reason_code_pool`)*
-
-**Supporting Textbook Excerpt:**
-> "Digital technology has been introduced to make the judicial system more accessible and transparent."
-
-**Explanation:**
-Assertion is correct: The judicial system is more accessible and transparent. Reason is correct and states the mechanism: “Digital technology has been introduced to make the judicial system more accessible and transparent.” Therefore R is the correct explanation of A.
-
----
-
 ### Question 15 [Q-P4-015]
 - **Subtype:** `entity_attribute`
 - **Difficulty:** `medium`
@@ -357,19 +357,19 @@ Assertion is correct: The judicial system is more accessible and transparent. Re
 - **Answer Key:** **C**
 
 **Stem:**
-> What role is associated with the first reported case of a PIL?
+> Which of the following correctly describes the decision of the arbitrator/ panel?
 
 **Options:**
-- **A)** essential for maintaining peace and harmony in any society *(Distractor Origin: `typed_entity_pool`)*
-- **B)** resolved through dialogue, mediation, or adjudication by courts of law *(Distractor Origin: `typed_entity_pool`)*
-- **C)** complaint made by a lawyer called Mrs. Kapila Hingorani **(CORRECT ANSWER)**
-- **D)** officially repealed in the 1960s *(Distractor Origin: `typed_entity_pool`)*
+- **A)** resolved through dialogue, mediation, or adjudication by courts of law *(Distractor Origin: `typed_entity_pool`)*
+- **B)** essential to ensure that disputes between parties are decided in a fair and just manner *(Distractor Origin: `typed_entity_pool`)*
+- **C)** final and legally binding on the parties, and enforceable by a court of law **(CORRECT ANSWER)**
+- **D)** conducted under the Arbitration and Conciliation Act, 1996 *(Distractor Origin: `typed_entity_pool`)*
 
 **Supporting Textbook Excerpt:**
-> "The first reported case of a PIL was a complaint made by a lawyer called Mrs. Kapila Hingorani."
+> "The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law."
 
 **Explanation:**
-The source states: “The first reported case of a PIL was a complaint made by a lawyer called Mrs. Kapila Hingorani.” This identifies the stated role of The first reported case of a PIL as complaint made by a lawyer called Mrs. Kapila Hingorani. Why the other options are wrong: “essential for maintaining peace and harmony in any society” is a different entity of the same kind, not the one the source states for this subject. “resolved through dialogue, mediation, or adjudication by courts of law” is a different entity of the same kind, not the one the source states for this subject. “officially repealed in the 1960s” is a different entity of the same kind, not the one the source states for this subject.
+The source states: “The decision of the arbitrator/ panel is final and legally binding on the parties, and enforceable by a court of law.” This identifies the stated role of The decision of the arbitrator/ panel as final and legally binding on the parties, and enforceable by a court of law. Why the other options are wrong: “resolved through dialogue, mediation, or adjudication by courts of law” is a different entity of the same kind, not the one the source states for this subject. “essential to ensure that disputes between parties are decided in a fair and just manner” is a different entity of the same kind, not the one the source states for this subject. “conducted under the Arbitration and Conciliation Act, 1996” is a different entity of the same kind, not the one the source states for this subject.
 
 ---
 
@@ -391,7 +391,7 @@ The source states: “The first reported case of a PIL was a complaint made by a
 - **D)** It operates independently without influencing Digital technology *(Distractor Strategy: `extended_speculation`)*
 
 **Proof Trace & Inference Steps:**
-- Extracted source causal mechanism: Digital technology causes the judicial system more accessible and transparent
+- Extracted source causal mechanism: Digital technology makes the judicial system more accessible and transparent
 - Derived mechanistic explanation for the judicial system more accessible and transparent
 
 **Supporting Textbook Excerpt:**
@@ -418,7 +418,7 @@ Source verification: "Digital technology has been introduced to make the judicia
 - **D)** It operates independently without influencing Digital Initiatives Courts *(Distractor Strategy: `extended_speculation`)*
 
 **Proof Trace & Inference Steps:**
-- Extracted source causal mechanism: Digital Initiatives Courts causes the judicial system more user-friendly
+- Extracted source causal mechanism: Digital Initiatives Courts makes the judicial system more user-friendly
 - Derived mechanistic explanation for the judicial system more user-friendly
 
 **Supporting Textbook Excerpt:**

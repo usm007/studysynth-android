@@ -98,7 +98,44 @@
         // lowercased after the verb.
         const cleanSubject = String(subject || '').trim();
         const lowerSubject = cleanSubject.charAt(0).toLowerCase() + cleanSubject.slice(1);
-        stem = /\bmore\b/i.test(cleanSubject) ? `What makes ${lowerSubject}?` : `What causes ${lowerSubject}?`;
+        // Full-path repair, relation preservation (P0): the stem
+        // must ask with the source verb, not always "causes". The
+        // derived predicate carries the converse form set by OP_B
+        // ("is contributed to by"), which maps back to the active
+        // verb here. An unknown predicate is not rendered as a
+        // causal question at all.
+        const derivedPredicate = String(derivedProp.predicate || '').toLowerCase().trim();
+        const ACTIVE_VERB = {
+          'is caused by mechanism': 'causes',
+          'is contributed to by': 'contributes to',
+          'is influenced by': 'influences',
+          'is affected by': 'affects',
+          'is promoted by': 'promotes',
+          'is encouraged by': 'encourages',
+          'is supported by': 'supports',
+          'is helped by': 'helps',
+          'is stimulated by': 'stimulates',
+          'is increased by': 'increases',
+          'is decreased by': 'decreases',
+          'is prevented by': 'prevents',
+          'is inhibited by': 'inhibits',
+          'is reduced by': 'reduces',
+          'is strengthened by': 'strengthens',
+          'is weakened by': 'weakens',
+          'is driven by': 'drives',
+          'is accelerated by': 'accelerates',
+          'is slowed down by': 'slows down',
+          'is enabled by': 'enables',
+          'is allowed by': 'allows',
+          'is determined by': 'determines'
+        };
+        if (/\bmore\b/i.test(cleanSubject)) {
+          stem = `What makes ${lowerSubject}?`;
+        } else if (ACTIVE_VERB[derivedPredicate]) {
+          stem = `What ${ACTIVE_VERB[derivedPredicate]} ${lowerSubject}?`;
+        } else {
+          return { stem: '', answerText: '' };
+        }
         answerText = object;
         break;
 

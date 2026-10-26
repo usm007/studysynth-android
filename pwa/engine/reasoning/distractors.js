@@ -91,8 +91,45 @@
 
     // Transformation 1: Reversed causality / directional inversion
     if (derivedProp.relation_type === RELATION_TYPES.CAUSES || derivedProp.relation_type === RELATION_TYPES.LEADS_TO) {
+      // Predicate-aware reversal: the reversed distractor must speak
+      // the derived relation's own verb. A "contributes to" question
+      // whose wrong answer says "caused by" is off-register, so the
+      // converse predicate's verb is used when it is known (either
+      // the converse or the active form may appear in the predicate);
+      // unknown predicates keep the existing causal wording.
+      const REVERSED_VERB = [
+        ['contributed to by', 'contributes to', 'is contributed to by', 'contributing to'],
+        ['influenced by', 'influences', 'is influenced by', 'influencing'],
+        ['affected by', 'affects', 'is affected by', 'affecting'],
+        ['promoted by', 'promotes', 'is promoted by', 'promoting'],
+        ['encouraged by', 'encourages', 'is encouraged by', 'encouraging'],
+        ['supported by', 'supports', 'is supported by', 'supporting'],
+        ['helped by', 'helps', 'is helped by', 'helping'],
+        ['stimulated by', 'stimulates', 'is stimulated by', 'stimulating'],
+        ['increased by', 'increases', 'is increased by', 'increasing'],
+        ['decreased by', 'decreases', 'is decreased by', 'decreasing'],
+        ['prevented by', 'prevents', 'is prevented by', 'preventing'],
+        ['inhibited by', 'inhibits', 'is inhibited by', 'inhibiting'],
+        ['reduced by', 'reduces', 'is reduced by', 'reducing'],
+        ['strengthened by', 'strengthens', 'is strengthened by', 'strengthening'],
+        ['weakened by', 'weakens', 'is weakened by', 'weakening'],
+        ['driven by', 'drives', 'is driven by', 'driving'],
+        ['accelerated by', 'accelerates', 'is accelerated by', 'accelerating'],
+        ['slowed down by', 'slows down', 'is slowed down by', 'slowing down'],
+        ['enabled by', 'enables', 'is enabled by', 'enabling'],
+        ['allowed by', 'allows', 'is allowed by', 'allowing'],
+        ['determined by', 'determines', 'is determined by', 'determining']
+      ];
+      let reversedText = `It is caused by ${subject} rather than causing it`;
+      const predText = String(derivedProp.predicate || '').toLowerCase();
+      for (const [converse, active, passive, gerund] of REVERSED_VERB) {
+        if (predText.includes(converse) || predText.includes(active)) {
+          reversedText = `It ${passive} ${subject} rather than ${gerund} it`;
+          break;
+        }
+      }
       addDistractor(
-        `It is caused by ${subject} rather than causing it`,
+        reversedText,
         'reversed_relation',
         DISTRACTOR_TYPES.REVERSED_CAUSALITY
       );

@@ -1106,6 +1106,112 @@ check('Difficulty reflects the task: statement-option, matching and chronology a
   assert.ok(so || m || ch, 'At least one hard form must be built for the difficulty check');
 });
 
+
+check('Full-path repair P0: a negated causal claim never becomes a positive causal fact', () => {
+  const drafts = Engine.parseFactRelations('A mediator has no power to make any decision, or impose a view on the parties.', {});
+  const causal = drafts.filter((f) => f.fact_type === 'causal' || f.relation === 'causes');
+  assert.ok(!causal.some((f) => /any decision/i.test(f.object || '')), 'Negated complement must not become a causal effect: ' + JSON.stringify(causal));
+  const neverDrafts = Engine.parseFactRelations('The council never causes delays in the process.', {});
+  assert.ok(!neverDrafts.some((f) => (f.fact_type === 'causal' || f.relation === 'causes') && /delays/i.test(f.object || '')), 'A "never causes" sentence must not become a causal fact');
+  // Positive control: an unnegated contribution still yields a causal fact with its own verb.
+  const contrib = Engine.parseFactRelations('Mining, hydropower generation, tourism and agriculture contribute to the GDP.', {});
+  const contribCausal = contrib.find((f) => f.fact_type === 'causal');
+  assert.ok(contribCausal, 'A genuine contribution sentence must still yield a causal fact');
+  assert.ok(/contributes?\s+to/i.test(contribCausal.relation_verb || ''), 'Contribution verb must be preserved, got: ' + contribCausal.relation_verb);
+});
+
+check('Full-path repair P0: validation rejects an answer that appears under a negation in its excerpt', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.',
+    'Negation fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const base = candidates.find((q) => q.question_subtype === 'cause_effect') || candidates[0];
+  assert.ok(base, 'A base candidate must exist to mutate');
+  const mediator = Object.assign({}, base, {
+    question_subtype: 'cause_effect',
+    stem: 'What does a mediator make possible?',
+    supporting_excerpt: 'A mediator has no power to make any decision, or impose a view on the parties.',
+    options: [
+      { key: 'A', text: 'the judicial system more accessible and transparent', is_correct: false, distractor_origin: 'source_causal_pool' },
+      { key: 'B', text: 'the judicial system more user-friendly', is_correct: false, distractor_origin: 'source_causal_pool' },
+      { key: 'C', text: 'that there shall be a High Court in each State', is_correct: false, distractor_origin: 'source_causal_pool' },
+      { key: 'D', text: 'any decision, or impose a view on the parties', is_correct: true }
+    ],
+    answer_key: 'D'
+  });
+  const result = Engine.validateQuestion(mediator, out.facts, ctx);
+  assert.ok(result.issues.some((i) => i.rule === 'answer_contradicts_excerpt'), 'Negated answer must be rejected, got: ' + JSON.stringify(result.issues));
+  // Contrast control: "not Mumbai, it is Delhi" genuinely supports Delhi.
+  const contrast = Object.assign({}, mediator, {
+    supporting_excerpt: 'The capital is not Mumbai, it is Delhi.',
+    options: mediator.options.map((o) => (o.key === 'D' ? Object.assign({}, o, { text: 'Delhi' }) : o))
+  });
+  const contrastResult = Engine.validateQuestion(contrast, out.facts, ctx);
+  assert.ok(!contrastResult.issues.some((i) => i.rule === 'answer_contradicts_excerpt'), 'A contrast pivot must not trigger the negation rule');
+});
+
+check('Full-path repair P0: unit fragments and fronted modifiers are not subjects', () => {
+  assert.strictEqual(Engine.isUsableSubject('km from east'), false, '"km from east" must not be a usable subject');
+  assert.strictEqual(Engine.isUsableSubject('long years'), false, '"long years" must not be a usable subject');
+  assert.strictEqual(Engine.isUsableSubject('the Taj Mahal'), true, 'A genuine subject must still pass');
+  const taj = Engine.parseFactRelations('Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures.', {});
+  assert.ok(taj.length > 0, 'The Taj sentence must still yield a fact');
+  assert.ok(!taj.some((f) => /entirely/i.test(f.subject || '')), 'Fronted modifier must not survive in a subject: ' + JSON.stringify(taj.map((f) => f.subject)));
+  assert.ok(taj.some((f) => /taj mahal/i.test(f.subject || '')), 'The subject must be the Taj Mahal');
+});
+
+check('Full-path repair P1: truncated and continuation sentences yield no facts', () => {
+  const facts = Engine.extractSourceFacts(
+    Engine.parseRawDocument('He travelled to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA) from Indian prisoners of war. to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA). The plain is characterised by low-lying terrain, gentle rolling', 'Doc'), {}
+  );
+  assert.ok(!facts.some((f) => /^[a-z]/.test((f.source_text || '').trim())), 'A lowercase-start continuation must not become a fact');
+  assert.ok(!facts.some((f) => /gentle rolling\s*$/.test((f.source_text || '').trim())), 'A sentence cut mid-phrase must not become a fact');
+});
+
+check('Full-path repair P1: a definition answer cut before its head noun is rejected', () => {
+  const out = Analysis.analyzeSource(
+    'The zib is characterised by low-lying terrain, gentle rolling. The wob is characterised by high mountain peaks and deep valleys. The yad is characterised by dense forests and wide rivers. The vex is characterised by sandy deserts and dry winds.',
+    'Truncation fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 20 });
+  const zib = candidates.filter((q) => q.question_subtype === 'definition' && /zib/i.test(q.stem || ''));
+  assert.strictEqual(zib.length, 0, 'A definition cut at a participle must not ship: ' + JSON.stringify(zib.map((q) => q.stem)));
+});
+
+check('Full-path repair P0: distractors prefer the question\'s own section', () => {
+  const fact = { fact_id: 'F-1', fact_type: 'generic', subject: 'Yellowstone National Park', relation: 'role', object: 'example of ecosystem restoration', section_id: 'sec_1', section_title: 'Parks', normalized_subject: 'yellowstone national park', normalized_relation: 'role', normalized_object: 'example of ecosystem restoration' };
+  const others = [
+    { fact_id: 'F-2', fact_type: 'generic', subject: 'A nearby reserve', relation: 'role', object: 'a protected habitat', section_id: 'sec_1', section_title: 'Parks', normalized_subject: 'a nearby reserve', normalized_relation: 'role', normalized_object: 'a protected habitat' },
+    { fact_id: 'F-3', fact_type: 'generic', subject: 'Map making', relation: 'role', object: 'called a map projection', section_id: 'sec_9', section_title: 'Maps', normalized_subject: 'map making', normalized_relation: 'role', normalized_object: 'called a map projection' },
+    { fact_id: 'F-4', fact_type: 'generic', subject: 'Rivers', relation: 'role', object: 'constantly moving', section_id: 'sec_9', section_title: 'Maps', normalized_subject: 'rivers', normalized_relation: 'role', normalized_object: 'constantly moving' }
+  ];
+  const registry = { facts: [fact].concat(others), sections: [] };
+  const distractors = Engine.buildDistractorCandidates(fact, registry, 'entity_attribute');
+  assert.ok(distractors.length >= 1, 'Fallback distractors must be produced');
+  assert.strictEqual(distractors[0].text, 'a protected habitat', 'The same-section distractor must come first, got: ' + JSON.stringify(distractors.map((d) => d.text)));
+});
+
+check('Entity gate: a direct entity question with no same-section option is dropped', () => {
+  const mk = (id, subject, object, section) => ({ fact_id: id, fact_type: 'entity_attribute', answer_kind: 'role', relation: 'role', subject, object, section_id: section, section_title: section === 'sec_1' ? 'Parks' : 'Maps', normalized_subject: subject.toLowerCase(), normalized_relation: 'role', normalized_object: object.toLowerCase(), source_text: `${subject} is ${object}.`, supporting_excerpt: `${subject} is ${object}.` });
+  const q = mk('F-1', 'Yellowstone National Park', 'example of ecosystem restoration', 'sec_1');
+  const others = [
+    mk('F-2', 'Map making', 'called a map projection', 'sec_9'),
+    mk('F-3', 'Globe studies', 'oblate spheroid', 'sec_9'),
+    mk('F-4', 'Agreements', 'compromise', 'sec_9')
+  ];
+  const candidates = Engine.buildQuestionCandidates({ facts: [q].concat(others), sections: [] }, { targetCount: 20 });
+  const yellow = candidates.filter((c) => c.question_subtype === 'entity_attribute' && /yellowstone/i.test(c.stem || ''));
+  assert.strictEqual(yellow.length, 0, 'An entity question with zero same-section options must not ship: ' + JSON.stringify(yellow.map((c) => c.stem)));
+  // Control: one same-section option restores the question.
+  const near = mk('F-5', 'A nearby reserve', 'a protected habitat', 'sec_1');
+  const candidates2 = Engine.buildQuestionCandidates({ facts: [q].concat(others, [near]), sections: [] }, { targetCount: 20 });
+  const yellow2 = candidates2.filter((c) => c.question_subtype === 'entity_attribute' && /yellowstone/i.test(c.stem || ''));
+  assert.ok(yellow2.length >= 1, 'An entity question with a same-section option must still ship');
+});
+
 runE2E().catch((err) => {
   console.error('Repair 002 regression tests failed:', err);
   process.exit(1);
