@@ -2155,6 +2155,597 @@
     return facts;
   }
 
+  // ------------------------------------------------------------------
+  // Phase 2A: strict typed-fact + unparsed-unit model.
+  //
+  // The production path turns every sentence unit into either a fact
+  // (possibly a fallback fact with empty subject, empty object and an
+  // 'unclassified' relation) or nothing at all, silently. This layer
+  // replaces that silent collapse with two explicit collections:
+  //
+  //   typed_facts  — facts with a supported type, a meaningful subject,
+  //                  a grounded object/value, a supported relation, exact
+  //                  evidence and source references, and preserved
+  //                  qualifiers (negation, approximation, units, dates,
+  //                  comparison direction, conditions, direction).
+  //   unparsed_units — source units that produced no typed fact, each
+  //                  with a deterministic reason code, the classification
+  //                  attempts made, and a potential-learning-relevance
+  //                  flag. Unparsed material is NEVER presented as a
+  //                  confidently extracted fact.
+  //
+  // This layer is diagnostic/telemetry in Phase 2A: it does not feed
+  // buildQuestionCandidates, distractor selection or validation, so it
+  // cannot change which questions are accepted or rejected. The one
+  // production-facing boundary it informs is the V2 proposition gate
+  // in reasoning/representation.js, which is quantified separately.
+  // ------------------------------------------------------------------
+
+  const TYPED_FACT_VERSION = 'phase2a-1';
+
+  // Fact types the typed layer accepts. 'fallback' is deliberately
+  // absent: an unclassified unit is an unparsed unit, never a fact.
+  const TYPED_FACT_TYPES = [
+    'date', 'numeric', 'definition', 'entity_attribute', 'membership',
+    'sequence', 'causal', 'comparison', 'table'
+  ];
+
+  // Deterministic unparsed-unit reason taxonomy (Phase 2A). Extend only
+  // by adding a documented code here and in chapter_3_typed_fact_schema.md.
+  const UNPARSED_REASON_CODES = {
+    UNSUPPORTED_PATTERN: 'unsupported_pattern',
+    MISSING_SUBJECT: 'missing_subject',
+    MISSING_OBJECT: 'missing_object',
+    FRAGMENT: 'fragment',
+    AMBIGUOUS_RELATION: 'ambiguous_relation',
+    INTERROGATIVE_OR_INSTRUCTION: 'interrogative_or_instruction',
+    CROSS_PAGE_CONTINUATION_UNRESOLVED: 'cross_page_continuation_unresolved',
+    LAYOUT_RELATIONSHIP_UNRESOLVED: 'layout_relationship_unresolved',
+    VISUAL_DEPENDENCY: 'visual_dependency',
+    CLASSIFICATION_CONFLICT: 'classification_conflict',
+    INSUFFICIENT_EVIDENCE: 'insufficient_evidence',
+    FURNITURE_CONTAMINATION: 'furniture_contamination'
+  };
+
+  // checkSubjectQuality codes that mean "this is a sentence fragment,
+  // not a noun phrase" versus "this is a layout artefact in subject
+  // position". The distinction decides the unparsed reason code.
+  const SUBJECT_FRAGMENT_CODES = new Set([
+    'TOO_SHORT', 'INVALID_START', 'TERMINAL_PUNCTUATION_FRAGMENT',
+    'INTERNAL_SENTENCE_BOUNDARY', 'FORBIDDEN_START_WORD', 'DUMMY_PRONOUN',
+    'UNIT_FRAGMENT', 'FRONTED_MODIFIER', 'DISCOURSE_FRAGMENT',
+    'QUESTION_WORD_SUBJECT', 'FINITE_VERB_SUBJECT', 'DANGLING_CORRELATIVE',
+    'VAGUE_REFERENCE_SUBJECT', 'IMPERATIVE_SUBJECT', 'UNBALANCED_QUOTES',
+    'UNBALANCED_PARENS', 'INSUFFICIENT_LETTERS', 'DANGLING_CONNECTOR'
+  ]);
+  const SUBJECT_ARTIFACT_CODES = new Set([
+    'RUNNING_FURNITURE', 'MAP_LEGEND_ARTIFACT', 'ALL_CAPS_LABEL_CONCATENATION',
+    'NUMERIC_HEADER_PREFIX', 'CALLOUT_BANNER_ARTIFACT',
+    'FIGURE_REFERENCE_ARTIFACT', 'NUMERIC_MAP_ARTIFACT',
+    'COMPASS_DIRECTION_SEQUENCE', 'EXCESSIVE_SINGLE_LETTERS'
+  ]);
+
+  // Running book titles merged into body text by the layout stage
+  // ("Exploring Society: India and Beyond | G rade 8 Part 2 ...").
+  // Production parseFactRelations rejects these sentences outright;
+  // the typed layer records them as furniture contamination instead of
+  // silently dropping them.
+  function isFurnitureContaminated(text) {
+    const source = cleanText(text);
+    if (!source) return false;
+    if (/\bexploring society\b/i.test(source) && /\bgrade\b/i.test(source)) return true;
+    if (/\|\s*G\s*rade\b/i.test(source)) return true;
+    if (/^exploring society:/i.test(source)) return true;
+    return false;
+  }
+
+  // parseFactRelations without the early returns. Production returns
+  // after a sequence sentence, after an initial-move sentence, and
+  // after a cause/conditional/comparison sentence whose claim was
+  // accepted — so later independently supported claims in the same
+  // sentence are silently lost. This variant runs every parser and
+  // collects every distinct claim (same dedup key as production).
+  // The two weaker fallbacks (generic relational verb, pattern
+  // enriched) still run only when nothing else matched, and numerics
+  // still run only when no dates matched, exactly as in production:
+  // those guards prevent over-splitting into invented relationships.
+  function parseAllFactRelations(sentence, sectionContext) {
+    const text = cleanText(sentence);
+    const context = sectionContext || {};
+    if (!text) return [];
+    if (isFurnitureContaminated(text)) return [];
+    const facts = [];
+    const add = (draft) => {
+      if (!draft || !draft.subject || draft.object == null || draft.object === '') return;
+      const duplicate = facts.some((fact) =>
+        fact.fact_type === draft.fact_type &&
+        normalizeSubject(fact.subject) === normalizeSubject(draft.subject) &&
+        normalizeRelation(fact.relation) === normalizeRelation(draft.relation) &&
+        normalizeObject(fact.object) === normalizeObject(draft.object)
+      );
+      if (!duplicate) {
+        facts.push(Object.assign({ supporting_excerpt: text, extraction_method: 'explicit' }, draft));
+      }
+    };
+
+    const sequence = parseSequence(text);
+    if (sequence) add(sequence);
+
+    const initialMove = parseInitialMove(text, context);
+    if (initialMove) initialMove.forEach(add);
+
+    const membership = parseMembership(text, context);
+    if (membership) add(membership);
+
+    const abbreviation = parseAbbreviation(text);
+    if (abbreviation) add(abbreviation);
+
+    const definition = parseDefinition(text);
+    if (definition) add(definition);
+
+    const cause = parseCause(text);
+    if (cause) add(cause);
+
+    const conditional = parseConditional(text);
+    if (conditional) add(conditional);
+
+    const comparison = parseComparison(text);
+    if (comparison) add(comparison);
+
+    const dates = parseDates(text, context);
+    dates.forEach(add);
+
+    parseEntityAttributes(text, context).forEach(add);
+    if (!dates.length) numericDrafts(text).forEach(add);
+
+    if (!facts.length) {
+      const genericMatch = text.match(/^([A-Z][^,.:!?]{2,60}?)\s+(originates from|flows through|runs? parallel to|protects|guarantees|ensures|provides|contains|covers|states that|is known for|is famous for)\s+(.+?)[.!?]?\s*$/i);
+      if (genericMatch) {
+        const genericSubject = cleanFactSubject(genericMatch[1]);
+        let genericVerb = genericMatch[2].toLowerCase().replace(/\s+/g, '_');
+        if (genericVerb === 'run_parallel_to') genericVerb = 'runs_parallel_to';
+        const genericObject = cleanText(genericMatch[3]).replace(/[.,;:]+$/, '');
+        const isClauseObject = /^(that|the state shall|the state|it)\b/i.test(genericObject) && genericVerb !== 'states_that';
+        if (genericSubject && genericObject
+            && isUsableSubject(genericSubject)
+            && !isFragmentPhrase(genericObject)
+            && !isClauseObject
+            && genericObject.length >= 3 && genericObject.length <= 100) {
+          add({
+            fact_type: 'entity_attribute',
+            subject: genericSubject,
+            relation: genericVerb,
+            object: genericObject,
+            answer_kind: genericVerb === 'originates_from' ? 'place' : 'entity',
+            extraction_method: 'generic_relational_verb'
+          });
+        }
+      }
+    }
+    if (!facts.length) {
+      const enrichMatch = text.match(/^([A-Z][^,.:!?]{2,50}?)\s+(?:is|was|are|were)\s+(.{10,100}?)[.!?]?\s*$/);
+      if (enrichMatch) {
+        const enrichSubject = cleanFactSubject(enrichMatch[1]);
+        const enrichObject = cleanText(enrichMatch[2]).replace(/[.,;:]+$/, '');
+        if (enrichSubject && enrichObject
+            && isUsableSubject(enrichSubject)
+            && !UNUSABLE_SUBJECT_START.test(enrichObject)
+            && enrichObject.length >= 10 && enrichObject.length <= 100) {
+          add({
+            fact_type: 'entity_attribute',
+            subject: enrichSubject,
+            relation: 'role',
+            object: enrichObject,
+            answer_kind: 'role',
+            extraction_method: 'pattern_enriched'
+          });
+        }
+      }
+    }
+
+    return facts;
+  }
+
+  // Classify one parser draft as a typed fact or a rejection.
+  // Returns { typed: true } or { typed: false, reason, detail }.
+  // Qualifiers are never stripped here: polarity, precision,
+  // numeric_kind, relation_verb, causal_direction, comparison and
+  // temporal_scope ride on the draft into the typed record.
+  function classifyTypedDraft(draft) {
+    if (!draft) return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'no draft produced' };
+    if (!draft.subject || !cleanText(draft.subject)) {
+      return { typed: false, reason: UNPARSED_REASON_CODES.MISSING_SUBJECT, detail: 'draft has no subject' };
+    }
+    if (draft.object == null || !cleanText(draft.object)) {
+      return { typed: false, reason: UNPARSED_REASON_CODES.MISSING_OBJECT, detail: 'draft has no object or value' };
+    }
+    if (TYPED_FACT_TYPES.indexOf(draft.fact_type) === -1) {
+      return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'unsupported fact type: ' + draft.fact_type };
+    }
+    const relation = normalizeRelation(draft.relation);
+    if (!relation || relation === 'unclassified') {
+      return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'unsupported relation: ' + draft.relation };
+    }
+    const subjectCheck = checkSubjectQuality(draft.subject);
+    if (!subjectCheck.valid) {
+      if (SUBJECT_FRAGMENT_CODES.has(subjectCheck.code)) {
+        return { typed: false, reason: UNPARSED_REASON_CODES.FRAGMENT, detail: 'subject quality: ' + subjectCheck.code };
+      }
+      if (SUBJECT_ARTIFACT_CODES.has(subjectCheck.code)) {
+        return { typed: false, reason: UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED, detail: 'subject quality: ' + subjectCheck.code };
+      }
+      return { typed: false, reason: UNPARSED_REASON_CODES.CLASSIFICATION_CONFLICT, detail: 'subject quality: ' + subjectCheck.code };
+    }
+    if (isFragmentPhrase(draft.object)) {
+      return { typed: false, reason: UNPARSED_REASON_CODES.FRAGMENT, detail: 'object is a fragment phrase' };
+    }
+    return { typed: true };
+  }
+
+  // Build the typed knowledge layer for a set of parsed sections.
+  // Returns { version, typed_facts, unparsed_units, partial_rejections,
+  // accounting, baseline }.
+  //
+  // - typed_facts: one record per accepted draft (a unit may yield
+  //   several; multi-claim units are flagged, never collapsed).
+  // - unparsed_units: one record per source unit that produced ZERO
+  //   typed facts, with reason, attempts and relevance flag.
+  // - partial_rejections: drafts rejected from units that DID produce
+  //   at least one typed fact. These are diagnostics, not unparsed
+  //   units, so unit denominators never double-count.
+  // - baseline: production extractSourceFacts counts for the same
+  //   sections (usable vs fallback), for old-vs-new comparison.
+  // - accounting: every count with a denominator; block/sentence/fact
+  //   counts are never mixed into one rejection total.
+  //
+  // options: { sourceMeta (singly-nested, corrected form), documentId }.
+  // The production batch passes a doubly-nested sourceMeta object to
+  // analyzeSource; for textbook (non-OCR) input both forms yield the
+  // same 'verified' confidence class, and the typed layer uses the
+  // corrected singly-nested form so an OCR origin, if present, would
+  // actually reach factConfidenceClass.
+  function buildTypedKnowledge(sections, options) {
+    const opts = options || {};
+    const sourceMeta = opts.sourceMeta || null;
+    const documentId = opts.documentId || 'unknown-document';
+    const list = Array.isArray(sections) ? sections : [];
+
+    const units = collectSentenceUnits(list);
+    const groups = detectTableGroups(units);
+    const tableUnitIndex = new Map();
+    groups.forEach((group) => {
+      group.unitIndices.forEach((unitIndex) => tableUnitIndex.set(unitIndex, group));
+    });
+
+    // Baseline production facts for comparison (and as the source of
+    // table facts, whose row/cell logic is not duplicated here).
+    const baselineFacts = extractSourceFacts(list, { sourceMeta: sourceMeta });
+    const baselineByKu = {};
+    baselineFacts.forEach((fact) => {
+      (baselineByKu[fact.ku_id] || (baselineByKu[fact.ku_id] = [])).push(fact);
+    });
+
+    const typedFacts = [];
+    const unparsedUnits = [];
+    const partialRejections = [];
+    let typedSeq = 0;
+    let unparsedSeq = 0;
+    let previousSubject = '';
+
+    const unitsByRole = {};
+    const unitsNoFactsByReason = {};
+    const typedFactsByType = {};
+    const partialRejectionsByReason = {};
+    let multiClaimUnits = 0;
+    let multiClaimFacts = 0;
+    let unitsTyped = 0;
+    let unitsTable = 0;
+
+    units.forEach((unit, unitIndex) => {
+      const role = unit.sentence_role || 'ambiguous';
+      unitsByRole[role] = (unitsByRole[role] || 0) + 1;
+      const text = cleanText(unit.source_text);
+      const sectionText = String((unit.section && unit.section.text) || '');
+
+      const recordUnparsed = (reason, detail, attempts) => {
+        unparsedSeq++;
+        unitsNoFactsByReason[reason] = (unitsNoFactsByReason[reason] || 0) + 1;
+        unparsedUnits.push({
+          unparsed_id: 'UU-LITE-' + padNumber(unparsedSeq, 3),
+          source_unit_id: unit.ku_id,
+          original_text: text,
+          source: {
+            document_id: documentId,
+            page: unit.source_page,
+            section_id: unit.section_id,
+            section_title: unit.section_title,
+            sentence_span: { start: unit.source_start, end: unit.source_end }
+          },
+          sentence_role: role,
+          reason: reason,
+          detail: detail || null,
+          classification_attempts: attempts || [],
+          potential_learning_relevance: role === 'assertion' && text.length >= 20,
+          related_units: {
+            previous_unit_id: unitIndex > 0 ? units[unitIndex - 1].ku_id : null,
+            next_unit_id: unitIndex + 1 < units.length ? units[unitIndex + 1].ku_id : null
+          }
+        });
+      };
+
+      // Table units: typed facts come from the production table path
+      // (one fact per non-header cell). Table units never seed the
+      // previous-subject chain and never go through prose parsing,
+      // exactly as in production.
+      if (tableUnitIndex.has(unitIndex)) {
+        unitsTable++;
+        const tableFacts = (baselineByKu[unit.ku_id] || [])
+          .filter((fact) => fact.fact_type === 'table');
+        if (!tableFacts.length) {
+          recordUnparsed(
+            UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED,
+            'table group detected but no table facts produced',
+            [{ parser: 'table', outcome: 'no_facts' }]);
+          return;
+        }
+        tableFacts.forEach((fact) => {
+          typedSeq++;
+          typedFactsByType.table = (typedFactsByType.table || 0) + 1;
+          typedFacts.push({
+            fact_id: 'TF-LITE-' + padNumber(typedSeq, 3),
+            source_fact_ids: [fact.fact_id],
+            fact_type: 'table',
+            subject: fact.subject,
+            relation: fact.relation,
+            object: fact.object,
+            normalized_subject: normalizeSubject(fact.subject),
+            normalized_relation: normalizeRelation(fact.relation),
+            normalized_object: normalizeObject(fact.object),
+            evidence: text,
+            evidence_span: { start: unit.source_start, end: unit.source_end },
+            object_span: locateInSection(sectionText, fact.object, unit.source_start, unit.source_end),
+            source: {
+              document_id: documentId,
+              page: unit.source_page,
+              section_id: unit.section_id,
+              section_title: unit.section_title,
+              block_ids: [],
+              sentence_id: unit.ku_id,
+              table_id: fact.table_id || null,
+              table_header: fact.table_header || null,
+              table_row: fact.table_row || null
+            },
+            qualifiers: {
+              polarity: fact.polarity || 'positive',
+              precision: fact.precision || 'exact',
+              numeric_kind: fact.numeric_kind || null,
+              relation_verb: fact.relation_verb || null,
+              causal_direction: fact.causal_direction || null,
+              attribute: fact.attribute || null,
+              temporal_scope: fact.temporal_scope || null,
+              comparison: fact.comparison || null,
+              members: fact.members ? fact.members.slice() : null,
+              sequence_items: fact.sequence_items ? fact.sequence_items.slice() : null
+            },
+            classification: { method: 'table', rule_id: 'phase2a-typed-v1' },
+            validation_state: factConfidenceClass(fact, sourceMeta),
+            multi_claim_unit: tableFacts.length > 1
+          });
+        });
+        unitsTyped++;
+        if (tableFacts.length > 1) { multiClaimUnits++; multiClaimFacts += tableFacts.length; }
+        return;
+      }
+
+      // Furniture contamination is checked BEFORE the pipe test: a
+      // merged running title contains a '|' ("... Beyond | G rade 8
+      // ...") that is furniture punctuation, not a table cell divider.
+      // Production's furniture guards likewise run before all parsers.
+      if (isFurnitureContaminated(text)) {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.FURNITURE_CONTAMINATION,
+          'running book title merged into body text',
+          [{ parser: 'furniture', outcome: 'contaminated' }]);
+        return;
+      }
+
+      // A pipe-delimited unit that failed the clean-table test is a
+      // ragged table row, not prose: preserve the relationship failure
+      // explicitly instead of forcing it through sentence parsing.
+      if (text.indexOf('|') !== -1) {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED,
+          'pipe-delimited unit outside any clean table group',
+          [{ parser: 'table', outcome: 'group_not_clean' }]);
+        return;
+      }
+
+      // Sentence-role gate (mirrors production): only assertions may
+      // yield facts. Questions, instructions and ambiguous units become
+      // reason-coded unparsed units, never facts.
+      if (role === 'interrogative' || role === 'instruction') {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.INTERROGATIVE_OR_INSTRUCTION,
+          'sentence role: ' + role,
+          [{ parser: 'sentence_role', outcome: role }]);
+        return;
+      }
+      if (role !== 'assertion') {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.AMBIGUOUS_RELATION,
+          'sentence role: ' + role,
+          [{ parser: 'sentence_role', outcome: role }]);
+        return;
+      }
+
+      // Production completeness gates, made explicit: a lowercase-start
+      // unit after an unterminated unit on an EARLIER page is a
+      // cross-page continuation that was never stitched; otherwise it
+      // is a fragment. A unit without terminal punctuation is a
+      // fragment. Neither becomes a fact.
+      if (/^[a-z]/.test(text)) {
+        const previous = unitIndex > 0 ? units[unitIndex - 1] : null;
+        const previousUnterminated = previous
+          && !/[.!?"'")\]]\s*$/.test(cleanText(previous.source_text));
+        if (previous && previousUnterminated && previous.source_page < unit.source_page) {
+          recordUnparsed(
+            UNPARSED_REASON_CODES.CROSS_PAGE_CONTINUATION_UNRESOLVED,
+            'lowercase start after unterminated unit on an earlier page',
+            [{ parser: 'continuation', outcome: 'unresolved' }]);
+        } else {
+          recordUnparsed(
+            UNPARSED_REASON_CODES.FRAGMENT,
+            'unit starts lowercase',
+            [{ parser: 'completeness', outcome: 'lowercase_start' }]);
+        }
+        return;
+      }
+      if (!/[.!?"'")\]]$/.test(text)) {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.FRAGMENT,
+          'unit lacks terminal punctuation',
+          [{ parser: 'completeness', outcome: 'no_terminal_punctuation' }]);
+        return;
+      }
+
+      const drafts = parseAllFactRelations(text, { previousSubject: previousSubject });
+      if (!drafts.length) {
+        recordUnparsed(
+          UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN,
+          'no parser produced a draft',
+          [{ parser: 'all', outcome: 'no_draft' }]);
+        return;
+      }
+
+      const accepted = [];
+      const rejected = [];
+      drafts.forEach((draft) => {
+        const verdict = classifyTypedDraft(draft);
+        if (verdict.typed) accepted.push(draft);
+        else rejected.push({ draft: draft, reason: verdict.reason, detail: verdict.detail });
+      });
+
+      if (!accepted.length) {
+        const attempts = rejected.map((entry) => ({
+          parser: entry.draft.extraction_method || 'explicit',
+          fact_type: entry.draft.fact_type || null,
+          outcome: entry.reason,
+          detail: entry.detail
+        }));
+        // One reason per unit: the first rejection reason, with all
+        // attempts preserved for inspection.
+        recordUnparsed(rejected[0].reason, rejected[0].detail, attempts);
+        return;
+      }
+
+      rejected.forEach((entry) => {
+        partialRejectionsByReason[entry.reason] =
+          (partialRejectionsByReason[entry.reason] || 0) + 1;
+        partialRejections.push({
+          source_unit_id: unit.ku_id,
+          fact_type: entry.draft.fact_type || null,
+          reason: entry.reason,
+          detail: entry.detail
+        });
+      });
+
+      accepted.forEach((draft) => {
+        typedSeq++;
+        typedFactsByType[draft.fact_type] = (typedFactsByType[draft.fact_type] || 0) + 1;
+        typedFacts.push({
+          fact_id: 'TF-LITE-' + padNumber(typedSeq, 3),
+          source_fact_ids: (baselineByKu[unit.ku_id] || [])
+            .filter((fact) => fact.fact_type === draft.fact_type
+              && normalizeSubject(fact.subject) === normalizeSubject(draft.subject)
+              && normalizeObject(fact.object) === normalizeObject(draft.object))
+            .map((fact) => fact.fact_id),
+          fact_type: draft.fact_type,
+          subject: draft.subject,
+          relation: draft.relation,
+          object: draft.object,
+          normalized_subject: normalizeSubject(draft.subject),
+          normalized_relation: normalizeRelation(draft.relation),
+          normalized_object: normalizeObject(draft.object),
+          evidence: text,
+          evidence_span: { start: unit.source_start, end: unit.source_end },
+          object_span: locateInSection(sectionText, draft.object, unit.source_start, unit.source_end),
+          source: {
+            document_id: documentId,
+            page: unit.source_page,
+            section_id: unit.section_id,
+            section_title: unit.section_title,
+            block_ids: [],
+            sentence_id: unit.ku_id
+          },
+          qualifiers: {
+            polarity: draft.polarity || 'positive',
+            precision: draft.precision || 'exact',
+            numeric_kind: draft.numeric_kind || null,
+            relation_verb: draft.relation_verb || null,
+            causal_direction: draft.causal_direction || null,
+            attribute: draft.attribute || null,
+            temporal_scope: draft.temporal_scope || null,
+            comparison: draft.comparison || null,
+            members: draft.members ? draft.members.slice() : null,
+            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null
+          },
+          classification: { method: draft.extraction_method || 'explicit', rule_id: 'phase2a-typed-v1' },
+          validation_state: factConfidenceClass(draft, sourceMeta),
+          multi_claim_unit: accepted.length > 1
+        });
+      });
+      unitsTyped++;
+      if (accepted.length > 1) { multiClaimUnits++; multiClaimFacts += accepted.length; }
+
+      // Previous-subject chain, mirroring production exactly: the first
+      // typed fact with a subject for this unit, ordered date, then
+      // entity_attribute, then membership, then numeric, then others.
+      const subjectSource = accepted
+        .filter((draft) => draft.subject)
+        .sort((a, b) => {
+          const order = { date: 0, entity_attribute: 1, membership: 2, numeric: 3 };
+          return (order[a.fact_type] == null ? 9 : order[a.fact_type])
+            - (order[b.fact_type] == null ? 9 : order[b.fact_type]);
+        })[0];
+      if (subjectSource) previousSubject = subjectSource.subject;
+    });
+
+    const baselineUsable = baselineFacts.filter((fact) => fact.fact_type !== 'fallback');
+    const baselineFallback = baselineFacts.filter((fact) => fact.fact_type === 'fallback');
+    const baselineTable = baselineFacts.filter((fact) => fact.fact_type === 'table');
+
+    const accounting = {
+      units_total: units.length,
+      units_by_role: unitsByRole,
+      units_typed: unitsTyped,
+      units_unparsed: unparsedUnits.length,
+      units_table: unitsTable,
+      typed_facts_total: typedFacts.length,
+      typed_facts_by_type: typedFactsByType,
+      typed_facts_with_complete_evidence: typedFacts.filter((fact) =>
+        fact.evidence && fact.evidence_span && fact.source && fact.source.sentence_id).length,
+      multi_claim_units: multiClaimUnits,
+      multi_claim_facts: multiClaimFacts,
+      units_producing_no_facts_by_reason: unitsNoFactsByReason,
+      partial_rejections_by_reason: partialRejectionsByReason,
+      partial_rejections_total: partialRejections.length,
+      baseline: {
+        facts_total: baselineFacts.length,
+        usable_facts: baselineUsable.length,
+        fallback_facts: baselineFallback.length,
+        table_facts: baselineTable.length
+      }
+    };
+
+    return {
+      version: TYPED_FACT_VERSION,
+      typed_facts: typedFacts,
+      unparsed_units: unparsedUnits,
+      partial_rejections: partialRejections,
+      accounting: accounting
+    };
+  }
+
   function collectSentenceUnits(sections) {
     const units = [];
     let kuSeq = 0;
@@ -5988,6 +6579,13 @@
     parseRawDocument,
     extractSourceFacts,
     parseFactRelations,
+    parseAllFactRelations,
+    buildTypedKnowledge,
+    classifyTypedDraft,
+    isFurnitureContaminated,
+    TYPED_FACT_VERSION,
+    TYPED_FACT_TYPES,
+    UNPARSED_REASON_CODES,
     detectFactConflicts,
     buildKnowledgeInventory,
     buildDistractorCandidates,

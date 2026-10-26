@@ -1,0 +1,4172 @@
+{
+  "version": "phase2a-1",
+  "generated_from": "diagnostics/tools/diagnose_chapter3_phase2a.js",
+  "input": {
+    "pdf_path_resolved": "/home/hatch/workspace/ncert_pdfs/hees203.pdf",
+    "pdf_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+    "pdf_pages": 40,
+    "remote_main_head": "a536a3c94cd92b81b85ca724a671fab1a97c5b06",
+    "note": "Spec path NCERT/hees203.pdf does not exist in the checkout (NCERT/ holds only .gitkeep); the audit PDF under ~/workspace/ncert_pdfs/ was used. No PDF is committed to the repo."
+  },
+  "source_meta_correction": {
+    "production_form": "singly-wrapped { sourceMeta: {...} } passed to analyzeSource, exactly as the batch does; analyzeSource re-wraps it for extractSourceFacts, so .origin is buried two levels deep at factConfidenceClass",
+    "typed_form": "corrected singly-nested { type, grade, subject } passed to buildTypedKnowledge",
+    "equivalence_for_this_run": {
+      "typed_validation_states": {
+        "verified": 16
+      },
+      "baseline_confidence_classes": {
+        "unclassified": 149,
+        "verified": 30
+      },
+      "note": "For textbook (non-OCR) input both forms yield verified; the latent OCR-origin production issue is documented, not changed."
+    }
+  },
+  "production_reproduction": {
+    "questions_run1": 5,
+    "questions_run2": 5,
+    "deterministic": true,
+    "staged_bank_stems": 5,
+    "reproduced_stems": 5,
+    "reproduced_stem_list": [
+      "Which of the following correctly describes the main alignment?",
+      "Consider the following statements:",
+      "Which of the following statements is correct about the present structure?",
+      "Assertion (A): The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines. Reason (R): Mosques are places of worship where followers of Islam gather for prayer. Which of the following is correct?",
+      "Which of the following statements is correct about years?"
+    ],
+    "missing_stems": [],
+    "extra_stems": [],
+    "v2_standalone_accepted": 0,
+    "v2_standalone_target": 5
+  },
+  "document_model": {
+    "pages_encountered": 40,
+    "blocks_total": 475,
+    "blocks_by_type": {
+      "page_furniture": 28,
+      "heading": 70,
+      "fragment": 109,
+      "body": 132,
+      "ambiguous": 27,
+      "caption": 52,
+      "table": 57
+    },
+    "blocks_with_usable_text": 475,
+    "blocks_excluded": 28,
+    "blocks_requiring_review": 114,
+    "dispositions": {
+      "excluded_furniture": 28,
+      "included_prose": 202,
+      "preserved_fragment": 109,
+      "preserved_ambiguous": 27,
+      "included_caption": 52,
+      "included_table": 57
+    },
+    "dispositions_by_type_and_reason": {
+      "page_furniture|excluded_furniture|page_furniture": 28,
+      "heading|included_prose|section_heading": 70,
+      "fragment|preserved_fragment|fragment_preserved_not_assertion": 109,
+      "body|included_prose|body_text": 132,
+      "ambiguous|preserved_ambiguous|ambiguous_preserved_for_review": 27,
+      "caption|included_caption|caption_first_class": 52,
+      "table|included_table|table_relationship_unresolved": 53,
+      "table|included_table|table_rows_parsed": 4
+    },
+    "sections_reconstructed": 70,
+    "blocks_with_unknown_section": 1,
+    "paragraphs_reconstructed": 132,
+    "captions_associated": 18,
+    "captions_unassociated": 34,
+    "tables_with_rows": 4,
+    "tables_unresolved": 53,
+    "lists_detected": 0,
+    "continuation_candidates": 10,
+    "continuation_strong": 4,
+    "continuation_weak": 6
+  },
+  "document_reconciliation": {
+    "ok": true,
+    "disposition_sum": 475,
+    "blocks_total": 475,
+    "per_page_ok": true
+  },
+  "document_sections": [
+    {
+      "section_id": "docsec_001",
+      "title": "A Journey Through",
+      "first_page": 1,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_002",
+      "title": "Indian Architecture",
+      "first_page": 1,
+      "block_count": 6
+    },
+    {
+      "section_id": "docsec_003",
+      "title": "Big",
+      "first_page": 1,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_004",
+      "title": "Questions",
+      "first_page": 1,
+      "block_count": 9
+    },
+    {
+      "section_id": "docsec_005",
+      "title": "86 86",
+      "first_page": 2,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_006",
+      "title": "3 rd –1 st centuries BCE",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_007",
+      "title": "1 st BCE–",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_008",
+      "title": "Shringaverpur",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_009",
+      "title": "1 st CE",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_010",
+      "title": "Ellora rock-cut caves",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_011",
+      "title": "Rani ki Vav stepwell",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_012",
+      "title": "1010 CE",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_013",
+      "title": "Brihadiswara Temple",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_014",
+      "title": "1063 CE",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_015",
+      "title": "Jageshwar group",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_016",
+      "title": "8 th",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_017",
+      "title": "St. Thomas Orthodox Cathedral,",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_018",
+      "title": "12 th century",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_019",
+      "title": "Mulanthuruthy (1 st stage)",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_020",
+      "title": "Orchha fort-",
+      "first_page": 3,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_021",
+      "title": "15 th century",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_022",
+      "title": "16 th century",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_023",
+      "title": "Hidimba Golden",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_024",
+      "title": "Devi temple temple",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_025",
+      "title": "17 th century",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_026",
+      "title": "18 th century",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_027",
+      "title": "Bishnupur terracotta",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_028",
+      "title": "17 th –19 th centuries",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_029",
+      "title": "Havelis of Shekhawati",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_030",
+      "title": "Taj Jama Masjid,",
+      "first_page": 3,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_031",
+      "title": "19 th century",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_032",
+      "title": "Madras High Court",
+      "first_page": 3,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_033",
+      "title": "20 th century",
+      "first_page": 3,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_034",
+      "title": "Mysuru Palace",
+      "first_page": 3,
+      "block_count": 24
+    },
+    {
+      "section_id": "docsec_035",
+      "title": "Shekhawati havelis",
+      "first_page": 4,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_036",
+      "title": "Mehrangarh",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_037",
+      "title": "Dilwara temple",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_038",
+      "title": "Dholavira",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_039",
+      "title": "Rani ki Vav",
+      "first_page": 4,
+      "block_count": 4
+    },
+    {
+      "section_id": "docsec_040",
+      "title": "Mysuru palace",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_041",
+      "title": "St. Thomas Orthodox",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_042",
+      "title": "Cathedral",
+      "first_page": 4,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_043",
+      "title": "88",
+      "first_page": 4,
+      "block_count": 5
+    },
+    {
+      "section_id": "docsec_044",
+      "title": "Jama Masjid, Delhi",
+      "first_page": 5,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_045",
+      "title": "Humayun tomb",
+      "first_page": 5,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_046",
+      "title": "Agra fort",
+      "first_page": 5,
+      "block_count": 6
+    },
+    {
+      "section_id": "docsec_047",
+      "title": "Bishnupur",
+      "first_page": 5,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_048",
+      "title": "Udayagiri-Khandagiri",
+      "first_page": 5,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_049",
+      "title": "Madras High Court",
+      "first_page": 5,
+      "block_count": 1
+    },
+    {
+      "section_id": "docsec_050",
+      "title": "Brihadeswara temple",
+      "first_page": 5,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_051",
+      "title": "89",
+      "first_page": 5,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_052",
+      "title": "The Beginnings …",
+      "first_page": 6,
+      "block_count": 22
+    },
+    {
+      "section_id": "docsec_053",
+      "title": "Structural Stupa Architecture",
+      "first_page": 8,
+      "block_count": 17
+    },
+    {
+      "section_id": "docsec_054",
+      "title": "Rock-Cut Architecture",
+      "first_page": 10,
+      "block_count": 30
+    },
+    {
+      "section_id": "docsec_055",
+      "title": "Water Structures",
+      "first_page": 13,
+      "block_count": 41
+    },
+    {
+      "section_id": "docsec_056",
+      "title": "Classical Temple Architecture",
+      "first_page": 15,
+      "block_count": 20
+    },
+    {
+      "section_id": "docsec_057",
+      "title": "10 th century onward, in different",
+      "first_page": 17,
+      "block_count": 30
+    },
+    {
+      "section_id": "docsec_058",
+      "title": "Apart from a large manpower and accomplished sculptors,",
+      "first_page": 21,
+      "block_count": 3
+    },
+    {
+      "section_id": "docsec_059",
+      "title": "18 centuries;",
+      "first_page": 21,
+      "block_count": 6
+    },
+    {
+      "section_id": "docsec_060",
+      "title": "The Architecture of Mosques",
+      "first_page": 22,
+      "block_count": 37
+    },
+    {
+      "section_id": "docsec_061",
+      "title": "Forts and Palaces",
+      "first_page": 25,
+      "block_count": 55
+    },
+    {
+      "section_id": "docsec_062",
+      "title": "Tombs and Mausoleums",
+      "first_page": 30,
+      "block_count": 24
+    },
+    {
+      "section_id": "docsec_063",
+      "title": "D ON’T MISS OUT",
+      "first_page": 33,
+      "block_count": 5
+    },
+    {
+      "section_id": "docsec_064",
+      "title": "Traditional Houses",
+      "first_page": 34,
+      "block_count": 13
+    },
+    {
+      "section_id": "docsec_065",
+      "title": "Churches in India",
+      "first_page": 36,
+      "block_count": 17
+    },
+    {
+      "section_id": "docsec_066",
+      "title": "Colonial Architecture",
+      "first_page": 38,
+      "block_count": 10
+    },
+    {
+      "section_id": "docsec_067",
+      "title": "20 th century). It blended Islamic, Hindu, and Gothic elements,",
+      "first_page": 39,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_068",
+      "title": "Before we move on …",
+      "first_page": 39,
+      "block_count": 4
+    },
+    {
+      "section_id": "docsec_069",
+      "title": "123 123",
+      "first_page": 39,
+      "block_count": 2
+    },
+    {
+      "section_id": "docsec_070",
+      "title": "Questions and activities",
+      "first_page": 40,
+      "block_count": 14
+    }
+  ],
+  "continuations": [
+    {
+      "from_block_id": "hees203:p1-b13",
+      "to_block_id": "hees203:p2-b2",
+      "from_page": 1,
+      "to_page": 2,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p8-b8",
+      "to_block_id": "hees203:p9-b2",
+      "from_page": 8,
+      "to_page": 9,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p10-b13",
+      "to_block_id": "hees203:p11-b1",
+      "from_page": 10,
+      "to_page": 11,
+      "support": "strong"
+    },
+    {
+      "from_block_id": "hees203:p12-b2",
+      "to_block_id": "hees203:p13-b3",
+      "from_page": 12,
+      "to_page": 13,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p13-b4",
+      "to_block_id": "hees203:p14-b1",
+      "from_page": 13,
+      "to_page": 14,
+      "support": "strong"
+    },
+    {
+      "from_block_id": "hees203:p17-b9",
+      "to_block_id": "hees203:p18-b4",
+      "from_page": 17,
+      "to_page": 18,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p23-b6",
+      "to_block_id": "hees203:p24-b3",
+      "from_page": 23,
+      "to_page": 24,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p30-b7",
+      "to_block_id": "hees203:p31-b1",
+      "from_page": 30,
+      "to_page": 31,
+      "support": "strong"
+    },
+    {
+      "from_block_id": "hees203:p31-b5",
+      "to_block_id": "hees203:p32-b2",
+      "from_page": 31,
+      "to_page": 32,
+      "support": "weak"
+    },
+    {
+      "from_block_id": "hees203:p39-b9",
+      "to_block_id": "hees203:p40-b1",
+      "from_page": 39,
+      "to_page": 40,
+      "support": "strong"
+    }
+  ],
+  "typed_knowledge": {
+    "units_total": 368,
+    "units_by_role": {
+      "ambiguous": 79,
+      "assertion": 269,
+      "interrogative": 18,
+      "instruction": 2
+    },
+    "units_typed": 16,
+    "units_unparsed": 352,
+    "units_table": 0,
+    "typed_facts_total": 16,
+    "typed_facts_by_type": {
+      "entity_attribute": 11,
+      "membership": 2,
+      "numeric": 3
+    },
+    "typed_facts_with_complete_evidence": 16,
+    "multi_claim_units": 0,
+    "multi_claim_facts": 0,
+    "units_producing_no_facts_by_reason": {
+      "ambiguous_relation": 78,
+      "unsupported_pattern": 149,
+      "interrogative_or_instruction": 20,
+      "fragment": 96,
+      "cross_page_continuation_unresolved": 7,
+      "layout_relationship_unresolved": 2
+    },
+    "partial_rejections_by_reason": {
+      "fragment": 1
+    },
+    "partial_rejections_total": 1,
+    "baseline": {
+      "facts_total": 179,
+      "usable_facts": 30,
+      "fallback_facts": 149,
+      "table_facts": 0
+    }
+  },
+  "unparsed_units": [
+    {
+      "unparsed_id": "UU-LITE-001",
+      "source_unit_id": "KU-LITE-001",
+      "page": 1,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "A Journey Through"
+    },
+    {
+      "unparsed_id": "UU-LITE-002",
+      "source_unit_id": "KU-LITE-002",
+      "page": 1,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Indian Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-003",
+      "source_unit_id": "KU-LITE-003",
+      "page": 1,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The craftsman is not an individual expressing individual whims, but a part of the universe, giving expression to ideals of eternal beauty and unchanging laws, even as do the trees and flowers whose na"
+    },
+    {
+      "unparsed_id": "UU-LITE-004",
+      "source_unit_id": "KU-LITE-004",
+      "page": 1,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "played in the Indian civilisation?"
+    },
+    {
+      "unparsed_id": "UU-LITE-005",
+      "source_unit_id": "KU-LITE-005",
+      "page": 1,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "What are some of the key concepts and developments behind Indian architecture?"
+    },
+    {
+      "unparsed_id": "UU-LITE-006",
+      "source_unit_id": "KU-LITE-006",
+      "page": 1,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "How is the heritage of Indian architecture of"
+    },
+    {
+      "unparsed_id": "UU-LITE-007",
+      "source_unit_id": "KU-LITE-007",
+      "page": 1,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Questions"
+    },
+    {
+      "unparsed_id": "UU-LITE-008",
+      "source_unit_id": "KU-LITE-008",
+      "page": 1,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneythroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-009",
+      "source_unit_id": "KU-LITE-009",
+      "page": 2,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "mosque."
+    },
+    {
+      "unparsed_id": "UU-LITE-010",
+      "source_unit_id": "KU-LITE-010",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It is known as ‘Sidi Saiyyed Jāli’."
+    },
+    {
+      "unparsed_id": "UU-LITE-011",
+      "source_unit_id": "KU-LITE-011",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "‘Architecture’—the art and techniques of design and construction, which combine functional and aesthetic aspects—is not only an art but also a highly technical field, in which India has excelled for s"
+    },
+    {
+      "unparsed_id": "UU-LITE-012",
+      "source_unit_id": "KU-LITE-012",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "As with any other Indian art, these accomplishments have evolved in time and developed great geographical diversity."
+    },
+    {
+      "unparsed_id": "UU-LITE-013",
+      "source_unit_id": "KU-LITE-013",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Exploring it all—the evolution of forms, their endless diversity and technicalities—cannot be done in a brief chapter."
+    },
+    {
+      "unparsed_id": "UU-LITE-014",
+      "source_unit_id": "KU-LITE-014",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Instead, we will go on a journey, visiting a few representative structures or monuments grouped in a few categories."
+    },
+    {
+      "unparsed_id": "UU-LITE-015",
+      "source_unit_id": "KU-LITE-015",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "We hope that you will be tempted to take detours on the way and explore more."
+    },
+    {
+      "unparsed_id": "UU-LITE-016",
+      "source_unit_id": "KU-LITE-016",
+      "page": 2,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Earlier textbooks of the Middle Stage (Grades 6 to 8) have briefly highlighted quite a few such structures or monuments—those were just teasers!"
+    },
+    {
+      "unparsed_id": "UU-LITE-017",
+      "source_unit_id": "KU-LITE-017",
+      "page": 2,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Let us now begin our journey, guided by two illustrations: the map in Fig. 3.3 shows the geographical locations"
+    },
+    {
+      "unparsed_id": "UU-LITE-018",
+      "source_unit_id": "KU-LITE-018",
+      "page": 3,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3 rd –1 st centuries BCE"
+    },
+    {
+      "unparsed_id": "UU-LITE-019",
+      "source_unit_id": "KU-LITE-019",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "1 st BCE–"
+    },
+    {
+      "unparsed_id": "UU-LITE-020",
+      "source_unit_id": "KU-LITE-020",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Shringaverpur"
+    },
+    {
+      "unparsed_id": "UU-LITE-021",
+      "source_unit_id": "KU-LITE-021",
+      "page": 3,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Ellora rock-cut caves"
+    },
+    {
+      "unparsed_id": "UU-LITE-022",
+      "source_unit_id": "KU-LITE-022",
+      "page": 3,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Rani ki Vav stepwell"
+    },
+    {
+      "unparsed_id": "UU-LITE-023",
+      "source_unit_id": "KU-LITE-023",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "1010 CE"
+    },
+    {
+      "unparsed_id": "UU-LITE-024",
+      "source_unit_id": "KU-LITE-024",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Brihadiswara Temple"
+    },
+    {
+      "unparsed_id": "UU-LITE-025",
+      "source_unit_id": "KU-LITE-025",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "1063 CE"
+    },
+    {
+      "unparsed_id": "UU-LITE-026",
+      "source_unit_id": "KU-LITE-026",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Jageshwar group"
+    },
+    {
+      "unparsed_id": "UU-LITE-027",
+      "source_unit_id": "KU-LITE-027",
+      "page": 3,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "St. Thomas Orthodox Cathedral,"
+    },
+    {
+      "unparsed_id": "UU-LITE-028",
+      "source_unit_id": "KU-LITE-028",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "12 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-029",
+      "source_unit_id": "KU-LITE-029",
+      "page": 3,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Mulanthuruthy (1 st stage)"
+    },
+    {
+      "unparsed_id": "UU-LITE-030",
+      "source_unit_id": "KU-LITE-030",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Orchha fort-"
+    },
+    {
+      "unparsed_id": "UU-LITE-031",
+      "source_unit_id": "KU-LITE-031",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "15 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-032",
+      "source_unit_id": "KU-LITE-032",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "16 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-033",
+      "source_unit_id": "KU-LITE-033",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Hidimba Golden"
+    },
+    {
+      "unparsed_id": "UU-LITE-034",
+      "source_unit_id": "KU-LITE-034",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Devi temple temple"
+    },
+    {
+      "unparsed_id": "UU-LITE-035",
+      "source_unit_id": "KU-LITE-035",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "17 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-036",
+      "source_unit_id": "KU-LITE-036",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "18 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-037",
+      "source_unit_id": "KU-LITE-037",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Bishnupur terracotta"
+    },
+    {
+      "unparsed_id": "UU-LITE-038",
+      "source_unit_id": "KU-LITE-038",
+      "page": 3,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "17 th –19 th centuries"
+    },
+    {
+      "unparsed_id": "UU-LITE-039",
+      "source_unit_id": "KU-LITE-039",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Havelis of Shekhawati"
+    },
+    {
+      "unparsed_id": "UU-LITE-040",
+      "source_unit_id": "KU-LITE-040",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Taj Jama Masjid,"
+    },
+    {
+      "unparsed_id": "UU-LITE-041",
+      "source_unit_id": "KU-LITE-041",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "19 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-042",
+      "source_unit_id": "KU-LITE-042",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Madras High Court"
+    },
+    {
+      "unparsed_id": "UU-LITE-043",
+      "source_unit_id": "KU-LITE-043",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "20 th century"
+    },
+    {
+      "unparsed_id": "UU-LITE-044",
+      "source_unit_id": "KU-LITE-044",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneythroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-045",
+      "source_unit_id": "KU-LITE-045",
+      "page": 3,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Mysuru Palace"
+    },
+    {
+      "unparsed_id": "UU-LITE-046",
+      "source_unit_id": "KU-LITE-046",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Shekhawati havelis"
+    },
+    {
+      "unparsed_id": "UU-LITE-047",
+      "source_unit_id": "KU-LITE-047",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Mehrangarh"
+    },
+    {
+      "unparsed_id": "UU-LITE-048",
+      "source_unit_id": "KU-LITE-048",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Dilwara temple"
+    },
+    {
+      "unparsed_id": "UU-LITE-049",
+      "source_unit_id": "KU-LITE-049",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Dholavira"
+    },
+    {
+      "unparsed_id": "UU-LITE-050",
+      "source_unit_id": "KU-LITE-050",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Rani ki Vav"
+    },
+    {
+      "unparsed_id": "UU-LITE-051",
+      "source_unit_id": "KU-LITE-051",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Mysuru palace"
+    },
+    {
+      "unparsed_id": "UU-LITE-052",
+      "source_unit_id": "KU-LITE-052",
+      "page": 4,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "St. Thomas Orthodox"
+    },
+    {
+      "unparsed_id": "UU-LITE-053",
+      "source_unit_id": "KU-LITE-053",
+      "page": 4,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Cathedral"
+    },
+    {
+      "unparsed_id": "UU-LITE-054",
+      "source_unit_id": "KU-LITE-054",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Jama Masjid, Delhi"
+    },
+    {
+      "unparsed_id": "UU-LITE-055",
+      "source_unit_id": "KU-LITE-055",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Humayun tomb"
+    },
+    {
+      "unparsed_id": "UU-LITE-056",
+      "source_unit_id": "KU-LITE-056",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Agra fort"
+    },
+    {
+      "unparsed_id": "UU-LITE-057",
+      "source_unit_id": "KU-LITE-057",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Bishnupur"
+    },
+    {
+      "unparsed_id": "UU-LITE-058",
+      "source_unit_id": "KU-LITE-058",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Udayagiri-Khandagiri"
+    },
+    {
+      "unparsed_id": "UU-LITE-059",
+      "source_unit_id": "KU-LITE-059",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Madras High Court"
+    },
+    {
+      "unparsed_id": "UU-LITE-060",
+      "source_unit_id": "KU-LITE-060",
+      "page": 5,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Brihadeswara temple"
+    },
+    {
+      "unparsed_id": "UU-LITE-061",
+      "source_unit_id": "KU-LITE-061",
+      "page": 6,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "The Beginnings ..."
+    },
+    {
+      "unparsed_id": "UU-LITE-062",
+      "source_unit_id": "KU-LITE-062",
+      "page": 6,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "of Mohenjo-daro’s lower town."
+    },
+    {
+      "unparsed_id": "UU-LITE-063",
+      "source_unit_id": "KU-LITE-063",
+      "page": 6,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "We visited the Indus/Harappan/ Indus-Sarasvati civilisation in Grade 6 (chapter ‘The Beginnings of Indian Civilisation’)."
+    },
+    {
+      "unparsed_id": "UU-LITE-064",
+      "source_unit_id": "KU-LITE-064",
+      "page": 6,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Harappan"
+    },
+    {
+      "unparsed_id": "UU-LITE-065",
+      "source_unit_id": "KU-LITE-065",
+      "page": 6,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "earliest known tradition of urban planning and construction in the Indian subcontinent."
+    },
+    {
+      "unparsed_id": "UU-LITE-066",
+      "source_unit_id": "KU-LITE-066",
+      "page": 6,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation."
+    },
+    {
+      "unparsed_id": "UU-LITE-067",
+      "source_unit_id": "KU-LITE-067",
+      "page": 6,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Most Harappan cities were constructed with bricks, as they were located"
+    },
+    {
+      "unparsed_id": "UU-LITE-068",
+      "source_unit_id": "KU-LITE-069",
+      "page": 7,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Fig. 3.4 shows a densely inhabited area, with wide streets and narrow lanes roughly oriented to the cardinal directions."
+    },
+    {
+      "unparsed_id": "UU-LITE-069",
+      "source_unit_id": "KU-LITE-071",
+      "page": 7,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The plan of a large house (Fig. 3.5) hints that while the servants lived"
+    },
+    {
+      "unparsed_id": "UU-LITE-070",
+      "source_unit_id": "KU-LITE-072",
+      "page": 7,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "areas, streets and reservoirs."
+    },
+    {
+      "unparsed_id": "UU-LITE-071",
+      "source_unit_id": "KU-LITE-073",
+      "page": 7,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "downstairs, the owners probably lived upstairs, where they would be less exposed to the dust and noise from the streets around."
+    },
+    {
+      "unparsed_id": "UU-LITE-072",
+      "source_unit_id": "KU-LITE-074",
+      "page": 7,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Noted for its precise urban planning (Fig. 3.7), Dholavira in the Rann of Kachchh is another large Harappan city."
+    },
+    {
+      "unparsed_id": "UU-LITE-073",
+      "source_unit_id": "KU-LITE-075",
+      "page": 7,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Unlike most others, it made extensive use of stone, as it was locally available."
+    },
+    {
+      "unparsed_id": "UU-LITE-074",
+      "source_unit_id": "KU-LITE-076",
+      "page": 7,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Fig. 3.6, you can picture yourself entering the city’s highest and most fortified area (named ‘Castle’)."
+    },
+    {
+      "unparsed_id": "UU-LITE-075",
+      "source_unit_id": "KU-LITE-077",
+      "page": 7,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Notice the smooth surface of the blocks of stone and the large sentinel room on the left, where guards would have screened people moving in or out."
+    },
+    {
+      "unparsed_id": "UU-LITE-076",
+      "source_unit_id": "KU-LITE-078",
+      "page": 7,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Two highly polished segments of a stone pillar remain visible in the centre."
+    },
+    {
+      "unparsed_id": "UU-LITE-077",
+      "source_unit_id": "KU-LITE-079",
+      "page": 8,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Structural Stupa Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-078",
+      "source_unit_id": "KU-LITE-080",
+      "page": 8,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "toraṇas and an enclosure of railings."
+    },
+    {
+      "unparsed_id": "UU-LITE-079",
+      "source_unit_id": "KU-LITE-081",
+      "page": 8,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "From the 4 th or 3 rd century BCE onward, with the rise of Buddhism several new architectural forms emerged in north India, slowly spreading to other regions."
+    },
+    {
+      "unparsed_id": "UU-LITE-080",
+      "source_unit_id": "KU-LITE-082",
+      "page": 8,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Thousands of stupas (dome-shaped structures housing relics of the Buddha or revered monks) were constructed with bricks or stone."
+    },
+    {
+      "unparsed_id": "UU-LITE-081",
+      "source_unit_id": "KU-LITE-083",
+      "page": 8,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The larger ones became complex ritual centres with railings,"
+    },
+    {
+      "unparsed_id": "UU-LITE-082",
+      "source_unit_id": "KU-LITE-084",
+      "page": 8,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "people worshipping the stupa there."
+    },
+    {
+      "unparsed_id": "UU-LITE-083",
+      "source_unit_id": "KU-LITE-085",
+      "page": 8,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "narrating episodes in the Buddha’s life."
+    },
+    {
+      "unparsed_id": "UU-LITE-084",
+      "source_unit_id": "KU-LITE-086",
+      "page": 8,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "At this early stage, the Buddha was represented symbolically— through objects such as footprints, the wheel of dharma, or the stupa itself—rather than in human form."
+    },
+    {
+      "unparsed_id": "UU-LITE-085",
+      "source_unit_id": "KU-LITE-087",
+      "page": 8,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Originally commissioned or patronised by Aśhoka, the main stupa at Sanchi (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-086",
+      "source_unit_id": "KU-LITE-088",
+      "page": 8,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3.8 and 3.10) in Madhya Pradesh represents"
+    },
+    {
+      "unparsed_id": "UU-LITE-087",
+      "source_unit_id": "KU-LITE-089",
+      "page": 9,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "gateways depicting many scenes of urban as well as village life), a worshipper would circumambulate (i.e., walk around) the stupa inside the enclosure of railings ( vedikā )."
+    },
+    {
+      "unparsed_id": "UU-LITE-088",
+      "source_unit_id": "KU-LITE-090",
+      "page": 9,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The worship of stupas is explicitly depicted at Bharhut (Fig. 3.9), also in Madhya Pradesh; there, the stupa was similarly enclosed by richly carved stone railings and bore numerous inscriptions recor"
+    },
+    {
+      "unparsed_id": "UU-LITE-089",
+      "source_unit_id": "KU-LITE-092",
+      "page": 9,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "With diverse dimensions and shapes, this form of religious architecture will spread across India and beyond (remember Borobudur in the Grade 7 textbook)."
+    },
+    {
+      "unparsed_id": "UU-LITE-090",
+      "source_unit_id": "KU-LITE-093",
+      "page": 9,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "You will find several depictions of beautiful panels of the Sanchi Stupa in textbooks of Grade 6 (check out chapter ‘India, That Is Bharat’) and Grade 7 (chapters ‘New Beginnings: Cities and States’, "
+    },
+    {
+      "unparsed_id": "UU-LITE-091",
+      "source_unit_id": "KU-LITE-094",
+      "page": 10,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Rock-Cut Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-092",
+      "source_unit_id": "KU-LITE-095",
+      "page": 10,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Rock-cut architecture developed as an efficient and durable mode of construction for religious communities."
+    },
+    {
+      "unparsed_id": "UU-LITE-093",
+      "source_unit_id": "KU-LITE-096",
+      "page": 10,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "By carving directly into the rock, builders created caves for worship, residence or assembly."
+    },
+    {
+      "unparsed_id": "UU-LITE-094",
+      "source_unit_id": "KU-LITE-097",
+      "page": 10,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "These complexes often evolved over centuries, reflecting changing religious needs and patronage."
+    },
+    {
+      "unparsed_id": "UU-LITE-095",
+      "source_unit_id": "KU-LITE-098",
+      "page": 10,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "complex (Fig. 3.11) near Bhubaneswar in Odisha, whose carving began in the 2 nd century BCE under royal patronage, are among India’s first; most of them served as dwellings for Jain monks."
+    },
+    {
+      "unparsed_id": "UU-LITE-096",
+      "source_unit_id": "KU-LITE-099",
+      "page": 10,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "One cave shelters Khāravela’s famous inscription"
+    },
+    {
+      "unparsed_id": "UU-LITE-097",
+      "source_unit_id": "KU-LITE-100",
+      "page": 10,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "depicting a seated Buddha in the posture (see the textbook for Grade 7, chapter of teaching, emerging from a stupa."
+    },
+    {
+      "unparsed_id": "UU-LITE-098",
+      "source_unit_id": "KU-LITE-101",
+      "page": 10,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "‘The Age of Reorganisation’)."
+    },
+    {
+      "unparsed_id": "UU-LITE-099",
+      "source_unit_id": "KU-LITE-102",
+      "page": 10,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "complexes."
+    },
+    {
+      "unparsed_id": "UU-LITE-100",
+      "source_unit_id": "KU-LITE-103",
+      "page": 10,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Those at Ajanta and Ellora are renowned for their"
+    },
+    {
+      "unparsed_id": "UU-LITE-101",
+      "source_unit_id": "KU-LITE-104",
+      "page": 11,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "massive scale, exquisite craftmanship and the mind-boggling technologies involved in their carving."
+    },
+    {
+      "unparsed_id": "UU-LITE-102",
+      "source_unit_id": "KU-LITE-105",
+      "page": 11,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Many thousands of tonnes of rock had to be chipped away to leave the colossal monolithic Kailaśha Temple at Ellora (see the Grade 7 textbook, chapter ‘Empires and Kingdoms: 6 th to 10 th Centuries’) a"
+    },
+    {
+      "unparsed_id": "UU-LITE-103",
+      "source_unit_id": "KU-LITE-107",
+      "page": 11,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The cave’s arched roof imitates beams of timber that existed in some of the urban buildings; in its aisle (Fig. 3.13), that is, the corridor outside the row of pillars, monks would circumambulate the "
+    },
+    {
+      "unparsed_id": "UU-LITE-104",
+      "source_unit_id": "KU-LITE-108",
+      "page": 11,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "This custom of pradakṣhi ṇ a (which means ‘going around in a clockwise direction’) will"
+    },
+    {
+      "unparsed_id": "UU-LITE-105",
+      "source_unit_id": "KU-LITE-109",
+      "page": 11,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "persist in later classical temples)."
+    },
+    {
+      "unparsed_id": "UU-LITE-106",
+      "source_unit_id": "KU-LITE-110",
+      "page": 11,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Form groups in the class to discuss the followin g: Imagine you have only hammers and iron chisels."
+    },
+    {
+      "unparsed_id": "UU-LITE-107",
+      "source_unit_id": "KU-LITE-111",
+      "page": 11,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "How will you plan the carving of such a huge cave?"
+    },
+    {
+      "unparsed_id": "UU-LITE-108",
+      "source_unit_id": "KU-LITE-112",
+      "page": 11,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "What challenges might the hillside offer?"
+    },
+    {
+      "unparsed_id": "UU-LITE-109",
+      "source_unit_id": "KU-LITE-113",
+      "page": 11,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "And once you reach the nave (Fig. 3.13), how will you manage to carve arched beams into its ceiling?"
+    },
+    {
+      "unparsed_id": "UU-LITE-110",
+      "source_unit_id": "KU-LITE-114",
+      "page": 11,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Æ In classical temples, what Indian words would we use instead of ‘nave’?"
+    },
+    {
+      "unparsed_id": "UU-LITE-111",
+      "source_unit_id": "KU-LITE-115",
+      "page": 11,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "You will find pictures of the Ellora caves in the Grade 6 textbook (chapter ‘India’s Cultural Roots’), of the Udayagiri- Khandagiri caves in the Grade 7 textbook (chapters ‘The Age of Reorganisation’ "
+    },
+    {
+      "unparsed_id": "UU-LITE-112",
+      "source_unit_id": "KU-LITE-116",
+      "page": 11,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "(chapter ‘The Gupta Era: An Age of Tireless Creativity’)."
+    },
+    {
+      "unparsed_id": "UU-LITE-113",
+      "source_unit_id": "KU-LITE-117",
+      "page": 12,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Sharada Peetha Temple, Jammu and Kashmir Dedicated to Goddess Śhāradā (a form of Sarasvatī), Sharada Peetha was a renowned centre of learning and a key site in the development of the Sharada script."
+    },
+    {
+      "unparsed_id": "UU-LITE-114",
+      "source_unit_id": "KU-LITE-118",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Attracting scholars from different parts of India and the world, it flourished between the 6 th and 12 th centuries CE, and its legacy earned Kashmir the name Śhāradā Deśh (the land of Śhāradā)."
+    },
+    {
+      "unparsed_id": "UU-LITE-115",
+      "source_unit_id": "KU-LITE-119",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Though now in ruins, it remains an important part of India’s archaeological and cultural heritage."
+    },
+    {
+      "unparsed_id": "UU-LITE-116",
+      "source_unit_id": "KU-LITE-120",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Hidimba Devi Temple, Himachal Pradesh Located in Manali amid the cedar forests of Dhungiri Van Vihar, the Hidimba Devi Temple is one of the oldest religious sites in the Kullu Valley."
+    },
+    {
+      "unparsed_id": "UU-LITE-117",
+      "source_unit_id": "KU-LITE-121",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Built in the 16 th century CE, the shrine is dedicated to Hidimbā (Hirama), the wife of Bhīma from the Mahābhārata ."
+    },
+    {
+      "unparsed_id": "UU-LITE-118",
+      "source_unit_id": "KU-LITE-122",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "A nearby temple dedicated to their son, Ghaṭotkacha, further reflects the site’s close association with the epic tradition."
+    },
+    {
+      "unparsed_id": "UU-LITE-119",
+      "source_unit_id": "KU-LITE-123",
+      "page": 12,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Jageshwar Group of Temples, Uttarakhand The Jageshwar Group of Temples, located in the Jatāgangā Valley of Uttarakhand’s Almora district, is an ancient temple complex associated with the Katyūrī, Ch"
+    },
+    {
+      "unparsed_id": "UU-LITE-120",
+      "source_unit_id": "KU-LITE-124",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Comprising about 124 stone temples, it is renowned for its Swayambhu Linga , known as Nāgeśh Dārūkāvane."
+    },
+    {
+      "unparsed_id": "UU-LITE-121",
+      "source_unit_id": "KU-LITE-125",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The garbha griha houses Jāgeśhwara Mahādeva, who is locally revered as Bāla Jägeśhwara (“Child Shiva”)."
+    },
+    {
+      "unparsed_id": "UU-LITE-122",
+      "source_unit_id": "KU-LITE-126",
+      "page": 12,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ The Golden Temple, Punjab The gurudwara is the place of worship of the Sikhs."
+    },
+    {
+      "unparsed_id": "UU-LITE-123",
+      "source_unit_id": "KU-LITE-129",
+      "page": 12,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The construction of the temple and its"
+    },
+    {
+      "unparsed_id": "UU-LITE-124",
+      "source_unit_id": "KU-LITE-130",
+      "page": 13,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Water Structures"
+    },
+    {
+      "unparsed_id": "UU-LITE-125",
+      "source_unit_id": "KU-LITE-131",
+      "page": 13,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "typical Harappan well built with trapezoid-shaped bricks."
+    },
+    {
+      "unparsed_id": "UU-LITE-126",
+      "source_unit_id": "KU-LITE-132",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "For several millennia, India’s monsoon- driven climate has led people to develop a great variety of structures for the harvesting, storage and distribution of water."
+    },
+    {
+      "unparsed_id": "UU-LITE-127",
+      "source_unit_id": "KU-LITE-133",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "These structures, whether simple (such as a humble village pond) or highly sophisticated (such as the Grand Anicut, see chapter ‘The Age of Reorganisation’ in the Grade 7 textbook), have been very div"
+    },
+    {
+      "unparsed_id": "UU-LITE-128",
+      "source_unit_id": "KU-LITE-134",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "This tradition goes all the way back to the Harappan civilisation; remember Dholavira’s large reservoirs, for instance."
+    },
+    {
+      "unparsed_id": "UU-LITE-129",
+      "source_unit_id": "KU-LITE-135",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Besides, the Harappans invented wells that cannot collapse inward under the pressure of underground infiltration, thanks to their trapezoid-shaped bricks that lock together (Fig. 3.14)."
+    },
+    {
+      "unparsed_id": "UU-LITE-130",
+      "source_unit_id": "KU-LITE-136",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In later periods, we find networks of reservoirs in many parts of India."
+    },
+    {
+      "unparsed_id": "UU-LITE-131",
+      "source_unit_id": "KU-LITE-137",
+      "page": 13,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Shringverpur in Uttar Pradesh was known as Śhringaverapura in the Rāmayaṇa (which describes it as the place where Rāmā, Sītā and Lakṣhmaṇa crossed the Ganga while starting on their exile)."
+    },
+    {
+      "unparsed_id": "UU-LITE-132",
+      "source_unit_id": "KU-LITE-138",
+      "page": 13,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Excavations there brought to light a series of large interconnected reservoirs (Fig. 3.15) fed by a channel from the Ganga during the"
+    },
+    {
+      "unparsed_id": "UU-LITE-133",
+      "source_unit_id": "KU-LITE-139",
+      "page": 14,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "silt suspended in water to settle down—a fairly common design."
+    },
+    {
+      "unparsed_id": "UU-LITE-134",
+      "source_unit_id": "KU-LITE-140",
+      "page": 14,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Yet the precise working of the entire complex remains to be figured out."
+    },
+    {
+      "unparsed_id": "UU-LITE-135",
+      "source_unit_id": "KU-LITE-141",
+      "page": 14,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "and Rajasthan, many of them engineering marvels as well as spectacular works of art."
+    },
+    {
+      "unparsed_id": "UU-LITE-136",
+      "source_unit_id": "KU-LITE-142",
+      "page": 14,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The stepwell at Rani ki Vav (Fig. 3.16) has multiple pillared levels and hundreds of magnificent statues."
+    },
+    {
+      "unparsed_id": "UU-LITE-137",
+      "source_unit_id": "KU-LITE-143",
+      "page": 14,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Besides harvesting and storing rainwater,"
+    },
+    {
+      "unparsed_id": "UU-LITE-138",
+      "source_unit_id": "KU-LITE-144",
+      "page": 14,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "could sit together, enjoy cooler temperatures and exchange all the news."
+    },
+    {
+      "unparsed_id": "UU-LITE-139",
+      "source_unit_id": "KU-LITE-145",
+      "page": 14,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-based rituals."
+    },
+    {
+      "unparsed_id": "UU-LITE-140",
+      "source_unit_id": "KU-LITE-146",
+      "page": 14,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Many of them were also works of art, with numerous stairways built into them (Fig. 3.17)."
+    },
+    {
+      "unparsed_id": "UU-LITE-141",
+      "source_unit_id": "KU-LITE-147",
+      "page": 14,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "join hands to preserve them, but much remains to be done."
+    },
+    {
+      "unparsed_id": "UU-LITE-142",
+      "source_unit_id": "KU-LITE-148",
+      "page": 15,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Classical Temple Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-143",
+      "source_unit_id": "KU-LITE-149",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "With antecedents in the stupa and rock-cut types of architecture, temples have been central to India’s cultural life for many centuries."
+    },
+    {
+      "unparsed_id": "UU-LITE-144",
+      "source_unit_id": "KU-LITE-150",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Whether Buddhist, Jain or Hindu, temples have been places of worship, but also of learning, literature, art (sculpture, dance, music, painting among others)."
+    },
+    {
+      "unparsed_id": "UU-LITE-145",
+      "source_unit_id": "KU-LITE-151",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Besides, they were centres of social intercourse and economic life."
+    },
+    {
+      "unparsed_id": "UU-LITE-146",
+      "source_unit_id": "KU-LITE-152",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Architecturally, they evolved into works of art that celebrate life and encourage bhakti as well as quiet contemplation."
+    },
+    {
+      "unparsed_id": "UU-LITE-147",
+      "source_unit_id": "KU-LITE-153",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Classical temples emerged during the Gupta era."
+    },
+    {
+      "unparsed_id": "UU-LITE-148",
+      "source_unit_id": "KU-LITE-154",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Many were built thanks to royal patronage, as evidenced by inscriptions, but also by endowments from various donors."
+    },
+    {
+      "unparsed_id": "UU-LITE-149",
+      "source_unit_id": "KU-LITE-155",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Temple construction followed principles and techniques spelt out in treatises of śhilpaśhāstra — the discipline of arts and crafts, largely dedicated to architecture and sculpture."
+    },
+    {
+      "unparsed_id": "UU-LITE-150",
+      "source_unit_id": "KU-LITE-156",
+      "page": 15,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "A temple’s main elements are shown in Fig. 3.18: a ceremonial entrance ( gopuram in south India; toraṇa in some north Indian temples), one or several maṇḍapas (pillared halls), and the garbhagṛiha , t"
+    },
+    {
+      "unparsed_id": "UU-LITE-151",
+      "source_unit_id": "KU-LITE-157",
+      "page": 15,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Above the garbhagṛiha is a tower called śhikhara (in north Indian temples) or vimāna (in south Indian temples)."
+    },
+    {
+      "unparsed_id": "UU-LITE-152",
+      "source_unit_id": "KU-LITE-159",
+      "page": 16,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Temple architecture is also based on certain philosophical concepts."
+    },
+    {
+      "unparsed_id": "UU-LITE-153",
+      "source_unit_id": "KU-LITE-160",
+      "page": 16,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "For instance, both horizontally and vertically, a temple is planned as a representation of the human body—that of Puru ṣ ha or the cosmic being."
+    },
+    {
+      "unparsed_id": "UU-LITE-154",
+      "source_unit_id": "KU-LITE-161",
+      "page": 16,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Fig. 3.19 shows the vertical equivalence: from the top of the śhikhara or vimāna , which corresponds to the head, down to the platform on which the temple rests, which corresponds to the feet ( you ne"
+    },
+    {
+      "unparsed_id": "UU-LITE-155",
+      "source_unit_id": "KU-LITE-162",
+      "page": 16,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The temple thus becomes a symbol of our own being and also of the cosmos."
+    },
+    {
+      "unparsed_id": "UU-LITE-156",
+      "source_unit_id": "KU-LITE-163",
+      "page": 16,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Temple worship can be understood as a journey from the outer world (left behind once one crosses the entrance) to the inner world awaiting the worshipper in the garbhagṛiha , mirroring our own spiritu"
+    },
+    {
+      "unparsed_id": "UU-LITE-157",
+      "source_unit_id": "KU-LITE-164",
+      "page": 16,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "between a temple and the cosmic being?"
+    },
+    {
+      "unparsed_id": "UU-LITE-158",
+      "source_unit_id": "KU-LITE-165",
+      "page": 17,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Until the 8 th or 9 th century, temples were modest in size."
+    },
+    {
+      "unparsed_id": "UU-LITE-159",
+      "source_unit_id": "KU-LITE-166",
+      "page": 17,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "From the"
+    },
+    {
+      "unparsed_id": "UU-LITE-160",
+      "source_unit_id": "KU-LITE-167",
+      "page": 17,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "10 th century onward, in different"
+    },
+    {
+      "unparsed_id": "UU-LITE-161",
+      "source_unit_id": "KU-LITE-168",
+      "page": 17,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "parts of India they grew in scale and began incorporating multiple shrines, amenities, and enclosures ( prākāras ), culminating in vast complexes."
+    },
+    {
+      "unparsed_id": "UU-LITE-162",
+      "source_unit_id": "KU-LITE-169",
+      "page": 17,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "In the grade 7 textbook (chapter ‘Turning Tides: 11 th and 12 th Centuries’), we saw the magnificent Kandāriyā Mahādeva Temple of Khajuraho and Cambodia’s colossal"
+    },
+    {
+      "unparsed_id": "UU-LITE-163",
+      "source_unit_id": "KU-LITE-170",
+      "page": 17,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "Angkor Wat Temple ."
+    },
+    {
+      "unparsed_id": "UU-LITE-164",
+      "source_unit_id": "KU-LITE-171",
+      "page": 17,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Thanjavur, Tamil Nadu, the imposing Bṛihadī ś hvara Temple (Fig. 3.20) was built by Rājarāja Chola I around 1010."
+    },
+    {
+      "unparsed_id": "UU-LITE-165",
+      "source_unit_id": "KU-LITE-172",
+      "page": 17,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It is renowned for its vast maṇḍapas , a huge vimāna , over 60 metres high, and a"
+    },
+    {
+      "unparsed_id": "UU-LITE-166",
+      "source_unit_id": "KU-LITE-173",
+      "page": 17,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-167",
+      "source_unit_id": "KU-LITE-174",
+      "page": 17,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "massive Nandi (sacred bull) statue carved from a single stone, which sits in a pavilion facing the main shrine."
+    },
+    {
+      "unparsed_id": "UU-LITE-168",
+      "source_unit_id": "KU-LITE-175",
+      "page": 17,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "The entire"
+    },
+    {
+      "unparsed_id": "UU-LITE-169",
+      "source_unit_id": "KU-LITE-176",
+      "page": 18,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "structure showcases exquisite craftsmanship, with intricate granite carvings and sculptures adorning its walls (Fig. 3.21)."
+    },
+    {
+      "unparsed_id": "UU-LITE-170",
+      "source_unit_id": "KU-LITE-177",
+      "page": 18,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Both the Bṛihadī ś hvara Temple and the Lingarāja Temple in Bhubaneswar, Odisha (Fig. 3.22), are dedicated to Ś hiva, with several secondary shrines dedicated to goddess P ā rvati and other deities."
+    },
+    {
+      "unparsed_id": "UU-LITE-171",
+      "source_unit_id": "KU-LITE-178",
+      "page": 18,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Built in the early 11 th century, the Lingarāja Temple has three large maṇḍapas used for different purposes."
+    },
+    {
+      "unparsed_id": "UU-LITE-172",
+      "source_unit_id": "KU-LITE-179",
+      "page": 18,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It is built from locally available sandstone and laterite stone and is rich in ornate carvings (Fig. 3.23)."
+    },
+    {
+      "unparsed_id": "UU-LITE-173",
+      "source_unit_id": "KU-LITE-180",
+      "page": 19,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "India’s classical temples come in distinct regional styles."
+    },
+    {
+      "unparsed_id": "UU-LITE-174",
+      "source_unit_id": "KU-LITE-181",
+      "page": 19,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "For instance, note the pyramidal shape of B ṛ ihadīśhvara Temple’s vimāna and compare with the shapes in Fig. 3.19."
+    },
+    {
+      "unparsed_id": "UU-LITE-175",
+      "source_unit_id": "KU-LITE-182",
+      "page": 19,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Revisit the pictures of the Angkor Wat and Kandāriyā Mahādeva Temples and note the chief differences you can observe."
+    },
+    {
+      "unparsed_id": "UU-LITE-176",
+      "source_unit_id": "KU-LITE-184",
+      "page": 19,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Made of white marble procured from the nearby Aravalli hills, they feature delicate carvings of the Jain tīrthankaras , deities, dancers, musicians, and ornamental patterns that cover every surface."
+    },
+    {
+      "unparsed_id": "UU-LITE-177",
+      "source_unit_id": "KU-LITE-185",
+      "page": 19,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Built in the 17 th and 18 th centuries, the terracotta temples of Bishnupur in West Bengal are of a very different style."
+    },
+    {
+      "unparsed_id": "UU-LITE-178",
+      "source_unit_id": "KU-LITE-186",
+      "page": 19,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "They are brick structures with elaborate surface decorations on square panels, many of which depict themes associated with Rādhā, K ṛ iṣhṇa or Rāma, as well as, scenes from everyday life."
+    },
+    {
+      "unparsed_id": "UU-LITE-179",
+      "source_unit_id": "KU-LITE-187",
+      "page": 19,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Terracotta"
+    },
+    {
+      "unparsed_id": "UU-LITE-180",
+      "source_unit_id": "KU-LITE-188",
+      "page": 19,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-181",
+      "source_unit_id": "KU-LITE-189",
+      "page": 19,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "panels such as those seen in Fig. 3.27 were first carved by hand and then fired in a kiln in a precise manner."
+    },
+    {
+      "unparsed_id": "UU-LITE-182",
+      "source_unit_id": "KU-LITE-190",
+      "page": 20,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "temple at Bishnupur, West Bengal (right)."
+    },
+    {
+      "unparsed_id": "UU-LITE-183",
+      "source_unit_id": "KU-LITE-191",
+      "page": 20,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Make a list of all the materials we have encountered so far in the carving or construction of structures; make a list of pros and cons for each of them."
+    },
+    {
+      "unparsed_id": "UU-LITE-184",
+      "source_unit_id": "KU-LITE-192",
+      "page": 20,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Did you notice that none of the structures discussed so far use any cement mortar?"
+    },
+    {
+      "unparsed_id": "UU-LITE-185",
+      "source_unit_id": "KU-LITE-193",
+      "page": 20,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Observe the pictures of the four temples featured here."
+    },
+    {
+      "unparsed_id": "UU-LITE-186",
+      "source_unit_id": "KU-LITE-194",
+      "page": 20,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "What common features and what differences can you notice?"
+    },
+    {
+      "unparsed_id": "UU-LITE-187",
+      "source_unit_id": "KU-LITE-195",
+      "page": 20,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Identify a temple in your location."
+    },
+    {
+      "unparsed_id": "UU-LITE-188",
+      "source_unit_id": "KU-LITE-196",
+      "page": 20,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Based on what you have read here, what architectural details can you make out?"
+    },
+    {
+      "unparsed_id": "UU-LITE-189",
+      "source_unit_id": "KU-LITE-197",
+      "page": 21,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Gothic: A European style of architecture prevalent from the 13 th to the th key features include pointed arches and large windows decorated with stained"
+    },
+    {
+      "unparsed_id": "UU-LITE-190",
+      "source_unit_id": "KU-LITE-198",
+      "page": 21,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Apart from a large manpower and accomplished sculptors,"
+    },
+    {
+      "unparsed_id": "UU-LITE-191",
+      "source_unit_id": "KU-LITE-199",
+      "page": 21,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "the architecture of classical temples required highly skilled architects, engineers and craftsmen, as it involved elaborate"
+    },
+    {
+      "unparsed_id": "UU-LITE-192",
+      "source_unit_id": "KU-LITE-200",
+      "page": 21,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Parthenon or medieval Europe’s gothic cathedrals."
+    },
+    {
+      "unparsed_id": "UU-LITE-193",
+      "source_unit_id": "KU-LITE-201",
+      "page": 21,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "18 centuries;"
+    },
+    {
+      "unparsed_id": "UU-LITE-194",
+      "source_unit_id": "KU-LITE-202",
+      "page": 21,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-195",
+      "source_unit_id": "KU-LITE-203",
+      "page": 21,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "construction techniques."
+    },
+    {
+      "unparsed_id": "UU-LITE-196",
+      "source_unit_id": "KU-LITE-204",
+      "page": 21,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Recent studies have shown that their planning involved a good deal of mathematics, especially some advanced geometry."
+    },
+    {
+      "unparsed_id": "UU-LITE-197",
+      "source_unit_id": "KU-LITE-205",
+      "page": 21,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "All this, of course, is also true of many large sacred structures in other parts of the world, whether Egypt’s pyramids and temples, Athens’"
+    },
+    {
+      "unparsed_id": "UU-LITE-198",
+      "source_unit_id": "KU-LITE-206",
+      "page": 22,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Architecture of Mosques"
+    },
+    {
+      "unparsed_id": "UU-LITE-199",
+      "source_unit_id": "KU-LITE-208",
+      "page": 22,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "They also serve as centres for religious education, community gatherings, and venues for lectures and discussions."
+    },
+    {
+      "unparsed_id": "UU-LITE-200",
+      "source_unit_id": "KU-LITE-209",
+      "page": 22,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Mosques have a prayer hall oriented towards Mecca (the most sacred site in Islam, located in Saudi Arabia)."
+    },
+    {
+      "unparsed_id": "UU-LITE-201",
+      "source_unit_id": "KU-LITE-211",
+      "page": 22,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Friday prayers are especially important in"
+    },
+    {
+      "unparsed_id": "UU-LITE-202",
+      "source_unit_id": "KU-LITE-212",
+      "page": 22,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "where these prayers are held are often called ‘Jama Masjid’— jama"
+    },
+    {
+      "unparsed_id": "UU-LITE-203",
+      "source_unit_id": "KU-LITE-213",
+      "page": 22,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "was built by Sultan Ahmed Shah I in the 15 th century."
+    },
+    {
+      "unparsed_id": "UU-LITE-204",
+      "source_unit_id": "KU-LITE-214",
+      "page": 22,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "officer shows the mosque’s full-size minarets."
+    },
+    {
+      "unparsed_id": "UU-LITE-205",
+      "source_unit_id": "KU-LITE-215",
+      "page": 23,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "in Gujarat took on regional flavours, and this structure of yellow sandstone (Fig. 3.28) has a blend of Hindu and Islamic architectural elements."
+    },
+    {
+      "unparsed_id": "UU-LITE-206",
+      "source_unit_id": "KU-LITE-216",
+      "page": 23,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Its facade (front portion) displays elegant arches and the bases of two minarets (their top portions, which were destroyed in earthquakes, can be seen in a sketch in Fig. 3.29)."
+    },
+    {
+      "unparsed_id": "UU-LITE-207",
+      "source_unit_id": "KU-LITE-217",
+      "page": 23,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The presence of intricate stone j ā lis (latticed screens,"
+    },
+    {
+      "unparsed_id": "UU-LITE-208",
+      "source_unit_id": "KU-LITE-218",
+      "page": 23,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-209",
+      "source_unit_id": "KU-LITE-219",
+      "page": 24,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "and floral motifs."
+    },
+    {
+      "unparsed_id": "UU-LITE-210",
+      "source_unit_id": "KU-LITE-220",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Rajasthan, local architectural features such as ornate jharokh ā s (overhanging balconies) and chhatrīs (pavilion domes) were often integrated."
+    },
+    {
+      "unparsed_id": "UU-LITE-211",
+      "source_unit_id": "KU-LITE-221",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Jama Masjid in Delhi (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-212",
+      "source_unit_id": "KU-LITE-222",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3.31 and 3.32) is India’s largest mosque."
+    },
+    {
+      "unparsed_id": "UU-LITE-213",
+      "source_unit_id": "KU-LITE-223",
+      "page": 24,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Mughal Emperor Shah Jahan built it in the mid-17 th"
+    },
+    {
+      "unparsed_id": "UU-LITE-214",
+      "source_unit_id": "KU-LITE-224",
+      "page": 24,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "(now Old Delhi)."
+    },
+    {
+      "unparsed_id": "UU-LITE-215",
+      "source_unit_id": "KU-LITE-225",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "He had a vision for a grand mosque where the city’s Muslims could gather for prayer."
+    },
+    {
+      "unparsed_id": "UU-LITE-216",
+      "source_unit_id": "KU-LITE-226",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "About 5,000 workers were pressed into service for its construction."
+    },
+    {
+      "unparsed_id": "UU-LITE-217",
+      "source_unit_id": "KU-LITE-228",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Two 40-metre tall minarets stand on either side."
+    },
+    {
+      "unparsed_id": "UU-LITE-218",
+      "source_unit_id": "KU-LITE-230",
+      "page": 24,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The walls and arches are decorated with calligraphy (decorative writing) of verses from the Qur’an."
+    },
+    {
+      "unparsed_id": "UU-LITE-219",
+      "source_unit_id": "KU-LITE-231",
+      "page": 24,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "<< Fig. 3.32."
+    },
+    {
+      "unparsed_id": "UU-LITE-220",
+      "source_unit_id": "KU-LITE-232",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "A man praying facing the ‘mihrab’, i.e., the niche in the wall that points to the direction of Mecca."
+    },
+    {
+      "unparsed_id": "UU-LITE-221",
+      "source_unit_id": "KU-LITE-233",
+      "page": 24,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "see an example in Fig. 3.1), pillars of the same style as found in some temples (but without decorations, Fig. 3.30), and some detailed carvings have led scholars to suggest that the mosque was constr"
+    },
+    {
+      "unparsed_id": "UU-LITE-222",
+      "source_unit_id": "KU-LITE-234",
+      "page": 24,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "This is not uncommon in what has been called ‘Indo-Islamic architecture’, which blends Islamic building traditions with Indian craftsmanship."
+    },
+    {
+      "unparsed_id": "UU-LITE-223",
+      "source_unit_id": "KU-LITE-235",
+      "page": 24,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Some of its features are domes, arches (both pointed and corbelled ), j ā lis ,"
+    },
+    {
+      "unparsed_id": "UU-LITE-224",
+      "source_unit_id": "KU-LITE-236",
+      "page": 25,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "Forts and Palaces"
+    },
+    {
+      "unparsed_id": "UU-LITE-225",
+      "source_unit_id": "KU-LITE-237",
+      "page": 25,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "As we already saw in a few earlier chapters of ‘Tapestry of the Past’, forts played an important role in Indian history—that of protecting a kingdom from the onslaught of invaders."
+    },
+    {
+      "unparsed_id": "UU-LITE-226",
+      "source_unit_id": "KU-LITE-238",
+      "page": 25,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "They were therefore strategically located near important land or sea routes, and often atop a hill so as to command a view of the plains below."
+    },
+    {
+      "unparsed_id": "UU-LITE-227",
+      "source_unit_id": "KU-LITE-239",
+      "page": 25,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Forts also accommodated the residences of the ruling and military classes, and in some cases even an entire city, depending on their size."
+    },
+    {
+      "unparsed_id": "UU-LITE-228",
+      "source_unit_id": "KU-LITE-240",
+      "page": 25,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Since some forts also sheltered a royal palace, we have clubbed these two categories together."
+    },
+    {
+      "unparsed_id": "UU-LITE-229",
+      "source_unit_id": "KU-LITE-241",
+      "page": 25,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "instruction",
+      "potential_learning_relevance": false,
+      "text_preview": "Try to remember where earlier textbooks showed pictures of the forts of Jaisalmer, Kumbhalgarh, Raigad, and Sindhudurg."
+    },
+    {
+      "unparsed_id": "UU-LITE-230",
+      "source_unit_id": "KU-LITE-242",
+      "page": 25,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Can you point to their approximate locations on India’s map?"
+    },
+    {
+      "unparsed_id": "UU-LITE-231",
+      "source_unit_id": "KU-LITE-243",
+      "page": 26,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Rajasthan (Fig. 3.33) began in the mid-15 th century; Rajput rulers continued to expand it over the next two centuries or so."
+    },
+    {
+      "unparsed_id": "UU-LITE-232",
+      "source_unit_id": "KU-LITE-244",
+      "page": 26,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Overlooking the city of Jodhpur, this imposing structure is made of massive blocks of locally sourced red sandstone."
+    },
+    {
+      "unparsed_id": "UU-LITE-233",
+      "source_unit_id": "KU-LITE-245",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Within the fort complex, a large palace (Fig. 3.34) has several areas for the royalty, separate quarters for the men and women, living quarters for the staff,"
+    },
+    {
+      "unparsed_id": "UU-LITE-234",
+      "source_unit_id": "KU-LITE-246",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "memorial to Maharaja Jaswant Singh II built by his son Maharaja Sardar Singh; it has served as the cremation ground for Jodhpur’s royal family."
+    },
+    {
+      "unparsed_id": "UU-LITE-235",
+      "source_unit_id": "KU-LITE-247",
+      "page": 26,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Such monuments in the memory of a historical figure are called ‘cenotaphs’; they are not tombs, as the deceased person remembered is not buried at the spot."
+    },
+    {
+      "unparsed_id": "UU-LITE-236",
+      "source_unit_id": "KU-LITE-248",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "houses close to the fort."
+    },
+    {
+      "unparsed_id": "UU-LITE-237",
+      "source_unit_id": "KU-LITE-249",
+      "page": 26,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "This is due to the application of a solution of copper sulphate mixed with lime on the walls, which is said to repel termites."
+    },
+    {
+      "unparsed_id": "UU-LITE-238",
+      "source_unit_id": "KU-LITE-250",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Other features of Jodhpur include meandering streets, open courtyards, j ā li windows for ventilation, thick walls and balconies,"
+    },
+    {
+      "unparsed_id": "UU-LITE-239",
+      "source_unit_id": "KU-LITE-251",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "latticework around the balconies."
+    },
+    {
+      "unparsed_id": "UU-LITE-240",
+      "source_unit_id": "KU-LITE-252",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "and stables and barracks."
+    },
+    {
+      "unparsed_id": "UU-LITE-241",
+      "source_unit_id": "KU-LITE-253",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Today, many parts of the fort have"
+    },
+    {
+      "unparsed_id": "UU-LITE-242",
+      "source_unit_id": "KU-LITE-254",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "been converted into a museum to preserve and showcase the fort’s and Rajasthan’s cultural heritage."
+    },
+    {
+      "unparsed_id": "UU-LITE-243",
+      "source_unit_id": "KU-LITE-255",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Jaswant Thada in Fig. 3.33 is a more recent building, a"
+    },
+    {
+      "unparsed_id": "UU-LITE-244",
+      "source_unit_id": "KU-LITE-256",
+      "page": 26,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Jodhpur is also noted for the blue colour of traditional"
+    },
+    {
+      "unparsed_id": "UU-LITE-245",
+      "source_unit_id": "KU-LITE-257",
+      "page": 27,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The historical Red Fort at Agra (not be mistaken for Delhi’s Red Fort) was originally made of brick, and had fallen to ruin when Akbar decided to make his capital there and rebuild the fort."
+    },
+    {
+      "unparsed_id": "UU-LITE-246",
+      "source_unit_id": "KU-LITE-258",
+      "page": 27,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It was designed to include palaces and gardens, living quarters, halls for public and private audiences, and living quarters for the maids and other servants."
+    },
+    {
+      "unparsed_id": "UU-LITE-247",
+      "source_unit_id": "KU-LITE-260",
+      "page": 27,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "However, Akbar’s grandson, Shah Jahan was fond of marble and replaced many of the sandstone buildings with marble ones, in particular the palaces (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-248",
+      "source_unit_id": "KU-LITE-261",
+      "page": 27,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3.36 and 3.37); he was imprisoned until his death in one of them (Fig. 3.36) by his son, Aurangzeb."
+    },
+    {
+      "unparsed_id": "UU-LITE-249",
+      "source_unit_id": "KU-LITE-262",
+      "page": 27,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "He also had three mosques built within the"
+    },
+    {
+      "unparsed_id": "UU-LITE-250",
+      "source_unit_id": "KU-LITE-263",
+      "page": 27,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-251",
+      "source_unit_id": "KU-LITE-264",
+      "page": 27,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "octagonal tower on top and the Taj Mahal in the distance."
+    },
+    {
+      "unparsed_id": "UU-LITE-252",
+      "source_unit_id": "KU-LITE-265",
+      "page": 28,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "the floral patterns inlaid in the marble."
+    },
+    {
+      "unparsed_id": "UU-LITE-253",
+      "source_unit_id": "KU-LITE-266",
+      "page": 28,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "fort complex."
+    },
+    {
+      "unparsed_id": "UU-LITE-254",
+      "source_unit_id": "KU-LITE-267",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Many of those buildings were destroyed by British troops of the East India Company in the 19 th century."
+    },
+    {
+      "unparsed_id": "UU-LITE-255",
+      "source_unit_id": "KU-LITE-268",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Agra Fort had many fountains."
+    },
+    {
+      "unparsed_id": "UU-LITE-256",
+      "source_unit_id": "KU-LITE-269",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Water from the Yamuna was lifted using Persian wheels (see chapter ‘Reshaping India’s Political Map’ in the Grade 8 Part 1 textbook) into overhead tanks on the walls of the fort."
+    },
+    {
+      "unparsed_id": "UU-LITE-257",
+      "source_unit_id": "KU-LITE-270",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "From the tanks, water flowing down through terracotta pipes created fountains, which worked as eco-friendly ‘air-conditioners’, helping to keep the area cool."
+    },
+    {
+      "unparsed_id": "UU-LITE-258",
+      "source_unit_id": "KU-LITE-271",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Orchha Fort-Palace complex (Fig. 3.38) was built in the mid- 16 th century by the Bundela Rajput kings on the banks of the river Betwa in Madhya Pradesh."
+    },
+    {
+      "unparsed_id": "UU-LITE-259",
+      "source_unit_id": "KU-LITE-272",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The complex features three main palaces —Raja Mahal, Jahangir Mahal, and Rai Praveen Mahal."
+    },
+    {
+      "unparsed_id": "UU-LITE-260",
+      "source_unit_id": "KU-LITE-273",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Jahangir Mahal (Fig. 3.39), built to commemorate Emperor Jahangir’s visit, showcases a blend of Rajput and Mughal architectural styles."
+    },
+    {
+      "unparsed_id": "UU-LITE-261",
+      "source_unit_id": "KU-LITE-274",
+      "page": 28,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It has ornate chambers, intricate stone carvings, and beautiful courtyards."
+    },
+    {
+      "unparsed_id": "UU-LITE-262",
+      "source_unit_id": "KU-LITE-275",
+      "page": 28,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The complex also includes elegant chhatrīs (cenotaphs in the shape of a parasol) on the riverbank, and is connected to the town’s famous Ram Raja Temple."
+    },
+    {
+      "unparsed_id": "UU-LITE-263",
+      "source_unit_id": "KU-LITE-276",
+      "page": 29,
+      "reason": "layout_relationship_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Mysuru Palace , also known as Amba Vilas Palace (Fig. 3.40), is a magnificent example of Indo-Saracenic architecture (see further below the section under that name)."
+    },
+    {
+      "unparsed_id": "UU-LITE-264",
+      "source_unit_id": "KU-LITE-277",
+      "page": 29,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It is the residence of the Wadiyar dynasty, and a symbol of Mysuru’s royal heritage."
+    },
+    {
+      "unparsed_id": "UU-LITE-265",
+      "source_unit_id": "KU-LITE-279",
+      "page": 29,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The palace is renowned for its intricately carved wooden doors, ornate ceiling paintings, stained- glass windows, and the spectacular golden throne ( singh ā sana ) displayed during the Dasara festiva"
+    },
+    {
+      "unparsed_id": "UU-LITE-266",
+      "source_unit_id": "KU-LITE-281",
+      "page": 29,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-267",
+      "source_unit_id": "KU-LITE-282",
+      "page": 30,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Tombs and Mausoleums"
+    },
+    {
+      "unparsed_id": "UU-LITE-268",
+      "source_unit_id": "KU-LITE-283",
+      "page": 30,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "For religious reasons, in Islam and Christianity the dead are buried."
+    },
+    {
+      "unparsed_id": "UU-LITE-269",
+      "source_unit_id": "KU-LITE-284",
+      "page": 30,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In the Islamic world, mausoleums—grand buildings housing a tomb or a group of them—were often built for prominent rulers, members of the royal household, or for some renowned mystics."
+    },
+    {
+      "unparsed_id": "UU-LITE-270",
+      "source_unit_id": "KU-LITE-285",
+      "page": 30,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "They were also a political statement, as they stood as a testament to the greatness of the royalty or their dynasty."
+    },
+    {
+      "unparsed_id": "UU-LITE-271",
+      "source_unit_id": "KU-LITE-286",
+      "page": 30,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "This is not"
+    },
+    {
+      "unparsed_id": "UU-LITE-272",
+      "source_unit_id": "KU-LITE-287",
+      "page": 30,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "marble domes, arches and stars."
+    },
+    {
+      "unparsed_id": "UU-LITE-273",
+      "source_unit_id": "KU-LITE-288",
+      "page": 30,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "people of other faiths; in Buddhism, Jainism and Hinduism, the dead are generally cremated; as a result, no tombs of rulers of such faiths exist in India in ancient times."
+    },
+    {
+      "unparsed_id": "UU-LITE-274",
+      "source_unit_id": "KU-LITE-289",
+      "page": 30,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In the medieval era,"
+    },
+    {
+      "unparsed_id": "UU-LITE-275",
+      "source_unit_id": "KU-LITE-290",
+      "page": 31,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "cenotaphs appeared, especially in Rajasthan and central India, but they only marked the places where a king or his family member was cremated (we saw an example in Fig. 3.33)."
+    },
+    {
+      "unparsed_id": "UU-LITE-276",
+      "source_unit_id": "KU-LITE-291",
+      "page": 31,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "As the few examples below make clear, these monuments’ elegant architecture embedded strict concepts of symmetry, which extended to the gardens around."
+    },
+    {
+      "unparsed_id": "UU-LITE-277",
+      "source_unit_id": "KU-LITE-292",
+      "page": 31,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Common features (also found in some of the larger mosques, as we saw) included arches, floral motifs, latticework, and calligraphy of verses from the Qur’an."
+    },
+    {
+      "unparsed_id": "UU-LITE-278",
+      "source_unit_id": "KU-LITE-293",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The renowned Humayun’s Tomb (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-279",
+      "source_unit_id": "KU-LITE-294",
+      "page": 31,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3.41 and 3.42) is a significant landmark of Delhi."
+    },
+    {
+      "unparsed_id": "UU-LITE-280",
+      "source_unit_id": "KU-LITE-295",
+      "page": 31,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It was commissioned by Humayun’s chief wife, Bega Begum, in 1558, and designed by Persian architects, who brought with them Persian aesthetics that became part of the Mughal architectural tradition."
+    },
+    {
+      "unparsed_id": "UU-LITE-281",
+      "source_unit_id": "KU-LITE-296",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The complex also houses the tombs of several Mughals, including that of Dara Shikoh (whom we met in Part 1 of this textbook)."
+    },
+    {
+      "unparsed_id": "UU-LITE-282",
+      "source_unit_id": "KU-LITE-297",
+      "page": 31,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Did you notice the six-pointed star on Humayun’s tomb?"
+    },
+    {
+      "unparsed_id": "UU-LITE-283",
+      "source_unit_id": "KU-LITE-298",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "This geometric symbol is found in several religious traditions."
+    },
+    {
+      "unparsed_id": "UU-LITE-284",
+      "source_unit_id": "KU-LITE-299",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Judaism, it is known as the ‘Star of David’, named after David, a king of the Hebrews mentioned in the Bible."
+    },
+    {
+      "unparsed_id": "UU-LITE-285",
+      "source_unit_id": "KU-LITE-300",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Islam, the same symbol is called the ‘Seal of Solomon’; Solomon (Sulaymān), David’s son, is regarded in Islam as both a model king and a prophet endowed with divine wisdom."
+    },
+    {
+      "unparsed_id": "UU-LITE-286",
+      "source_unit_id": "KU-LITE-301",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In Hinduism, the six- pointed star appears in tantric symbolism, where it represents the fusion of puru ṣ ha or consciousness (the upward-pointing triangle) with prakṛiti or śhakti (the downward-point"
+    },
+    {
+      "unparsed_id": "UU-LITE-287",
+      "source_unit_id": "KU-LITE-302",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In the mid 17 th century, Shah Jahan built the Taj Mahal (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-288",
+      "source_unit_id": "KU-LITE-303",
+      "page": 31,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "3.43 to 3.45) as a mausoleum for his queen Mumtaz Mahal’s tomb."
+    },
+    {
+      "unparsed_id": "UU-LITE-289",
+      "source_unit_id": "KU-LITE-304",
+      "page": 31,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Entirely decorated with marble, the Taj Mahal is an example of the confluence of architectural styles from three cultures: the charbagh gardens (i.e., divided into four sections) and the large arched "
+    },
+    {
+      "unparsed_id": "UU-LITE-290",
+      "source_unit_id": "KU-LITE-305",
+      "page": 31,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-291",
+      "source_unit_id": "KU-LITE-306",
+      "page": 32,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "adorn the walls; Indian architecture added chhatrīs, lotus flower designs, and marble screens with detailed cutout patterns."
+    },
+    {
+      "unparsed_id": "UU-LITE-292",
+      "source_unit_id": "KU-LITE-307",
+      "page": 32,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The walls feature delicate inlay work where craftsmen embedded colourful semi-precious stones into the marble to create floral designs."
+    },
+    {
+      "unparsed_id": "UU-LITE-293",
+      "source_unit_id": "KU-LITE-308",
+      "page": 32,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The white marble appears to change colours as the sunlight shifts through the day."
+    },
+    {
+      "unparsed_id": "UU-LITE-294",
+      "source_unit_id": "KU-LITE-309",
+      "page": 33,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "marble floral motifs and the calligraphy on both sides."
+    },
+    {
+      "unparsed_id": "UU-LITE-295",
+      "source_unit_id": "KU-LITE-310",
+      "page": 33,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The tombs of Mumtaz (in the centre) and Shah Jahan (on the left)"
+    },
+    {
+      "unparsed_id": "UU-LITE-296",
+      "source_unit_id": "KU-LITE-311",
+      "page": 33,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": false,
+      "text_preview": "D ON’T MISS OUT"
+    },
+    {
+      "unparsed_id": "UU-LITE-297",
+      "source_unit_id": "KU-LITE-312",
+      "page": 33,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "In the 1970s, the effect of air pollution on the monument began to be noticed."
+    },
+    {
+      "unparsed_id": "UU-LITE-298",
+      "source_unit_id": "KU-LITE-313",
+      "page": 33,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It was caused by local industries using coal and other fossil fuels, which left a yellowish tinge on the marble."
+    },
+    {
+      "unparsed_id": "UU-LITE-299",
+      "source_unit_id": "KU-LITE-314",
+      "page": 33,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Following the recommendations of an expert committee and a PIL in the Supreme Court, a ban was imposed in the mid-1990s"
+    },
+    {
+      "unparsed_id": "UU-LITE-300",
+      "source_unit_id": "KU-LITE-315",
+      "page": 33,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-301",
+      "source_unit_id": "KU-LITE-316",
+      "page": 33,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "to prevent industrial pollution in the area."
+    },
+    {
+      "unparsed_id": "UU-LITE-302",
+      "source_unit_id": "KU-LITE-317",
+      "page": 34,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Traditional Houses"
+    },
+    {
+      "unparsed_id": "UU-LITE-303",
+      "source_unit_id": "KU-LITE-318",
+      "page": 34,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The design and architecture of houses in India have been as varied as the geography."
+    },
+    {
+      "unparsed_id": "UU-LITE-304",
+      "source_unit_id": "KU-LITE-319",
+      "page": 34,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Many have developed distinct features that stand out."
+    },
+    {
+      "unparsed_id": "UU-LITE-305",
+      "source_unit_id": "KU-LITE-320",
+      "page": 34,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "A general design commonly found in traditional houses for the richer classes, both in urban and rural contexts, is based on a central courtyard with the rooms organised around it, whether over one or "
+    },
+    {
+      "unparsed_id": "UU-LITE-306",
+      "source_unit_id": "KU-LITE-322",
+      "page": 34,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "What could be the advantages of the above design?"
+    },
+    {
+      "unparsed_id": "UU-LITE-307",
+      "source_unit_id": "KU-LITE-323",
+      "page": 34,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "( Hint: Think in terms of privacy, convenience, rainfall and cooling."
+    },
+    {
+      "unparsed_id": "UU-LITE-308",
+      "source_unit_id": "KU-LITE-324",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Havelis (traditional mansions) in Rajasthan’s Shekhawati region have a central courtyard and elaborate decorations, including intricate painted frescoes (Fig. 3.46)."
+    },
+    {
+      "unparsed_id": "UU-LITE-309",
+      "source_unit_id": "KU-LITE-325",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Those were the homes of the region’s nobility and rich merchant class."
+    },
+    {
+      "unparsed_id": "UU-LITE-310",
+      "source_unit_id": "KU-LITE-326",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Partly because they are difficult to maintain nowadays, or are too large for today’s families, many havelis have been converted into hotels or museums."
+    },
+    {
+      "unparsed_id": "UU-LITE-311",
+      "source_unit_id": "KU-LITE-327",
+      "page": 35,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "including the decorated pillars."
+    },
+    {
+      "unparsed_id": "UU-LITE-312",
+      "source_unit_id": "KU-LITE-328",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The Chettinadu houses of Tamil Nadu (Fig. 3.47) belong to a community of merchants who traded in rice, spices and gems with Southeast Asia."
+    },
+    {
+      "unparsed_id": "UU-LITE-313",
+      "source_unit_id": "KU-LITE-329",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Materials for the construction were sourced from several parts of the world, including teakwood from Burma and marble from Italy; craftsmen from all over India worked on the frescoes and other artisti"
+    },
+    {
+      "unparsed_id": "UU-LITE-314",
+      "source_unit_id": "KU-LITE-330",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "As with havelis, some of these houses are almost like palaces."
+    },
+    {
+      "unparsed_id": "UU-LITE-315",
+      "source_unit_id": "KU-LITE-331",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Their artistry apart, they are known for being well adapted to the local climate and environment."
+    },
+    {
+      "unparsed_id": "UU-LITE-316",
+      "source_unit_id": "KU-LITE-332",
+      "page": 35,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "The central courtyard served as a place for rituals and community gatherings, as well as for sun-drying pāpads and chillies."
+    },
+    {
+      "unparsed_id": "UU-LITE-317",
+      "source_unit_id": "KU-LITE-333",
+      "page": 36,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Churches in India"
+    },
+    {
+      "unparsed_id": "UU-LITE-318",
+      "source_unit_id": "KU-LITE-334",
+      "page": 36,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Gothic style during the colonial period, with the then Maharaja of Mysore,"
+    },
+    {
+      "unparsed_id": "UU-LITE-319",
+      "source_unit_id": "KU-LITE-335",
+      "page": 36,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Krishnarajendra Wadiyar, laying the foundation stone."
+    },
+    {
+      "unparsed_id": "UU-LITE-320",
+      "source_unit_id": "KU-LITE-336",
+      "page": 36,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "As we saw in the chapter ‘India, a Home to Many’, some Christian communities have been living in India for many centuries."
+    },
+    {
+      "unparsed_id": "UU-LITE-321",
+      "source_unit_id": "KU-LITE-337",
+      "page": 36,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "According to tradition, the first churches were built in the coastal areas of Kerala."
+    },
+    {
+      "unparsed_id": "UU-LITE-322",
+      "source_unit_id": "KU-LITE-338",
+      "page": 36,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Over time, different types of churches were built, sometimes imitating classic European styles (Fig. 3.48), at other times (especially in Kerala) incorporating local architectural traditions (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-323",
+      "source_unit_id": "KU-LITE-339",
+      "page": 36,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "3.49 to 3.51)."
+    },
+    {
+      "unparsed_id": "UU-LITE-324",
+      "source_unit_id": "KU-LITE-340",
+      "page": 37,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Orthodox church at Mulanthuruthy near Kochi, Kerala, with a stambha (flag post) in front, a feature borrowed from temple architecture."
+    },
+    {
+      "unparsed_id": "UU-LITE-325",
+      "source_unit_id": "KU-LITE-341",
+      "page": 37,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "church in Travancore, rebuilt in the 18 th century, with a sloped tiled roof typical of Kerala"
+    },
+    {
+      "unparsed_id": "UU-LITE-326",
+      "source_unit_id": "KU-LITE-342",
+      "page": 37,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions 3–AJourneyThroughIndianArchitecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-327",
+      "source_unit_id": "KU-LITE-343",
+      "page": 37,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "with oil lamps and a traditional wooden roof."
+    },
+    {
+      "unparsed_id": "UU-LITE-328",
+      "source_unit_id": "KU-LITE-344",
+      "page": 38,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Colonial Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-329",
+      "source_unit_id": "KU-LITE-345",
+      "page": 38,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "carvings and pillars in Hindu temple style."
+    },
+    {
+      "unparsed_id": "UU-LITE-330",
+      "source_unit_id": "KU-LITE-346",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Note the central arch and dome, the balconies and the chhatr ī s."
+    },
+    {
+      "unparsed_id": "UU-LITE-331",
+      "source_unit_id": "KU-LITE-347",
+      "page": 39,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early"
+    },
+    {
+      "unparsed_id": "UU-LITE-332",
+      "source_unit_id": "KU-LITE-348",
+      "page": 39,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "20 th century)."
+    },
+    {
+      "unparsed_id": "UU-LITE-333",
+      "source_unit_id": "KU-LITE-349",
+      "page": 39,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "It blended Islamic, Hindu, and Gothic elements,"
+    },
+    {
+      "unparsed_id": "UU-LITE-334",
+      "source_unit_id": "KU-LITE-350",
+      "page": 39,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "featuring domes, pointed arches, minarets, and intricate decorative patterns inspired by Mughal and Rajput traditions (Figs."
+    },
+    {
+      "unparsed_id": "UU-LITE-335",
+      "source_unit_id": "KU-LITE-351",
+      "page": 39,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "3.52 to 3.54)."
+    },
+    {
+      "unparsed_id": "UU-LITE-336",
+      "source_unit_id": "KU-LITE-352",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Before we move on ..."
+    },
+    {
+      "unparsed_id": "UU-LITE-337",
+      "source_unit_id": "KU-LITE-353",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ India’s architectural heritage is among the richest and most diverse in the world."
+    },
+    {
+      "unparsed_id": "UU-LITE-338",
+      "source_unit_id": "KU-LITE-354",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Our selection here necessarily leaves out thousands of astonishing monuments of diverse styles."
+    },
+    {
+      "unparsed_id": "UU-LITE-339",
+      "source_unit_id": "KU-LITE-355",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ There is much thought and spirituality behind those bricks and stones."
+    },
+    {
+      "unparsed_id": "UU-LITE-340",
+      "source_unit_id": "KU-LITE-356",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Classical Buddhist, Jain and Hindu architectures seek to connect the human and the cosmic, or the human and the divine; they aim at expressing beauty and order."
+    },
+    {
+      "unparsed_id": "UU-LITE-341",
+      "source_unit_id": "KU-LITE-357",
+      "page": 39,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "And as with Islamic architecture, they involve advanced construction techniques."
+    },
+    {
+      "unparsed_id": "UU-LITE-342",
+      "source_unit_id": "KU-LITE-358",
+      "page": 39,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Æ Anyone travelling through India and visiting some of the lesser-known monuments will notice that many are in a"
+    },
+    {
+      "unparsed_id": "UU-LITE-343",
+      "source_unit_id": "KU-LITE-359",
+      "page": 39,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "OurCulturalHeritageandKnowledgeTraditions Our Cultural Heritage and Knowledge Traditions 3–AJourneyThroughIndianArchitecture 3 – A Journey through Indian Architecture"
+    },
+    {
+      "unparsed_id": "UU-LITE-344",
+      "source_unit_id": "KU-LITE-360",
+      "page": 39,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "state of neglect."
+    },
+    {
+      "unparsed_id": "UU-LITE-345",
+      "source_unit_id": "KU-LITE-361",
+      "page": 39,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "interrogative",
+      "potential_learning_relevance": false,
+      "text_preview": "Preserving this heritage is indeed very challenging: how to adequately conserve India’s thousands of monuments, many of them centuries-old?"
+    },
+    {
+      "unparsed_id": "UU-LITE-346",
+      "source_unit_id": "KU-LITE-362",
+      "page": 39,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "Government"
+    },
+    {
+      "unparsed_id": "UU-LITE-347",
+      "source_unit_id": "KU-LITE-363",
+      "page": 39,
+      "reason": "ambiguous_relation",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "123 123"
+    },
+    {
+      "unparsed_id": "UU-LITE-348",
+      "source_unit_id": "KU-LITE-364",
+      "page": 40,
+      "reason": "cross_page_continuation_unresolved",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "bodies are theoretically responsible for this huge task, but in practice, much will be lost unless citizens feel equally responsible and, to begin with, learn to appreciate and admire this labour of o"
+    },
+    {
+      "unparsed_id": "UU-LITE-349",
+      "source_unit_id": "KU-LITE-365",
+      "page": 40,
+      "reason": "unsupported_pattern",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "If you revisit our Constitution’s ‘Fundamental Duties’, you will now understand the wisdom of one of them: “... to value and preserve the rich heritage of our composite culture”."
+    },
+    {
+      "unparsed_id": "UU-LITE-350",
+      "source_unit_id": "KU-LITE-366",
+      "page": 40,
+      "reason": "fragment",
+      "sentence_role": "assertion",
+      "potential_learning_relevance": true,
+      "text_preview": "Questions and activities"
+    },
+    {
+      "unparsed_id": "UU-LITE-351",
+      "source_unit_id": "KU-LITE-367",
+      "page": 40,
+      "reason": "layout_relationship_unresolved",
+      "sentence_role": "ambiguous",
+      "potential_learning_relevance": false,
+      "text_preview": "ExploringSociety:IndiaandBeyond|Grade8Part2"
+    },
+    {
+      "unparsed_id": "UU-LITE-352",
+      "source_unit_id": "KU-LITE-368",
+      "page": 40,
+      "reason": "interrogative_or_instruction",
+      "sentence_role": "instruction",
+      "potential_learning_relevance": false,
+      "text_preview": "discuss how can we protect it."
+    }
+  ],
+  "partial_rejections": [
+    {
+      "source_unit_id": "KU-LITE-210",
+      "fact_type": "causal",
+      "reason": "fragment",
+      "detail": "subject quality: QUESTION_WORD_SUBJECT"
+    }
+  ],
+  "v2_comparison": {
+    "method": "legacy_module",
+    "available": true,
+    "remote_head": "a536a3c94cd92b81b85ca724a671fab1a97c5b06",
+    "legacy": {
+      "propositionCount": 180,
+      "totalCandidates": 0,
+      "validatedCandidates": 0,
+      "accepted": 0
+    },
+    "current": {
+      "propositionCount": 28,
+      "totalCandidates": 0,
+      "validatedCandidates": 0,
+      "accepted": 0,
+      "graphRejectionCount": 153,
+      "graphRejectionsByReason": {
+        "fallback_unclassified": 149,
+        "fragment_subject": 4
+      }
+    }
+  },
+  "reference_linkage": {
+    "entries_total": 160,
+    "block_matched": 68,
+    "block_ambiguous_review": 0,
+    "block_unresolved": 92,
+    "block_unresolved_spanning_blocks": 9,
+    "block_unresolved_absent_from_layout_text": 83,
+    "block_unresolved_page_word_overlap": {
+      "high_ge_80": 80,
+      "medium_40_80": 11,
+      "low_lt_40": 1
+    },
+    "typed_fact_linked": 25,
+    "typed_fact_unlinked": 135
+  },
+  "spot_checks": [
+    {
+      "pdf_page": 3,
+      "book_page": 87,
+      "label": "timeline labels + date relationships",
+      "blocks_total": 64,
+      "blocks_by_type": {
+        "fragment": 14,
+        "heading": 29,
+        "table": 17,
+        "body": 1,
+        "ambiguous": 2,
+        "caption": 1
+      },
+      "blocks_by_disposition": {
+        "preserved_fragment": 14,
+        "included_prose": 30,
+        "included_table": 17,
+        "preserved_ambiguous": 2,
+        "included_caption": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p3-b63",
+          "type": "caption",
+          "disposition": "included_caption",
+          "review_flags": [
+            "caption_unassociated"
+          ],
+          "text_preview": "Fig. 3.2. A timeline of the structures and"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 4,
+      "book_page": 88,
+      "label": "map content + visual dependencies (part 1)",
+      "blocks_total": 18,
+      "blocks_by_type": {
+        "heading": 9,
+        "fragment": 6,
+        "ambiguous": 1,
+        "page_furniture": 1,
+        "caption": 1
+      },
+      "blocks_by_disposition": {
+        "included_prose": 9,
+        "preserved_fragment": 6,
+        "preserved_ambiguous": 1,
+        "excluded_furniture": 1,
+        "included_caption": 1
+      },
+      "keyword_block_ids": [],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 5,
+      "book_page": 89,
+      "label": "map content + visual dependencies (part 2)",
+      "blocks_total": 20,
+      "blocks_by_type": {
+        "heading": 8,
+        "fragment": 9,
+        "ambiguous": 2,
+        "page_furniture": 1
+      },
+      "blocks_by_disposition": {
+        "included_prose": 8,
+        "preserved_fragment": 9,
+        "preserved_ambiguous": 2,
+        "excluded_furniture": 1
+      },
+      "keyword_block_ids": [],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 14,
+      "book_page": 98,
+      "label": "water structures + table-classified prose",
+      "blocks_total": 33,
+      "blocks_by_type": {
+        "body": 4,
+        "table": 19,
+        "ambiguous": 4,
+        "fragment": 3,
+        "caption": 2,
+        "page_furniture": 1
+      },
+      "blocks_by_disposition": {
+        "included_prose": 4,
+        "included_table": 19,
+        "preserved_ambiguous": 4,
+        "preserved_fragment": 3,
+        "included_caption": 2,
+        "excluded_furniture": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p14-b1",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "silt suspended in water to settle down—a fairly common design. Yet the precise working of the entire complex remains to be figured out."
+        },
+        {
+          "block_id": "hees203:p14-b16",
+          "type": "fragment",
+          "disposition": "preserved_fragment",
+          "review_flags": [],
+          "text_preview": "tradition of stepwells"
+        },
+        {
+          "block_id": "hees203:p14-b20",
+          "type": "caption",
+          "disposition": "included_caption",
+          "review_flags": [],
+          "text_preview": "Fig. 3.16. The Rani ki Vav stepwell"
+        },
+        {
+          "block_id": "hees203:p14-b22",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "and Rajasthan, many of them engineering marvels as well as spectacular works of art. The stepwell at Rani ki Vav (Fig. 3.16) has multiple pillared levels and hundreds of magnificent statues. Besides h"
+        },
+        {
+          "block_id": "hees203:p14-b23",
+          "type": "ambiguous",
+          "disposition": "preserved_ambiguous",
+          "review_flags": [
+            "needs_review"
+          ],
+          "text_preview": "stepwells offered a social"
+        },
+        {
+          "block_id": "hees203:p14-b27",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "could sit together, enjoy cooler temperatures and exchange all the news. Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-ba"
+        },
+        {
+          "block_id": "hees203:p14-b29",
+          "type": "ambiguous",
+          "disposition": "preserved_ambiguous",
+          "review_flags": [
+            "needs_review"
+          ],
+          "text_preview": "Many of these traditional water structures suffer today from"
+        },
+        {
+          "block_id": "hees203:p14-b30",
+          "type": "page_furniture",
+          "disposition": "excluded_furniture",
+          "review_flags": [],
+          "text_preview": "Exploring Society: India and Beyond | Grade 8 Part 2 depleted water sources, maintenance issues, pollution, waste"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 17,
+      "book_page": 101,
+      "label": "running-header contamination inside a sentence",
+      "blocks_total": 10,
+      "blocks_by_type": {
+        "caption": 2,
+        "body": 5,
+        "heading": 1,
+        "ambiguous": 1,
+        "fragment": 1
+      },
+      "blocks_by_disposition": {
+        "included_caption": 2,
+        "included_prose": 6,
+        "preserved_ambiguous": 1,
+        "preserved_fragment": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p17-b4",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "parts of India they grew in scale and began incorporating multiple shrines, amenities, and enclosures ( prākāras ), culminating in vast complexes. In the grade 7 textbook (chapter ‘Turning Tides: 11 t"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": [
+        {
+          "from_block_id": "hees203:p17-b9",
+          "to_block_id": "hees203:p18-b4",
+          "from_page": 17,
+          "to_page": 18,
+          "support": "weak"
+        }
+      ]
+    },
+    {
+      "pdf_page": 22,
+      "book_page": 106,
+      "label": "Jama Masjid text + fragmented captions",
+      "blocks_total": 21,
+      "blocks_by_type": {
+        "heading": 1,
+        "caption": 2,
+        "body": 5,
+        "table": 7,
+        "fragment": 4,
+        "ambiguous": 1,
+        "page_furniture": 1
+      },
+      "blocks_by_disposition": {
+        "included_prose": 6,
+        "included_caption": 2,
+        "included_table": 7,
+        "preserved_fragment": 4,
+        "preserved_ambiguous": 1,
+        "excluded_furniture": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p22-b2",
+          "type": "caption",
+          "disposition": "included_caption",
+          "review_flags": [
+            "caption_unassociated"
+          ],
+          "text_preview": "Fig. 3.28. The Jama Masjid in Ahmedabad"
+        },
+        {
+          "block_id": "hees203:p22-b9",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "where these prayers are held are often called ‘Jama Masjid’— jama"
+        },
+        {
+          "block_id": "hees203:p22-b15",
+          "type": "ambiguous",
+          "disposition": "preserved_ambiguous",
+          "review_flags": [
+            "needs_review"
+          ],
+          "text_preview": "‘mosque’. The Jama Masjid in Ahmedabad"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 26,
+      "book_page": 110,
+      "label": "latticework terminology",
+      "blocks_total": 27,
+      "blocks_by_type": {
+        "fragment": 10,
+        "ambiguous": 3,
+        "table": 4,
+        "body": 8,
+        "caption": 1,
+        "page_furniture": 1
+      },
+      "blocks_by_disposition": {
+        "preserved_fragment": 10,
+        "preserved_ambiguous": 3,
+        "included_table": 4,
+        "included_prose": 8,
+        "included_caption": 1,
+        "excluded_furniture": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p26-b16",
+          "type": "body",
+          "disposition": "included_prose",
+          "review_flags": [],
+          "text_preview": "latticework around the balconies."
+        },
+        {
+          "block_id": "hees203:p26-b18",
+          "type": "fragment",
+          "disposition": "preserved_fragment",
+          "review_flags": [],
+          "text_preview": "Latticework: Open"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    },
+    {
+      "pdf_page": 38,
+      "book_page": 122,
+      "label": "Madras High Court caption + subject relationship",
+      "blocks_total": 7,
+      "blocks_by_type": {
+        "heading": 1,
+        "caption": 2,
+        "ambiguous": 1,
+        "body": 1,
+        "page_furniture": 1,
+        "fragment": 1
+      },
+      "blocks_by_disposition": {
+        "included_prose": 2,
+        "included_caption": 2,
+        "preserved_ambiguous": 1,
+        "excluded_furniture": 1,
+        "preserved_fragment": 1
+      },
+      "keyword_block_ids": [
+        {
+          "block_id": "hees203:p38-b2",
+          "type": "caption",
+          "disposition": "included_caption",
+          "review_flags": [
+            "caption_unassociated"
+          ],
+          "text_preview": "Fig. 3.52. A general view of the Madras High Court, completed in 1892. The"
+        }
+      ],
+      "linked_typed_fact_ids": [],
+      "continuations_from_page": []
+    }
+  ]
+}

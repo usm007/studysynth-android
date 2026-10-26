@@ -487,8 +487,62 @@
   }
 
   // Map legacy fact to a rich typed Proposition (bridge contract)
+  // A proposition subject or object that is only a pronoun names nothing
+  // a learner could look up. Such values are fragments, not entities.
+  function isBarePronoun(value) {
+    const text = String(value == null ? '' : value).trim();
+    return /^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text);
+  }
+
+  // Preposition/conjunction starts are clause leftovers, not entities.
+  const FRAGMENT_START = /^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into|over|under|about|through|against|between|among|behind|below|above|near|off|out|up|down|like)\b/i;
+
+  /**
+   * Phase 2A V2 graph boundary: only eligible, validated typed facts
+   * may become propositions. A fact is INELIGIBLE when it is a fallback
+   * (unclassified, empty subject/object), has an empty or fragment
+   * subject/object, carries conflicting values, or is OCR-unverified.
+   * Polarity and precision do NOT block eligibility: a negative or
+   * approximate proposition is meaningful and its qualifiers are
+   * preserved on the proposition. Every rejection carries a specific
+   * reason, recorded by compileSemanticRepresentation in
+   * graphRejections — never silently dropped.
+   *
+   * This is an intentional behaviour change for future V2 regeneration:
+   * chapters that currently ship V2 items built partly from
+   * fallback-derived propositions will regenerate fewer V2 candidates.
+   * The Phase 2A diagnostic quantifies the change for Chapter 3; bank
+   * files are never rewritten by this gate.
+   */
+  function classifyPropositionEligibility(fact) {
+    if (!fact || typeof fact !== 'object') return { eligible: false, reason: 'missing_fact' };
+    if (fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') {
+      return { eligible: false, reason: 'fallback_unclassified' };
+    }
+    const subject = String(fact.subject == null ? '' : fact.subject).trim();
+    const object = fact.object == null ? '' : String(fact.object).trim();
+    if (!subject) return { eligible: false, reason: 'missing_subject' };
+    if (!object) return { eligible: false, reason: 'missing_object' };
+    if (isBarePronoun(subject) || FRAGMENT_START.test(subject)) {
+      return { eligible: false, reason: 'fragment_subject' };
+    }
+    if (isBarePronoun(object) || FRAGMENT_START.test(object)) {
+      return { eligible: false, reason: 'fragment_object' };
+    }
+    if (fact.conflict_status === 'conflicting') {
+      return { eligible: false, reason: 'conflicting_values' };
+    }
+    if (fact.confidence_class === 'ocr-unverified') {
+      return { eligible: false, reason: 'ocr_unverified' };
+    }
+    return { eligible: true, reason: null };
+  }
+
   function mapFactToProposition(fact) {
     if (!fact) return null;
+    // Phase 2A boundary: an ineligible fact never becomes a proposition,
+    // not even through the direct bridge. Callers already null-check.
+    if (!classifyPropositionEligibility(fact).eligible) return null;
     let relationType = RELATION_TYPES.HAS_PROPERTY;
     // Phase 8 fix (third round): a temporal conditional ("When X, Y")
     // is not a causal mechanism. Mapping it to CAUSES let Operator B
@@ -553,14 +607,37 @@
     resetPropositionCounter();
     const propositions = [];
     const propositionMap = new Map();
+    // Phase 2A: every fact or direct extraction rejected from graph
+    // construction is recorded here with a specific reason. This field
+    // is additive: existing callers read .propositions and .count.
+    const graphRejections = [];
 
-    // 1. First, incorporate existing facts (ensures full baseline compatibility)
+    // 1. First, incorporate existing facts (gated, Phase 2A: only
+    //    eligible, validated typed facts — see classifyPropositionEligibility).
     //    A fact explicitly tagged with a non-assertion sentence role is
     //    never bridged into a proposition; facts without a role tag keep
     //    their legacy behaviour (they were already production-validated).
     if (Array.isArray(existingFacts)) {
       for (const fact of existingFacts) {
-        if (fact && fact.sentence_role && fact.sentence_role !== 'assertion') continue;
+        if (fact && fact.sentence_role && fact.sentence_role !== 'assertion') {
+          graphRejections.push({
+            source: 'fact_bridge', fact_id: fact.fact_id || null,
+            reason: 'non_assertion_role', subject: fact.subject || null,
+            source_page: fact.source_page || null,
+            section_id: fact.section_id || fact.source_section || null
+          });
+          continue;
+        }
+        const eligibility = classifyPropositionEligibility(fact);
+        if (!eligibility.eligible) {
+          graphRejections.push({
+            source: 'fact_bridge', fact_id: fact.fact_id || null,
+            reason: eligibility.reason, subject: fact.subject || null,
+            source_page: fact.source_page || null,
+            section_id: fact.section_id || fact.source_section || null
+          });
+          continue;
+        }
         // Phase 8 fix: a bridged causal fact with a fragment subject or
         // object must not enter the graph, even if production validation
         // let it through elsewhere.
@@ -571,7 +648,15 @@
               || /^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)
               || /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t);
           };
-          if (frag(fact.subject) || frag(fact.object)) continue;
+          if (frag(fact.subject) || frag(fact.object)) {
+            graphRejections.push({
+              source: 'fact_bridge', fact_id: fact.fact_id || null,
+              reason: 'fragment_causal', subject: fact.subject || null,
+              source_page: fact.source_page || null,
+              section_id: fact.section_id || fact.source_section || null
+            });
+            continue;
+          }
         }
         const prop = mapFactToProposition(fact);
         if (prop) {
@@ -619,6 +704,25 @@
 
           for (const prop of allExtracted) {
             prop.sentence_role = sentenceRole;
+            // Phase 2A narrow guard for direct extraction: no empty or
+            // bare-pronoun subject/object may enter the graph, even
+            // when an extractor's length guard let it through (e.g. a
+            // comparative with a pronoun subject). Rejected direct
+            // extractions are recorded, not silently dropped.
+            const propSubject = String(prop.subject == null ? '' : prop.subject).trim();
+            const propObject = prop.object == null ? '' : String(prop.object).trim();
+            if (!propSubject || !propObject || isBarePronoun(propSubject) || isBarePronoun(propObject)) {
+              graphRejections.push({
+                source: 'direct_extraction', fact_id: null,
+                reason: !propSubject ? 'missing_subject'
+                  : (!propObject ? 'missing_object'
+                    : (isBarePronoun(propSubject) ? 'fragment_subject' : 'fragment_object')),
+                subject: propSubject || null,
+                source_sentence: prop.source_sentence || s.text || null,
+                rule_id: prop.rule_id || null
+              });
+              continue;
+            }
             // Deduplicate against existing by subject+relation+object
             const key = `${prop.subject_normalized}|${prop.relation_type}|${prop.object_normalized}`;
             if (!propositionMap.has(key)) {
@@ -632,7 +736,8 @@
 
     return {
       propositions,
-      count: propositions.length
+      count: propositions.length,
+      graphRejections
     };
   }
 
@@ -640,6 +745,7 @@
     createProposition,
     compileSemanticRepresentation,
     mapFactToProposition,
+    classifyPropositionEligibility,
     resetPropositionCounter,
     classifySentenceRole: Linguistics.classifySentenceRole
   };

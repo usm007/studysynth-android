@@ -267,19 +267,31 @@
       }
     }
 
+    // Phase 2A telemetry: facts rejected from graph construction, by
+    // reason. Additive only — it never changes candidate selection.
+    const graphRejections = Array.isArray(compiled.graphRejections) ? compiled.graphRejections : [];
+    const graphRejectionsByReason = {};
+    for (const entry of graphRejections) {
+      const reason = entry.reason || 'unknown';
+      graphRejectionsByReason[reason] = (graphRejectionsByReason[reason] || 0) + 1;
+    }
+
     const metrics = {
       propositionCount: propositions.length,
       totalCandidates: candidates.length,
       validatedCandidates: validated.length,
       accepted: accepted.length,
       rejected: Math.max(0, candidates.length - accepted.length),
-      rejectionCounts: rejectionCounts
+      rejectionCounts: rejectionCounts,
+      graphRejectionCount: graphRejections.length,
+      graphRejectionsByReason: graphRejectionsByReason
     };
 
     Object.defineProperty(accepted, 'generation', { value: metrics, enumerable: false });
     Object.defineProperty(accepted, 'facts', { value: existingFacts, enumerable: false });
     Object.defineProperty(accepted, 'graph', { value: graph, enumerable: false });
     Object.defineProperty(accepted, 'propositions', { value: propositions, enumerable: false });
+    Object.defineProperty(accepted, 'graphRejections', { value: graphRejections, enumerable: false });
 
     return accepted;
   }
