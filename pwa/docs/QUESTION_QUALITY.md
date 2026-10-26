@@ -202,7 +202,75 @@ separately. `assembleMockTest` must:
   counts, section counts, key distribution, and how many candidates
   were rejected for leakage or reuse.
 
-## 7. Satisfactory threshold
+## 7. Teaching explanations, case sets, chronology, tables, real difficulty (added 2026-10-25)
+
+- **Explanations must teach, not just confirm.** A direct
+  question's explanation quotes the evidence and then says, for
+  each wrong option, why that option fails, tied to the
+  distractor's origin (a nearby year, a nearby value, a different
+  entity of the same kind, a value stated elsewhere but not for
+  this subject). Sentences name option texts, never option
+  letters, because the bank builder rotates options after
+  selection. Multi-statement, Assertion-Reason and matching
+  already explain per statement, per pair or per code, so they
+  are not given value-based sentences that would be wrong for
+  them.
+- **Case sets are a presentation grouping, not a new form.**
+  `assembleCaseSets` groups bank questions that share a section,
+  with at least three questions of at least two subtypes, and
+  presents them with their own evidence excerpts as the case
+  (grouping by page as well formed almost no sets, because a
+  diverse bank spreads its questions across pages). No scenario is invented, and the questions stay
+  self-contained, so the case adds context rather than supplying
+  missing information.
+- **Chronology orders dated events, without printing years.**
+  Four date facts from one section become one ordering question:
+  events are listed with letters in a shuffled order that is
+  never the chronological order, and the options are the
+  chronological letter sequence plus three adjacent-swap
+  near-misses. An event whose subject contains a year is
+  rejected, or ordering would be mechanical sorting. Chronology
+  consumes four facts for one question, so it only claims its
+  facts first when facts are abundant (at least twice the
+  target); on a small source it must not starve the bank.
+- **Tables are facts, not a special case.** A pipe-delimited
+  table (PDF block format, or rows on separate lines) is parsed
+  into one fact per cell, subject = row header, relation =
+  column header, object = cell value. A table question shows
+  the table in its stem and asks for one cell, with distractors
+  from the same column. It passes the same validation as every
+  other question, because it is backed by a real extracted fact.
+- **Difficulty reflects the task.** Single-value recall is easy;
+  a single relation is medium; evaluating several statements,
+  ordering events, matching pairs, or judging an
+  Assertion-Reason pair is hard. Statement-option and matching
+  were therefore moved from medium to hard. The staged banks
+  now print difficulty and the true cognitive level (the old
+  report printed "understanding" for every production question,
+  because it read the wrong field).
+- **Coverage first for rare forms.** Selection claims one
+  question each from chronology, date, comparison, sequence and
+  table forms before the fact-expensive multi-statement and
+  Assertion-Reason pass, so a chapter that yields one such
+  question actually includes it.
+- **Mutated statements must read cleanly.** A false statement
+  may only replace a value with a short, non-clausal value (at
+  most eight words, no finite verb). A mutated sentence with a
+  repeated four-word phrase or a dangling relative ending is
+  rejected, and the builder falls back to another variant
+  instead of shipping the garbled statement.
+- **V2 causal stems must be noun phrases.** "What causes X?"
+  is rejected when X starts with a pronoun or possessive with
+  no antecedent, or when X is a clause with a finite verb.
+  Those items are dropped, not rewritten into a different
+  question form.
+- **Numeric stems must name a dimension, not a value.** A
+  numeric fact whose attribute itself contains a measured value
+  ("40°C during the day") is rejected, because its stem asks
+  for a measurement for a measurement. A year in the attribute
+  ("population in 2020") is a qualifier and is allowed.
+
+## 8. Satisfactory threshold
 
 A bank is satisfactory only when, on a full scan:
 
@@ -221,7 +289,7 @@ questions it contains. Fewer, better questions are the intended
 outcome: a source that cannot support a good question must yield no
 question for that fact, not a weak one.
 
-## 8. What determinism is, and is not, here
+## 9. What determinism is, and is not, here
 
 Determinism is not the priority. Variety and quality are. A
 deterministic rule that produces a predictable, low-quality bank is

@@ -55,6 +55,11 @@
     for (const phrase of IMPERATIVE_PHRASES) {
       if (lower === phrase || lower.startsWith(phrase + ' ')) return 'instruction';
     }
+    // Mirror of the generator's manual-read exclusion: exercise
+    // list markers and table/figure/page/discourse references are
+    // not assertions, so extraction skips them.
+    if (/^(?:[a-e]|[ivx]{1,4}|\d+)\)\s/i.test(trimmed)) return 'ambiguous';
+    if (/\b(facing page|table on|figure\s+\d|we saw|we have seen|as you may notice|you may notice|in grade\s+\d|previous chapter|next chapter|see page|on page\s+\d|as shown in|as mentioned)\b/i.test(trimmed)) return 'ambiguous';
     const firstWord = lower.split(/\s+/)[0].replace(/^[^a-z]+|[^a-z]+$/g, '');
     if (IMPERATIVE_VERBS.includes(firstWord)) return 'instruction';
     // 2. Interrogative constructions even when punctuation is missing.

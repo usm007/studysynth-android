@@ -706,6 +706,21 @@ async function runE2E() {
     assert.ok(resultMsg.analyzed.generation, 'Worker result must carry generation metrics');
     console.log('  ✓ Worker initialisation: real generate job through importScripts chain');
   }
+
+check('Manual-read subject gates: possessive, finite-verb, question-word and correlative subjects are unusable', () => {
+  assert.strictEqual(Engine.isUsableSubject('their location and other factors'), false, 'A possessive-pronoun subject has no antecedent on its own');
+  assert.strictEqual(Engine.isUsableSubject('Soon the club\'s membership increased and its activities'), false, 'A subject containing a finite verb is a clause, not a noun phrase');
+  assert.strictEqual(Engine.isUsableSubject('Exposure to what'), false, 'A subject containing a question word is not identifiable');
+  assert.strictEqual(Engine.isUsableSubject('a well-planned city not only'), false, 'A subject ending in a correlative is a fragment');
+  assert.strictEqual(Engine.isUsableSubject('Few indeed in the whole world'), false, 'A discourse fragment is not a subject');
+  assert.strictEqual(Engine.isUsableSubject('the Dilwara Temples at Mount Abu'), true, 'A named, modified noun phrase stays usable');
+});
+
+check('V2 comparative effects use "What makes" instead of ungrammatical "What causes"', () => {
+  const constructorsJs = fs.readFileSync(path.join(__dirname, '../engine/reasoning/constructors.js'), 'utf-8');
+  assert.ok(/What makes \$\{lowerSubject\}/.test(constructorsJs), 'OP_B must render comparative effects with "What makes"');
+  assert.ok(/\bmore\b/i.test(constructorsJs), 'OP_B must detect the comparative marker before choosing the verb');
+});
   console.log(`\n==========================================\nALL REPAIR 002 REGRESSION TESTS PASSED (${passed} checks + 3 end-to-end)\n==========================================`);
 }
 
@@ -945,6 +960,150 @@ check('Matching is not built when two subjects share the same object', () => {
   const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
   const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
   assert.strictEqual(candidates.filter((q) => q.question_subtype === 'matching').length, 0, 'Ambiguous matching sets must not be built');
+});
+
+check('Direct questions explain why each distractor is wrong, naming its text', () => {
+  const out = Analysis.analyzeSource(
+    'Photosynthesis is the process by which green plants make their own food using sunlight, water and carbon dioxide. Chlorophyll is the green pigment in leaves that captures sunlight for photosynthesis. Respiration is the process by which living cells break down glucose to release energy. Mitochondria are known as the powerhouse of the cell because they generate most of the energy.',
+    'Per-distractor explanation fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const direct = candidates.find((q) => q.question_subtype === 'entity_attribute');
+  assert.ok(direct, 'An entity_attribute candidate must be built');
+  assert.ok(/Why the other options are wrong:/.test(direct.explanation), 'Explanation must carry a per-distractor section, got: ' + direct.explanation);
+  for (const opt of direct.options.filter((o) => !o.is_correct)) {
+    assert.ok(direct.explanation.includes(opt.text), 'Explanation must name distractor ' + opt.text);
+  }
+  const v = Engine.validateQuestion(direct, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Per-distractor explanation must not break validation: ' + JSON.stringify(v.issues));
+});
+
+check('Chronology orders dated events without printing years and validates', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.',
+    'Chronology fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const ch = candidates.find((q) => q.question_subtype === 'chronology');
+  assert.ok(ch, 'A chronology candidate must be built from four date facts');
+  assert.ok(!/1990|1995|2000|2005/.test(ch.stem), 'Years must not be printed in the event list, got: ' + ch.stem);
+  assert.ok(!/A, B, C, D/.test(ch.expected_answer), 'Correct code must not be the trivial identity order, got: ' + ch.expected_answer);
+  const yearByLetter = {};
+  for (const item of ch.chronology_items) yearByLetter[item.letter] = item.year;
+  const years = ch.expected_answer.split(',').map((s) => yearByLetter[s.trim()]);
+  assert.ok(years.every((y, i) => i === 0 || years[i - 1] < y), 'Correct code must list years ascending, got: ' + ch.expected_answer);
+  const v = Engine.validateQuestion(ch, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Chronology candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Chronology is selected when facts are abundant, not when they are scarce', () => {
+  const abundant = 'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005. Photosynthesis is the process by which green plants make their own food using sunlight, water and carbon dioxide. Chlorophyll is the green pigment in leaves that captures sunlight for photosynthesis. Respiration is the process by which living cells break down glucose to release energy. Mitochondria are known as the powerhouse of the cell because they generate most of the energy. The nucleus is the control centre of the cell that contains genetic material. Ribosomes are the sites of protein synthesis in the cell.';
+  const out = Analysis.analyzeSource(abundant, 'Abundant chronology fixture');
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const bank = Engine.generateQuestionBank(out.inventory, Object.assign({ targetCount: 5 }, ctx));
+  assert.ok(bank.some((q) => q.question_subtype === 'chronology'), 'An abundant source must include a chronology question, got: ' + bank.map((q) => q.question_subtype).join(','));
+});
+
+check('Table questions ask for one cell with same-column distractors and validate', () => {
+  const out = Analysis.analyzeSource(
+    'Population Table\n\nYear | Population | Growth\n\n2020 | 32 million | 2 percent\n\n2021 | 35 million | 3 percent\n\n2022 | 38 million | 2 percent\n\n2023 | 41 million | 3 percent',
+    'Table fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  assert.ok(out.facts.some((f) => f.fact_type === 'table'), 'Table rows must become table facts, got: ' + out.facts.map((f) => f.fact_type).join(','));
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const tq = candidates.find((q) => q.question_subtype === 'table_question');
+  assert.ok(tq, 'A table_question candidate must be built');
+  assert.ok(/In the table below/.test(tq.stem), 'Table stem must show the table, got: ' + tq.stem);
+  const v = Engine.validateQuestion(tq, out.facts, ctx);
+  assert.strictEqual(v.valid, true, 'Table candidate failed validation: ' + JSON.stringify(v.issues));
+});
+
+check('Case sets group shared-page questions with their excerpts as the case', () => {
+  const out = Analysis.analyzeSource(
+    'Photosynthesis is the process by which green plants make their own food using sunlight, water and carbon dioxide. Chlorophyll is the green pigment in leaves that captures sunlight for photosynthesis. The process of photosynthesis releases oxygen into the atmosphere. Respiration is the process by which living cells break down glucose to release energy. Mitochondria are known as the powerhouse of the cell because they generate most of the energy. The nucleus is the control centre of the cell that contains genetic material.',
+    'Case set fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const bank = Engine.generateQuestionBank(out.inventory, Object.assign({ targetCount: 15 }, ctx));
+  const result = Engine.assembleCaseSets(bank);
+  assert.ok(result.sets.length >= 1, 'At least one case set must be formed, audit: ' + JSON.stringify(result.audit));
+  const set = result.sets[0];
+  assert.ok(set.question_count >= 3, 'A case set needs at least three questions, got: ' + set.question_count);
+  assert.ok(set.subtypes.length >= 2, 'A case set needs at least two subtypes, got: ' + set.subtypes.join(','));
+  assert.ok(set.case_context.length > 50, 'Case context must carry the shared excerpts');
+  for (const q of set.questions) assert.ok(set.case_context.includes(q.supporting_excerpt) || (q.evidence.excerpts || []).some((e) => set.case_context.includes(e)), 'Case context must include each question evidence');
+});
+
+check('Mutated multi-statement replacements are short and non-clausal', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005. Photosynthesis is the process by which green plants make their own food using sunlight, water and carbon dioxide. Chlorophyll is the green pigment in leaves that captures sunlight for photosynthesis. Respiration is the process by which living cells break down glucose to release energy. Mitochondria are known as the powerhouse of the cell because they generate most of the energy.',
+    'Mutation gate fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const multis = candidates.filter((q) => q.question_subtype === 'multi_statement' || q.question_subtype === 'multi_statement_3');
+  assert.ok(multis.length > 0, 'Multi-statement candidates must exist for the gate to be tested');
+  for (const q of multis) {
+    for (const s of q.statements || []) {
+      if (s.truth_value === false) {
+        const replacement = s.alteration ? s.alteration.replacement : '';
+        assert.ok(replacement.split(/\s+/).filter(Boolean).length <= 8, 'False replacement must be at most eight words, got: ' + replacement);
+        assert.ok(!/\b(is|are|was|were|has|have)\b/i.test(replacement), 'False replacement must not be clausal, got: ' + replacement);
+        const words = s.text.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+        const phrases = new Set();
+        for (let i = 0; i + 4 <= words.length; i++) {
+          const phrase = words.slice(i, i + 4).join(' ');
+          assert.ok(!phrases.has(phrase), 'Mutated statement must not repeat a four-word phrase: ' + s.text);
+          phrases.add(phrase);
+        }
+      }
+    }
+  }
+});
+
+check('V2 causal stems with pronoun or clause subjects are rejected', () => {
+  const out = Analysis.analyzeSource(
+    'Increased rainfall causes flooding in low-lying areas. Heavy rain causes soil erosion on hillsides. Deforestation causes loss of biodiversity in forests. Rising temperatures cause melting of glaciers in mountain regions.',
+    'V2 stem gate fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const cause = candidates.find((q) => q.question_subtype === 'cause_effect');
+  assert.ok(cause, 'A cause_effect candidate must exist to mutate');
+  const pronoun = Object.assign({}, cause, { question_subtype: 'causal_reasoning', stem: 'What causes their urbanisation?' });
+  const pronounResult = Engine.validateQuestion(pronoun, out.facts, ctx);
+  assert.ok(pronounResult.issues.some((i) => i.rule === 'stem_pronoun_subject'), 'Pronoun causal subject must be rejected, got: ' + JSON.stringify(pronounResult.issues));
+  const clause = Object.assign({}, cause, { question_subtype: 'causal_reasoning', stem: 'What causes the colonial government finally decided to withdraw it in 1911?' });
+  const clauseResult = Engine.validateQuestion(clause, out.facts, ctx);
+  assert.ok(clauseResult.issues.some((i) => i.rule === 'stem_clause_subject'), 'Clause causal subject must be rejected, got: ' + JSON.stringify(clauseResult.issues));
+});
+
+check('V2 causal constructor rejects pronoun and clause effect subjects at the source', () => {
+  const constructorsJs = fs.readFileSync(path.join(__dirname, '../engine/reasoning/constructors.js'), 'utf-8');
+  assert.ok(/OP_B_CAUSAL_EXPLANATION/.test(constructorsJs), 'Constructors must handle OP_B causal explanation');
+  assert.ok(/pronounStart/.test(constructorsJs) && /finiteVerb/.test(constructorsJs), 'OP_B must gate pronoun and clause subjects before building a stem');
+  assert.ok(/if \(pronounStart \|\| clauseConnector \|\| finiteVerb\)/.test(constructorsJs), 'OP_B gate must drop the candidate, not rewrite it');
+});
+
+check('Difficulty reflects the task: statement-option, matching and chronology are hard', () => {
+  const out = Analysis.analyzeSource(
+    'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005. Article 14 states that the State shall not deny to any person equality before the law. Article 19 protects freedom of speech and expression. Article 21 protects the right to life and personal liberty. Article 32 allows citizens to approach the Supreme Court if their fundamental rights are violated.',
+    'Difficulty fixture'
+  );
+  const ctx = { sections: out.sections, facts: out.facts, conflicts: out.conflicts };
+  const candidates = Engine.buildQuestionCandidates(ctx, { targetCount: 10 });
+  const so = candidates.find((q) => q.question_subtype === 'statement_option');
+  const m = candidates.find((q) => q.question_subtype === 'matching');
+  const ch = candidates.find((q) => q.question_subtype === 'chronology');
+  const date = candidates.find((q) => q.question_subtype === 'date_recall');
+  if (so) assert.strictEqual(so.difficulty, 'hard', 'Statement-option must be hard, got: ' + so.difficulty);
+  if (m) assert.strictEqual(m.difficulty, 'hard', 'Matching must be hard, got: ' + m.difficulty);
+  if (ch) assert.strictEqual(ch.difficulty, 'hard', 'Chronology must be hard, got: ' + ch.difficulty);
+  if (date) assert.strictEqual(date.difficulty, 'easy', 'Date recall must be easy, got: ' + date.difficulty);
+  assert.ok(so || m || ch, 'At least one hard form must be built for the difficulty check');
 });
 
 runE2E().catch((err) => {

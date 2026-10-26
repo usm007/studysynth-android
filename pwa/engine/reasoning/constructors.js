@@ -68,7 +68,37 @@
         break;
 
       case REASONING_OPERATORS.OP_B_CAUSAL_EXPLANATION:
-        stem = `What causes ${subject}?`;
+        // Causal stem polish (mock-test quality): "What causes X?"
+        // is only a question when X is a noun phrase the student
+        // can identify. A pronoun subject ("their urbanisation")
+        // has no antecedent in the stem alone, and a clause
+        // subject ("the colonial government finally decided to
+        // withdraw it in 1911", "Children need special
+        // protection", "citizens to approach ... if their ...")
+        // is not a thing that can be caused. Returning an empty
+        // stem makes constructQuestionCandidate drop the
+        // candidate, in both the batch and the user paths, rather
+        // than shipping a clause-like stem. This gate is here,
+        // not only in production validation, because the batch
+        // generator writes V2 items directly and does not run
+        // production validation on them.
+        {
+          const subj = String(subject || '').trim();
+          const pronounStart = /^(their|his|her|its|our|your|they|he|she|it|them|this|that|these|those)\b/i.test(subj);
+          const clauseConnector = /\b(if|when|while|although|because)\b/i.test(subj);
+          const finiteVerb = /\b(decided|withdrew|withdraw|became|become|was|were|is|are|had|has|did|does|will|would|could|should|may|might|must|lost|won|changed|moved|started|ended|need|needs|lived|approached|approaches)\b/i.test(subj);
+          if (pronounStart || clauseConnector || finiteVerb) {
+            return { stem: '', answerText: '' };
+          }
+        }
+        // Comparative effects are not caused as a noun is caused:
+        // "What causes the judicial system more accessible?" is
+        // ungrammatical. The natural form is "What makes the
+        // judicial system more accessible?", with the subject
+        // lowercased after the verb.
+        const cleanSubject = String(subject || '').trim();
+        const lowerSubject = cleanSubject.charAt(0).toLowerCase() + cleanSubject.slice(1);
+        stem = /\bmore\b/i.test(cleanSubject) ? `What makes ${lowerSubject}?` : `What causes ${lowerSubject}?`;
         answerText = object;
         break;
 

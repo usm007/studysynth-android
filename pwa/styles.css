@@ -1769,6 +1769,27 @@ body[data-mode="revision"] .workcol { max-width: 100%; }
   font-size: 13.5px;
   line-height: 1.45;
 }
+.process-job {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.process-expectation {
+  margin-top: 9px;
+  color: var(--ink-2);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.generator-note {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
 .process-notice {
   margin-top: 9px;
   padding: 6px 9px;
@@ -1812,6 +1833,7 @@ body[data-mode="revision"] .workcol { max-width: 100%; }
   font-variant-numeric: tabular-nums;
 }
 .process-pct { font-weight: 800; color: var(--ink-2); }
+.process-elapsed { flex: 1 1 auto; text-align: center; }
 .process-stages {
   display: grid;
   gap: 7px;

@@ -230,6 +230,7 @@
                   <span class="ms-icon" aria-hidden="true">bolt</span>
                   <span class="generate-label">Generate Quiz &amp; Study Package</span>
                 </button>
+                <p class="generator-note">Choose a file and questions are generated automatically — there is no second step. If scanned text is hard to read, you will be asked to review it before generating.</p>
               </div>
             </div>
 
@@ -391,8 +392,10 @@
     <div class="modal-card process-card">
       <div class="process-head">
         <h2 id="processTitle">Preparing your study module</h2>
+        <p id="processJob" class="process-job" hidden></p>
         <p id="processMessage" class="process-message">Opening your document…</p>
         <p id="processNotice" class="process-notice" hidden></p>
+        <p id="processExpectation" class="process-expectation">Working on your document on this device.</p>
       </div>
 
       <div class="process-progress">
@@ -401,6 +404,7 @@
         </div>
         <div class="process-meta">
           <span id="processCount">Working</span>
+          <span id="processElapsed" class="process-elapsed" hidden></span>
           <span id="processPct" class="process-pct" hidden>0%</span>
         </div>
       </div>

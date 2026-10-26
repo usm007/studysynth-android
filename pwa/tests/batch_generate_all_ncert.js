@@ -145,7 +145,8 @@ function buildMarkdownReport(meta, prodQuestions, v2Questions, pagesAnalyzed, to
     const uniqueId = `Q-P${meta.chapterNum}-${padNumber(idx + 1, 3)}`;
     md += `### Question ${idx + 1} [${uniqueId}]\n`;
     md += `- **Subtype:** \`${q.question_subtype}\`\n`;
-    md += `- **Cognitive Category:** \`${q.cognitive_category || 'understanding'}\`\n`;
+    md += `- **Difficulty:** \`${q.difficulty || 'medium'}\`\n`;
+    md += `- **Cognitive Category:** \`${q.cognitive_level || q.cognitive_category || 'understanding'}\`\n`;
     md += `- **Answer Key:** **${q.answer_key}**\n\n`;
     md += `**Stem:**\n> ${q.stem}\n\n`;
     // Phase 8 fix: multi-statement questions are unanswerable in markdown

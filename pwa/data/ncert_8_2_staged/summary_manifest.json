@@ -15,8 +15,8 @@
     "file": "hees202.pdf",
     "pagesProcessed": "50/50",
     "prodCount": 15,
-    "v2Count": 1,
-    "total": 16,
+    "v2Count": 0,
+    "total": 15,
     "stagedFile": "/home/hatch/workspace/studysynth-android/pwa/data/ncert_8_2_staged/hees202_indias_road_to_independence.md"
   },
   {
@@ -24,9 +24,9 @@
     "title": "A Journey Through Indian Architecture",
     "file": "hees203.pdf",
     "pagesProcessed": "40/40",
-    "prodCount": 11,
+    "prodCount": 9,
     "v2Count": 0,
-    "total": 11,
+    "total": 9,
     "stagedFile": "/home/hatch/workspace/studysynth-android/pwa/data/ncert_8_2_staged/hees203_journey_through_indian_architecture.md"
   },
   {
@@ -44,9 +44,9 @@
     "title": "Citizenship: Rights and Duties",
     "file": "hees205.pdf",
     "pagesProcessed": "23/24",
-    "prodCount": 15,
-    "v2Count": 2,
-    "total": 17,
+    "prodCount": 12,
+    "v2Count": 0,
+    "total": 12,
     "stagedFile": "/home/hatch/workspace/studysynth-android/pwa/data/ncert_8_2_staged/hees205_citizenship_rights_and_duties.md"
   },
   {
@@ -54,9 +54,9 @@
     "title": "Dynamics of Population",
     "file": "hees206.pdf",
     "pagesProcessed": "24/24",
-    "prodCount": 15,
-    "v2Count": 2,
-    "total": 17,
+    "prodCount": 6,
+    "v2Count": 1,
+    "total": 7,
     "stagedFile": "/home/hatch/workspace/studysynth-android/pwa/data/ncert_8_2_staged/hees206_dynamics_of_population.md"
   },
   {
@@ -64,9 +64,9 @@
     "title": "India’s Urban Landscape",
     "file": "hees207.pdf",
     "pagesProcessed": "23/24",
-    "prodCount": 15,
-    "v2Count": 1,
-    "total": 16,
+    "prodCount": 13,
+    "v2Count": 0,
+    "total": 13,
     "stagedFile": "/home/hatch/workspace/studysynth-android/pwa/data/ncert_8_2_staged/hees207_indias_urban_landscape.md"
   },
   {

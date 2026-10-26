@@ -184,12 +184,15 @@
 
     DOM.processModal = document.getElementById('processModal');
     DOM.processTitle = document.getElementById('processTitle');
+    DOM.processJob = document.getElementById('processJob');
     DOM.processMessage = document.getElementById('processMessage');
+    DOM.processExpectation = document.getElementById('processExpectation');
     DOM.processNotice = document.getElementById('processNotice');
     DOM.processTrack = document.getElementById('processTrack');
     DOM.processBar = document.getElementById('processBar');
     DOM.processCount = document.getElementById('processCount');
     DOM.processPct = document.getElementById('processPct');
+    DOM.processElapsed = document.getElementById('processElapsed');
     DOM.processStages = document.getElementById('processStages');
     DOM.processStorage = document.getElementById('processStorage');
     DOM.processMinimizeBtn = document.getElementById('processMinimizeBtn');
@@ -1201,6 +1204,13 @@
   let recoveryJob = null;
   let recoveryQueue = [];
   let completedModule = null;
+  // One-step import: when a file is chosen, question generation starts
+  // automatically once its import job completes. The flag is consumed
+  // by handleProcessingSettled and is never set for pasted text, so
+  // the manual Generate path is untouched. The only stop that remains
+  // is low-confidence OCR, where the extracted text itself may be
+  // wrong and must be reviewed first (see handleProcessingSettled).
+  let autoGenerateAfterImport = false;
 
   function createGenerationWorker() {
     try {
@@ -1375,8 +1385,48 @@
     if (p.total && p.completed != null) return `${p.completed} of ${p.total} pages`;
     if (job.status === 'completed') return 'Completed';
     if (job.status === 'interrupted') return 'Paused';
-    if (!p.indeterminate && p.percent != null) return job.stage === 'ocr' ? 'Recognising text' : 'Working';
+    // Generation has no page total, so the stage label is the honest
+    // count line ("Creating questions", "Checking answers") instead
+    // of a bare "Working" next to a sliding bar.
+    if (job.status === 'running') return job.stageLabel || job.message || 'Working';
     return 'Working';
+  }
+
+  function formatElapsed(ms) {
+    if (!Number.isFinite(ms) || ms < 0) return '';
+    const totalSeconds = Math.floor(ms / 1000);
+    if (totalSeconds < 60) return `${totalSeconds}s`;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}m ${String(seconds).padStart(2, '0')}s`;
+  }
+
+  // What the user should expect at this point: how long it can take,
+  // and what happens next on completion, error or interruption. This
+  // is static guidance per state, not a promise of a finish time —
+  // generation time depends on the document, and the bar stays
+  // indeterminate while the on-device engine works through it.
+  function processExpectationText(job) {
+    const isImport = job.type === 'import';
+    if (job.status === 'completed') {
+      if (isImport) return 'Document ready. Questions are generated next — or, for scanned text that needs a check, review the text first.';
+      return 'Your study module is saved. Open it to practise, or find it in the Library.';
+    }
+    if (job.status === 'failed') {
+      if (job.canRetry) return 'Nothing was saved for this step. Try again to resume from the last saved step.';
+      return 'Nothing was saved for this step. Add the document again to continue.';
+    }
+    if (job.status === 'interrupted') {
+      return job.canResume
+        ? 'Processing paused. Resume to continue from the last saved step, or discard to remove it.'
+        : 'Processing was interrupted and cannot be resumed. Add the document again to continue.';
+    }
+    if (isImport) {
+      return job.kind === 'pdf'
+        ? 'Reading your document on this device. A long PDF can take a few minutes — use “Continue in background” and keep using the app while it works.'
+        : 'Reading your document on this device. This is usually quick.';
+    }
+    return 'Creating and checking questions on this device. A chapter-length document usually takes a minute or two; a long PDF takes longer. You can continue in the background.';
   }
 
   function renderProcessStages(job) {
@@ -1434,7 +1484,20 @@
         : isRecovery ? 'Processing was interrupted'
           : isImport ? 'Preparing your document' : 'Preparing your study module';
     if (DOM.processTitle) DOM.processTitle.textContent = title;
+    if (DOM.processJob) {
+      DOM.processJob.textContent = job.title || '';
+      DOM.processJob.hidden = !job.title;
+    }
     if (DOM.processMessage) DOM.processMessage.textContent = job.message || 'Working…';
+    if (DOM.processExpectation) DOM.processExpectation.textContent = processExpectationText(job);
+    if (DOM.processElapsed) {
+      const startedAt = job.startedAtMs;
+      const elapsed = startedAt ? formatElapsed(Date.now() - startedAt) : '';
+      DOM.processElapsed.textContent = elapsed
+        ? (job.status === 'running' ? `Time so far: ${elapsed}` : `Finished in ${elapsed}`)
+        : '';
+      DOM.processElapsed.hidden = !elapsed;
+    }
 
     if (DOM.processNotice) {
       let notice = '';
@@ -1555,7 +1618,8 @@
     else DOM.generateBtn.textContent = text;
   }
 
-  function applyImportedDocument(result) {
+  function applyImportedDocument(result, options) {
+    const autoGenerating = !!(options && options.autoGenerating);
     completedModule = null;
     const detailed = result.detailed || {};
     const text = result.text || '';
@@ -1578,6 +1642,9 @@
     if (lowConfidence) {
       setFileStatus(`Loaded ${fileName} · OCR confidence ${Math.round(detailed.confidence)}%. Review and correct the text before generating.`, 'error');
       showToast('Review the extracted OCR text before generating.');
+    } else if (autoGenerating) {
+      setFileStatus(`Loaded ${fileName} · ${text.length.toLocaleString()} characters extracted. Generating questions…`, 'ok');
+      showToast(`Loaded ${fileName}. Generating questions now.`);
     } else {
       setFileStatus(`Loaded ${fileName} · ${text.length.toLocaleString()} characters extracted.`, 'ok');
       showToast(`Loaded ${fileName}. Review the text, then generate.`);
@@ -1610,6 +1677,7 @@
   function handleProcessingSettled(result) {
     if (!result) return;
     if (result.status === 'cancelled') {
+      autoGenerateAfterImport = false;
       processExpanded = false;
       if (Processing) Processing.dismiss();
       paintProcessing(null);
@@ -1617,13 +1685,36 @@
       return;
     }
     if (result.status === 'failed') {
+      autoGenerateAfterImport = false;
       const message = (result.error && result.error.message) || 'Processing stopped.';
       setFileStatus(message, 'error');
       showToast(message);
       return;
     }
     if (result.status === 'completed') {
-      if (result.type === 'import') applyImportedDocument(result);
+      if (result.type === 'import') {
+        // One-step import: the file is in, so generation starts now
+        // without a second tap. The single exception is low-confidence
+        // OCR, where the extracted text may be wrong: generation
+        // must not run on text nobody has checked, so the flow stops
+        // here with the review prompt and the user taps Generate
+        // once they are happy with the text. Short text is left to
+        // handleGenerate, which already explains the minimum.
+        const shouldAutoGenerate = autoGenerateAfterImport;
+        autoGenerateAfterImport = false;
+        const detailed = result.detailed || {};
+        const lowConfidenceOcr = detailed.origin === 'ocr'
+          && (!Number.isFinite(detailed.confidence) || detailed.confidence < 90);
+        applyImportedDocument(result, { autoGenerating: shouldAutoGenerate && !lowConfidenceOcr });
+        if (shouldAutoGenerate && lowConfidenceOcr) {
+          const confidenceText = Number.isFinite(detailed.confidence)
+            ? `OCR confidence is ${Math.round(detailed.confidence)}%. `
+            : '';
+          setFileStatus(`${confidenceText}Review and correct the extracted text, then tap Generate Quiz & Study Package.`, 'error');
+        } else if (shouldAutoGenerate) {
+          handleGenerate();
+        }
+      }
       else handleGeneratedModule(result);
       // The completed view is painted before onSettled runs, so repaint now
       // that the generated module is available to the dialog's open action.
@@ -1650,8 +1741,10 @@
     clearProcessingHide();
     processExpanded = true;
     if (DOM.processResumeBtn) DOM.processResumeBtn.disabled = true;
+    const wasImport = !!(recoveryJob && recoveryJob.type === 'import');
     const result = await Processing.resume(id);
     recoveryJob = null;
+    if (wasImport) autoGenerateAfterImport = true;
     const current = Processing.getCurrent();
     if (current) {
       paintProcessing(current);
@@ -1683,6 +1776,7 @@
 
   async function discardRecovery() {
     if (!recoveryJob || !Processing) return;
+    autoGenerateAfterImport = false;
     const id = recoveryJob.id;
     await Processing.discard(id);
     recoveryJob = null;
@@ -2773,6 +2867,7 @@
   // ==========================================================================
   async function processFile(file) {
     if (!file) return;
+    autoGenerateAfterImport = false;
     const maxBytes = 60 * 1024 * 1024;
     if (file.size > maxBytes) {
       setFileStatus('This file is too large. Choose a file smaller than 60 MB.', 'error');
@@ -2803,6 +2898,10 @@
       processExpanded = true;
       paintProcessing(started.job || Processing.getCurrent());
       showToast('Another document is still being processed.');
+    } else {
+      // The import job now owns the file; when it completes,
+      // handleProcessingSettled starts generation automatically.
+      autoGenerateAfterImport = true;
     }
   }
 
