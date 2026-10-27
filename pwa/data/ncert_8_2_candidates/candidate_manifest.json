@@ -1,0 +1,78 @@
+{
+  "version": "coverage-engine-1",
+  "baseline_commit": "b063e58230cd257fee92707b24cfb778bf18c6d6",
+  "chapters": [
+    {
+      "chapter": 1,
+      "chapter_code": "hees201",
+      "title": "World Geography: Some Glimpses",
+      "file": "hees201.pdf",
+      "pages_processed": "34/34",
+      "candidate_count": 24,
+      "bank_file": "hees201_candidate_bank.md"
+    },
+    {
+      "chapter": 2,
+      "chapter_code": "hees202",
+      "title": "India’s Long Road to Independence",
+      "file": "hees202.pdf",
+      "pages_processed": "50/50",
+      "candidate_count": 13,
+      "bank_file": "hees202_candidate_bank.md"
+    },
+    {
+      "chapter": 3,
+      "chapter_code": "hees203",
+      "title": "A Journey Through Indian Architecture",
+      "file": "hees203.pdf",
+      "pages_processed": "40/40",
+      "candidate_count": 15,
+      "bank_file": "hees203_candidate_bank.md"
+    },
+    {
+      "chapter": 4,
+      "chapter_code": "hees204",
+      "title": "The Role of the Judiciary in Our Society",
+      "file": "hees204.pdf",
+      "pages_processed": "18/18",
+      "candidate_count": 16,
+      "bank_file": "hees204_candidate_bank.md"
+    },
+    {
+      "chapter": 5,
+      "chapter_code": "hees205",
+      "title": "Citizenship: Rights and Duties",
+      "file": "hees205.pdf",
+      "pages_processed": "24/24",
+      "candidate_count": 13,
+      "bank_file": "hees205_candidate_bank.md"
+    },
+    {
+      "chapter": 6,
+      "chapter_code": "hees206",
+      "title": "Dynamics of Population",
+      "file": "hees206.pdf",
+      "pages_processed": "24/24",
+      "candidate_count": 7,
+      "bank_file": "hees206_candidate_bank.md"
+    },
+    {
+      "chapter": 7,
+      "chapter_code": "hees207",
+      "title": "India’s Urban Landscape",
+      "file": "hees207.pdf",
+      "pages_processed": "24/24",
+      "candidate_count": 5,
+      "bank_file": "hees207_candidate_bank.md"
+    },
+    {
+      "chapter": 8,
+      "chapter_code": "hees209",
+      "title": "Cultural Currents: 13th to 17th Centuries",
+      "file": "hees209.pdf",
+      "pages_processed": "35/35",
+      "candidate_count": 13,
+      "bank_file": "hees209_candidate_bank.md"
+    }
+  ]
+}

@@ -5113,6 +5113,19 @@
       const tail = fact.event_object ? ` to ${fact.event_object}` : '';
       return `in which ${dateWord} did ${subject} ${fact.event_base}${tail}?`;
     }
+    // Coverage-engine date facts (typed layer) carry no event_base:
+    // without this guard the stem rendered "undefineded" (measured
+    // 2026-10-27, Ch3 Fig. 3.52 caption fact). Production date facts
+    // always carry event_base, so this branch never triggers for them.
+    // A four-digit object is a year even when answer_kind is absent.
+    if (!fact.event_base) {
+      const dw = /^\d{4}$/.test(cleanText(fact.object)) ? 'year' : dateWord;
+      if (fact.relation === 'completion_year') return `in which ${dw} was ${subject} completed?`;
+      if (fact.relation === 'made_in') return `in which ${dw} was ${subject} made?`;
+      if (fact.relation === 'establishment_year') return `in which ${dw} was ${subject} established?`;
+      if (fact.relation === 'launch_year') return `in which ${dw} was ${subject} launched?`;
+      return `what ${dw} is associated with ${subject}?`;
+    }
     return `in which ${dateWord} was ${subject} ${pastTense(fact.event_base)}?`;
   }
 
@@ -5200,6 +5213,26 @@
       launched_by: `who launched ${subject}?`,
       implemented_by: `who implemented ${subject}?`,
       developed_by: `who developed ${subject}?`,
+      // Coverage-engine relations (additive, 2026-10-27): the typed
+      // layer produces these relations, but the table above had no
+      // stem for them, so every such fact silently produced no
+      // candidate (measured: 25 of 38 adapted Chapter 3 facts). Each
+      // stem below phrases exactly the typed relation; no existing
+      // stem is changed. Phrasings avoid a copula where the subject
+      // may be singular or plural ("where did the building of X take
+      // place?", "what purpose did X serve?").
+      built_by: `who built ${subject}?`,
+      built_in: `where did the building of ${subject} take place?`,
+      made_by: `who made ${subject}?`,
+      developed_in: `where did ${subject} develop?`,
+      renowned_for: `what is ${subject} renowned for?`,
+      characterised_by: `which of the following characterises ${subject}?`,
+      attribute: `which of the following correctly describes ${subject}?`,
+      features: `what does ${subject} feature?`,
+      has: `what does ${subject} have?`,
+      had: `what did ${subject} have?`,
+      offered: `what did ${subject} offer?`,
+      used_for: `what purpose did ${subject} serve?`,
       function: `what is the stated function of ${subject}?`,
       method: `what method is associated with ${subject}?`,
       role: `what role is associated with ${subject}?`,

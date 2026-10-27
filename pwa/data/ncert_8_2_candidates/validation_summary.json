@@ -1,0 +1,329 @@
+{
+  "version": "coverage-engine-1",
+  "baseline_commit": "b063e58230cd257fee92707b24cfb778bf18c6d6",
+  "chapters": [
+    {
+      "chapter": "hees201",
+      "chapter_num": 1,
+      "pdf": "hees201.pdf",
+      "validation": {
+        "facts_in": 69,
+        "facts_adapted": 66,
+        "facts_prefiltered": 3,
+        "candidates_built": 63,
+        "build_metrics": {
+          "missingOptions": 22,
+          "unsafeFacts": 12,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 7
+        },
+        "rejected_by_rule": {
+          "fragment_excerpt": 3,
+          "figure_reference": 2,
+          "length_giveaway": 5,
+          "stem_source_reference": 3
+        },
+        "rejected_candidates": 13,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 10,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 1,
+        "stem_bake_fallbacks": 0,
+        "accepted": 24,
+        "subtype_distribution": {
+          "cause_effect": 2,
+          "entity_attribute": 8,
+          "classification_membership": 5,
+          "numeric_recall": 4,
+          "statement_option": 2,
+          "definition": 1,
+          "exception_reasoning": 2
+        }
+      }
+    },
+    {
+      "chapter": "hees202",
+      "chapter_num": 2,
+      "pdf": "hees202.pdf",
+      "validation": {
+        "facts_in": 43,
+        "facts_adapted": 38,
+        "facts_prefiltered": 5,
+        "candidates_built": 37,
+        "build_metrics": {
+          "missingOptions": 25,
+          "unsafeFacts": 0,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 6
+        },
+        "rejected_by_rule": {
+          "fragment_excerpt": 1,
+          "answer_contradicts_excerpt": 1,
+          "stem_source_reference": 2
+        },
+        "rejected_candidates": 3,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 7,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 13,
+        "subtype_distribution": {
+          "assertion_reason": 2,
+          "entity_attribute": 6,
+          "cause_effect": 1,
+          "definition": 3,
+          "date_recall": 1
+        }
+      }
+    },
+    {
+      "chapter": "hees203",
+      "chapter_num": 3,
+      "pdf": "hees203.pdf",
+      "validation": {
+        "facts_in": 40,
+        "facts_adapted": 35,
+        "facts_prefiltered": 5,
+        "candidates_built": 42,
+        "build_metrics": {
+          "missingOptions": 16,
+          "unsafeFacts": 0,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 6
+        },
+        "rejected_by_rule": {
+          "figure_reference": 6,
+          "fragment_excerpt": 1
+        },
+        "rejected_candidates": 7,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 6,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 15,
+        "subtype_distribution": {
+          "definition": 2,
+          "entity_attribute": 11,
+          "assertion_reason": 2
+        }
+      }
+    },
+    {
+      "chapter": "hees204",
+      "chapter_num": 4,
+      "pdf": "hees204.pdf",
+      "validation": {
+        "facts_in": 30,
+        "facts_adapted": 29,
+        "facts_prefiltered": 1,
+        "candidates_built": 37,
+        "build_metrics": {
+          "missingOptions": 15,
+          "unsafeFacts": 0,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 8
+        },
+        "rejected_by_rule": {},
+        "rejected_candidates": 0,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 5,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 16,
+        "subtype_distribution": {
+          "assertion_reason": 2,
+          "entity_attribute": 4,
+          "definition": 4,
+          "classification_membership": 2,
+          "cause_effect": 4
+        }
+      }
+    },
+    {
+      "chapter": "hees205",
+      "chapter_num": 5,
+      "pdf": "hees205.pdf",
+      "validation": {
+        "facts_in": 26,
+        "facts_adapted": 23,
+        "facts_prefiltered": 3,
+        "candidates_built": 33,
+        "build_metrics": {
+          "missingOptions": 7,
+          "unsafeFacts": 6,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 6
+        },
+        "rejected_by_rule": {},
+        "rejected_candidates": 0,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 6,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 13,
+        "subtype_distribution": {
+          "assertion_reason": 3,
+          "cause_effect": 5,
+          "entity_attribute": 2,
+          "definition": 3
+        }
+      }
+    },
+    {
+      "chapter": "hees206",
+      "chapter_num": 6,
+      "pdf": "hees206.pdf",
+      "validation": {
+        "facts_in": 26,
+        "facts_adapted": 17,
+        "facts_prefiltered": 9,
+        "candidates_built": 30,
+        "build_metrics": {
+          "missingOptions": 7,
+          "unsafeFacts": 2,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 8,
+          "multi_statement_3": 6
+        },
+        "rejected_by_rule": {
+          "length_giveaway": 2
+        },
+        "rejected_candidates": 2,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 7,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 7,
+        "subtype_distribution": {
+          "entity_attribute": 2,
+          "definition": 4,
+          "cause_effect": 1
+        }
+      }
+    },
+    {
+      "chapter": "hees207",
+      "chapter_num": 7,
+      "pdf": "hees207.pdf",
+      "validation": {
+        "facts_in": 27,
+        "facts_adapted": 23,
+        "facts_prefiltered": 4,
+        "candidates_built": 37,
+        "build_metrics": {
+          "missingOptions": 9,
+          "unsafeFacts": 4,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 10,
+          "multi_statement_3": 9
+        },
+        "rejected_by_rule": {
+          "fragment_excerpt": 3
+        },
+        "rejected_candidates": 3,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 7,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 3,
+        "stem_bake_fallbacks": 0,
+        "accepted": 5,
+        "subtype_distribution": {
+          "entity_attribute": 3,
+          "definition": 1,
+          "comparison": 1
+        }
+      }
+    },
+    {
+      "chapter": "hees209",
+      "chapter_num": 8,
+      "pdf": "hees209.pdf",
+      "validation": {
+        "facts_in": 39,
+        "facts_adapted": 38,
+        "facts_prefiltered": 1,
+        "candidates_built": 48,
+        "build_metrics": {
+          "missingOptions": 18,
+          "unsafeFacts": 5,
+          "unsupportedFacts": 0,
+          "multiMissing": 0
+        },
+        "structured_not_emitted": {
+          "multi_statement": 13,
+          "multi_statement_3": 10
+        },
+        "rejected_by_rule": {
+          "fragment_excerpt": 3,
+          "length_giveaway": 3
+        },
+        "rejected_candidates": 6,
+        "duplicates_removed": 0,
+        "stem_collisions_rejected": 0,
+        "not_selected_per_fact": 6,
+        "post_rotation_failed": 0,
+        "mangled_answer_filtered": 0,
+        "weak_stem_filtered": 0,
+        "stem_bake_fallbacks": 0,
+        "accepted": 13,
+        "subtype_distribution": {
+          "definition": 3,
+          "classification_membership": 1,
+          "assertion_reason": 3,
+          "entity_attribute": 5,
+          "cause_effect": 1
+        }
+      }
+    }
+  ],
+  "totals": {
+    "chapters": 8,
+    "typed_facts": 300,
+    "accepted_questions": 106
+  }
+}

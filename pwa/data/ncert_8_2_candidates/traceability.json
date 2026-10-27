@@ -1,0 +1,3609 @@
+{
+  "version": "coverage-engine-1",
+  "baseline_commit": "b063e58230cd257fee92707b24cfb778bf18c6d6",
+  "chapters": [
+    {
+      "chapter": "hees201",
+      "chapter_num": 1,
+      "pdf": "hees201.pdf",
+      "sha256": "68f119b33395c16a5c63819596d46aacadde9a17aec5c4cf978d0b03e85a84a4",
+      "pages": 34,
+      "units": 249,
+      "questions": [
+        {
+          "question_id": "Q-CAND-1-001",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-005-001",
+          "unit_id": "RU-005",
+          "block_ids": [
+            "p2-b8"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Human lives are deeply connected to its many features; for instance, the distant Southern Indian Ocean influences the monsoon in the Gangetic Plains.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-1-002",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-006-001",
+          "unit_id": "RU-006",
+          "block_ids": [
+            "p2-b10",
+            "p2-b11",
+            "p2-b13",
+            "p2-b15",
+            "p2-b17",
+            "p2-b18",
+            "p2-b19"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The process of showing the Earth on a flat surface is called a map projection.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-003",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-006-003",
+          "unit_id": "RU-006",
+          "block_ids": [
+            "p2-b10",
+            "p2-b11",
+            "p2-b13",
+            "p2-b15",
+            "p2-b17",
+            "p2-b18",
+            "p2-b19"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Earth is an oblate spheroid.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-004",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-050-001",
+          "unit_id": "RU-050",
+          "block_ids": [
+            "p10-b2"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Landforms of the world include mountains, plateaus, and plains.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-1-005",
+          "subtype": "numeric_recall",
+          "fact_id": "TF-REC-080-003",
+          "unit_id": "RU-080",
+          "block_ids": [
+            "p12-b6",
+            "p12-b11"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The plateau stretches about 2,500 km from east to west and 1,000 km from north to south, with an average height of over 4,500 metres above sea level.",
+          "rule": "coverage-engine-1:numeric_recall"
+        },
+        {
+          "question_id": "Q-CAND-1-006",
+          "subtype": "statement_option",
+          "fact_id": "TF-REC-082-001",
+          "unit_id": "RU-082",
+          "block_ids": [
+            "p13-b1",
+            "p13-b2",
+            "p13-b5",
+            "p13-b6"
+          ],
+          "page_range": [
+            13
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Mongolia is called the ‘Land of the Eternal Blue Sky’ because it has about 8 to 9 months of sunny weather, but winter temperatures can drop to minus 30°C.",
+          "rule": "coverage-engine-1:statement_option"
+        },
+        {
+          "question_id": "Q-CAND-1-007",
+          "subtype": "numeric_recall",
+          "fact_id": "TF-REC-083-001",
+          "unit_id": "RU-083",
+          "block_ids": [
+            "p14-b3"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "caption",
+          "evidence": "(2) The steppe tortoise is about 13–25 cm in size.",
+          "rule": "coverage-engine-1:numeric_recall"
+        },
+        {
+          "question_id": "Q-CAND-1-008",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-091-001",
+          "unit_id": "RU-091",
+          "block_ids": [
+            "p15-b1",
+            "p15-b12",
+            "p15-b13"
+          ],
+          "page_range": [
+            15
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Mountains are formed by tectonic forces, volcanic activity, and erosion.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-009",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-092-003",
+          "unit_id": "RU-092",
+          "block_ids": [
+            "p15-b14",
+            "p15-b15",
+            "p15-b4",
+            "p15-b16",
+            "p15-b5"
+          ],
+          "page_range": [
+            15
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The range is notable for its rugged slopes, caves, valleys, and forests.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-010",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-098-001",
+          "unit_id": "RU-098",
+          "block_ids": [
+            "p16-b7"
+          ],
+          "page_range": [
+            16
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Urals are rich in mineral resources, including iron ore, copper, zinc, platinum, gold, and coal, as well as oil and natural gas.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-1-011",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-100-001",
+          "unit_id": "RU-100",
+          "block_ids": [
+            "p17-b3",
+            "p17-b5",
+            "p17-b6",
+            "p17-b7",
+            "p17-b9",
+            "p17-b18",
+            "p17-b19",
+            "p17-b30",
+            "p17-b31",
+            "p17-b32",
+            "p17-b34",
+            "p17-b38",
+            "p17-b39",
+            "p17-b40",
+            "p17-b44",
+            "p17-b47",
+            "p17-b48",
+            "p17-b50",
+            "p17-b51",
+            "p17-b52"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Valleys are carved by rivers and provide fertile soil, water, and transport routes that have nurtured some of the world’s earliest civilisations.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-012",
+          "subtype": "definition",
+          "fact_id": "TF-REC-100-003",
+          "unit_id": "RU-100",
+          "block_ids": [
+            "p17-b3",
+            "p17-b5",
+            "p17-b6",
+            "p17-b7",
+            "p17-b9",
+            "p17-b18",
+            "p17-b19",
+            "p17-b30",
+            "p17-b31",
+            "p17-b32",
+            "p17-b34",
+            "p17-b38",
+            "p17-b39",
+            "p17-b40",
+            "p17-b44",
+            "p17-b47",
+            "p17-b48",
+            "p17-b50",
+            "p17-b51",
+            "p17-b52"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The plain is characterised by low-lying terrain, gentle rolling 500 1,000 km A I A I North Sea North Sea Baltic Baltic A A Sea Sea R R U U Rhine R.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-1-013",
+          "subtype": "numeric_recall",
+          "fact_id": "TF-REC-127-001",
+          "unit_id": "RU-127",
+          "block_ids": [
+            "p18-b2",
+            "p18-b4"
+          ],
+          "page_range": [
+            18
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "(2) The 1,200 km long, crescent-shaped Alps photographed from space.",
+          "rule": "coverage-engine-1:numeric_recall"
+        },
+        {
+          "question_id": "Q-CAND-1-014",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-130-002",
+          "unit_id": "RU-130",
+          "block_ids": [
+            "p19-b1",
+            "p19-b3",
+            "p19-b4",
+            "p19-b5",
+            "p19-b6",
+            "p19-b7",
+            "p19-b8",
+            "p19-b9"
+          ],
+          "page_range": [
+            19
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Wildlife includes ibex, chamois, marmots, golden eagles, lynxes, wolves, and brown bears.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-1-015",
+          "subtype": "exception_reasoning",
+          "fact_id": "TF-REC-154-001",
+          "unit_id": "RU-154",
+          "block_ids": [
+            "p22-b8",
+            "p22-b9"
+          ],
+          "page_range": [
+            22
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Andes are a vital source of freshwater for millions of people, feeding major rivers incuding the Amazon, world’s largest river by volume.",
+          "rule": "coverage-engine-1:exception_reasoning"
+        },
+        {
+          "question_id": "Q-CAND-1-016",
+          "subtype": "numeric_recall",
+          "fact_id": "TF-REC-157-001",
+          "unit_id": "RU-157",
+          "block_ids": [
+            "p23-b44",
+            "p23-b45"
+          ],
+          "page_range": [
+            23
+          ],
+          "evidence_source": "caption",
+          "evidence": "It has an average wing span of 3.2 metres, and is a significant part of the mythology representing the sun deity; (2) Salt flats in South America.",
+          "rule": "coverage-engine-1:numeric_recall"
+        },
+        {
+          "question_id": "Q-CAND-1-017",
+          "subtype": "statement_option",
+          "fact_id": "TF-REC-189-002",
+          "unit_id": "RU-189",
+          "block_ids": [
+            "p25-b12",
+            "p25-b2",
+            "p25-b13"
+          ],
+          "page_range": [
+            25
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The temperature varies from 40°C during the day to 5°C at night. some of the clearest night skies, and its rocky, Mars-like landscape has even been used by NASA to test rovers.",
+          "rule": "coverage-engine-1:statement_option"
+        },
+        {
+          "question_id": "Q-CAND-1-018",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-216-001",
+          "unit_id": "RU-216",
+          "block_ids": [
+            "p27-b3"
+          ],
+          "page_range": [
+            27
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Mining, hydropower generation, tourism and agriculture contribute to the GDP.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-1-019",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-219-001",
+          "unit_id": "RU-219",
+          "block_ids": [
+            "p28-b5",
+            "p28-b6"
+          ],
+          "page_range": [
+            28
+          ],
+          "evidence_source": "caption",
+          "evidence": "The Cherokee are one of the communities energy are also growing sectors. indigenous to the Appalachian Mountains.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-020",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-220-001",
+          "unit_id": "RU-220",
+          "block_ids": [
+            "p28-b3"
+          ],
+          "page_range": [
+            28
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Yellowstone National Park, located in the Rockies, is an example of ecosystem restoration.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-021",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-220-002",
+          "unit_id": "RU-220",
+          "block_ids": [
+            "p28-b3"
+          ],
+          "page_range": [
+            28
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Park was experiencing an ecological imbalance due to overgrazing by elk, a type of deer.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-1-022",
+          "subtype": "exception_reasoning",
+          "fact_id": "TF-REC-223-001",
+          "unit_id": "RU-223",
+          "block_ids": [
+            "p29-b1"
+          ],
+          "page_range": [
+            29
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The lakes are a vast habitat for diverse wildlife, though they also face environmental challenges such as chemical contamination of the sediments in the lake, and water contamination due to agricultural run-off and industrial processes.",
+          "rule": "coverage-engine-1:exception_reasoning"
+        },
+        {
+          "question_id": "Q-CAND-1-023",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-238-001",
+          "unit_id": "RU-238",
+          "block_ids": [
+            "p30-b5"
+          ],
+          "page_range": [
+            30
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The deserts are home to many animals, like reptiles, skinks, wallabies, bilbies, and feral camels.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-1-024",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-238-002",
+          "unit_id": "RU-238",
+          "block_ids": [
+            "p30-b5"
+          ],
+          "page_range": [
+            30
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Predators include dingoes, large lizards, cats, foxes, and snakes.",
+          "rule": "coverage-engine-1:classification_membership"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-003-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-004-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-005-001",
+          "question_id": "Q-CAND-1-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-006-001",
+          "question_id": "Q-CAND-1-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-006-002",
+          "question_id": null,
+          "reason": "weak_stem"
+        },
+        {
+          "fact_id": "TF-REC-006-003",
+          "question_id": "Q-CAND-1-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-010-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-013-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-019-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-029-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-029-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-032-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-032-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-034-001",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-034-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-039-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-050-001",
+          "question_id": "Q-CAND-1-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-051-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-053-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-077-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-080-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-080-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-080-003",
+          "question_id": "Q-CAND-1-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-082-001",
+          "question_id": "Q-CAND-1-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-082-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-083-001",
+          "question_id": "Q-CAND-1-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-086-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-086-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-086-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-091-001",
+          "question_id": "Q-CAND-1-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-092-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-092-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-092-003",
+          "question_id": "Q-CAND-1-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-098-001",
+          "question_id": "Q-CAND-1-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-098-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-100-001",
+          "question_id": "Q-CAND-1-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-100-002",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-100-003",
+          "question_id": "Q-CAND-1-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-127-001",
+          "question_id": "Q-CAND-1-013",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-130-001",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-130-002",
+          "question_id": "Q-CAND-1-014",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-130-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-131-001",
+          "question_id": null,
+          "reason": "stem_source_reference"
+        },
+        {
+          "fact_id": "TF-REC-135-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-150-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-152-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-154-001",
+          "question_id": "Q-CAND-1-015",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-157-001",
+          "question_id": "Q-CAND-1-016",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-182-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-189-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-189-002",
+          "question_id": "Q-CAND-1-017",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-192-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-193-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-216-001",
+          "question_id": "Q-CAND-1-018",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-216-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-219-001",
+          "question_id": "Q-CAND-1-019",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-220-001",
+          "question_id": "Q-CAND-1-020",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-220-002",
+          "question_id": "Q-CAND-1-021",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-223-001",
+          "question_id": "Q-CAND-1-022",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-238-001",
+          "question_id": "Q-CAND-1-023",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-238-002",
+          "question_id": "Q-CAND-1-024",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-238-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-238-004",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-244-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-244-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-245-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-246-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-246-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        }
+      ]
+    },
+    {
+      "chapter": "hees202",
+      "chapter_num": 2,
+      "pdf": "hees202.pdf",
+      "sha256": "5a02c626a57ba3222cf90204cbeb065b0d46ff081f117269a4bb212527b74eae",
+      "pages": 50,
+      "units": 151,
+      "questions": [
+        {
+          "question_id": "Q-CAND-2-001",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-031-001",
+          "unit_id": "RU-031",
+          "block_ids": [
+            "p11-b9",
+            "p11-b10",
+            "p11-b11"
+          ],
+          "page_range": [
+            11
+          ],
+          "evidence_source": "caption",
+          "evidence": "Baba Ram Singh was arrested and exiled to Burma, where he passed away in captivity, never to return home.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-2-002",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-051-001",
+          "unit_id": "RU-051",
+          "block_ids": [
+            "p17-b1"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Aurobindo Ghose was asked to be the Bengal National College’s first principal and steer the new institution.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-2-003",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-060-001",
+          "unit_id": "RU-060",
+          "block_ids": [
+            "p21-b1"
+          ],
+          "page_range": [
+            21
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Tilak was sentenced to be jailed in Mandalay (in Myanmar) for six years.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-004",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-061-001",
+          "unit_id": "RU-061",
+          "block_ids": [
+            "p21-b3"
+          ],
+          "page_range": [
+            21
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Maniram Dewan and Piyali Baruah were publicly hanged by the British during the 1857 rebellion in Assam.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-005",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-066-001",
+          "unit_id": "RU-066",
+          "block_ids": [
+            "p23-b3",
+            "p23-b6"
+          ],
+          "page_range": [
+            23
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Owing to the continuing popular sentiment against the partition of Bengal, the colonial government finally decided to withdraw it in 1911.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-2-006",
+          "subtype": "definition",
+          "fact_id": "TF-REC-097-001",
+          "unit_id": "RU-097",
+          "block_ids": [
+            "p32-b3",
+            "p32-b5",
+            "p32-b6"
+          ],
+          "page_range": [
+            32
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Hindustan Republican Association (HRA) was inspired by the Ghadar Movement’s earlier attempts.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-2-007",
+          "subtype": "definition",
+          "fact_id": "TF-REC-097-002",
+          "unit_id": "RU-097",
+          "block_ids": [
+            "p32-b3",
+            "p32-b5",
+            "p32-b6"
+          ],
+          "page_range": [
+            32
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The HRA reorganised itself as the Hindustan Socialist Republican Association (HSRA).",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-2-008",
+          "subtype": "date_recall",
+          "fact_id": "TF-REC-101-002",
+          "unit_id": "RU-101",
+          "block_ids": [
+            "p34-b1",
+            "p34-b2"
+          ],
+          "page_range": [
+            34
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The resolution demanding Purna Swaraj was passed in December 1929 at the Lahore session of the Congress.",
+          "rule": "coverage-engine-1:date_recall"
+        },
+        {
+          "question_id": "Q-CAND-2-009",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-127-001",
+          "unit_id": "RU-127",
+          "block_ids": [
+            "p43-b5",
+            "p43-b8"
+          ],
+          "page_range": [
+            43
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The partition plan was widely opposed even by the Indian National Congress.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-010",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-129-001",
+          "unit_id": "RU-129",
+          "block_ids": [
+            "p44-b1"
+          ],
+          "page_range": [
+            44
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Women were especially targeted, facing abductions and assaults.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-011",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-130-001",
+          "unit_id": "RU-130",
+          "block_ids": [
+            "p44-b2",
+            "p44-b5"
+          ],
+          "page_range": [
+            44
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Sardar Patel had always believed that states were an integral part of India, which has evolved over ages.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-012",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-138-001",
+          "unit_id": "RU-138",
+          "block_ids": [
+            "p48-b1",
+            "p48-b2",
+            "p48-b5"
+          ],
+          "page_range": [
+            48
+          ],
+          "evidence_source": "reconstructed_list",
+          "evidence": "The ‘Do or Die’ call was given by Mahatma Gandhi during the Non-Cooperation Movement in 1920.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-2-013",
+          "subtype": "definition",
+          "fact_id": "TF-REC-147-003",
+          "unit_id": "RU-147",
+          "block_ids": [
+            "p39-b4",
+            "p40-b1"
+          ],
+          "page_range": [
+            39,
+            40
+          ],
+          "evidence_source": "cross_page_merged",
+          "evidence": "Subhas Chandra Bose to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA) from Indian prisoners of war and volunteers, and declared the formation of the Azad Hind (‘free India’) government.",
+          "rule": "coverage-engine-1:definition"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-017-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-024-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-027-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-031-001",
+          "question_id": "Q-CAND-2-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-034-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-035-001",
+          "question_id": null,
+          "reason": "answer_contradicts_excerpt,stem_source_reference"
+        },
+        {
+          "fact_id": "TF-REC-038-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-040-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-041-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-051-001",
+          "question_id": "Q-CAND-2-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-059-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-060-001",
+          "question_id": "Q-CAND-2-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-061-001",
+          "question_id": "Q-CAND-2-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-066-001",
+          "question_id": "Q-CAND-2-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-070-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-074-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-076-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-094-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-097-001",
+          "question_id": "Q-CAND-2-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-097-002",
+          "question_id": "Q-CAND-2-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-099-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-101-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-101-002",
+          "question_id": "Q-CAND-2-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-112-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-113-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-113-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-114-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-116-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-116-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-119-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-120-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-122-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-123-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-124-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-127-001",
+          "question_id": "Q-CAND-2-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-129-001",
+          "question_id": "Q-CAND-2-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-130-001",
+          "question_id": "Q-CAND-2-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-135-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-136-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-138-001",
+          "question_id": "Q-CAND-2-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-138-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-143-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-147-003",
+          "question_id": "Q-CAND-2-013",
+          "reason": "covered"
+        }
+      ]
+    },
+    {
+      "chapter": "hees203",
+      "chapter_num": 3,
+      "pdf": "hees203.pdf",
+      "sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+      "pages": 40,
+      "units": 128,
+      "questions": [
+        {
+          "question_id": "Q-CAND-3-001",
+          "subtype": "definition",
+          "fact_id": "TF-REC-015-001",
+          "unit_id": "RU-015",
+          "block_ids": [
+            "p6-b4",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b12",
+            "p6-b14"
+          ],
+          "page_range": [
+            6
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Harappan architecture represents the earliest known tradition of urban planning and construction in the Indian subcontinent.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-3-002",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-015-002",
+          "unit_id": "RU-015",
+          "block_ids": [
+            "p6-b4",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b12",
+            "p6-b14"
+          ],
+          "page_range": [
+            6
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-003",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-019-001",
+          "unit_id": "RU-019",
+          "block_ids": [
+            "p7-b2",
+            "p7-b5"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Mohenjo-daro (in present- day Sindh, Pakistan) was an extensive city.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-3-004",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-023-001",
+          "unit_id": "RU-023",
+          "block_ids": [
+            "p9-b1",
+            "p9-b2"
+          ],
+          "page_range": [
+            9
+          ],
+          "evidence_source": "caption",
+          "evidence": "Stupas are common in Jainism too.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-3-005",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-032-001",
+          "unit_id": "RU-032",
+          "block_ids": [
+            "p12-b2",
+            "p12-b3",
+            "p12-b4"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-006",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-039-001",
+          "unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "In classical times, a tradition of stepwells (vāvs or bāorīs) developed in Gujarat and Rajasthan, many of them engineering marvels as well as spectacular works of art.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-007",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-039-004",
+          "unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Besides harvesting and storing rainwater, stepwells offered a social space where people could sit together, enjoy cooler temperatures and exchange all the news.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-008",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-039-005",
+          "unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-based rituals.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-009",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-039-006",
+          "unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-based rituals.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-010",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-050-001",
+          "unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Until the 8 th or 9 th century, temples were modest in size.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-011",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-050-002",
+          "unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "From the 10 th century onward, in different parts of India they grew in scale and began incorporating multiple shrines, amenities, and enclosures (prākāras), culminating in vast complexes.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-012",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-065-001",
+          "unit_id": "RU-065",
+          "block_ids": [
+            "p22-b3"
+          ],
+          "page_range": [
+            22
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Mosques are places of worship where followers of Islam gather for prayer.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-013",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-066-001",
+          "unit_id": "RU-066",
+          "block_ids": [
+            "p22-b4",
+            "p22-b6",
+            "p22-b7",
+            "p22-b8",
+            "p22-b9",
+            "p22-b10",
+            "p22-b11",
+            "p22-b12",
+            "p22-b13",
+            "p22-b14",
+            "p22-b15",
+            "p22-b16",
+            "p22-b17"
+          ],
+          "page_range": [
+            22
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Jama Masjid in Ahmedabad (Gujarat) was built by Sultan Ahmed Shah I in the 15 th century.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-3-014",
+          "subtype": "definition",
+          "fact_id": "TF-REC-076-001",
+          "unit_id": "RU-076",
+          "block_ids": [
+            "p26-b18",
+            "p26-b1",
+            "p26-b20",
+            "p26-b2",
+            "p26-b22",
+            "p26-b24",
+            "p26-b3",
+            "p26-b25",
+            "p26-b4"
+          ],
+          "page_range": [
+            26
+          ],
+          "evidence_source": "glossary",
+          "evidence": "Latticework: Open framework with criss-crossing or decorative designs.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-3-015",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-076-002",
+          "unit_id": "RU-076",
+          "block_ids": [
+            "p26-b18",
+            "p26-b1",
+            "p26-b20",
+            "p26-b2",
+            "p26-b22",
+            "p26-b24",
+            "p26-b3",
+            "p26-b25",
+            "p26-b4"
+          ],
+          "page_range": [
+            26
+          ],
+          "evidence_source": "glossary",
+          "evidence": "Here, it is both functional (allowing ventilation) and aesthetic in design.",
+          "rule": "coverage-engine-1:entity_attribute"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-015-001",
+          "question_id": "Q-CAND-3-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-015-002",
+          "question_id": "Q-CAND-3-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-019-001",
+          "question_id": "Q-CAND-3-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-019-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-023-001",
+          "question_id": "Q-CAND-3-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-030-001",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-032-001",
+          "question_id": "Q-CAND-3-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-032-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-032-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-039-001",
+          "question_id": "Q-CAND-3-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-039-002",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-039-003",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-039-004",
+          "question_id": "Q-CAND-3-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-039-005",
+          "question_id": "Q-CAND-3-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-039-006",
+          "question_id": "Q-CAND-3-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-044-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-050-001",
+          "question_id": "Q-CAND-3-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-050-002",
+          "question_id": "Q-CAND-3-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-050-003",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-050-004",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-056-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-064-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-064-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-065-001",
+          "question_id": "Q-CAND-3-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-065-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-066-001",
+          "question_id": "Q-CAND-3-013",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-070-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-071-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-071-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-076-001",
+          "question_id": "Q-CAND-3-014",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-076-002",
+          "question_id": "Q-CAND-3-015",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-082-001",
+          "question_id": null,
+          "reason": "figure_reference"
+        },
+        {
+          "fact_id": "TF-REC-090-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-090-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-090-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-104-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-110-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-116-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-116-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-119-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        }
+      ]
+    },
+    {
+      "chapter": "hees204",
+      "chapter_num": 4,
+      "pdf": "hees204.pdf",
+      "sha256": "87f5e404e8c2dbf6c95612068ef78108653946b761ebf62b4f4bdd8825845184",
+      "pages": 18,
+      "units": 53,
+      "questions": [
+        {
+          "question_id": "Q-CAND-4-001",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-002-001",
+          "unit_id": "RU-002",
+          "block_ids": [
+            "p1-b5",
+            "p1-b6",
+            "p1-b8",
+            "p1-b11"
+          ],
+          "page_range": [
+            1
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Injustice anywhere is a threat to justice everywhere.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-4-002",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-004-001",
+          "unit_id": "RU-004",
+          "block_ids": [
+            "p2-b2",
+            "p2-b3",
+            "p2-b4"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Justice is essential for maintaining peace and harmony in any society.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-4-003",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-006-001",
+          "unit_id": "RU-006",
+          "block_ids": [
+            "p3-b4"
+          ],
+          "page_range": [
+            3
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "An independent judiciary is essential to ensure that disputes between parties are decided in a fair and just manner.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-4-004",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-008-001",
+          "unit_id": "RU-008",
+          "block_ids": [
+            "p3-b8"
+          ],
+          "page_range": [
+            3
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Governments were given the power to administer a society through laws and the power to enforce such laws, with force if needed.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-4-005",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-013-001",
+          "unit_id": "RU-013",
+          "block_ids": [
+            "p5-b1"
+          ],
+          "page_range": [
+            5
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Jim Crow Law was officially repealed in the 1960s.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-4-006",
+          "subtype": "definition",
+          "fact_id": "TF-REC-015-001",
+          "unit_id": "RU-015",
+          "block_ids": [
+            "p5-b3",
+            "p5-b4",
+            "p5-b5",
+            "p5-b6",
+            "p5-b7",
+            "p5-b9"
+          ],
+          "page_range": [
+            5
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Procedural justice means that every person involved gets a full opportunity of hearing, before a decision is taken by the court.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-4-007",
+          "subtype": "definition",
+          "fact_id": "TF-REC-023-001",
+          "unit_id": "RU-023",
+          "block_ids": [
+            "p8-b1"
+          ],
+          "page_range": [
+            8
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Public Interest Litigation (PIL) filed under Articles 32 and 226 PIL is an innovation introduced by the Supreme Court to address issues of public concern and give meaning to the Right to Life under Article 21 of the Constitution of India.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-4-008",
+          "subtype": "definition",
+          "fact_id": "TF-REC-025-001",
+          "unit_id": "RU-025",
+          "block_ids": [
+            "p9-b2"
+          ],
+          "page_range": [
+            9
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Supreme Court also has jurisdiction to hear appeals from specialised tribunals like National Green Tribunal (NGT) and National Company Law Appellate Tribunal (NCLAT).",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-4-009",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-029-001",
+          "unit_id": "RU-029",
+          "block_ids": [
+            "p10-b40",
+            "p10-b42",
+            "p10-b43"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "A High Court is the highest court at the State level.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-4-010",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-033-001",
+          "unit_id": "RU-033",
+          "block_ids": [
+            "p11-b30"
+          ],
+          "page_range": [
+            11
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The High Court consists of a Chief Justice and other Judges.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-4-011",
+          "subtype": "definition",
+          "fact_id": "TF-REC-035-001",
+          "unit_id": "RU-035",
+          "block_ids": [
+            "p12-b12",
+            "p12-b1",
+            "p12-b13",
+            "p12-b2",
+            "p12-b14"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "glossary",
+          "evidence": "Tribunal: A committee or body established to settle certain types of disputes.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-4-012",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-037-001",
+          "unit_id": "RU-037",
+          "block_ids": [
+            "p12-b6"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Constitution makes a few provisions in Articles 233 to 237 of the Constitution to regulate the organisation of these courts, and to ensure independence of the subordinate judiciary.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-4-013",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-037-003",
+          "unit_id": "RU-037",
+          "block_ids": [
+            "p12-b6"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Subordinate Courts broadly include District Courts, Sessions Courts, Revenue Courts, Small Causes Courts, etc. It is incumbent on each High Court to maintain and uphold the honour and integrity of the subordinate judiciary in the concerned States.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-4-014",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-045-001",
+          "unit_id": "RU-045",
+          "block_ids": [
+            "p14-b7"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Digital technology has been introduced to make the judicial system more accessible and transparent.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-4-015",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-046-001",
+          "unit_id": "RU-046",
+          "block_ids": [
+            "p14-b11",
+            "p14-b1"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The person who sues and the person who gets sued are both called litigants.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-4-016",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-047-001",
+          "unit_id": "RU-047",
+          "block_ids": [
+            "p15-b2",
+            "p15-b3"
+          ],
+          "page_range": [
+            15
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Digital Initiatives Courts have taken many digital initiatives in past years to make the judicial system more user-friendly.",
+          "rule": "coverage-engine-1:cause_effect"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-002-001",
+          "question_id": "Q-CAND-4-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-004-001",
+          "question_id": "Q-CAND-4-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-006-001",
+          "question_id": "Q-CAND-4-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-007-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-008-001",
+          "question_id": "Q-CAND-4-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-013-001",
+          "question_id": "Q-CAND-4-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-014-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-015-001",
+          "question_id": "Q-CAND-4-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-017-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-018-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-021-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-021-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-021-003",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-023-001",
+          "question_id": "Q-CAND-4-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-023-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-025-001",
+          "question_id": "Q-CAND-4-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-027-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-029-001",
+          "question_id": "Q-CAND-4-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-033-001",
+          "question_id": "Q-CAND-4-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-033-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-035-001",
+          "question_id": "Q-CAND-4-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "question_id": "Q-CAND-4-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-037-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-037-003",
+          "question_id": "Q-CAND-4-013",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-045-001",
+          "question_id": "Q-CAND-4-014",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-046-001",
+          "question_id": "Q-CAND-4-015",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-047-001",
+          "question_id": "Q-CAND-4-016",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-048-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-048-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-049-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        }
+      ]
+    },
+    {
+      "chapter": "hees205",
+      "chapter_num": 5,
+      "pdf": "hees205.pdf",
+      "sha256": "4567ca3602ac05a7b45cf78e21528a66fd0bc380830561209d767e777f11ac28",
+      "pages": 24,
+      "units": 85,
+      "questions": [
+        {
+          "question_id": "Q-CAND-5-001",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-003-001",
+          "unit_id": "RU-003",
+          "block_ids": [
+            "p2-b3"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "New student Kruti was being teased on the playground for her accent.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-5-002",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-005-002",
+          "unit_id": "RU-005",
+          "block_ids": [
+            "p2-b6"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Not every resident of a country is a citizen.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-5-003",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-028-001",
+          "unit_id": "RU-028",
+          "block_ids": [
+            "p7-b10",
+            "p7-b1",
+            "p7-b11",
+            "p7-b2",
+            "p7-b12",
+            "p7-b3",
+            "p7-b13",
+            "p7-b4"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Beti Bachao Beti Padhao campaign was to build awareness in society as well as to provide support to girls’ education.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-5-004",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-028-003",
+          "unit_id": "RU-028",
+          "block_ids": [
+            "p7-b10",
+            "p7-b1",
+            "p7-b11",
+            "p7-b2",
+            "p7-b12",
+            "p7-b3",
+            "p7-b13",
+            "p7-b4"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "It allows people to express themselves, move freely, and choose how they want to live and work.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-5-005",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-031-001",
+          "unit_id": "RU-031",
+          "block_ids": [
+            "p8-b5"
+          ],
+          "page_range": [
+            8
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Right to life The right to life protects a person’s life and liberty.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-5-006",
+          "subtype": "definition",
+          "fact_id": "TF-REC-031-002",
+          "unit_id": "RU-031",
+          "block_ids": [
+            "p8-b5"
+          ],
+          "page_range": [
+            8
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "It means that everyone has the right not only to live, but to live with dignity.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-5-007",
+          "subtype": "definition",
+          "fact_id": "TF-REC-037-001",
+          "unit_id": "RU-037",
+          "block_ids": [
+            "p9-b1",
+            "p9-b3",
+            "p9-b4",
+            "p9-b5",
+            "p9-b6",
+            "p9-b7",
+            "p9-b10"
+          ],
+          "page_range": [
+            9
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Right against exploitation Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-5-008",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-044-001",
+          "unit_id": "RU-044",
+          "block_ids": [
+            "p10-b5"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Right to freedom of religion India is a diverse country where people follow many different religions.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-5-009",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-044-002",
+          "unit_id": "RU-044",
+          "block_ids": [
+            "p10-b5"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The right to freedom of religion allows every person to choose, practise, and share their religion freely, while ensuring that no one is forced to follow, propagate or fund a particular religion.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-5-010",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-047-001",
+          "unit_id": "RU-047",
+          "block_ids": [
+            "p11-b3",
+            "p11-b5"
+          ],
+          "page_range": [
+            11
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Right to constitutional remedies The right to constitutional remedies allows citizens to approach the Supreme Court if their fundamental rights are violated.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-5-011",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-054-001",
+          "unit_id": "RU-054",
+          "block_ids": [
+            "p14-b4"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "When the Indian Constitution came into effect in 1950, it had no Fundamental Duties.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-5-012",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-063-003",
+          "unit_id": "RU-063",
+          "block_ids": [
+            "p17-b5"
+          ],
+          "page_range": [
+            17
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Rights allow us to live with dignity, while duties remind us to use our freedom wisely and respectfully.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-5-013",
+          "subtype": "definition",
+          "fact_id": "TF-REC-078-001",
+          "unit_id": "RU-078",
+          "block_ids": [
+            "p21-b3",
+            "p21-b6",
+            "p21-b7",
+            "p21-b8",
+            "p21-b9",
+            "p21-b10",
+            "p21-b12"
+          ],
+          "page_range": [
+            21
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Inclusion means creating an environment where everyone feels welcomed, respected, valued, and included, with equal access to opportunities.",
+          "rule": "coverage-engine-1:definition"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-003-001",
+          "question_id": "Q-CAND-5-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-005-001",
+          "question_id": null,
+          "reason": "mangled_object"
+        },
+        {
+          "fact_id": "TF-REC-005-002",
+          "question_id": "Q-CAND-5-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-018-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-028-001",
+          "question_id": "Q-CAND-5-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-028-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-028-003",
+          "question_id": "Q-CAND-5-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-031-001",
+          "question_id": "Q-CAND-5-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-031-002",
+          "question_id": "Q-CAND-5-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "question_id": "Q-CAND-5-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-043-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-044-001",
+          "question_id": "Q-CAND-5-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-044-002",
+          "question_id": "Q-CAND-5-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-047-001",
+          "question_id": "Q-CAND-5-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-051-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-054-001",
+          "question_id": "Q-CAND-5-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-054-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-063-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-063-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-063-003",
+          "question_id": "Q-CAND-5-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-063-004",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-063-005",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-063-006",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-068-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-072-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-078-001",
+          "question_id": "Q-CAND-5-013",
+          "reason": "covered"
+        }
+      ]
+    },
+    {
+      "chapter": "hees206",
+      "chapter_num": 6,
+      "pdf": "hees206.pdf",
+      "sha256": "832a4ee039e5d79c61c4259e38593378ed4f295699df864bdffc599a6562317f",
+      "pages": 24,
+      "units": 91,
+      "questions": [
+        {
+          "question_id": "Q-CAND-6-001",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-021-001",
+          "unit_id": "RU-021",
+          "block_ids": [
+            "p7-b2"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The fertility rate is slightly different.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-6-002",
+          "subtype": "definition",
+          "fact_id": "TF-REC-021-002",
+          "unit_id": "RU-021",
+          "block_ids": [
+            "p7-b2"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "A fertility rate of 2.1 means that, on average, each woman has two children in her lifetime.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-6-003",
+          "subtype": "definition",
+          "fact_id": "TF-REC-025-001",
+          "unit_id": "RU-025",
+          "block_ids": [
+            "p8-b9",
+            "p8-b10",
+            "p8-b1",
+            "p8-b11",
+            "p8-b2",
+            "p8-b12"
+          ],
+          "page_range": [
+            8
+          ],
+          "evidence_source": "glossary",
+          "evidence": "Kinship networks: An interconnected web of social relationship through blood, marriage, and adoption.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-6-004",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-040-001",
+          "unit_id": "RU-040",
+          "block_ids": [
+            "p12-b1"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "If fertility drops significantly, leading to even lower births, the population starts to shrink as seen in many European and East Asian countries like Italy, Japan and South Korea.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-6-005",
+          "subtype": "definition",
+          "fact_id": "TF-REC-045-001",
+          "unit_id": "RU-045",
+          "block_ids": [
+            "p14-b1",
+            "p14-b2",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b10"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Sex ratio represents the number of females per 1,000 males in the population.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-6-006",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-045-002",
+          "unit_id": "RU-045",
+          "block_ids": [
+            "p14-b1",
+            "p14-b2",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b10"
+          ],
+          "page_range": [
+            14
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "A balanced sex ratio is vital for equitable development, social stability, and sustainable population growth.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-6-007",
+          "subtype": "definition",
+          "fact_id": "TF-REC-054-001",
+          "unit_id": "RU-054",
+          "block_ids": [
+            "p16-b2",
+            "p16-b35",
+            "p16-b38",
+            "p16-b39",
+            "p16-b3",
+            "p16-b4",
+            "p16-b40",
+            "p16-b57",
+            "p16-b8",
+            "p16-b9",
+            "p16-b10",
+            "p16-b58",
+            "p16-b59",
+            "p16-b60",
+            "p16-b61",
+            "p16-b62",
+            "p16-b16",
+            "p16-b63",
+            "p16-b17",
+            "p16-b18",
+            "p16-b66",
+            "p16-b24",
+            "p16-b25",
+            "p16-b26",
+            "p16-b27",
+            "p16-b68",
+            "p16-b69",
+            "p16-b70",
+            "p16-b71",
+            "p16-b72",
+            "p16-b28",
+            "p16-b29",
+            "p16-b30",
+            "p16-b31",
+            "p16-b74",
+            "p16-b75",
+            "p16-b76",
+            "p16-b77"
+          ],
+          "page_range": [
+            16
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The base has become narrower, which means families are having fewer children than before.",
+          "rule": "coverage-engine-1:definition"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-005-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-008-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-019-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-019-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-019-003",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-019-004",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-021-001",
+          "question_id": "Q-CAND-6-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-021-002",
+          "question_id": "Q-CAND-6-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-025-001",
+          "question_id": "Q-CAND-6-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-027-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-029-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-029-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-034-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-034-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-040-001",
+          "question_id": "Q-CAND-6-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-045-001",
+          "question_id": "Q-CAND-6-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-045-002",
+          "question_id": "Q-CAND-6-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-045-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-045-004",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-051-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-052-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-052-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-054-001",
+          "question_id": "Q-CAND-6-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-054-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-062-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-073-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        }
+      ]
+    },
+    {
+      "chapter": "hees207",
+      "chapter_num": 7,
+      "pdf": "hees207.pdf",
+      "sha256": "0ed56f0852d29059962d3d581bd52fb340c4a319fe21c09bb32ceaa2bc9eb540",
+      "pages": 24,
+      "units": 86,
+      "questions": [
+        {
+          "question_id": "Q-CAND-7-001",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-026-001",
+          "unit_id": "RU-026",
+          "block_ids": [
+            "p7-b8"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Sakchi was a small village in the Chota Nagpur Plateau when it was chosen as the site for Asia’s first steel plant, due to its proximity to rich iron ore deposits.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-7-002",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-038-001",
+          "unit_id": "RU-038",
+          "block_ids": [
+            "p10-b7",
+            "p10-b8"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "caption",
+          "evidence": "A large variety of goods is sold here, and pilgrims visit to buy souvenirs and the famous Banarasi sarees.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-7-003",
+          "subtype": "definition",
+          "fact_id": "TF-REC-041-001",
+          "unit_id": "RU-041",
+          "block_ids": [
+            "p10-b9",
+            "p10-b1",
+            "p10-b10",
+            "p10-b11"
+          ],
+          "page_range": [
+            10
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Business Process Outsourcing (BPO): A company hiring another service provider to do specific business functions or processes of their business.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-7-004",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-077-001",
+          "unit_id": "RU-077",
+          "block_ids": [
+            "p20-b1"
+          ],
+          "page_range": [
+            20
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Ahmedabad’s Sabarmati Riverfront is one such example that blends ecology and public utility.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-7-005",
+          "subtype": "comparison",
+          "fact_id": "TF-REC-080-001",
+          "unit_id": "RU-080",
+          "block_ids": [
+            "p21-b2"
+          ],
+          "page_range": [
+            21
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Cities are more than just clusters of buildings, roads, and markets — they are like living organisms that grow, adapt, and transform with time.",
+          "rule": "coverage-engine-1:comparison"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-002-001",
+          "question_id": null,
+          "reason": "weak_stem"
+        },
+        {
+          "fact_id": "TF-REC-003-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-003-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-026-001",
+          "question_id": "Q-CAND-7-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-026-002",
+          "question_id": null,
+          "reason": "weak_stem"
+        },
+        {
+          "fact_id": "TF-REC-035-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-035-002",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-038-001",
+          "question_id": "Q-CAND-7-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-040-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-041-001",
+          "question_id": "Q-CAND-7-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-041-002",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-043-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-048-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-048-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-064-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-064-002",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-064-003",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-064-004",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-069-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-069-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-077-001",
+          "question_id": "Q-CAND-7-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-078-001",
+          "question_id": null,
+          "reason": "weak_stem"
+        },
+        {
+          "fact_id": "TF-REC-080-001",
+          "question_id": "Q-CAND-7-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-080-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-083-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-083-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        }
+      ]
+    },
+    {
+      "chapter": "hees209",
+      "chapter_num": 8,
+      "pdf": "hees209.pdf",
+      "sha256": "cfdd8e4a732582926a6e06f6f779b28732a0ae23c8383e3136f4ba612933ff29",
+      "pages": 35,
+      "units": 181,
+      "questions": [
+        {
+          "question_id": "Q-CAND-8-001",
+          "subtype": "definition",
+          "fact_id": "TF-REC-005-001",
+          "unit_id": "RU-005",
+          "block_ids": [
+            "p2-b1",
+            "p2-b2",
+            "p2-b4",
+            "p2-b5"
+          ],
+          "page_range": [
+            2
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Culture refers to the shared way of life that defines a group of people, and is often passed down through generations, shaping how people in a society see the world, interact with each other, and conduct their daily lives.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-8-002",
+          "subtype": "classification_membership",
+          "fact_id": "TF-REC-022-001",
+          "unit_id": "RU-022",
+          "block_ids": [
+            "p6-b11",
+            "p6-b1",
+            "p6-b12",
+            "p6-b2",
+            "p6-b13"
+          ],
+          "page_range": [
+            6
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Ram (Rama) and Rahim are names of god in Hinduism and Islam respectively.",
+          "rule": "coverage-engine-1:classification_membership"
+        },
+        {
+          "question_id": "Q-CAND-8-003",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-026-001",
+          "unit_id": "RU-026",
+          "block_ids": [
+            "p7-b2",
+            "p7-b19",
+            "p7-b20",
+            "p7-b21",
+            "p7-b22",
+            "p7-b23",
+            "p7-b24",
+            "p7-b25",
+            "p7-b26",
+            "p7-b27",
+            "p7-b28",
+            "p7-b29",
+            "p7-b30",
+            "p7-b5",
+            "p7-b31",
+            "p7-b32",
+            "p7-b10",
+            "p7-b33",
+            "p7-b11",
+            "p7-b34",
+            "p7-b12"
+          ],
+          "page_range": [
+            7
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Sufism is a path of Islam that focuses on devotion, and an inner and personal search for god.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-8-004",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-035-001",
+          "unit_id": "RU-035",
+          "block_ids": [
+            "p9-b14",
+            "p9-b6",
+            "p9-b15",
+            "p9-b7",
+            "p9-b16",
+            "p9-b8",
+            "p9-b18",
+            "p9-b9",
+            "p9-b20",
+            "p9-b22"
+          ],
+          "page_range": [
+            9
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The traditional themes of the pa ṭṭ achitra were usually scenes from the Rāmayaṇa, Mahābhārata and the Puraṇās.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-8-005",
+          "subtype": "assertion_reason",
+          "fact_id": "TF-REC-047-001",
+          "unit_id": "RU-047",
+          "block_ids": [
+            "p11-b6",
+            "p11-b17",
+            "p11-b7",
+            "p11-b19",
+            "p11-b8",
+            "p11-b20",
+            "p11-b21",
+            "p11-b22"
+          ],
+          "page_range": [
+            11
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Rajput painting tradition was thriving during the period from the 15 th century to the late 19 th century.",
+          "rule": "coverage-engine-1:assertion_reason"
+        },
+        {
+          "question_id": "Q-CAND-8-006",
+          "subtype": "definition",
+          "fact_id": "TF-REC-053-001",
+          "unit_id": "RU-053",
+          "block_ids": [
+            "p12-b1",
+            "p12-b3",
+            "p12-b4",
+            "p12-b6",
+            "p12-b8",
+            "p12-b10"
+          ],
+          "page_range": [
+            12
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Abul Fazl in the Ain-i-Akbari refers to Hindu painters of the time, writing, “Their pictures surpass our conception of things.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-8-007",
+          "subtype": "definition",
+          "fact_id": "TF-REC-090-001",
+          "unit_id": "RU-090",
+          "block_ids": [
+            "p20-b7",
+            "p20-b9",
+            "p20-b11",
+            "p20-b13",
+            "p20-b15",
+            "p20-b17",
+            "p20-b1",
+            "p20-b18",
+            "p20-b2",
+            "p20-b19",
+            "p20-b3"
+          ],
+          "page_range": [
+            20
+          ],
+          "evidence_source": "glossary",
+          "evidence": "Hindavi: An early version of the Hindi-Urdu language having the grammatical structure and vocabulary of Indian languages such as Sanskrit but where words from Persian and Arabic were also integrated.",
+          "rule": "coverage-engine-1:definition"
+        },
+        {
+          "question_id": "Q-CAND-8-008",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-111-001",
+          "unit_id": "RU-111",
+          "block_ids": [
+            "p24-b3"
+          ],
+          "page_range": [
+            24
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Tirumalamba was a celebrated poet at the court of Achyutadevaraya (brother of Krishnadevaraya, whom we met in Part 1 of this textbook).",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-8-009",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-115-001",
+          "unit_id": "RU-115",
+          "block_ids": [
+            "p25-b1",
+            "p25-b21",
+            "p25-b2",
+            "p25-b22",
+            "p25-b3",
+            "p25-b4",
+            "p25-b5",
+            "p25-b6",
+            "p25-b7",
+            "p25-b8",
+            "p25-b9",
+            "p25-b10",
+            "p25-b11"
+          ],
+          "page_range": [
+            25
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The case of Dara Shikoh In the 17 th century, Dara Shikoh, Aurangzeb’s older brother, was an advocate of Hindu-Muslim harmony and was often seen in the company of yogis, pandits, and Muslim scholars.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-8-010",
+          "subtype": "cause_effect",
+          "fact_id": "TF-REC-123-002",
+          "unit_id": "RU-123",
+          "block_ids": [
+            "p27-b13",
+            "p27-b1",
+            "p27-b14",
+            "p27-b15",
+            "p27-b16",
+            "p27-b17",
+            "p27-b2",
+            "p27-b18",
+            "p27-b19",
+            "p27-b20",
+            "p27-b21",
+            "p27-b3"
+          ],
+          "page_range": [
+            27
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Indian saltpetre was used during Akbar’s Indian time to make gunpowder and also to cool water and beverages. saltpetre: Potassium nitrate, a Itr Jahangir, a type of rose-based perfume was also developed.",
+          "rule": "coverage-engine-1:cause_effect"
+        },
+        {
+          "question_id": "Q-CAND-8-011",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-138-001",
+          "unit_id": "RU-138",
+          "block_ids": [
+            "p30-b1",
+            "p30-b2",
+            "p30-b3"
+          ],
+          "page_range": [
+            30
+          ],
+          "evidence_source": "caption",
+          "evidence": "New temples were added in the later periods.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-8-012",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-139-001",
+          "unit_id": "RU-139",
+          "block_ids": [
+            "p30-b4"
+          ],
+          "page_range": [
+            30
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "Traditions were kept alive through all the turbulent times.",
+          "rule": "coverage-engine-1:entity_attribute"
+        },
+        {
+          "question_id": "Q-CAND-8-013",
+          "subtype": "entity_attribute",
+          "fact_id": "TF-REC-139-003",
+          "unit_id": "RU-139",
+          "block_ids": [
+            "p30-b4"
+          ],
+          "page_range": [
+            30
+          ],
+          "evidence_source": "reconstructed_prose",
+          "evidence": "The Sri Ranganathaswamy Temple in Srirangam is an example of such a restoration.",
+          "rule": "coverage-engine-1:entity_attribute"
+        }
+      ],
+      "fact_dispositions": [
+        {
+          "fact_id": "TF-REC-005-001",
+          "question_id": "Q-CAND-8-001",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-022-001",
+          "question_id": "Q-CAND-8-002",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-026-001",
+          "question_id": "Q-CAND-8-003",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-034-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-035-001",
+          "question_id": "Q-CAND-8-004",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-046-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-047-001",
+          "question_id": "Q-CAND-8-005",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-052-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-053-001",
+          "question_id": "Q-CAND-8-006",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-071-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-076-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-085-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-085-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-090-001",
+          "question_id": "Q-CAND-8-007",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-091-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-091-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-101-001",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-102-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-102-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-105-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-105-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-105-003",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-110-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-110-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-111-001",
+          "question_id": "Q-CAND-8-008",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-115-001",
+          "question_id": "Q-CAND-8-009",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-122-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-123-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-123-002",
+          "question_id": "Q-CAND-8-010",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-131-001",
+          "question_id": null,
+          "reason": "fragment_excerpt"
+        },
+        {
+          "fact_id": "TF-REC-133-001",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-138-001",
+          "question_id": "Q-CAND-8-011",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-139-001",
+          "question_id": "Q-CAND-8-012",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-139-002",
+          "question_id": null,
+          "reason": "length_giveaway"
+        },
+        {
+          "fact_id": "TF-REC-139-003",
+          "question_id": "Q-CAND-8-013",
+          "reason": "covered"
+        },
+        {
+          "fact_id": "TF-REC-144-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-144-002",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        },
+        {
+          "fact_id": "TF-REC-145-001",
+          "question_id": null,
+          "reason": "weak_subject"
+        },
+        {
+          "fact_id": "TF-REC-152-001",
+          "question_id": null,
+          "reason": "no_valid_candidate"
+        }
+      ]
+    }
+  ]
+}
