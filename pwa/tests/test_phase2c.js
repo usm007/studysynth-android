@@ -175,11 +175,19 @@ check('B7 passive negatives stay unparsed', () => {
   });
 });
 
-check('B8 wells passage measured sentence by sentence: 1 typed, 5 unparsed', () => {
+// Phase 2D supersedes this measurement (see test_phase2d.js): the five
+// sentences Phase 2C left unparsed are now recovered by the Phase 2D
+// supplementary patterns (has attributes, offered social space,
+// relative-clause had + used_for). The Phase 2C measurement (1 typed,
+// 5 unparsed) is preserved in the Phase 2C report and in the Phase 2D
+// typed-fact comparison; this check pins the new measured outcome so
+// the suite stays green without hiding the change.
+check('B8 wells passage measured sentence by sentence: 6 typed, 2 unparsed (Phase 2D supersession)', () => {
   const r = run([unit('RU-039', 'body_prose', WELLS_TEXT)]);
-  assert.strictEqual(r.typed_facts.length, 1);
-  assert.strictEqual(r.typed_facts[0].relation, 'developed_in');
-  assert.strictEqual(r.unparsed_units.length, 5);
+  assert.strictEqual(r.typed_facts.length, 6);
+  const relations = r.typed_facts.map((f) => f.relation).sort();
+  assert.deepStrictEqual(relations, ['developed_in', 'had', 'has', 'has', 'offered', 'used_for']);
+  assert.strictEqual(r.unparsed_units.length, 2);
   assert.ok(r.unparsed_units.every((u) => u.reason === 'unsupported_pattern'));
   assert.ok(!r.unparsed_units.some((u) => u.original_text.indexOf('developed in Gujarat and Rajasthan') !== -1),
     'the typed sentence is rescued from unparsed');
@@ -236,16 +244,24 @@ check('C6 figure-only subject yields no fact', () => {
   assert.strictEqual(r.typed_facts.length, 0);
 });
 
-check('C7 Nandi passage: builder fact only, pronoun sentence audited as resolved-but-unpatterned', () => {
+// Phase 2D supersedes this measurement (see test_phase2d.js): the
+// "renowned for" sentence Phase 2C left as resolved-but-unpatterned
+// now types via the Phase 2D renowned_for pattern under the same
+// bounded pronoun resolution. The Phase 2C outcome is preserved in
+// the Phase 2C report and in the Phase 2D typed-fact comparison.
+check('C7 Nandi passage: builder fact + renowned_for fact via resolved pronoun (Phase 2D supersession)', () => {
   const r = run([unit('RU-050', 'body_prose', BUILDER + ' ' + NANDI)]);
   assert.ok(r.typed_facts.some((f) => f.relation === 'built_by' && f.object === 'Rājarāja Chola I'));
-  const nandiUnparsed = r.unparsed_units.find((u) => u.original_text.indexOf('It is renowned') === 0);
-  assert.ok(nandiUnparsed, 'Nandi sentence stays unparsed');
-  const attempts = nandiUnparsed.classification_attempts || [];
-  const attempt = attempts.find((a) => a.parser === 'pronoun_resolution');
-  assert.ok(attempt, 'pronoun attempt recorded');
-  assert.strictEqual(attempt.outcome, 'resolved_no_pattern');
-  assert.ok(attempt.detail.indexOf('Bṛihadīśhvara Temple') !== -1);
+  const ren = r.typed_facts.find((f) => f.relation === 'renowned_for');
+  assert.ok(ren, 'renowned_for fact present');
+  assert.ok(ren.subject.indexOf('Bṛihadīśhvara Temple') !== -1);
+  assert.ok(ren.object.indexOf('vast maṇḍapas') !== -1);
+  assert.ok(ren.object.indexOf('massive Nandi') !== -1);
+  assert.strictEqual(ren.evidence, NANDI);
+  assert.ok(ren.derivation && ren.derivation.pronoun_resolution, 'resolution derivation preserved');
+  assert.strictEqual(ren.derivation.pronoun_resolution.original_subject, 'It');
+  assert.ok(!r.unparsed_units.some((u) => u.original_text.indexOf('It is renowned') === 0),
+    'renowned sentence is rescued from unparsed');
 });
 
 // ---- D. Explicit caption-claim typing ----

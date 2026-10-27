@@ -2868,6 +2868,14 @@
     const pushDraft = (subject, verb, form, object, temporal) => {
       let cleanedSubject = cleanFactSubject(subject);
       if (!cleanedSubject) return;
+      // Phase 2D A7: an "According to tradition, " attribution is
+      // provenance, not part of the entity name. Strip it from the
+      // subject and carry it as a structured qualifier instead; the
+      // claim is never upgraded to an unqualified confirmed fact.
+      const attributionStep = stripAttributionPrefix(cleanedSubject);
+      const attribution = attributionStep.attribution;
+      cleanedSubject = attributionStep.subject;
+      if (!cleanedSubject) return;
       if (/^(it|they|this|these|those)\b/i.test(cleanedSubject)) return;
       // A parenthetical that breaks subject quality (transliterated
       // alternates such as "(vāvs or bāorīs)" trip the single-letter
@@ -2883,6 +2891,20 @@
           cleanedSubject = stripped;
         }
       }
+      // Phase 2D corpus audit: a subject ending in a lone capital
+      // letter after a lowercase word is a running-title fragment
+      // ("enturies C"), not an entity. A regnal numeral after a
+      // capitalised name ("Rājarāja Chola I") is explicitly allowed:
+      // the guard fires only when the preceding word starts lowercase.
+      // The full sentence stays as evidence; the draft is dropped.
+      const subjectTokens = cleanedSubject.split(/\s+/);
+      for (let ti = 1; ti < subjectTokens.length; ti++) {
+        const tok = subjectTokens[ti].replace(/[^A-Za-z\u00C0-\u024F]/g, '');
+        if (/^[A-Z]$/.test(tok)) {
+          const prev = subjectTokens[ti - 1].replace(/[^A-Za-z\u00C0-\u024F]/g, '');
+          if (prev && /^[a-z\u00E0-\u00FF]/.test(prev)) return;
+        }
+      }
       const relation = verb.toLowerCase() + '_' + form;
       out.push({
         draft: {
@@ -2892,9 +2914,11 @@
           object: object,
           answer_kind: 'entity_attribute',
           extraction_method: 'passive_' + relation,
-          temporal_scope: temporal || (prefixStep.kind === 'temporal' ? prefixStep.prefix : null)
+          temporal_scope: temporal || (prefixStep.kind === 'temporal' ? prefixStep.prefix : null),
+          attribution: attribution || null
         },
-        derivation: Object.assign({ method: 'passive_' + relation, parenthetical_removed: parentheticalRemoved }, derivationBase)
+        derivation: Object.assign({ method: 'passive_' + relation, parenthetical_removed: parentheticalRemoved },
+          derivationBase, attribution ? { attribution: attribution } : {})
       });
     };
     let match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+by\s+(.+)$/i);
@@ -2903,8 +2927,15 @@
       if (isPlausibleAgent(split.phrase)) pushDraft(match[1], match[2], 'by', split.phrase, split.temporal);
       return out;
     }
+    // Phase 2D corpus audit: a *_in relation here is a PLACE
+    // relation. isPlausibleInObject explicitly admits temporal words
+    // (century, era, period), so a temporal object must be rejected
+    // separately — "developed in the early 17th century" is a date
+    // claim, not a place claim, and must stay unparsed here rather
+    // than ship as developed_in.
+    const temporalObject = /\b(century|centuries|era|period|decade|millennium|year|years)\b/i;
     match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+in\s+([^,.]+)/i);
-    if (match && isPlausibleInObject(match[3])) {
+    if (match && isPlausibleInObject(match[3]) && !temporalObject.test(match[3])) {
       pushDraft(match[1], match[2], 'in', cleanText(match[3]));
       return out;
     }
@@ -2913,7 +2944,7 @@
     // group 2 and the object is group 3. Using match[3] here silently
     // yields undefined and rejects every bare "developed in" sentence.
     match = core.match(/^(.+?)\s+developed\s+in\s+([^,.]+)/i);
-    if (match && isPlausibleInObject(match[2])) {
+    if (match && isPlausibleInObject(match[2]) && !temporalObject.test(match[2])) {
       pushDraft(match[1], 'developed', 'in', cleanText(match[2]));
       return out;
     }
@@ -3088,6 +3119,382 @@
     return { facts: Array.from(kept.values()), discarded: discarded };
   }
 
+  // ---- Phase 2D shadow-only supplementary patterns (adapter-only) ----
+  // Same contract as Phase 2C: these helpers live behind
+  // buildTypedKnowledgeFromReconstructedUnits and are NEVER called from
+  // the production path. The shared parsers (parseDefinition,
+  // parseEntityAttributes, parseFactRelations, parseAllFactRelations)
+  // are not modified; every supplementary draft still passes the
+  // unchanged classifyTypedDraft before it can become a typed fact.
+  // Phase 2D producers run only on segments with no typed-layer facts
+  // (like the Phase 2C figure-cleanup rule), so they rescue unparsed
+  // claims instead of duplicating claims the layer already typed.
+
+  // Collapse PDF spacing in ordinals ("8 th" -> "8th") for temporal
+  // scopes. Evidence text is never altered; only the derived scope.
+  function normalizeOrdinals(text) {
+    return String(text || '').replace(/\b(\d+)\s+(st|nd|rd|th)\b/gi, '$1$2');
+  }
+
+  // Strip a leading "According to tradition, " attribution from a
+  // subject phrase. The attribution is returned separately so the
+  // adapter can record it as a structured qualifier instead of fusing
+  // it into the entity name (Phase 2D A7). A tradition-based claim is
+  // never upgraded to an unqualified confirmed fact.
+  function stripAttributionPrefix(subject) {
+    const match = String(subject || '').match(/^\s*According to tradition,\s*/i);
+    if (!match) return { subject: subject, attribution: null };
+    return { subject: cleanText(String(subject).slice(match[0].length)), attribution: 'According to tradition' };
+  }
+
+  // Plural test for relative-clause number agreement: a compound joined
+  // by "or"/"and" counts as plural when its last noun phrase is
+  // plural; otherwise the last content word's morphology decides.
+  function isPluralPhrase(phrase) {
+    const text = cleanText(phrase || '');
+    if (!text) return false;
+    const last = text.split(/\s+/).pop() || '';
+    if (/\b(people|children|men|women|persons|reservoirs|structures|temples)\b/i.test(text)) return true;
+    return /[a-z]s$/i.test(last) && !/(ss|us|is)$/i.test(last);
+  }
+
+  // Shared guard for supplementary subjects: explicit, meaningful,
+  // never a bare pronoun, never a figure-only remnant.
+  function supplementarySubjectOk(subject) {
+    const cleaned = cleanFactSubject(subject);
+    if (!cleaned) return null;
+    if (/^(it|they|this|these|those|he|she|we|you)\b/i.test(cleaned)) return null;
+    if (!checkSubjectQuality(cleaned).valid) return null;
+    return cleaned;
+  }
+
+  // A1. "X has A and B" — two attribute facts, one per stated
+  // attribute, never more. The figure reference is removed from the
+  // subject only when the remainder is independently valid (the caller
+  // passes already-cleaned text; this function re-checks). Exactly one
+  // top-level " and " is required, so multi-item lists are left
+  // unparsed rather than mis-split.
+  function hasAttributeDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const core = figStep.text;
+    const match = core.match(/^(.+?)\s+has\s+(.+?)\.?$/i);
+    if (!match) return [];
+    // Phase 2D corpus audit, guard H1: "has" must be the sentence's
+    // own main verb. If a finite auxiliary/copula already appears in
+    // the subject span, this "has" belongs to a subordinate clause
+    // ("the responsibility each one of us has towards ..."), and the
+    // sentence-initial noun is NOT its subject. Rejecting keeps the
+    // sentence unparsed; a relative-clause subject that genuinely
+    // owns a "has" ("the temple, which was built in 1010, has ...")
+    // is a known conservative loss, not a wrong fact.
+    if (/\b(is|are|was|were|be|been|being|am|have|had|do|does|did|will|would|could|should|may|might|must)\b/i.test(match[1])) return [];
+    const subject = supplementarySubjectOk(match[1]);
+    if (!subject) return [];
+    const objectPart = cleanText(match[2]);
+    // Phase 2D corpus audit, guard H2: "has" must be a main verb of
+    // possession, not a present-perfect auxiliary ("has called ...",
+    // "has thus endured ..."). After skipping leading adverbs, a
+    // verb-like first word (regular -ed/-en form or irregular
+    // participle) that is NOT directly followed by a noun/adjective
+    // is an auxiliary construction: "called this ..." (determiner
+    // follows) and "endured even ..." (adverb follows) reject, while
+    // "carved panels" (noun follows) and "multiple pillared levels"
+    // (not verb-like) still accept.
+    let adverbSkipped = objectPart;
+    let strippedAdverb = true;
+    while (strippedAdverb) {
+      const next = cleanText(adverbSkipped.replace(/^(thus|also|already|just|even|recently|now|still|often|always|never|once)\s+/i, ''));
+      strippedAdverb = next !== adverbSkipped;
+      adverbSkipped = next;
+    }
+    const objTokens = adverbSkipped.split(/\s+/).map((t) => t.replace(/[^A-Za-z\u00C0-\u024F]/g, '').toLowerCase());
+    const irregularParticiples = ['been', 'become', 'begun', 'bent', 'bitten', 'blown', 'broken', 'brought', 'built', 'bought', 'caught', 'chosen', 'come', 'cut', 'dealt', 'done', 'drawn', 'driven', 'eaten', 'fallen', 'fed', 'felt', 'found', 'forgotten', 'frozen', 'given', 'gone', 'grown', 'heard', 'held', 'hidden', 'hit', 'kept', 'known', 'laid', 'led', 'left', 'lost', 'made', 'meant', 'met', 'paid', 'put', 'read', 'ridden', 'risen', 'run', 'said', 'seen', 'sent', 'set', 'shaken', 'shown', 'shut', 'spoken', 'spent', 'stolen', 'struck', 'sworn', 'taken', 'taught', 'told', 'torn', 'understood', 'woken', 'worn', 'written', 'borne', 'beaten', 'bore', 'wore', 'won', 'sang', 'sank', 'sat', 'slept', 'slid'];
+    const nonNounFollowers = ['this', 'that', 'the', 'a', 'an', 'its', 'his', 'her', 'their', 'our', 'your', 'my', 'it', 'them', 'him', 'us', 'one', 'some', 'any', 'no', 'each', 'every', 'both', 'all', 'such', 'even', 'also', 'just', 'already', 'still', 'now', 'then', 'thus', 'so', 'yet', 'again', 'ever', 'never', 'often', 'always', 'recently', 'soon', 'together', 'apart', 'away', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'of', 'as', 'into', 'over', 'under', 'through', 'between', 'among', 'against', 'upon', 'about', 'after', 'before', 'during', 'without', 'within'];
+    const firstWord = objTokens[0] || '';
+    const secondWord = objTokens[1] || '';
+    const verbLike = /ed$/.test(firstWord) || /en$/.test(firstWord) || irregularParticiples.indexOf(firstWord) !== -1;
+    if (verbLike && (!secondWord || nonNounFollowers.indexOf(secondWord) !== -1 || /ed$/.test(secondWord) || /en$/.test(secondWord) || irregularParticiples.indexOf(secondWord) !== -1)) return [];
+    const andParts = objectPart.split(/\s+and\s+/i);
+    if (andParts.length !== 2) return [];
+    // Phase 2D corpus audit, guard H3: a trailing ", with X having
+    // ..." clause describes the attribute; it is not part of the
+    // attribute itself ("unique textiles, with every region having
+    // its own speciality" -> "unique textiles"). A trailing comma
+    // left by the " and " split ("banks, corporate offices,") is
+    // likewise stripped from each object.
+    const objects = andParts.map((p) => cleanText(cleanText(p).replace(/,\s*with\s+[^,]*\bhaving\b.*$/i, '').replace(/[,;]+$/, '')));
+    if (objects.some((o) => !o || o.split(/\s+/).length > 12)) return [];
+    if (objects.some((o) => /\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(o))) return [];
+    return objects.map((object) => ({
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'has',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'has_attribute'
+      },
+      derivation: { method: 'has_attribute', figure_refs_removed: figStep.removed }
+    }));
+  }
+
+  // A2. "stepwells offered a social space where ..." — one function
+  // fact whose object preserves the stated space and its activities.
+  // A leading "Besides <gerund phrase>, " prefix is context, recorded
+  // in the derivation; it is not part of the claim.
+  function offeredSocialSpaceDrafts(segmentText) {
+    let text = cleanText(segmentText || '');
+    let strippedPrefix = null;
+    const besides = text.match(/^Besides\s+[^,]+,\s*/i);
+    if (besides) {
+      strippedPrefix = cleanText(besides[0].replace(/,\s*$/, ''));
+      text = cleanText(text.slice(besides[0].length));
+    }
+    const match = text.match(/^(.+?)\s+offered\s+(a|an|the)\s+(social space where .+?)\.?$/i);
+    if (!match) return [];
+    const subject = supplementarySubjectOk(match[1]);
+    if (!subject) return [];
+    const object = cleanText(match[2] + ' ' + match[3]);
+    if (object.split(/\s+/).length > 40) return [];
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'offered',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'offered_social_space'
+      },
+      derivation: { method: 'offered_social_space', stripped_prefix: strippedPrefix }
+    }];
+  }
+
+  // A3. Relative-clause passive: "X had Y attached to them, which were
+  // /was used for Z". Two independent facts: the attachment claim and
+  // the use claim. The "which" antecedent is the object of "had" in
+  // the same sentence — never a noun from another sentence. Number
+  // agreement is enforced: a plural verb needs a plural antecedent
+  // and vice versa. On disagreement the use fact is rejected but the
+  // attachment fact (explicit on its own) is still produced. The
+  // "attached to them" wording is recorded in the derivation; the
+  // attachment fact's object is the antecedent phrase itself, because
+  // a trailing "them" would make the object a fragment phrase.
+  function relativeClauseDrafts(segmentText) {
+    const text = cleanText(segmentText || '');
+    const match = text.match(/^(.+?)\s+had\s+(.+?)\s+attached to them,\s+which\s+(were|was)\s+used for\s+(.+?)\.?$/i);
+    if (!match) return [];
+    let rawSubject = cleanText(match[1]);
+    let frequency = null;
+    const freqMatch = rawSubject.match(/\s+(often|usually|sometimes|generally|frequently)$/i);
+    if (freqMatch) {
+      frequency = freqMatch[1].toLowerCase();
+      rawSubject = cleanText(rawSubject.slice(0, rawSubject.length - freqMatch[0].length));
+    }
+    const subject = supplementarySubjectOk(rawSubject);
+    if (!subject) return [];
+    const antecedentRaw = cleanText(match[2]);
+    const antecedent = supplementarySubjectOk(antecedentRaw);
+    if (!antecedent) return [];
+    const useObject = cleanText(match[4]);
+    if (!useObject || /\b(is|are|was|were|has|have|had|been|being|which|that|who|whom)\b/i.test(useObject)) return [];
+    const out = [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'had',
+        object: antecedent,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'relative_clause_attachment'
+      },
+      derivation: { method: 'relative_clause_attachment', attached_to_them: true, frequency: frequency }
+    }];
+    const pluralVerb = match[3].toLowerCase() === 'were';
+    const pluralAntecedent = isPluralPhrase(antecedent);
+    if (pluralVerb !== pluralAntecedent) return out;
+    out.push({
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: antecedent,
+        relation: 'used_for',
+        object: useObject,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'relative_clause_used_for'
+      },
+      derivation: { method: 'relative_clause_used_for', antecedent_text: antecedent, frequency: frequency }
+    });
+    return out;
+  }
+
+  // A4a. Explicit "X is renowned for Y" claims. The object must be a
+  // complete stated noun phrase (the full list is kept, including a
+  // trailing relative clause that belongs to the last item). Pronoun
+  // subjects are rejected here; the caller substitutes a resolved
+  // antecedent before calling again.
+  function renownedDrafts(segmentText) {
+    const text = cleanText(segmentText || '');
+    const match = text.match(/^(.+?)\s+is\s+renowned for\s+(.+?)\.?$/i);
+    if (!match) return [];
+    // A figure reference in the subject is provenance, never an
+    // identity claim: it may be removed only when the remainder is
+    // independently valid (same rule as Phase 2C figure cleanup).
+    const figStep = stripFigureReferences(match[1]);
+    const subject = supplementarySubjectOk(figStep.text);
+    if (!subject) return [];
+    const object = cleanText(match[2]);
+    if (!object || object.split(/\s+/).length > 60) return [];
+    if (/^(and|or|but|with|of|for|in|on)\b/i.test(object)) return [];
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'renowned_for',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'renowned_for'
+      },
+      derivation: { method: 'renowned_for', figure_refs_removed: figStep.removed }
+    }];
+  }
+
+  // A4b. Explicit temporal size/scale claims, each with its correct
+  // temporal qualifier and nothing more:
+  //   "Until X, temples were modest in size."
+  //   "From X onward, ... they grew in scale"
+  // The second form resolves "they" only through the caller's bounded
+  // same-unit resolver; an unresolved pronoun rejects the draft.
+  // Ordinal spacing in the source ("8 th") is normalised in the scope
+  // only; evidence text is untouched.
+  function temporalScaleDrafts(segmentText, resolvePronoun) {
+    const text = normalizeOrdinals(cleanText(segmentText || ''));
+    let match = text.match(/^Until\s+(.+?),\s+(.+?)\s+were\s+modest in size\.?$/i);
+    if (match) {
+      const subject = supplementarySubjectOk(match[2]);
+      if (!subject) return [];
+      return [{
+        draft: {
+          fact_type: 'entity_attribute',
+          subject: subject,
+          relation: 'attribute',
+          object: 'modest in size',
+          answer_kind: 'entity_attribute',
+          extraction_method: 'temporal_scale_modest',
+          temporal_scope: 'until ' + cleanText(match[1])
+        },
+        derivation: { method: 'temporal_scale_modest' }
+      }];
+    }
+    match = text.match(/^From\s+(.+?)\s+onward,\s+(?:in different parts of India\s+)?(they|it|temples|.+?)\s+grew in scale\b/i);
+    if (match) {
+      let subjectText = cleanText(match[2]);
+      let resolution = null;
+      if (/^(they|it)$/i.test(subjectText)) {
+        if (typeof resolvePronoun !== 'function') return [];
+        resolution = resolvePronoun(subjectText);
+        if (!resolution || !resolution.antecedent) return [];
+        subjectText = resolution.antecedent;
+      }
+      const subject = supplementarySubjectOk(subjectText);
+      if (!subject) return [];
+      return [{
+        draft: {
+          fact_type: 'entity_attribute',
+          subject: subject,
+          relation: 'attribute',
+          object: 'grew in scale',
+          answer_kind: 'entity_attribute',
+          extraction_method: 'temporal_scale_grew',
+          temporal_scope: 'from ' + cleanText(match[1]) + ' onward'
+        },
+        derivation: {
+          method: 'temporal_scale_grew',
+          pronoun_resolution: resolution ? {
+            antecedent_text: resolution.antecedent,
+            original_subject: cleanText(match[2]),
+            antecedent_segment_index: resolution.segment_index
+          } : null
+        }
+      }];
+    }
+    return [];
+  }
+
+  // A5. Sketch claims from a caption sentence such as "A sketch made
+  // in 1809 by a British army officer shows the mosque's full-size
+  // minarets." Date and maker are independent: either may type
+  // without the other. Nothing here identifies the mosque — the
+  // "shows ..." clause is never turned into a fact, and no fact
+  // subject or object names a mosque. Derivation records explicitly
+  // that the mosque claim was left unbound.
+  function sketchClaimDrafts(segmentText) {
+    const text = cleanText(segmentText || '');
+    const subjectMatch = text.match(/^(A|An|The)\s+sketch\b/i);
+    if (!subjectMatch) return [];
+    const subject = subjectMatch[0];
+    const out = [];
+    const dateMatch = text.match(/\bsketch made in\s+(\d{3,4})\b/i);
+    if (dateMatch) {
+      out.push({
+        draft: {
+          fact_type: 'date',
+          subject: subject,
+          relation: 'made_in',
+          object: dateMatch[1],
+          answer_kind: 'date',
+          extraction_method: 'sketch_claim_date'
+        },
+        derivation: { method: 'sketch_claim_date', mosque_unbound: true }
+      });
+    }
+    const makerMatch = text.match(/\bsketch(?: made in \d{3,4})?\s+by\s+(.+?)\s+shows\b/i);
+    if (makerMatch && isPlausibleAgent(makerMatch[1])) {
+      out.push({
+        draft: {
+          fact_type: 'entity_attribute',
+          subject: subject,
+          relation: 'made_by',
+          object: cleanText(makerMatch[1]),
+          answer_kind: 'entity_attribute',
+          extraction_method: 'sketch_claim_maker'
+        },
+        derivation: { method: 'sketch_claim_maker', mosque_unbound: true }
+      });
+    }
+    return out;
+  }
+
+  // A6. Deterministic "etc." sentence boundary, adapter-only: split a
+  // segment at "etc." ONLY when it is followed by whitespace and a
+  // capital-letter sentence start, and both halves are substantial.
+  // "etc.," continuations, lowercase continuations, and a trailing
+  // "etc." never split. The production segmenter is untouched.
+  // Returns null or { first, second } (trimmed half texts).
+  function splitEtcBoundary(segmentText) {
+    const text = String(segmentText || '');
+    const match = text.match(/^(.*?etc\.)(\s+)([A-Z].*)$/);
+    if (!match) return null;
+    const first = cleanText(match[1]);
+    const second = cleanText(match[3]);
+    if (first.length < 20 || second.length < 20) return null;
+    return { first: first, second: second };
+  }
+
+  // A7. "X is characterised by Y" lists characteristics; it is not a
+  // definition. When a supplementary draft for such a segment was
+  // labelled definition by the shared parser, relabel it to an
+  // entity_attribute with relation characterised_by. The shared parser
+  // itself is untouched; only the supplementary draft is corrected,
+  // and the correction is recorded in the derivation.
+  function relabelCharacterisedBy(draft, segText) {
+    if (!draft || draft.fact_type !== 'definition') return draft;
+    if (!/is characterised by/i.test(segText || '')) return draft;
+    const corrected = Object.assign({}, draft, {
+      fact_type: 'entity_attribute',
+      relation: 'characterised_by',
+      extraction_method: (draft.extraction_method || 'definition') + '+characterised_by_correction'
+    });
+    return corrected;
+  }
+
   function buildTypedKnowledgeFromReconstructedUnits(reconstructedUnits, options) {
     const opts = options || {};
     const sourceMeta = opts.sourceMeta || null;
@@ -3180,12 +3587,32 @@
       });
       const supplementaryEntries = [];
       const rescuedSegments = new Set();
+      // Phase 2D A6: segments the adapter splits at an "etc." boundary.
+      // Only segments with no layer facts and a layer unparsed entry
+      // are candidates; the split halves are typed (or left unparsed)
+      // independently, each with its own evidence span.
+      const etcSplits = new Map();
+      const rescuedHalves = new Map();
+      if (supplementaryEnabled) segments.forEach((seg, segIndex) => {
+        if ((layerFactsBySegment.get(segIndex) || []).length) return;
+        if (!unparsedBySegment.has(segIndex)) return;
+        const split = splitEtcBoundary(seg.text);
+        if (!split) return;
+        const secondStart = seg.text.indexOf(split.second);
+        etcSplits.set(segIndex, {
+          first: split.first,
+          second: split.second,
+          firstSpan: { start: seg.start, end: seg.start + split.first.length },
+          secondSpan: { start: seg.start + (secondStart >= 0 ? secondStart : seg.text.length - split.second.length), end: seg.end }
+        });
+        rescuedHalves.set(segIndex, new Set());
+      });
       const attemptNotes = new Map();
       const noteAttempt = (idx, attempt) => {
         if (!attemptNotes.has(idx)) attemptNotes.set(idx, []);
         attemptNotes.get(idx).push(attempt);
       };
-      const acceptSupplementary = (entries, segIndex) => {
+      const acceptSupplementary = (entries, segIndex, overrides) => {
         let accepted = 0;
         entries.forEach((entry) => {
           // Supplementary-only object-balance guard: the shared parsers
@@ -3202,8 +3629,16 @@
           const verdict = classifyTypedDraft(entry.draft);
           if (!verdict.typed) return;
           accepted++;
-          supplementaryEntries.push({ draft: entry.draft, segmentIndex: segIndex, derivation: entry.derivation });
+          supplementaryEntries.push({
+            draft: entry.draft, segmentIndex: segIndex, derivation: entry.derivation,
+            evidenceText: overrides && overrides.evidenceText ? overrides.evidenceText : null,
+            evidenceSpan: overrides && overrides.evidenceSpan ? overrides.evidenceSpan : null,
+            etcHalf: overrides && overrides.etcHalf != null ? overrides.etcHalf : null
+          });
           if (unparsedBySegment.has(segIndex)) rescuedSegments.add(segIndex);
+          if (overrides && overrides.etcHalf != null && rescuedHalves.has(segIndex)) {
+            rescuedHalves.get(segIndex).add(overrides.etcHalf);
+          }
           const subs = segmentSubjects[segIndex];
           if (entry.draft.subject && subs.indexOf(entry.draft.subject) === -1) subs.push(entry.draft.subject);
         });
@@ -3215,9 +3650,45 @@
         });
       }
       if (supplementaryEnabled) {
+        // Phase 2D producers for one text (a segment, or one half of
+        // an "etc."-split segment). They run only on segments with no
+        // typed-layer facts, so they rescue unparsed claims instead of
+        // duplicating claims the layer already typed. resolvePronoun
+        // is the bounded same-unit resolver, for patterns whose
+        // subject is a pronoun mid-sentence.
+        const runPhase2dProducers = (text, segIndex, overrides) => {
+          let accepted = 0;
+          const resolvePronoun = (pronoun) => resolveLocalPronounAntecedent(segmentSubjects, segIndex, pronoun);
+          accepted += acceptSupplementary(hasAttributeDrafts(text), segIndex, overrides);
+          accepted += acceptSupplementary(offeredSocialSpaceDrafts(text), segIndex, overrides);
+          accepted += acceptSupplementary(relativeClauseDrafts(text), segIndex, overrides);
+          accepted += acceptSupplementary(renownedDrafts(text), segIndex, overrides);
+          accepted += acceptSupplementary(sketchClaimDrafts(text), segIndex, overrides);
+          accepted += acceptSupplementary(temporalScaleDrafts(text, resolvePronoun), segIndex, overrides);
+          return accepted;
+        };
         segments.forEach((seg, segIndex) => {
           const segText = cleanText(seg.text);
           if (!segText) return;
+          const hasLayerFacts = (layerFactsBySegment.get(segIndex) || []).length > 0;
+          // Phase 2D A6: an "etc."-split segment is processed half by
+          // half, never as one joined sentence. Each half gets the
+          // passive + Phase 2D producers with its own evidence span;
+          // caption features apply per half for caption units.
+          const split = etcSplits.get(segIndex);
+          if (split) {
+            [0, 1].forEach((half) => {
+              const halfText = half === 0 ? split.first : split.second;
+              const halfSpan = half === 0 ? split.firstSpan : split.secondSpan;
+              const overrides = { evidenceText: halfText, evidenceSpan: halfSpan, etcHalf: half };
+              acceptSupplementary(passiveDraftsForSegment(halfText), segIndex, overrides);
+              runPhase2dProducers(halfText, segIndex, overrides);
+              if (evidenceSource === 'caption' && unit.figure_ref) {
+                acceptSupplementary(captionFeatureDrafts(halfText), segIndex, overrides);
+              }
+            });
+            return;
+          }
           // Do not relabel an agent claim the typed layer already made:
           // if the layer typed launched_by/implemented_by/developed_by
           // for the same object in this segment, a supplementary passive
@@ -3236,13 +3707,15 @@
           // cleaned parse would duplicate their facts, and any genuine
           // second fig-ref claim in such a segment is a known
           // limitation, not a silent duplicate.
-          if (!acceptedForSegment && /\(Fig\./i.test(segText) && !(layerFactsBySegment.get(segIndex) || []).length) {
+          if (!acceptedForSegment && /\(Fig\./i.test(segText) && !hasLayerFacts) {
             const figStep = stripFigureReferences(segText);
             acceptedForSegment = acceptSupplementary(
-              parseAllFactRelations(figStep.text, { previousSubject: '' }).map((draft) => ({
-                draft: draft,
-                derivation: { method: 'figure_reference_cleanup', figure_refs_removed: figStep.removed, parser_method: draft.extraction_method || null }
-              })),
+              parseAllFactRelations(figStep.text, { previousSubject: '' }).map((draft) => {
+                const corrected = relabelCharacterisedBy(draft, figStep.text);
+                const derivation = { method: 'figure_reference_cleanup', figure_refs_removed: figStep.removed, parser_method: draft.extraction_method || null };
+                if (corrected !== draft) derivation.semantic_correction = 'characterised_by_not_definition';
+                return { draft: corrected, derivation: derivation };
+              }),
               segIndex
             );
           }
@@ -3263,18 +3736,37 @@
                   })
                 }));
               } else {
-                sub = parseAllFactRelations(substituted, { previousSubject: '' }).map((draft) => ({
-                  draft: draft,
-                  derivation: {
+                sub = parseAllFactRelations(substituted, { previousSubject: '' }).map((draft) => {
+                  const corrected = relabelCharacterisedBy(draft, substituted);
+                  const derivation = {
                     method: 'pronoun_resolution_same_unit',
                     antecedent_text: resolution.antecedent,
                     original_subject: pronounMatch[1],
                     antecedent_segment_index: resolution.segment_index,
                     parser_method: draft.extraction_method || null
-                  }
-                }));
+                  };
+                  if (corrected !== draft) derivation.semantic_correction = 'characterised_by_not_definition';
+                  return { draft: corrected, derivation: derivation };
+                });
               }
               acceptedForSegment = acceptSupplementary(sub, segIndex);
+              // Phase 2D A4a: a resolved pronoun subject plus an
+              // explicit "renowned for" claim types only now, with
+              // both the original pronoun evidence and the resolution
+              // derivation preserved.
+              if (!acceptedForSegment) {
+                const ren = renownedDrafts(substituted).map((entry) => ({
+                  draft: entry.draft,
+                  derivation: Object.assign({}, entry.derivation, {
+                    pronoun_resolution: {
+                      antecedent_text: resolution.antecedent,
+                      original_subject: pronounMatch[1],
+                      antecedent_segment_index: resolution.segment_index
+                    }
+                  })
+                }));
+                acceptedForSegment = acceptSupplementary(ren, segIndex);
+              }
               if (!acceptedForSegment) {
                 noteAttempt(segIndex, { parser: 'pronoun_resolution', outcome: 'resolved_no_pattern', detail: 'antecedent: ' + resolution.antecedent });
               }
@@ -3285,6 +3777,10 @@
                 detail: resolution.ambiguous ? 'multiple plausible antecedents in nearest segment' : 'no explicit antecedent in this unit'
               });
             }
+          }
+          // Phase 2D producers: only segments the layer left untyped.
+          if (!hasLayerFacts) {
+            runPhase2dProducers(segText, segIndex, null);
           }
           if (evidenceSource === 'caption' && unit.figure_ref) {
             acceptSupplementary(captionFeatureDrafts(segText), segIndex);
@@ -3328,8 +3824,8 @@
           normalized_subject: normalizeSubject(draft.subject),
           normalized_relation: normalizeRelation(draft.relation),
           normalized_object: normalizeObject(draft.object),
-          evidence: cleanText(seg.text),
-          evidence_span: { start: seg.start, end: seg.end },
+          evidence: entry.evidenceText ? cleanText(entry.evidenceText) : cleanText(seg.text),
+          evidence_span: entry.evidenceSpan ? entry.evidenceSpan : { start: seg.start, end: seg.end },
           object_span: locateInSection(unit.text, draft.object, seg.start, seg.end),
           source: {
             document_id: documentId,
@@ -3355,7 +3851,8 @@
             temporal_scope: draft.temporal_scope || null,
             comparison: draft.comparison || null,
             members: draft.members ? draft.members.slice() : null,
-            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null
+            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null,
+            attribution: draft.attribution || null
           },
           classification: { method: (entry.derivation && entry.derivation.method) || draft.extraction_method || 'explicit', rule_id: 'phase2c-shadow-v1' },
           validation_state: factConfidenceClass(draft, sourceMeta),
@@ -3378,10 +3875,12 @@
       result.unparsed_units.forEach((entry, entryIndex) => {
         const span = (entry.source && entry.source.sentence_span) || {};
         const segIndex = segments.findIndex((seg) => seg.start === span.start);
-        if (segIndex >= 0 && rescuedSegments.has(segIndex)) return;
+        if (segIndex >= 0 && rescuedSegments.has(segIndex) && !etcSplits.has(segIndex)) return;
         const notes = (segIndex >= 0 && attemptNotes.get(segIndex)) || [];
-        const remapped = Object.assign({}, entry, {
-          unparsed_id: 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3),
+        const baseId = 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3);
+        const remapUnparsed = (textOverride, spanOverride, idOverride) => Object.assign({}, entry, {
+          unparsed_id: idOverride || baseId,
+          original_text: textOverride != null ? textOverride : entry.original_text,
           source: Object.assign({}, entry.source, {
             typed_layer_unit_id: entry.unparsed_id,
             reconstructed_unit_id: unitId,
@@ -3390,11 +3889,27 @@
             page_range: pages,
             evidence_source: evidenceSource,
             section_id: unit.section_id || entry.source.section_id,
-            section_title: unit.section_title || entry.source.section_title
+            section_title: unit.section_title || entry.source.section_title,
+            sentence_span: spanOverride || entry.source.sentence_span
           }),
           classification_attempts: (entry.classification_attempts || []).concat(notes)
         });
-        unparsedUnits.push(remapped);
+        // Phase 2D A6: an "etc."-split segment yields one unparsed
+        // record per unrescued half, each with its own exact text and
+        // span. A rescued half produces no record; a fully rescued
+        // split produces none at all.
+        if (segIndex >= 0 && etcSplits.has(segIndex)) {
+          const split = etcSplits.get(segIndex);
+          const rescued = rescuedHalves.get(segIndex) || new Set();
+          if (!rescued.has(0)) {
+            unparsedUnits.push(remapUnparsed(split.first, split.firstSpan, baseId));
+          }
+          if (!rescued.has(1)) {
+            unparsedUnits.push(remapUnparsed(split.second, split.secondSpan, baseId + '-b'));
+          }
+          return;
+        }
+        unparsedUnits.push(remapUnparsed(null, null, null));
       });
       if (factsForUnit > 0) unitsWithFacts++;
     });
@@ -7290,6 +7805,16 @@
     glossaryDraftsForUnit,
     stripFigureReferences,
     stripLeadingContextPrefix,
+    hasAttributeDrafts,
+    offeredSocialSpaceDrafts,
+    relativeClauseDrafts,
+    renownedDrafts,
+    temporalScaleDrafts,
+    sketchClaimDrafts,
+    splitEtcBoundary,
+    relabelCharacterisedBy,
+    normalizeOrdinals,
+    stripAttributionPrefix,
     classifyTypedDraft,
     isFurnitureContaminated,
     TYPED_FACT_VERSION,
