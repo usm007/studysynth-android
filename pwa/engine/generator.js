@@ -2768,6 +2768,326 @@
   // - Reconstruction success and fact-classification success are
   //   separate outcomes: a unit that types to zero facts still counts
   //   as reconstructed, and its unparsed record carries the reason.
+  // ---- Phase 2C shadow-only supplementary patterns (adapter-only) ----
+  // These helpers live behind buildTypedKnowledgeFromReconstructedUnits
+  // and are NEVER called from the production path. The shared parsers
+  // (parseDefinition, parseEntityAttributes, parseFactRelations,
+  // parseAllFactRelations) are not modified; supplementary drafts are
+  // classified by the unchanged classifyTypedDraft before they can
+  // become typed facts. No supplementary draft may become a fallback
+  // fact: a failed pattern simply yields no draft.
+
+  // Remove parenthesised figure references such as "(Fig. 3.20)".
+  // Returns { text, removed } where removed lists the references taken out.
+  function stripFigureReferences(text) {
+    const removed = [];
+    const cleaned = String(text || '').replace(/\s*\((?:Fig\.?|Figure)\s+\d+(?:\.\d+)*\)/gi, (match) => {
+      removed.push(match.trim());
+      return '';
+    });
+    return { text: cleanText(cleaned), removed: removed };
+  }
+
+  // Strip a leading "In <phrase>, " context prefix (a time or place
+  // phrase) when it contains no verb, parenthesis or colon. The prefix
+  // is context, not part of the claim; it is recorded in the fact's
+  // derivation and, for temporal phrases, as temporal_scope.
+  function stripLeadingContextPrefix(text) {
+    // One or more comma-separated prefix chunks ("In Thanjavur, Tamil
+    // Nadu, the ...") up to the article that starts the subject. A single
+    // comma is not enough: "In Thanjavur, Tamil Nadu, ..." must strip
+    // both place parts, or the subject keeps a leading place fragment.
+    const match = String(text || '').match(/^In\s+((?:[^,();:]+,\s*)+)(?=(?:the|a|an)\s)/i);
+    if (!match) return { text: text, prefix: null, kind: null };
+    const prefix = match[1].replace(/,\s*$/, '').trim();
+    if (/\b(is|are|was|were|has|have|had|been|being|built|constructed|developed|located|situated|founded)\b/i.test(prefix)) {
+      return { text: text, prefix: null, kind: null };
+    }
+    const kind = /\b(times|century|centuries|period|era|reign|dynasty|age)\b/i.test(prefix) ? 'temporal'
+      : /[A-Z\u00C0-\u024F]/.test(prefix) ? 'place' : null;
+    if (!kind) return { text: text, prefix: null, kind: null };
+    return { text: cleanText(String(text).slice(match[0].length)), prefix: prefix, kind: kind };
+  }
+
+  // Guard for the object of "built/constructed/developed in Y": it must
+  // look like a place or a period, not a manner, quantity or clause.
+  // This is what rejects "constructed in many sizes and shapes".
+  function isPlausibleInObject(object) {
+    const text = cleanText(object || '');
+    if (!text || text.split(/\s+/).length > 8) return false;
+    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom)\b/i.test(text)) return false;
+    if (/\b(in order to|many|several|various|different)\b/i.test(text)) return false;
+    if (!/[A-Z\u00C0-\u024F]/.test(text) && !/\b(times|century|centuries|period|era|reign|dynasty|age)\b/i.test(text)) return false;
+    return true;
+  }
+
+  // Guard for an agent ("built by Y"): an explicit noun phrase, never a
+  // bare pronoun, a clause or a verb phrase.
+  function isPlausibleAgent(agent) {
+    const text = cleanText(agent || '');
+    if (!text || text.split(/\s+/).length > 10) return false;
+    if (/^(it|they|he|she|them|him|her|this|that|these|those)$/i.test(text)) return false;
+    if (/\b(which|that|who|whom|is|are|was|were|has|have|had|been|being)\b/i.test(text)) return false;
+    return true;
+  }
+
+  // Split a trailing "around YYYY" / "in YYYY" date, or a trailing
+  // "in the Nth century" phrase (including PDF spacing "15 th century"),
+  // off an agent phrase. Without the century form, "built by Sultan
+  // Ahmed Shah I in the 15th century" would keep the period inside the
+  // agent name instead of as a temporal scope.
+  function splitTrailingDate(phrase) {
+    const match = String(phrase || '').match(/^(.*?)\s+(around|in)\s+(\d{3,4}(?:\s*(?:CE|BCE))?)\s*$/i);
+    if (match) return { phrase: cleanText(match[1]), temporal: match[2].toLowerCase() + ' ' + match[3] };
+    const century = String(phrase || '').match(/^(.*?)\s+in\s+the\s+(\d+)\s*(st|nd|rd|th)?\s*century\s*$/i);
+    if (century) return { phrase: cleanText(century[1]), temporal: 'in the ' + century[2] + (century[3] || '') + ' century' };
+    return { phrase: cleanText(phrase), temporal: null };
+  }
+
+  // Passive-voice drafts for one sentence segment. Only the patterns
+  // demonstrated by the Chapter 3 wells/stepwells and Nandi passages:
+  //   X is/was/are/were/has been/have been built|constructed|developed by Y
+  //   X is/was/are/were/has been/have been built|constructed|developed in Y
+  //   X developed in Y   (bare past "developed" only; bare "built" /
+  //   "constructed" without an auxiliary are participle phrases, not claims)
+  // Returns [{ draft, derivation }]. A pronoun subject never yields a
+  // draft here; pronoun subjects are handled by the resolver step, which
+  // substitutes the antecedent and then re-runs this function.
+  function passiveDraftsForSegment(segmentText) {
+    const text = cleanText(segmentText || '');
+    if (!text) return [];
+    const prefixStep = stripLeadingContextPrefix(text);
+    const figStep = stripFigureReferences(prefixStep.text);
+    const core = figStep.text;
+    const derivationBase = {
+      stripped_prefix: prefixStep.prefix,
+      prefix_kind: prefixStep.kind,
+      figure_refs_removed: figStep.removed
+    };
+    const out = [];
+    const pushDraft = (subject, verb, form, object, temporal) => {
+      let cleanedSubject = cleanFactSubject(subject);
+      if (!cleanedSubject) return;
+      if (/^(it|they|this|these|those)\b/i.test(cleanedSubject)) return;
+      // A parenthetical that breaks subject quality (transliterated
+      // alternates such as "(vāvs or bāorīs)" trip the single-letter
+      // rule) may be dropped ONLY when the remainder is itself a valid
+      // subject. The full sentence stays as evidence and the removal
+      // is recorded; otherwise the draft is left for classifyTypedDraft
+      // to reject, never silently repaired into a different claim.
+      let parentheticalRemoved = [];
+      if (!checkSubjectQuality(cleanedSubject).valid && /\([^)]*\)/.test(cleanedSubject)) {
+        const stripped = cleanText(cleanedSubject.replace(/\s*\([^)]*\)/g, ''));
+        if (stripped && checkSubjectQuality(stripped).valid) {
+          parentheticalRemoved = cleanedSubject.match(/\([^)]*\)/g) || [];
+          cleanedSubject = stripped;
+        }
+      }
+      const relation = verb.toLowerCase() + '_' + form;
+      out.push({
+        draft: {
+          fact_type: 'entity_attribute',
+          subject: cleanedSubject,
+          relation: relation,
+          object: object,
+          answer_kind: 'entity_attribute',
+          extraction_method: 'passive_' + relation,
+          temporal_scope: temporal || (prefixStep.kind === 'temporal' ? prefixStep.prefix : null)
+        },
+        derivation: Object.assign({ method: 'passive_' + relation, parenthetical_removed: parentheticalRemoved }, derivationBase)
+      });
+    };
+    let match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+by\s+(.+)$/i);
+    if (match) {
+      const split = splitTrailingDate(match[3].replace(/[.]+$/, ''));
+      if (isPlausibleAgent(split.phrase)) pushDraft(match[1], match[2], 'by', split.phrase, split.temporal);
+      return out;
+    }
+    match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+in\s+([^,.]+)/i);
+    if (match && isPlausibleInObject(match[3])) {
+      pushDraft(match[1], match[2], 'in', cleanText(match[3]));
+      return out;
+    }
+    // NOTE: this pattern has two capture groups (subject, object), so the
+    // object is match[2] — unlike the aux forms above, where the verb is
+    // group 2 and the object is group 3. Using match[3] here silently
+    // yields undefined and rejects every bare "developed in" sentence.
+    match = core.match(/^(.+?)\s+developed\s+in\s+([^,.]+)/i);
+    if (match && isPlausibleInObject(match[2])) {
+      pushDraft(match[1], 'developed', 'in', cleanText(match[2]));
+      return out;
+    }
+    return out;
+  }
+
+  // Explicit "X features Y" claims from caption units only. The caller
+  // enforces caption evidence source and a figure reference; a figure
+  // reference is provenance, never proof of identity.
+  function captionFeatureDrafts(segmentText) {
+    const text = cleanText(segmentText || '');
+    const match = text.match(/^(.+?)\s+features\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const figStep = stripFigureReferences(match[1]);
+    const subject = cleanFactSubject(figStep.text);
+    const object = cleanText(match[2]);
+    if (!subject || !object) return [];
+    if (/^(it|they|this|these|those)\b/i.test(subject)) return [];
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'features',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'caption_explicit_claim_features'
+      },
+      derivation: { method: 'caption_explicit_claim_features', figure_refs_removed: figStep.removed }
+    }];
+  }
+
+  // Glossary facts from a reconstructed glossary unit's structured
+  // metadata (term + definition) — never inferred from nearby prose.
+  // The primary definition sentence becomes a definition fact; a later
+  // "Here, it ..." sentence in the SAME unit resolves to the term by
+  // the unit's own metadata. Any other later sentence (including a
+  // second "Term:" entry) is left unparsed; entries are never combined.
+  // Returns [{ draft, segmentIndex, derivation }].
+  function glossaryDraftsForUnit(unit, segments) {
+    const term = cleanText(unit && unit.term);
+    const definition = cleanText(unit && unit.definition);
+    if (!term || !definition) return [];
+    const out = [];
+    const defSegments = segmentSentencesWithOffsets(definition);
+    if (!defSegments.length) return [];
+    const primary = cleanText(defSegments[0].text).replace(/[.]+$/, '');
+    if (!primary) return [];
+    let primaryIndex = segments.findIndex((seg) => cleanText(seg.text).indexOf(term + ':') === 0);
+    if (primaryIndex < 0) primaryIndex = 0;
+    out.push({
+      draft: {
+        fact_type: 'definition',
+        subject: term,
+        relation: 'definition',
+        object: primary,
+        answer_kind: 'definition',
+        extraction_method: 'glossary_term_definition'
+      },
+      segmentIndex: primaryIndex,
+      derivation: { method: 'glossary_term_definition', term: term }
+    });
+    segments.forEach((seg, segIndex) => {
+      if (segIndex === primaryIndex) return;
+      const hereMatch = cleanText(seg.text).match(/^Here,\s+(it|they)\s+is\s+(.+?)\.?$/i);
+      if (!hereMatch) return;
+      out.push({
+        draft: {
+          fact_type: 'entity_attribute',
+          subject: term,
+          relation: 'attribute',
+          object: cleanText(hereMatch[2]),
+          answer_kind: 'entity_attribute',
+          extraction_method: 'glossary_term_reference'
+        },
+        segmentIndex: segIndex,
+        derivation: { method: 'glossary_term_reference', term: term, original_subject: hereMatch[1] }
+      });
+    });
+    return out;
+  }
+
+  // Local pronoun resolution, bounded to ONE reconstructed unit.
+  // segmentSubjects: array per segment (in unit order) of distinct
+  // explicit subject strings from earlier layer/supplementary facts.
+  // The nearest preceding segment that yields any subject decides:
+  // exactly one compatible subject resolves; several distinct subjects
+  // in that segment are ambiguous and reject; an incompatible number
+  // walks further back. Nothing is ever carried across units, sections,
+  // captions, pages or documents. Number compatibility is a deliberate
+  // heuristic (compound "A and B" and plural morphology count as
+  // plural); failures err toward unresolved, never toward a guess.
+  // Returns { antecedent, ambiguous, segment_index }.
+  function resolveLocalPronounAntecedent(segmentSubjects, targetIndex, pronoun) {
+    const singular = /^(it|this)$/i.test(pronoun || '');
+    const pluralMorphology = (phrase) => {
+      const words = cleanText(phrase || '').split(/\s+/);
+      const last = words.length ? words[words.length - 1] : '';
+      if (/\b(people|children|men|women|persons|locals|devotees|visitors)\b/i.test(phrase)) return true;
+      return /[a-z]s$/i.test(last) && !/(ss|us|is)$/i.test(last);
+    };
+    for (let i = targetIndex - 1; i >= 0; i--) {
+      const subjects = segmentSubjects[i] || [];
+      if (!subjects.length) continue;
+      if (subjects.length > 1) return { antecedent: null, ambiguous: true, segment_index: i };
+      const candidate = subjects[0];
+      const compound = /\band\b/i.test(candidate);
+      if (singular && (compound || pluralMorphology(candidate))) continue;
+      if (!singular && !compound && !pluralMorphology(candidate)) continue;
+      return { antecedent: candidate, ambiguous: false, segment_index: i };
+    }
+    return { antecedent: null, ambiguous: false, segment_index: -1 };
+  }
+
+  // Deterministic normalized fact key for cross-unit dedup (spec
+  // section E): type + subject + relation + object, plus polarity and
+  // temporal scope so facts that differ in qualifiers stay separate.
+  function phase2cFactKey(fact) {
+    return [
+      fact.fact_type,
+      normalizeSubject(fact.subject),
+      normalizeRelation(fact.relation),
+      normalizeObject(fact.object),
+      (fact.qualifiers && fact.qualifiers.polarity) || 'positive',
+      (fact.qualifiers && fact.qualifiers.temporal_scope) || ''
+    ].join('|');
+  }
+
+  // Collapse identical facts across reconstructed units. Preference:
+  // complete per-page passages over cross-page merged units, and
+  // typed-layer facts over supplementary ones. The discarded duplicate
+  // and its source unit are recorded; never deduplicate merely for
+  // sharing a subject (the key includes relation, object and
+  // qualifiers, so different meanings survive).
+  function deduplicatePhase2cFacts(facts) {
+    const kept = new Map();
+    const discarded = [];
+    const rank = (fact) => {
+      const merged = fact.source && fact.source.evidence_source === 'cross_page_merged' ? 2 : 0;
+      const supp = fact.classification && fact.classification.rule_id === 'phase2c-shadow-v1' ? 1 : 0;
+      return merged + supp;
+    };
+    facts.forEach((fact) => {
+      const key = phase2cFactKey(fact);
+      const existing = kept.get(key);
+      if (!existing) {
+        kept.set(key, fact);
+        return;
+      }
+      if (rank(fact) < rank(existing)) {
+        discarded.push({
+          discarded_fact_id: existing.fact_id,
+          kept_fact_id: fact.fact_id,
+          fact_key: key,
+          discarded_unit_id: existing.source && existing.source.reconstructed_unit_id,
+          discarded_evidence_source: existing.source && existing.source.evidence_source,
+          kept_unit_id: fact.source && fact.source.reconstructed_unit_id,
+          reason: 'duplicate_fact_key'
+        });
+        kept.set(key, fact);
+      } else {
+        discarded.push({
+          discarded_fact_id: fact.fact_id,
+          kept_fact_id: existing.fact_id,
+          fact_key: key,
+          discarded_unit_id: fact.source && fact.source.reconstructed_unit_id,
+          discarded_evidence_source: fact.source && fact.source.evidence_source,
+          kept_unit_id: existing.source && existing.source.reconstructed_unit_id,
+          reason: 'duplicate_fact_key'
+        });
+      }
+    });
+    return { facts: Array.from(kept.values()), discarded: discarded };
+  }
+
   function buildTypedKnowledgeFromReconstructedUnits(reconstructedUnits, options) {
     const opts = options || {};
     const sourceMeta = opts.sourceMeta || null;
@@ -2821,12 +3141,161 @@
         });
         return;
       }
+      // Phase 2C shadow additions: supplementary patterns (adapter-only)
+      // and per-unit bookkeeping for the cross-unit dedup below. Shared
+      // parsers are untouched; every supplementary draft still passes
+      // classifyTypedDraft. Options: { supplementary: false } restores
+      // the Phase 2B adapter exactly; { deduplicate: false } keeps raw
+      // facts (used by the Phase 2C harness for baseline comparison).
+      const supplementaryEnabled = opts.supplementary !== false;
+      const segments = segmentSentencesWithOffsets(unit.text);
+      const layerFactsBySegment = new Map();
+      const unparsedBySegment = new Map();
+      const kuIdBySegment = new Map();
+      const segIndexByFact = new Map();
+      result.typed_facts.forEach((fact) => {
+        const span = fact.evidence_span || {};
+        const idx = segments.findIndex((seg) => seg.start === span.start);
+        if (idx >= 0) {
+          if (!layerFactsBySegment.has(idx)) layerFactsBySegment.set(idx, []);
+          layerFactsBySegment.get(idx).push(fact);
+          segIndexByFact.set(fact, idx);
+          if (fact.source && fact.source.sentence_id) kuIdBySegment.set(idx, fact.source.sentence_id);
+        }
+      });
+      result.unparsed_units.forEach((entry) => {
+        const span = (entry.source && entry.source.sentence_span) || {};
+        const idx = segments.findIndex((seg) => seg.start === span.start);
+        if (idx >= 0) {
+          unparsedBySegment.set(idx, entry);
+          if (entry.source_unit_id) kuIdBySegment.set(idx, entry.source_unit_id);
+        }
+      });
+      const segmentSubjects = segments.map((seg, idx) => {
+        const subjects = [];
+        (layerFactsBySegment.get(idx) || []).forEach((fact) => {
+          if (fact.subject && subjects.indexOf(fact.subject) === -1) subjects.push(fact.subject);
+        });
+        return subjects;
+      });
+      const supplementaryEntries = [];
+      const rescuedSegments = new Set();
+      const attemptNotes = new Map();
+      const noteAttempt = (idx, attempt) => {
+        if (!attemptNotes.has(idx)) attemptNotes.set(idx, []);
+        attemptNotes.get(idx).push(attempt);
+      };
+      const acceptSupplementary = (entries, segIndex) => {
+        let accepted = 0;
+        entries.forEach((entry) => {
+          // Supplementary-only object-balance guard: the shared parsers
+          // can truncate an object at a stop-word, leaving an unbalanced
+          // parenthetical (e.g. "...architecture (see further below the
+          // section"). classifyTypedDraft does not check object balance,
+          // so a truncated object would otherwise ship as a fact. The
+          // draft is rejected and the segment stays unparsed with its
+          // layer reason; the object is never silently repaired.
+          const objectText = (entry.draft && entry.draft.object) || '';
+          const openParens = (objectText.match(/\(/g) || []).length;
+          const closeParens = (objectText.match(/\)/g) || []).length;
+          if (openParens !== closeParens) return;
+          const verdict = classifyTypedDraft(entry.draft);
+          if (!verdict.typed) return;
+          accepted++;
+          supplementaryEntries.push({ draft: entry.draft, segmentIndex: segIndex, derivation: entry.derivation });
+          if (unparsedBySegment.has(segIndex)) rescuedSegments.add(segIndex);
+          const subs = segmentSubjects[segIndex];
+          if (entry.draft.subject && subs.indexOf(entry.draft.subject) === -1) subs.push(entry.draft.subject);
+        });
+        return accepted;
+      };
+      if (supplementaryEnabled && unitType === 'glossary_definition') {
+        glossaryDraftsForUnit(unit, segments).forEach((entry) => {
+          acceptSupplementary([entry], entry.segmentIndex);
+        });
+      }
+      if (supplementaryEnabled) {
+        segments.forEach((seg, segIndex) => {
+          const segText = cleanText(seg.text);
+          if (!segText) return;
+          // Do not relabel an agent claim the typed layer already made:
+          // if the layer typed launched_by/implemented_by/developed_by
+          // for the same object in this segment, a supplementary passive
+          // draft for that object is the same claim under a different
+          // relation and is skipped (dedup would not collapse it,
+          // because the key includes the relation).
+          const layerAgentObjects = new Set((layerFactsBySegment.get(segIndex) || [])
+            .filter((fact) => ['launched_by', 'implemented_by', 'developed_by'].indexOf(fact.relation) !== -1)
+            .map((fact) => normalizeObject(fact.object)));
+          const passiveEntries = passiveDraftsForSegment(segText)
+            .filter((entry) => !layerAgentObjects.has(normalizeObject(entry.draft.object)));
+          let acceptedForSegment = acceptSupplementary(passiveEntries, segIndex);
+          // Figure cleanup rescues segments the layer rejected (a fig
+          // reference in the subject fails subject quality). Segments
+          // that already yielded layer facts are NOT re-parsed: the
+          // cleaned parse would duplicate their facts, and any genuine
+          // second fig-ref claim in such a segment is a known
+          // limitation, not a silent duplicate.
+          if (!acceptedForSegment && /\(Fig\./i.test(segText) && !(layerFactsBySegment.get(segIndex) || []).length) {
+            const figStep = stripFigureReferences(segText);
+            acceptedForSegment = acceptSupplementary(
+              parseAllFactRelations(figStep.text, { previousSubject: '' }).map((draft) => ({
+                draft: draft,
+                derivation: { method: 'figure_reference_cleanup', figure_refs_removed: figStep.removed, parser_method: draft.extraction_method || null }
+              })),
+              segIndex
+            );
+          }
+          const pronounMatch = segText.match(/^(It|They|This|These)\b/);
+          if (!acceptedForSegment && pronounMatch) {
+            const resolution = resolveLocalPronounAntecedent(segmentSubjects, segIndex, pronounMatch[1]);
+            if (resolution.antecedent) {
+              const substituted = segText.replace(/^(It|They|This|These)\b/, resolution.antecedent);
+              let sub = passiveDraftsForSegment(substituted);
+              if (sub.length) {
+                sub = sub.map((entry) => ({
+                  draft: entry.draft,
+                  derivation: Object.assign({}, entry.derivation, {
+                    method: 'pronoun_resolution_same_unit',
+                    antecedent_text: resolution.antecedent,
+                    original_subject: pronounMatch[1],
+                    antecedent_segment_index: resolution.segment_index
+                  })
+                }));
+              } else {
+                sub = parseAllFactRelations(substituted, { previousSubject: '' }).map((draft) => ({
+                  draft: draft,
+                  derivation: {
+                    method: 'pronoun_resolution_same_unit',
+                    antecedent_text: resolution.antecedent,
+                    original_subject: pronounMatch[1],
+                    antecedent_segment_index: resolution.segment_index,
+                    parser_method: draft.extraction_method || null
+                  }
+                }));
+              }
+              acceptedForSegment = acceptSupplementary(sub, segIndex);
+              if (!acceptedForSegment) {
+                noteAttempt(segIndex, { parser: 'pronoun_resolution', outcome: 'resolved_no_pattern', detail: 'antecedent: ' + resolution.antecedent });
+              }
+            } else {
+              noteAttempt(segIndex, {
+                parser: 'pronoun_resolution',
+                outcome: resolution.ambiguous ? 'ambiguous_antecedent' : 'no_antecedent',
+                detail: resolution.ambiguous ? 'multiple plausible antecedents in nearest segment' : 'no explicit antecedent in this unit'
+              });
+            }
+          }
+          if (evidenceSource === 'caption' && unit.figure_ref) {
+            acceptSupplementary(captionFeatureDrafts(segText), segIndex);
+          }
+        });
+      }
       let factsForUnit = 0;
+      const remappedFacts = [];
+      const factSegmentIndexes = [];
       result.typed_facts.forEach((fact, factIndex) => {
         factsForUnit++;
-        typedFactsByType[fact.fact_type] = (typedFactsByType[fact.fact_type] || 0) + 1;
-        typedFactsByEvidenceSource[evidenceSource] =
-          (typedFactsByEvidenceSource[evidenceSource] || 0) + 1;
         const remapped = Object.assign({}, fact, {
           fact_id: 'TF-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(factIndex + 1, 3),
           source: Object.assign({}, fact.source, {
@@ -2840,10 +3309,77 @@
             section_title: unit.section_title || fact.source.section_title
           })
         });
+        remappedFacts.push(remapped);
+        factSegmentIndexes.push(segIndexByFact.has(fact) ? segIndexByFact.get(fact) : -1);
         typedFacts.push(remapped);
       });
+      supplementaryEntries.forEach((entry, suppIndex) => {
+        const draft = entry.draft;
+        const seg = segments[entry.segmentIndex];
+        const factIndex = result.typed_facts.length + suppIndex;
+        factsForUnit++;
+        const remapped = {
+          fact_id: 'TF-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(factIndex + 1, 3),
+          source_fact_ids: [],
+          fact_type: draft.fact_type,
+          subject: draft.subject,
+          relation: draft.relation,
+          object: draft.object,
+          normalized_subject: normalizeSubject(draft.subject),
+          normalized_relation: normalizeRelation(draft.relation),
+          normalized_object: normalizeObject(draft.object),
+          evidence: cleanText(seg.text),
+          evidence_span: { start: seg.start, end: seg.end },
+          object_span: locateInSection(unit.text, draft.object, seg.start, seg.end),
+          source: {
+            document_id: documentId,
+            page: pages[0],
+            section_id: unit.section_id || unitId,
+            section_title: unit.section_title || unitType,
+            block_ids: blockIds,
+            sentence_id: kuIdBySegment.get(entry.segmentIndex) || null,
+            typed_layer_fact_id: null,
+            reconstructed_unit_id: unitId,
+            reconstructed_unit_type: unitType,
+            page_range: pages,
+            evidence_source: evidenceSource,
+            figure_ref: unit.figure_ref || null
+          },
+          qualifiers: {
+            polarity: draft.polarity || 'positive',
+            precision: draft.precision || 'exact',
+            numeric_kind: draft.numeric_kind || null,
+            relation_verb: draft.relation_verb || null,
+            causal_direction: draft.causal_direction || null,
+            attribute: draft.attribute || null,
+            temporal_scope: draft.temporal_scope || null,
+            comparison: draft.comparison || null,
+            members: draft.members ? draft.members.slice() : null,
+            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null
+          },
+          classification: { method: (entry.derivation && entry.derivation.method) || draft.extraction_method || 'explicit', rule_id: 'phase2c-shadow-v1' },
+          validation_state: factConfidenceClass(draft, sourceMeta),
+          multi_claim_unit: false,
+          derivation: entry.derivation || null
+        };
+        remappedFacts.push(remapped);
+        factSegmentIndexes.push(entry.segmentIndex);
+        typedFacts.push(remapped);
+      });
+      // Multi-claim flags reflect layer + supplementary facts together.
+      const countsBySegment = new Map();
+      factSegmentIndexes.forEach((idx) => {
+        if (idx >= 0) countsBySegment.set(idx, (countsBySegment.get(idx) || 0) + 1);
+      });
+      remappedFacts.forEach((fact, i) => {
+        const idx = factSegmentIndexes[i];
+        if (idx >= 0) fact.multi_claim_unit = (countsBySegment.get(idx) || 0) > 1;
+      });
       result.unparsed_units.forEach((entry, entryIndex) => {
-        unparsedByReason[entry.reason] = (unparsedByReason[entry.reason] || 0) + 1;
+        const span = (entry.source && entry.source.sentence_span) || {};
+        const segIndex = segments.findIndex((seg) => seg.start === span.start);
+        if (segIndex >= 0 && rescuedSegments.has(segIndex)) return;
+        const notes = (segIndex >= 0 && attemptNotes.get(segIndex)) || [];
         const remapped = Object.assign({}, entry, {
           unparsed_id: 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3),
           source: Object.assign({}, entry.source, {
@@ -2855,29 +3391,58 @@
             evidence_source: evidenceSource,
             section_id: unit.section_id || entry.source.section_id,
             section_title: unit.section_title || entry.source.section_title
-          })
+          }),
+          classification_attempts: (entry.classification_attempts || []).concat(notes)
         });
         unparsedUnits.push(remapped);
       });
       if (factsForUnit > 0) unitsWithFacts++;
     });
 
+    // Phase 2C dedup: collapse identical facts (same type, subject,
+    // relation, object, polarity and temporal scope) across units,
+    // preferring complete per-page passages over cross-page merges and
+    // typed-layer facts over supplementary ones. Raw counts are kept
+    // alongside unique counts; nothing is silently dropped.
+    const rawTypedTotal = typedFacts.length;
+    const dedupEnabled = opts.deduplicate !== false;
+    const dedupResult = dedupEnabled ? deduplicatePhase2cFacts(typedFacts) : { facts: typedFacts, discarded: [] };
+    const finalFacts = dedupResult.facts;
+    const finalByType = {};
+    const finalBySource = {};
+    finalFacts.forEach((fact) => {
+      finalByType[fact.fact_type] = (finalByType[fact.fact_type] || 0) + 1;
+      const srcName = (fact.source && fact.source.evidence_source) || 'unknown';
+      finalBySource[srcName] = (finalBySource[srcName] || 0) + 1;
+    });
+    const finalUnparsedByReason = {};
+    unparsedUnits.forEach((entry) => {
+      finalUnparsedByReason[entry.reason] = (finalUnparsedByReason[entry.reason] || 0) + 1;
+    });
+    const uniqueUnitsWithFacts = new Set();
+    finalFacts.forEach((fact) => {
+      if (fact.source && fact.source.reconstructed_unit_id) uniqueUnitsWithFacts.add(fact.source.reconstructed_unit_id);
+    });
     return {
       version: TYPED_FACT_VERSION,
-      typed_facts: typedFacts,
+      typed_facts: finalFacts,
       unparsed_units: unparsedUnits,
       skipped_units: skippedUnits,
       dropped_units: droppedUnits,
+      deduplication: { duplicates_discarded: dedupResult.discarded },
       accounting: {
         units_input: list.length,
         units_skipped: skippedUnits.length,
         units_dropped: droppedUnits.length,
         units_with_facts: unitsWithFacts,
-        typed_facts_total: typedFacts.length,
-        typed_facts_by_type: typedFactsByType,
-        typed_facts_by_evidence_source: typedFactsByEvidenceSource,
+        units_with_unique_facts: uniqueUnitsWithFacts.size,
+        typed_facts_total: finalFacts.length,
+        typed_facts_raw_total: rawTypedTotal,
+        typed_facts_by_type: finalByType,
+        typed_facts_by_evidence_source: finalBySource,
         unparsed_units_total: unparsedUnits.length,
-        unparsed_units_by_reason: unparsedByReason
+        unparsed_units_by_reason: finalUnparsedByReason,
+        duplicates_discarded_total: dedupResult.discarded.length
       }
     };
   }
@@ -6718,6 +7283,13 @@
     parseAllFactRelations,
     buildTypedKnowledge,
     buildTypedKnowledgeFromReconstructedUnits,
+    resolveLocalPronounAntecedent,
+    phase2cFactKey,
+    passiveDraftsForSegment,
+    captionFeatureDrafts,
+    glossaryDraftsForUnit,
+    stripFigureReferences,
+    stripLeadingContextPrefix,
     classifyTypedDraft,
     isFurnitureContaminated,
     TYPED_FACT_VERSION,

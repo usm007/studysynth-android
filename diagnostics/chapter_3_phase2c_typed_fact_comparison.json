@@ -1,0 +1,1083 @@
+{
+  "version": "phase2c-1",
+  "baseline_commit": "7fa41d1f7752f97a816be0931bf259b29eda848a",
+  "pdf_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+  "key_schemes": {
+    "phase2b_key": "fact_type|normalized_subject|normalized_object (relation excluded, as in Phase 2B)",
+    "phase2c_spec_key": "fact_type|normalized_subject|normalized_relation|normalized_object|polarity|temporal_scope"
+  },
+  "comparison": {
+    "phase2a_keys_total": 16,
+    "phase2a_keys_retained": 16,
+    "phase2a_keys_lost": [],
+    "phase2b_unique_keys_total": 20,
+    "phase2b_keys_retained": 20,
+    "phase2b_keys_lost": [],
+    "phase2c_unique_keys_2b_scheme": 28,
+    "phase2c_new_keys_2b_scheme": [
+      "definition|harappan architecture|carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation",
+      "entity_attribute|tradition of stepwells|gujarat and rajasthan",
+      "entity_attribute|imposing bṛihadī ś hvara temple|rājarāja chola i",
+      "definition|corbelled|constructed by stacking blocks as in a staircase pattern",
+      "definition|latticework|open framework with criss-crossing or decorative designs",
+      "entity_attribute|latticework|both functional (allowing ventilation) and aesthetic in design",
+      "entity_attribute|according to tradition, the first churches|the coastal areas of kerala",
+      "entity_attribute|red sandstone facade|islamic arches and intricate screens alongside carvings and pillars in hindu temple style"
+    ],
+    "phase2c_new_keys_spec_scheme": [
+      "definition|harappan architecture|definition|carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation|positive|",
+      "entity_attribute|tradition of stepwells|developed_in|gujarat and rajasthan|positive|classical times",
+      "entity_attribute|imposing bṛihadī ś hvara temple|built_by|rājarāja chola i|positive|around 1010",
+      "definition|corbelled|definition|constructed by stacking blocks as in a staircase pattern|positive|",
+      "definition|latticework|definition|open framework with criss-crossing or decorative designs|positive|",
+      "entity_attribute|latticework|attribute|both functional (allowing ventilation) and aesthetic in design|positive|",
+      "entity_attribute|according to tradition, the first churches|built_in|the coastal areas of kerala|positive|",
+      "entity_attribute|red sandstone facade|features|islamic arches and intricate screens alongside carvings and pillars in hindu temple style|positive|"
+    ],
+    "phase2b_metrics_crosscheck": {
+      "metrics_new_raw": 21,
+      "metrics_new_unique": 20,
+      "metrics_shared": 16,
+      "metrics_new_only": 4,
+      "metrics_lost": 0,
+      "rerun_adapter_2b_raw": 21,
+      "rerun_adapter_2b_unique_2b_key": 20
+    },
+    "new_facts": [
+      {
+        "fact_id": "TF-REC-015-002",
+        "fact_type": "definition",
+        "subject": "Harappan architecture",
+        "relation": "definition",
+        "object": "carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation",
+        "evidence": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation.",
+        "evidence_source": "reconstructed_prose",
+        "reconstructed_unit_id": "RU-015",
+        "reconstructed_unit_type": "body_prose",
+        "block_ids": [
+          "p6-b4",
+          "p6-b6",
+          "p6-b7",
+          "p6-b8",
+          "p6-b9",
+          "p6-b12",
+          "p6-b14"
+        ],
+        "page_range": [
+          6
+        ],
+        "figure_ref": null,
+        "temporal_scope": null,
+        "classification_method": "pronoun_resolution_same_unit",
+        "derivation": {
+          "method": "pronoun_resolution_same_unit",
+          "antecedent_text": "Harappan architecture",
+          "original_subject": "It",
+          "antecedent_segment_index": 1,
+          "parser_method": "definition_explicit"
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-039-001",
+        "fact_type": "entity_attribute",
+        "subject": "a tradition of stepwells",
+        "relation": "developed_in",
+        "object": "Gujarat and Rajasthan",
+        "evidence": "In classical times, a tradition of stepwells (vāvs or bāorīs) developed in Gujarat and Rajasthan, many of them engineering marvels as well as spectacular works of art.",
+        "evidence_source": "reconstructed_prose",
+        "reconstructed_unit_id": "RU-039",
+        "reconstructed_unit_type": "body_prose",
+        "block_ids": [
+          "p14-b3",
+          "p14-b4",
+          "p14-b5",
+          "p14-b6",
+          "p14-b7",
+          "p14-b8",
+          "p14-b9",
+          "p14-b10",
+          "p14-b11",
+          "p14-b12",
+          "p14-b13",
+          "p14-b14",
+          "p14-b15",
+          "p14-b16",
+          "p14-b17",
+          "p14-b18",
+          "p14-b19",
+          "p14-b21",
+          "p14-b22",
+          "p14-b23",
+          "p14-b24",
+          "p14-b25",
+          "p14-b26",
+          "p14-b27"
+        ],
+        "page_range": [
+          14
+        ],
+        "figure_ref": null,
+        "temporal_scope": "classical times",
+        "classification_method": "passive_developed_in",
+        "derivation": {
+          "method": "passive_developed_in",
+          "parenthetical_removed": [
+            "(vāvs or bāorīs)"
+          ],
+          "stripped_prefix": "classical times",
+          "prefix_kind": "temporal",
+          "figure_refs_removed": []
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-050-001",
+        "fact_type": "entity_attribute",
+        "subject": "the imposing Bṛihadī ś hvara Temple",
+        "relation": "built_by",
+        "object": "Rājarāja Chola I",
+        "evidence": "In Thanjavur, Tamil Nadu, the imposing Bṛihadī ś hvara Temple (Fig. 3.20) was built by Rājarāja Chola I around 1010.",
+        "evidence_source": "reconstructed_prose",
+        "reconstructed_unit_id": "RU-050",
+        "reconstructed_unit_type": "body_prose",
+        "block_ids": [
+          "p17-b2",
+          "p17-b3",
+          "p17-b4",
+          "p17-b7",
+          "p17-b9"
+        ],
+        "page_range": [
+          17
+        ],
+        "figure_ref": null,
+        "temporal_scope": "around 1010",
+        "classification_method": "passive_built_by",
+        "derivation": {
+          "method": "passive_built_by",
+          "parenthetical_removed": [],
+          "stripped_prefix": "Thanjavur, Tamil Nadu",
+          "prefix_kind": "place",
+          "figure_refs_removed": [
+            "(Fig. 3.20)"
+          ]
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-070-001",
+        "fact_type": "definition",
+        "subject": "Corbelled",
+        "relation": "definition",
+        "object": "Constructed by stacking blocks as in a staircase pattern",
+        "evidence": "Corbelled: Constructed by stacking blocks as in a staircase pattern",
+        "evidence_source": "glossary",
+        "reconstructed_unit_id": "RU-070",
+        "reconstructed_unit_type": "glossary_definition",
+        "block_ids": [
+          "p24-b1",
+          "p24-b7"
+        ],
+        "page_range": [
+          24
+        ],
+        "figure_ref": null,
+        "temporal_scope": null,
+        "classification_method": "glossary_term_definition",
+        "derivation": {
+          "method": "glossary_term_definition",
+          "term": "Corbelled"
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-077-001",
+        "fact_type": "definition",
+        "subject": "Latticework",
+        "relation": "definition",
+        "object": "Open framework with criss-crossing or decorative designs",
+        "evidence": "Latticework: Open framework with criss-crossing or decorative designs.",
+        "evidence_source": "glossary",
+        "reconstructed_unit_id": "RU-077",
+        "reconstructed_unit_type": "glossary_definition",
+        "block_ids": [
+          "p26-b18",
+          "p26-b1",
+          "p26-b20",
+          "p26-b2",
+          "p26-b22",
+          "p26-b24",
+          "p26-b3",
+          "p26-b25",
+          "p26-b4"
+        ],
+        "page_range": [
+          26
+        ],
+        "figure_ref": null,
+        "temporal_scope": null,
+        "classification_method": "glossary_term_definition",
+        "derivation": {
+          "method": "glossary_term_definition",
+          "term": "Latticework"
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-077-002",
+        "fact_type": "entity_attribute",
+        "subject": "Latticework",
+        "relation": "attribute",
+        "object": "both functional (allowing ventilation) and aesthetic in design",
+        "evidence": "Here, it is both functional (allowing ventilation) and aesthetic in design.",
+        "evidence_source": "glossary",
+        "reconstructed_unit_id": "RU-077",
+        "reconstructed_unit_type": "glossary_definition",
+        "block_ids": [
+          "p26-b18",
+          "p26-b1",
+          "p26-b20",
+          "p26-b2",
+          "p26-b22",
+          "p26-b24",
+          "p26-b3",
+          "p26-b25",
+          "p26-b4"
+        ],
+        "page_range": [
+          26
+        ],
+        "figure_ref": null,
+        "temporal_scope": null,
+        "classification_method": "glossary_term_reference",
+        "derivation": {
+          "method": "glossary_term_reference",
+          "term": "Latticework",
+          "original_subject": "it"
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-111-001",
+        "fact_type": "entity_attribute",
+        "subject": "According to tradition, the first churches",
+        "relation": "built_in",
+        "object": "the coastal areas of Kerala",
+        "evidence": "According to tradition, the first churches were built in the coastal areas of Kerala.",
+        "evidence_source": "reconstructed_prose",
+        "reconstructed_unit_id": "RU-111",
+        "reconstructed_unit_type": "body_prose",
+        "block_ids": [
+          "p36-b4",
+          "p36-b5"
+        ],
+        "page_range": [
+          36
+        ],
+        "figure_ref": null,
+        "temporal_scope": null,
+        "classification_method": "passive_built_in",
+        "derivation": {
+          "method": "passive_built_in",
+          "parenthetical_removed": [],
+          "stripped_prefix": null,
+          "prefix_kind": null,
+          "figure_refs_removed": []
+        },
+        "validation_state": "verified"
+      },
+      {
+        "fact_id": "TF-REC-117-002",
+        "fact_type": "entity_attribute",
+        "subject": "The red sandstone facade",
+        "relation": "features",
+        "object": "Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style",
+        "evidence": "The red sandstone facade features Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style.",
+        "evidence_source": "caption",
+        "reconstructed_unit_id": "RU-117",
+        "reconstructed_unit_type": "caption",
+        "block_ids": [
+          "p38-b2",
+          "p38-b3",
+          "p38-b4"
+        ],
+        "page_range": [
+          38
+        ],
+        "figure_ref": "fig 3.52",
+        "temporal_scope": null,
+        "classification_method": "caption_explicit_claim_features",
+        "derivation": {
+          "method": "caption_explicit_claim_features",
+          "figure_refs_removed": []
+        },
+        "validation_state": "verified"
+      }
+    ],
+    "dedup_discarded": [
+      {
+        "discarded_fact_id": "TF-REC-124-001",
+        "kept_fact_id": "TF-REC-030-001",
+        "fact_key": "entity_attribute|leaning against a stupa|role|massive statue of a seated buddha in a teaching pose|positive|",
+        "discarded_unit_id": "RU-124",
+        "discarded_evidence_source": "cross_page_merged",
+        "kept_unit_id": "RU-030",
+        "reason": "duplicate_fact_key"
+      }
+    ]
+  },
+  "typed_facts_2c": [
+    {
+      "fact_id": "TF-REC-015-001",
+      "fact_type": "definition",
+      "subject": "Harappan architecture",
+      "relation": "definition",
+      "object": "the earliest known tradition of urban planning and construction in the Indian subcontinent",
+      "evidence": "Harappan architecture represents the earliest known tradition of urban planning and construction in the Indian subcontinent.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-015",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p6-b4",
+        "p6-b6",
+        "p6-b7",
+        "p6-b8",
+        "p6-b9",
+        "p6-b12",
+        "p6-b14"
+      ],
+      "page_range": [
+        6
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "definition_explicit",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-015-002",
+      "fact_type": "definition",
+      "subject": "Harappan architecture",
+      "relation": "definition",
+      "object": "carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation",
+      "evidence": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-015",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p6-b4",
+        "p6-b6",
+        "p6-b7",
+        "p6-b8",
+        "p6-b9",
+        "p6-b12",
+        "p6-b14"
+      ],
+      "page_range": [
+        6
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pronoun_resolution_same_unit",
+      "derivation": {
+        "method": "pronoun_resolution_same_unit",
+        "antecedent_text": "Harappan architecture",
+        "original_subject": "It",
+        "antecedent_segment_index": 1,
+        "parser_method": "definition_explicit"
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-019-001",
+      "fact_type": "entity_attribute",
+      "subject": "Mohenjo-daro (in present- day Sindh, Pakistan)",
+      "relation": "role",
+      "object": "extensive city",
+      "evidence": "Mohenjo-daro (in present- day Sindh, Pakistan) was an extensive city.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-019",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p7-b2",
+        "p7-b5"
+      ],
+      "page_range": [
+        7
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "entity_role",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-019-002",
+      "fact_type": "entity_attribute",
+      "subject": "used waters",
+      "relation": "role",
+      "object": "taken out of the city through an efficient network of drains",
+      "evidence": "Almost every home had a bathing area; used waters were taken out of the city through an efficient network of drains.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-019",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p7-b2",
+        "p7-b5"
+      ],
+      "page_range": [
+        7
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-023-001",
+      "fact_type": "entity_attribute",
+      "subject": "Stupas",
+      "relation": "role",
+      "object": "common in Jainism too",
+      "evidence": "Stupas are common in Jainism too.",
+      "evidence_source": "caption",
+      "reconstructed_unit_id": "RU-023",
+      "reconstructed_unit_type": "caption",
+      "block_ids": [
+        "p9-b1",
+        "p9-b2"
+      ],
+      "page_range": [
+        9
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-030-001",
+      "fact_type": "entity_attribute",
+      "subject": "leaning against a stupa",
+      "relation": "role",
+      "object": "massive statue of a seated Buddha in a teaching pose",
+      "evidence": "Ellora’s cave no. 10 (Fig. 3.12) is of enormous proportions; leaning against a stupa is a massive statue of a seated Buddha in a teaching pose.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-030",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p11-b1",
+        "p11-b4",
+        "p11-b6"
+      ],
+      "page_range": [
+        11
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "entity_role",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-032-001",
+      "fact_type": "entity_attribute",
+      "subject": "The Harmandir Sahib or Golden Temple in Punjab",
+      "relation": "role",
+      "object": "considered to be the holiest of the Sikh Shrines",
+      "evidence": "The Harmandir Sahib or Golden Temple in Punjab is considered to be the holiest of the Sikh Shrines.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-032",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p12-b2",
+        "p12-b3",
+        "p12-b4"
+      ],
+      "page_range": [
+        12
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-032-002",
+      "fact_type": "entity_attribute",
+      "subject": "The temple",
+      "relation": "launched_by",
+      "object": "Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus",
+      "evidence": "The temple was founded by Guru Ramdas Sahib the 4 th of the 10 th Sikh Gurus.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-032",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p12-b2",
+        "p12-b3",
+        "p12-b4"
+      ],
+      "page_range": [
+        12
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "entity_agent",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-039-001",
+      "fact_type": "entity_attribute",
+      "subject": "a tradition of stepwells",
+      "relation": "developed_in",
+      "object": "Gujarat and Rajasthan",
+      "evidence": "In classical times, a tradition of stepwells (vāvs or bāorīs) developed in Gujarat and Rajasthan, many of them engineering marvels as well as spectacular works of art.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-039",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p14-b3",
+        "p14-b4",
+        "p14-b5",
+        "p14-b6",
+        "p14-b7",
+        "p14-b8",
+        "p14-b9",
+        "p14-b10",
+        "p14-b11",
+        "p14-b12",
+        "p14-b13",
+        "p14-b14",
+        "p14-b15",
+        "p14-b16",
+        "p14-b17",
+        "p14-b18",
+        "p14-b19",
+        "p14-b21",
+        "p14-b22",
+        "p14-b23",
+        "p14-b24",
+        "p14-b25",
+        "p14-b26",
+        "p14-b27"
+      ],
+      "page_range": [
+        14
+      ],
+      "figure_ref": null,
+      "temporal_scope": "classical times",
+      "classification_method": "passive_developed_in",
+      "derivation": {
+        "method": "passive_developed_in",
+        "parenthetical_removed": [
+          "(vāvs or bāorīs)"
+        ],
+        "stripped_prefix": "classical times",
+        "prefix_kind": "temporal",
+        "figure_refs_removed": []
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-044-001",
+      "fact_type": "entity_attribute",
+      "subject": "The main alignment",
+      "relation": "role",
+      "object": "generally east-west, with the garbhagṛiha facing east",
+      "evidence": "The main alignment is generally east-west, with the garbhagṛiha facing east.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-044",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p15-b5",
+        "p15-b10",
+        "p15-b12"
+      ],
+      "page_range": [
+        15
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-050-001",
+      "fact_type": "entity_attribute",
+      "subject": "the imposing Bṛihadī ś hvara Temple",
+      "relation": "built_by",
+      "object": "Rājarāja Chola I",
+      "evidence": "In Thanjavur, Tamil Nadu, the imposing Bṛihadī ś hvara Temple (Fig. 3.20) was built by Rājarāja Chola I around 1010.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-050",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p17-b2",
+        "p17-b3",
+        "p17-b4",
+        "p17-b7",
+        "p17-b9"
+      ],
+      "page_range": [
+        17
+      ],
+      "figure_ref": null,
+      "temporal_scope": "around 1010",
+      "classification_method": "passive_built_by",
+      "derivation": {
+        "method": "passive_built_by",
+        "parenthetical_removed": [],
+        "stripped_prefix": "Thanjavur, Tamil Nadu",
+        "prefix_kind": "place",
+        "figure_refs_removed": [
+          "(Fig. 3.20)"
+        ]
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-056-001",
+      "fact_type": "membership",
+      "subject": "The Dilwara Temples at Mount Abu, Rajasthan",
+      "relation": "members",
+      "object": "group of five exquisitely carved Jain temples built between the 11 th, 13 th centuries by the Solanki or Chaulukya dynasty",
+      "evidence": "The Dilwara Temples at Mount Abu, Rajasthan, are a group of five exquisitely carved Jain temples built between the 11 th and 13 th centuries by the Solanki or Chaulukya dynasty.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-056",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p19-b4",
+        "p19-b6"
+      ],
+      "page_range": [
+        19
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "membership_list",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-065-001",
+      "fact_type": "entity_attribute",
+      "subject": "Mosques",
+      "relation": "role",
+      "object": "places of worship where followers of Islam gather for prayer",
+      "evidence": "Mosques are places of worship where followers of Islam gather for prayer.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-065",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p22-b3"
+      ],
+      "page_range": [
+        22
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-065-002",
+      "fact_type": "membership",
+      "subject": "The larger ones often",
+      "relation": "members",
+      "object": "one or several domes, minarets (towers) on either side of the domes, from where the muezzin makes his call to prayer",
+      "evidence": "The larger ones often include one or several domes, and minarets (towers) on either side of the domes, from where the muezzin makes his call to prayer.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-065",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p22-b3"
+      ],
+      "page_range": [
+        22
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "membership_list",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-066-001",
+      "fact_type": "entity_attribute",
+      "subject": "The Jama Masjid in Ahmedabad (Gujarat)",
+      "relation": "launched_by",
+      "object": "Sultan Ahmed Shah I",
+      "evidence": "The Jama Masjid in Ahmedabad (Gujarat) was built by Sultan Ahmed Shah I in the 15 th century.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-066",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p22-b4",
+        "p22-b6",
+        "p22-b7",
+        "p22-b8",
+        "p22-b9",
+        "p22-b10",
+        "p22-b11",
+        "p22-b12",
+        "p22-b13",
+        "p22-b14",
+        "p22-b15",
+        "p22-b16",
+        "p22-b17"
+      ],
+      "page_range": [
+        22
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "entity_agent",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-070-001",
+      "fact_type": "definition",
+      "subject": "Corbelled",
+      "relation": "definition",
+      "object": "Constructed by stacking blocks as in a staircase pattern",
+      "evidence": "Corbelled: Constructed by stacking blocks as in a staircase pattern",
+      "evidence_source": "glossary",
+      "reconstructed_unit_id": "RU-070",
+      "reconstructed_unit_type": "glossary_definition",
+      "block_ids": [
+        "p24-b1",
+        "p24-b7"
+      ],
+      "page_range": [
+        24
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "glossary_term_definition",
+      "derivation": {
+        "method": "glossary_term_definition",
+        "term": "Corbelled"
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-072-001",
+      "fact_type": "entity_attribute",
+      "subject": "The mosque",
+      "relation": "role",
+      "object": "made from red sandstone with white marble decorations, and has three large entrances",
+      "evidence": "The mosque is made from red sandstone with white marble decorations, and has three large entrances.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-072",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p24-b3",
+        "p24-b8",
+        "p24-b4",
+        "p24-b5"
+      ],
+      "page_range": [
+        24
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-072-002",
+      "fact_type": "numeric",
+      "subject": "people",
+      "relation": "numeric_value",
+      "object": "25,000 people",
+      "evidence": "The main prayer hall has three large domes and the red-stone courtyard can accommodate up to 25,000 people.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-072",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p24-b3",
+        "p24-b8",
+        "p24-b4",
+        "p24-b5"
+      ],
+      "page_range": [
+        24
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "numeric_quantity",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-077-001",
+      "fact_type": "definition",
+      "subject": "Latticework",
+      "relation": "definition",
+      "object": "Open framework with criss-crossing or decorative designs",
+      "evidence": "Latticework: Open framework with criss-crossing or decorative designs.",
+      "evidence_source": "glossary",
+      "reconstructed_unit_id": "RU-077",
+      "reconstructed_unit_type": "glossary_definition",
+      "block_ids": [
+        "p26-b18",
+        "p26-b1",
+        "p26-b20",
+        "p26-b2",
+        "p26-b22",
+        "p26-b24",
+        "p26-b3",
+        "p26-b25",
+        "p26-b4"
+      ],
+      "page_range": [
+        26
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "glossary_term_definition",
+      "derivation": {
+        "method": "glossary_term_definition",
+        "term": "Latticework"
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-077-002",
+      "fact_type": "entity_attribute",
+      "subject": "Latticework",
+      "relation": "attribute",
+      "object": "both functional (allowing ventilation) and aesthetic in design",
+      "evidence": "Here, it is both functional (allowing ventilation) and aesthetic in design.",
+      "evidence_source": "glossary",
+      "reconstructed_unit_id": "RU-077",
+      "reconstructed_unit_type": "glossary_definition",
+      "block_ids": [
+        "p26-b18",
+        "p26-b1",
+        "p26-b20",
+        "p26-b2",
+        "p26-b22",
+        "p26-b24",
+        "p26-b3",
+        "p26-b25",
+        "p26-b4"
+      ],
+      "page_range": [
+        26
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "glossary_term_reference",
+      "derivation": {
+        "method": "glossary_term_reference",
+        "term": "Latticework",
+        "original_subject": "it"
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-083-001",
+      "fact_type": "numeric",
+      "subject": "mined from Dholpur in Rajasthan, some",
+      "relation": "numeric_value",
+      "object": "60 km",
+      "evidence": "The fort’s name comes from the red sandstone (Fig. 3.35) that was mined from Dholpur in Rajasthan, some 60 km away.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-083",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p27-b2"
+      ],
+      "page_range": [
+        27
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "numeric_quantity",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-091-001",
+      "fact_type": "entity_attribute",
+      "subject": "The present structure",
+      "relation": "role",
+      "object": "built early in the 20 th century after the previous wooden palace was destroyed by fire",
+      "evidence": "The present structure was built early in the 20 th century after the previous wooden palace was destroyed by fire.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-091",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p29-b4"
+      ],
+      "page_range": [
+        29
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-091-002",
+      "fact_type": "entity_attribute",
+      "subject": "The palace",
+      "relation": "role",
+      "object": "illuminated by nearly 100,000 lights every Sunday evening and during festivals",
+      "evidence": "The palace is illuminated by nearly 100,000 lights every Sunday evening and during festivals.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-091",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p29-b4"
+      ],
+      "page_range": [
+        29
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "pattern_enriched",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-105-001",
+      "fact_type": "numeric",
+      "subject": "years",
+      "relation": "numeric_value",
+      "object": "4,500 years",
+      "evidence": "Some archaeologists have remarked that such a design was already in use in some of the larger Harappan houses some 4,500 years ago.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-105",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p34-b3"
+      ],
+      "page_range": [
+        34
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "numeric_quantity",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-111-001",
+      "fact_type": "entity_attribute",
+      "subject": "According to tradition, the first churches",
+      "relation": "built_in",
+      "object": "the coastal areas of Kerala",
+      "evidence": "According to tradition, the first churches were built in the coastal areas of Kerala.",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-111",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p36-b4",
+        "p36-b5"
+      ],
+      "page_range": [
+        36
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "passive_built_in",
+      "derivation": {
+        "method": "passive_built_in",
+        "parenthetical_removed": [],
+        "stripped_prefix": null,
+        "prefix_kind": null,
+        "figure_refs_removed": []
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-117-001",
+      "fact_type": "date",
+      "subject": "A general view of the Madras High Court",
+      "relation": "completion_year",
+      "object": "1892",
+      "evidence": "A general view of the Madras High Court, completed in 1892.",
+      "evidence_source": "caption",
+      "reconstructed_unit_id": "RU-117",
+      "reconstructed_unit_type": "caption",
+      "block_ids": [
+        "p38-b2",
+        "p38-b3",
+        "p38-b4"
+      ],
+      "page_range": [
+        38
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "date_event",
+      "derivation": null,
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-117-002",
+      "fact_type": "entity_attribute",
+      "subject": "The red sandstone facade",
+      "relation": "features",
+      "object": "Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style",
+      "evidence": "The red sandstone facade features Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style.",
+      "evidence_source": "caption",
+      "reconstructed_unit_id": "RU-117",
+      "reconstructed_unit_type": "caption",
+      "block_ids": [
+        "p38-b2",
+        "p38-b3",
+        "p38-b4"
+      ],
+      "page_range": [
+        38
+      ],
+      "figure_ref": "fig 3.52",
+      "temporal_scope": null,
+      "classification_method": "caption_explicit_claim_features",
+      "derivation": {
+        "method": "caption_explicit_claim_features",
+        "figure_refs_removed": []
+      },
+      "validation_state": "verified"
+    },
+    {
+      "fact_id": "TF-REC-120-001",
+      "fact_type": "entity_attribute",
+      "subject": "Indo-Saracenic architecture",
+      "relation": "role",
+      "object": "distinctive colonial style",
+      "evidence": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+      "evidence_source": "reconstructed_prose",
+      "reconstructed_unit_id": "RU-120",
+      "reconstructed_unit_type": "body_prose",
+      "block_ids": [
+        "p39-b2",
+        "p39-b3",
+        "p39-b4",
+        "p39-b5"
+      ],
+      "page_range": [
+        39
+      ],
+      "figure_ref": null,
+      "temporal_scope": null,
+      "classification_method": "entity_role",
+      "derivation": null,
+      "validation_state": "verified"
+    }
+  ]
+}
