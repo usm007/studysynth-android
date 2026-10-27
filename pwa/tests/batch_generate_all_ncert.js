@@ -224,6 +224,29 @@ async function batchProcess() {
   // batch can run outside the original Windows workstation; the
   // Windows default is kept for backward compatibility.
   const pdfDir = process.env.NCERT_PDF_DIR || 'C:/Users/Admin/Desktop/NCERT/8.2';
+  // Phase 2E opt-in shadow telemetry. This diagnostics-only branch runs
+  // BEFORE any bank-writing routine and returns before the production
+  // chapter loop, so telemetry mode can never write banks, the
+  // consolidated file, or the standard manifest: it writes only the
+  // Phase 2E diagnostic files via the shared harness module (the same
+  // module the standalone diagnostics script uses, so the two entry
+  // points cannot diverge). Without the flag, execution reaches the
+  // exact production path below, unchanged. The branch extracts page
+  // layouts itself through the same pdfParser.extractPageLayout call
+  // the production loop uses; it does not reuse production analysis
+  // output, because production analysis must not run in telemetry mode.
+  if (process.argv.includes('--shadow-telemetry')) {
+    console.log(`========================================================================`);
+    console.log(`STUDYSYNTH LITE — SHADOW TELEMETRY ONLY (PHASE 2E, DIAGNOSTICS-ONLY)`);
+    console.log(`========================================================================`);
+    console.log(`Source Folder: ${pdfDir}`);
+    console.log(`Diagnostics Output Folder: ${path.resolve(__dirname, '../../diagnostics')}`);
+    console.log(`No production banks, consolidated file, or standard manifest will be written.`);
+    const harness = require('../../diagnostics/tools/diagnose_corpus_phase2e.js');
+    await harness.runShadowTelemetry(pdfDir, path.resolve(__dirname, '../../diagnostics'));
+    console.log(`SHADOW TELEMETRY COMPLETE (no production output written).`);
+    return;
+  }
   // Staging output directory: preserves original question banks completely untouched
   const outDirStaged = path.resolve(__dirname, '../data/ncert_8_2_staged');
   fs.mkdirSync(outDirStaged, { recursive: true });

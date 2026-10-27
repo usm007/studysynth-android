@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "node tests/test_engine.js && node tests/test_integration.js && node tests/test_processing.js && node tests/test_revision.js && node tests/test_reasoning_v2.js && node tests/test_repair002.js && node tests/test_phase2a.js && node tests/test_phase2b.js && node tests/test_phase2c.js && node tests/test_phase2d.js",
+    "test": "node tests/test_engine.js && node tests/test_integration.js && node tests/test_processing.js && node tests/test_revision.js && node tests/test_reasoning_v2.js && node tests/test_repair002.js && node tests/test_phase2a.js && node tests/test_phase2b.js && node tests/test_phase2c.js && node tests/test_phase2d.js && node tests/test_phase2e.js",
     "benchmark": "node tests/benchmark_engine.js"
   },
   "keywords": [],

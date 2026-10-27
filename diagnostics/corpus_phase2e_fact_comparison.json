@@ -1,0 +1,3432 @@
+{
+  "version": "phase2e-1",
+  "baseline_commit": "5d96b38449d346d48c37983a80f70d9c9c1a7c1d",
+  "key_scheme": "fact_type|normalized_subject|normalized_relation|normalized_object|polarity|temporal_scope (strict; representation differences between the body-text layer and the reconstructed adapter appear as lost+new pairs, with pairing candidates listed separately for review, never as silent matches)",
+  "aggregate": {
+    "chapters_complete": 8,
+    "chapters_total": 8,
+    "missing_inputs": [],
+    "mismatched_inputs": [],
+    "comparison_complete": true,
+    "totals": {
+      "pages": 249,
+      "blocks": 3872,
+      "recon_units": 1024,
+      "baseline_layer_facts": 209,
+      "adapter_raw_facts": 317,
+      "adapter_unique_facts": 300,
+      "retained": 200,
+      "newly_recovered": 100,
+      "lost": 7,
+      "unparsed": 2747,
+      "duplicates_discarded": 17,
+      "heading_units_recovered": 4,
+      "artifact_blocks_excluded": 93
+    },
+    "facts_by_type_total": {
+      "definition": 31,
+      "causal": 22,
+      "entity_attribute": 158,
+      "numeric": 47,
+      "membership": 20,
+      "comparison": 19,
+      "date": 3
+    },
+    "facts_by_evidence_source_total": {
+      "glossary": 12,
+      "reconstructed_prose": 258,
+      "caption": 26,
+      "reconstructed_list": 2,
+      "cross_page_merged": 2
+    },
+    "unparsed_by_reason_total": {
+      "unsupported_pattern": 1771,
+      "interrogative_or_instruction": 289,
+      "fragment": 434,
+      "ambiguous_relation": 247,
+      "layout_relationship_unresolved": 5,
+      "furniture_contamination": 1
+    },
+    "method_counts_total": {
+      "glossary_term_definition": 11,
+      "causal_explicit": 5,
+      "pattern_enriched": 76,
+      "phase2e_boundary_reparse": 4,
+      "numeric_quantity": 47,
+      "entity_role": 26,
+      "entity_function": 11,
+      "pronoun_resolution_same_unit": 14,
+      "superlative_pattern": 3,
+      "membership_list": 20,
+      "caption_explicit_claim_features": 2,
+      "causal_makes_effect": 6,
+      "definition_explicit": 11,
+      "generic_relational_verb": 2,
+      "comparison_while": 13,
+      "causal_due_to": 1,
+      "definition_abbreviation": 8,
+      "date_event": 2,
+      "comparison_other_hand": 4,
+      "causal_because": 2,
+      "entity_agent": 3,
+      "passive_developed_in": 1,
+      "has_attribute": 6,
+      "offered_social_space": 1,
+      "relative_clause_attachment": 1,
+      "relative_clause_used_for": 1,
+      "temporal_scale_modest": 1,
+      "temporal_scale_grew": 1,
+      "passive_built_by": 1,
+      "renowned_for": 3,
+      "sketch_claim_date": 1,
+      "sketch_claim_maker": 1,
+      "glossary_term_reference": 1,
+      "passive_built_in": 2,
+      "causal_allows_infinitive": 3,
+      "causal_conditional": 2,
+      "entity_method": 1,
+      "comparison_directional": 1,
+      "comparison_whereas": 1
+    },
+    "boundary_reparse_by_rule_total": {
+      "R-BND-DASH": 2,
+      "R-BND-SEE": 1,
+      "R-BND-PERIOD": 1
+    },
+    "artifact_by_reason_total": {
+      "margin_label": 45,
+      "legend_block": 1,
+      "leading_artifact_run": 44,
+      "duplicate_label": 3
+    },
+    "all_deterministic": true,
+    "all_reconciled": true
+  },
+  "chapters": [
+    {
+      "chapter": "hees201",
+      "status": "complete",
+      "expected_sha256": "68f119b33395c16a5c63819596d46aacadde9a17aec5c4cf978d0b03e85a84a4",
+      "observed_sha256": "68f119b33395c16a5c63819596d46aacadde9a17aec5c4cf978d0b03e85a84a4",
+      "baseline_keys": 53,
+      "adapter_keys": 69,
+      "retained": 49,
+      "newly_recovered": 20,
+      "lost": 4,
+      "lost_facts": [
+        {
+          "fact_type": "entity_attribute",
+          "subject": "Earth on a flat surface",
+          "relation": "role",
+          "object": "called a map projection",
+          "evidence": "Earth on a flat surface is called a map projection.",
+          "key": "entity_attribute|earth on a flat surface|role|called a map projection|positive|"
+        },
+        {
+          "fact_type": "entity_attribute",
+          "subject": "The Suez Canal",
+          "relation": "role",
+          "object": "human-made passage (opened in 1869)",
+          "evidence": "The Suez Canal is a human-made passage (opened in 1869)",
+          "key": "entity_attribute|suez canal|role|human-made passage (opened in 1869)|positive|"
+        },
+        {
+          "fact_type": "membership",
+          "subject": "The varied landscapes, from the northern tundra and swamps to the fertile southern farmland",
+          "relation": "members",
+          "object": "parts of several countries",
+          "evidence": "It covers parts of several countries.",
+          "key": "membership|varied landscapes, from the northern tundra and swamps to the fertile southern farmland|members|parts of several countries|positive|"
+        },
+        {
+          "fact_type": "membership",
+          "subject": "The lakes",
+          "relation": "members",
+          "object": "several desert areas, among which is the Great Victoria Desert",
+          "evidence": "It comprises several desert areas, among which is the Great Victoria Desert.",
+          "key": "membership|lakes|members|several desert areas, among which is the great victoria desert|positive|"
+        }
+      ],
+      "representation_change_candidates": [
+        {
+          "lost": {
+            "fact_id": "TF-LITE-003",
+            "fact_type": "entity_attribute",
+            "subject": "Earth on a flat surface",
+            "relation": "role",
+            "object": "called a map projection",
+            "evidence": "Earth on a flat surface is called a map projection.",
+            "block_ids": [],
+            "temporal_scope": null,
+            "attribution": null,
+            "classification_method": "pattern_enriched",
+            "classification_rule_id": "phase2a-typed-v1",
+            "derivation": null,
+            "validation_state": "verified"
+          },
+          "candidate_new": {
+            "fact_id": "TF-REC-006-001",
+            "fact_type": "entity_attribute",
+            "subject": "The process of showing the Earth on a flat surface",
+            "relation": "role",
+            "object": "called a map projection",
+            "evidence": "The process of showing the Earth on a flat surface is called a map projection.",
+            "evidence_source": "reconstructed_prose",
+            "reconstructed_unit_id": "RU-006",
+            "block_ids": [
+              "p2-b10",
+              "p2-b11",
+              "p2-b13",
+              "p2-b15",
+              "p2-b17",
+              "p2-b18",
+              "p2-b19"
+            ],
+            "page_range": [
+              2
+            ],
+            "temporal_scope": null,
+            "attribution": null,
+            "classification_method": "pattern_enriched",
+            "classification_rule_id": "phase2a-typed-v1",
+            "derivation": null,
+            "validation_state": "verified"
+          }
+        },
+        {
+          "lost": {
+            "fact_id": "TF-LITE-010",
+            "fact_type": "entity_attribute",
+            "subject": "The Suez Canal",
+            "relation": "role",
+            "object": "human-made passage (opened in 1869)",
+            "evidence": "The Suez Canal is a human-made passage (opened in 1869)",
+            "block_ids": [],
+            "temporal_scope": null,
+            "attribution": null,
+            "classification_method": "entity_role",
+            "classification_rule_id": "phase2a-typed-v1",
+            "derivation": null,
+            "validation_state": "verified"
+          },
+          "candidate_new": {
+            "fact_id": "TF-REC-039-001",
+            "fact_type": "entity_attribute",
+            "subject": "The Suez Canal",
+            "relation": "role",
+            "object": "human-made passage (opened in 1869) connecting the Red Sea with the Mediterranean",
+            "evidence": "The Suez Canal is a human-made passage (opened in 1869) connecting the Red Sea with the Mediterranean, creating a waterway from the Indian Ocean to Europe.",
+            "evidence_source": "reconstructed_prose",
+            "reconstructed_unit_id": "RU-039",
+            "block_ids": [
+              "p9-b29",
+              "p9-b31",
+              "p9-b32"
+            ],
+            "page_range": [
+              9
+            ],
+            "temporal_scope": null,
+            "attribution": null,
+            "classification_method": "entity_role",
+            "classification_rule_id": "phase2a-typed-v1",
+            "derivation": null,
+            "validation_state": "verified"
+          }
+        }
+      ],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-003-001",
+          "fact_type": "definition",
+          "subject": "Cartographer",
+          "relation": "definition",
+          "object": "Person who draws or produces maps",
+          "evidence": "Cartographer: Person who draws or produces maps",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-003",
+          "block_ids": [
+            "p2-b1"
+          ],
+          "page_range": [
+            2
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Cartographer"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-004-001",
+          "fact_type": "definition",
+          "subject": "Oblate spheroid",
+          "relation": "definition",
+          "object": "A nearly spherical shape that bulges at the equator and is slightly flattened at the poles due to its rotation",
+          "evidence": "Oblate spheroid: A nearly spherical shape that bulges at the equator and is slightly flattened at the poles due to its rotation",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-004",
+          "block_ids": [
+            "p2-b4",
+            "p2-b12",
+            "p2-b14",
+            "p2-b5",
+            "p2-b16",
+            "p2-b6"
+          ],
+          "page_range": [
+            2
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Oblate spheroid"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-006-001",
+          "fact_type": "entity_attribute",
+          "subject": "The process of showing the Earth on a flat surface",
+          "relation": "role",
+          "object": "called a map projection",
+          "evidence": "The process of showing the Earth on a flat surface is called a map projection.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-006",
+          "block_ids": [
+            "p2-b10",
+            "p2-b11",
+            "p2-b13",
+            "p2-b15",
+            "p2-b17",
+            "p2-b18",
+            "p2-b19"
+          ],
+          "page_range": [
+            2
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-006-002",
+          "fact_type": "entity_attribute",
+          "subject": "Given below",
+          "relation": "role",
+          "object": "two projections",
+          "evidence": "Given below are two projections.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-006",
+          "block_ids": [
+            "p2-b10",
+            "p2-b11",
+            "p2-b13",
+            "p2-b15",
+            "p2-b17",
+            "p2-b18",
+            "p2-b19"
+          ],
+          "page_range": [
+            2
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-010-001",
+          "fact_type": "numeric",
+          "subject": "metres in length and weigh almost",
+          "relation": "numeric_value",
+          "object": "150,000 kg",
+          "evidence": "The blue whale, the largest mammal in the world, can be over 30 metres in length and weigh almost 150,000 kg.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-010",
+          "block_ids": [
+            "p4-b5",
+            "p4-b6"
+          ],
+          "page_range": [
+            4
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-032-002",
+          "fact_type": "entity_attribute",
+          "subject": "Reefs",
+          "relation": "function",
+          "object": "food and shelter for about one-quarter of all ocean species",
+          "evidence": "Reefs are among the Great Barrier Reef Great Barrier Reef most diverse ecosystems on Earth, often called the ‘rainforests of the sea’, as they provide food and shelter for about one-quarter of all ocean species, including fish, crabs, turtles, and sponges.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-032",
+          "block_ids": [
+            "p7-b3",
+            "p7-b4",
+            "p7-b6"
+          ],
+          "page_range": [
+            7
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-034-002",
+          "fact_type": "entity_attribute",
+          "subject": "coast, stretches over a length",
+          "relation": "role",
+          "object": "complex",
+          "evidence": "It is a complex, interconnected habitat housing hundreds of species of coral, thousands of species of fish and other sea animals.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-034",
+          "block_ids": [
+            "p8-b1",
+            "p8-b3",
+            "p8-b4",
+            "p8-b5"
+          ],
+          "page_range": [
+            8
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "coast, stretches over a length",
+            "original_subject": "It",
+            "antecedent_segment_index": 2,
+            "parser_method": "entity_role"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "fact_type": "entity_attribute",
+          "subject": "the shortest maritime route from India to Europe",
+          "relation": "superlative",
+          "object": "The Suez Canal",
+          "evidence": "The Suez Canal is the shortest maritime route from India to Europe.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-037",
+          "block_ids": [
+            "p9-b28"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "superlative_pattern",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-001",
+          "fact_type": "entity_attribute",
+          "subject": "The Suez Canal",
+          "relation": "role",
+          "object": "human-made passage (opened in 1869) connecting the Red Sea with the Mediterranean",
+          "evidence": "The Suez Canal is a human-made passage (opened in 1869) connecting the Red Sea with the Mediterranean, creating a waterway from the Indian Ocean to Europe.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p9-b29",
+            "p9-b31",
+            "p9-b32"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-053-001",
+          "fact_type": "entity_attribute",
+          "subject": "Physical map of Asia with some",
+          "relation": "features",
+          "object": "marked",
+          "evidence": "Physical map of Asia with some features marked",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-053",
+          "block_ids": [
+            "p11-b47"
+          ],
+          "page_range": [
+            11
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "caption_explicit_claim_features",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "caption_explicit_claim_features",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-077-001",
+          "fact_type": "definition",
+          "subject": "Tectonic",
+          "relation": "definition",
+          "object": "Geological forces related to the movement of the Earth’s crust",
+          "evidence": "Tectonic: Geological forces related to the movement of the Earth’s crust",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-077",
+          "block_ids": [
+            "p12-b9",
+            "p12-b2",
+            "p12-b10"
+          ],
+          "page_range": [
+            12
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Tectonic"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-083-001",
+          "fact_type": "numeric",
+          "subject": "steppe tortoise",
+          "relation": "numeric_value",
+          "object": "25 cm",
+          "evidence": "(2) The steppe tortoise is about 13–25 cm in size.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-083",
+          "block_ids": [
+            "p14-b3"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-086-003",
+          "fact_type": "numeric",
+          "subject": "Steppes",
+          "relation": "numeric_value",
+          "object": "8,000 km",
+          "evidence": "Steppe: A large area of flat We are now ready for better weather — we go north we unforested grassland, arrive at the Steppes. that has a The Steppes are spread for over 8,000 km west to east (see temperate climate with hot summers and cold winters, and reduce greenhouse effects over time.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-086",
+          "block_ids": [
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b20",
+            "p14-b21",
+            "p14-b22"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-092-003",
+          "fact_type": "entity_attribute",
+          "subject": "The range",
+          "relation": "role",
+          "object": "notable for its rugged slopes, caves, valleys, and forests",
+          "evidence": "The range is notable for its rugged slopes, caves, valleys, and forests.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-092",
+          "block_ids": [
+            "p15-b14",
+            "p15-b15",
+            "p15-b4",
+            "p15-b16",
+            "p15-b5"
+          ],
+          "page_range": [
+            15
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-100-001",
+          "fact_type": "entity_attribute",
+          "subject": "Valleys",
+          "relation": "function",
+          "object": "fertile soil, water, and transport routes that have nurtured some of the world’s earliest civilisations",
+          "evidence": "Valleys are carved by rivers and provide fertile soil, water, and transport routes that have nurtured some of the world’s earliest civilisations.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-100",
+          "block_ids": [
+            "p17-b3",
+            "p17-b5",
+            "p17-b6",
+            "p17-b7",
+            "p17-b9",
+            "p17-b18",
+            "p17-b19",
+            "p17-b30",
+            "p17-b31",
+            "p17-b32",
+            "p17-b34",
+            "p17-b38",
+            "p17-b39",
+            "p17-b40",
+            "p17-b44",
+            "p17-b47",
+            "p17-b48",
+            "p17-b50",
+            "p17-b51",
+            "p17-b52"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-100-002",
+          "fact_type": "membership",
+          "subject": "Valleys",
+          "relation": "members",
+          "object": "parts of several countries",
+          "evidence": "It covers parts of several countries.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-100",
+          "block_ids": [
+            "p17-b3",
+            "p17-b5",
+            "p17-b6",
+            "p17-b7",
+            "p17-b9",
+            "p17-b18",
+            "p17-b19",
+            "p17-b30",
+            "p17-b31",
+            "p17-b32",
+            "p17-b34",
+            "p17-b38",
+            "p17-b39",
+            "p17-b40",
+            "p17-b44",
+            "p17-b47",
+            "p17-b48",
+            "p17-b50",
+            "p17-b51",
+            "p17-b52"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "membership_list",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-100-003",
+          "fact_type": "definition",
+          "subject": "The plain",
+          "relation": "definition",
+          "object": "low-lying terrain, gentle rolling 500 1,000 km A I A I North Sea North Sea Baltic Baltic A A Sea Sea R R U U Rhine R",
+          "evidence": "The plain is characterised by low-lying terrain, gentle rolling 500 1,000 km A I A I North Sea North Sea Baltic Baltic A A Sea Sea R R U U Rhine R.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-100",
+          "block_ids": [
+            "p17-b3",
+            "p17-b5",
+            "p17-b6",
+            "p17-b7",
+            "p17-b9",
+            "p17-b18",
+            "p17-b19",
+            "p17-b30",
+            "p17-b31",
+            "p17-b32",
+            "p17-b34",
+            "p17-b38",
+            "p17-b39",
+            "p17-b40",
+            "p17-b44",
+            "p17-b47",
+            "p17-b48",
+            "p17-b50",
+            "p17-b51",
+            "p17-b52"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_explicit",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-127-001",
+          "fact_type": "numeric",
+          "subject": "The",
+          "relation": "numeric_value",
+          "object": "1,200 km",
+          "evidence": "(2) The 1,200 km long, crescent-shaped Alps photographed from space.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-127",
+          "block_ids": [
+            "p18-b2",
+            "p18-b4"
+          ],
+          "page_range": [
+            18
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-130-002",
+          "fact_type": "membership",
+          "subject": "Wildlife",
+          "relation": "members",
+          "object": "ibex, chamois, marmots, golden eagles, lynxes, wolves, brown bears",
+          "evidence": "Wildlife includes ibex, chamois, marmots, golden eagles, lynxes, wolves, and brown bears.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-130",
+          "block_ids": [
+            "p19-b1",
+            "p19-b3",
+            "p19-b4",
+            "p19-b5",
+            "p19-b6",
+            "p19-b7",
+            "p19-b8",
+            "p19-b9"
+          ],
+          "page_range": [
+            19
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "membership_list",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-182-001",
+          "fact_type": "entity_attribute",
+          "subject": "The Amazon River",
+          "relation": "flows_through",
+          "object": "the Amazon Rainforest in South America",
+          "evidence": "The Amazon River flows through the Amazon Rainforest in South America.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-182",
+          "block_ids": [
+            "p24-b9",
+            "p24-b4"
+          ],
+          "page_range": [
+            24
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "generic_relational_verb",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees202",
+      "status": "complete",
+      "expected_sha256": "5a02c626a57ba3222cf90204cbeb065b0d46ff081f117269a4bb212527b74eae",
+      "observed_sha256": "5a02c626a57ba3222cf90204cbeb065b0d46ff081f117269a4bb212527b74eae",
+      "baseline_keys": 33,
+      "adapter_keys": 43,
+      "retained": 33,
+      "newly_recovered": 10,
+      "lost": 0,
+      "lost_facts": [],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-034-001",
+          "fact_type": "definition",
+          "subject": "Seditious",
+          "relation": "definition",
+          "object": "Promoting sedition or rebellion against the authority of a state or monarch",
+          "evidence": "Seditious: Promoting sedition or rebellion against the authority of a state or monarch",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-034",
+          "block_ids": [
+            "p12-b8",
+            "p12-b1",
+            "p12-b9",
+            "p12-b2",
+            "p12-b10",
+            "p12-b3"
+          ],
+          "page_range": [
+            12
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Seditious"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-040-001",
+          "fact_type": "entity_attribute",
+          "subject": "One, as expected",
+          "relation": "role",
+          "object": "sharpened division between the two communities: most Muslim leaders ended up defending the partition",
+          "evidence": "One, as expected, was a sharpened division between the two communities: most Muslim leaders ended up defending the partition, perhaps attracted by Curzon’s promises for development in East Bengal and more administrative posts in the administration for Muslims.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-040",
+          "block_ids": [
+            "p13-b9",
+            "p13-b12"
+          ],
+          "page_range": [
+            13
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-059-001",
+          "fact_type": "numeric",
+          "subject": "years",
+          "relation": "numeric_value",
+          "object": "18 years",
+          "evidence": "While Prafulla shot himself before he could be caught, Khudiram, just 18 years old, was captured, put on trial and hanged a few months later.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-059",
+          "block_ids": [
+            "p20-b2",
+            "p20-b3",
+            "p20-b5",
+            "p20-b7"
+          ],
+          "page_range": [
+            20
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-060-001",
+          "fact_type": "entity_attribute",
+          "subject": "Tilak",
+          "relation": "role",
+          "object": "sentenced to be jailed in Mandalay (in Myanmar) for six years",
+          "evidence": "Tilak was sentenced to be jailed in Mandalay (in Myanmar) for six years.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-060",
+          "block_ids": [
+            "p21-b1"
+          ],
+          "page_range": [
+            21
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "phase2e_boundary_reparse",
+          "classification_rule_id": "phase2e-shadow-v1",
+          "derivation": {
+            "method": "phase2e_boundary_reparse",
+            "rule_id": "R-BND-DASH",
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-114-001",
+          "fact_type": "comparison",
+          "subject": "nearly all Congress leaders",
+          "relation": "comparison",
+          "object": "including Muslim leaders such as Maulana Azad and Abdul Ghaffar Khan, opposed the Two-Nation idea, insisting that Hindus and Muslims could live together and sort out their differences, Jinnah endorsed the idea of Pakistan",
+          "evidence": "While nearly all Congress leaders, including Muslim leaders such as Maulana Azad and Abdul Ghaffar Khan, opposed the Two-Nation idea, insisting that Hindus and Muslims could live together and sort out their differences, Jinnah endorsed the idea of Pakistan.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-114",
+          "block_ids": [
+            "p38-b3",
+            "p38-b6"
+          ],
+          "page_range": [
+            38
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "comparison_while",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-119-001",
+          "fact_type": "entity_attribute",
+          "subject": "A postage stamp honouring Aruna Asaf Ali helped",
+          "relation": "function",
+          "object": "secret resistance activities against British rule",
+          "evidence": "A postage stamp honouring Aruna Asaf Ali helped coordinate secret resistance activities against British rule.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-119",
+          "block_ids": [
+            "p41-b4",
+            "p41-b5",
+            "p41-b6"
+          ],
+          "page_range": [
+            41
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-138-001",
+          "fact_type": "entity_attribute",
+          "subject": "The ‘Do or Die’ call",
+          "relation": "role",
+          "object": "given by Mahatma Gandhi during the Non-Cooperation Movement in 1920",
+          "evidence": "The ‘Do or Die’ call was given by Mahatma Gandhi during the Non-Cooperation Movement in 1920.",
+          "evidence_source": "reconstructed_list",
+          "reconstructed_unit_id": "RU-138",
+          "block_ids": [
+            "p48-b1",
+            "p48-b2",
+            "p48-b5"
+          ],
+          "page_range": [
+            48
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-138-002",
+          "fact_type": "causal",
+          "subject": "Sir Stafford Cripps",
+          "relation": "causes",
+          "object": "Winston Churchill supported immediate independence for India",
+          "evidence": "Sir Stafford Cripps was sent to India in 1942 because Winston Churchill supported immediate independence for India.",
+          "evidence_source": "reconstructed_list",
+          "reconstructed_unit_id": "RU-138",
+          "block_ids": [
+            "p48-b1",
+            "p48-b2",
+            "p48-b5"
+          ],
+          "page_range": [
+            48
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "causal_because",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-143-001",
+          "fact_type": "entity_attribute",
+          "subject": "None of the modern disciplines",
+          "relation": "role",
+          "object": "major focus",
+          "evidence": "None of the modern disciplines were missing, but rootedness in Indian thoughts and values was a major focus.",
+          "evidence_source": "cross_page_merged",
+          "reconstructed_unit_id": "RU-143",
+          "block_ids": [
+            "p16-b7",
+            "p17-b1"
+          ],
+          "page_range": [
+            16,
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-147-003",
+          "fact_type": "definition",
+          "subject": "INA",
+          "relation": "definition",
+          "object": "Indian National Army",
+          "evidence": "Subhas Chandra Bose to Indonesia, Japan, and finally Singapore in 1943, where he formed the Indian National Army (INA) from Indian prisoners of war and volunteers, and declared the formation of the Azad Hind (‘free India’) government.",
+          "evidence_source": "cross_page_merged",
+          "reconstructed_unit_id": "RU-147",
+          "block_ids": [
+            "p39-b4",
+            "p40-b1"
+          ],
+          "page_range": [
+            39,
+            40
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_abbreviation",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees203",
+      "status": "complete",
+      "expected_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+      "observed_sha256": "547e9203b0a189d23e05a90e462b7ac0a00ac7412889dfcb20700f904e7871ec",
+      "baseline_keys": 16,
+      "adapter_keys": 40,
+      "retained": 16,
+      "newly_recovered": 24,
+      "lost": 0,
+      "lost_facts": [],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-015-001",
+          "fact_type": "definition",
+          "subject": "Harappan architecture",
+          "relation": "definition",
+          "object": "the earliest known tradition of urban planning and construction in the Indian subcontinent",
+          "evidence": "Harappan architecture represents the earliest known tradition of urban planning and construction in the Indian subcontinent.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-015",
+          "block_ids": [
+            "p6-b4",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b12",
+            "p6-b14"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_explicit",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-015-002",
+          "fact_type": "entity_attribute",
+          "subject": "Harappan architecture",
+          "relation": "characterised_by",
+          "object": "carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation",
+          "evidence": "It is characterised by carefully laid-out cities, standardised urban concepts, and an emphasis on drainage, water management, and civic organisation.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-015",
+          "block_ids": [
+            "p6-b4",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b12",
+            "p6-b14"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Harappan architecture",
+            "original_subject": "It",
+            "antecedent_segment_index": 1,
+            "parser_method": "definition_explicit",
+            "semantic_correction": "characterised_by_not_definition"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-032-003",
+          "fact_type": "entity_attribute",
+          "subject": "The gurudwara",
+          "relation": "role",
+          "object": "the place of worship of the Sikhs",
+          "evidence": "The gurudwara is the place of worship of the Sikhs.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-032",
+          "block_ids": [
+            "p12-b2",
+            "p12-b3",
+            "p12-b4"
+          ],
+          "page_range": [
+            12
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "phase2e_boundary_reparse",
+          "classification_rule_id": "phase2e-shadow-v1",
+          "derivation": {
+            "method": "phase2e_boundary_reparse",
+            "rule_id": "R-BND-PERIOD",
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-001",
+          "fact_type": "entity_attribute",
+          "subject": "a tradition of stepwells",
+          "relation": "developed_in",
+          "object": "Gujarat and Rajasthan",
+          "evidence": "In classical times, a tradition of stepwells (vāvs or bāorīs) developed in Gujarat and Rajasthan, many of them engineering marvels as well as spectacular works of art.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": "classical times",
+          "attribution": null,
+          "classification_method": "passive_developed_in",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "passive_developed_in",
+            "parenthetical_removed": [
+              "(vāvs or bāorīs)"
+            ],
+            "stripped_prefix": "classical times",
+            "prefix_kind": "temporal",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-002",
+          "fact_type": "entity_attribute",
+          "subject": "The stepwell at Rani ki Vav",
+          "relation": "has",
+          "object": "multiple pillared levels",
+          "evidence": "The stepwell at Rani ki Vav (Fig. 3.16) has multiple pillared levels and hundreds of magnificent statues.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": [
+              "(Fig. 3.16)"
+            ]
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-003",
+          "fact_type": "entity_attribute",
+          "subject": "The stepwell at Rani ki Vav",
+          "relation": "has",
+          "object": "hundreds of magnificent statues",
+          "evidence": "The stepwell at Rani ki Vav (Fig. 3.16) has multiple pillared levels and hundreds of magnificent statues.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": [
+              "(Fig. 3.16)"
+            ]
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-004",
+          "fact_type": "entity_attribute",
+          "subject": "stepwells",
+          "relation": "offered",
+          "object": "a social space where people could sit together, enjoy cooler temperatures and exchange all the news",
+          "evidence": "Besides harvesting and storing rainwater, stepwells offered a social space where people could sit together, enjoy cooler temperatures and exchange all the news.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "offered_social_space",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "offered_social_space",
+            "stripped_prefix": "Besides harvesting and storing rainwater"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-005",
+          "fact_type": "entity_attribute",
+          "subject": "Temples",
+          "relation": "had",
+          "object": "water reservoirs or pu ṣ hkariṇīs",
+          "evidence": "Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-based rituals.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "relative_clause_attachment",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "relative_clause_attachment",
+            "attached_to_them": true,
+            "frequency": "often"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-039-006",
+          "fact_type": "entity_attribute",
+          "subject": "water reservoirs or pu ṣ hkariṇīs",
+          "relation": "used_for",
+          "object": "water harvesting as well as water-based rituals",
+          "evidence": "Temples often had water reservoirs or pu ṣ hkariṇīs attached to them, which were used for water harvesting as well as water-based rituals.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-039",
+          "block_ids": [
+            "p14-b3",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b8",
+            "p14-b9",
+            "p14-b10",
+            "p14-b11",
+            "p14-b12",
+            "p14-b13",
+            "p14-b14",
+            "p14-b15",
+            "p14-b16",
+            "p14-b17",
+            "p14-b18",
+            "p14-b19",
+            "p14-b21",
+            "p14-b22",
+            "p14-b23",
+            "p14-b24",
+            "p14-b25",
+            "p14-b26",
+            "p14-b27"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "relative_clause_used_for",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "relative_clause_used_for",
+            "antecedent_text": "water reservoirs or pu ṣ hkariṇīs",
+            "frequency": "often"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-050-001",
+          "fact_type": "entity_attribute",
+          "subject": "temples",
+          "relation": "attribute",
+          "object": "modest in size",
+          "evidence": "Until the 8 th or 9 th century, temples were modest in size.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": "until the 8th or 9th century",
+          "attribution": null,
+          "classification_method": "temporal_scale_modest",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "temporal_scale_modest"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-050-002",
+          "fact_type": "entity_attribute",
+          "subject": "temples",
+          "relation": "attribute",
+          "object": "grew in scale",
+          "evidence": "From the 10 th century onward, in different parts of India they grew in scale and began incorporating multiple shrines, amenities, and enclosures (prākāras), culminating in vast complexes.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": "from the 10th century onward",
+          "attribution": null,
+          "classification_method": "temporal_scale_grew",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "temporal_scale_grew",
+            "pronoun_resolution": {
+              "antecedent_text": "temples",
+              "original_subject": "they",
+              "antecedent_segment_index": 0
+            }
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-050-003",
+          "fact_type": "entity_attribute",
+          "subject": "the imposing Bṛihadī ś hvara Temple",
+          "relation": "built_by",
+          "object": "Rājarāja Chola I",
+          "evidence": "In Thanjavur, Tamil Nadu, the imposing Bṛihadī ś hvara Temple (Fig. 3.20) was built by Rājarāja Chola I around 1010.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": "around 1010",
+          "attribution": null,
+          "classification_method": "passive_built_by",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "passive_built_by",
+            "parenthetical_removed": [],
+            "stripped_prefix": "Thanjavur, Tamil Nadu",
+            "prefix_kind": "place",
+            "figure_refs_removed": [
+              "(Fig. 3.20)"
+            ]
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-050-004",
+          "fact_type": "entity_attribute",
+          "subject": "the imposing Bṛihadī ś hvara Temple",
+          "relation": "renowned_for",
+          "object": "its vast maṇḍapas, a huge vimāna, over 60 metres high, and a massive Nandi (sacred bull) statue carved from a single stone, which sits in a pavilion facing the main shrine",
+          "evidence": "It is renowned for its vast maṇḍapas, a huge vimāna, over 60 metres high, and a massive Nandi (sacred bull) statue carved from a single stone, which sits in a pavilion facing the main shrine.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-050",
+          "block_ids": [
+            "p17-b2",
+            "p17-b3",
+            "p17-b4",
+            "p17-b7",
+            "p17-b9"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "renowned_for",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "renowned_for",
+            "figure_refs_removed": [],
+            "pronoun_resolution": {
+              "antecedent_text": "the imposing Bṛihadī ś hvara Temple",
+              "original_subject": "It",
+              "antecedent_segment_index": 3
+            }
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-064-001",
+          "fact_type": "date",
+          "subject": "A sketch",
+          "relation": "made_in",
+          "object": "1809",
+          "evidence": "A sketch made in 1809 by a British army officer shows the mosque’s full-size minarets.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-064",
+          "block_ids": [
+            "p22-b19",
+            "p22-b20"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "sketch_claim_date",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "sketch_claim_date",
+            "mosque_unbound": true
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-064-002",
+          "fact_type": "entity_attribute",
+          "subject": "A sketch",
+          "relation": "made_by",
+          "object": "a British army officer",
+          "evidence": "A sketch made in 1809 by a British army officer shows the mosque’s full-size minarets.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-064",
+          "block_ids": [
+            "p22-b19",
+            "p22-b20"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "sketch_claim_maker",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "sketch_claim_maker",
+            "mosque_unbound": true
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-066-001",
+          "fact_type": "entity_attribute",
+          "subject": "The Jama Masjid in Ahmedabad (Gujarat)",
+          "relation": "launched_by",
+          "object": "Sultan Ahmed Shah I",
+          "evidence": "The Jama Masjid in Ahmedabad (Gujarat) was built by Sultan Ahmed Shah I in the 15 th century.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-066",
+          "block_ids": [
+            "p22-b4",
+            "p22-b6",
+            "p22-b7",
+            "p22-b8",
+            "p22-b9",
+            "p22-b10",
+            "p22-b11",
+            "p22-b12",
+            "p22-b13",
+            "p22-b14",
+            "p22-b15",
+            "p22-b16",
+            "p22-b17"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_agent",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-070-001",
+          "fact_type": "definition",
+          "subject": "Corbelled",
+          "relation": "definition",
+          "object": "Constructed by stacking blocks as in a staircase pattern",
+          "evidence": "Corbelled: Constructed by stacking blocks as in a staircase pattern",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-070",
+          "block_ids": [
+            "p24-b1",
+            "p24-b7"
+          ],
+          "page_range": [
+            24
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Corbelled"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-076-001",
+          "fact_type": "definition",
+          "subject": "Latticework",
+          "relation": "definition",
+          "object": "Open framework with criss-crossing or decorative designs",
+          "evidence": "Latticework: Open framework with criss-crossing or decorative designs.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-076",
+          "block_ids": [
+            "p26-b18",
+            "p26-b1",
+            "p26-b20",
+            "p26-b2",
+            "p26-b22",
+            "p26-b24",
+            "p26-b3",
+            "p26-b25",
+            "p26-b4"
+          ],
+          "page_range": [
+            26
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Latticework"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-076-002",
+          "fact_type": "entity_attribute",
+          "subject": "Latticework",
+          "relation": "attribute",
+          "object": "both functional (allowing ventilation) and aesthetic in design",
+          "evidence": "Here, it is both functional (allowing ventilation) and aesthetic in design.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-076",
+          "block_ids": [
+            "p26-b18",
+            "p26-b1",
+            "p26-b20",
+            "p26-b2",
+            "p26-b22",
+            "p26-b24",
+            "p26-b3",
+            "p26-b25",
+            "p26-b4"
+          ],
+          "page_range": [
+            26
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_reference",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_reference",
+            "term": "Latticework",
+            "original_subject": "it"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-090-003",
+          "fact_type": "entity_attribute",
+          "subject": "The palace",
+          "relation": "renowned_for",
+          "object": "its intricately carved wooden doors, ornate ceiling paintings, stained- glass windows, and the spectacular golden throne (singh ā sana) displayed during the Dasara festival",
+          "evidence": "The palace is renowned for its intricately carved wooden doors, ornate ceiling paintings, stained- glass windows, and the spectacular golden throne (singh ā sana) displayed during the Dasara festival.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-090",
+          "block_ids": [
+            "p29-b4"
+          ],
+          "page_range": [
+            29
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "renowned_for",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "renowned_for",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-110-001",
+          "fact_type": "entity_attribute",
+          "subject": "the first churches",
+          "relation": "built_in",
+          "object": "the coastal areas of Kerala",
+          "evidence": "According to tradition, the first churches were built in the coastal areas of Kerala.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-110",
+          "block_ids": [
+            "p36-b4",
+            "p36-b5"
+          ],
+          "page_range": [
+            36
+          ],
+          "temporal_scope": null,
+          "attribution": "According to tradition",
+          "classification_method": "passive_built_in",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "passive_built_in",
+            "parenthetical_removed": [],
+            "stripped_prefix": null,
+            "prefix_kind": null,
+            "figure_refs_removed": [],
+            "attribution": "According to tradition"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-116-001",
+          "fact_type": "date",
+          "subject": "A general view of the Madras High Court",
+          "relation": "completion_year",
+          "object": "1892",
+          "evidence": "A general view of the Madras High Court, completed in 1892.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-116",
+          "block_ids": [
+            "p38-b2",
+            "p38-b3",
+            "p38-b4"
+          ],
+          "page_range": [
+            38
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "date_event",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-116-002",
+          "fact_type": "entity_attribute",
+          "subject": "The red sandstone facade",
+          "relation": "features",
+          "object": "Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style",
+          "evidence": "The red sandstone facade features Islamic arches and intricate screens alongside carvings and pillars in Hindu temple style.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-116",
+          "block_ids": [
+            "p38-b2",
+            "p38-b3",
+            "p38-b4"
+          ],
+          "page_range": [
+            38
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "caption_explicit_claim_features",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "caption_explicit_claim_features",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-119-001",
+          "fact_type": "entity_attribute",
+          "subject": "Indo-Saracenic architecture",
+          "relation": "role",
+          "object": "distinctive colonial style",
+          "evidence": "Indo-Saracenic architecture is a distinctive colonial style that flourished in India during the British Raj (mid-19 th to early 20 th century).",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-119",
+          "block_ids": [
+            "p39-b2",
+            "p39-b3",
+            "p39-b4",
+            "p39-b5"
+          ],
+          "page_range": [
+            39
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees204",
+      "status": "complete",
+      "expected_sha256": "87f5e404e8c2dbf6c95612068ef78108653946b761ebf62b4f4bdd8825845184",
+      "observed_sha256": "87f5e404e8c2dbf6c95612068ef78108653946b761ebf62b4f4bdd8825845184",
+      "baseline_keys": 28,
+      "adapter_keys": 30,
+      "retained": 27,
+      "newly_recovered": 3,
+      "lost": 1,
+      "lost_facts": [
+        {
+          "fact_type": "membership",
+          "subject": "Governments",
+          "relation": "members",
+          "object": "access to water fountains, public pools, even restaurants",
+          "evidence": "This included access to water fountains, public pools, and even restaurants.",
+          "key": "membership|governments|members|access to water fountains, public pools, even restaurants|positive|"
+        }
+      ],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-033-002",
+          "fact_type": "entity_attribute",
+          "subject": "The High Court",
+          "relation": "function",
+          "object": "that a High Court Judge should be a citizen of India, and must have held a judicial office in India, or been an advocate of a High Court or more than one High Court for ten years",
+          "evidence": "It provides that a High Court Judge should be a citizen of India, and must have held a judicial office in India, or been an advocate of a High Court or more than one High Court for ten years.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-033",
+          "block_ids": [
+            "p11-b30"
+          ],
+          "page_range": [
+            11
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "The High Court",
+            "original_subject": "It",
+            "antecedent_segment_index": 0,
+            "parser_method": "entity_function"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-035-001",
+          "fact_type": "definition",
+          "subject": "Tribunal",
+          "relation": "definition",
+          "object": "A committee or body established to settle certain types of disputes",
+          "evidence": "Tribunal: A committee or body established to settle certain types of disputes.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-035",
+          "block_ids": [
+            "p12-b12",
+            "p12-b1",
+            "p12-b13",
+            "p12-b2",
+            "p12-b14"
+          ],
+          "page_range": [
+            12
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Tribunal"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-046-001",
+          "fact_type": "membership",
+          "subject": "called litigants",
+          "relation": "members",
+          "object": "person who sues, person who gets sued",
+          "evidence": "The person who sues and the person who gets sued are both called litigants.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-046",
+          "block_ids": [
+            "p14-b11",
+            "p14-b1"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "membership_list",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees205",
+      "status": "complete",
+      "expected_sha256": "4567ca3602ac05a7b45cf78e21528a66fd0bc380830561209d767e777f11ac28",
+      "observed_sha256": "4567ca3602ac05a7b45cf78e21528a66fd0bc380830561209d767e777f11ac28",
+      "baseline_keys": 22,
+      "adapter_keys": 26,
+      "retained": 21,
+      "newly_recovered": 5,
+      "lost": 1,
+      "lost_facts": [
+        {
+          "fact_type": "membership",
+          "subject": "Not every resident of a country",
+          "relation": "members",
+          "object": "right to equality, right to freedom of speech and expression, right to freedom of religion, right to life and dignity, right to education",
+          "evidence": "These include the right to equality, the right to freedom of speech and expression, the right to freedom of religion, the right to life and dignity, and the right to education.",
+          "key": "membership|not every resident of a country|members|right to equality, right to freedom of speech and expression, right to freedom of religion, right to life and dignity, right to education|positive|"
+        }
+      ],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-028-001",
+          "fact_type": "entity_attribute",
+          "subject": "The Beti Bachao Beti Padhao campaign",
+          "relation": "function",
+          "object": "support",
+          "evidence": "The Beti Bachao Beti Padhao campaign was to build awareness in society as well as to provide support to girls’ education.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-028",
+          "block_ids": [
+            "p7-b10",
+            "p7-b1",
+            "p7-b11",
+            "p7-b2",
+            "p7-b12",
+            "p7-b3",
+            "p7-b13",
+            "p7-b4"
+          ],
+          "page_range": [
+            7
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-028-003",
+          "fact_type": "causal",
+          "subject": "Right to freedom",
+          "relation": "causes",
+          "object": "people to express themselves, move freely, and choose how they want to live and work",
+          "evidence": "It allows people to express themselves, move freely, and choose how they want to live and work.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-028",
+          "block_ids": [
+            "p7-b10",
+            "p7-b1",
+            "p7-b11",
+            "p7-b2",
+            "p7-b12",
+            "p7-b3",
+            "p7-b13",
+            "p7-b4"
+          ],
+          "page_range": [
+            7
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Right to freedom",
+            "original_subject": "It",
+            "antecedent_segment_index": 5,
+            "parser_method": "causal_allows_infinitive"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-031-002",
+          "fact_type": "definition",
+          "subject": "Right to life",
+          "relation": "definition",
+          "object": "that everyone has the right not only to live, but to live with dignity",
+          "evidence": "It means that everyone has the right not only to live, but to live with dignity.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-031",
+          "block_ids": [
+            "p8-b5"
+          ],
+          "page_range": [
+            8
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Right to life",
+            "original_subject": "It",
+            "antecedent_segment_index": 0,
+            "parser_method": "definition_explicit"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-037-001",
+          "fact_type": "definition",
+          "subject": "Right against exploitation Exploitation",
+          "relation": "definition",
+          "object": "taking unfair advantage of others, often by denying them basic respect, liberty and rights",
+          "evidence": "Right against exploitation Exploitation means taking unfair advantage of others, often by denying them basic respect, liberty and rights.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-037",
+          "block_ids": [
+            "p9-b1",
+            "p9-b3",
+            "p9-b4",
+            "p9-b5",
+            "p9-b6",
+            "p9-b7",
+            "p9-b10"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_explicit",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-063-006",
+          "fact_type": "entity_attribute",
+          "subject": "Duties",
+          "relation": "role",
+          "object": "not opposites but go together",
+          "evidence": "They are not opposites but go together.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-063",
+          "block_ids": [
+            "p17-b5"
+          ],
+          "page_range": [
+            17
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Duties",
+            "original_subject": "They",
+            "antecedent_segment_index": 1,
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees206",
+      "status": "complete",
+      "expected_sha256": "832a4ee039e5d79c61c4259e38593378ed4f295699df864bdffc599a6562317f",
+      "observed_sha256": "832a4ee039e5d79c61c4259e38593378ed4f295699df864bdffc599a6562317f",
+      "baseline_keys": 16,
+      "adapter_keys": 26,
+      "retained": 16,
+      "newly_recovered": 10,
+      "lost": 0,
+      "lost_facts": [],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-005-001",
+          "fact_type": "numeric",
+          "subject": "years",
+          "relation": "numeric_value",
+          "object": "64 years",
+          "evidence": "Working-age population: Individuals between the ages of 15 and 64 years who are generally considered Demography helps to better understand the people living in a region.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-005",
+          "block_ids": [
+            "p2-b25",
+            "p2-b6",
+            "p2-b27",
+            "p2-b28",
+            "p2-b29",
+            "p2-b30",
+            "p2-b31",
+            "p2-b32",
+            "p2-b33",
+            "p2-b34",
+            "p2-b35",
+            "p2-b36",
+            "p2-b37"
+          ],
+          "page_range": [
+            2
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-019-002",
+          "fact_type": "entity_attribute",
+          "subject": "01 02 Fertility rate Birth rate The birth rate",
+          "relation": "function",
+          "object": "the The fertility rate is the average number number of individuals born during of children a woman would have in her a specified period, usually stated lifetime. as the total number of live human births per 1,000 population in a year",
+          "evidence": "01 02 Fertility rate Birth rate The birth rate measures the The fertility rate is the average number number of individuals born during of children a woman would have in her a specified period, usually stated lifetime. as the total number of live human births per 1,000 population in a year.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-019",
+          "block_ids": [
+            "p6-b5",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b10",
+            "p6-b11",
+            "p6-b12",
+            "p6-b13",
+            "p6-b14",
+            "p6-b15",
+            "p6-b16",
+            "p6-b17",
+            "p6-b18",
+            "p6-b19",
+            "p6-b20",
+            "p6-b21",
+            "p6-b22",
+            "p6-b23",
+            "p6-b24",
+            "p6-b25",
+            "p6-b26"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-019-003",
+          "fact_type": "definition",
+          "subject": "03 04 Migration Death or mortality rate Migration",
+          "relation": "definition",
+          "object": "the movement of The death rate, also known as the people from one place to another, could mortality rate, is the number of deaths be within or outside the country. in a population during a year, typically expressed as deaths per 1,000 people",
+          "evidence": "03 04 Migration Death or mortality rate Migration refers to the movement of The death rate, also known as the people from one place to another, could mortality rate, is the number of deaths be within or outside the country. in a population during a year, typically expressed as deaths per 1,000 people.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-019",
+          "block_ids": [
+            "p6-b5",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b10",
+            "p6-b11",
+            "p6-b12",
+            "p6-b13",
+            "p6-b14",
+            "p6-b15",
+            "p6-b16",
+            "p6-b17",
+            "p6-b18",
+            "p6-b19",
+            "p6-b20",
+            "p6-b21",
+            "p6-b22",
+            "p6-b23",
+            "p6-b24",
+            "p6-b25",
+            "p6-b26"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_explicit",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-019-004",
+          "fact_type": "numeric",
+          "subject": "people",
+          "relation": "numeric_value",
+          "object": "1,000 people",
+          "evidence": "03 04 Migration Death or mortality rate Migration refers to the movement of The death rate, also known as the people from one place to another, could mortality rate, is the number of deaths be within or outside the country. in a population during a year, typically expressed as deaths per 1,000 people.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-019",
+          "block_ids": [
+            "p6-b5",
+            "p6-b6",
+            "p6-b7",
+            "p6-b8",
+            "p6-b9",
+            "p6-b10",
+            "p6-b11",
+            "p6-b12",
+            "p6-b13",
+            "p6-b14",
+            "p6-b15",
+            "p6-b16",
+            "p6-b17",
+            "p6-b18",
+            "p6-b19",
+            "p6-b20",
+            "p6-b21",
+            "p6-b22",
+            "p6-b23",
+            "p6-b24",
+            "p6-b25",
+            "p6-b26"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-025-001",
+          "fact_type": "definition",
+          "subject": "Kinship networks",
+          "relation": "definition",
+          "object": "An interconnected web of social relationship through blood, marriage, and adoption",
+          "evidence": "Kinship networks: An interconnected web of social relationship through blood, marriage, and adoption.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-025",
+          "block_ids": [
+            "p8-b9",
+            "p8-b10",
+            "p8-b1",
+            "p8-b11",
+            "p8-b2",
+            "p8-b12"
+          ],
+          "page_range": [
+            8
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Kinship networks"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-029-001",
+          "fact_type": "numeric",
+          "subject": "Year",
+          "relation": "numeric_value",
+          "object": "2023 Year",
+          "evidence": "4.0 India Japan Spain 3.5 3.0 2.5 2.0 1.5 Fertility Rate 1.0 0.5 0.0 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 Year Many factors have contributed to falling fertility and birth rates.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-029",
+          "block_ids": [
+            "p9-b1",
+            "p9-b2",
+            "p9-b3",
+            "p9-b4",
+            "p9-b5",
+            "p9-b6",
+            "p9-b7",
+            "p9-b8",
+            "p9-b9",
+            "p9-b10",
+            "p9-b11",
+            "p9-b12",
+            "p9-b21",
+            "p9-b13",
+            "p9-b23",
+            "p9-b15"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-045-003",
+          "fact_type": "entity_attribute",
+          "subject": "Sex ratio",
+          "relation": "function",
+          "object": "measure gender balance within the population and reflects the country’s 1000 943 socio-economic and cultural dynamics",
+          "evidence": "It is used to measure gender balance within the population and reflects the country’s 1000 943 socio-economic and cultural dynamics.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-045",
+          "block_ids": [
+            "p14-b1",
+            "p14-b2",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b10"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Sex ratio",
+            "original_subject": "It",
+            "antecedent_segment_index": 1,
+            "parser_method": "entity_function"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-045-004",
+          "fact_type": "entity_attribute",
+          "subject": "Sex ratio",
+          "relation": "function",
+          "object": "gender balance within the population and reflects the country’s 1000 943 socio-economic and cultural dynamics",
+          "evidence": "It is used to measure gender balance within the population and reflects the country’s 1000 943 socio-economic and cultural dynamics.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-045",
+          "block_ids": [
+            "p14-b1",
+            "p14-b2",
+            "p14-b4",
+            "p14-b5",
+            "p14-b6",
+            "p14-b7",
+            "p14-b10"
+          ],
+          "page_range": [
+            14
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Sex ratio",
+            "original_subject": "It",
+            "antecedent_segment_index": 1,
+            "parser_method": "entity_function"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-054-001",
+          "fact_type": "definition",
+          "subject": "The base",
+          "relation": "definition",
+          "object": "families are having fewer children than before",
+          "evidence": "The base has become narrower, which means families are having fewer children than before.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-054",
+          "block_ids": [
+            "p16-b2",
+            "p16-b35",
+            "p16-b38",
+            "p16-b39",
+            "p16-b3",
+            "p16-b4",
+            "p16-b40",
+            "p16-b57",
+            "p16-b8",
+            "p16-b9",
+            "p16-b10",
+            "p16-b58",
+            "p16-b59",
+            "p16-b60",
+            "p16-b61",
+            "p16-b62",
+            "p16-b16",
+            "p16-b63",
+            "p16-b17",
+            "p16-b18",
+            "p16-b66",
+            "p16-b24",
+            "p16-b25",
+            "p16-b26",
+            "p16-b27",
+            "p16-b68",
+            "p16-b69",
+            "p16-b70",
+            "p16-b71",
+            "p16-b72",
+            "p16-b28",
+            "p16-b29",
+            "p16-b30",
+            "p16-b31",
+            "p16-b74",
+            "p16-b75",
+            "p16-b76",
+            "p16-b77"
+          ],
+          "page_range": [
+            16
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_explicit",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-054-002",
+          "fact_type": "numeric",
+          "subject": "years",
+          "relation": "numeric_value",
+          "object": "60 years",
+          "evidence": "The middle part (working-age group) has become much wider, showing a large number of people between 15 and 60 years — this is called India’s demographic dividend, i.e., there The top part is slowly getting wider too, as people live longer because of better healthcare, nutrition, and living conditions.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-054",
+          "block_ids": [
+            "p16-b2",
+            "p16-b35",
+            "p16-b38",
+            "p16-b39",
+            "p16-b3",
+            "p16-b4",
+            "p16-b40",
+            "p16-b57",
+            "p16-b8",
+            "p16-b9",
+            "p16-b10",
+            "p16-b58",
+            "p16-b59",
+            "p16-b60",
+            "p16-b61",
+            "p16-b62",
+            "p16-b16",
+            "p16-b63",
+            "p16-b17",
+            "p16-b18",
+            "p16-b66",
+            "p16-b24",
+            "p16-b25",
+            "p16-b26",
+            "p16-b27",
+            "p16-b68",
+            "p16-b69",
+            "p16-b70",
+            "p16-b71",
+            "p16-b72",
+            "p16-b28",
+            "p16-b29",
+            "p16-b30",
+            "p16-b31",
+            "p16-b74",
+            "p16-b75",
+            "p16-b76",
+            "p16-b77"
+          ],
+          "page_range": [
+            16
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "numeric_quantity",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees207",
+      "status": "complete",
+      "expected_sha256": "0ed56f0852d29059962d3d581bd52fb340c4a319fe21c09bb32ceaa2bc9eb540",
+      "observed_sha256": "0ed56f0852d29059962d3d581bd52fb340c4a319fe21c09bb32ceaa2bc9eb540",
+      "baseline_keys": 19,
+      "adapter_keys": 27,
+      "retained": 18,
+      "newly_recovered": 9,
+      "lost": 1,
+      "lost_facts": [
+        {
+          "fact_type": "membership",
+          "subject": "Spaces",
+          "relation": "members",
+          "object": "data on various pollutants like particulate matter (PM2.5, PM10), carbon monoxide, sulfur dioxide, etc, into a single, easy- to-understand value",
+          "evidence": "It includes data on various pollutants like particulate matter (PM2.5,PM10), carbon monoxide, sulfur dioxide, etc., into a single, easy- to-understand value.",
+          "key": "membership|spaces|members|data on various pollutants like particulate matter (pm2.5, pm10), carbon monoxide, sulfur dioxide, etc, into a single, easy- to-understand value|positive|"
+        }
+      ],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-035-001",
+          "fact_type": "entity_attribute",
+          "subject": "The Bandra Kurla Complex, Mumbai",
+          "relation": "has",
+          "object": "banks, corporate offices",
+          "evidence": "The Bandra Kurla Complex, Mumbai, has banks, corporate offices, and financial institutions",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-035",
+          "block_ids": [
+            "p9-b2",
+            "p9-b4"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-035-002",
+          "fact_type": "entity_attribute",
+          "subject": "The Bandra Kurla Complex, Mumbai",
+          "relation": "has",
+          "object": "financial institutions",
+          "evidence": "The Bandra Kurla Complex, Mumbai, has banks, corporate offices, and financial institutions",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-035",
+          "block_ids": [
+            "p9-b2",
+            "p9-b4"
+          ],
+          "page_range": [
+            9
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-038-001",
+          "fact_type": "entity_attribute",
+          "subject": "A large variety of goods",
+          "relation": "role",
+          "object": "sold here, and pilgrims visit to buy souvenirs and the famous Banarasi sarees",
+          "evidence": "A large variety of goods is sold here, and pilgrims visit to buy souvenirs and the famous Banarasi sarees.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-038",
+          "block_ids": [
+            "p10-b7",
+            "p10-b8"
+          ],
+          "page_range": [
+            10
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-041-001",
+          "fact_type": "definition",
+          "subject": "BPO",
+          "relation": "definition",
+          "object": "Business Process Outsourcing",
+          "evidence": "Business Process Outsourcing (BPO): A company hiring another service provider to do specific business functions or processes of their business.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-041",
+          "block_ids": [
+            "p10-b9",
+            "p10-b1",
+            "p10-b10",
+            "p10-b11"
+          ],
+          "page_range": [
+            10
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "definition_abbreviation",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-041-002",
+          "fact_type": "causal",
+          "subject": "BPO",
+          "relation": "causes",
+          "object": "the costs for the hiring company and can get expert professionals to do their work. global companies and driving the development of housing",
+          "evidence": "This reduces the costs for the hiring company and can get expert professionals to do their work. global companies and driving the development of housing",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-041",
+          "block_ids": [
+            "p10-b9",
+            "p10-b1",
+            "p10-b10",
+            "p10-b11"
+          ],
+          "page_range": [
+            10
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "BPO",
+            "original_subject": "This",
+            "antecedent_segment_index": 0,
+            "parser_method": "causal_explicit"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-069-002",
+          "fact_type": "causal",
+          "subject": "The city",
+          "relation": "causes",
+          "object": "heat during summers and supports biodiversity",
+          "evidence": "This is not only aesthetically pleasing but also reduces heat during summers and supports biodiversity.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-069",
+          "block_ids": [
+            "p18-b5",
+            "p18-b8",
+            "p18-b9"
+          ],
+          "page_range": [
+            18
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "The city",
+            "original_subject": "This",
+            "antecedent_segment_index": 0,
+            "parser_method": "causal_explicit"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-078-001",
+          "fact_type": "entity_attribute",
+          "subject": "Two-level promenade for walking along the riverside The Atal Bridge connecting the two sides of the river Similarly, Gangtok’s Mahatma Gandhi Road",
+          "relation": "role",
+          "object": "central shopping hub and a pedestrian-only zone brimming with shops",
+          "evidence": "Two-level promenade for walking along the riverside The Atal Bridge connecting the two sides of the river Similarly, Gangtok’s Mahatma Gandhi Road is a central shopping hub and a pedestrian-only zone brimming with shops, restaurants, and hotels.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-078",
+          "block_ids": [
+            "p20-b2",
+            "p20-b3",
+            "p20-b5",
+            "p20-b6",
+            "p20-b7"
+          ],
+          "page_range": [
+            20
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-080-002",
+          "fact_type": "entity_attribute",
+          "subject": "Cities",
+          "relation": "role",
+          "object": "centres of consumption as well as production, which are important aspects of economic growth",
+          "evidence": "They are centres of consumption as well as production, which are important aspects of economic growth.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-080",
+          "block_ids": [
+            "p21-b2"
+          ],
+          "page_range": [
+            21
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Cities",
+            "original_subject": "They",
+            "antecedent_segment_index": 0,
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-083-002",
+          "fact_type": "entity_attribute",
+          "subject": "Prepare a report outlining",
+          "relation": "function",
+          "object": "that can be taken in India",
+          "evidence": "Prepare a report outlining measures that can be taken in India to mitigate air pollution in cities.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-083",
+          "block_ids": [
+            "p23-b1",
+            "p23-b3"
+          ],
+          "page_range": [
+            23
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    },
+    {
+      "chapter": "hees209",
+      "status": "complete",
+      "expected_sha256": "cfdd8e4a732582926a6e06f6f779b28732a0ae23c8383e3136f4ba612933ff29",
+      "observed_sha256": "cfdd8e4a732582926a6e06f6f779b28732a0ae23c8383e3136f4ba612933ff29",
+      "baseline_keys": 20,
+      "adapter_keys": 39,
+      "retained": 20,
+      "newly_recovered": 19,
+      "lost": 0,
+      "lost_facts": [],
+      "representation_change_candidates": [],
+      "newly_recovered_facts": [
+        {
+          "fact_id": "TF-REC-022-001",
+          "fact_type": "membership",
+          "subject": "names of god in Hinduism and Islam respectively",
+          "relation": "members",
+          "object": "Ram (Rama), Rahim",
+          "evidence": "Ram (Rama) and Rahim are names of god in Hinduism and Islam respectively.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-022",
+          "block_ids": [
+            "p6-b11",
+            "p6-b1",
+            "p6-b12",
+            "p6-b2",
+            "p6-b13"
+          ],
+          "page_range": [
+            6
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "membership_list",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-046-001",
+          "fact_type": "comparison",
+          "subject": "exact origins remain debated by scholars",
+          "relation": "comparison",
+          "object": "modern forms of instruments like the sitar and tabla evolved during these centuries through experimentation by instrument makers and musicians from various backgrounds, even while the musical repertoires of these instruments came from the traditions of much older Indian instruments, e.g., the ancient pakhāwaj in the case of the tabla",
+          "evidence": "While exact origins remain debated by scholars, modern forms of instruments like the sitar and tabla evolved during these centuries through experimentation by instrument makers and musicians from various backgrounds, even while the musical repertoires of these instruments came from the traditions of much older Indian instruments, e.g., the ancient pakhāwaj in the case of the tabla.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-046",
+          "block_ids": [
+            "p11-b13",
+            "p11-b1",
+            "p11-b14",
+            "p11-b2",
+            "p11-b15",
+            "p11-b3"
+          ],
+          "page_range": [
+            11
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "comparison_while",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-052-001",
+          "fact_type": "definition",
+          "subject": "Atelier",
+          "relation": "definition",
+          "object": "An artist’s studio",
+          "evidence": "Atelier: An artist’s studio",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-052",
+          "block_ids": [
+            "p12-b5",
+            "p12-b7",
+            "p12-b9"
+          ],
+          "page_range": [
+            12
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Atelier"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-071-001",
+          "fact_type": "entity_attribute",
+          "subject": "Mughal garden at Amer Fort the taste of the patron ruler, the local traditions and materials, and the expertise of the craftsmen",
+          "relation": "role",
+          "object": "distinctive feature of the time",
+          "evidence": "Mughal garden at Amer Fort the taste of the patron ruler, the local traditions and materials, and the expertise of the craftsmen, was a distinctive feature of the time.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-071",
+          "block_ids": [
+            "p16-b1",
+            "p16-b2"
+          ],
+          "page_range": [
+            16
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_role",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-085-002",
+          "fact_type": "entity_attribute",
+          "subject": "Several inscriptions",
+          "relation": "function",
+          "object": "donations",
+          "evidence": "Several inscriptions record donations to temples made by queens and women from the richer strata of society.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-085",
+          "block_ids": [
+            "p19-b1",
+            "p19-b18",
+            "p19-b2",
+            "p19-b19",
+            "p19-b3"
+          ],
+          "page_range": [
+            19
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "entity_function",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-090-001",
+          "fact_type": "definition",
+          "subject": "Hindavi",
+          "relation": "definition",
+          "object": "An early version of the Hindi-Urdu language having the grammatical structure and vocabulary of Indian languages such as Sanskrit but where words from Persian and Arabic were also integrated",
+          "evidence": "Hindavi: An early version of the Hindi-Urdu language having the grammatical structure and vocabulary of Indian languages such as Sanskrit but where words from Persian and Arabic were also integrated.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-090",
+          "block_ids": [
+            "p20-b7",
+            "p20-b9",
+            "p20-b11",
+            "p20-b13",
+            "p20-b15",
+            "p20-b17",
+            "p20-b1",
+            "p20-b18",
+            "p20-b2",
+            "p20-b19",
+            "p20-b3"
+          ],
+          "page_range": [
+            20
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Hindavi"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-091-001",
+          "fact_type": "entity_attribute",
+          "subject": "Sringeri",
+          "relation": "role",
+          "object": "renowned for advanced learning in philosophy and mathematics",
+          "evidence": "Sringeri were renowned for advanced learning in philosophy and mathematics.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-091",
+          "block_ids": [
+            "p20-b8",
+            "p20-b10",
+            "p20-b12",
+            "p20-b14",
+            "p20-b16",
+            "p20-b5"
+          ],
+          "page_range": [
+            20
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-091-002",
+          "fact_type": "entity_attribute",
+          "subject": "The Kerala School of Mathematics",
+          "relation": "renowned_for",
+          "object": "path-breaking contributions to the field of mathematics and, in particular, laying the seeds of infinite series and calculus",
+          "evidence": "The Kerala School of Mathematics is renowned for path-breaking contributions to the field of mathematics and, in particular, laying the seeds of infinite series and calculus.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-091",
+          "block_ids": [
+            "p20-b8",
+            "p20-b10",
+            "p20-b12",
+            "p20-b14",
+            "p20-b16",
+            "p20-b5"
+          ],
+          "page_range": [
+            20
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "renowned_for",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "renowned_for",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-101-001",
+          "fact_type": "definition",
+          "subject": "Brocade",
+          "relation": "definition",
+          "object": "A rich fabric woven with a raised pattern, typically with gold or silver thread",
+          "evidence": "Brocade: A rich fabric woven with a raised pattern, typically with gold or silver thread.",
+          "evidence_source": "glossary",
+          "reconstructed_unit_id": "RU-101",
+          "block_ids": [
+            "p22-b11",
+            "p22-b3",
+            "p22-b13",
+            "p22-b4",
+            "p22-b14",
+            "p22-b5"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "glossary_term_definition",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "glossary_term_definition",
+            "term": "Brocade"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-102-001",
+          "fact_type": "entity_attribute",
+          "subject": "India",
+          "relation": "has",
+          "object": "a long tradition of weaving",
+          "evidence": "India has a long tradition of weaving and unique textiles, with every region having its own speciality.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-102",
+          "block_ids": [
+            "p22-b9",
+            "p22-b10",
+            "p22-b2",
+            "p22-b12",
+            "p22-b7"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-102-002",
+          "fact_type": "entity_attribute",
+          "subject": "India",
+          "relation": "has",
+          "object": "unique textiles",
+          "evidence": "India has a long tradition of weaving and unique textiles, with every region having its own speciality.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-102",
+          "block_ids": [
+            "p22-b9",
+            "p22-b10",
+            "p22-b2",
+            "p22-b12",
+            "p22-b7"
+          ],
+          "page_range": [
+            22
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "has_attribute",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "has_attribute",
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-105-002",
+          "fact_type": "entity_attribute",
+          "subject": "Pashmina shawls",
+          "relation": "role",
+          "object": "woven from cashmere, a type of soft wool from the goats of Ladakh and Kashmir",
+          "evidence": "They are woven from cashmere, a type of soft wool from the goats of Ladakh and Kashmir.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-105",
+          "block_ids": [
+            "p23-b14",
+            "p23-b3",
+            "p23-b15",
+            "p23-b4"
+          ],
+          "page_range": [
+            23
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Pashmina shawls",
+            "original_subject": "They",
+            "antecedent_segment_index": 0,
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-105-003",
+          "fact_type": "entity_attribute",
+          "subject": "Pashmina shawls",
+          "relation": "role",
+          "object": "exported to other countries in Asia and were in demand among fashionable Europeans too",
+          "evidence": "They were exported to other countries in Asia and were in demand among fashionable Europeans too.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-105",
+          "block_ids": [
+            "p23-b14",
+            "p23-b3",
+            "p23-b15",
+            "p23-b4"
+          ],
+          "page_range": [
+            23
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Pashmina shawls",
+            "original_subject": "They",
+            "antecedent_segment_index": 1,
+            "parser_method": "pattern_enriched"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-110-002",
+          "fact_type": "entity_attribute",
+          "subject": "Persian poetry",
+          "relation": "role",
+          "object": "period of extraordinary creativity in regional language literature",
+          "evidence": "It was a period of extraordinary creativity in regional language literature.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-110",
+          "block_ids": [
+            "p24-b1"
+          ],
+          "page_range": [
+            24
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pronoun_resolution_same_unit",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "pronoun_resolution_same_unit",
+            "antecedent_text": "Persian poetry",
+            "original_subject": "It",
+            "antecedent_segment_index": 3,
+            "parser_method": "entity_role"
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-122-001",
+          "fact_type": "entity_attribute",
+          "subject": "The practice of Ayurveda",
+          "relation": "role",
+          "object": "widespread in India",
+          "evidence": "The practice of Ayurveda was widespread in India.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-122",
+          "block_ids": [
+            "p27-b4"
+          ],
+          "page_range": [
+            27
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-123-002",
+          "fact_type": "causal",
+          "subject": "Indian saltpetre",
+          "relation": "causes",
+          "object": "gunpowder and also to cool water and beverages. saltpetre: Potassium nitrate, a Itr Jahangir, a type of rose-based perfume was also developed",
+          "evidence": "Indian saltpetre was used during Akbar’s Indian time to make gunpowder and also to cool water and beverages. saltpetre: Potassium nitrate, a Itr Jahangir, a type of rose-based perfume was also developed.",
+          "evidence_source": "reconstructed_prose",
+          "reconstructed_unit_id": "RU-123",
+          "block_ids": [
+            "p27-b13",
+            "p27-b1",
+            "p27-b14",
+            "p27-b15",
+            "p27-b16",
+            "p27-b17",
+            "p27-b2",
+            "p27-b18",
+            "p27-b19",
+            "p27-b20",
+            "p27-b21",
+            "p27-b3"
+          ],
+          "page_range": [
+            27
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "causal_makes_effect",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-131-001",
+          "fact_type": "entity_attribute",
+          "subject": "The stunning Sheesh Mahal or ‘Palace of Mirrors’",
+          "relation": "built_in",
+          "object": "the Amer Fort",
+          "evidence": "The stunning Sheesh Mahal or ‘Palace of Mirrors’, was built in the Amer Fort,",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-131",
+          "block_ids": [
+            "p29-b15"
+          ],
+          "page_range": [
+            29
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "passive_built_in",
+          "classification_rule_id": "phase2c-shadow-v1",
+          "derivation": {
+            "method": "passive_built_in",
+            "parenthetical_removed": [],
+            "stripped_prefix": null,
+            "prefix_kind": null,
+            "figure_refs_removed": []
+          },
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-144-001",
+          "fact_type": "entity_attribute",
+          "subject": "Jalebi",
+          "relation": "role",
+          "object": "the Indian version of the Persian zalabiyeh",
+          "evidence": "Jalebi is the Indian version of the Persian zalabiyeh.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-144",
+          "block_ids": [
+            "p31-b19",
+            "p31-b20",
+            "p31-b6"
+          ],
+          "page_range": [
+            31
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "pattern_enriched",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        },
+        {
+          "fact_id": "TF-REC-144-002",
+          "fact_type": "comparison",
+          "subject": "Zalabiyeh",
+          "relation": "comparison",
+          "object": "the Indian jalebi has circular coils and uses simple sugar syrup",
+          "evidence": "Zalabiyeh has an asymmetric floral coil pattern and uses honey and rose water syrup, whereas the Indian jalebi has circular coils and uses simple sugar syrup.",
+          "evidence_source": "caption",
+          "reconstructed_unit_id": "RU-144",
+          "block_ids": [
+            "p31-b19",
+            "p31-b20",
+            "p31-b6"
+          ],
+          "page_range": [
+            31
+          ],
+          "temporal_scope": null,
+          "attribution": null,
+          "classification_method": "comparison_whereas",
+          "classification_rule_id": "phase2a-typed-v1",
+          "derivation": null,
+          "validation_state": "verified"
+        }
+      ]
+    }
+  ]
+}

@@ -31,12 +31,83 @@
  *   R-CAP      caption stitching (contiguous caption + continuation
  *              fragments; the whole unit is caption-derived)
  *   R-GLOSS    margin-column glossary definitions (Term: definition)
- *   R-PROSE    column passages from remaining prose-eligible blocks
+ *   R-LEGEND   whole-block colour/map legends (Phase 2E; see below)
+ *   R-PROSE    column passages from remaining prose-eligible blocks,
+ *              with Phase 2E artifact filtering at join time
+ *              (R-ART-LEAD / R-ART-MARGIN / R-ART-DUP; see below)
+ *   R-HEAD-PROSE  heading-classified prose runs recovered as
+ *              body-prose units (Phase 2E; see below)
  *   R-TABLE    surviving table blocks (rows parsed, else unresolved)
  *   R-LEFT     leftovers become explicit unresolved units
  *   R-XPAGE    cross-page continuation candidates from the document
  *              model (strong merges are validated text; weak stay
  *              unmerged candidates)
+ *
+ * Phase 2E (Source Boundary Recovery) additions, version phase2e-1:
+ *   R-LEGEND   a whole block is a legend artifact — never prose — when
+ *              it holds at least two semicolon-separated "Label: value"
+ *              pairs and ends without terminal punctuation (e.g. the
+ *              hees201 colour legend "Blue: water bodies ...; Green:
+ *              plains; ..."). The block is excluded with its full text
+ *              preserved; legitimate prose ("The result is:", "Term:"
+ *              definitions) fails the multi-pair test and survives.
+ *   R-ART-LEAD leading artifact run: inside a passage, the maximal
+ *              leading run of non-anchoring blocks before the first
+ *              body/rescued-tail anchor is excluded only when EVERY
+ *              block is artifact-shaped (pure numeric/scale run,
+ *              all-caps of at most 4 words, colon label, single word,
+ *              or duplicated-word fragment), AT LEAST ONE block is
+ *              strongly artifact (numeric/scale, all-caps, colon
+ *              label, or duplicated-word), the joined run contains no
+ *              auxiliary verb and no terminal punctuation, and does
+ *              not start lowercase. Shattered prose (Chapter 3 p.14
+ *              word-blocks containing "have"/"been") fails the
+ *              auxiliary test and survives.
+ *   R-ART-MARGIN margin label: a non-body fragment/ambiguous block
+ *              positioned entirely in the page margin (x1 below the
+ *              body-column minimum x, or x above the body-column
+ *              maximum x1), at most 30 characters and 3 words, without
+ *              terminal punctuation, matching a label shape (ends
+ *              with ":", single word, or all-caps of at most 4 words)
+ *              is excluded. Multi-word lowercase continuations and
+ *              punctuated fragments in the same margin survive.
+ *   R-ART-DUP  duplicate label: a non-body fragment whose cleaned
+ *              text (at most 40 characters, no terminal punctuation)
+ *              equals, case-insensitively, the opening words of the
+ *              next block's text (next block starts with the fragment
+ *              text plus a space or punctuation) is excluded as a
+ *              repeated label (e.g. "Sufism" before "Sufism is ...").
+ *              Body blocks are never duplicate-excluded, so genuine
+ *              line-break repeats are untouched.
+ *   R-HEAD-PROSE heading-prose runs: after R-PROSE, unclaimed heading
+ *              blocks in y-order form a run when consecutive non-bullet
+ *              blocks share x within 5pt, have height at most 14.5pt,
+ *              and sit within 45pt y-gaps (bullet-marker blocks are
+ *              skipped without breaking the run). A run is recovered
+ *              as body_prose only when it has at least two non-bullet
+ *              blocks, is not all-caps, and its joined text contains
+ *              at least one complete sentence (capital start, terminal
+ *              [.!?] end, at least 4 words, and a finite verb from a
+ *              fixed list). Genuine headings fail: no terminal
+ *              punctuation, a single block, all-caps, or a height
+ *              above 14.5pt (section titles). Blocks in a recovered
+ *              run are claimed as prose, so R-LEFT never also marks
+ *              them section_marker; blocks in a rejected run stay
+ *              unclaimed for R-LEFT.
+ *   Gutter epsilon: the R-PROSE gutter branch now treats a block as
+ *              left when x1 <= gapStart + 1.0 and as right when
+ *              x >= gapEnd - 1.0. PDF coordinates carry sub-point
+ *              rounding (measured: left-column blocks overshooting
+ *              gapStart by 0.02pt were misrouted into the right
+ *              cluster, merging columns). Blocks genuinely spanning
+ *              the gutter by more than 1pt on both sides still flow
+ *              to the previous cluster, as before.
+ * Excluded artifact blocks are recorded in the unit's
+ * fragments_excluded with block_id, full original text, reason and
+ * rule_id, and land in the "excluded" block-accounting bucket — the
+ * same single-bucket-per-block accounting as Phase 2B. The schema
+ * version moves phase2b-1 -> phase2e-1; all Phase 2B fields are
+ * unchanged, so Phase 2B–2D diagnostics remain readable.
  *
  * Runs 100% offline, deterministic, zero-network, zero-ML. No Date,
  * no Math.random, no locale-dependent ordering: unit IDs derive only
@@ -46,7 +117,7 @@
 (function (global) {
   'use strict';
 
-  const RECONSTRUCTION_VERSION = 'phase2b-1';
+  const RECONSTRUCTION_VERSION = 'phase2e-1';
 
   // Running book titles, as in pdfParser.js (spaced forms). The spaceless
   // comparison below also catches spaceless joins such as
@@ -156,6 +227,123 @@
 
   function isAggregateTableText(text) {
     return text.indexOf(' | ') !== -1;
+  }
+
+  // Phase 2E artifact shapes. All tests use cleanText output and are
+  // deliberately narrow: a block that could be prose fails them.
+  function isBulletMarkerText(text) {
+    return /^[•·∙\-–—*]+$/.test(cleanText(text));
+  }
+
+  // R-LEGEND: at least two semicolon-separated "Label: value" pairs,
+  // no terminal punctuation at the end. "The result is:" (one pair,
+  // or a sentence) and "Term: definition" (one pair) fail this test.
+  function isLegendBlockText(text) {
+    const t = cleanText(text);
+    if (!t || /[.!?]$/.test(t)) return false;
+    const parts = t.split(';').map((p) => p.trim()).filter((p) => p);
+    if (parts.length < 2) return false;
+    return parts.every((p) => /^[A-Za-z][A-Za-z /-]{0,40}:\s+\S/.test(p));
+  }
+
+  function isAllCapsWords(text, maxWords) {
+    const words = cleanText(text).split(/\s+/).filter((w) => w);
+    if (!words.length || words.length > maxWords) return false;
+    return words.every((w) => /^[A-Z0-9][A-Z0-9'’\-]*$/.test(w));
+  }
+
+  function isNumericScaleText(text) {
+    const t = cleanText(text);
+    if (!/^\d/.test(t)) return false;
+    // Only digits, spaces, commas, decimals, "km"/"m"/"%"-style units
+    // and axis separators: no letters forming words, no verbs.
+    return /^[\d\s,.\-–—x×/]+(km|m|cm|%|years?)?$/.test(t)
+      && !/[A-Za-z]{3,}/.test(t.replace(/\b(km|m|cm)\b/g, ''));
+  }
+
+  function hasDuplicatedWordFragment(text) {
+    const words = cleanText(text).split(/\s+/).filter((w) => w);
+    if (words.length < 2) return false;
+    for (let i = 0; i + 1 < words.length; i++) {
+      if (words[i].toLowerCase() === words[i + 1].toLowerCase()) return true;
+    }
+    return false;
+  }
+
+  // Artifact-shaped: any of the weak shapes. Strongly artifact: the
+  // subset that on its own evidences a label/axis/scale role (a lone
+  // single word is weak evidence and never suffices alone).
+  function isArtifactShapedFragment(text) {
+    const t = cleanText(text);
+    if (!t || /[.!?]$/.test(t)) return false;
+    const words = t.split(/\s+/).filter((w) => w);
+    if (isNumericScaleText(t)) return true;
+    if (isAllCapsWords(t, 4)) return true;
+    if (/^[A-Za-z][A-Za-z /-]{0,40}:$/.test(t)) return true;
+    if (words.length === 1 && t.length <= 30) return true;
+    if (hasDuplicatedWordFragment(t)) return true;
+    return false;
+  }
+
+  function isStrongArtifactFragment(text) {
+    const t = cleanText(text);
+    if (!t) return false;
+    if (isNumericScaleText(t)) return true;
+    if (isAllCapsWords(t, 4)) return true;
+    if (/^[A-Za-z][A-Za-z /-]{0,40}:$/.test(t)) return true;
+    if (hasDuplicatedWordFragment(t)) return true;
+    return false;
+  }
+
+  // R-ART-MARGIN: non-body fragment/ambiguous block entirely in the
+  // margin, short, unpunctuated, label-shaped. Position alone never
+  // excludes: multi-word lowercase continuations ("and use sunlight")
+  // and punctuated fragments ("make food.") fail the shape test.
+  function isMarginLabelBlock(block, bodyXMin, bodyX1Max) {
+    if (!block || (block.type !== 'fragment' && block.type !== 'ambiguous')) return false;
+    if (bodyXMin == null || bodyX1Max == null) return false;
+    const box = bboxOf(block);
+    const inMargin = box.x1 < bodyXMin || box.x > bodyX1Max;
+    if (!inMargin) return false;
+    const t = cleanText(block.text);
+    if (!t || t.length > 30 || /[.!?]$/.test(t)) return false;
+    const words = t.split(/\s+/).filter((w) => w);
+    if (words.length > 3) return false;
+    if (/:$/.test(t)) return true;
+    if (words.length === 1) return true;
+    if (isAllCapsWords(t, 4)) return true;
+    return false;
+  }
+
+  // R-ART-DUP: fragment text equals the opening words of the next
+  // block's text (next starts with fragment + space/punctuation).
+  function isDuplicateLabelFragment(fragmentText, nextText) {
+    const frag = cleanText(fragmentText);
+    const next = cleanText(nextText);
+    if (!frag || frag.length > 40 || /[.!?]$/.test(frag)) return false;
+    if (!next) return false;
+    if (next.toLowerCase() === frag.toLowerCase()) return false;
+    if (next.toLowerCase().indexOf(frag.toLowerCase()) !== 0) return false;
+    const after = next.charAt(frag.length);
+    return after === ' ' || /[.,;:!?)]/.test(after);
+  }
+
+  // R-HEAD-PROSE sentence validation: at least one complete sentence
+  // in the joined run text — capital start, terminal [.!?] end, at
+  // least 4 words, and a finite verb from a fixed list. Participles
+  // alone ("bringing", "flowing") do not count.
+  function hasCompleteSentence(text) {
+    const t = cleanText(text);
+    if (!t || /^\s*[A-Z][A-Z\s'’\-.,;:()]+$/.test(t)) return false;
+    const sentences = t.split(/(?<=[.!?])\s+/);
+    const finiteVerbs = /\b(am|is|are|was|were|has|have|had|will|would|can|could|do|does|did|flows?|runs?|moves?|brings?|creates?|connects?|looks?|opens?|opened|forms?|formed|covers?|contains?|shows?|gives?|makes?|made|takes?|took|comes?|came|goes?|went|begins?|began|ends?|ends|separates?|joins?|links?|lies?|stands?|sits?)\b/i;
+    return sentences.some((s) => {
+      const words = s.split(/\s+/).filter((w) => w);
+      if (words.length < 4) return false;
+      if (!/^[A-Z]/.test(s)) return false;
+      if (!/[.!?]$/.test(s)) return false;
+      return finiteVerbs.test(s);
+    });
   }
 
   function parseTableRows(text) {
@@ -632,6 +820,17 @@
         ordered.forEach((o) => markBucket(o, 'unit_block'));
       });
 
+      // ---- R-LEGEND (Phase 2E): whole-block legend artifacts. A body
+      // block matching the legend pattern is excluded with its full
+      // text preserved — never joined into prose, never a fact source.
+      // Legitimate prose fails the multi-pair test and is untouched.
+      pool.filter((b) => !isClaimed(b) && b.type === 'body' && isLegendBlockText(b.text))
+        .forEach((b) => {
+          excludeBlock(b, 'legend_block', 'reconstruct-v2e/legend',
+            'whole-block legend artifact; full text preserved in exclusions, never joined into prose');
+          claimed[b.source_block_id] = 'excluded';
+        });
+
       // ---- R-PROSE: column passages from remaining prose-eligible blocks.
       const proseEligible = (b) => !isClaimed(b) && (
         b.type === 'body' || b.type === 'fragment' || b.type === 'ambiguous'
@@ -663,10 +862,17 @@
         const box = bboxOf(b);
         let target = null;
         if (hasGutter) {
-          if (box.x1 <= gutter.gapStart) {
+          // Phase 2E gutter epsilon: PDF coordinates carry sub-point
+          // rounding, and a left-column block whose x1 overshoots
+          // gapStart by 0.02pt was misrouted into the right cluster,
+          // merging two columns into one passage (hees201 p.16
+          // Urals/methane case). A 1pt snap absorbs that rounding;
+          // blocks genuinely spanning the gutter by more than 1pt on
+          // both sides still flow to the previous cluster, as before.
+          if (box.x1 <= gutter.gapStart + 1.0) {
             target = clusters.find((c) => c.side === 'left');
             if (!target) { target = { blocks: [], side: 'left' }; clusters.push(target); }
-          } else if (box.x >= gutter.gapEnd) {
+          } else if (box.x >= gutter.gapEnd - 1.0) {
             target = clusters.find((c) => c.side === 'right');
             if (!target) { target = { blocks: [], side: 'right' }; clusters.push(target); }
           } else {
@@ -708,6 +914,69 @@
         });
         if (current.length) passages.push(current);
         passages.forEach((passage) => {
+          // ---- Phase 2E artifact filtering at join time. Skipped
+          // blocks are excluded with full text + reason preserved
+          // (exclusions list and the unit's fragments_excluded) and
+          // land in the "excluded:*" accounting bucket — never
+          // silently dropped, never counted as prose. Filtering only
+          // removes non-anchoring blocks, so the anchor test below is
+          // unaffected by it.
+          const passageBodyBlocks = prosePool.filter((b) => b.type === 'body');
+          const bodyXMin = passageBodyBlocks.length
+            ? Math.min.apply(null, passageBodyBlocks.map((b) => bboxOf(b).x)) : null;
+          const bodyX1Max = passageBodyBlocks.length
+            ? Math.max.apply(null, passageBodyBlocks.map((b) => bboxOf(b).x1)) : null;
+          const passageHasAnchor = passage.some((o) => o.type === 'body' || !!o.rescued_tail);
+          let leadingRun = [];
+          for (const o of passage) {
+            if (o.type === 'body' || o.rescued_tail || demoted[o.source_block_id]) break;
+            leadingRun.push(o);
+          }
+          let leadingRunValid = false;
+          if (passageHasAnchor && leadingRun.length) {
+            const runText = joinBlockTexts(leadingRun);
+            leadingRunValid = leadingRun.every((o) => isArtifactShapedFragment(o.text))
+              && leadingRun.some((o) => isStrongArtifactFragment(o.text))
+              && !/\b(am|is|are|was|were|has|have|had|been|be|will|would|can|could|do|does|did)\b/i.test(runText)
+              && !/[.!?](\s|$)/.test(runText)
+              && !/^[a-z]/.test(runText);
+          }
+          const leadingRunIds = new Set(leadingRunValid
+            ? leadingRun.map((o) => o.source_block_id) : []);
+          const artifactExcluded = [];
+          const keptBlocks = [];
+          passage.forEach((o, idx) => {
+            let reason = null;
+            let ruleId = null;
+            if (!o.rescued_tail && !demoted[o.source_block_id]
+              && (o.type === 'fragment' || o.type === 'ambiguous')) {
+              const next = passage[idx + 1];
+              if (next && isDuplicateLabelFragment(o.text, next.text)) {
+                reason = 'duplicate_label';
+                ruleId = 'reconstruct-v2e/duplicate-label';
+              } else if (isMarginLabelBlock(o, bodyXMin, bodyX1Max)) {
+                reason = 'margin_label';
+                ruleId = 'reconstruct-v2e/margin-label';
+              }
+            }
+            if (!reason && leadingRunIds.has(o.source_block_id)) {
+              reason = 'leading_artifact_run';
+              ruleId = 'reconstruct-v2e/leading-artifact-run';
+            }
+            if (reason) {
+              excludeBlock(o, reason, ruleId,
+                'excluded from prose passage at join time; full text preserved in exclusions and fragments_excluded');
+              claimed[o.source_block_id] = 'excluded';
+              artifactExcluded.push({
+                block_id: o.source_block_id, text: cleanText(o.text),
+                reason: reason, rule_id: ruleId
+              });
+            } else {
+              keptBlocks.push(o);
+            }
+          });
+          passage = keptBlocks;
+          if (!passage.length) return;
           // Only genuine body blocks or rescued furniture tails anchor a
           // passage as prose. A demoted heading joins prose but never
           // anchors it alone — otherwise a lone heading fragment could
@@ -751,7 +1020,7 @@
                   block_id: o.source_block_id, text: cleanText(o.text),
                   role: demoted[o.source_block_id] ? 'demoted_heading' : (o.rescued_tail ? 'furniture_tail' : o.type)
                 })),
-                fragments_excluded: excludedInSpan,
+                fragments_excluded: excludedInSpan.concat(artifactExcluded),
                 pages: [pageNumber],
                 section_id: section.section_id,
                 section_title: section.section_title,
@@ -774,7 +1043,7 @@
                   block_id: o.source_block_id, text: cleanText(o.text),
                   role: demoted[o.source_block_id] ? 'demoted_heading' : (o.rescued_tail ? 'furniture_tail' : o.type)
                 })),
-                fragments_excluded: excludedInSpan,
+                fragments_excluded: excludedInSpan.concat(artifactExcluded),
                 pages: [pageNumber],
                 section_id: section.section_id,
                 section_title: section.section_title,
@@ -817,6 +1086,79 @@
           }
         });
       });
+
+      // ---- R-HEAD-PROSE (Phase 2E): heading-classified prose runs.
+      // Unclaimed heading blocks in y-order form a run when consecutive
+      // non-bullet blocks share x within 5pt, have height at most
+      // 14.5pt, and sit within 45pt y-gaps (bullet-marker blocks are
+      // skipped without breaking the run, and never join the text).
+      // A run is recovered as body_prose only when it has at least two
+      // non-bullet blocks and its joined text contains a complete
+      // sentence (see hasCompleteSentence). Genuine headings fail one
+      // of these tests and stay unclaimed for R-LEFT. A recovered run
+      // is claimed as prose, so its blocks are never also section
+      // markers; when the run's blocks disagree on section, the first
+      // block's section is used with a review flag.
+      (function () {
+        const headings = byY.filter((b) => !isClaimed(b) && b.type === 'heading');
+        const runs = [];
+        let current = [];
+        const flush = () => {
+          if (current.length) runs.push(current);
+          current = [];
+        };
+        headings.forEach((b) => {
+          if (isBulletMarkerText(b.text)) return;
+          const box = bboxOf(b);
+          if (current.length) {
+            const prev = current[current.length - 1];
+            const prevBox = bboxOf(prev);
+            const sameX = Math.abs(box.x - prevBox.x) <= 5;
+            const gap = box.y - prevBox.y;
+            if (sameX && box.height <= 14.5 && gap <= 45) {
+              current.push(b);
+              return;
+            }
+          }
+          if (box.height <= 14.5) {
+            flush();
+            current = [b];
+          } else {
+            flush();
+          }
+        });
+        flush();
+        runs.forEach((run) => {
+          if (run.length < 2) return;
+          const joined = joinBlockTexts(run);
+          if (!hasCompleteSentence(joined)) return;
+          const sections = new Set(run.map((o) => o.section_id || 'sec_unknown'));
+          const section = majoritySection(run);
+          const flags = ['heading_prose_recovered'];
+          if (sections.size > 1) flags.push('heading_run_sections_disagree');
+          run.forEach((o) => claim(o, 'prose'));
+          makeUnit({
+            type: 'body_prose',
+            text: joined,
+            block_ids: run.map((o) => o.source_block_id),
+            fragments_used: run.map((o) => ({
+              block_id: o.source_block_id, text: cleanText(o.text), role: 'heading_prose'
+            })),
+            pages: [pageNumber],
+            section_id: section.section_id,
+            section_title: section.section_title,
+            method: 'heading_prose_run_join',
+            rule_id: 'reconstruct-v2e/heading-prose',
+            certainty: 'heading_run_sentence_validated',
+            certainty_explanation: 'Heading-classified blocks in one x-column, '
+              + 'joined in y-order; recovered as prose only because the '
+              + 'joined text contains a validated complete sentence.',
+            review_flags: flags,
+            provenance: provenanceOf(run)
+          });
+          run.forEach((o) => markBucket(o, 'unit_block'));
+        });
+      })();
 
       // ---- R-TABLE: surviving table blocks (aggregates already excluded).
       pool.filter((b) => !isClaimed(b) && b.type === 'table' && isAggregateTableText(b.text))

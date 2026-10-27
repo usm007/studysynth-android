@@ -3478,6 +3478,110 @@
     return { first: first, second: second };
   }
 
+  // Phase 2E boundary recovery, adapter-only. Splits a contaminated
+  // segment at a demonstrated boundary so each piece is typed (or left
+  // unparsed) independently. Only segments with no layer facts and a
+  // layer unparsed entry are candidates, mirroring the "etc." split.
+  // Returns null or { rule_id, first, second, reparseFirst,
+  // reparseSecond }. A piece with reparse false is never re-parsed:
+  // it is a truncated fragment by construction (a dangling "(see" head
+  // or a lowercase tail) and becomes an unparsed record, never a fact
+  // source. Re-parsed pieces go through parseAllFactRelations +
+  // classifyTypedDraft exactly as the layer does, so no new parser
+  // behaviour is introduced; the shared segmenter is untouched.
+  // Priority: dangling "(see", then em/en dash, then lowercase tail,
+  // then missing period — a segment matching an earlier rule is not
+  // re-tested.
+  function splitPhase2eBoundary(segmentText) {
+    const text = String(segmentText || '');
+    // R-BND-SEE: an unclosed "(see" immediately followed by a capital
+    // sentence start (not Fig/Figure). The head is truncated at the
+    // dangling reference; the tail is a complete sentence.
+    const seeMatch = text.match(/^(.*?\(\s*see\s+)([A-Z].*)$/s);
+    // A closed reference ("(see Section 3) ...") has a ")" before any
+    // sentence end in the tail; only a genuinely unclosed "(see" splits.
+    if (seeMatch && !/^(Fig\.?|Figure)\b/.test(seeMatch[2])
+      && !/^[^.!?]*\)/.test(seeMatch[2])
+      && /[.!?]$/.test(cleanText(seeMatch[2]))) {
+      const first = cleanText(seeMatch[1]);
+      const second = cleanText(seeMatch[2]);
+      if (first.length >= 10 && second.length >= 20) {
+        return { rule_id: 'R-BND-SEE', first: first, second: second, reparseFirst: false, reparseSecond: true };
+      }
+    }
+    // R-BND-DASH: an em/en dash acting as a sentence separator — the
+    // source joins two sentences with " — " and no terminal
+    // punctuation (hees201 "colours — The Earth is an oblate
+    // spheroid."). A second dash inside the tail means parenthetical
+    // or appositive structure, not a boundary, and never splits.
+    const dashMatch = text.match(/^([\s\S]*?)\s[—–]\s+([A-Z][\s\S]*)$/);
+    if (dashMatch) {
+      const head = cleanText(dashMatch[1]);
+      const tail = cleanText(dashMatch[2]);
+      const headLast = (head.split(/\s+/).filter((w) => w).pop() || '').toLowerCase().replace(/[^a-z]+$/g, '');
+      const headEndsFunction = ['the', 'a', 'an', 'and', 'or', 'of', 'in', 'to', 'for', 'with', 'by', 'at', 'on', 'from', 'as'].indexOf(headLast) !== -1;
+      if (head.length >= 20 && tail.length >= 20 && /[.!?]$/.test(tail)
+        && tail.indexOf(' — ') === -1 && tail.indexOf(' – ') === -1 && !headEndsFunction) {
+        return { rule_id: 'R-BND-DASH', first: head, second: tail, reparseFirst: true, reparseSecond: true };
+      }
+    }
+    // R-BND-TAIL: a final period followed by a lowercase fragment tail
+    // (". and methane", ". and palaces of the North ..."). The split
+    // is at the LAST period+lowercase boundary; abbreviation periods
+    // (Mr, Fig, e.g., i.e., etc) and decimals never split.
+    const tailPattern = /[.!?]\s+(and|or|but|with|of|in|on|the|to|for|from|at|by)\s+[a-z]/g;
+    let tailIndex = -1;
+    let tailMatch;
+    while ((tailMatch = tailPattern.exec(text)) !== null) {
+      const before = text.slice(0, tailMatch.index);
+      if (/\b(?:Mr|Mrs|Ms|Dr|St|Fig|e\.g|i\.e|etc)\.?$/.test(before)) continue;
+      if (/\d$/.test(before) && /^\s*\d/.test(text.slice(tailMatch.index + 1))) continue;
+      tailIndex = tailMatch.index;
+    }
+    if (tailIndex >= 0) {
+      const first = cleanText(text.slice(0, tailIndex + 1));
+      const second = cleanText(text.slice(tailIndex + 1));
+      if (first.length >= 20 && second.length >= 2) {
+        return { rule_id: 'R-BND-TAIL', first: first, second: second, reparseFirst: true, reparseSecond: false };
+      }
+    }
+    // R-BND-PERIOD: a missing period at a line break — lowercase word
+    // (a noun completing a clause) followed by "The" + noun phrase +
+    // copula/auxiliary verb. The head must end with a noun-like word
+    // (not a function word, not a verb form); the tail must parse as a
+    // standalone sentence when re-parsed, or the split still stands
+    // but yields no fact. "The Hague"-style proper nouns mid-sentence
+    // cannot match: they are preceded by a verb or preposition, and a
+    // capital "The" after a content noun without punctuation is, in
+    // these textbooks, a lost sentence boundary.
+    const functionWords = ['the', 'a', 'an', 'and', 'or', 'of', 'in', 'to', 'for', 'with', 'by', 'at', 'on', 'from', 'as', 'is', 'are', 'was', 'were', 'has', 'have', 'had', 'be', 'been', 'this', 'that', 'these', 'those', 'it', 'they', 'he', 'she', 'we', 'you', 'i', 'its', 'their', 'his', 'her', 'our', 'your', 'my', 'not', 'no', 'very', 'more', 'most', 'also', 'then', 'than', 'when', 'while', 'which', 'who', 'whom', 'whose'];
+    // Word tokens are non-space runs, not ASCII-only: textbook text
+    // carries diacritics and combining marks (paṭṭachitra, Rāmāyaṇa),
+    // and an ASCII-only class silently fails the split on those names.
+    // Every "The" start is tried in order and the FIRST one passing
+    // the guards wins: a single regex match would fix on the earliest
+    // "The" (e.g. a heading "The Golden Temple" inside the head) and
+    // its guard failure would mask the genuine later split point.
+    const periodTailPattern = /^The\s+(?:\S+?\s+){0,10}?(?:were|was|are|is|has|have|had)\b/;
+    const startRe = /(^|\s)The\s/g;
+    let startMatch;
+    while ((startMatch = startRe.exec(text)) !== null) {
+      const splitAt = startMatch.index + startMatch[1].length;
+      const tailRaw = text.slice(splitAt);
+      if (!periodTailPattern.test(tailRaw)) continue;
+      const head = cleanText(text.slice(0, splitAt));
+      const tail = cleanText(tailRaw);
+      const headWords = head.split(/\s+/).filter((w) => w);
+      const lastWord = (headWords[headWords.length - 1] || '').toLowerCase().replace(/[^a-z]+$/g, '');
+      const nounLike = lastWord && functionWords.indexOf(lastWord) === -1
+        && !/(ing|ed)$/.test(lastWord);
+      if (nounLike && head.length >= 20 && tail.length >= 20) {
+        return { rule_id: 'R-BND-PERIOD', first: head, second: tail, reparseFirst: true, reparseSecond: true };
+      }
+    }
+    return null;
+  }
+
   // A7. "X is characterised by Y" lists characteristics; it is not a
   // definition. When a supplementary draft for such a segment was
   // labelled definition by the shared parser, relabel it to an
@@ -3593,6 +3697,11 @@
       // independently, each with its own evidence span.
       const etcSplits = new Map();
       const rescuedHalves = new Map();
+      // Phase 2E boundary splits: same gates as the "etc." split (no
+      // layer facts, layer unparsed entry); each half is typed or left
+      // unparsed independently, with its own evidence span.
+      const boundarySplits = new Map();
+      const rescuedBoundaryHalves = new Map();
       if (supplementaryEnabled) segments.forEach((seg, segIndex) => {
         if ((layerFactsBySegment.get(segIndex) || []).length) return;
         if (!unparsedBySegment.has(segIndex)) return;
@@ -3606,6 +3715,24 @@
           secondSpan: { start: seg.start + (secondStart >= 0 ? secondStart : seg.text.length - split.second.length), end: seg.end }
         });
         rescuedHalves.set(segIndex, new Set());
+      });
+      if (supplementaryEnabled) segments.forEach((seg, segIndex) => {
+        if ((layerFactsBySegment.get(segIndex) || []).length) return;
+        if (!unparsedBySegment.has(segIndex)) return;
+        if (etcSplits.has(segIndex)) return;
+        const split = splitPhase2eBoundary(seg.text);
+        if (!split) return;
+        const secondStart = seg.text.indexOf(split.second);
+        boundarySplits.set(segIndex, {
+          rule_id: split.rule_id,
+          first: split.first,
+          second: split.second,
+          reparseFirst: split.reparseFirst,
+          reparseSecond: split.reparseSecond,
+          firstSpan: { start: seg.start, end: seg.start + split.first.length },
+          secondSpan: { start: seg.start + (secondStart >= 0 ? secondStart : seg.text.length - split.second.length), end: seg.end }
+        });
+        rescuedBoundaryHalves.set(segIndex, new Set());
       });
       const attemptNotes = new Map();
       const noteAttempt = (idx, attempt) => {
@@ -3633,11 +3760,15 @@
             draft: entry.draft, segmentIndex: segIndex, derivation: entry.derivation,
             evidenceText: overrides && overrides.evidenceText ? overrides.evidenceText : null,
             evidenceSpan: overrides && overrides.evidenceSpan ? overrides.evidenceSpan : null,
-            etcHalf: overrides && overrides.etcHalf != null ? overrides.etcHalf : null
+            etcHalf: overrides && overrides.etcHalf != null ? overrides.etcHalf : null,
+            boundaryHalf: overrides && overrides.boundaryHalf != null ? overrides.boundaryHalf : null
           });
           if (unparsedBySegment.has(segIndex)) rescuedSegments.add(segIndex);
           if (overrides && overrides.etcHalf != null && rescuedHalves.has(segIndex)) {
             rescuedHalves.get(segIndex).add(overrides.etcHalf);
+          }
+          if (overrides && overrides.boundaryHalf != null && rescuedBoundaryHalves.has(segIndex)) {
+            rescuedBoundaryHalves.get(segIndex).add(overrides.boundaryHalf);
           }
           const subs = segmentSubjects[segIndex];
           if (entry.draft.subject && subs.indexOf(entry.draft.subject) === -1) subs.push(entry.draft.subject);
@@ -3689,6 +3820,41 @@
             });
             return;
           }
+          // Phase 2E boundary splits: same half-by-half processing, plus
+          // a layer re-parse of each flagged half (the mirrors, mountain
+          // and paṭṭachitra claims are layer-parser patterns, not
+          // supplementary-producer patterns). Unflagged halves are
+          // truncated fragments by construction and are never re-parsed.
+          const bSplit = boundarySplits.get(segIndex);
+          if (bSplit) {
+            [0, 1].forEach((half) => {
+              const halfText = half === 0 ? bSplit.first : bSplit.second;
+              const halfSpan = half === 0 ? bSplit.firstSpan : bSplit.secondSpan;
+              const overrides = { evidenceText: halfText, evidenceSpan: halfSpan, boundaryHalf: half };
+              const reparse = half === 0 ? bSplit.reparseFirst : bSplit.reparseSecond;
+              if (reparse) {
+                acceptSupplementary(
+                  parseAllFactRelations(halfText, { previousSubject: '' }).map((draft) => {
+                    const corrected = relabelCharacterisedBy(draft, halfText);
+                    return {
+                      draft: corrected,
+                      derivation: {
+                        method: 'phase2e_boundary_reparse', rule_id: bSplit.rule_id,
+                        parser_method: draft.extraction_method || null
+                      }
+                    };
+                  }),
+                  segIndex, overrides
+                );
+              }
+              acceptSupplementary(passiveDraftsForSegment(halfText), segIndex, overrides);
+              runPhase2dProducers(halfText, segIndex, overrides);
+              if (evidenceSource === 'caption' && unit.figure_ref) {
+                acceptSupplementary(captionFeatureDrafts(halfText), segIndex, overrides);
+              }
+            });
+            return;
+          }
           // Do not relabel an agent claim the typed layer already made:
           // if the layer typed launched_by/implemented_by/developed_by
           // for the same object in this segment, a supplementary passive
@@ -3720,7 +3886,20 @@
             );
           }
           const pronounMatch = segText.match(/^(It|They|This|These)\b/);
-          if (!acceptedForSegment && pronounMatch) {
+          // Phase 2E guard: "This is why/because ..." is a discourse
+          // connective referring to the preceding explanation, not an
+          // entity antecedent. Substituting the nearest entity subject
+          // ("The Earth is why all maps have some distortion") invents
+          // a false attribution. Such segments are never pronoun-
+          // resolved; they stay unparsed with a recorded reason.
+          const isDiscourseConnective = /^This is (why|because)\b/i.test(segText);
+          if (!acceptedForSegment && pronounMatch && isDiscourseConnective) {
+            noteAttempt(segIndex, {
+              parser: 'pronoun_resolution', outcome: 'discourse_connective_skipped',
+              detail: 'This is why/because refers to the preceding explanation, not an entity antecedent'
+            });
+          }
+          if (!acceptedForSegment && pronounMatch && !isDiscourseConnective) {
             const resolution = resolveLocalPronounAntecedent(segmentSubjects, segIndex, pronounMatch[1]);
             if (resolution.antecedent) {
               const substituted = segText.replace(/^(It|They|This|These)\b/, resolution.antecedent);
@@ -3854,7 +4033,7 @@
             sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null,
             attribution: draft.attribution || null
           },
-          classification: { method: (entry.derivation && entry.derivation.method) || draft.extraction_method || 'explicit', rule_id: 'phase2c-shadow-v1' },
+          classification: { method: (entry.derivation && entry.derivation.method) || draft.extraction_method || 'explicit', rule_id: (entry.derivation && entry.derivation.method === 'phase2e_boundary_reparse') ? 'phase2e-shadow-v1' : 'phase2c-shadow-v1' },
           validation_state: factConfidenceClass(draft, sourceMeta),
           multi_claim_unit: false,
           derivation: entry.derivation || null
@@ -3875,7 +4054,7 @@
       result.unparsed_units.forEach((entry, entryIndex) => {
         const span = (entry.source && entry.source.sentence_span) || {};
         const segIndex = segments.findIndex((seg) => seg.start === span.start);
-        if (segIndex >= 0 && rescuedSegments.has(segIndex) && !etcSplits.has(segIndex)) return;
+        if (segIndex >= 0 && rescuedSegments.has(segIndex) && !etcSplits.has(segIndex) && !boundarySplits.has(segIndex)) return;
         const notes = (segIndex >= 0 && attemptNotes.get(segIndex)) || [];
         const baseId = 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3);
         const remapUnparsed = (textOverride, spanOverride, idOverride) => Object.assign({}, entry, {
@@ -3901,6 +4080,20 @@
         if (segIndex >= 0 && etcSplits.has(segIndex)) {
           const split = etcSplits.get(segIndex);
           const rescued = rescuedHalves.get(segIndex) || new Set();
+          if (!rescued.has(0)) {
+            unparsedUnits.push(remapUnparsed(split.first, split.firstSpan, baseId));
+          }
+          if (!rescued.has(1)) {
+            unparsedUnits.push(remapUnparsed(split.second, split.secondSpan, baseId + '-b'));
+          }
+          return;
+        }
+        // Phase 2E boundary splits: one unparsed record per unrescued
+        // half, each with its own exact text and span. A rescued half
+        // produces no record; a fully rescued split produces none.
+        if (segIndex >= 0 && boundarySplits.has(segIndex)) {
+          const split = boundarySplits.get(segIndex);
+          const rescued = rescuedBoundaryHalves.get(segIndex) || new Set();
           if (!rescued.has(0)) {
             unparsedUnits.push(remapUnparsed(split.first, split.firstSpan, baseId));
           }
@@ -7812,6 +8005,7 @@
     temporalScaleDrafts,
     sketchClaimDrafts,
     splitEtcBoundary,
+    splitPhase2eBoundary,
     relabelCharacterisedBy,
     normalizeOrdinals,
     stripAttributionPrefix,
