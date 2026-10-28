@@ -916,7 +916,15 @@
     if (!text || text.length < 2) return true;
     if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text)) return true;
     if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into|over|under|about|through|against|between|among|behind|below|above|near|off|out|up|down|like)\b/i.test(text)) return true;
-    if (/\b(which|that|who|whom|whose|when|where|and|or|but|of|to|in|on|for|with|by|as|the|a|an|through|from|into|onto|under|over|against|about|between|among|behind|below|above|near|they|them|he|she|it|us|you|we|him|her|his|their|its|not only|was|were|is|are|has|have|had)\s*[.!?]?\s*$/.test(text)) return true;
+    // Dangling-word backstop: the trailing word must be a separate
+    // token. A word immediately after a letter + apostrophe ("Qur'an")
+    // is the tail of a proper noun, not a dangling article: the
+    // apostrophe creates a \b boundary that would otherwise misread
+    // "an" as a dangling word and reject a genuine list ending in
+    // such a noun ("... calligraphy of verses from the Qur'an").
+    // The negative lookbehind blocks only that case: a genuine
+    // dangling word after whitespace ("... and an") still fires.
+    if (/(?<![A-Za-z]['\u2019])\b(which|that|who|whom|whose|when|where|and|or|but|of|to|in|on|for|with|by|as|the|a|an|through|from|into|onto|under|over|against|about|between|among|behind|below|above|near|they|them|he|she|it|us|you|we|him|her|his|their|its|not only|was|were|is|are|has|have|had)\s*[.!?]?\s*$/.test(text)) return true;
     // A pronoun-start phrase with no verb is a truncated clause, not
     // an answer ("it one of the most productive regions" lost its
     // verb "make"). A pronoun-start phrase WITH a verb ("it means
@@ -3225,6 +3233,7 @@
     const objects = andParts.map((p) => cleanText(cleanText(p).replace(/,\s*with\s+[^,]*\bhaving\b.*$/i, '').replace(/[,;]+$/, '')));
     if (objects.some((o) => !o || o.split(/\s+/).length > 12)) return [];
     if (objects.some((o) => /\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(o))) return [];
+    if (objects.some((o) => /^(no|not|never)\s+/i.test(o))) return []; // Negated possession ("has no power...") is not an attribute.
     return objects.map((object) => ({
       draft: {
         fact_type: 'entity_attribute',
@@ -3460,6 +3469,400 @@
       });
     }
     return out;
+  }
+
+  // Coverage-expansion supplementary patterns (adapter-only). These
+  // rescue list/attribute claims the typed layer left unparsed because
+  // the sentence role was fragment/ambiguous, or the subject carried a
+  // parenthetical, a leading place phrase, or a trailing clause that
+  // belongs to a new clause rather than to the list. They run only on
+  // segments with no typed-layer facts (via runPhase2dProducers, or on
+  // a pronoun-substituted segment) and never on caption units:
+  // captions keep their own feature drafts plus the view-subject
+  // correction below. Every draft still passes classifyTypedDraft;
+  // evidence is never altered — truncation only affects the derived
+  // members, and each truncation is recorded in the derivation so a
+  // reader can see exactly what was dropped. Nothing here changes a
+  // shared parser, and no pattern below invents a member: a list that
+  // cannot be split cleanly stays unparsed.
+
+  // Truncate a list tail at a clause boundary. ", all of which ..."
+  // and ", and <finite verb> ..." start a new clause about the list,
+  // they are not members; ", with X having ..." is an attribute
+  // clause (the H3 rule from hasAttributeDrafts). Returns the kept
+  // text plus the rule that fired, or null when nothing truncates.
+  function truncateListTail(text) {
+    const source = cleanText(text || '');
+    const rules = [
+      { rule_id: 'all_of_which', pattern: /,\s*all of which\b[\s\S]*$/i },
+      { rule_id: 'and_finite_verb', pattern: /,\s*and\s+(is|are|was|were|has|have|had|will|would|can|could|shall|should|may|might|must)\b[\s\S]*$/i },
+      { rule_id: 'with_having', pattern: /,\s*with\s+[^,]*\bhaving\b[\s\S]*$/i }
+    ];
+    for (const entry of rules) {
+      if (entry.pattern.test(source)) {
+        return { text: cleanText(source.replace(entry.pattern, '')), truncation: entry.rule_id };
+      }
+    }
+    return { text: source, truncation: null };
+  }
+
+  // Strip one balanced mid-subject parenthetical ("Common features
+  // (also found ...) included ..." -> "Common features"). Nested or
+  // multiple parentheticals are left untouched: the subject-quality
+  // gate then decides, and a dirty subject yields no fact rather
+  // than a silently repaired one.
+  function stripSubjectParenthetical(subject) {
+    const text = cleanText(subject || '');
+    if ((text.match(/\(/g) || []).length !== 1 || (text.match(/\)/g) || []).length !== 1) {
+      return { subject: text, removed: null };
+    }
+    const match = text.match(/^(.*?)\s*\([^()]*\)\s*(.*)$/);
+    if (!match) return { subject: text, removed: null };
+    const removed = cleanText(text.slice(match[1].length, text.length - match[2].length));
+    return { subject: cleanText(match[1] + ' ' + match[2]), removed: removed };
+  }
+
+  // Strip a mid-subject participial insert ("The Jahangir Mahal,
+  // built to commemorate Emperor Jahangir's visit, showcases ..." ->
+  // "The Jahangir Mahal"). The insert must run to the end of the
+  // subject span with no comma inside it (so "X, built by Y, and Z"
+  // is never truncated to "X"), and the head must pass subject
+  // quality on its own; otherwise the subject is left untouched and
+  // the quality gate decides. Mirrors the 2C parenthetical rule:
+  // strip only when the remainder is independently valid.
+  function stripParticipialInsert(subject) {
+    const text = cleanText(subject || '').replace(/[,;:]+$/, '');
+    const match = text.match(/^(.+?),\s*(built|located|situated|founded|constructed|decorated|surrounded|established|designed|known|called|carved|painted|adorned|covered|dedicated|named)\b([^,]*)$/i);
+    if (!match) return { subject: text, removed: null };
+    const head = cleanText(match[1]);
+    if (!supplementarySubjectOk(head)) return { subject: text, removed: null };
+    return { subject: head, removed: cleanText(match[2] + match[3]) };
+  }
+
+  // Strip a leading "Within <place phrase>, " from a sentence, when
+  // the phrase contains no finite verb or clause marker. The place
+  // phrase is context, recorded in the derivation; it is not part of
+  // the subject ("Within the fort complex, a large palace has ..." ->
+  // subject "a large palace").
+  function stripWithinPrefix(text) {
+    const source = cleanText(text || '');
+    const match = source.match(/^Within\s+([^,]{2,80}),\s*(.+)$/);
+    if (!match) return { text: source, prefix: null };
+    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(match[1])) {
+      return { text: source, prefix: null };
+    }
+    return { text: cleanText(match[2]), prefix: 'Within ' + cleanText(match[1]) };
+  }
+
+  // Shared member guards for list producers: 2..20 unique members,
+  // no finite verb or clause marker inside any member (a member that
+  // contains one is a swallowed clause, not a list item), no member
+  // longer than 15 words. Any violation rejects the whole draft.
+  // List-member hygiene (coverage-expansion fix, 2026-10-27): a member
+  // must be a possessed item, not a clause fragment. Four corpus
+  // defects proved the need: "A mediator has no power to make any
+  // decision, or impose a view on the parties" typed "no power..."
+  // as a member (negated possession, not a member); "Society has
+  // many complex interactions..., therefore, disagreements and
+  // disputes may arise..." typed "therefore", "both personal" and
+  // a modal consequence clause as members; "The Supreme Court has
+  // an extraordinary discretionary jurisdiction..., or to do
+  // substantive justice..." typed a purpose infinitive as a member;
+  // "The seafloor has very deep, V-shaped areas called trenches"
+  // typed the adjective "very deep" as a member (and the maker
+  // chose it as the answer). Any offending member rejects the whole
+  // draft: a comma list whose structure is not a clean membership
+  // list is left untyped rather than repaired by guessing.
+  // Open-list markers ("etc") are dropped, not members: a list that
+  // still has >= 2 real members survives without them.
+  function cleanListMembers(membersText) {
+    const members = splitList(membersText || '');
+    const unique = [];
+    for (const member of members) {
+      if (!member || member.split(/\s+/).length > 15) return null;
+      if (/^(etc\.?|and so on|and others|among others)$/i.test(member)) continue;
+      if (/^(no|not|never)\s+/i.test(member)) return null;
+      if (/^(both|either|neither)\b/i.test(member)) return null;
+      if (/^to\s+/i.test(member)) return null;
+      if (/^(very|quite|rather|extremely|highly|particularly|especially)\s+/i.test(member)) return null;
+      if (/^(therefore|however|moreover|furthermore|thus|hence|meanwhile|consequently|additionally|besides|nonetheless|nevertheless|also|indeed|instead|likewise|otherwise)$/i.test(member)) return null;
+      if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because|may|might|can|could|will|would|shall|should|must|do|does|did)\b/i.test(member)) return null;
+      if (!unique.some((item) => normalizeObject(item) === normalizeObject(member))) unique.push(member);
+    }
+    if (unique.length < 2 || unique.length > 20) return null;
+    return unique;
+  }
+
+  function membershipDraftFromList(subject, members, method, derivation) {
+    return {
+      draft: {
+        fact_type: 'membership',
+        subject: subject,
+        relation: 'members',
+        object: members.join(', '),
+        members: members,
+        exhaustive: false,
+        answer_kind: 'member',
+        extraction_method: method
+      },
+      derivation: Object.assign({ method: method }, derivation || {})
+    };
+  }
+
+  // Membership lists the layer's listed pattern would type if the
+  // sentence role had allowed parsing: a subject carrying one
+  // parenthetical, a trailing "also", or a "Within ..." place prefix,
+  // and a member list with a trailing clause tail. The verb set
+  // mirrors the layer's listed pattern except cover(s): a "covers"
+  // list is usually document scope ("the chapter covers ..."), not a
+  // domain membership claim, and no target sentence needs it.
+  function membershipListDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const within = stripWithinPrefix(figStep.text);
+    const match = within.text.match(/^(.+?)\s+(includes?|included|consists?\s+of|comprised?|comprises?|contains?|carried|carries|encompass(?:es)?)\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const paren = stripSubjectParenthetical(match[1]);
+    const part = stripParticipialInsert(paren.subject);
+    let subjectRaw = part.subject;
+    let alsoStripped = false;
+    if (/\s+also$/i.test(subjectRaw)) {
+      subjectRaw = cleanText(subjectRaw.replace(/\s+also$/i, ''));
+      alsoStripped = true;
+    }
+    const subject = supplementarySubjectOk(subjectRaw);
+    if (!subject || /^features$/i.test(subject)) return [];
+    const tail = truncateListTail(match[3]);
+    const members = cleanListMembers(tail.text);
+    if (!members) return [];
+    return [membershipDraftFromList(subject, members, 'membership_list_ce', {
+      figure_refs_removed: figStep.removed,
+      within_prefix_stripped: within.prefix,
+      parenthetical_removed: paren.removed,
+      participial_removed: part.removed,
+      also_stripped: alsoStripped || null,
+      clause_truncation: tail.truncation
+    })];
+  }
+
+  // "X (also) includes <single object>" — the single-item companion
+  // to membershipListDrafts. A sentence the layer left as a fragment
+  // because a second clause follows ("... includes elegant chhatris
+  // on the riverbank, and is connected to ...") still states one
+  // clean includes claim once the trailing clause is truncated.
+  // Fires only when the truncated object splits to exactly one
+  // member, so multi-member lists stay with membershipListDrafts
+  // and never double-type. The second clause itself is not typed:
+  // one safe claim per segment is enough for the evidence to link.
+  function includesAttributeDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const match = figStep.text.match(/^(.+?)\s+includes?\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const paren = stripSubjectParenthetical(match[1]);
+    const part = stripParticipialInsert(paren.subject);
+    let subjectRaw = part.subject;
+    let alsoStripped = false;
+    if (/\s+also$/i.test(subjectRaw)) {
+      subjectRaw = cleanText(subjectRaw.replace(/\s+also$/i, ''));
+      alsoStripped = true;
+    }
+    const subject = supplementarySubjectOk(subjectRaw);
+    if (!subject) return [];
+    const tail = truncateListTail(match[2]);
+    const members = splitList(tail.text);
+    if (members.length !== 1) return [];
+    const object = cleanText(tail.text);
+    if (!object || object.split(/\s+/).length > 25) return [];
+    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
+    if (/^(no|not|never)\s+/i.test(object)) return []; // "includes no X" states an absence, not a possession.
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'includes',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'includes_attribute_ce'
+      },
+      derivation: {
+        method: 'includes_attribute_ce',
+        figure_refs_removed: figStep.removed,
+        parenthetical_removed: paren.removed,
+        participial_removed: part.removed,
+        also_stripped: alsoStripped || null,
+        clause_truncation: tail.truncation
+      }
+    }];
+  }
+
+  // "X features <list>" for body prose. The list must be delimited by
+  // an em/en dash separating a count phrase from the list ("three
+  // main palaces — Raja Mahal, Jahangir Mahal, and Rai Praveen
+  // Mahal": the count phrase is recorded, never counted as a member)
+  // or by commas. Without a dash or a comma there is no list
+  // structure to trust: "X features A and B" may fuse a phrase
+  // ("screens alongside carvings and pillars"), and a single object
+  // is an attribute, not a membership list. Caption units are
+  // excluded by the caller: captions keep captionFeatureDrafts.
+  function featuresListDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const match = figStep.text.match(/^(.+?)\s+features?\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const part = stripParticipialInsert(match[1]);
+    const subject = supplementarySubjectOk(part.subject);
+    if (!subject || /^features$/i.test(subject)) return [];
+    let rest = cleanText(match[2]);
+    let countPhrase = null;
+    let dashSplit = false;
+    const dash = rest.match(/^(.+?)\s*(?:\u2014|\u2013|--)\s*(.+)$/);
+    if (dash) {
+      countPhrase = cleanText(dash[1]);
+      rest = cleanText(dash[2]);
+      dashSplit = true;
+      if (!countPhrase || countPhrase.length > 60) return [];
+    } else if (!/,/.test(rest)) {
+      return [];
+    }
+    const tail = truncateListTail(rest);
+    const members = cleanListMembers(tail.text);
+    if (!members) return [];
+    return [membershipDraftFromList(subject, members, 'features_list_ce', {
+      figure_refs_removed: figStep.removed,
+      participial_removed: part.removed,
+      dash_split: dashSplit || null,
+      count_phrase: countPhrase,
+      clause_truncation: tail.truncation
+    })];
+  }
+
+  // "X showcases Y" where Y is a plain noun phrase. Bounded to one
+  // verb; the object must contain no finite verb or clause marker,
+  // so a showcases claim never swallows a following clause.
+  function showcasesDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const match = figStep.text.match(/^(.+?)\s+showcases?\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const part = stripParticipialInsert(match[1]);
+    const subject = supplementarySubjectOk(part.subject);
+    if (!subject) return [];
+    const object = cleanText(match[2]);
+    if (!object || object.split(/\s+/).length > 25) return [];
+    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
+    if (/^(no|not|never)\s+/i.test(object)) return []; // "showcases no X" states an absence, not a showcase.
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'showcases',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'showcases_ce'
+      },
+      derivation: { method: 'showcases_ce', figure_refs_removed: figStep.removed, participial_removed: part.removed }
+    }];
+  }
+
+  // "X has <comma list>" — the multi-item companion to
+  // hasAttributeDrafts, which handles exactly two " and "-joined
+  // attributes and is left untouched. A comma is required, so bare
+  // pairs stay with hasAttributeDrafts and never duplicate. Guards H1
+  // (main-verb "has") and H2 (possession, not present-perfect
+  // auxiliary) are mirrored from hasAttributeDrafts; the member list
+  // is truncated at clause boundaries like membership lists. The
+  // result is one membership fact for the whole list, not one "has"
+  // fact per item: a comma enumeration is a list claim, and per-item
+  // facts would bundle comma-joined pairs into single answers.
+  function hasListDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const within = stripWithinPrefix(figStep.text);
+    const core = within.text;
+    const match = core.match(/^(.+?)\s+has\s+(.+?)\.?$/i);
+    if (!match) return [];
+    if (/\b(is|are|was|were|be|been|being|am|have|had|do|does|did|will|would|could|should|may|might|must)\b/i.test(match[1])) return [];
+    const part = stripParticipialInsert(match[1]);
+    const subject = supplementarySubjectOk(part.subject);
+    if (!subject) return [];
+    const objectPart = cleanText(match[2]);
+    if (!/,/.test(objectPart)) return [];
+    let adverbSkipped = objectPart;
+    let strippedAdverb = true;
+    while (strippedAdverb) {
+      const next = cleanText(adverbSkipped.replace(/^(thus|also|already|just|even|recently|now|still|often|always|never|once)\s+/i, ''));
+      strippedAdverb = next !== adverbSkipped;
+      adverbSkipped = next;
+    }
+    const objTokens = adverbSkipped.split(/\s+/).map((t) => t.replace(/[^A-Za-z\u00C0-\u024F]/g, '').toLowerCase());
+    const irregularParticiples = ['been', 'become', 'begun', 'bent', 'bitten', 'blown', 'broken', 'brought', 'built', 'bought', 'caught', 'chosen', 'come', 'cut', 'dealt', 'done', 'drawn', 'driven', 'eaten', 'fallen', 'fed', 'felt', 'found', 'forgotten', 'frozen', 'given', 'gone', 'grown', 'heard', 'held', 'hidden', 'hit', 'kept', 'known', 'laid', 'led', 'left', 'lost', 'made', 'meant', 'met', 'paid', 'put', 'read', 'ridden', 'risen', 'run', 'said', 'seen', 'sent', 'set', 'shaken', 'shown', 'shut', 'spoken', 'spent', 'stolen', 'struck', 'sworn', 'taken', 'taught', 'told', 'torn', 'understood', 'woken', 'worn', 'written', 'borne', 'beaten', 'bore', 'wore', 'won', 'sang', 'sank', 'sat', 'slept', 'slid'];
+    const nonNounFollowers = ['this', 'that', 'the', 'a', 'an', 'its', 'his', 'her', 'their', 'our', 'your', 'my', 'it', 'them', 'him', 'us', 'one', 'some', 'any', 'no', 'each', 'every', 'both', 'all', 'such', 'even', 'also', 'just', 'already', 'still', 'now', 'then', 'thus', 'so', 'yet', 'again', 'ever', 'never', 'often', 'always', 'recently', 'soon', 'together', 'apart', 'away', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'of', 'as', 'into', 'over', 'under', 'through', 'between', 'among', 'against', 'upon', 'about', 'after', 'before', 'during', 'without', 'within'];
+    const firstWord = objTokens[0] || '';
+    const secondWord = objTokens[1] || '';
+    const verbLike = /ed$/.test(firstWord) || /en$/.test(firstWord) || irregularParticiples.indexOf(firstWord) !== -1;
+    if (verbLike && (!secondWord || nonNounFollowers.indexOf(secondWord) !== -1 || /ed$/.test(secondWord) || /en$/.test(secondWord) || irregularParticiples.indexOf(secondWord) !== -1)) return [];
+    const tail = truncateListTail(objectPart);
+    const members = cleanListMembers(tail.text);
+    if (!members) return [];
+    return [membershipDraftFromList(subject, members, 'has_list_ce', {
+      figure_refs_removed: figStep.removed,
+      participial_removed: part.removed,
+      within_prefix_stripped: within.prefix,
+      clause_truncation: tail.truncation
+    })];
+  }
+
+  // "X was (originally) made of Y" — a material attribute. The object
+  // is truncated at a following clause boundary (", and had fallen
+  // ..."), so only the material itself becomes the object.
+  function madeOfDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const match = figStep.text.match(/^(.+?)\s+was\s+(?:originally\s+)?made\s+of\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const paren = stripSubjectParenthetical(match[1]);
+    const part = stripParticipialInsert(paren.subject);
+    const subject = supplementarySubjectOk(part.subject);
+    if (!subject) return [];
+    const tail = truncateListTail(match[2]);
+    const object = cleanText(tail.text);
+    if (!object || object.split(/\s+/).length > 20) return [];
+    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
+    if (/^(no|not|never)\s+/i.test(object)) return []; // "made of no X" is not a material claim.
+    return [{
+      draft: {
+        fact_type: 'entity_attribute',
+        subject: subject,
+        relation: 'made_of',
+        object: object,
+        answer_kind: 'entity_attribute',
+        extraction_method: 'made_of_ce'
+      },
+      derivation: {
+        method: 'made_of_ce',
+        figure_refs_removed: figStep.removed,
+        parenthetical_removed: paren.removed,
+        participial_removed: part.removed,
+        clause_truncation: tail.truncation
+      }
+    }];
+  }
+
+  // "X was designed to include <list>" — a membership list under a
+  // passive design verb. Same member guards as the other list
+  // producers; also runs on pronoun-substituted text (see the
+  // pronoun block below) so "It was designed to include ..." types
+  // once its antecedent segment is typed.
+  function designedIncludeDrafts(segmentText) {
+    const figStep = stripFigureReferences(segmentText);
+    const match = figStep.text.match(/^(.+?)\s+was\s+designed\s+to\s+include\s+(.+?)\.?$/i);
+    if (!match) return [];
+    const part = stripParticipialInsert(match[1]);
+    const subject = supplementarySubjectOk(part.subject);
+    if (!subject) return [];
+    const tail = truncateListTail(match[2]);
+    const members = cleanListMembers(tail.text);
+    if (!members) return [];
+    return [membershipDraftFromList(subject, members, 'designed_include_ce', {
+      figure_refs_removed: figStep.removed,
+      participial_removed: part.removed,
+      clause_truncation: tail.truncation
+    })];
   }
 
   // A6. Deterministic "etc." sentence boundary, adapter-only: split a
@@ -3796,6 +4199,18 @@
           accepted += acceptSupplementary(renownedDrafts(text), segIndex, overrides);
           accepted += acceptSupplementary(sketchClaimDrafts(text), segIndex, overrides);
           accepted += acceptSupplementary(temporalScaleDrafts(text, resolvePronoun), segIndex, overrides);
+          // Coverage-expansion producers: list/attribute claims only,
+          // never on caption units (captions keep their own drafts
+          // plus the view-subject correction in the segment loop).
+          if (evidenceSource !== 'caption') {
+            accepted += acceptSupplementary(membershipListDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(includesAttributeDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(featuresListDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(showcasesDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(hasListDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(madeOfDrafts(text), segIndex, overrides);
+            accepted += acceptSupplementary(designedIncludeDrafts(text), segIndex, overrides);
+          }
           return accepted;
         };
         segments.forEach((seg, segIndex) => {
@@ -3946,6 +4361,41 @@
                 }));
                 acceptedForSegment = acceptSupplementary(ren, segIndex);
               }
+              // Coverage-expansion: a resolved pronoun subject plus a
+              // list/attribute claim types only now, and only when the
+              // antecedent comes from the immediately preceding
+              // segment. The distance rule is load-bearing: in the
+              // Orchha unit the sentence before "It has ornate
+              // chambers ..." is about the Jahangir Mahal, while an
+              // earlier segment is about "the complex"; resolving
+              // across the intervening sentence would attribute the
+              // chambers to the complex. When the preceding segment
+              // is untyped, the pronoun stays unresolved rather than
+              // guessing. Caption units are excluded: captions keep
+              // their own drafts.
+              if (!acceptedForSegment && evidenceSource !== 'caption'
+                  && resolution.segment_index === segIndex - 1) {
+                const withPronoun = (entries) => entries.map((entry) => ({
+                  draft: entry.draft,
+                  derivation: Object.assign({}, entry.derivation, {
+                    pronoun_resolution: {
+                      antecedent_text: resolution.antecedent,
+                      original_subject: pronounMatch[1],
+                      antecedent_segment_index: resolution.segment_index
+                    },
+                    immediate_predecessor_only: true
+                  })
+                }));
+                if (!acceptedForSegment) {
+                  acceptedForSegment = acceptSupplementary(withPronoun(hasListDrafts(substituted)), segIndex);
+                }
+                if (!acceptedForSegment) {
+                  acceptedForSegment = acceptSupplementary(withPronoun(hasAttributeDrafts(substituted)), segIndex);
+                }
+                if (!acceptedForSegment) {
+                  acceptedForSegment = acceptSupplementary(withPronoun(designedIncludeDrafts(substituted)), segIndex);
+                }
+              }
               if (!acceptedForSegment) {
                 noteAttempt(segIndex, { parser: 'pronoun_resolution', outcome: 'resolved_no_pattern', detail: 'antecedent: ' + resolution.antecedent });
               }
@@ -3963,6 +4413,45 @@
           }
           if (evidenceSource === 'caption' && unit.figure_ref) {
             acceptSupplementary(captionFeatureDrafts(segText), segIndex);
+          }
+          // Coverage-expansion: a caption "view of X" subject is the
+          // picture, not the thing a date attaches to. When the layer
+          // typed a completion_year date fact for such a subject in a
+          // caption unit, emit the same claim with the depicted thing
+          // as subject ("A general view of the Madras High Court,
+          // completed in 1892" -> the court was completed in 1892).
+          // The original view-subject fact is kept and prefiltered as
+          // weak_subject downstream, so no duplicate question arises;
+          // the evidence is the unchanged caption sentence. Only
+          // completion_year is corrected: it is the relation the
+          // layer emits for built/constructed/completed passives, and
+          // a view is never the thing completed.
+          if (evidenceSource === 'caption' && unit.figure_ref) {
+            (layerFactsBySegment.get(segIndex) || []).forEach((layerFact) => {
+              if (layerFact.fact_type !== 'date' || layerFact.relation !== 'completion_year') return;
+              const viewMatch = String(layerFact.subject || '')
+                .match(/^(?:(?:A|An|The)\s+)?(?:general\s+)?view\s+of\s+(.+)$/i);
+              if (!viewMatch) return;
+              const correctedSubject = supplementarySubjectOk(
+                cleanText(viewMatch[1]).replace(/[.,;:]+$/, ''));
+              if (!correctedSubject) return;
+              if (/^(general\s+)?view\s+of\b/i.test(correctedSubject)) return;
+              acceptSupplementary([{
+                draft: {
+                  fact_type: 'date',
+                  subject: correctedSubject,
+                  relation: 'completion_year',
+                  object: layerFact.object,
+                  answer_kind: layerFact.answer_kind || 'date',
+                  extraction_method: 'caption_view_subject_correction'
+                },
+                derivation: {
+                  method: 'caption_view_subject_correction',
+                  original_subject: layerFact.subject,
+                  figure_ref: unit.figure_ref
+                }
+              }], segIndex);
+            });
           }
         });
       }
@@ -5248,7 +5737,15 @@
       covers: `what does ${subject} cover?`,
       states_that: `what does ${subject} state?`,
       is_known_for: `what is ${subject} known for?`,
-      is_famous_for: `what is ${subject} famous for?`
+      is_famous_for: `what is ${subject} famous for?`,
+      // Coverage-expansion relations (additive): without a stem, a
+      // fact with one of these relations silently produces no
+      // candidate, exactly the failure the coverage-engine block
+      // above fixed for its relations. Each stem phrases exactly
+      // the typed relation; no existing stem is changed.
+      showcases: `what does ${subject} showcase?`,
+      includes: `what does ${subject} include?`,
+      made_of: `what is ${subject} made of?`
     };
     // No recognised relation means no self-contained question: a vague
     // "what does the source state about X?" stem must never ship.
@@ -7055,7 +7552,11 @@
     if (excerptText && /\(Fig\.|Fig\.\s*\d|Figure\s+\d/i.test(excerptText)) {
       add('figure_reference', 'Supporting excerpt depends on a figure reference and is not standalone evidence.');
     }
-    if (excerptText && /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(excerptText)) {
+    // Same apostrophe guard as isFragmentPhrase: a trailing word
+    // immediately after a letter + apostrophe ("Qur'an") is the tail
+    // of a proper noun, not a dangling word, and must not reject an
+    // otherwise complete excerpt.
+    if (excerptText && /(?<![A-Za-z]['\u2019])\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(excerptText)) {
       add('fragment_excerpt', 'Supporting excerpt ends with a dangling word and is not a complete statement.');
     }
     // Full-path repair, evidence completeness (P1 backstop): an
