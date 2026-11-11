@@ -1,0 +1,10 @@
+{
+  "packageId": "com.usm007.studysynth",
+  "channel": "stable",
+  "versionName": "2.1.0",
+  "versionCode": 4,
+  "minSupportedVersionCode": 3,
+  "runtimeVersion": "capacitor-8",
+  "contentVersion": "2026.11.1",
+  "minSdk": 24
+}

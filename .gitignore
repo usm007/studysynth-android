@@ -5,11 +5,18 @@ pwa/node_modules/
 # Build artifacts and caches
 build/
 www/
+dist/
 output/
 __pycache__/
 *.pyc
 .pytest_cache/
 .superpowers/
+
+# Generated release artifacts staged for GitHub Pages (rebuilt by CI)
+updates-site/updates/*/apk/
+updates-site/updates/*/web/
+updates-site/updates/*/content/
+updates-site/updates/*/artifacts.json
 
 # Android build outputs & IDE
 android/.gradle/
@@ -18,6 +25,12 @@ android/build/
 android/local.properties
 android/.idea/
 android/.cxx/
+
+# Signing material (never commit)
+keystore.properties
+*.keystore
+*.jks
+*.pem
 
 # Binary and crash logs
 *.log

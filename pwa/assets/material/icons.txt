@@ -19,8 +19,12 @@ error
 fact_check
 favorite
 favorite_border
+flag
 grade
+grid_view
 history
+home
+info
 insights
 install_mobile
 library_books

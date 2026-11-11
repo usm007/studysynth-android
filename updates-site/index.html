@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StudySynth updates</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      margin: 0 auto;
+      padding: 48px 20px;
+      max-width: 720px;
+      font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    h1 { font-size: 24px; margin: 0 0 8px; }
+    p { color: #55607a; margin: 0 0 24px; }
+    code { background: rgba(120, 130, 160, .14); padding: 2px 6px; border-radius: 6px; }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 10px; }
+    a { color: #3943d3; }
+  </style>
+</head>
+<body>
+  <h1>StudySynth update channel</h1>
+  <p>This site hosts signed update artifacts for the StudySynth Android app. Nothing here is meant to be opened in a browser.</p>
+  <ul>
+    <li><a href="./updates/stable/manifest.json">Stable manifest</a> — the signed release description the app reads.</li>
+    <li><code>updates/stable/apk/</code> — signed application packages.</li>
+    <li><code>updates/stable/web/</code> — signed OTA web bundles.</li>
+    <li><code>updates/stable/content/</code> — signed educational content packages.</li>
+  </ul>
+  <p>Every artifact is verified by the installed app before it is used. A tampered file is rejected.</p>
+</body>
+</html>

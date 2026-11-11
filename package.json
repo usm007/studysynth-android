@@ -1,22 +1,40 @@
 {
   "name": "studysynth-android",
-  "version": "1.2.0",
+  "version": "2.1.0",
   "private": true,
-  "description": "StudySynth Lite — offline study workspace and exam simulator",
+  "description": "StudySynth — offline study workspace and exam simulator",
   "scripts": {
     "web:build": "node scripts/build-web.js",
     "android:add": "cap add android",
     "android:sync": "npm run web:build && cap sync android",
     "android:apk": "npm run android:sync && cd android && gradlew.bat assembleDebug",
+    "android:release": "npm run android:sync && cd android && gradlew.bat assembleRelease",
     "android:open": "cap open android",
-    "test:pwa": "npm test --prefix pwa"
+    "test:pwa": "npm test --prefix pwa",
+    "test": "npm run test:pwa",
+    "verify:ui": "node scripts/verify-ui.js",
+    "check:ids": "node scripts/check-ids.js",
+    "check:manifest": "node scripts/updates/check-manifest.js",
+    "check:apk": "node scripts/updates/check-apk.js",
+    "version:sync": "node scripts/version.js --sync",
+    "updates:bundle": "node scripts/updates/build-ota-bundle.js",
+    "updates:content": "node scripts/updates/build-content-package.js",
+    "updates:manifest": "node scripts/updates/build-manifest.js",
+    "updates:verify": "node scripts/updates/verify-release.js",
+    "updates:keygen": "node scripts/updates/keygen.js",
+    "release:web": "npm run web:build && npm run updates:bundle",
+    "release:content": "npm run updates:content",
+    "release:manifest": "npm run updates:manifest",
+    "release:verify": "npm run updates:verify"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
-    "@capacitor/core": "^8.5.3"
+    "@capacitor/core": "^8.5.3",
+    "@capawesome/capacitor-live-update": "^8.8.1"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@capacitor/cli": "^8.5.3"
+    "@capacitor/cli": "^8.5.3",
+    "puppeteer-core": "^25.17.0"
   }
 }
