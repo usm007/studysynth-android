@@ -12,9 +12,8 @@
   - **CTET CDP Section Mock**: 30 Qs | 30 Mins | 30 Marks (+1 / 0).
   - **Custom Test Builder**: Custom question counts (5 to 100) and time per question (30s to 120s).
 - **True Randomization**: Automatic Fisher-Yates question order randomization on every Test attempt across all exam modes, while Practice mode maintains sequential order.
-- **Zero PDF Bloat**: Unbloated package down to **25.2 MB** with zero PDF files.
+- **Zero PDF Bloat**: Ultra-compact standalone package down to **25.2 MB** with zero PDF files.
 - **100% Offline & Private**: Zero cloud dependencies, zero external tracking, on-device OCR and local storage.
 
-### 📦 Attached Assets
-- `StudySynth.apk` (25.2 MB) — Universal release APK
-- `UGC_NET_Education_Code09.apk` (25.2 MB) — Exam edition APK
+### 📦 Attached Asset
+- `Studysynth-Education.apk` (25.2 MB) — Complete offline release APK
