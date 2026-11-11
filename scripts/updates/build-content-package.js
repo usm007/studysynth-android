@@ -25,7 +25,7 @@ const pwa = path.join(root, 'pwa');
 const outDir = path.join(root, 'dist', 'updates', 'content');
 
 function parseArgs(argv) {
-  const args = { modules: null, base: null, version: null, mode: 'full', remove: [] };
+  const args = { modules: null, base: null, version: null, mode: 'full', remove: [], force: false };
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--modules') args.modules = String(argv[++i] || '').split(',').map((s) => s.trim()).filter(Boolean);
@@ -33,6 +33,7 @@ function parseArgs(argv) {
     else if (arg === '--base') args.base = argv[++i];
     else if (arg === '--version') args.version = argv[++i];
     else if (arg === '--mode') args.mode = argv[++i];
+    else if (arg === '--force') args.force = true;
     else throw new Error(`Unknown argument: ${arg}`);
   }
   if (args.mode !== 'full' && args.mode !== 'delta') throw new Error('--mode must be "full" or "delta"');
@@ -128,10 +129,34 @@ function main() {
   const questionCount = index.reduce((sum, entry) => sum + (Number(entry.questionCount) || 0), 0);
   const bytes = Buffer.from(JSON.stringify(pkg), 'utf8');
   const sha256 = crypto.createHash('sha256').update(bytes).digest('hex');
+
+  // A republished version must be byte-for-byte the same dataset: devices
+  // compare content versions, so silently changing the questions under an
+  // existing version means nobody would ever receive the change.
+  const file = path.join(outDir, `content-${contentVersion}.json`);
+  if (fs.existsSync(file) && !args.force) {
+    const semantic = (value) => {
+      const copy = Object.assign({}, value);
+      delete copy.generatedAt;
+      return crypto.createHash('sha256').update(JSON.stringify(copy)).digest('hex');
+    };
+    let previous = null;
+    try {
+      previous = JSON.parse(fs.readFileSync(file, 'utf8'));
+    } catch (err) {
+      previous = null;
+    }
+    if (previous && semantic(previous) !== semantic(pkg)) {
+      throw new Error(
+        `contentVersion ${contentVersion} is already staged with different content. ` +
+        'Bump contentVersion in version.json so installed devices see the change, or pass --force to replace it.'
+      );
+    }
+  }
+
   const { signature } = signBytes(bytes);
 
   fs.mkdirSync(outDir, { recursive: true });
-  const file = path.join(outDir, `content-${contentVersion}.json`);
   fs.writeFileSync(file, bytes);
   fs.writeFileSync(`${file}.sig`, signature + '\n');
 

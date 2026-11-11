@@ -6,13 +6,24 @@
  * missing this reports exactly what it could not read instead of guessing.
  */
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { execFileSync, execSync } = require('child_process');
 
+function sdkCandidates() {
+  const fromEnv = [process.env.ANDROID_HOME, process.env.ANDROID_SDK_ROOT].filter(Boolean);
+  const home = os.homedir();
+  return fromEnv.concat([
+    process.env.LOCALAPPDATA ? path.join(process.env.LOCALAPPDATA, 'Android', 'Sdk') : '',
+    path.join(home, 'Android', 'Sdk'),
+    path.join(home, 'Library', 'Android', 'sdk')
+  ]).filter(Boolean);
+}
+
 function findBuildTools() {
-  const sdk = process.env.ANDROID_HOME || process.env.ANDROID_SDK_ROOT || 'E:\\Android\\Sdk';
+  const sdk = sdkCandidates().find((dir) => fs.existsSync(path.join(dir, 'build-tools')));
+  if (!sdk) return null;
   const dir = path.join(sdk, 'build-tools');
-  if (!fs.existsSync(dir)) return null;
   const versions = fs.readdirSync(dir)
     .filter((name) => /^\d+\.\d+\.\d+$/.test(name))
     .sort((a, b) => {

@@ -199,8 +199,9 @@ studysynth-android/
    published. This is the largest security gap and is addressed by the update system.
 6. **WebView version variance.** Android WebView on API 24 devices may be old. Update code must
    avoid APIs that are not broadly available (no `Ed25519` in WebCrypto, no `structuredClone`
-   assumptions). ECDSA P-256 + SHA-256 is used instead, which is available in every WebView that
-   supports `crypto.subtle`.
+   assumptions). RSASSA-PKCS1-v1_5 with SHA-256 is used instead, which is available in every
+   WebView that supports `crypto.subtle`; the Capawesome live-update plugin also requires RSA
+   signatures natively, so the manifest, web bundle and content package all use one RSA-3072 key.
 
 ---
 

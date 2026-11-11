@@ -67,13 +67,14 @@
 
   /**
    * True when the learner is inside a timed exam or an exam is about to start.
-   * The host app supplies this; the default is deliberately conservative.
+   * The host app supplies this. Until it does, the answer is "busy": failing
+   * closed is the only way to guarantee an exam is never interrupted.
    */
   function isBusy() {
     if (typeof runtime.isBusy === 'function') {
       try { return !!runtime.isBusy(); } catch (err) { return true; }
     }
-    return false;
+    return true;
   }
 
   function networkAllowsDownload(settings) {
@@ -91,13 +92,23 @@
   async function getInstalledState() {
     var version = global.STUDYSYNTH_VERSION || {};
     var stored = global.UpdateStorage ? global.UpdateStorage.read() : { installedWebBundleId: '' };
-    var contentVersion = '';
+    // A fresh install ships the dataset described by version.json, so it is
+    // already at that content version even before any pack is activated.
+    var contentVersion = version.contentVersion || '';
+    var contentSource = contentVersion ? 'bundled' : '';
+    var contentPreviousVersion = '';
     if (global.ContentUpdateService && global.ContentUpdateService.getState) {
       try {
         var content = await global.ContentUpdateService.getState();
-        contentVersion = (content && content.active && content.active.version) || '';
+        if (content && content.active && content.active.version) {
+          contentVersion = content.active.version;
+          contentSource = 'pack';
+        }
+        if (content && content.previous && content.previous.version) {
+          contentPreviousVersion = content.previous.version;
+        }
       } catch (err) {
-        contentVersion = '';
+        /* fall back to the bundled version */
       }
     }
     var webBundleId = stored.installedWebBundleId || '';
@@ -111,6 +122,8 @@
       versionCode: Number(version.versionCode) || 0,
       runtimeVersion: version.runtimeVersion || '',
       contentVersion: contentVersion,
+      contentSource: contentSource,
+      contentPreviousVersion: contentPreviousVersion,
       webBundleId: webBundleId
     };
   }
@@ -241,10 +254,11 @@
       if (!result.ok) return result;
 
       var settings = (global.UpdateStorage ? global.UpdateStorage.read().settings : { auto: true, wifiOnly: true });
+      var held = (global.UpdateStorage ? global.UpdateStorage.read().contentHoldVersion : '') || '';
       var plan = result.plan;
       var applied = { content: false, web: false, apk: false };
 
-      if (plan.content && settings.auto !== false) {
+      if (plan.content && settings.auto !== false && plan.content.version !== held) {
         if (isBusy()) {
           emit('deferred', { reason: 'exam', target: 'content' });
         } else if (!networkAllowsDownload(settings)) {
@@ -292,6 +306,23 @@
     };
   }
 
+  /**
+   * Clears one "available" flag after it has been applied while keeping the
+   * others, so a content update never erases a pending app or interface update.
+   */
+  function clearAvailable(target, extra) {
+    if (!global.UpdateStorage) return;
+    var state = global.UpdateStorage.read();
+    var available = state.available;
+    var patch = Object.assign({ lastError: '' }, extra || {});
+    if (available && available[target]) {
+      var next = Object.assign({}, available);
+      next[target] = false;
+      patch.available = next;
+    }
+    global.UpdateStorage.patch(patch);
+  }
+
   async function applyContent(options) {
     var opts = options || {};
     var plan = opts.plan;
@@ -309,11 +340,28 @@
 
     emit('content-started', { version: plan.content.version });
     var result = await global.ContentUpdateService.download(contentOptions(plan));
-    if (global.UpdateStorage) {
-      global.UpdateStorage.patch({ available: null, lastError: '' });
-    }
+    clearAvailable('content', { contentHoldVersion: '' });
     emit('content-applied', { version: result.version, packId: result.packId, silent: !!(opts && opts.silent) });
     return { applied: true, version: result.version, packId: result.packId };
+  }
+
+  /**
+   * Restores the previous content package. The version that was rolled back
+   * from is remembered so the automatic policy does not immediately reinstall
+   * it; an explicit "Update question bank" clears that hold.
+   */
+  async function rollbackContent() {
+    if (isBusy()) throw new Error('Finish or submit the current exam before changing the question bank.');
+    if (!global.ContentUpdateService || typeof global.ContentUpdateService.rollback !== 'function') {
+      throw new Error('Content rollback is not supported in this build.');
+    }
+    var before = await getInstalledState();
+    var result = await global.ContentUpdateService.rollback();
+    if (global.UpdateStorage) {
+      global.UpdateStorage.patch({ contentHoldVersion: before.contentVersion || '' });
+    }
+    emit('content-rolled-back', { version: (result && result.active && result.active.version) || '' });
+    return result;
   }
 
   async function stageWeb(options) {
@@ -349,9 +397,7 @@
       unsubscribe();
     }
     await global.LiveUpdateService.setNext(plan.web.bundleId);
-    if (global.UpdateStorage) {
-      global.UpdateStorage.patch({ installedWebBundleId: plan.web.bundleId, available: null, lastError: '' });
-    }
+    clearAvailable('web', { installedWebBundleId: plan.web.bundleId });
     emit('web-staged', { bundleId: plan.web.bundleId, silent: !!(opts && opts.silent) });
     return { staged: true, bundleId: plan.web.bundleId };
   }
@@ -411,6 +457,14 @@
     if (!global.ApkUpdateService || !global.ApkUpdateService.isAvailable()) {
       throw new Error('APK updates are only available in the installed Android app.');
     }
+    var state = await global.ApkUpdateService.getState();
+    if (!state || state.status !== 'downloaded' || !state.versionCode) {
+      throw new Error('No downloaded update is ready to install.');
+    }
+    var installedCode = Number(global.STUDYSYNTH_VERSION && global.STUDYSYNTH_VERSION.versionCode) || 0;
+    if (installedCode && Number(state.versionCode) <= installedCode) {
+      throw new Error('This update is already installed.');
+    }
     var permission = await global.ApkUpdateService.getInstallPermissionStatus();
     if (!permission.allowed) {
       var error = new Error('Android needs permission to install this update. Allow "Install unknown apps" for StudySynth, then try again.');
@@ -424,7 +478,15 @@
 
   async function getApkState() {
     if (!global.ApkUpdateService || !global.ApkUpdateService.isAvailable()) return { status: 'unavailable' };
-    return global.ApkUpdateService.getState();
+    var state = await global.ApkUpdateService.getState();
+    // A downloaded file for the version that is now running is left over from
+    // the install that just happened; it is not a pending update.
+    var installedCode = Number(global.STUDYSYNTH_VERSION && global.STUDYSYNTH_VERSION.versionCode) || 0;
+    if (state && state.status === 'downloaded' && state.versionCode && installedCode
+        && Number(state.versionCode) <= installedCode) {
+      return { status: 'idle', versionCode: Number(state.versionCode), stale: true };
+    }
+    return state;
   }
 
   function setSettings(changes) {
@@ -514,6 +576,7 @@
     checkNow: checkNow,
     refresh: refresh,
     applyContent: applyContent,
+    rollbackContent: rollbackContent,
     stageWeb: stageWeb,
     restartIntoWebBundle: restartIntoWebBundle,
     downloadApk: downloadApk,

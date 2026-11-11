@@ -200,6 +200,9 @@ const addQuotedIcons = (expression) => {
 for (const match of html.matchAll(/<span[^>]*class="[^"]*ms-icon[^"]*"[^>]*>([a-z0-9_]+)<\/span>/g)) {
   usedIcons.add(match[1]);
 }
+for (const match of appJs.matchAll(/<span[^>]*class="[^"]*ms-icon[^"]*"[^>]*>([a-z0-9_]+)<\/span>/g)) {
+  usedIcons.add(match[1]);
+}
 for (const match of appJs.matchAll(/iconName\s*=\s*([^;]+);/g)) addQuotedIcons(match[1]);
 for (const match of appJs.matchAll(/(?:^|[^\w.])icon\(([^()]*)\)/g)) addQuotedIcons(match[1]);
 

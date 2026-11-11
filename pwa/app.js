@@ -3761,6 +3761,8 @@
       refreshUpdateIndicator();
       if (event.type === 'content-applied') {
         showToast('Question bank updated. Your bookmarks and attempts are untouched.');
+      } else if (event.type === 'content-rolled-back') {
+        showToast('Previous question bank restored.');
       } else if (event.type === 'web-staged') {
         showToast('Interface update downloaded. It will apply on the next restart.');
       }

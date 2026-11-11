@@ -14,7 +14,6 @@
   var dom = null;
   var mounted = false;
   var unsubscribe = null;
-  var pendingRestart = false;
   var onContentApplied = null;
 
   function el(id) {
@@ -71,46 +70,76 @@
     var installed = status.installed || {};
     var settings = status.settings || {};
     var available = status.available || null;
+    var apkState = status.apkState || {};
+    var apkReady = !!(status.apkUpdate && apkState.status === 'downloaded');
+
+    // An update is only actionable where the platform can install it: the APK
+    // needs the Android plugin and the interface bundle needs the live-update
+    // plugin. A browser install shows an explanation instead of a dead button.
+    var canApk = !!(available && available.apk && status.apkUpdate);
+    var canWeb = !!(available && available.web && status.liveUpdate);
+    var canContent = !!(available && available.content);
+    var apkElsewhere = !!(available && available.apk && !status.apkUpdate);
+    var webElsewhere = !!(available && available.web && !status.liveUpdate);
 
     var parts = [];
 
     parts.push('<section class="update-section" aria-labelledby="updateCurrentTitle">');
     parts.push('<h3 class="update-section-title" id="updateCurrentTitle">Installed</h3>');
     parts.push(buildRow('App version', (installed.versionName || 'Unknown') + (installed.versionCode ? ' (' + installed.versionCode + ')' : '')));
-    parts.push(buildRow('Content', installed.contentVersion || 'Bundled'));
+    var contentLabel = installed.contentVersion || 'Bundled';
+    if (installed.contentVersion && installed.contentSource === 'bundled') contentLabel += ' (bundled)';
+    parts.push(buildRow('Content', contentLabel));
     if (installed.webBundleId) parts.push(buildRow('Web bundle', installed.webBundleId));
     parts.push(buildRow('Platform', status.native ? 'Android app' : 'Browser'));
+    if (installed.contentPreviousVersion) {
+      parts.push('<div class="update-card"><p class="update-card-title">Previous question bank ' + escapeHtml(installed.contentPreviousVersion) + '</p>' +
+        '<p class="update-card-text">Restore it if the latest set caused a problem. Bookmarks, attempts and revision history are untouched.</p>' +
+        '<button type="button" class="btn btn-ghost" data-update-action="content-rollback">Restore previous question bank</button>' +
+        '</div>');
+    }
     parts.push('</section>');
 
     parts.push('<section class="update-section" aria-labelledby="updateAvailableTitle">');
     parts.push('<h3 class="update-section-title" id="updateAvailableTitle">Available</h3>');
-    if (available) {
-      if (available.apk) {
+    if (available || apkReady) {
+      if (canApk) {
         parts.push('<div class="update-card"><p class="update-card-title">App update ' + escapeHtml(available.versionName || '') + '</p>' +
           '<p class="update-card-text">Downloads the signed installer. Android will ask you to confirm the install.</p>' +
           '<button type="button" class="btn btn-primary" data-update-action="apk">Download app update</button>' +
           '<div class="update-progress" data-update-progress="apk" hidden><div class="update-progress-bar"></div><span class="update-progress-text"></span></div>' +
-          '<button type="button" class="btn btn-ghost" data-update-action="install" hidden>Install downloaded update</button>' +
+          '<button type="button" class="btn btn-ghost" data-update-action="install"' + (apkReady ? '' : ' hidden') + '>Install downloaded update</button>' +
+          '</div>');
+      } else if (apkReady) {
+        parts.push('<div class="update-card"><p class="update-card-title">App update ready</p>' +
+          '<p class="update-card-text">The signed installer is downloaded. Android will ask you to confirm the install.</p>' +
+          '<button type="button" class="btn btn-primary" data-update-action="install">Install downloaded update</button>' +
           '</div>');
       }
-      if (available.web) {
+      if (canWeb) {
         parts.push('<div class="update-card"><p class="update-card-title">Interface update</p>' +
-          '<p class="update-card-text">Ready to apply on the next restart. Your saved work is not affected.</p>' +
-          '<button type="button" class="btn btn-primary" data-update-action="web">Restart and apply</button>' +
+          '<p class="update-card-text">Applies the signed interface bundle and restarts StudySynth. Your saved work is not affected.</p>' +
+          '<button type="button" class="btn btn-primary" data-update-action="web">Apply and restart</button>' +
           '<div class="update-progress" data-update-progress="web" hidden><div class="update-progress-bar"></div><span class="update-progress-text"></span></div>' +
           '</div>');
       }
-      if (available.content) {
+      if (canContent) {
         parts.push('<div class="update-card"><p class="update-card-title">Question bank update</p>' +
           '<p class="update-card-text">Adds or refreshes verified questions. Bookmarks, attempts and revision history stay intact.</p>' +
           '<button type="button" class="btn btn-primary" data-update-action="content">Update question bank</button>' +
           '<div class="update-progress" data-update-progress="content" hidden><div class="update-progress-bar"></div><span class="update-progress-text"></span></div>' +
           '</div>');
       }
-      if (available.blocked && available.blocked.length) {
+      if (apkElsewhere) {
+        parts.push('<div class="update-note">A newer app version is available. Open StudySynth on Android to install it.</div>');
+      }
+      if (webElsewhere) {
+        parts.push('<div class="update-note">Interface updates install from the Android app; a browser copy updates itself.</div>');
+      }
+      if (available && available.blocked && available.blocked.length) {
         parts.push('<div class="update-note">' + escapeHtml(available.blocked[0]) + '</div>');
       }
-      if (!available.apk && !available.web && !available.content) {
+      if (!canApk && !canWeb && !canContent && !apkReady) {
         parts.push('<p class="update-empty">You are on the latest available version.</p>');
       }
     } else {
@@ -130,9 +159,6 @@
     parts.push('<section class="update-section">');
     parts.push('<p class="update-status" data-update-status role="status">' + escapeHtml(statusLine(status)) + '</p>');
     parts.push('<button type="button" class="btn btn-secondary" data-update-action="check">Check for updates</button>');
-    if (status.native && status.apkState && status.apkState.status === 'downloaded') {
-      parts.push('<p class="update-note">A downloaded update is waiting. Tap “Install downloaded update” above.</p>');
-    }
     parts.push('</section>');
 
     dom.body.innerHTML = parts.join('');
@@ -215,9 +241,19 @@
         }
         return;
       }
+      if (action === 'content-rollback') {
+        setBusy('Restoring the previous question bank…');
+        await coordinator.rollbackContent();
+        clearBusy();
+        await refreshView();
+        if (typeof onContentApplied === 'function') {
+          try { await onContentApplied(); } catch (err) { /* ignore */ }
+        }
+        return;
+      }
       if (action === 'web') {
-        pendingRestart = true;
-        setBusy('Applying the interface update…');
+        setBusy('Preparing the interface update…');
+        await coordinator.stageWeb();
         await coordinator.restartIntoWebBundle();
         return;
       }
@@ -225,18 +261,14 @@
         setBusy('Downloading the signed installer…');
         var downloaded = await coordinator.downloadApk();
         clearBusy();
+        await refreshView();
         if (downloaded && downloaded.permission && !downloaded.permission.allowed) {
-          dom.body.querySelectorAll('[data-update-action="install"]').forEach(function (button) {
-            button.hidden = false;
-          });
-          var status = dom.body.querySelector('[data-update-status]');
-          if (status) {
-            status.textContent = 'Downloaded. Android needs permission to install: allow “Install unknown apps” for StudySynth, then tap Install.';
+          var installStatus = dom.body.querySelector('[data-update-status]');
+          if (installStatus) {
+            installStatus.textContent = 'Downloaded. Android needs permission to install: allow “Install unknown apps” for StudySynth, then tap Install.';
           }
           await global.ApkUpdateService.openInstallPermissionSettings();
-          return;
         }
-        await refreshView();
         return;
       }
       if (action === 'install') {
@@ -291,7 +323,7 @@
       }
       return;
     }
-    if (event.type === 'web-staged' || event.type === 'apk-downloaded' || event.type === 'check-ok' || event.type === 'apply-failed') {
+    if (event.type === 'web-staged' || event.type === 'apk-downloaded' || event.type === 'check-ok' || event.type === 'apply-failed' || event.type === 'content-rolled-back') {
       refreshView();
     }
   }

@@ -23,7 +23,8 @@
         intervalMs: DEFAULT_INTERVAL_MS
       },
       installedWebBundleId: '',
-      lastNotifiedVersion: ''
+      lastNotifiedVersion: '',
+      contentHoldVersion: ''
     };
   }
 
@@ -41,6 +42,7 @@
         base.available = parsed.available || null;
         base.installedWebBundleId = typeof parsed.installedWebBundleId === 'string' ? parsed.installedWebBundleId : '';
         base.lastNotifiedVersion = typeof parsed.lastNotifiedVersion === 'string' ? parsed.lastNotifiedVersion : '';
+        base.contentHoldVersion = typeof parsed.contentHoldVersion === 'string' ? parsed.contentHoldVersion : '';
         if (parsed.settings && typeof parsed.settings === 'object') {
           base.settings.auto = parsed.settings.auto !== false;
           base.settings.wifiOnly = parsed.settings.wifiOnly !== false;

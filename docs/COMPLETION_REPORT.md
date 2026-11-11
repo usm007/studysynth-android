@@ -19,8 +19,8 @@ below is marked verified unless the command or check was actually run.
 | 4 | Practice/exam keeps timer, palette, mark-for-review, unanswered indicators, submit confirmation, results | Done | `verify-ui.js`: timer running, palette lists 20 cells, mark flags the palette cell, submit asks first, cancel keeps the exam, results scorecard appears |
 | 5 | Offline-first, fast, minimal dependencies, no new UI framework | Done | No framework added; one dev dependency (`puppeteer-core`); service worker activates with one versioned cache; library opens from bundled data |
 | 6 | APK updates via GitHub Releases + static manifest, SHA-256 + identity + version checks, supported install flow | Implemented, locally verified | `ApkUpdatePlugin` compiles into the signed APK; `check-apk.js` and `verify-release.js` pass; install flow not run on a device (see §5) |
-| 7 | OTA via Capawesome Live Update, signed, checksummed, staged, rollback, never interrupts a mock test | Implemented, locally verified | Plugin `8.8.1` configured with RSA public key; 32 update tests cover exam guard, metered deferral, forged manifest rejection, rollback |
-| 8 | Content updates: signed, atomic, preserve bookmarks/attempts/revision, retain previous | Implemented, unit verified | 19 content tests cover activation, rollback, hostile package rejection, data preservation |
+| 7 | OTA via Capawesome Live Update, signed, checksummed, staged, rollback, never interrupts a mock test | Implemented, locally verified | Plugin `8.8.1` configured with RSA public key; 38 update tests cover exam guard, fail-closed policy, metered deferral, forged manifest rejection, content downgrade rejection |
+| 8 | Content updates: signed, atomic, preserve bookmarks/attempts/revision, retain previous | Implemented, unit verified | 20 content tests cover activation, rollback, missing-body rejection, hostile package rejection, data preservation |
 | 9 | Never change application ID or signing identity casually | Done | APK id `com.usm007.studysynth`, certificate `62377a57…a374`, matching the published 1.2 APK |
 | 10 | No fabricated results, no placeholder implementations | Done | See §5 for the exact limits of verification |
 | 11 | Audit doc, docs, workflows, Update Centre, tests, production build, exact secrets, completion table | Done | `docs/IMPLEMENTATION_AUDIT.md`, `docs/ARCHITECTURE.md`, `docs/UPDATE_SYSTEM.md`, `docs/RELEASE_GUIDE.md`, `.github/workflows/*`, this report |
@@ -53,7 +53,7 @@ documented compatibility decision, not a security claim.
 ```
 APK OK: com.usm007.studysynth 2.1.0 (4)
 cert=62377a571b33c348a2ed61f08e538108b0b76338dcdaa7e029e0e3172a17a374
-v2=true size=23727116
+v2=true size=23734092
 ```
 
 Path: `android/app/build/outputs/apk/release/app-release.apk`
@@ -62,22 +62,23 @@ Path: `android/app/build/outputs/apk/release/app-release.apk`
 
 | Artifact | Value |
 | --- | --- |
-| OTA bundle | `2.1.0-4-601b5a343e3e`, 18,930,192 bytes |
-| OTA SHA-256 | `601b5a343e3e110d331a6da8265a1f0153e9063e9ee0757dee2f5f7c3498543e` |
+| OTA bundle | `2.1.0-4-358be1bb43b6`, 18,937,139 bytes |
+| OTA SHA-256 | `358be1bb43b6464b60df5542598e9557bc843e68e3164a38e282110e6f51d27c` |
 | Content package | `2026.11.1`, 11,607,741 bytes, 20 modules, 8,519 questions |
-| Content SHA-256 | `df10734889d4627328d9facf54bb7b48c67ed5763343291856aec6d60caf0697` |
-| APK SHA-256 | `6339ddbe824d6b6d2a027001f5ae154d8ef3adeb1908a88f110cadee50d1844e` |
-| Manifest generated | `2026-11-11T12:49:29.192Z` |
-| Manifest signature | `o73HoeBE6y7IiUDg…` (512-char base64) |
+| Content SHA-256 | `99398f6ee60a1e8b2bbc7e7edafca035bb2a047970acbfb12797efc64e8dcb90` |
+| APK SHA-256 | `6243cad21c73b7d0f168f25179e20f836fe55b684da7c858f7a6f8e0b93cd72d` |
+| Manifest generated | `2026-11-11T13:27:51.165Z` |
+| Manifest signature | `XA006rsbmx/OmpwKz…` (512-char base64) |
 
 ### Verification output
 
 ```
 OK   manifest signature verified
 OK   release 2.1.0 (4), min supported 3
+OK   content: manifest 2026.11.1 is not older than the bundled 2026.11.1
 OK   apk: SHA-256 verified (22.63 MB)
 OK   apk: com.usm007.studysynth 2.1.0 (4), cert 62377a571b33c348…
-OK   web: SHA-256 verified (18.05 MB)
+OK   web: SHA-256 verified (18.06 MB)
 OK   web: artifact signature verified
 OK   content: SHA-256 verified (11.07 MB)
 OK   content: artifact signature verified
@@ -103,16 +104,16 @@ Manifest OK: com.usm007.studysynth 2.1.0 (4) channel=stable artifacts=apk,web,co
 | Revision engine | Passed |
 | Reasoning engine v2 | Passed, 0 errors |
 | Repair 002 regression | Passed |
-| Update system | 32 passed, 0 failed |
-| Content packages | 19 passed, 0 failed |
+| Update system | 38 passed, 0 failed |
+| Content packages | 20 passed, 0 failed |
 
 Supporting checks:
 
 | Check | Result |
 | --- | --- |
-| `node scripts/check-ids.js` | 181 ids used, 0 missing |
+| `node scripts/check-ids.js` | 163 ids used, 0 missing |
 | `node scripts/verify-ui.js` | 69 checks passed (13 per viewport × 4, 3 service worker, 14 exam shell) |
-| Icon font contract | 67 symbols present, includes every icon used by the shell |
+| Icon font contract | 70 symbols present, includes every icon used by the shell and the home screen |
 | Browser console | Zero page errors, zero console errors, zero failed local requests in all four passes |
 | Horizontal overflow | None at 360 px or 412 px |
 | Service worker | Active, exactly one cache: `studysynth-2.1.0-capacitor-8-r1` |

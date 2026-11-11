@@ -199,3 +199,8 @@ These are intentional, and each is reflected in the code and docs:
    activation, which removes silent stale-content fallback.
 6. **`check-ids.js` now fails the build on a missing id.** The old version
    printed the list and exited 0.
+7. **Content rollback holds the rejected version.** Restoring the previous set
+   also stops the automatic policy from reinstalling the same version; the
+   explicit "Update question bank" action clears the hold.
+8. **The update policy fails closed.** Until the host registers the exam
+   predicate, downloads and activations are treated as blocked.

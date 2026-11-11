@@ -398,7 +398,66 @@ async function run() {
     assert.strictEqual(result.applied.content, true);
     assert.strictEqual(seen.length, 1);
     assert.strictEqual(seen[0].version, '2026.11.2');
-    assert.strictEqual(UpdateStorage.read().available, null);
+    const available = UpdateStorage.read().available;
+    assert.strictEqual(available.content, false);
+    assert.strictEqual(available.apk, false);
+  });
+
+  await test('applying content keeps a pending app update visible', async () => {
+    installRuntime();
+    const manifest = baseManifest();
+    manifest.release.versionCode = 5;
+    manifest.content.version = '2026.11.2';
+    const payload = Object.assign({}, manifest);
+    delete payload.signature;
+    manifest.signature = signValue(privateKey, payload);
+    stubFetch(manifest);
+    global.ContentUpdateService = {
+      getState: async () => ({ active: null }),
+      download: async (options) => ({ version: options.version, packId: 'content-2026.11.2' })
+    };
+
+    const result = await Coordinator.checkNow({ manual: true });
+    assert.strictEqual(result.applied.content, true);
+    const available = UpdateStorage.read().available;
+    assert.strictEqual(available.content, false);
+    assert.strictEqual(available.apk, true);
+  });
+
+  await test('a fresh install does not re-download the bundled question bank', async () => {
+    installRuntime();
+    const manifest = signedManifest();
+    manifest.content.version = '2026.11.1';
+    const payload = Object.assign({}, manifest);
+    delete payload.signature;
+    manifest.signature = signValue(privateKey, payload);
+    stubFetch(manifest);
+    let downloads = 0;
+    global.ContentUpdateService = {
+      getState: async () => ({ active: null, previous: null }),
+      download: async () => { downloads += 1; return { version: '2026.11.1', packId: 'x' }; }
+    };
+
+    const result = await Coordinator.checkNow({ manual: true });
+    assert.strictEqual(result.ok, true);
+    assert.strictEqual(result.applied.content, false);
+    assert.strictEqual(downloads, 0);
+  });
+
+  await test('a rolled-back content version is not reinstalled automatically', async () => {
+    installRuntime();
+    UpdateStorage.patch({ contentHoldVersion: '2026.11.2' });
+    stubFetch(signedManifest());
+    let downloads = 0;
+    global.ContentUpdateService = {
+      getState: async () => ({ active: null }),
+      download: async () => { downloads += 1; return { version: '2026.11.2', packId: 'x' }; }
+    };
+
+    const result = await Coordinator.checkNow({ manual: false });
+    assert.strictEqual(result.ok, true);
+    assert.strictEqual(result.applied.content, false);
+    assert.strictEqual(downloads, 0);
   });
 
   await test('a scheduled check is skipped during a timed exam', async () => {
@@ -485,6 +544,39 @@ async function run() {
     const state = UpdateStorage.read();
     assert.strictEqual(state.lastCheckOk, false);
     assert.strictEqual(state.available, null);
+  });
+
+  await test('a downloaded APK for the running version is not a pending update', async () => {
+    installRuntime();
+    global.ApkUpdateService = {
+      isAvailable: () => true,
+      getState: async () => ({ status: 'downloaded', versionCode: 4, file: '/tmp/x.apk' })
+    };
+    const state = await Coordinator.getApkState();
+    assert.strictEqual(state.status, 'idle');
+    assert.strictEqual(state.stale, true);
+  });
+
+  await test('installing a downloaded APK for the running version is refused', async () => {
+    installRuntime();
+    let opened = 0;
+    global.ApkUpdateService = {
+      isAvailable: () => true,
+      getState: async () => ({ status: 'downloaded', versionCode: 4 }),
+      getInstallPermissionStatus: async () => ({ allowed: true }),
+      install: async () => { opened += 1; }
+    };
+    await assert.rejects(() => Coordinator.installApk(), /already installed/);
+    assert.strictEqual(opened, 0);
+  });
+
+  await test('updates fail closed until the host registers an exam predicate', async () => {
+    const modulePath = require.resolve('../updates/UpdateCoordinator.js');
+    delete require.cache[modulePath];
+    const FreshCoordinator = require('../updates/UpdateCoordinator.js');
+    const result = await FreshCoordinator.checkNow({ manual: false });
+    assert.strictEqual(result.skipped, true);
+    assert.ok(/exam/i.test(result.error));
   });
 }
 

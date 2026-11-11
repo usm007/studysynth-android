@@ -18,6 +18,7 @@ const { verifyBytes } = require('./keys');
 const { readApkInfo } = require('./apk-info');
 const manifestApi = require('../../pwa/updates/UpdateManifest.js');
 const keys = require('../../pwa/updates/keys.js');
+const { readVersion } = require('../version');
 
 const root = path.resolve(__dirname, '..', '..');
 
@@ -89,6 +90,17 @@ function main() {
 
   const release = manifest.release || {};
   notes.push(`release ${release.versionName} (${release.versionCode}), min supported ${release.minSupportedVersionCode}`);
+
+  // The APK bundles the dataset named in version.json. Publishing an older
+  // content package would offer a downgrade to every fresh install.
+  const version = readVersion();
+  if (manifest.content && version.contentVersion) {
+    if (manifestApi.compareVersions(manifest.content.version, version.contentVersion) < 0) {
+      problems.push(`content: manifest version ${manifest.content.version} is older than the bundled ${version.contentVersion}`);
+    } else {
+      notes.push(`content: manifest ${manifest.content.version} is not older than the bundled ${version.contentVersion}`);
+    }
+  }
 
   const artifacts = [];
   if (manifest.apk) artifacts.push({ kind: 'apk', block: manifest.apk });

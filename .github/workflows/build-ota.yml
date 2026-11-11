@@ -68,9 +68,14 @@ jobs:
         env:
           OTA_SIGNING_KEY: ${{ secrets.OTA_SIGNING_KEY }}
         run: |
+          APK_PATH=$(find dist/apk -maxdepth 1 -name '*.apk' -print -quit)
+          if [ -z "$APK_PATH" ]; then
+            echo "No APK asset found on the release." >&2
+            exit 1
+          fi
           npm run release:web
           npm run release:content
-          npm run updates:manifest -- --apk "dist/apk/studysynth-${{ steps.version.outputs.name }}.apk" ${{ inputs.mandatory && '--mandatory' || '' }}
+          npm run updates:manifest -- --apk "$APK_PATH" ${{ inputs.mandatory && '--mandatory' || '' }}
 
       - name: Verify the whole update set
         env:

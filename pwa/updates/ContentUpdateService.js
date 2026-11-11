@@ -91,6 +91,11 @@
         }
         if (indexIds[entry.id]) errors.push('index contains duplicate id ' + entry.id);
         indexIds[entry.id] = true;
+        // Every listed module must carry its own body. Otherwise the device
+        // would silently fall back to an older bundled copy for that module.
+        if (isObject(pkg.modules) && !isObject(pkg.modules[entry.id])) {
+          errors.push('index entry ' + entry.id + ' has no module body');
+        }
       });
     }
 

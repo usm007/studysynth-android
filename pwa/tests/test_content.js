@@ -104,15 +104,25 @@ async function run() {
     assert.strictEqual(check.ok, true);
   });
 
-  await test('accepts a delta package that only replaces some modules', () => {
+  await test('accepts a self-contained delta package', () => {
     const check = ContentUpdateService.validatePackage(contentPackage({
       mode: 'delta',
       index: [{ id: 'm1' }, { id: 'm2' }],
-      modules: { m2: moduleBody('m2', ['q7']) },
+      modules: { m1: moduleBody('m1', ['q1']), m2: moduleBody('m2', ['q7']) },
       removedModuleIds: ['m3']
     }));
     assert.deepStrictEqual(check.errors, []);
     assert.strictEqual(check.ok, true);
+  });
+
+  await test('rejects an index entry with no module body', () => {
+    const check = ContentUpdateService.validatePackage(contentPackage({
+      mode: 'delta',
+      index: [{ id: 'm1' }, { id: 'm2' }],
+      modules: { m2: moduleBody('m2', ['q7']) }
+    }));
+    assert.strictEqual(check.ok, false);
+    assert.ok(check.errors.some((e) => /m1 has no module body/.test(e)));
   });
 
   await test('rejects an answer key that matches no option', () => {

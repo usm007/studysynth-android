@@ -44,7 +44,9 @@
     var compact = value.replace(/\s+/g, '');
     if (!/^[A-Za-z0-9+/]+={0,2}$/.test(compact)) return false;
     if (compact.length % 4 !== 0) return false;
-    // RSA-2048 minimum => 344 base64 chars; RSA-3072 => 512.
+    // Structural floor only: 344 base64 characters is the smallest possible
+    // RSA-2048 signature. The production RSA-3072 key produces 512; signature
+    // verification, not this shape check, decides whether it is genuine.
     return compact.length >= 344;
   }
 
@@ -215,8 +217,8 @@
     if (content) {
       if (Number(content.minAppVersionCode) > installedCode) {
         result.blocked.push('Content package needs app version code ' + content.minAppVersionCode + ' or newer.');
-      } else if (state.contentVersion && content.version === state.contentVersion) {
-        // already installed
+      } else if (state.contentVersion && compareVersions(content.version, state.contentVersion) <= 0) {
+        // Already installed, or older than what this device already has.
       } else {
         result.content = {
           version: content.version,

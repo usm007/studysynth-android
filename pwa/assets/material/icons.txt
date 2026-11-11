@@ -3,11 +3,13 @@ app_promo
 arrow_back
 arrow_forward
 assignment
+auto_awesome
 bolt
 check
 check_circle
 check_circle_filled
 check_circle_outline
+chevron_right
 clear
 close
 dark_mode
@@ -39,6 +41,7 @@ newspaper
 open_in_full
 picture_as_pdf
 play_arrow
+play_lesson
 print
 progress_activity
 psychology

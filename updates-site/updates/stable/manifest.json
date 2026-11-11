@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "packageId": "com.usm007.studysynth",
   "channel": "stable",
-  "generatedAt": "2026-11-11T12:49:29.192Z",
+  "generatedAt": "2026-11-11T13:27:51.165Z",
   "release": {
     "versionName": "2.1.0",
     "versionCode": 4,
@@ -12,26 +12,26 @@
   },
   "apk": {
     "url": "https://usm007.github.io/studysynth-android/updates/stable/apk/studysynth-2.1.0.apk",
-    "sha256": "6339ddbe824d6b6d2a027001f5ae154d8ef3adeb1908a88f110cadee50d1844e",
-    "size": 23727116,
+    "sha256": "6243cad21c73b7d0f168f25179e20f836fe55b684da7c858f7a6f8e0b93cd72d",
+    "size": 23734092,
     "certSha256": "62377a571b33c348a2ed61f08e538108b0b76338dcdaa7e029e0e3172a17a374"
   },
   "web": {
-    "bundleId": "2.1.0-4-601b5a343e3e",
+    "bundleId": "2.1.0-4-358be1bb43b6",
     "runtimeVersion": "capacitor-8",
-    "url": "https://usm007.github.io/studysynth-android/updates/stable/web/2.1.0-4-601b5a343e3e.zip",
-    "sha256": "601b5a343e3e110d331a6da8265a1f0153e9063e9ee0757dee2f5f7c3498543e",
-    "size": 18930192,
-    "signature": "X06KespG1MhZyebCR9WU8N+MIWZ3ycHlVqHTDEV99/xXr/T2zuaqqCzJ41kPPE5TexoWjgaEnDyNSbLA6qiv50Pg1WkApAes1aPsfUyaYKrsyW7wTqVhVcH50REfKZRwnAgf/FX2exenyTF2g35tXg9hs4kRnx7KrmTdZvcS5+gGtN2NIvUp6oMj05j+IK8YPfS3IkAiXywJXFMD4wwW6Lr9/0tU92LL8NDZn/SfC0j7bzizrQg2aISfVb0ZIFeDtdrnSBkACBCPd4Wrh/ds667ieoGQm3DMxnp1cZ6znPqEEp1V6o3rC9QWblZDVk1qTUxKuHSUG9PqbTVPkr1fvzgfEMqMGdO060kCcRnNXvd3lJv3Kfp/XrT6B6Y7I+tX2GWYS/gB0xVhmZrkQwDi87yiyjjDO9XCBrZpWGDsYTHy5Xxj/MSerhP1fTUV0fPtMLAa6bNmqR1jizFmusvoQqadKwRbBcpLOVp9BqZ5AHykaXo7sQYUgk6Ye/ZM5taU",
+    "url": "https://usm007.github.io/studysynth-android/updates/stable/web/2.1.0-4-358be1bb43b6.zip",
+    "sha256": "358be1bb43b6464b60df5542598e9557bc843e68e3164a38e282110e6f51d27c",
+    "size": 18937139,
+    "signature": "VB0abo7fuqA1ETpaSM91evZ085yPTaWgYP+do3AvcP0HU40QRh79lepyAaw9kiB88vpqrCCo+5smig0xxIiDG1deS0M7a5DmplTCzyk1AffWdIekTucHcKlNRZfE+eltCdy4FJ9PQqwyXWZXLiBFdre5GaHtdgavL3RTPhgSAYYJVm9/uSCp3dQ1LxOqmZSHf4Q8ontxLZ/WFl4O1vvb4rgSgGYVpX9VVPCOR5hBd55xQTfKWyYOq8Dori7swXPRTOuvlk3OvMZW8ZAmj1dmV3/Nj0vCIveWxFOZWhm6s7ta/i7+K8fwTlJ0oVXOpbALODkYz0mzMMC2HvLGqrrUDxM4Y++rv/Bvudc3JjChC03c0qYumCzp/GTzr0pX9eFqqrZJwMCN0BAp77o5jXMNjeKBMYRcwYYJx0b+jrYqElpkee5XQaLpeAb0MULdvnRhdyDDQ/NOLM8m3kqY9S6RWU3pcJF1owor74F2qV5/XAf3j2PdHS15fOaqaX6GpXgn",
     "minAppVersionCode": 4
   },
   "content": {
     "version": "2026.11.1",
     "url": "https://usm007.github.io/studysynth-android/updates/stable/content/content-2026.11.1.json",
-    "sha256": "df10734889d4627328d9facf54bb7b48c67ed5763343291856aec6d60caf0697",
+    "sha256": "99398f6ee60a1e8b2bbc7e7edafca035bb2a047970acbfb12797efc64e8dcb90",
     "size": 11607741,
-    "signature": "nJMGcFMsJOO90Do+LlCeRb4yqjql0/6PdZwdnMdOTxA0TcQPFGNenStyYW7PY/YMjz34P1Ur5sIy8rPTr36JHKBx1xXvjUIId/YBzIqHfl3UXDUFOrZvkmtFQtBjRAHByCmNJgNn8f9h50wr6vk4X7BDMkj8OLAsUKow4SqzVXXGN8ce6aF7RM4NxpXjJP7dIbo2TK1utJv925Dq9OYEUkVG/5S5QaCF1C83TOxVMESZeUIrwjM1L8065t4VMkGMY6aZC87f0F6WRMeVncoMgBYq5sBFkdo1PC3yhL0Kvwsc8XMHy6yoZK4wSrx2H8kh5VGekNvQCQmx1jkvbpygzf7r3CbhpAk2pYYh40X6lt2pi2j5l+FlfZY6sB1lFopCBBlo6Q+jDQiIxqOIAE/68XwWvHA+DoPzndlj3Ivkwui5mc4o23YBkEhS12lm4zExbkmgAzNlP9uglCH74kbc7uzSX42tlI8EJwvPG7B/orvkJM6pqH9+zmt6lZ5wSb/S",
+    "signature": "Cl8xkH3eoPe+2nvHbkEQAkJ2PmQXIiHfkwhgXECAgfWHsCqbIMeJNZ4OeFd2N0a1AwhEI2c5Kee0p690Xhuod1Pu6Mty6gGI2WYAM/6uR8uGs2zbb0HXKurhCIHoV3o1LVtXy/C7lCUDpAPsvG4pya/rIxrT0RF9iTv72g5yM/fVa1TWxNgp3lZc8Hd+3XOx51onHCLX/tRS28ipQGFT7jU4MJxm2bOnN/EfDYjOz0vNZhvMtZvp0udt4X31VkPE1MA0yIBPgOKUYl/yuyBQ0hMN3APxQzC+Q+4gzIix25z5+vKGRwMlEo/cXR5ybJPCG+/eFTvv0pRDoQGDqT37/lHsiRgOjm/gwBkIQxgkA7fUfamMNa2QcMiScDWEraxPkJUPH5NxyrFR/5J2hiZknlXSg5+juJ7FHjA7AIPZFggfmDakVwkjhr+kutgmv/0gNnn5ogr/6HJz/oewKEinWV3SkRSGFkISmrO7AR5ChrVTJY0Fn9UWutgpQPbH5cWZ",
     "minAppVersionCode": 4
   },
-  "signature": "o73HoeBE6y7IiUDgNPPcX2t64XwF85wBm9SzeIywXkdXTxI4npor8MIADQmvRRPXaUBLwBg6M3/eGgf9EIreJ8nklgP+Aiq6qf07apgG2/kCi8hHaZ3+Bl366SNUD/qXkklqUoLUxRqoAj3VoK3WGsv0k2g8crDgwQ3Y5XRMHDcYSxxgqH+l5BZ2GXXhZb1H1duZH+BAXsaPBWPWwLhX3EO5ayXZvy6C9KXrzI2ENtBFyqoujxpK7XxBOThAmnQLtOyUYHnlh9t/ds0y5M4zLw0pXcjcpDQR+RtYA7ivW9e0tG4cB8uS/4BPhJwT58gV0pZRE76mFSLV5l3VuTuFlq1zDTe9kRaMF50qB+jJXcnsxlnKSwR9X1BYg4GHNWdQtJ4Gi64+QHgmQpSlvDw6r27ghnu7NlBTdX1KWpbrRJrqi3dXTMNi7HQyxKhE3XzByTbcIQXtTyTf8FACzAR0EEtuFtw2SwWdOjpnYJcrXYoGLHtDDMUoROnrZwQktbd+"
+  "signature": "XA006rsbmx/OmpwKz/kZTXhFXQQVGMHt6o34+McsPiUrcRHeQCIPORiaV4KX1CH6Crghu9ieYkaNE2iH+CdRRYfjSEv0JdJrySmeCt+fKjQRQIoDRxwUduSHQyXVua3NbQz0PXgzN2tclnNC6s+3BHIGvSVP0sJgGumu6UhX+LmDBOnfTZWa2E4N0ShLVzHH2DR7020hw69SEhMHDz86w9FXtGp4VZO5BPxrXwYFLqg6yCed7UtbIe2laqn//7x/L8cAijxBnmbWJRhugwH0bsDC3Qp9k9o/Z0UfcbSDhQj1fwKRjsnyVLOB786lsdADWhcXrlesbM0oi89XM0OLlAmqr3ibl4Je7+7w66HXurArYK4Q1vfpW8MUJJqrPMSxPaajOElBn7WROyxsyF9Jq9B9zvh3UqmwEf8noxg7xUxF64oP7oSQBg9OrJs5z0v0j5BNslXsPHpDiiu485UZ+FBUdjxfu2ERexoOoiU9NqZkmkPjzIWNLXVhUyFkHtGr"
 }

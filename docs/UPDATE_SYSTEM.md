@@ -87,7 +87,10 @@ Rules enforced by `pwa/updates/UpdateManifest.js`:
 - `schemaVersion` must be `1`.
 - `packageId` and `channel` must match the installed app.
 - URLs must be HTTPS.
-- Checksums must be 64 hex characters; signatures must be 512-character base64.
+- Checksums must be 64 hex characters; signatures must be valid base64 of at
+  least 344 characters (an RSA-2048 signature). The production RSA-3072 key
+  produces 512-character signatures; the shape check is only a floor, and the
+  cryptographic verification decides whether a signature is genuine.
 - `apk`, `web`, and `content` are individually optional, but at least one
   artifact must be present.
 - `minAppVersionCode` prevents an app from applying an artifact that needs a
@@ -110,17 +113,20 @@ manifest that points at an artifact that has not been uploaded yet.
 | Situation | Behavior |
 | --- | --- |
 | Fresh install | Check is due immediately |
+| Host has not registered exam state | Treated as "in exam": nothing is downloaded or applied |
 | Last check < 12 hours ago | Automatic check skipped |
 | Automatic check while a timed exam is unsubmitted | Skipped |
 | Manual check while a timed exam is unsubmitted | Manifest may be fetched; nothing is downloaded or applied |
 | Metered connection with Wi-Fi-only on | Download deferred |
 | `saveData` connection | Download never starts |
+| Content version was rolled back on this device | Not reinstalled automatically; the explicit update action clears the hold |
 | Network error | Last known-good state is kept; error is shown in Update Centre |
 | Corrupt stored state | Falls back to defaults |
 
 The coordinator emits events (`check-ok`, `check-failed`, `web-staged`,
-`content-applied`, `apk-downloaded`, `apply-failed`, `deferred`) that the Update
-Centre renders. Startup never waits for an update check.
+`content-applied`, `content-rolled-back`, `apk-downloaded`, `apply-failed`,
+`deferred`) that the Update Centre renders. Startup never waits for an update
+check.
 
 ---
 
@@ -220,7 +226,16 @@ rollback.
 
 The Update Centre shows the active content version, the previous version, and a
 rollback action. Rolling back with nothing to restore fails loudly instead of
-pretending to succeed.
+pretending to succeed. After a rollback, the version that was rolled back from
+is held back from automatic updates, so the same set is not silently reinstalled
+on the next check; tapping **Update question bank** explicitly clears that hold.
+
+A device only accepts a content package whose version is newer than what it
+already has, so a republished package can never act as a downgrade. Because of
+that rule, `scripts/updates/build-content-package.js` refuses to rebuild an
+existing version with different content unless `--force` is passed: bump
+`contentVersion` in `version.json` so installed devices actually receive the
+change.
 
 ---
 
