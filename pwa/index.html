@@ -15,8 +15,9 @@
   <link rel="icon" type="image/png" href="./assets/favicon.png">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./app.css">
 </head>
-<body data-mode="library">
+<body data-mode="home">
 
   <a class="skip-link" href="#qwork">Skip to study workspace</a>
 
@@ -28,10 +29,8 @@
     <!-- TOP BAR -->
     <header class="topbar">
       <div class="topbar-in">
-        <button id="navToggle" class="iconbtn nav-toggle" type="button" aria-label="Open navigation" aria-controls="appRail" aria-expanded="false"><span class="ms-icon" aria-hidden="true">menu</span></button>
-
-        <div class="brand" id="brandLogo">
-          <img src="./assets/logo.png" alt="StudySynth" class="brand-mark">
+        <div class="brand" id="brandLogo" role="button" tabindex="0" aria-label="StudySynth home">
+          <img src="./assets/logo.png" alt="" class="brand-mark">
           <div class="brand-text">
             <div class="brand-name">StudySynth</div>
             <div class="brand-sub">UGC NET Education</div>
@@ -50,6 +49,10 @@
         </div>
 
         <div class="topbar-actions">
+          <button id="updateBadge" class="iconbtn update-badge-btn" type="button" title="Updates" aria-label="Open Update Centre">
+            <span class="ms-icon" aria-hidden="true">system_update</span>
+            <span class="update-dot" hidden></span>
+          </button>
           <button id="installBadge" class="install-badge" title="Install StudySynth for offline use" aria-label="Install StudySynth app">
             <span class="install-icon ms-icon" aria-hidden="true">install_mobile</span>
             <span class="install-text">Install App</span>
@@ -63,65 +66,17 @@
     <!-- MAIN SHELL -->
     <div class="shell">
 
-      <!-- LEFT SIDEBAR: MODES & STATS -->
-      <aside id="appRail" class="rail" aria-label="Study modes and session status">
-        <div class="rail-head">
-          <div class="rail-sec-title">Study Modes</div>
-          <button id="navClose" class="rail-close" type="button" aria-label="Close navigation"><span class="ms-icon" aria-hidden="true">close</span></button>
-        </div>
-        <nav class="mode-list" aria-label="Study modes">
-          <button class="mode-item active" data-mode="library" aria-current="page">
-            <span class="mode-icon ms-icon" aria-hidden="true">library_books</span>
-            <div>
-              <b>Library</b>
-              <small>Question Papers (2009–2026)</small>
-            </div>
-          </button>
-          <button class="mode-item" data-mode="practice">
-            <span class="mode-icon ms-icon" aria-hidden="true">lightbulb</span>
-            <div>
-              <b>Practice Mode</b>
-              <small>Instant feedback &amp; explanations</small>
-            </div>
-          </button>
-          <button class="mode-item" data-mode="test">
-            <span class="mode-icon ms-icon" aria-hidden="true">timer</span>
-            <div>
-              <b>Exam Test Mode</b>
-              <small>Timed evaluation &amp; scoring</small>
-            </div>
-          </button>
-          <button class="mode-item" data-mode="analysis">
-            <span class="mode-icon ms-icon" aria-hidden="true">insights</span>
-            <div>
-              <b>Analysis</b>
-              <small>Strengths, weak areas &amp; progress</small>
-            </div>
-          </button>
-        </nav>
-
-        <!-- Inline Confidence Meter -->
-        <div class="conf-meter">
-          <div class="cm-head">
-            <span class="cm-label" id="railAccLabel">Session Score</span>
-            <span id="railAcc" class="cm-pct">0%</span>
-          </div>
-          <div class="cm-bar" aria-hidden="true"><i id="railBar" style="width:0%;"></i></div>
-          <span id="railSub" class="cm-sub">0 answered of 10</span>
-        </div>
-
-        <div class="rail-foot">
-          <button id="aboutBtn" class="rail-about" type="button">About</button>
-          <div class="credit" aria-label="With love, usm007">With <span class="credit-heart ms-icon" aria-hidden="true">favorite</span>, usm007</div>
-        </div>
-      </aside>
-
-      <div id="navBackdrop" class="nav-backdrop" hidden></div>
-
       <!-- CENTER WORKSPACE -->
       <main class="workspace">
         <div class="workcol">
           <div id="qwork">
+
+            <!-- HOME VIEW -->
+            <section id="homeView" class="view home-view">
+              <div id="homeContainer" class="view-inner home-inner">
+                <p class="empty-state">Loading your workspace…</p>
+              </div>
+            </section>
 
             <!-- QUIZ VIEW -->
             <div id="quizView" class="view quiz-view" style="display:none;">
@@ -340,7 +295,23 @@
                 <div class="exam-clock" aria-label="Exam timer"><span class="ms-icon" aria-hidden="true">timer</span><span id="examTimer" class="t">00:00</span></div>
                 <div id="examAnswered" class="exam-answered">0/10 answered</div>
                 <div class="exam-marking">+2.00 / −0.66</div>
+                <button id="paletteToggle" class="exam-palette-btn" type="button" aria-haspopup="dialog" aria-controls="paletteSheet">
+                  <span class="ms-icon" aria-hidden="true">grid_view</span><span>Palette</span>
+                </button>
+                <button id="markReviewBtn" class="exam-palette-btn exam-mark-btn" type="button" aria-pressed="false" title="Mark this question for review">
+                  <span class="ms-icon" aria-hidden="true">flag</span><span>Mark</span>
+                </button>
                 <button id="examSubmitBtn" class="exam-submit" type="button">Submit Test</button>
+              </div>
+
+              <!-- Compact session meter (the desktop livebar shows the same data) -->
+              <div class="session-meter" aria-label="Session progress">
+                <div class="cm-head">
+                  <span class="cm-label" id="railAccLabel">Session Score</span>
+                  <span id="railAcc" class="cm-pct">0%</span>
+                </div>
+                <div class="cm-bar" aria-hidden="true"><i id="railBar" style="width:0%;"></i></div>
+                <span id="railSub" class="cm-sub">0 answered of 10</span>
               </div>
 
               <div class="sheet-body">
@@ -510,13 +481,21 @@
               </div>
             </div>
 
-            <!-- ANALYSIS VIEW -->
+            <!-- ANALYSIS VIEW (shown as "Progress") -->
             <div id="analysisView" class="view analysis-view" style="display:none;">
               <div class="view-inner">
                 <div class="view-heading">
                   <div>
-                    <h2>Analysis</h2>
+                    <h2>Progress</h2>
                     <p id="analysisSub" class="view-sub">Performance across your completed mocks</p>
+                  </div>
+                  <div class="view-heading-actions">
+                    <button id="updateCentreBtn" class="btn btn-sm" type="button">
+                      <span class="ms-icon" aria-hidden="true">system_update</span><span>Updates</span>
+                    </button>
+                    <button id="aboutBtn" class="btn btn-sm" type="button">
+                      <span class="ms-icon" aria-hidden="true">info</span><span>About</span>
+                    </button>
                   </div>
                 </div>
                 <div id="analysisContainer"></div>
@@ -553,6 +532,26 @@
 
     </div>
 
+    <!-- PRIMARY NAVIGATION (mobile-first, also docked on desktop) -->
+    <nav id="tabbar" class="tabbar" aria-label="Primary navigation">
+      <button class="mode-item tab-item active" data-mode="home" aria-current="page">
+        <span class="ms-icon" aria-hidden="true">home</span>
+        <span class="tab-label">Home</span>
+      </button>
+      <button class="mode-item tab-item" data-mode="library">
+        <span class="ms-icon" aria-hidden="true">library_books</span>
+        <span class="tab-label">Library</span>
+      </button>
+      <button class="mode-item tab-item" data-mode="revision">
+        <span class="ms-icon" aria-hidden="true">school</span>
+        <span class="tab-label">Revision</span>
+      </button>
+      <button class="mode-item tab-item" data-mode="analysis">
+        <span class="ms-icon" aria-hidden="true">insights</span>
+        <span class="tab-label">Progress</span>
+      </button>
+    </nav>
+
     <!-- Background processing indicator -->
     <button id="processChip" class="process-chip" type="button" hidden>
       <span class="process-chip-icon" aria-hidden="true"><span class="ms-icon">progress_activity</span></span>
@@ -563,6 +562,37 @@
       <span id="processChipPct" class="process-chip-pct" hidden>0%</span>
       <span class="process-chip-open ms-icon" aria-hidden="true">open_in_full</span>
     </button>
+  </div>
+
+  <!-- Question palette sheet (mobile) -->
+  <div id="paletteSheet" class="sheet-modal" role="dialog" aria-modal="true" aria-labelledby="paletteSheetTitle" aria-hidden="true">
+    <div id="paletteSheetBackdrop" class="sheet-backdrop" aria-hidden="true"></div>
+    <div class="sheet-panel palette-panel">
+      <div class="sheet-panel-head">
+        <h2 id="paletteSheetTitle">Question palette</h2>
+        <button id="paletteSheetClose" class="iconbtn" type="button" aria-label="Close question palette"><span class="ms-icon" aria-hidden="true">close</span></button>
+      </div>
+      <div class="palette-legend">
+        <span><i class="dot dot-answered"></i>Answered</span>
+        <span><i class="dot dot-unanswered"></i>Not answered</span>
+        <span><i class="dot dot-marked"></i>Marked for review</span>
+      </div>
+      <div id="mobilePalette" class="palette-grid palette-grid-sheet"></div>
+    </div>
+  </div>
+
+  <!-- Update Centre -->
+  <div id="updateSheet" class="sheet-modal" role="dialog" aria-modal="true" aria-labelledby="updateSheetTitle" aria-hidden="true">
+    <div id="updateSheetBackdrop" class="sheet-backdrop" aria-hidden="true"></div>
+    <div class="sheet-panel update-panel">
+      <div class="sheet-panel-head">
+        <h2 id="updateSheetTitle">Update Centre</h2>
+        <button id="updateSheetClose" class="iconbtn" type="button" aria-label="Close Update Centre"><span class="ms-icon" aria-hidden="true">close</span></button>
+      </div>
+      <div id="updateSheetBody" class="update-body">
+        <p class="empty-state">Reading update status…</p>
+      </div>
+    </div>
   </div>
 
   <!-- Processing dialog (one reusable surface for imports and generation) -->
@@ -667,6 +697,18 @@
   <script src="./engine/jobs.js"></script>
   <script src="./vendor/tesseract/tesseract.min.js"></script>
   <script src="./engine/revision.js"></script>
+  <!-- Update system: keys, verification, services, policy, UI. Loaded before
+       the app controller, which only wires them into the screens. -->
+  <script src="./version.js"></script>
+  <script src="./updates/keys.js"></script>
+  <script src="./updates/UpdateCrypto.js"></script>
+  <script src="./updates/UpdateManifest.js"></script>
+  <script src="./updates/UpdateStorage.js"></script>
+  <script src="./updates/LiveUpdateService.js"></script>
+  <script src="./updates/ApkUpdateService.js"></script>
+  <script src="./updates/ContentUpdateService.js"></script>
+  <script src="./updates/UpdateCoordinator.js"></script>
+  <script src="./updates/UpdateUI.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

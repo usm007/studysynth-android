@@ -390,9 +390,10 @@ console.log('\n[Suite 7] Offline reasoning module load order...');
   }
 
   const serviceWorker = fs.readFileSync(path.join(PWA_ROOT, 'sw.js'), 'utf8');
-  const cacheVersion = serviceWorker.match(/studysynth-v(\d+)/);
-  assert(cacheVersion && Number(cacheVersion[1]) >= 37,
-    'The offline cache must stay versioned at Repair 002 or later');
+  assert(/importScripts\('\.\/version\.js'\)/.test(serviceWorker) &&
+    /const CACHE_NAME = 'studysynth-'/.test(serviceWorker) &&
+    /CACHE_REVISION\s*=\s*\d+/.test(serviceWorker),
+    'The offline cache must stay versioned from the build stamp');
   for (const modulePath of reasoningModules.concat(['engine/generator.js'])) {
     assert(serviceWorker.includes("'./" + modulePath + "'"),
       `The offline cache is missing ${modulePath}`);

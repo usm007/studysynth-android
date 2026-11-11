@@ -7,7 +7,9 @@
   'use strict';
 
   const DB_NAME = 'StudySynthLiteDB';
-  const DB_VERSION = 3;
+  // v4 adds the content-update overlay. Upgrades are additive only: existing
+  // stores (modules, attempts, revision data) are never dropped or recreated.
+  const DB_VERSION = 4;
   const STORE_MODULES = 'modules';
   const STORE_ATTEMPTS = 'attempts';
   const STORE_JOBS = 'jobs';
@@ -15,6 +17,8 @@
   const STORE_JOB_INPUTS = 'jobInputs';
   const STORE_REVISION_PROGRESS = 'revisionProgress';
   const STORE_REVISION_SESSIONS = 'revisionSessions';
+  const STORE_CONTENT_META = 'contentMeta';
+  const STORE_CONTENT_MODULES = 'contentModules';
 
   let dbPromise = null;
 
@@ -50,6 +54,13 @@
           }
           if (!db.objectStoreNames.contains(STORE_REVISION_SESSIONS)) {
             db.createObjectStore(STORE_REVISION_SESSIONS, { keyPath: 'moduleId' });
+          }
+          if (!db.objectStoreNames.contains(STORE_CONTENT_META)) {
+            db.createObjectStore(STORE_CONTENT_META, { keyPath: 'key' });
+          }
+          if (!db.objectStoreNames.contains(STORE_CONTENT_MODULES)) {
+            const content = db.createObjectStore(STORE_CONTENT_MODULES, { keyPath: 'key' });
+            content.createIndex('packId', 'packId', { unique: false });
           }
         };
         req.onsuccess = (e) => {
@@ -94,7 +105,35 @@
   }
 
   let ctetIndexCache = null;
+  // -------------------------------------------------------------------------
+  // CONTENT UPDATE OVERLAY
+  // A downloaded content package is written to its own namespace and becomes
+  // visible only when the "active" pointer is swapped. Bookmarks, attempts and
+  // revision data live in other stores and are never touched here.
+  // -------------------------------------------------------------------------
+  let contentState = { loaded: false, active: null, previous: null };
+
+  async function loadContentState(force) {
+    if (contentState.loaded && !force) return contentState;
+    const db = await getDB();
+    if (!db) {
+      contentState = { loaded: true, active: null, previous: null };
+      return contentState;
+    }
+    const active = await idbRead(STORE_CONTENT_META, 'get', 'active');
+    const previous = await idbRead(STORE_CONTENT_META, 'get', 'previous');
+    contentState = {
+      loaded: true,
+      active: active && active.packId ? active : null,
+      previous: previous && previous.packId ? previous : null
+    };
+    return contentState;
+  }
+
   function getBundledIndex() {
+    if (contentState.active && Array.isArray(contentState.active.index) && contentState.active.index.length) {
+      return contentState.active.index;
+    }
     if (ctetIndexCache) return ctetIndexCache;
     ctetIndexCache = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX)
       || (typeof window !== 'undefined' && window.CTET_INDEX)
@@ -160,9 +199,14 @@
   }
 
   let bundledBodyCache = new Map();
-  function fetchBundledBody(moduleId) {
+  async function fetchBundledBody(moduleId) {
     if (bundledBodyCache.has(moduleId)) return bundledBodyCache.get(moduleId);
     const request = (async () => {
+      const state = await loadContentState();
+      if (state.active) {
+        const record = await idbRead(STORE_CONTENT_MODULES, 'get', state.active.packId + '|' + moduleId);
+        if (record && record.body && record.body.id) return record.body;
+      }
       const response = await fetch('./ctet/' + encodeURIComponent(moduleId) + '.json', { cache: 'force-cache' });
       if (!response.ok) throw new Error('Bundled set unavailable (' + response.status + ').');
       return response.json();
@@ -177,6 +221,7 @@
 
   async function getModule(moduleId) {
     if (!moduleId) return null;
+    await loadContentState();
     if (getBundledIds().has(moduleId)) {
       const body = await fetchBundledBody(moduleId);
       if (body && body.id) return body;
@@ -187,6 +232,7 @@
   }
 
   async function getModules() {
+    await loadContentState();
     const db = await getDB();
     const bundled = getBundledIndex();
     const bundledIds = getBundledIds();
@@ -648,6 +694,169 @@
     return !!b[questionId];
   }
 
+  // ==========================================================================
+  // CONTENT PACKAGES (independently versioned educational content)
+  // ==========================================================================
+  function contentMetaRecord(key, pack, extra) {
+    return Object.assign({
+      key: key,
+      packId: pack.packId,
+      version: pack.version,
+      index: Array.isArray(pack.index) ? pack.index : [],
+      moduleCount: pack.modules ? Object.keys(pack.modules).length : 0,
+      activatedAt: new Date().toISOString()
+    }, extra || {});
+  }
+
+  async function getContentPackState() {
+    await loadContentState(true);
+    return {
+      active: contentState.active,
+      previous: contentState.previous,
+      supported: !!(await getDB())
+    };
+  }
+
+  async function getContentModule(moduleId) {
+    const state = await loadContentState();
+    if (!state.active) return null;
+    const record = await idbRead(STORE_CONTENT_MODULES, 'get', state.active.packId + '|' + moduleId);
+    return record && record.body ? record.body : null;
+  }
+
+  function writePackModules(db, pack) {
+    return new Promise((resolve, reject) => {
+      let tx;
+      try {
+        tx = db.transaction([STORE_CONTENT_MODULES], 'readwrite');
+      } catch (err) {
+        reject(err);
+        return;
+      }
+      const store = tx.objectStore(STORE_CONTENT_MODULES);
+      const ids = Object.keys(pack.modules || {});
+      ids.forEach((moduleId) => {
+        store.put({
+          key: pack.packId + '|' + moduleId,
+          packId: pack.packId,
+          moduleId: moduleId,
+          body: pack.modules[moduleId]
+        });
+      });
+      (pack.removedModuleIds || []).forEach((moduleId) => {
+        store.delete(pack.packId + '|' + moduleId);
+      });
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error || new Error('Content write failed.'));
+      tx.onabort = () => reject(tx.error || new Error('Content write aborted.'));
+    });
+  }
+
+  /**
+   * Writes a package into its own namespace, then swaps the active pointer.
+   * A failure before the swap leaves the previous package active.
+   */
+  async function applyContentPack(pack) {
+    if (!pack || !pack.packId) throw new Error('A content package needs a packId.');
+    const db = await getDB();
+    if (!db) throw new Error('Content updates require IndexedDB, which is unavailable here.');
+
+    await writePackModules(db, pack);
+
+    const state = await loadContentState(true);
+    const nextActive = contentMetaRecord('active', pack);
+    const nextPrevious = state.active
+      ? Object.assign({}, state.active, { key: 'previous' })
+      : null;
+
+    await new Promise((resolve, reject) => {
+      let tx;
+      try {
+        tx = db.transaction([STORE_CONTENT_META], 'readwrite');
+      } catch (err) {
+        reject(err);
+        return;
+      }
+      const store = tx.objectStore(STORE_CONTENT_META);
+      store.put(nextActive);
+      if (nextPrevious) store.put(nextPrevious);
+      else store.delete('previous');
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error || new Error('Content activation failed.'));
+      tx.onabort = () => reject(tx.error || new Error('Content activation aborted.'));
+    });
+
+    // Drop anything older than the retained previous pack.
+    try {
+      const keep = new Set([nextActive.packId]);
+      if (nextPrevious) keep.add(nextPrevious.packId);
+      const rows = await idbRead(STORE_CONTENT_MODULES, 'getAll');
+      if (Array.isArray(rows)) {
+        const stale = rows.filter((row) => row && row.packId && !keep.has(row.packId));
+        if (stale.length) {
+          await new Promise((resolve) => {
+            let tx;
+            try {
+              tx = db.transaction([STORE_CONTENT_MODULES], 'readwrite');
+            } catch (err) {
+              resolve(false);
+              return;
+            }
+            const store = tx.objectStore(STORE_CONTENT_MODULES);
+            stale.forEach((row) => store.delete(row.key));
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+            tx.onabort = () => resolve(false);
+          });
+        }
+      }
+    } catch (err) { /* cleanup is best effort */ }
+
+    ctetIndexCache = null;
+    bundledBodyCache = new Map();
+    await loadContentState(true);
+    return { active: contentState.active, previous: contentState.previous };
+  }
+
+  /** Swaps back to the retained previous package. */
+  async function rollbackContentPack() {
+    const db = await getDB();
+    if (!db) throw new Error('Content rollback requires IndexedDB.');
+    const state = await loadContentState(true);
+    if (!state.previous) throw new Error('There is no previous content package to restore.');
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction([STORE_CONTENT_META], 'readwrite');
+      const store = tx.objectStore(STORE_CONTENT_META);
+      const restored = Object.assign({}, state.previous, { key: 'active' });
+      store.put(restored);
+      store.delete('previous');
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error || new Error('Content rollback failed.'));
+      tx.onabort = () => reject(tx.error || new Error('Content rollback aborted.'));
+    });
+    ctetIndexCache = null;
+    bundledBodyCache = new Map();
+    await loadContentState(true);
+    return { active: contentState.active, previous: contentState.previous };
+  }
+
+  async function clearContentPacks() {
+    const db = await getDB();
+    if (!db) return false;
+    await new Promise((resolve) => {
+      const tx = db.transaction([STORE_CONTENT_META, STORE_CONTENT_MODULES], 'readwrite');
+      tx.objectStore(STORE_CONTENT_META).clear();
+      tx.objectStore(STORE_CONTENT_MODULES).clear();
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => resolve(false);
+      tx.onabort = () => resolve(false);
+    });
+    ctetIndexCache = null;
+    bundledBodyCache = new Map();
+    contentState = { loaded: false, active: null, previous: null };
+    return true;
+  }
+
   const OfflineStorage = {
     saveModule,
     getModules,
@@ -671,7 +880,12 @@
     resetRevisionProgress,
     saveRevisionSession,
     getRevisionSession,
-    deleteRevisionSession
+    deleteRevisionSession,
+    getContentPackState,
+    getContentModule,
+    applyContentPack,
+    rollbackContentPack,
+    clearContentPacks
   };
 
   if (typeof module !== 'undefined' && module.exports) {

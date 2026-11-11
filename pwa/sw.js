@@ -1,5 +1,5 @@
 /**
- * StudySynth - Offline Service Worker (v38)
+ * StudySynth - Offline Service Worker
  * Caches the complete local workspace so the installed app opens and works
  * without a network. All paths are scope-relative for sub-path hosting.
  */
@@ -10,18 +10,39 @@ try {
   importScripts('./ctet_manifest.js');
 } catch (err) { /* no bundled content in this build */ }
 
-const CACHE_NAME = 'studysynth-v45';
-// Bump this whenever any runtime asset or bundled study-set body changes:
-// the worker is cache-first, so a stale name would keep serving old files.
+// The version stamp is generated at build time (see scripts/build-web.js).
+try {
+  importScripts('./version.js');
+} catch (err) { /* development copy without a stamp */ }
+
+const VERSION = (self.STUDYSYNTH_VERSION || {});
+// Bump this when a runtime asset changes without a version bump: the worker is
+// cache-first for assets, so a stale cache name would keep serving old files.
+const CACHE_REVISION = 1;
+const CACHE_NAME = 'studysynth-' +
+  (VERSION.versionName || 'dev') + '-' +
+  (VERSION.runtimeVersion || 'runtime') + '-r' + CACHE_REVISION;
 const BUNDLED_BODIES = (self.CTET_BUNDLED_BODIES || []);
 const CORE_ASSETS = [
   './',
   './?mode=standalone',
   './index.html',
   './styles.css',
+  './app.css',
   './app.js',
+  './version.js',
   './sample_data.js',
   './ctet_index.js',
+  './manifest.webmanifest',
+  './updates/keys.js',
+  './updates/UpdateCrypto.js',
+  './updates/UpdateManifest.js',
+  './updates/UpdateStorage.js',
+  './updates/LiveUpdateService.js',
+  './updates/ApkUpdateService.js',
+  './updates/ContentUpdateService.js',
+  './updates/UpdateCoordinator.js',
+  './updates/UpdateUI.js',
   './engine/reasoning/types.js',
   './engine/reasoning/linguistics.js',
   './engine/reasoning/representation.js',
@@ -40,7 +61,6 @@ const CORE_ASSETS = [
   './engine/revision.js',
   './engine/jobs.js',
   './engine/worker.js',
-  './manifest.webmanifest',
   './assets/logo.png',
   './assets/icon-192.png',
   './assets/icon-512.png',
@@ -79,6 +99,13 @@ self.addEventListener('message', (event) => {
   if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
+// Release artifacts (manifest, web bundles, content packages) must always come
+// from the network: a cached manifest would hide a new release, and a cached
+// content package could be activated twice.
+function isReleaseArtifact(url) {
+  return /\/updates\/stable\//.test(url.pathname) || /manifest\.json$/.test(url.pathname);
+}
+
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
@@ -86,13 +113,25 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
 
-  // Navigation: always serve the app shell. The app is a single page and
-  // must open instantly even when the device is in airplane mode.
+  if (isReleaseArtifact(url)) return;
+
+  // Navigation: network-first so a freshly deployed shell wins, with the
+  // cached shell as the offline fallback. Never intercept while an update is
+  // being staged: the app decides when to reload.
   if (request.mode === 'navigate') {
     event.respondWith(
-      caches.match(request, { ignoreSearch: true })
-        .then((cached) => cached || caches.match('./index.html') || caches.match('./'))
-        .then((response) => response || fetch(request).catch(() => caches.match('./index.html')))
+      fetch(request)
+        .then((response) => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put('./index.html', clone))
+              .catch(() => { /* quota or private mode */ });
+          }
+          return response;
+        })
+        .catch(() => caches.match('./index.html', { ignoreSearch: true })
+          .then((hit) => hit || caches.match('./')))
     );
     return;
   }

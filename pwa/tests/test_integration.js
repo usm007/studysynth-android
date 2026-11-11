@@ -35,9 +35,10 @@ console.log('  ✓ Manifest is valid for Android PWA installation.');
 // 3. Test Service Worker precache list
 console.log('[Test 2] Verifying Service Worker precache files...');
 const precachedFiles = [
-  'index.html', 'styles.css', 'app.js', 'sample_data.js',
+  'index.html', 'styles.css', 'app.css', 'app.js', 'version.js', 'sample_data.js',
   'engine/generator.js', 'engine/analyze.js', 'engine/pdfParser.js', 'engine/ocr.js',
   'engine/storage.js', 'engine/revision.js', 'engine/jobs.js', 'engine/worker.js',
+  'updates/UpdateCrypto.js', 'updates/UpdateManifest.js', 'updates/UpdateCoordinator.js',
   'manifest.webmanifest', 'assets/logo.png', 'assets/icon-192.png', 'assets/icon-512.png',
   'assets/favicon.png', 'assets/apple-touch-icon.png',
   'assets/material/material-symbols-rounded-subset.woff2',
@@ -52,7 +53,11 @@ for (const file of precachedFiles) {
   const diskPath = path.join(pwaDir, file);
   assert(fs.existsSync(diskPath), `Precached file must exist on disk: ${file}`);
 }
-assert(/CACHE_NAME\s*=\s*['"](?:studysynth|ugcnet-edu)-v\d+['"]/.test(sw), 'Service worker must version its cache');
+assert(/importScripts\('\.\/version\.js'\)/.test(sw), 'The service worker must read the generated version stamp');
+assert(/const CACHE_NAME = 'studysynth-'/.test(sw) && /VERSION\.versionName/.test(sw), 'The cache name must derive from the build stamp');
+assert(/CACHE_REVISION\s*=\s*\d+/.test(sw), 'Asset-only changes must be able to bump the cache revision');
+assert(/function isReleaseArtifact/.test(sw) && /if \(isReleaseArtifact\(url\)\) return;/.test(sw), 'Release artifacts must bypass the cache');
+assert(/request\.mode === 'navigate'[\s\S]{0,400}fetch\(request\)/.test(sw), 'Navigation must be network-first with a cache fallback');
 assert(!/https?:\/\//.test(sw), 'Service worker asset list must not depend on remote URLs');
 console.log(`  ✓ All ${precachedFiles.length} precached assets exist on disk and are declared in sw.js.`);
 
@@ -70,32 +75,61 @@ for (const match of idMatches) {
 assert.strictEqual(missingIds.length, 0, `Missing DOM element IDs in index.html: ${missingIds.join(', ')}`);
 console.log('  ✓ All DOM references in app.js correctly bind to elements in index.html.');
 
-// 4b. Responsive shell, sidebar, Library-first, and exam scorecard contract
-console.log('[Test 3b] Verifying sidebar, Library-first, single-page quiz scroll, and scorecard bindings...');
-const css = fs.readFileSync(path.join(pwaDir, 'styles.css'), 'utf-8');
+// 4b. Mobile shell, four-destination navigation, update centre, and exam contract
+console.log('[Test 3b] Verifying the mobile shell, four-destination navigation, update centre, and exam bindings...');
+const css = [
+  fs.readFileSync(path.join(pwaDir, 'styles.css'), 'utf-8'),
+  fs.readFileSync(path.join(pwaDir, 'app.css'), 'utf-8')
+].join('\n');
 assert(/env\(safe-area-inset-bottom/.test(css), 'CSS must respect device safe areas');
-assert(/@media \(max-width:\s*860px\)/.test(css), 'CSS must define a phone/tablet sidebar breakpoint');
-assert(/@media \(max-height:\s*520px\) and \(max-width:\s*900px\)/.test(css), 'CSS must define a short-landscape layout');
+assert(/@media \(max-width:\s*860px\)/.test(css), 'CSS must define a phone/tablet layout breakpoint');
 assert(/prefers-reduced-motion:\s*reduce/.test(css), 'CSS must respect reduced-motion preferences');
-assert(/\.rail\s*\{[^}]*position:\s*fixed/s.test(css), 'The compact sidebar must be an overlay');
-assert(/\.rail\s*\{[^}]*transform:\s*translateX\(-10[04]%\)/s.test(css), 'The compact sidebar must start off-canvas');
-assert(/body\.nav-open \.rail\s*\{\s*transform:\s*translateX\(0\)/.test(css), 'The sidebar must slide in for compact screens');
-assert(/\.nav-toggle\s*\{[^}]*display:\s*(inline-flex|block)/s.test(css), 'Phones and tablets must expose a sidebar toggle');
-assert(/\.nav-backdrop/.test(css), 'An overlay backdrop must close the compact sidebar');
-assert(!/inset:\s*auto 0 0 0/.test(css), 'Bottom navigation must not be used');
 assert(/@font-face/.test(css) && /assets\/material\/material-symbols-rounded-subset\.woff2/.test(css), 'Icons must use the bundled Material Symbols Rounded font');
 assert(fs.existsSync(path.join(pwaDir, 'assets/material/material-symbols-rounded-subset.woff2')), 'Material Symbols icon font must be bundled locally');
 assert(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(html), 'Interface icons must not use emoji');
-assert(/<body data-mode="library">/.test(html), 'Library must be the default document mode');
-assert(/switchMode\('library'\)/.test(appJs), 'The app must open on the Library');
-assert(/data-mode="library"/.test(html) && html.indexOf('data-mode="library"') < html.indexOf('data-mode="practice"'), 'Library must lead the sidebar navigation');
-assert(/data-action="practice"/.test(appJs) && /data-action="test"/.test(appJs), 'Each Library card must expose Practice and Test actions');
+
+// Four primary destinations, in order, on a docked bottom bar.
+assert(/<body data-mode="home">/.test(html), 'Home must be the default document mode');
+const tabModes = [...html.matchAll(/class="mode-item tab-item[^"]*" data-mode="([a-z]+)"/g)].map((match) => match[1]);
+assert.deepStrictEqual(tabModes, ['home', 'library', 'revision', 'analysis'], 'Bottom navigation must be Home, Library, Revision, Progress');
+assert.strictEqual((html.match(/class="mode-item tab-item/g) || []).length, 4, 'The bottom bar must expose exactly four destinations');
+for (const label of ['Home', 'Library', 'Revision', 'Progress']) {
+  assert(new RegExp(`tab-label">${label}<`).test(html), `The bottom bar must label the "${label}" destination`);
+}
+assert(/id="tabbar"/.test(html) && /aria-label="Primary navigation"/.test(html), 'The bottom bar must be a labelled navigation landmark');
+assert(/\.tabbar\s*\{[^}]*position:\s*fixed/s.test(css), 'The bottom bar must stay docked while content scrolls');
+assert(/\.tabbar\s*\{[^}]*bottom:\s*0/s.test(css), 'The bottom bar must sit at the bottom edge');
+assert(/grid-template-columns:\s*repeat\(4/.test(css), 'The bottom bar must lay out four equal destinations');
+assert(/\[data-theme="dark"\] \.tabbar/.test(css), 'The bottom bar must adapt to dark mode');
+assert(/@media print[\s\S]{0,400}\.tabbar/.test(css), 'The bottom bar must not print');
+assert(/@media \(min-width:\s*861px\)[\s\S]{0,2500}\.tabbar\s*\{/.test(css), 'The bottom bar must dock as a desktop navigation rail');
+assert(/switchMode\('home'\)/.test(appJs), 'The app must open on Home');
+assert(/function renderHome\s*\(/.test(appJs), 'Home must be rendered from a dedicated function');
+assert(/id="homeView"/.test(html) && /id="homeContainer"/.test(html), 'Home must have its own view container');
+assert(/function greetingPart|function handleHomeAction/.test(appJs), 'Home must offer a greeting and working shortcuts');
+
+// Update Centre and its trust boundary.
+assert(/id="updateBadge"/.test(html) && /id="updateCentreBtn"/.test(html), 'Updates must be reachable from the top bar and Progress');
+assert(/id="updateSheet"/.test(html) && /id="updateSheetBody"/.test(html), 'The Update Centre must expose a dedicated sheet');
+assert(/id="updateSheet"[\s\S]{0,300}aria-modal="true"/.test(html), 'The Update Centre must be a modal dialog');
+assert(/function initUpdates\s*\(/.test(appJs) && /UpdateCoordinator\.start/.test(appJs), 'The app must start the update coordinator');
+assert(html.indexOf('./version.js') > 0 && html.indexOf('./version.js') < html.indexOf('./app.js'), 'The version stamp must load before the controller');
+assert(html.indexOf('./updates/UpdateCoordinator.js') > 0 && html.indexOf('./updates/UpdateCoordinator.js') < html.indexOf('./app.js'), 'The update coordinator must load before the controller');
+
+// Practice/exam palette: rail on desktop, sheet on phones.
+assert(/id="paletteSheet"/.test(html) && /id="mobilePalette"/.test(html) && /id="paletteToggle"/.test(html), 'Phones must reach the question palette through a sheet');
+assert(/DOM\.mobilePalette/.test(appJs) && /DOM\.livePalette/.test(appJs), 'The palette must render into both the rail and the sheet');
+assert(/\.sheet-panel\s*\{/.test(css) && /\.sheet-backdrop\s*\{/.test(css), 'Sheets need a panel and a dismissible backdrop');
+
+// Single page scroll, sticky controls, growing explanations.
 assert(/\.workspace\s*\{[^}]*overflow-y:\s*auto/s.test(css), 'The workspace must provide the single page scroll');
 assert(/\.sheet-body\s*\{[^}]*overflow:\s*visible/s.test(css), 'The quiz sheet must not create a nested scroll container');
 assert(/\.question-content\s*\{[^}]*overflow:\s*visible/s.test(css), 'Question content must grow with the page');
 assert(/\.answer-panel\s*\{[^}]*overflow:\s*visible/s.test(css), 'Answer explanations must grow with the page instead of scrolling in a container');
 assert(/id=["']answerPanel["']/.test(html), 'Answers need a dedicated, non-scrolling explanation panel');
 assert(/\.actions\s*\{[^}]*flex:\s*none/s.test(css) && /\.actions\s*\{[^}]*position:\s*sticky/s.test(css), 'Quiz controls must stay visible while the page scrolls');
+
+// Exam behaviour is untouched by the redesign.
 assert(/class="exam-answered"/.test(html), 'Test mode must show answered progress');
 assert(/id=["']testSetup["']/.test(html) && /id=["']testQuestionCount["']/.test(html) && /id=["']testSecondsPerQuestion["']/.test(html) && /id=["']testStartBtn["']/.test(html), 'Test mode must expose a start screen with question count and time per question');
 assert(/function startTest\s*\(/.test(appJs) && /testDurationSeconds/.test(appJs) && /testEndsAt/.test(appJs), 'Starting a test must create a timed countdown');
@@ -105,19 +139,21 @@ for (const id of ['scoreModal', 'scoreTitle', 'scoreMax', 'scoreBand', 'scoreCor
   assert(new RegExp(`id=["']${id}["']`).test(html), `Scorecard must expose #${id}`);
 }
 assert(/\+2\.00/.test(html) && /−0\.66|&minus;0\.66/.test(html), 'Scorecard copy must disclose negative marking');
-const creditMatches = html.match(/aria-label="With love, usm007"/g) || [];
-assert.strictEqual(creditMatches.length, 1, 'Developer credit must appear exactly once, in the sidebar');
-const sidebarCreditAt = html.indexOf('aria-label="With love, usm007"');
-const railEndAt = html.indexOf('</aside>');
-assert(sidebarCreditAt > 0 && sidebarCreditAt < railEndAt, 'Developer credit must live inside the sidebar only');
+const tabsFn = (appJs.match(/function updateExamTabs\(\)\s*\{([\s\S]*?)\n  \}/) || [])[1] || '';
+assert(tabsFn.length > 0, 'updateExamTabs must exist');
+assert(!/addEventListener/.test(tabsFn), 'Exam tab rendering must not register click listeners (duplicate-listener defect)');
+
+// One developer credit, in the About panel.
+const creditMatches = html.match(/aria-label="Built by usm007"/g) || [];
+assert.strictEqual(creditMatches.length, 1, 'Developer credit must appear exactly once, in the About panel');
 assert(!/subtle-credit/.test(html), 'Developer credit must not be repeated in the workspace views');
-// About: a single entry above the sidebar credit, carrying the app summary and the developer credit.
 for (const id of ['aboutBtn', 'aboutModal', 'aboutTitle', 'aboutCloseBtn']) {
   assert(new RegExp(`id=["']${id}["']`).test(html), `The About panel must expose #${id}`);
 }
-assert(html.indexOf('id="aboutBtn"') > 0 && html.indexOf('id="aboutBtn"') < railEndAt, 'The About entry must live in the sidebar');
-assert(html.indexOf('id="aboutModal"') > railEndAt, 'The About panel must live outside the sidebar');
+assert(html.indexOf('id="aboutBtn"') > html.indexOf('id="analysisView"'), 'The About entry must live on the Progress screen');
+assert(html.indexOf('id="aboutModal"') > html.indexOf('id="analysisView"'), 'The About panel must live outside the screens');
 assert(/aria-label="Built by usm007"/.test(html), 'The About panel must credit the developer');
+
 // Meta filler that describes how the app is built must not surface in the interface.
 for (const filler of ['Quick 1-click samples', 'SPM IAS Newspaper', 'SPM IAS Academy', 'Chandrayaan-3 Mission Notes',
   'Zero-LLM', 'Deterministic Question Generator', 'Saved on this device', 'How did you do?', 'On this device',
@@ -138,7 +174,7 @@ const mainActivity = fs.readFileSync(
 );
 assert(/window\.__studysynthBack/.test(appJs), 'The PWA must expose an Android hardware-back handler');
 assert(/window\.__studysynthBack/.test(mainActivity), 'The Android back dispatcher must call the PWA back handler');
-console.log('  ✓ Sidebar/Library/single-page-scroll/scorecard/single-credit contracts verified.');
+console.log('  ✓ Mobile shell, four destinations, update centre, single-page scroll, exam, and single-credit contracts verified.');
 
 // 4c. Material 3 icon coverage
 console.log('[Test 3c] Verifying every interface symbol exists in the bundled Material 3 icon font...');
@@ -288,11 +324,12 @@ assert(/saveRevisionProgress\(/.test(appJs) && /saveRevisionSession\(/.test(appJ
 assert(/resetRevisionProgress\(/.test(appJs) && /window\.confirm\(/.test(appJs), 'Resetting progress must require confirmation');
 assert(/isResumableSession|resumeSession\(/.test(appJs), 'A saved session must be resumable after a reload');
 assert(/function openRevision|function renderRevisionDashboard/.test(appJs) && /function rateRevision/.test(appJs), 'The revision lifecycle must be wired into the app');
-assert(/DB_VERSION\s*=\s*3/.test(storageJs) && /revisionProgress/.test(storageJs) && /revisionSessions/.test(storageJs), 'Storage must add revision stores through a version upgrade');
+assert(/DB_VERSION\s*=\s*4/.test(storageJs) && /revisionProgress/.test(storageJs) && /revisionSessions/.test(storageJs), 'Storage must keep revision stores through the additive v4 upgrade');
+assert(/contentMeta/.test(storageJs) && /contentModules/.test(storageJs), 'Storage v4 must add the content-overlay stores');
 assert(/deleteRevisionSession/.test(storageJs) && /resetRevisionProgress/.test(storageJs), 'Storage must expose session cleanup and progress reset');
 assert(/deleteModule[\s\S]{0,900}STORE_REVISION_PROGRESS/.test(storageJs), 'Deleting a module must remove its revision progress');
 assert(/engine\/revision\.js/.test(sw), 'The revision engine must be precached for offline use');
-assert(/CACHE_NAME\s*=\s*['"]studysynth-v2[89]['"]|CACHE_NAME\s*=\s*['"]studysynth-v[3-9]\d['"]/.test(sw), 'Adding the revision engine must bump the service worker cache version');
+assert(/CACHE_REVISION\s*=\s*\d+/.test(sw), 'Adding the revision engine must be covered by a versioned service worker cache');
 assert(/\.rev-stats/.test(css) && /\.rev-card/.test(css) && /\.rev-rating-row/.test(css) && /\.rev-summary-grid/.test(css), 'The revision dashboard, card, ratings, and summary must be styled');
 assert(/body\[data-mode="revision"\]\s*\.livebar\s*\{\s*display:\s*none/.test(css), 'Revision must replace the exam analytics rail');
 assert(!/mastery\s*%/i.test(appJs) && !/mastery\s*%/i.test(html), 'Revision must not display invented mastery percentages');
