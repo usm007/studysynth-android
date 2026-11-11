@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Loaded after styles.css. This layer owns the app frame (top bar, bottom
    navigation, home screen, sheets) while styles.css keeps owning question
-   rendering, library cards, revision cards and modals. Everything here uses
+   rendering, library cards and modals. Everything here uses
    the same design tokens, so light and dark mode stay consistent.
    ========================================================================== */
 
@@ -89,7 +89,6 @@ body {
 /* Progress only means something inside a question session. */
 body[data-mode="home"] .progress-wrap,
 body[data-mode="library"] .progress-wrap,
-body[data-mode="revision"] .progress-wrap,
 body[data-mode="analysis"] .progress-wrap,
 body[data-mode="generator"] .progress-wrap {
   display: none;
@@ -105,7 +104,7 @@ body[data-mode="generator"] .progress-wrap {
   bottom: 0;
   z-index: 70;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
   height: calc(var(--tabbar-h) + var(--safe-bottom));
   padding: 6px 8px calc(6px + var(--safe-bottom));
@@ -976,14 +975,12 @@ body[data-mode="generator"] .progress-wrap {
 
   .quiz-view,
   .library-view,
-  .revision-view,
   .generator-view,
   .analysis-view {
     background: var(--surface);
   }
 
   .library-view,
-  .revision-view,
   .generator-view,
   .analysis-view {
     min-height: calc(100dvh - var(--tabbar-h) - 54px - var(--safe-bottom) - var(--safe-top));

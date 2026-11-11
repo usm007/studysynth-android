@@ -2,36 +2,36 @@
   "schemaVersion": 1,
   "packageId": "com.usm007.studysynth",
   "channel": "stable",
-  "generatedAt": "2026-11-11T13:27:51.165Z",
+  "generatedAt": "2026-11-11T14:47:02.083Z",
   "release": {
     "versionName": "2.1.0",
     "versionCode": 4,
     "minSupportedVersionCode": 3,
     "mandatory": false,
-    "releaseNotes": "# StudySynth 2.1.0\n\nA faster, friendlier StudySynth with automatic updates.\n\n## What's new\n\n- **New home screen** — pick up where you left off, start practice, or jump into a timed test in one tap.\n- **Four clear destinations** — Home, Library, Revision and Progress, always within thumb reach at the bottom of the screen.\n- **Update Centre** — see the installed version, check for updates, read release notes and choose how updates are delivered.\n- **Automatic web updates** — interface improvements arrive without reinstalling the app. An update never interrupts a mock test.\n- **Content updates** — question banks and explanations can be updated separately from the app, and the previous set is kept so a bad update can be rolled back.\n- **Verified downloads** — every app, web and content update is signed and checksummed before it is used. Tampered files are rejected.\n\n## Under the hood\n\n- Question engine, answer keys, explanations, bookmarks, attempts and revision history are unchanged. Your data is preserved.\n- The library still opens offline, with all 20 bundled sets and 8,519 questions available without a network.\n\n## Notes\n\n- The app keeps the same application ID and signing identity as 2.0.0, so it installs over your existing copy.\n- Android always shows its own installer for app updates; StudySynth cannot install silently, by design."
+    "releaseNotes": "# StudySynth 2.1.0\n\nA faster, friendlier StudySynth with automatic updates.\n\n## What's new\n\n- **New home screen** — pick up where you left off, start practice, or jump into a timed test in one tap.\n- **Three clear destinations** — Home, Library and Progress, always within thumb reach at the bottom of the screen.\n- **Cleaner library** — each set shows its title, question count and your last score. Long topic blurbs, exam codes and other filler are gone.\n- **Update Centre** — see the installed version, check for updates, read release notes and choose how updates are delivered.\n- **Automatic web updates** — interface improvements arrive without reinstalling the app. An update never interrupts a mock test.\n- **Content updates** — question banks and explanations can be updated separately from the app, and the previous set is kept so a bad update can be rolled back.\n- **Verified downloads** — every app, web and content update is signed and checksummed before it is used. Tampered files are rejected.\n\n## Under the hood\n\n- Question engine, answer keys, explanations, bookmarks, attempts and revision history are unchanged. Your data is preserved.\n- The library still opens offline, with all 20 bundled sets and 8,519 questions available without a network.\n\n## Notes\n\n- The app keeps the same application ID and signing identity as 2.0.0, so it installs over your existing copy.\n- Android always shows its own installer for app updates; StudySynth cannot install silently, by design."
   },
   "apk": {
     "url": "https://usm007.github.io/studysynth-android/updates/stable/apk/studysynth-2.1.0.apk",
-    "sha256": "6243cad21c73b7d0f168f25179e20f836fe55b684da7c858f7a6f8e0b93cd72d",
-    "size": 23734092,
+    "sha256": "98e727109100f8c013d08bb6bf1a5c47a65cdf5305f2e3f970e1df5228680f7f",
+    "size": 23726540,
     "certSha256": "62377a571b33c348a2ed61f08e538108b0b76338dcdaa7e029e0e3172a17a374"
   },
   "web": {
-    "bundleId": "2.1.0-4-358be1bb43b6",
+    "bundleId": "2.1.0-4-802cc981426a",
     "runtimeVersion": "capacitor-8",
-    "url": "https://usm007.github.io/studysynth-android/updates/stable/web/2.1.0-4-358be1bb43b6.zip",
-    "sha256": "358be1bb43b6464b60df5542598e9557bc843e68e3164a38e282110e6f51d27c",
-    "size": 18937139,
-    "signature": "VB0abo7fuqA1ETpaSM91evZ085yPTaWgYP+do3AvcP0HU40QRh79lepyAaw9kiB88vpqrCCo+5smig0xxIiDG1deS0M7a5DmplTCzyk1AffWdIekTucHcKlNRZfE+eltCdy4FJ9PQqwyXWZXLiBFdre5GaHtdgavL3RTPhgSAYYJVm9/uSCp3dQ1LxOqmZSHf4Q8ontxLZ/WFl4O1vvb4rgSgGYVpX9VVPCOR5hBd55xQTfKWyYOq8Dori7swXPRTOuvlk3OvMZW8ZAmj1dmV3/Nj0vCIveWxFOZWhm6s7ta/i7+K8fwTlJ0oVXOpbALODkYz0mzMMC2HvLGqrrUDxM4Y++rv/Bvudc3JjChC03c0qYumCzp/GTzr0pX9eFqqrZJwMCN0BAp77o5jXMNjeKBMYRcwYYJx0b+jrYqElpkee5XQaLpeAb0MULdvnRhdyDDQ/NOLM8m3kqY9S6RWU3pcJF1owor74F2qV5/XAf3j2PdHS15fOaqaX6GpXgn",
+    "url": "https://usm007.github.io/studysynth-android/updates/stable/web/2.1.0-4-802cc981426a.zip",
+    "sha256": "802cc981426a7b70e370ba042cf9e2ec2d1feddcea54c95cece5ee29295bad08",
+    "size": 18929617,
+    "signature": "XPes6IJrWcJkyFxdnPdsxzzA4hUJ2Z0S0sisL0tUIjSbf49OEsh7eEBVQeD6ok+aIA6OQoUtMWSO5Yu4Qo/6Wpe/b7FIHFeeKybynFs9V7dkae70jPeIgymbI/mtlZToXB6XSGXqZszvn1iHAkN0RDf6c5iHNpQuwgn+aP15E0YMKRSMZbdCcndshqpqz3UMG1uXbiz35qBLSFIzhp1+d0DMIxN/w0UYatQhwDEYTh+JHpAGSm3Ocg6proFhBm8hvoAbDtYQwlYVWhe9IxCqn8pk8mMRndL0pXCclH7oPD9YMGRieTeF/7P5y+58rgqVx65tUwpKOKR0GiXPncgvw+W1LVnD/iFJ/DIfWRyYdHGJ0H0qGdiuBetzk+0ELlqBIknxQkTJvvEiZf/VyNUWuloXtS3Elhx8cSHipyT1y/Qa6jObBqucv5uEifRtg87uBcjxB1DxQDQDJ+oQKA5H8VUN+Enqiq6Q9uW7bHssWQIRvylhhgxmj4gQAaTqPce3",
     "minAppVersionCode": 4
   },
   "content": {
     "version": "2026.11.1",
     "url": "https://usm007.github.io/studysynth-android/updates/stable/content/content-2026.11.1.json",
-    "sha256": "99398f6ee60a1e8b2bbc7e7edafca035bb2a047970acbfb12797efc64e8dcb90",
+    "sha256": "0690bc24be5373b7a1ceb5a4615210cf6c137784f12957b142e268aafaf35e73",
     "size": 11607741,
-    "signature": "Cl8xkH3eoPe+2nvHbkEQAkJ2PmQXIiHfkwhgXECAgfWHsCqbIMeJNZ4OeFd2N0a1AwhEI2c5Kee0p690Xhuod1Pu6Mty6gGI2WYAM/6uR8uGs2zbb0HXKurhCIHoV3o1LVtXy/C7lCUDpAPsvG4pya/rIxrT0RF9iTv72g5yM/fVa1TWxNgp3lZc8Hd+3XOx51onHCLX/tRS28ipQGFT7jU4MJxm2bOnN/EfDYjOz0vNZhvMtZvp0udt4X31VkPE1MA0yIBPgOKUYl/yuyBQ0hMN3APxQzC+Q+4gzIix25z5+vKGRwMlEo/cXR5ybJPCG+/eFTvv0pRDoQGDqT37/lHsiRgOjm/gwBkIQxgkA7fUfamMNa2QcMiScDWEraxPkJUPH5NxyrFR/5J2hiZknlXSg5+juJ7FHjA7AIPZFggfmDakVwkjhr+kutgmv/0gNnn5ogr/6HJz/oewKEinWV3SkRSGFkISmrO7AR5ChrVTJY0Fn9UWutgpQPbH5cWZ",
+    "signature": "b6XfrFrhMZYzCEKkp8gRaWaB9wIWdBYiortt8c8NKLmyv777cied5dKa7h5HzL5KHbopHv6JVNapACCIDw43W4kwaS75eXRlU9B//BdXqQ8um4fLma4XhzLHezTJDT6FUrwuwOhLDczU+g4HCiOCdQBKeNNlZXHANQgTFLRhrKTlodjZ7zmm4j4TKETSLZ4P8a2qA6O1wgVKIywd82TD3Lnbpgy7LGitpHAP49nbsOWK/YUPDZIPgBdf+L0eVhYVxSAlq0z2ttKq1uXjvEecLVdFFEd39kcDYkjwK/sawzpJn1ZU0cPjmmh78YMZp392R2mZLbTRwIQIY/PeYusBlJM3l+RArKhGvOnna2qBccvRce51NV/axBXR/NfqeEpNGHaFf28YSelIXZkn9l00j1jbIeYELh1ERm2sns5o8/DAZVL9BynwdZ45fAdovEj44nShe06Wf8ktPTfpZ2o0fXjaEiEwx5V6VB3ViIIrerl7TOmuQptUakJK7wfIKnf/",
     "minAppVersionCode": 4
   },
-  "signature": "XA006rsbmx/OmpwKz/kZTXhFXQQVGMHt6o34+McsPiUrcRHeQCIPORiaV4KX1CH6Crghu9ieYkaNE2iH+CdRRYfjSEv0JdJrySmeCt+fKjQRQIoDRxwUduSHQyXVua3NbQz0PXgzN2tclnNC6s+3BHIGvSVP0sJgGumu6UhX+LmDBOnfTZWa2E4N0ShLVzHH2DR7020hw69SEhMHDz86w9FXtGp4VZO5BPxrXwYFLqg6yCed7UtbIe2laqn//7x/L8cAijxBnmbWJRhugwH0bsDC3Qp9k9o/Z0UfcbSDhQj1fwKRjsnyVLOB786lsdADWhcXrlesbM0oi89XM0OLlAmqr3ibl4Je7+7w66HXurArYK4Q1vfpW8MUJJqrPMSxPaajOElBn7WROyxsyF9Jq9B9zvh3UqmwEf8noxg7xUxF64oP7oSQBg9OrJs5z0v0j5BNslXsPHpDiiu485UZ+FBUdjxfu2ERexoOoiU9NqZkmkPjzIWNLXVhUyFkHtGr"
+  "signature": "YN9gmtY3B8Npo7WF9puEpgwx6DnkJPeLwXy+m0+zS5rqZHuAroK0Miix0rD73/KUezSwHeh43+kKDNK0R95mLOzj2Ld/ylt+KGwrkTlDAjfve8FnkoOdBWZ/P0gfJNSFheBpwHvk9OyEzEB07IBhFQOyYr6Pq0axE+MKAlntz7NrpKM85foYoGQgujM1ufh8gUOvEhkPrWnqd5pPiq/NjtPd/nnUxUgDphxJCNiSfFh9jWGo3v09iKQblm36F+nCPmtGWvnELmUYqSGGrLFfJbN1tG4tqlk5DvAlv3NPhVYPWFpPKoKz3AKSdJYX4VgZdDB/oTXtRTHBNrJqDEiiqlOL/zFSVw0G09fz4HctdcztA2lBKDYU9fYye5+XySZA9QEWQPiVBRbl6OBAtvukbweJit2Jf/rzxM3SpOpqMXPAJNWb6BRK1hP1BBhmJZJigUBWBhh3ktzQZLBwXG+KsIaRBtLQL33ye1aYjqJmW8nxKDMP297uwI33mCTLYV3B"
 }

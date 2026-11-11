@@ -50,9 +50,18 @@
     return (value / (1024 * 1024)).toFixed(1) + ' MB';
   }
 
+  function friendlyError(message) {
+    var text = String(message || '').trim();
+    if (!text) return 'The update check did not complete. Try again.';
+    if (/failed to fetch|networkerror|load failed|network request failed|net::|err_/i.test(text)) {
+      return 'Could not reach the update server. Check your internet connection and try again.';
+    }
+    return text;
+  }
+
   function statusLine(status) {
     if (!status) return 'Update status is unavailable.';
-    if (status.lastError) return status.lastError;
+    if (status.lastError) return friendlyError(status.lastError);
     if (status.lastCheckOk) {
       return 'Last checked ' + formatWhen(status.lastCheckAt).toLowerCase() + '.';
     }
@@ -279,7 +288,7 @@
       }
     } catch (err) {
       clearBusy();
-      var message = String(err && err.message || err);
+      var message = friendlyError(err && err.message || err);
       var line = dom.body.querySelector('[data-update-status]');
       if (line) line.textContent = message;
       if (err && err.code === 'INSTALL_PERMISSION') {

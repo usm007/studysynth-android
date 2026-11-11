@@ -14,12 +14,12 @@ are. It is written for the next maintainer, not as an API reference.
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ Shell            pwa/index.html + app.css                    │
-│                  four destinations, bottom navigation,       │
+│                  three destinations, bottom navigation,       │
 │                  sheets, modals, safe-area layout            │
 ├─────────────────────────────────────────────────────────────┤
 │ Controller       pwa/app.js                                  │
 │                  state machine, rendering, exam logic,       │
-│                  revision flow, update wiring                │
+│                  exam flow, update wiring                    │
 ├─────────────────────────────────────────────────────────────┤
 │ Engines          pwa/engine/*                                │
 │                  generator, reasoning v2, analyzer, OCR,     │
@@ -44,13 +44,12 @@ copies it into `www/`, and Capacitor copies `www/` into the APK.
 
 ## 2. Navigation and screens
 
-Four primary destinations, always reachable from the bottom bar:
+Three primary destinations, always reachable from the bottom bar:
 
 | Destination | View | Purpose |
 | --- | --- | --- |
 | Home | `#homeView` | Resume, start a mock, quick actions, device stats |
 | Library | `#libraryView` | Browse UGC NET and CTET sets, search, start practice/test |
-| Revision | `#revisionView` | Adaptive recall sessions with evidence excerpts |
 | Progress | `#analysisView` | Attempt history, accuracy, strengths and gaps |
 
 `switchMode(mode)` is the single navigation entry point. It sets
@@ -198,7 +197,7 @@ Release workflows live in `.github/workflows/`. See `docs/RELEASE_GUIDE.md`.
 
 These are not preferences; breaking them breaks the product:
 
-- **Offline first.** The library, practice, revision, and progress must work with
+- **Offline first.** The library, practice and progress must work with
   no network on a fresh install.
 - **No new UI framework.** The shell is hand-written HTML, CSS, and DOM code to
   keep the APK small and startup fast on budget devices.

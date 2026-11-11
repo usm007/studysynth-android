@@ -151,7 +151,7 @@ async function waitForHome(page) {
 
 async function activeView(page) {
   return page.evaluate(() => {
-    const ids = ['homeView', 'libraryView', 'revisionView', 'analysisView', 'quizView'];
+    const ids = ['homeView', 'libraryView', 'analysisView', 'quizView'];
     const visible = ids.filter((id) => {
       const el = document.getElementById(id);
       return el && getComputedStyle(el).display !== 'none';
@@ -198,7 +198,7 @@ async function runViewport(browser, origin, viewport, theme) {
   check(`${label}: lands on Home`, home.mode === 'home' && home.visible.includes('homeView'), JSON.stringify(home));
 
   const tabCount = await page.$$eval('#tabbar .tab-item', (items) => items.length);
-  check(`${label}: four primary destinations`, tabCount === 4, `${tabCount} tabs`);
+  check(`${label}: three primary destinations`, tabCount === 3, `${tabCount} tabs`);
 
   const homeCards = await page.$$eval('#homeContainer [data-action], #homeContainer .home-card, #homeContainer button', (els) => els.length);
   check(`${label}: home renders actionable content`, homeCards > 0, `${homeCards} interactive elements`);
@@ -206,7 +206,7 @@ async function runViewport(browser, origin, viewport, theme) {
   await page.screenshot({ path: path.join(SHOT_DIR, `home-${viewport.name}-${theme}.png`) });
 
   // Tab round trip. Each destination must show exactly one primary view.
-  for (const mode of ['library', 'revision', 'analysis', 'home']) {
+  for (const mode of ['library', 'analysis', 'home']) {
     await clickTab(page, mode);
     const view = await activeView(page);
     const expectedView = mode === 'analysis' ? 'analysisView' : `${mode}View`;

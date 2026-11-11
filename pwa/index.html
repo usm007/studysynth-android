@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, interactive-widget=resizes-content">
-  <title>StudySynth — UGC NET Education (Code 09) Question Papers & Exam Simulator</title>
-  <meta name="description" content="UGC NET in Education (Code 09) offline exam study companion. Official previous year papers (2009–2026), verified answer keys, timed mock tests, and adaptive revision.">
+  <title>StudySynth - UGC NET Education Question Papers &amp; Exam Simulator</title>
+  <meta name="description" content="UGC NET in Education (Code 09) offline exam study companion. Official previous year papers (2009–2026), verified answer keys and timed mock tests.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#3943d3">
   <meta name="format-detection" content="telephone=no">
@@ -39,7 +39,7 @@
 
         <div class="set-title">
           <b id="setTitle">LIBRARY</b>
-          <span id="setTopic">UGC NET Education (Code 09)</span>
+          <span id="setTopic">UGC NET Education</span>
         </div>
 
         <div class="progress-wrap" aria-label="Question progress">
@@ -104,7 +104,7 @@
                       <div class="test-header-text">
                         <div class="test-badge-row">
                           <span id="chapterTestExamBadge" class="mock-badge ugc-badge">UGC NET Education</span>
-                          <span id="chapterTestPoolBadge" class="test-pool-chip">Verified MCQs</span>
+                          <span id="chapterTestPoolBadge" class="test-pool-chip">Questions</span>
                         </div>
                         <h2 id="chapterTestTitle">Chapter Test</h2>
                         <p class="test-setup-sub">Self-contained topic test with randomized question order &amp; instant scoring</p>
@@ -361,97 +361,6 @@
               </div>
             </div>
 
-            <!-- REVISION VIEW — adaptive, evidence-backed recall -->
-            <div id="revisionView" class="view revision-view" style="display:none;">
-              <div class="view-inner revision-inner">
-
-                <p id="revisionUnavailable" class="empty-state" hidden></p>
-
-                <!-- Dashboard -->
-                <section id="revisionDashboard" class="rev-panel" hidden>
-                  <div class="rev-head">
-                    <div class="rev-head-copy">
-                      <h2 id="revDashTitle">Revision</h2>
-                    </div>
-                    <button id="revResetBtn" class="btn btn-sm rev-reset" type="button">Reset progress</button>
-                  </div>
-
-                  <div class="rev-stats" role="list" aria-label="Revision status for this set">
-                    <div class="rev-stat" role="listitem"><b id="revStatDue">0</b><span>Due now</span></div>
-                    <div class="rev-stat" role="listitem"><b id="revStatNew">0</b><span>New</span></div>
-                    <div class="rev-stat" role="listitem"><b id="revStatLearning">0</b><span>Learning</span></div>
-                    <div class="rev-stat" role="listitem"><b id="revStatConsistent">0</b><span>Consistently recalled</span></div>
-                    <div class="rev-stat" role="listitem"><b id="revStatTotal">0</b><span>Valid items</span></div>
-                  </div>
-
-                  <p id="revDashNote" class="rev-note"></p>
-
-                  <div class="rev-dash-actions">
-                    <button id="revStartBtn" class="btn btn-primary rev-start" type="button">Start revision</button>
-                    <button id="revResumeBtn" class="btn rev-resume" type="button" hidden>Resume session</button>
-                  </div>
-                </section>
-
-                <!-- Session -->
-                <section id="revisionSession" class="rev-panel rev-session" hidden>
-                  <div class="rev-session-head">
-                    <span id="revPos" class="rev-pos">Item 1 of 10</span>
-                    <button id="revPauseBtn" class="btn btn-sm" type="button">Pause &amp; save</button>
-                  </div>
-                  <div id="revProgress" class="rev-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Revision progress"><i id="revProgressBar"></i></div>
-
-                  <article class="rev-card">
-                    <span id="revForm" class="rev-form">Recall</span>
-                    <div id="revPrompt" class="rev-prompt" aria-live="polite"></div>
-
-                    <div id="revAnswer" class="rev-answer" hidden>
-                      <span class="rev-label">Answer</span>
-                      <p id="revAnswerText" class="rev-answer-text"></p>
-                      <div class="rev-evidence">
-                        <span id="revSourceRef" class="rev-source-ref"></span>
-                        <p id="revEvidenceShort" class="rev-evidence-text"></p>
-                        <p id="revEvidenceFull" class="rev-evidence-text rev-evidence-full" hidden></p>
-                        <button id="revEvidenceToggle" class="btn btn-sm rev-evidence-toggle" type="button" hidden>Show full excerpt</button>
-                      </div>
-                    </div>
-                  </article>
-
-                  <div class="rev-controls">
-                    <button id="revRevealBtn" class="btn btn-primary rev-reveal" type="button">Reveal answer</button>
-                    <button id="revBackBtn" class="btn rev-back" type="button" hidden>Back to current card</button>
-                    <button id="revPrevBtn" class="btn btn-sm rev-prev" type="button" hidden>Previous card</button>
-                  </div>
-
-                  <div id="revRatings" class="rev-ratings" role="group" aria-label="How well did you recall this?" hidden>
-                    <div class="rev-rating-row">
-                      <button class="btn rev-rate rev-rate-again" type="button" data-rating="again"><b>Again</b><small>Couldn’t recall</small></button>
-                      <button class="btn rev-rate rev-rate-hard" type="button" data-rating="hard"><b>Hard</b><small>Took effort</small></button>
-                      <button class="btn rev-rate rev-rate-good" type="button" data-rating="good"><b>Good</b><small>Recalled</small></button>
-                      <button class="btn rev-rate rev-rate-easy" type="button" data-rating="easy"><b>Easy</b><small>Instant</small></button>
-                    </div>
-                  </div>
-                </section>
-
-                <!-- Summary -->
-                <section id="revisionSummary" class="rev-panel rev-summary" hidden>
-                  <h2 id="revSummaryTitle">Session complete</h2>
-                  <div class="rev-summary-grid">
-                    <div><b id="revSumReviewed">0</b><span>Reviewed</span></div>
-                    <div><b id="revSumAgain">0</b><span>Again</span></div>
-                    <div><b id="revSumHard">0</b><span>Hard</span></div>
-                    <div><b id="revSumGood">0</b><span>Good</span></div>
-                    <div><b id="revSumEasy">0</b><span>Easy</span></div>
-                  </div>
-                  <p id="revSumRemaining" class="rev-note"></p>
-                  <p id="revSumNext" class="rev-note"></p>
-                  <div class="rev-dash-actions">
-                    <button id="revSummaryDoneBtn" class="btn btn-primary" type="button">Back to revision</button>
-                  </div>
-                </section>
-
-              </div>
-            </div>
-
             <!-- LIBRARY VIEW -->
             <div id="libraryView" class="view library-view" style="display:block;">
               <div class="view-inner">
@@ -463,18 +372,18 @@
                 <div class="library-exam-switcher" role="tablist" aria-label="Select exam syllabus">
                   <button id="examTabUgc" class="exam-tab active" type="button" data-exam="ugc_net" role="tab" aria-selected="true">
                     <span class="ms-icon" aria-hidden="true">school</span>
-                    <span>UGC NET Education (Code 09)</span>
+                    <span>UGC NET</span>
                   </button>
                   <button id="examTabCtet" class="exam-tab" type="button" data-exam="ctet" role="tab" aria-selected="false">
                     <span class="ms-icon" aria-hidden="true">menu_book</span>
-                    <span>CTET (Teacher Eligibility)</span>
+                    <span>CTET</span>
                   </button>
                 </div>
                 <div class="library-toolbar">
                   <nav id="libBreadcrumbBar" class="lib-breadcrumb-bar" aria-label="Library navigation"></nav>
                   <div class="lib-search-box">
                     <span class="ms-icon" aria-hidden="true">search</span>
-                    <input id="libSearchInput" type="search" placeholder="Search questions, syllabus units or topics..." aria-label="Search chapters or papers">
+                    <input id="libSearchInput" type="search" placeholder="Search sets or topics" aria-label="Search sets or topics">
                   </div>
                 </div>
                 <div id="libraryContainer"></div>
@@ -541,10 +450,6 @@
       <button class="mode-item tab-item" data-mode="library">
         <span class="ms-icon" aria-hidden="true">library_books</span>
         <span class="tab-label">Library</span>
-      </button>
-      <button class="mode-item tab-item" data-mode="revision">
-        <span class="ms-icon" aria-hidden="true">school</span>
-        <span class="tab-label">Revision</span>
       </button>
       <button class="mode-item tab-item" data-mode="analysis">
         <span class="ms-icon" aria-hidden="true">insights</span>
@@ -659,8 +564,8 @@
     <div class="modal-card about-card">
       <img src="./assets/logo.png" alt="" class="about-mark">
       <h2 id="aboutTitle" class="about-title">StudySynth</h2>
-      <p class="about-subtitle">UGC NET Education (Code 09)</p>
-      <p class="about-summary">Offline Previous Years Question Papers (2009–2026) and Exam Simulator for UGC NET Education (Subject Code 09). Complete syllabus practice across 10 official units with verified answer keys, timed evaluation, and zero distraction.</p>
+      <p class="about-subtitle">UGC NET Education</p>
+      <p class="about-summary">Previous year papers (2009–2026) and an exam simulator for UGC NET Education, with verified answer keys, timed evaluation and fully offline access.</p>
       <p class="about-credit" aria-label="Built by usm007">Built with <span class="credit-heart ms-icon" aria-hidden="true">favorite</span> by usm007</p>
       <div class="modal-actions">
         <button id="aboutCloseBtn" class="btn btn-primary" type="button">Close</button>
@@ -696,7 +601,6 @@
   <script src="./engine/storage.js"></script>
   <script src="./engine/jobs.js"></script>
   <script src="./vendor/tesseract/tesseract.min.js"></script>
-  <script src="./engine/revision.js"></script>
   <!-- Update system: keys, verification, services, policy, UI. Loaded before
        the app controller, which only wires them into the screens. -->
   <script src="./version.js"></script>

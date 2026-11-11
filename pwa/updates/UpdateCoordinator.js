@@ -23,6 +23,15 @@
   var FETCH_TIMEOUT_MS = 20000;
   var APK_STATE_POLL_MS = 400;
 
+  function friendlyFetchError(message) {
+    var text = String(message || '').trim();
+    if (!text) return 'The update check did not complete.';
+    if (/failed to fetch|networkerror|load failed|network request failed|net::|err_/i.test(text)) {
+      return 'Could not reach the update server. Check your internet connection and try again.';
+    }
+    return text;
+  }
+
   var runtime = {
     manifestUrl: DEFAULT_MANIFEST_URL,
     isBusy: null,
@@ -172,7 +181,7 @@
     try {
       manifest = await fetchManifest(url);
     } catch (err) {
-      var message = String(err && err.message || err);
+      var message = friendlyFetchError(err && err.message || err);
       if (stored) {
         global.UpdateStorage.patch({ lastCheckAt: Date.now(), lastCheckOk: false, lastError: message });
       }

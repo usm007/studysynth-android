@@ -18,7 +18,7 @@ try {
 const VERSION = (self.STUDYSYNTH_VERSION || {});
 // Bump this when a runtime asset changes without a version bump: the worker is
 // cache-first for assets, so a stale cache name would keep serving old files.
-const CACHE_REVISION = 1;
+const CACHE_REVISION = 2;
 const CACHE_NAME = 'studysynth-' +
   (VERSION.versionName || 'dev') + '-' +
   (VERSION.runtimeVersion || 'runtime') + '-r' + CACHE_REVISION;

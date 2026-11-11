@@ -20,16 +20,16 @@ source. There is no server, no account, and no network dependency at runtime.
   - CTET CDP section mock: 30 questions, 30 minutes.
   - Custom tests: choose scope, question count, and pace.
 - **Practice mode** with instant feedback, answer keys, and explanations.
-- **Adaptive revision** backed by source excerpts and spaced scheduling.
 - **Progress** across attempts: accuracy, strengths, and gaps.
-- **Offline first**: the library, practice, revision, and progress all work with
+- **Offline first**: the library, practice, and progress all work with
   no network on a fresh install.
 
 ### New in 2.1.0
 
-- A mobile-first shell with four thumb-reachable destinations: Home, Library,
-  Revision, Progress.
+- A mobile-first shell with three thumb-reachable destinations: Home, Library,
+  Progress.
 - A Home screen that resumes the last set and surfaces what matters now.
+- A cleaner library: title, question count and last score only.
 - An Update Centre for app, interface, and question-bank updates.
 - Signed, checksummed updates with rollback and an exam guard.
 - A mark-for-review control and a submit confirmation in timed tests.

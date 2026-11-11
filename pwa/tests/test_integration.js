@@ -75,8 +75,8 @@ for (const match of idMatches) {
 assert.strictEqual(missingIds.length, 0, `Missing DOM element IDs in index.html: ${missingIds.join(', ')}`);
 console.log('  ✓ All DOM references in app.js correctly bind to elements in index.html.');
 
-// 4b. Mobile shell, four-destination navigation, update centre, and exam contract
-console.log('[Test 3b] Verifying the mobile shell, four-destination navigation, update centre, and exam bindings...');
+// 4b. Mobile shell, three-destination navigation, update centre, and exam contract
+console.log('[Test 3b] Verifying the mobile shell, three-destination navigation, update centre, and exam bindings...');
 const css = [
   fs.readFileSync(path.join(pwaDir, 'styles.css'), 'utf-8'),
   fs.readFileSync(path.join(pwaDir, 'app.css'), 'utf-8')
@@ -88,18 +88,18 @@ assert(/@font-face/.test(css) && /assets\/material\/material-symbols-rounded-sub
 assert(fs.existsSync(path.join(pwaDir, 'assets/material/material-symbols-rounded-subset.woff2')), 'Material Symbols icon font must be bundled locally');
 assert(!/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]/u.test(html), 'Interface icons must not use emoji');
 
-// Four primary destinations, in order, on a docked bottom bar.
+// Three primary destinations, in order, on a docked bottom bar.
 assert(/<body data-mode="home">/.test(html), 'Home must be the default document mode');
 const tabModes = [...html.matchAll(/class="mode-item tab-item[^"]*" data-mode="([a-z]+)"/g)].map((match) => match[1]);
-assert.deepStrictEqual(tabModes, ['home', 'library', 'revision', 'analysis'], 'Bottom navigation must be Home, Library, Revision, Progress');
-assert.strictEqual((html.match(/class="mode-item tab-item/g) || []).length, 4, 'The bottom bar must expose exactly four destinations');
-for (const label of ['Home', 'Library', 'Revision', 'Progress']) {
+assert.deepStrictEqual(tabModes, ['home', 'library', 'analysis'], 'Bottom navigation must be Home, Library, Progress');
+assert.strictEqual((html.match(/class="mode-item tab-item/g) || []).length, 3, 'The bottom bar must expose exactly three destinations');
+for (const label of ['Home', 'Library', 'Progress']) {
   assert(new RegExp(`tab-label">${label}<`).test(html), `The bottom bar must label the "${label}" destination`);
 }
 assert(/id="tabbar"/.test(html) && /aria-label="Primary navigation"/.test(html), 'The bottom bar must be a labelled navigation landmark');
 assert(/\.tabbar\s*\{[^}]*position:\s*fixed/s.test(css), 'The bottom bar must stay docked while content scrolls');
 assert(/\.tabbar\s*\{[^}]*bottom:\s*0/s.test(css), 'The bottom bar must sit at the bottom edge');
-assert(/grid-template-columns:\s*repeat\(4/.test(css), 'The bottom bar must lay out four equal destinations');
+assert(/grid-template-columns:\s*repeat\(3/.test(css), 'The bottom bar must lay out three equal destinations');
 assert(/\[data-theme="dark"\] \.tabbar/.test(css), 'The bottom bar must adapt to dark mode');
 assert(/@media print[\s\S]{0,400}\.tabbar/.test(css), 'The bottom bar must not print');
 assert(/@media \(min-width:\s*861px\)[\s\S]{0,2500}\.tabbar\s*\{/.test(css), 'The bottom bar must dock as a desktop navigation rail');
@@ -174,7 +174,7 @@ const mainActivity = fs.readFileSync(
 );
 assert(/window\.__studysynthBack/.test(appJs), 'The PWA must expose an Android hardware-back handler');
 assert(/window\.__studysynthBack/.test(mainActivity), 'The Android back dispatcher must call the PWA back handler');
-console.log('  ✓ Mobile shell, four destinations, update centre, single-page scroll, exam, and single-credit contracts verified.');
+console.log('  ✓ Mobile shell, three destinations, update centre, single-page scroll, exam, and single-credit contracts verified.');
 
 // 4c. Material 3 icon coverage
 console.log('[Test 3c] Verifying every interface symbol exists in the bundled Material 3 icon font...');
@@ -268,9 +268,9 @@ assert(typeof OfflineDocParser.readFileContent === 'function', 'The string file 
 assert(/NO_VERIFIED_QUESTIONS/.test(jobsJs), 'The job manager must distinguish verified generation from a revision-only result');
 assert(/readFileContentDetailed/.test(appJs), 'The app must use OCR confidence metadata');
 assert(/lowConfidence/.test(appJs) && /confirmed/.test(appJs), 'The app must require confirmation or correction for low-confidence OCR');
-assert(/revisionOnly/.test(appJs) && /Revision only/.test(appJs), 'The Library must mark revision-only sets');
-assert(/disabled aria-disabled/.test(appJs), 'Revision-only sets must disable Practice and Exam Test actions');
-assert(/\.lib-mode:disabled/.test(css), 'Revision-only actions must be visually disabled');
+assert(/revisionOnly/.test(appJs) && /No questions/.test(appJs), 'The Library must mark sets without verified questions');
+assert(/disabled aria-disabled/.test(appJs), 'Sets without verified questions must disable Practice and Exam Test actions');
+assert(/\.lib-mode:disabled/.test(css), 'Unavailable actions must be visually disabled');
 console.log('  ✓ Local OCR, file-source metadata, low-confidence confirmation, and revision-only contracts verified.');
 
 console.log('[Test 6] Verifying background processing contracts...');
@@ -310,33 +310,21 @@ const switchBody = (appJs.match(/function switchMode\(mode\) \{([\s\S]*?)\n  \}/
 assert(!/Processing\.(cancel|dismiss)/.test(switchBody), 'Changing screens must not cancel or dismiss a job');
 console.log('  ✓ Worker isolation, single dialog, persistent indicator, recovery, and navigation contracts verified.');
 
-console.log('[Test 7] Verifying the adaptive revision engine contracts...');
+console.log('[Test 7] Verifying the revision engine is retained while its screen is retired...');
 const revisionJs = fs.readFileSync(path.join(pwaDir, 'engine', 'revision.js'), 'utf-8');
 const storageJs = fs.readFileSync(path.join(pwaDir, 'engine', 'storage.js'), 'utf-8');
-assert(html.indexOf('./engine/revision.js') > 0 && html.indexOf('./engine/revision.js') < html.indexOf('./app.js'), 'The revision engine must load before the app controller');
-assert(/StudySynthRevision/.test(revisionJs) && /window\.StudySynthRevision\s*=/.test(revisionJs), 'The revision engine must expose a browser global');
-for (const id of ['revisionDashboard', 'revStartBtn', 'revStatDue', 'revStatNew', 'revStatLearning', 'revStatConsistent', 'revStatTotal',
-  'revisionSession', 'revPrompt', 'revAnswer', 'revAnswerText', 'revSourceRef', 'revEvidenceShort', 'revEvidenceFull', 'revEvidenceToggle',
-  'revRevealBtn', 'revRatings', 'revPrevBtn', 'revPauseBtn', 'revisionSummary', 'revSumReviewed', 'revSumNext', 'revResetBtn']) {
-  assert(new RegExp(`id="${id}"`).test(html), `The revision view must expose #${id}`);
-}
-assert(/data-rating="again"/.test(html) && /data-rating="hard"/.test(html) && /data-rating="good"/.test(html) && /data-rating="easy"/.test(html), 'All four recall ratings must be offered');
-assert(!/renderFlashcard|moveCard|cardFlipped/.test(appJs), 'Sequential flashcard traversal must be removed');
-assert(/buildRevisionItems/.test(appJs) && /buildSession\(/.test(appJs) && /rateSessionItem\(/.test(appJs), 'The app must use the revision engine for cards, sessions, and ratings');
-assert(/saveRevisionProgress\(/.test(appJs) && /saveRevisionSession\(/.test(appJs) && /getRevisionProgress\(/.test(appJs) && /getRevisionSession\(/.test(appJs), 'Ratings and sessions must persist through storage');
-assert(/resetRevisionProgress\(/.test(appJs) && /window\.confirm\(/.test(appJs), 'Resetting progress must require confirmation');
-assert(/isResumableSession|resumeSession\(/.test(appJs), 'A saved session must be resumable after a reload');
-assert(/function openRevision|function renderRevisionDashboard/.test(appJs) && /function rateRevision/.test(appJs), 'The revision lifecycle must be wired into the app');
-assert(/DB_VERSION\s*=\s*4/.test(storageJs) && /revisionProgress/.test(storageJs) && /revisionSessions/.test(storageJs), 'Storage must keep revision stores through the additive v4 upgrade');
+assert(/StudySynthRevision/.test(revisionJs) && /window\.StudySynthRevision\s*=/.test(revisionJs), 'The revision engine must stay available for saved modules');
+assert(fs.existsSync(path.join(pwaDir, 'tests', 'test_revision.js')), 'The revision engine must keep its test suite');
+assert(html.indexOf('./engine/revision.js') < 0, 'The retired revision screen must not load into the app');
+assert(!/revisionView|revStartBtn|openRevision/.test(html), 'The revision screen must be removed from the markup');
+assert(!/openRevision|revisionEngine\(|State\.revision/.test(appJs), 'The app controller must not reference the retired revision UI');
+assert(/DB_VERSION\s*=\s*4/.test(storageJs) && /revisionProgress/.test(storageJs) && /revisionSessions/.test(storageJs), 'Storage must keep existing revision data through the additive v4 upgrade');
 assert(/contentMeta/.test(storageJs) && /contentModules/.test(storageJs), 'Storage v4 must add the content-overlay stores');
 assert(/deleteRevisionSession/.test(storageJs) && /resetRevisionProgress/.test(storageJs), 'Storage must expose session cleanup and progress reset');
 assert(/deleteModule[\s\S]{0,900}STORE_REVISION_PROGRESS/.test(storageJs), 'Deleting a module must remove its revision progress');
-assert(/engine\/revision\.js/.test(sw), 'The revision engine must be precached for offline use');
-assert(/CACHE_REVISION\s*=\s*\d+/.test(sw), 'Adding the revision engine must be covered by a versioned service worker cache');
-assert(/\.rev-stats/.test(css) && /\.rev-card/.test(css) && /\.rev-rating-row/.test(css) && /\.rev-summary-grid/.test(css), 'The revision dashboard, card, ratings, and summary must be styled');
-assert(/body\[data-mode="revision"\]\s*\.livebar\s*\{\s*display:\s*none/.test(css), 'Revision must replace the exam analytics rail');
-assert(!/mastery\s*%/i.test(appJs) && !/mastery\s*%/i.test(html), 'Revision must not display invented mastery percentages');
-console.log('  ✓ Adaptive revision engine, persistence, UI flow, and offline contracts verified.');
+assert(!/data-mode="revision"|\.rev-card|\.rev-stats/.test(css), 'The revision screen styles must be removed');
+assert(!/mastery\s*%/i.test(appJs) && !/mastery\s*%/i.test(html), 'The interface must not display invented mastery percentages');
+console.log('  ✔ Revision engine retained, revision screen and styles removed.');
 
 console.log('\n=============================================');
 console.log('ALL INTEGRATION & CONTRACT TESTS PASSED (0 ERRORS)');

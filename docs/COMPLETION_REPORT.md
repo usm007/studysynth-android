@@ -15,7 +15,7 @@ below is marked verified unless the command or check was actually run.
 | --- | --- | --- | --- |
 | 1 | Work on a new branch, never modify the published tag | Done | `feat/v2.1.0-redesign` created from `education-version`; `v2.0.0-education` untouched |
 | 2 | Preserve question engine, answers, explanations, banks, bookmarks, exam logic, revision | Done | 6 original suites pass unchanged; storage DB v4 is additive; `verify-ui.js` exercises practice and a full timed exam |
-| 3 | Four destinations: Home, Library, Revision, Progress; bottom nav on mobile | Done | Shell check: exactly 4 tabs, each shows exactly one view at 360 and 412 px |
+| 3 | Three destinations: Home, Library, Progress; bottom nav on mobile | Done | Shell check: exactly 3 tabs, each shows exactly one view at 360 and 412 px |
 | 4 | Practice/exam keeps timer, palette, mark-for-review, unanswered indicators, submit confirmation, results | Done | `verify-ui.js`: timer running, palette lists 20 cells, mark flags the palette cell, submit asks first, cancel keeps the exam, results scorecard appears |
 | 5 | Offline-first, fast, minimal dependencies, no new UI framework | Done | No framework added; one dev dependency (`puppeteer-core`); service worker activates with one versioned cache; library opens from bundled data |
 | 6 | APK updates via GitHub Releases + static manifest, SHA-256 + identity + version checks, supported install flow | Implemented, locally verified | `ApkUpdatePlugin` compiles into the signed APK; `check-apk.js` and `verify-release.js` pass; install flow not run on a device (see §5) |
@@ -112,16 +112,16 @@ Supporting checks:
 | Check | Result |
 | --- | --- |
 | `node scripts/check-ids.js` | 163 ids used, 0 missing |
-| `node scripts/verify-ui.js` | 77 checks passed (15 per viewport × 4, 3 service worker, 14 exam shell) |
+| `node scripts/verify-ui.js` | 74 checks passed (13 per viewport × 4, 3 service worker, 14 exam shell) |
 | Icon font contract | 70 symbols present, includes every icon used by the shell and the home screen |
 | Browser console | Zero page errors, zero console errors, zero failed local requests in all four passes |
 | Horizontal overflow | None at 360 px or 412 px |
-| Service worker | Active, exactly one cache: `studysynth-2.1.0-capacitor-8-r1` |
+| Service worker | Active, exactly one cache: `studysynth-2.1.0-capacitor-8-r2` |
 
 Screenshots are in `output/ui/`:
 
 - `home-{360,412}-{light,dark}.png`
-- `library-…`, `revision-…`, `analysis-…`, `updates-…`
+- `library-{360,412}-{light,dark}.png`, `analysis-{360,412}-{light,dark}.png`, `updates-{360,412}-{light,dark}.png`
 - `exam-palette-412-light.png`
 - `exam-results-412-light.png`
 

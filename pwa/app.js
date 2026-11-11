@@ -24,7 +24,6 @@
     home: 'Home',
     practice: 'Practice',
     test: 'Exam Test',
-    revision: 'Revision',
     generator: 'Generator',
     library: 'Library',
     analysis: 'Progress'
@@ -62,17 +61,6 @@
     timerInterval: null,
     deferredInstallPrompt: null,
     lastResult: null,
-    revision: {
-      items: null,
-      itemsFor: null,
-      progress: {},
-      session: null,
-      resumeCandidate: null,
-      revealed: false,
-      viewingPrev: false,
-      expandedEvidence: false,
-      saving: false
-    },
     storagePersistent: false,
     isNative: false,
     sourceMeta: null
@@ -114,7 +102,6 @@
 
     DOM.quizView = document.getElementById('quizView');
     DOM.generatorView = document.getElementById('generatorView');
-    DOM.revisionView = document.getElementById('revisionView');
     DOM.libraryView = document.getElementById('libraryView');
 
     DOM.sheetNum = document.getElementById('sheetNum');
@@ -170,45 +157,6 @@
     DOM.docTitle = document.getElementById('docTitle');
     DOM.docText = document.getElementById('docText');
     DOM.generateBtn = document.getElementById('generateBtn');
-
-    DOM.revisionUnavailable = document.getElementById('revisionUnavailable');
-    DOM.revisionDashboard = document.getElementById('revisionDashboard');
-    DOM.revisionSession = document.getElementById('revisionSession');
-    DOM.revisionSummary = document.getElementById('revisionSummary');
-    DOM.revDashTitle = document.getElementById('revDashTitle');
-    DOM.revResetBtn = document.getElementById('revResetBtn');
-    DOM.revStatDue = document.getElementById('revStatDue');
-    DOM.revStatNew = document.getElementById('revStatNew');
-    DOM.revStatLearning = document.getElementById('revStatLearning');
-    DOM.revStatConsistent = document.getElementById('revStatConsistent');
-    DOM.revStatTotal = document.getElementById('revStatTotal');
-    DOM.revDashNote = document.getElementById('revDashNote');
-    DOM.revStartBtn = document.getElementById('revStartBtn');
-    DOM.revResumeBtn = document.getElementById('revResumeBtn');
-    DOM.revPos = document.getElementById('revPos');
-    DOM.revPauseBtn = document.getElementById('revPauseBtn');
-    DOM.revProgress = document.getElementById('revProgress');
-    DOM.revProgressBar = document.getElementById('revProgressBar');
-    DOM.revForm = document.getElementById('revForm');
-    DOM.revPrompt = document.getElementById('revPrompt');
-    DOM.revAnswer = document.getElementById('revAnswer');
-    DOM.revAnswerText = document.getElementById('revAnswerText');
-    DOM.revSourceRef = document.getElementById('revSourceRef');
-    DOM.revEvidenceShort = document.getElementById('revEvidenceShort');
-    DOM.revEvidenceFull = document.getElementById('revEvidenceFull');
-    DOM.revEvidenceToggle = document.getElementById('revEvidenceToggle');
-    DOM.revRevealBtn = document.getElementById('revRevealBtn');
-    DOM.revBackBtn = document.getElementById('revBackBtn');
-    DOM.revPrevBtn = document.getElementById('revPrevBtn');
-    DOM.revRatings = document.getElementById('revRatings');
-    DOM.revSumReviewed = document.getElementById('revSumReviewed');
-    DOM.revSumAgain = document.getElementById('revSumAgain');
-    DOM.revSumHard = document.getElementById('revSumHard');
-    DOM.revSumGood = document.getElementById('revSumGood');
-    DOM.revSumEasy = document.getElementById('revSumEasy');
-    DOM.revSumRemaining = document.getElementById('revSumRemaining');
-    DOM.revSumNext = document.getElementById('revSumNext');
-    DOM.revSummaryDoneBtn = document.getElementById('revSummaryDoneBtn');
 
     DOM.libraryContainer = document.getElementById('libraryContainer');
     DOM.analysisView = document.getElementById('analysisView');
@@ -545,20 +493,6 @@
     const accuracy = answeredTotal ? Math.round((correctTotal / answeredTotal) * 100) : 0;
     const bookmarkCount = Object.keys(bookmarks || {}).length;
 
-    let dueNow = 0;
-    let revisionReady = false;
-    if (State.currentModule) {
-      try {
-        const engine = revisionEngine();
-        const items = currentRevisionItems();
-        if (engine && items.length) {
-          const stats = engine.getModuleRevisionStats(items, State.revision.progress, Date.now());
-          dueNow = stats ? stats.due : 0;
-          revisionReady = true;
-        }
-      } catch (e) { /* revision stats are optional on the home screen */ }
-    }
-
     const last = readLastModule();
     const lastTitle = last ? cleanSetTitle(last.title || 'Practice set') : '';
     const lastMeta = last
@@ -594,7 +528,6 @@
           </div>
           <div class="home-continue-actions">
             <button type="button" class="btn btn-primary" data-home-action="continue-practice">Practice</button>
-            <button type="button" class="btn" data-home-action="continue-revision">Revise</button>
           </div>
         </div>`
       : `
@@ -607,7 +540,7 @@
       <section class="home-hero" aria-labelledby="homeTitle">
         <span class="home-eyebrow"><span class="ms-icon" aria-hidden="true">auto_awesome</span> Offline study workspace</span>
         <h1 id="homeTitle">Good ${greetingPart()}. Ready for a focused session?</h1>
-        <p>UGC NET Education (Code 09) and CTET question banks, timed mocks and adaptive revision — all stored on this device.</p>
+        <p>UGC NET Education and CTET question banks and timed mocks — all stored on this device.</p>
         <div class="home-hero-actions">
           <button type="button" class="btn btn-primary" data-home-action="mock">
             <span class="ms-icon" aria-hidden="true">workspace_premium</span> Start a mock test
@@ -634,18 +567,12 @@
           <div class="home-stat is-accent"><b>${mockCount}</b><span>Mocks completed</span></div>
           <div class="home-stat is-good"><b>${answeredTotal ? accuracy + '%' : '—'}</b><span>Answer accuracy</span></div>
           <div class="home-stat is-warn"><b>${bookmarkCount}</b><span>Bookmarked questions</span></div>
-          <div class="home-stat"><b>${revisionReady ? dueNow : '—'}</b><span>Cards due for revision</span></div>
         </div>
       </section>
 
       <section class="home-section" aria-labelledby="homeQuickTitle">
         <div class="home-section-head"><h2 id="homeQuickTitle">Quick actions</h2></div>
         <div class="home-quick">
-          <button type="button" class="home-quick-row" data-home-action="revision">
-            <span class="ms-icon" aria-hidden="true">school</span>
-            <span class="home-quick-copy"><b>Adaptive revision</b><small>Recall what is due, backed by your source excerpts</small></span>
-            <span class="ms-icon chev" aria-hidden="true">chevron_right</span>
-          </button>
           <button type="button" class="home-quick-row" data-home-action="mock">
             <span class="ms-icon" aria-hidden="true">timer</span>
             <span class="home-quick-copy"><b>Timed exam simulator</b><small>Official paper pattern, negative marking, instant scorecard</small></span>
@@ -691,10 +618,6 @@
       switchMode('generator');
       return;
     }
-    if (action === 'revision') {
-      switchMode('revision');
-      return;
-    }
     if (action === 'mock') {
       State.testModeType = 'universal';
       switchMode('test');
@@ -708,7 +631,7 @@
       openAbout();
       return;
     }
-    if (action === 'continue-practice' || action === 'continue-revision') {
+    if (action === 'continue-practice') {
       const last = readLastModule();
       if (!last) {
         switchMode('library');
@@ -717,7 +640,7 @@
       const body = await resolveModuleBody({ id: last.id, title: last.title });
       if (!body) return;
       setModule(body);
-      switchMode(action === 'continue-practice' ? 'practice' : 'revision');
+      switchMode('practice');
     }
   }
 
@@ -726,7 +649,7 @@
   // ==========================================================================
     async function switchMode(mode) {
     if (!MODE_LABELS[mode]) mode = 'library';
-    if ((mode === 'practice' || mode === 'test' || mode === 'revision') && !State.currentModule) {
+    if ((mode === 'practice' || mode === 'test') && !State.currentModule) {
       try {
         const bundled = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || [];
         const firstSet = bundled.find(m => m && m.questionCount > 0) || bundled[0];
@@ -738,7 +661,7 @@
         }
       } catch (err) {}
     }
-    if ((mode === 'practice' || mode === 'revision' || mode === 'test') && !State.currentModule) {
+    if ((mode === 'practice' || mode === 'test') && !State.currentModule) {
       showToast('Choose a saved set from the Library to start studying.');
       mode = 'library';
     }
@@ -746,8 +669,8 @@
       ? State.currentModule.questions.length
       : 0;
     if ((mode === 'practice' || mode === 'test') && activeQuestionCount === 0) {
-      mode = 'revision';
-      showToast('This set is revision-only because no MCQs passed source verification.');
+      mode = 'library';
+      showToast('This set has no verified questions yet, so it cannot be practised.');
     }
     const previousMode = State.activeMode;
     State.activeMode = mode;
@@ -764,7 +687,6 @@
     if (DOM.homeView) DOM.homeView.style.display = mode === 'home' ? 'block' : 'none';
     DOM.quizView.style.display = isQuiz ? 'flex' : 'none';
     DOM.generatorView.style.display = mode === 'generator' ? 'block' : 'none';
-    DOM.revisionView.style.display = mode === 'revision' ? 'flex' : 'none';
     DOM.libraryView.style.display = mode === 'library' ? 'block' : 'none';
     if (DOM.analysisView) DOM.analysisView.style.display = mode === 'analysis' ? 'block' : 'none';
     if (DOM.workspace) DOM.workspace.scrollTop = 0;
@@ -783,13 +705,11 @@
       }
     }
     // An active exam keeps its timer and answers if the learner checks notes
-    // or revision. Submitting remains the only way to end the timed session.
+    // or the library. Submitting remains the only way to end the timed session.
     const testSetup = mode === 'test' && !State.testStarted && !State.testSubmitted;
     updateTestScreen();
 
-    if (mode === 'revision') {
-      openRevision();
-    } else if (mode === 'library') {
+    if (mode === 'library') {
       renderLibrary();
     } else if (mode === 'analysis') {
       renderAnalysis();
@@ -806,13 +726,10 @@
       if (DOM.setTopic) DOM.setTopic.textContent = 'Your study workspace';
     } else if (mode === 'library' || mode === 'generator' || mode === 'analysis') {
       if (DOM.setTitle) DOM.setTitle.textContent = mode === 'analysis' ? 'PROGRESS' : 'LIBRARY';
-      if (DOM.setTopic) DOM.setTopic.textContent = 'UGC NET Education (Code 09)';
-    } else if (mode === 'revision' && !State.currentModule) {
-      if (DOM.setTitle) DOM.setTitle.textContent = 'REVISION';
-      if (DOM.setTopic) DOM.setTopic.textContent = 'Adaptive recall';
+      if (DOM.setTopic) DOM.setTopic.textContent = State.libraryExam === 'ctet' ? 'CTET' : 'UGC NET Education';
     } else if (State.currentModule) {
       const activeCount = Array.isArray(State.currentModule.questions) ? State.currentModule.questions.length : 0;
-      if (DOM.setTitle) DOM.setTitle.textContent = activeCount ? `${activeCount} VERIFIED QUESTIONS` : 'REVISION ONLY';
+      if (DOM.setTitle) DOM.setTitle.textContent = activeCount ? `${activeCount} VERIFIED QUESTIONS` : 'NO VERIFIED QUESTIONS';
       if (DOM.setTopic) DOM.setTopic.textContent = State.currentModule.title;
     }
   }
@@ -851,10 +768,10 @@
 
       const mockModule = {
         id: 'mock_ugc_net_full',
-        title: 'UGC NET Education (Code 09) - Paper 2 Official Mock',
+        title: 'UGC NET Education - Official Mock',
         exam: 'ugc_net',
-        examName: 'UGC NET Education (Code 09)',
-        subject: 'Education (Code 09)',
+        examName: 'UGC NET Education',
+        subject: 'Education',
         topic: 'Official Paper 2 Full Mock (All 10 Units Balanced)',
         durationMs: 120 * 60 * 1000,
         questions: selectedQuestions
@@ -988,11 +905,11 @@
       DOM.chapterTestTitle.textContent = mod.topic || mod.title;
     }
     if (DOM.chapterTestExamBadge) {
-      DOM.chapterTestExamBadge.textContent = isCtet ? 'CTET (Paper-II)' : 'UGC NET Education (Code 09)';
+      DOM.chapterTestExamBadge.textContent = isCtet ? 'CTET' : 'UGC NET Education';
       DOM.chapterTestExamBadge.className = `mock-badge ${isCtet ? 'ctet-badge' : 'ugc-badge'}`;
     }
     if (DOM.chapterTestPoolBadge) {
-      DOM.chapterTestPoolBadge.textContent = `${total} Verified MCQs in this Chapter`;
+      DOM.chapterTestPoolBadge.textContent = `${total} questions in this chapter`;
     }
 
     if (DOM.chapterQuestionCount) {
@@ -1022,12 +939,12 @@
       }
       optHtml += `
         <optgroup label="Complete Exam Pools">
-          <option value="ugc_net_all">UGC NET Education (Code 09) - All 10 Units (1,770 MCQs)</option>
+          <option value="ugc_net_all">All units · 1,770 questions</option>
           <option value="ctet_all">CTET Complete - CDP &amp; Social Science (6,749 MCQs)</option>
           <option value="ctet_cdp_all">CTET - Child Development &amp; Pedagogy (All 6 Units)</option>
           <option value="ctet_sst_all">CTET - Social Science (All 4 Units)</option>
         </optgroup>
-        <optgroup label="UGC NET Education (Code 09) - Individual Units">
+        <optgroup label="Individual units">
       `;
       indexList.filter(m => String(m.id).startsWith('ugc_net_')).forEach(m => {
         optHtml += `<option value="${m.id}">${escapeHtml(m.topic || m.title)} (${m.questionCount} MCQs)</option>`;
@@ -1109,7 +1026,7 @@
       id: 'chapter_test_' + Date.now(),
       title: `${chapterName} - Chapter Test (${selected.length} MCQs)`,
       exam: isCtet ? 'ctet' : 'ugc_net',
-      examName: isCtet ? 'CTET (Central Teacher Eligibility Test)' : 'UGC NET Education (Code 09)',
+      examName: isCtet ? 'CTET' : 'UGC NET Education',
       subject: mod.subject || (isCtet ? 'CTET' : 'Education'),
       topic: chapterName,
       durationMs: selected.length * seconds * 1000,
@@ -1233,7 +1150,7 @@
       id: 'custom_test_' + Date.now(),
       title: `${scopeTitle} - Test (${Math.min(count, pool.length)} MCQs)`,
       exam: isCtet ? 'ctet' : 'ugc_net',
-      examName: isCtet ? 'CTET (Central Teacher Eligibility Test)' : 'UGC NET Education (Code 09)',
+      examName: isCtet ? 'CTET' : 'UGC NET Education',
       subject: scopeTitle,
       topic: scopeTitle,
       durationMs: count * seconds * 1000,
@@ -1319,24 +1236,16 @@
     State.currentIndex = 0;
     State.practiceAnswers = {};
     State.practiceRevealed = false;
-    State.revision.items = null;
-    State.revision.itemsFor = null;
-    State.revision.progress = {};
-    State.revision.session = null;
-    State.revision.resumeCandidate = null;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
     State.lastResult = null;
 
     const questionCount = Array.isArray(mod.questions) ? mod.questions.length : 0;
-    if (DOM.setTitle) DOM.setTitle.textContent = questionCount ? `${questionCount} VERIFIED QUESTIONS` : 'REVISION ONLY';
+    if (DOM.setTitle) DOM.setTitle.textContent = questionCount ? `${questionCount} VERIFIED QUESTIONS` : 'NO VERIFIED QUESTIONS';
     if (DOM.setTopic) DOM.setTopic.textContent = mod.title;
 
     updateStats();
     if (!questionCount) {
       if (DOM.qContainer) {
-        DOM.qContainer.innerHTML = '<div class="empty-state"><strong>This set is revision-only.</strong><br>No question passed source verification. Open Revision to study it, or add clearer source text and generate again.</div>';
+        DOM.qContainer.innerHTML = '<div class="empty-state"><strong>This set has no verified questions.</strong><br>No question passed source verification. Add clearer source notes and generate again.</div>';
       }
       if (DOM.answerPanel) DOM.answerPanel.innerHTML = '';
       if (DOM.progNum) DOM.progNum.textContent = '0/0';
@@ -1636,26 +1545,6 @@
 
   function updateStats() {
     if (!State.currentModule) return;
-    if (State.activeMode === 'revision') {
-      const engine = revisionEngine();
-      const items = currentRevisionItems();
-      const stats = engine && items.length
-        ? engine.getModuleRevisionStats(items, State.revision.progress, Date.now())
-        : null;
-      const reviewed = stats ? Math.max(0, stats.total - stats.newItems) : 0;
-      if (DOM.liveAccNum) DOM.liveAccNum.textContent = stats ? String(stats.due) : '—';
-      if (DOM.statCorrect) DOM.statCorrect.textContent = stats ? String(stats.newItems) : '–';
-      if (DOM.statWrong) DOM.statWrong.textContent = stats ? String(stats.learning) : '–';
-      if (DOM.railAccLabel) DOM.railAccLabel.textContent = 'Revision Queue';
-      if (DOM.railAcc) DOM.railAcc.textContent = stats ? `${stats.due}` : '—';
-      if (DOM.railBar) DOM.railBar.style.width = stats && stats.total ? `${Math.round((reviewed / stats.total) * 100)}%` : '0%';
-      if (DOM.railSub) {
-        DOM.railSub.textContent = stats
-          ? `${stats.due} due now · ${stats.newItems} new · ${stats.total} items`
-          : 'No revision items';
-      }
-      return;
-    }
     if (DOM.railAccLabel) DOM.railAccLabel.textContent = 'Session Score';
     const resultsHidden = State.activeMode === 'test' && !State.testSubmitted;
     const total = activeQuestionList().length;
@@ -2311,8 +2200,8 @@
     const questionCount = Array.isArray(module.questions) ? module.questions.length : 0;
 
     if (module.revisionOnly) {
-      setFileStatus('Revision only · no MCQ passed source verification. This set was saved for revision.', 'error');
-      showToast('Saved for revision only. No verified MCQs were published.');
+      setFileStatus('No verified MCQ was generated. Add clearer source notes or a selectable PDF and try again.', 'error');
+      showToast('No verified MCQs were generated, so nothing was published.');
     } else {
       setFileStatus(`Ready · ${questionCount} verified question${questionCount === 1 ? '' : 's'}.`, 'ok');
       showToast(`Saved “${module.title}”. ${questionCount} verified question${questionCount === 1 ? '' : 's'} available.`);
@@ -2360,7 +2249,12 @@
     }
     const module = completedModule;
     closeProcessingDialog();
-    startLibraryMode(module, module.questions && module.questions.length ? 'practice' : 'revision');
+    if (!module.questions || !module.questions.length) {
+      showToast('This set has no verified questions, so it cannot be practised.');
+      renderLibrary();
+      return;
+    }
+    startLibraryMode(module, 'practice');
     renderLibrary();
   }
 
@@ -2476,468 +2370,8 @@
   }
 
   // ==========================================================================
-  // REVISION — adaptive, evidence-backed recall
+  // MODULE HELPERS
   // ==========================================================================
-  function revisionEngine() {
-    return typeof window !== 'undefined' ? window.StudySynthRevision || null : null;
-  }
-
-  // Cards are derived from the saved module content and rebuilt only when the
-  // active module changes, so switching modules never reuses another queue.
-  function currentRevisionItems() {
-    if (!State.currentModule) return [];
-    const moduleId = State.currentModule.id;
-    if (State.revision.itemsFor !== moduleId || !Array.isArray(State.revision.items)) {
-      const engine = revisionEngine();
-      State.revision.items = engine ? engine.buildRevisionItems(State.currentModule) : [];
-      State.revision.itemsFor = moduleId;
-      State.revision.session = null;
-      State.revision.resumeCandidate = null;
-      State.revision.progress = {};
-      State.revision.revealed = false;
-      State.revision.viewingPrev = false;
-      State.revision.expandedEvidence = false;
-    }
-    return State.revision.items;
-  }
-
-  function revisionItemById(id) {
-    return currentRevisionItems().find((item) => item && item.id === id) || null;
-  }
-
-  function showRevisionPanel(panel) {
-    if (DOM.revisionDashboard) DOM.revisionDashboard.hidden = panel !== 'dashboard';
-    if (DOM.revisionSession) DOM.revisionSession.hidden = panel !== 'session';
-    if (DOM.revisionSummary) DOM.revisionSummary.hidden = panel !== 'summary';
-    if (DOM.revisionUnavailable) DOM.revisionUnavailable.hidden = panel !== 'unavailable';
-  }
-
-  function showRevisionUnavailable(message) {
-    if (DOM.revisionUnavailable) DOM.revisionUnavailable.textContent = message;
-    showRevisionPanel('unavailable');
-  }
-
-  function formatRevisionWhen(timestamp, now) {
-    if (!timestamp) return '';
-    const diff = timestamp - now;
-    if (diff <= 0) return 'now';
-    const minutes = Math.round(diff / 60000);
-    if (minutes < 60) return `in ${minutes} minute${minutes === 1 ? '' : 's'}`;
-    const hours = Math.round(minutes / 60);
-    if (hours < 24) return `in ${hours} hour${hours === 1 ? '' : 's'}`;
-    const days = Math.round(hours / 24);
-    if (days < 30) return `in ${days} day${days === 1 ? '' : 's'}`;
-    const months = Math.round(days / 30);
-    return `in about ${months} month${months === 1 ? '' : 's'}`;
-  }
-
-  async function readRevisionSession(moduleId) {
-    try {
-      if (window.OfflineStorage && window.OfflineStorage.getRevisionSession) {
-        return await window.OfflineStorage.getRevisionSession(moduleId);
-      }
-    } catch (e) { /* storage unavailable */ }
-    return null;
-  }
-
-  function isResumableSession(session) {
-    return !!(session && Array.isArray(session.itemIds) && session.itemIds.length && !session.completed);
-  }
-
-  // Due status is always recomputed from persisted timestamps on open.
-  async function openRevision() {
-    const engine = revisionEngine();
-    if (!DOM.revisionDashboard) return;
-
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
-
-    if (!State.currentModule) {
-      showRevisionUnavailable('Choose a saved set from the Library before revising.');
-      return;
-    }
-    if (!engine) {
-      showRevisionUnavailable('The revision engine could not be loaded. Reload the app and try again.');
-      return;
-    }
-
-    const items = currentRevisionItems();
-    if (!items.length) {
-      showRevisionUnavailable('This set has no source text that can be revised safely. Add clearer notes or a selectable PDF and try again.');
-      return;
-    }
-
-    try {
-      if (window.OfflineStorage && window.OfflineStorage.getRevisionProgress) {
-        State.revision.progress = (await window.OfflineStorage.getRevisionProgress(State.currentModule.id)) || {};
-      }
-    } catch (e) {
-      State.revision.progress = {};
-      showToast('Revision progress could not be read.');
-    }
-
-    const saved = await readRevisionSession(State.currentModule.id);
-    State.revision.resumeCandidate = isResumableSession(saved) ? saved : null;
-    State.revision.session = null;
-
-    renderRevisionDashboard();
-    showRevisionPanel('dashboard');
-    updateStats();
-  }
-
-  function renderRevisionDashboard() {
-    const engine = revisionEngine();
-    const mod = State.currentModule;
-    if (!DOM.revisionDashboard || !engine || !mod) return;
-
-    const items = currentRevisionItems();
-    const now = Date.now();
-    const stats = engine.getModuleRevisionStats(items, State.revision.progress, now);
-
-    if (DOM.revDashTitle) DOM.revDashTitle.textContent = mod.title || 'Revision';
-    if (DOM.revStatDue) DOM.revStatDue.textContent = String(stats.due);
-    if (DOM.revStatNew) DOM.revStatNew.textContent = String(stats.newItems);
-    if (DOM.revStatLearning) DOM.revStatLearning.textContent = String(stats.learning);
-    if (DOM.revStatConsistent) DOM.revStatConsistent.textContent = String(stats.consistent);
-    if (DOM.revStatTotal) DOM.revStatTotal.textContent = String(stats.total);
-
-    const startable = stats.due + stats.newItems;
-    if (DOM.revStartBtn) {
-      DOM.revStartBtn.disabled = startable === 0;
-      DOM.revStartBtn.textContent = stats.total <= engine.DEFAULT_SESSION_SIZE
-        ? `Start revision (${startable} item${startable === 1 ? '' : 's'})`
-        : 'Start revision';
-    }
-
-    const resumable = isResumableSession(State.revision.resumeCandidate);
-    if (DOM.revResumeBtn) {
-      DOM.revResumeBtn.hidden = !resumable;
-      if (resumable) {
-        const position = Math.min(State.revision.resumeCandidate.cursor + 1, State.revision.resumeCandidate.itemIds.length);
-        DOM.revResumeBtn.textContent = `Resume session (item ${position} of ${State.revision.resumeCandidate.itemIds.length})`;
-      }
-    }
-
-    let note;
-    if (startable === 0) {
-      note = 'Nothing is due right now.';
-      if (stats.nextDueAt) {
-        note = `Nothing is due right now. The next item returns ${formatRevisionWhen(stats.nextDueAt, now)}.`;
-      }
-      if (stats.newItems === 0 && stats.consistent > 0 && !stats.nextDueAt) {
-        note = 'Nothing is due right now. You have recalled every item in this set consistently.';
-      }
-    } else {
-      const parts = [];
-      if (stats.due) parts.push(`${stats.due} due`);
-      if (stats.newItems) parts.push(`${stats.newItems} new`);
-      note = `A session draws up to ${engine.DEFAULT_SESSION_SIZE} items, taking ${parts.join(' and ')} first.`;
-      if (stats.due === 0) note = `No item is due yet. A session will start with the ${stats.newItems} new item${stats.newItems === 1 ? '' : 's'}.`;
-    }
-    if (DOM.revDashNote) DOM.revDashNote.textContent = note;
-
-    if (DOM.setTitle) DOM.setTitle.textContent = `${stats.total} REVISION ITEM${stats.total === 1 ? '' : 'S'}`;
-    if (DOM.setTopic) DOM.setTopic.textContent = mod.title || 'Revision';
-  }
-
-  async function revisionAttempts(moduleId) {
-    try {
-      if (window.OfflineStorage && window.OfflineStorage.getAttempts) {
-        const list = await window.OfflineStorage.getAttempts(moduleId);
-        return Array.isArray(list) ? list : [];
-      }
-    } catch (e) { /* storage unavailable */ }
-    return [];
-  }
-
-  async function persistRevisionSession() {
-    const session = State.revision.session;
-    if (!session || !window.OfflineStorage) return;
-    try {
-      if (session.completed) await window.OfflineStorage.deleteRevisionSession(session.moduleId);
-      else await window.OfflineStorage.saveRevisionSession(session);
-    } catch (e) {
-      showToast('This session could not be saved.');
-    }
-  }
-
-  async function startRevisionSession() {
-    const engine = revisionEngine();
-    const mod = State.currentModule;
-    if (!engine || !mod) return;
-    const items = currentRevisionItems();
-    const attempts = await revisionAttempts(mod.id);
-    const session = engine.buildSession(items, State.revision.progress, attempts, {
-      now: Date.now(),
-      size: engine.DEFAULT_SESSION_SIZE,
-      moduleId: mod.id,
-      questions: Array.isArray(mod.questions) ? mod.questions : []
-    });
-
-    if (!session.itemIds.length) {
-      State.revision.session = null;
-      State.revision.resumeCandidate = null;
-      renderRevisionDashboard();
-      showRevisionPanel('dashboard');
-      showToast('Nothing is due right now. Your next item returns when its interval ends.');
-      return;
-    }
-
-    State.revision.session = session;
-    State.revision.resumeCandidate = null;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
-    await persistRevisionSession();
-    renderRevisionSession();
-    showRevisionPanel('session');
-    updateStats();
-  }
-
-  function resumeRevisionSession() {
-    const engine = revisionEngine();
-    if (!engine) return;
-    const restored = engine.resumeSession(State.revision.resumeCandidate, currentRevisionItems());
-    if (!restored || !restored.itemIds.length) {
-      State.revision.resumeCandidate = null;
-      showToast('The saved session no longer matches this set. Starting fresh.');
-      renderRevisionDashboard();
-      showRevisionPanel('dashboard');
-      return;
-    }
-    State.revision.session = restored;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
-    renderRevisionSession();
-    showRevisionPanel('session');
-    updateStats();
-  }
-
-  function renderRevisionSession() {
-    const session = State.revision.session;
-    if (!session || !DOM.revisionSession) return;
-    const total = session.itemIds.length;
-    if (session.cursor >= total) {
-      finishRevisionSession();
-      return;
-    }
-
-    const viewingPrev = State.revision.viewingPrev && session.cursor > 0;
-    const index = viewingPrev ? session.cursor - 1 : session.cursor;
-    const card = revisionItemById(session.itemIds[index]);
-    if (!card) {
-      // The saved session referenced an item that no longer exists.
-      session.cursor = Math.min(Math.max(index + 1, session.cursor), total);
-      if (session.cursor >= total) { finishRevisionSession(); return; }
-      State.revision.viewingPrev = false;
-      renderRevisionSession();
-      return;
-    }
-
-    if (DOM.revPos) DOM.revPos.textContent = `Item ${session.cursor + 1} of ${total}`;
-    const pct = total ? Math.round((session.cursor / total) * 100) : 0;
-    if (DOM.revProgressBar) DOM.revProgressBar.style.width = `${pct}%`;
-    if (DOM.revProgress) DOM.revProgress.setAttribute('aria-valuenow', String(pct));
-
-    if (DOM.revForm) DOM.revForm.textContent = card.formLabel || 'Recall';
-    if (DOM.revPrompt) DOM.revPrompt.textContent = card.prompt || '';
-
-    const revealed = viewingPrev || State.revision.revealed;
-    if (DOM.revAnswer) DOM.revAnswer.hidden = !revealed;
-    if (revealed) {
-      if (DOM.revAnswerText) DOM.revAnswerText.textContent = card.answer || '';
-      renderRevisionEvidence(card);
-    }
-
-    const canRate = revealed && !viewingPrev && !session.completed;
-    if (DOM.revRatings) DOM.revRatings.hidden = !canRate;
-    if (DOM.revRevealBtn) DOM.revRevealBtn.hidden = revealed;
-    if (DOM.revBackBtn) DOM.revBackBtn.hidden = !viewingPrev;
-    if (DOM.revPrevBtn) DOM.revPrevBtn.hidden = viewingPrev || session.cursor === 0;
-  }
-
-  function renderRevisionEvidence(card) {
-    const section = card.sectionTitle || 'Source';
-    const page = Number.isFinite(card.sourcePage) ? card.sourcePage : null;
-    const refParts = [section];
-    if (page) refParts.push(`page ${page}`);
-    if (DOM.revSourceRef) DOM.revSourceRef.textContent = `Evidence · ${refParts.join(' · ')}`;
-
-    const excerpt = card.excerpt || card.statement || '';
-    const answer = card.answer || '';
-    const trimmedExcerpt = excerpt.length > 160 ? `${excerpt.slice(0, 157).trimEnd()}…` : excerpt;
-    const hasMore = excerpt.length > trimmedExcerpt.length;
-
-    if (DOM.revEvidenceShort) DOM.revEvidenceShort.textContent = hasMore ? trimmedExcerpt : excerpt;
-    if (DOM.revEvidenceShort) DOM.revEvidenceShort.hidden = false;
-    if (DOM.revEvidenceFull) {
-      DOM.revEvidenceFull.textContent = excerpt;
-      DOM.revEvidenceFull.hidden = true;
-    }
-    if (DOM.revEvidenceToggle) {
-      DOM.revEvidenceToggle.hidden = !hasMore;
-      DOM.revEvidenceToggle.textContent = 'Show full excerpt';
-    }
-    State.revision.expandedEvidence = false;
-    if (!excerpt && DOM.revSourceRef) DOM.revSourceRef.textContent = `Evidence · ${refParts.join(' · ')} (excerpt unavailable)`;
-    if (!answer && DOM.revAnswerText) DOM.revAnswerText.textContent = card.statement || '';
-  }
-
-  function revealRevisionAnswer() {
-    if (State.revision.viewingPrev) return;
-    State.revision.revealed = true;
-    renderRevisionSession();
-  }
-
-  function toggleRevisionEvidence() {
-    const full = State.revision.expandedEvidence;
-    State.revision.expandedEvidence = !full;
-    if (DOM.revEvidenceShort) DOM.revEvidenceShort.hidden = !full;
-    if (DOM.revEvidenceFull) DOM.revEvidenceFull.hidden = full;
-    if (DOM.revEvidenceToggle) DOM.revEvidenceToggle.textContent = full ? 'Show full excerpt' : 'Show less';
-  }
-
-  function viewPreviousRevisionCard() {
-    const session = State.revision.session;
-    if (!session || session.cursor === 0) return;
-    State.revision.viewingPrev = true;
-    State.revision.expandedEvidence = false;
-    renderRevisionSession();
-  }
-
-  function returnToCurrentRevisionCard() {
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
-    renderRevisionSession();
-  }
-
-  // A rating is written to storage before the queue advances, so a reload can
-  // never lose a review the learner already submitted.
-  async function rateRevision(rating) {
-    const engine = revisionEngine();
-    const session = State.revision.session;
-    if (!engine || !session || State.revision.saving || session.completed) return;
-    if (State.revision.viewingPrev) return;
-
-    const itemId = session.itemIds[session.cursor];
-    if (!itemId) return;
-
-    const now = Date.now();
-    const result = engine.rateSessionItem(session, itemId, rating, State.revision.progress, now);
-    if (result.ignored) return;
-
-    State.revision.saving = true;
-    State.revision.session = result.session;
-    State.revision.progress = result.progress;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    State.revision.expandedEvidence = false;
-
-    try {
-      if (window.OfflineStorage && window.OfflineStorage.saveRevisionProgress) {
-        const record = engine.getItemProgress(itemId, result.progress, now);
-        await window.OfflineStorage.saveRevisionProgress(record);
-      }
-      await persistRevisionSession();
-    } catch (e) {
-      showToast('This rating could not be saved.');
-    } finally {
-      State.revision.saving = false;
-    }
-
-    if (State.revision.session.completed) {
-      finishRevisionSession();
-      return;
-    }
-    renderRevisionSession();
-    updateStats();
-  }
-
-  async function pauseRevisionSession() {
-    if (!State.revision.session) {
-      showRevisionPanel('dashboard');
-      renderRevisionDashboard();
-      return;
-    }
-    await persistRevisionSession();
-    State.revision.resumeCandidate = State.revision.session;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    renderRevisionDashboard();
-    showRevisionPanel('dashboard');
-    updateStats();
-    showToast('Session paused. Resume it any time from this set.');
-  }
-
-  async function finishRevisionSession() {
-    const engine = revisionEngine();
-    const session = State.revision.session;
-    if (!engine || !session) { showRevisionPanel('dashboard'); return; }
-
-    await persistRevisionSession();
-    State.revision.resumeCandidate = null;
-
-    const now = Date.now();
-    const summary = engine.getSessionSummary(session, State.revision.progress, now);
-    if (DOM.revSumReviewed) DOM.revSumReviewed.textContent = String(summary.reviewed);
-    if (DOM.revSumAgain) DOM.revSumAgain.textContent = String(summary.counts.again);
-    if (DOM.revSumHard) DOM.revSumHard.textContent = String(summary.counts.hard);
-    if (DOM.revSumGood) DOM.revSumGood.textContent = String(summary.counts.good);
-    if (DOM.revSumEasy) DOM.revSumEasy.textContent = String(summary.counts.easy);
-
-    if (DOM.revSumRemaining) {
-      DOM.revSumRemaining.textContent = summary.remainingDue > 0
-        ? `${summary.remainingDue} item${summary.remainingDue === 1 ? '' : 's'} from this session are due again now.`
-        : 'Nothing from this session is due again right now.';
-    }
-    if (DOM.revSumNext) {
-      let nextMessage = '';
-      if (summary.nextDueAt) nextMessage = `Next item returns ${formatRevisionWhen(summary.nextDueAt, now)}.`;
-      const dashStats = engine.getModuleRevisionStats(currentRevisionItems(), State.revision.progress, now);
-      if (dashStats.due > 0) {
-        nextMessage = `${dashStats.due} item${dashStats.due === 1 ? '' : 's'} in this set are still due now.`;
-      }
-      DOM.revSumNext.textContent = nextMessage;
-    }
-
-    showRevisionPanel('summary');
-    updateStats();
-  }
-
-  async function resetRevisionProgress() {
-    const mod = State.currentModule;
-    if (!mod) return;
-    const title = mod.title || 'this set';
-    if (!window.confirm(`Reset all revision progress for “${title}”? Ratings and scheduling for this set will be cleared. This cannot be undone.`)) {
-      return;
-    }
-    try {
-      if (window.OfflineStorage && window.OfflineStorage.resetRevisionProgress) {
-        await window.OfflineStorage.resetRevisionProgress(mod.id);
-      }
-      if (window.OfflineStorage && window.OfflineStorage.deleteRevisionSession) {
-        await window.OfflineStorage.deleteRevisionSession(mod.id);
-      }
-    } catch (e) {
-      showToast('Revision progress could not be cleared.');
-    }
-    State.revision.progress = {};
-    State.revision.session = null;
-    State.revision.resumeCandidate = null;
-    State.revision.revealed = false;
-    State.revision.viewingPrev = false;
-    showToast('Revision progress reset for this set.');
-    renderRevisionDashboard();
-    showRevisionPanel('dashboard');
-    updateStats();
-  }
-
-  // ==========================================================================
-  // LIBRARY
-  // Bundled sets ship only their index entry at startup; the full body is
-  // fetched the moment a learner opens one, so the library renders instantly.
   function moduleQuestionCount(mod) {
     if (!mod) return 0;
     if (Array.isArray(mod.questions)) return mod.questions.length;
@@ -2989,9 +2423,7 @@
     // Click handlers live in initEvents() only. Re-registering them here used
     // to add one duplicate listener per library render.
     if (DOM.libSearchInput) {
-      DOM.libSearchInput.placeholder = isUgc
-        ? 'Search UGC NET Education syllabus units or questions...'
-        : 'Search CTET syllabus topics, papers, or questions...';
+      DOM.libSearchInput.placeholder = 'Search sets or topics';
     }
   }
 
@@ -3000,7 +2432,7 @@
     const title = (mod.title || '').trim();
     const parts = title.split(/\s*-\s*/);
     const isUgc = mod.exam === 'ugc_net' || String(mod.id || '').startsWith('ugc_net_');
-    const defaultSubject = isUgc ? 'UGC NET Education (Code 09)' : 'CTET';
+    const defaultSubject = isUgc ? 'UGC NET Education' : 'CTET';
 
     if (parts.length >= 3) {
       return {
@@ -3162,33 +2594,26 @@
       const attemptCount = countByModule[mod.id] || 0;
       const questionCount = moduleQuestionCount(mod);
       const revisionOnly = questionCount === 0;
-      const date = mod.createdAt ? new Date(mod.createdAt).toLocaleDateString() : '';
 
       let displayTitle = mod.topic || parsed.cls || mod.title || 'Untitled set';
       displayTitle = cleanSetTitle(displayTitle);
-      const subjectBadge = mod.subject ? `<span class="library-badge" style="background:var(--surface-variant, #e0e0e0);color:var(--on-surface-variant, #333);font-size:11px;">${escapeHtml(mod.subject)}</span>` : '';
 
-      const isAllInOne = String(mod.id || '').includes('all_pyq');
       const scoreline = last
         ? `Last score ${Number(last.score).toFixed(2)}/${Number(last.max).toFixed(2)} · ${attemptCount} attempt${attemptCount === 1 ? '' : 's'}`
-        : (revisionOnly ? 'Revision-only set · no verified MCQs' : 'Not attempted yet');
+        : (revisionOnly ? 'No verified questions' : 'Not attempted yet');
 
       return `
-        <article class="library-card${revisionOnly ? ' is-revision-only' : ''}">
+        <article class="library-card${revisionOnly ? ' is-no-questions' : ''}">
           <div class="library-card-head">
             <div class="library-file-icon">${icon(meta.icon)}</div>
             <div class="library-copy">
               <div class="library-title-row">
                 <h3>${escapeHtml(displayTitle)}</h3>
-                ${subjectBadge}
-                ${revisionOnly ? '<span class="library-badge">Revision only</span>' : ''}
+                ${revisionOnly ? '<span class="library-badge">No questions</span>' : ''}
               </div>
               <div class="library-meta">
-                <span><b>${questionCount}</b> Verified MCQs</span>
-                <span>${isAllInOne ? 'All PYQs Combined' : 'Complete Topic Set'}</span>
-                ${date ? `<span>${escapeHtml(date)}</span>` : ''}
+                <span><b>${questionCount.toLocaleString()}</b> questions</span>
               </div>
-              <p class="library-card-desc" style="font-size:12px; color:var(--muted); margin:4px 0 0 0; line-height:1.4;">${escapeHtml(meta.desc)}</p>
               <div class="library-history" style="margin-top:6px;">${icon('history')}<span>${escapeHtml(scoreline)}</span></div>
             </div>
             ${String(mod.id || '').startsWith('ugc_net_') || String(mod.id || '').startsWith('ctet_') ? '' : `<button class="lib-del" type="button" data-id="${escapeHtml(mod.id)}" aria-label="Delete ${escapeHtml(displayTitle)}">${icon('delete')}</button>`}
@@ -3316,17 +2741,14 @@
     }
 
     const totalQuestions = examSets.reduce((sum, mod) => sum + moduleQuestionCount(mod), 0);
-    const examHeading = activeExam === 'ugc_net' ? 'UGC NET Education (Code 09)' : 'CTET (Central Teacher Eligibility Test)';
-    const examSub = activeExam === 'ugc_net'
-      ? '10 Official Syllabus Units · 1 Comprehensive Practice Set Per Unit'
-      : 'Official Syllabus Topics · Child Development & Social Science Only';
+    const examHeading = activeExam === 'ugc_net' ? 'UGC NET Education' : 'CTET';
 
     let html = storageWarning ? `<p class="library-warning" role="status">${escapeHtml(storageWarning)}</p>` : '';
     html += `
       <div class="lib-level-header" style="margin-bottom:14px;">
         <div>
           <h3>${escapeHtml(examHeading)}</h3>
-          <div class="lib-level-count">${examSets.length} study sets · ${totalQuestions} verified MCQs · ${escapeHtml(examSub)}</div>
+          <div class="lib-level-count">${examSets.length} study sets · ${totalQuestions.toLocaleString()} questions</div>
         </div>
       </div>
       <div class="lib-hierarchy-grid">
@@ -3573,7 +2995,7 @@
       <div class="an-card">
         <div class="an-card-head">
           <h3>Accuracy by mock</h3>
-          <span>Last ${recentBars.length} · oldest to newest</span>
+          <span>${recentBars.length === 1 ? 'Latest mock' : 'Last ' + recentBars.length + ' mocks'}</span>
         </div>
         <div class="an-trend">${barsHtml}</div>
       </div>
@@ -3752,7 +3174,6 @@
         onContentApplied: () => {
           if (State.activeMode === 'home') renderHome();
           else if (State.activeMode === 'library') renderLibrary();
-          else if (State.activeMode === 'revision' && State.currentModule) openRevision();
         }
       });
     }
@@ -3931,26 +3352,6 @@
 
     if (DOM.generateBtn) DOM.generateBtn.addEventListener('click', handleGenerate);
 
-    if (DOM.revStartBtn) DOM.revStartBtn.addEventListener('click', startRevisionSession);
-    if (DOM.revResumeBtn) DOM.revResumeBtn.addEventListener('click', resumeRevisionSession);
-    if (DOM.revResetBtn) DOM.revResetBtn.addEventListener('click', resetRevisionProgress);
-    if (DOM.revRevealBtn) DOM.revRevealBtn.addEventListener('click', revealRevisionAnswer);
-    if (DOM.revPauseBtn) DOM.revPauseBtn.addEventListener('click', pauseRevisionSession);
-    if (DOM.revPrevBtn) DOM.revPrevBtn.addEventListener('click', viewPreviousRevisionCard);
-    if (DOM.revBackBtn) DOM.revBackBtn.addEventListener('click', returnToCurrentRevisionCard);
-    if (DOM.revEvidenceToggle) DOM.revEvidenceToggle.addEventListener('click', toggleRevisionEvidence);
-    if (DOM.revSummaryDoneBtn) DOM.revSummaryDoneBtn.addEventListener('click', () => {
-      State.revision.session = null;
-      renderRevisionDashboard();
-      showRevisionPanel('dashboard');
-      updateStats();
-    });
-    if (DOM.revRatings) {
-      DOM.revRatings.querySelectorAll('[data-rating]').forEach((btn) => {
-        btn.addEventListener('click', () => rateRevision(btn.getAttribute('data-rating')));
-      });
-    }
-
     if (DOM.scoreCloseBtn) DOM.scoreCloseBtn.addEventListener('click', closeScorecard);
     if (DOM.scoreReviewBtn) DOM.scoreReviewBtn.addEventListener('click', reviewAnswers);
     if (DOM.scoreRetakeBtn) DOM.scoreRetakeBtn.addEventListener('click', retakeTest);
@@ -4010,26 +3411,6 @@
           closeAbout();
         }
         return;
-      }
-      if (State.activeMode !== 'revision') return;
-      const tag = (e.target && e.target.tagName) || '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
-      const session = State.revision.session;
-      if (!session || session.completed) return;
-      if (e.key === ' ' || e.key === 'Enter') {
-        if (!State.revision.revealed && !State.revision.viewingPrev) {
-          e.preventDefault();
-          revealRevisionAnswer();
-        }
-        return;
-      }
-      if (State.revision.revealed && !State.revision.viewingPrev) {
-        const key = (e.key || '').toLowerCase();
-        const map = { '1': 'again', '2': 'hard', '3': 'good', '4': 'easy' };
-        if (map[key]) {
-          e.preventDefault();
-          rateRevision(map[key]);
-        }
       }
     });
 
