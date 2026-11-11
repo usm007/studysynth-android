@@ -9,6 +9,9 @@ public class MainActivity extends BridgeActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        // Local plugin: registered before the bridge starts so the web layer can
+        // reach it through Capacitor.Plugins.ApkUpdate.
+        registerPlugin(ApkUpdatePlugin.class);
         super.onCreate(savedInstanceState);
 
         // Let the web app close overlays and step back before the app exits.

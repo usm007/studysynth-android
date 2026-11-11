@@ -1,5 +1,5 @@
 {
-  "appId": "in.ugcnet.education",
+  "appId": "com.usm007.studysynth",
   "appName": "StudySynth",
   "webDir": "www",
   "server": {
@@ -8,5 +8,15 @@
   "android": {
     "allowMixedContent": false,
     "backgroundColor": "#f3f4f8"
+  },
+  "plugins": {
+    "LiveUpdate": {
+      "appId": "com.usm007.studysynth",
+      "publicKey": "-----BEGIN PUBLIC KEY-----\nMIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEApzMykgfTpVOLFVeqsS2n\nUazWeWY72cRZ/PN3J2I2wsYQWrljvUJf9jWoTj+Vj3vfPmdl/iNgjc/CFTKYh9of\nrMrrnWSuB8BEuP1AjGoyZ6BWFub/rGMtIzh0dfrovux9+WYr4R+V5A6vN0U9WzrD\n9JWslYqkrUKPEcnCgh5zJPF5ops3eY+062Ik9ugaLWIrVe0RmQiH6Uptfq6AvFpI\nCP/DRQ0IKVRPbIy5WbLwsCcHREM4OOtApytopnGnxs2Vdc8XtISjDslpqTDmYhrG\n955+1lLWHyvsEwpMeHE4WX+YB4M1O9F7EXYnYoEpS8gSh6vIMny8Q2TKNtb+XuP+\nd/sabUQDXHjVu/thhTKthTyj/CaXUMcZfsjWeSF6q1chRIQT1oCwPauPlYmUrm7g\nZJBmknUHV37K3lnr78jNENT08VIpIIBhovBe9KxqDIPonp9dc1hKsM2eOuHA0Iwi\nZPNovwO3SpexP3tznBu4k9lZmX5lIN2EMwmbDf9DyigBAgMBAAE=\n-----END PUBLIC KEY-----",
+      "readyTimeout": 10000,
+      "autoDeleteBundles": true,
+      "autoBlockRolledBackBundles": true,
+      "httpTimeout": 120000
+    }
   }
 }
