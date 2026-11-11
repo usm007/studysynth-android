@@ -3,6 +3,7 @@
 Date: 2026-11-11
 Branch: `feat/v2.1.0-redesign`
 Base: `education-version` (published release `v2.0.0-education`)
+Release: `v2.1.0`, published 2026-11-11T14:53:41Z
 
 This report states what was built, what was verified, and what was not. Nothing
 below is marked verified unless the command or check was actually run.
@@ -18,9 +19,9 @@ below is marked verified unless the command or check was actually run.
 | 3 | Three destinations: Home, Library, Progress; bottom nav on mobile | Done | Shell check: exactly 3 tabs, each shows exactly one view at 360 and 412 px |
 | 4 | Practice/exam keeps timer, palette, mark-for-review, unanswered indicators, submit confirmation, results | Done | `verify-ui.js`: timer running, palette lists 20 cells, mark flags the palette cell, submit asks first, cancel keeps the exam, results scorecard appears |
 | 5 | Offline-first, fast, minimal dependencies, no new UI framework | Done | No framework added; one dev dependency (`puppeteer-core`); service worker activates with one versioned cache; library opens from bundled data |
-| 6 | APK updates via GitHub Releases + static manifest, SHA-256 + identity + version checks, supported install flow | Implemented, locally verified | `ApkUpdatePlugin` compiles into the signed APK; `check-apk.js` and `verify-release.js` pass; install flow not run on a device (see §5) |
-| 7 | OTA via Capawesome Live Update, signed, checksummed, staged, rollback, never interrupts a mock test | Implemented, locally verified | Plugin `8.8.1` configured with RSA public key; 38 update tests cover exam guard, fail-closed policy, metered deferral, forged manifest rejection, content downgrade rejection |
-| 8 | Content updates: signed, atomic, preserve bookmarks/attempts/revision, retain previous | Implemented, unit verified | 20 content tests cover activation, rollback, missing-body rejection, hostile package rejection, data preservation |
+| 6 | APK updates via GitHub Releases + static manifest, SHA-256 + identity + version checks, supported install flow | Published, device flow pending | Release `v2.1.0` published; live APK checksum and certificate match the manifest; `ApkUpdatePlugin` compiles into the signed APK; install flow not driven on the phone (see §5) |
+| 7 | OTA via Capawesome Live Update, signed, checksummed, staged, rollback, never interrupts a mock test | Published, device flow pending | Plugin `8.8.1` configured with the RSA public key; live web bundle verifies over HTTPS; 38 update tests cover exam guard, fail-closed policy, metered deferral, forged manifest rejection, content downgrade rejection |
+| 8 | Content updates: signed, atomic, preserve bookmarks/attempts/revision, retain previous | Published, device flow pending | Live content package verifies over HTTPS; 20 content tests cover activation, rollback, missing-body rejection, hostile package rejection, data preservation |
 | 9 | Never change application ID or signing identity casually | Done | APK id `com.usm007.studysynth`, certificate `62377a57…a374`, matching the published 1.2 APK |
 | 10 | No fabricated results, no placeholder implementations | Done | See §5 for the exact limits of verification |
 | 11 | Audit doc, docs, workflows, Update Centre, tests, production build, exact secrets, completion table | Done | `docs/IMPLEMENTATION_AUDIT.md`, `docs/ARCHITECTURE.md`, `docs/UPDATE_SYSTEM.md`, `docs/RELEASE_GUIDE.md`, `.github/workflows/*`, this report |
@@ -58,17 +59,23 @@ v2=true size=23734092
 
 Path: `android/app/build/outputs/apk/release/app-release.apk`
 
-### Update artifacts
+### Update artifacts (published)
+
+The release workflow rebuilds from the tagged commit, so the published
+checksums below are the ones the app actually sees. They differ from any local
+build of the same commit because the bundle and package embed a build timestamp.
 
 | Artifact | Value |
 | --- | --- |
-| OTA bundle | `2.1.0-4-358be1bb43b6`, 18,937,139 bytes |
-| OTA SHA-256 | `358be1bb43b6464b60df5542598e9557bc843e68e3164a38e282110e6f51d27c` |
+| OTA bundle | `2.1.0-4-28363f59320c`, 18,929,017 bytes |
+| OTA SHA-256 | `28363f59320cad0be23955610857868c7ca7acac8803569aa500f35f6e44296a` |
 | Content package | `2026.11.1`, 11,607,741 bytes, 20 modules, 8,519 questions |
-| Content SHA-256 | `99398f6ee60a1e8b2bbc7e7edafca035bb2a047970acbfb12797efc64e8dcb90` |
-| APK SHA-256 | `6243cad21c73b7d0f168f25179e20f836fe55b684da7c858f7a6f8e0b93cd72d` |
-| Manifest generated | `2026-11-11T13:27:51.165Z` |
-| Manifest signature | `XA006rsbmx/OmpwKz…` (512-char base64) |
+| Content SHA-256 | `893d6920504eb6afafa813688aa4a12641e8071aec220904812e168aebdf9262` |
+| APK SHA-256 | `7b9a8da6262665cabc8f5260c257f8e505feecd1386f9a336274b15d709c5693` |
+| APK size | 23,725,812 bytes |
+| Manifest generated | `2026-11-11T14:53:37.048Z` |
+| Manifest URL | `https://usm007.github.io/studysynth-android/updates/stable/manifest.json` |
+| GitHub Release | `v2.1.0`, published `2026-11-11T14:53:41Z` |
 
 ### Verification output
 
@@ -91,6 +98,29 @@ Manifest schema check:
 ```
 Manifest OK: com.usm007.studysynth 2.1.0 (4) channel=stable artifacts=apk,web,content
 ```
+
+### Published and re-verified over HTTPS
+
+Release workflow run `43042536826` (`v2.1.0`, manual dispatch) finished
+successfully and published the GitHub Release and the Pages deployment. Every
+artifact was then downloaded from the live site and checked again with the
+embedded public key:
+
+```
+manifest signature verifies : true
+.sig sidecar matches        : true
+web  size 18929017 expected 18929017 OK
+web  sha256 OK
+web  sig    OK
+cont size 11607741 expected 11607741 OK
+cont sha256 OK
+cont sig    OK
+apk  size 23725812 expected 23725812 OK
+apk  sha256 OK
+```
+
+`GET` of the manifest returns `200` with `Access-Control-Allow-Origin: *`, and
+`manifest.json.sig` is served alongside it.
 
 ---
 
@@ -131,27 +161,26 @@ Screenshots are in `output/ui/`:
 
 These are the honest limits of this work:
 
-1. **GitHub Actions have not run.** The three workflows are written and their
-   YAML parses, but they have not executed on GitHub. Secrets and Pages are not
-   configured on the repository.
-2. **Nothing has been published.** The APK is not uploaded to GitHub Releases,
-   and the update site is not deployed. Publishing requires the owner to add the
-   five secrets and enable Pages (see `docs/RELEASE_GUIDE.md`).
-3. **The APK install-over-existing flow was not run on a device.** The signing
-   certificate matches the published APK, which is the condition for an upgrade,
-   but no physical install was performed.
-4. **The native `ApkUpdate` plugin was not executed on a device.** It compiles
+1. **The on-device update flow has not been run end to end.** The release is
+   published and every artifact verifies over HTTPS, but the app has not yet
+   been driven through check → download → verify → install on the phone.
+2. **The native `ApkUpdate` plugin was not executed on a device.** It compiles
    into the release APK; its download, resume, verification, and installer
    hand-off paths have not run on Android hardware.
-5. **OTA activation and native rollback were not exercised on a device.** The
+3. **The APK install-over-existing flow was run once, not as an upgrade from the
+   published 2.0.0 build.** A signed 2.1.0 APK installed over the existing
+   install with data intact; the published 2.0.0 APK was not reinstalled first
+   to replay the full upgrade path.
+4. **OTA activation and native rollback were not exercised on a device.** The
    web-side policy, manifest validation, and signature verification are unit
    tested; the plugin's own staging and rollback are delegated to Capawesome and
    configured, not demonstrated here.
-6. **Content activation was tested against a fake IndexedDB**, not on a device.
+5. **Content activation was tested against a fake IndexedDB**, not on a device.
    The browser run uses real IndexedDB for normal app data but does not apply a
    downloaded content package.
-7. **The update manifest was verified from the local staging directory**, not
-   over HTTPS from GitHub Pages.
+6. **No automatic check has been observed firing on a device.** The scheduler,
+   the exam guard and the "never interrupt a mock test" rule are unit tested,
+   not watched in real time.
 
 ---
 
