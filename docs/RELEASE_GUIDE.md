@@ -185,6 +185,10 @@ Do not commit any of these values. `.gitignore` excludes `*.keystore`, `*.jks`,
 3. Both publishing workflows deploy `updates-site/` as a Pages artifact. The
    manifest is written last and staged with its artifacts, so a deploy is
    all-or-nothing from the reader's point of view.
+4. The `github-pages` environment must allow both `main` and tags matching
+   `v*`. A tag-only release is rejected otherwise
+   (`Tag "vX.Y.Z" is not allowed to deploy to github-pages`). Add the tag rule
+   once under **Settings \u2192 Environments \u2192 github-pages**.
 
 ### Cutting a release
 
