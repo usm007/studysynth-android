@@ -10,7 +10,7 @@ try {
   importScripts('./ctet_manifest.js');
 } catch (err) { /* no bundled content in this build */ }
 
-const CACHE_NAME = 'studysynth-v44';
+const CACHE_NAME = 'studysynth-v45';
 // Bump this whenever any runtime asset or bundled study-set body changes:
 // the worker is cache-first, so a stale name would keep serving old files.
 const BUNDLED_BODIES = (self.CTET_BUNDLED_BODIES || []);

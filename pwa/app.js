@@ -52,6 +52,7 @@
     testEndsAt: 0,
     testQuestionLimit: 10,
     testSecondsPerQuestion: 60,
+    testModeType: 'chapter',
     timerInterval: null,
     deferredInstallPrompt: null,
     lastResult: null,
@@ -119,6 +120,24 @@
     DOM.testSecondsPerQuestion = document.getElementById('testSecondsPerQuestion');
     DOM.testTotalTime = document.getElementById('testTotalTime');
     DOM.testStartBtn = document.getElementById('testStartBtn');
+
+    DOM.testNavPills = document.getElementById('testNavPills');
+    DOM.pillChapterTest = document.getElementById('pillChapterTest');
+    DOM.pillUniversalTest = document.getElementById('pillUniversalTest');
+    DOM.pillChapterTestLabel = document.getElementById('pillChapterTestLabel');
+    DOM.chapterTestSection = document.getElementById('chapterTestSection');
+    DOM.universalTestSection = document.getElementById('universalTestSection');
+    DOM.chapterTestExamBadge = document.getElementById('chapterTestExamBadge');
+    DOM.chapterTestPoolBadge = document.getElementById('chapterTestPoolBadge');
+    DOM.chapterTestTitle = document.getElementById('chapterTestTitle');
+    DOM.chapterQuestionCount = document.getElementById('chapterQuestionCount');
+    DOM.chapterSecondsPerQuestion = document.getElementById('chapterSecondsPerQuestion');
+    DOM.chapterSummaryQuestions = document.getElementById('chapterSummaryQuestions');
+    DOM.chapterTotalTime = document.getElementById('chapterTotalTime');
+    DOM.chapterSummaryMarking = document.getElementById('chapterSummaryMarking');
+    DOM.chapterStartBtn = document.getElementById('chapterStartBtn');
+    DOM.chapterBackToPracticeBtn = document.getElementById('chapterBackToPracticeBtn');
+    DOM.inQuizTopicTestBtn = document.getElementById('inQuizTopicTestBtn');
     DOM.qContainer = document.getElementById('questionContainer');
     DOM.answerPanel = document.getElementById('answerPanel');
     DOM.sheetBody = document.querySelector('.sheet-body');
@@ -756,14 +775,58 @@
     if (firstOption) setTimeout(() => firstOption.focus(), 30);
   }
 
-  function renderTestSetup() {
-    if (!DOM.testSetup) return;
+  function updateChapterTestTotalTime() {
+    const count = Number(DOM.chapterQuestionCount && DOM.chapterQuestionCount.value) || 10;
+    const seconds = Number(DOM.chapterSecondsPerQuestion && DOM.chapterSecondsPerQuestion.value) || 60;
+    const mod = State.currentModule;
+    const isCtet = mod && (mod.exam === 'ctet' || String(mod.id).startsWith('ctet_'));
+
+    if (DOM.chapterTotalTime) DOM.chapterTotalTime.textContent = formatTime(count * seconds);
+    if (DOM.chapterSummaryQuestions) DOM.chapterSummaryQuestions.textContent = count;
+    if (DOM.chapterSummaryMarking) {
+      DOM.chapterSummaryMarking.textContent = isCtet ? '+1.00 / 0 (CTET)' : '+2.00 / 0 (UGC NET)';
+    }
+  }
+
+  function renderChapterTestConfig() {
+    const mod = State.currentModule;
+    if (!mod || !Array.isArray(mod.questions)) return;
+
+    const total = mod.questions.length;
+    const isCtet = mod.exam === 'ctet' || String(mod.id).startsWith('ctet_');
+
+    if (DOM.chapterTestTitle) {
+      DOM.chapterTestTitle.textContent = mod.topic || mod.title;
+    }
+    if (DOM.chapterTestExamBadge) {
+      DOM.chapterTestExamBadge.textContent = isCtet ? 'CTET (Paper-II)' : 'UGC NET Education (Code 09)';
+      DOM.chapterTestExamBadge.className = `mock-badge ${isCtet ? 'ctet-badge' : 'ugc-badge'}`;
+    }
+    if (DOM.chapterTestPoolBadge) {
+      DOM.chapterTestPoolBadge.textContent = `${total} Verified MCQs in this Chapter`;
+    }
+
+    if (DOM.chapterQuestionCount) {
+      const counts = [5, 10, 15, 20, 25, 30, 50, 100].filter(n => n < total);
+      counts.push(total);
+      const prev = Number(DOM.chapterQuestionCount.value) || 20;
+      const selected = counts.includes(prev) ? prev : (counts.includes(20) ? 20 : (counts.includes(30) ? 30 : Math.min(10, total)));
+
+      DOM.chapterQuestionCount.innerHTML = counts.map(n =>
+        `<option value="${n}"${n === selected ? ' selected' : ''}>${n} questions${n === total ? ' (all in chapter)' : ''}</option>`
+      ).join('');
+    }
+
+    updateChapterTestTotalTime();
+  }
+
+  function renderUniversalTestConfig() {
     const mod = State.currentModule;
     const indexList = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || window.CTET_INDEX || [];
 
     // Populate testScopeSelect
     if (DOM.testScopeSelect) {
-      const currentScope = DOM.testScopeSelect.value || 'current';
+      const currentScope = DOM.testScopeSelect.value || 'ugc_net_all';
       let optHtml = '';
       if (mod && Array.isArray(mod.questions) && mod.questions.length) {
         optHtml += `<option value="current">Current Set: ${escapeHtml(mod.topic || mod.title)} (${mod.questions.length} MCQs)</option>`;
@@ -801,6 +864,71 @@
         launchOfficialMock(preset);
       };
     });
+  }
+
+  function renderTestSetup() {
+    if (!DOM.testSetup) return;
+    const mod = State.currentModule;
+    const hasMod = !!(mod && Array.isArray(mod.questions) && mod.questions.length);
+
+    if (!hasMod) {
+      State.testModeType = 'universal';
+    }
+
+    const isChapter = State.testModeType === 'chapter' && hasMod;
+
+    if (DOM.chapterTestSection) DOM.chapterTestSection.style.display = isChapter ? 'block' : 'none';
+    if (DOM.universalTestSection) DOM.universalTestSection.style.display = isChapter ? 'none' : 'block';
+
+    if (DOM.pillChapterTest) {
+      DOM.pillChapterTest.classList.toggle('active', isChapter);
+      DOM.pillChapterTest.setAttribute('aria-selected', isChapter ? 'true' : 'false');
+      DOM.pillChapterTest.style.display = hasMod ? 'inline-flex' : 'none';
+      if (DOM.pillChapterTestLabel && mod) {
+        const shortName = (mod.topic || mod.title || 'Chapter').split(':')[0].trim();
+        DOM.pillChapterTestLabel.textContent = `${shortName} Test`;
+      }
+    }
+    if (DOM.pillUniversalTest) {
+      DOM.pillUniversalTest.classList.toggle('active', !isChapter);
+      DOM.pillUniversalTest.setAttribute('aria-selected', !isChapter ? 'true' : 'false');
+    }
+
+    if (isChapter) {
+      renderChapterTestConfig();
+    } else {
+      renderUniversalTestConfig();
+    }
+  }
+
+  function startChapterTest() {
+    const mod = State.currentModule;
+    if (!mod || !Array.isArray(mod.questions) || !mod.questions.length) {
+      showToast('No questions available in this chapter.');
+      return;
+    }
+    const count = Number(DOM.chapterQuestionCount && DOM.chapterQuestionCount.value) || Math.min(20, mod.questions.length);
+    const seconds = Number(DOM.chapterSecondsPerQuestion && DOM.chapterSecondsPerQuestion.value) || 60;
+
+    const shuffled = shuffleArray([...mod.questions]);
+    const selected = shuffled.slice(0, Math.min(count, shuffled.length));
+
+    const isCtet = mod.exam === 'ctet' || String(mod.id).startsWith('ctet_');
+    const chapterName = mod.topic || mod.title;
+
+    setModule({
+      id: 'chapter_test_' + Date.now(),
+      title: `${chapterName} - Chapter Test (${selected.length} MCQs)`,
+      exam: isCtet ? 'ctet' : 'ugc_net',
+      examName: isCtet ? 'CTET (Central Teacher Eligibility Test)' : 'UGC NET Education (Code 09)',
+      subject: mod.subject || (isCtet ? 'CTET' : 'Education'),
+      topic: chapterName,
+      durationMs: selected.length * seconds * 1000,
+      questions: selected
+    });
+
+    startCustomOrPresetTest(selected.length, seconds, selected);
+    showToast(`Chapter test started: ${selected.length} questions · ${formatTime(seconds)} per question.`);
   }
 
   function getScopeQuestionCount(scope) {
@@ -853,6 +981,9 @@
     document.body.setAttribute('data-test-setup', showSetup ? 'true' : 'false');
     if (DOM.quizView) DOM.quizView.classList.toggle('is-test-setup', showSetup);
     if (DOM.testSetup) DOM.testSetup.hidden = !showSetup;
+    if (DOM.inQuizTopicTestBtn) {
+      DOM.inQuizTopicTestBtn.style.display = (State.activeMode === 'practice' && !showSetup) ? 'inline-flex' : 'none';
+    }
     if (showSetup) renderTestSetup();
   }
 
@@ -2597,6 +2728,9 @@
       return;
     }
     setModule(mod);
+    if (mode === 'test') {
+      State.testModeType = 'chapter';
+    }
     switchMode(mode);
   }
 
@@ -3354,8 +3488,51 @@
   // ==========================================================================
   function initEvents() {
     DOM.modeItems.forEach((btn) => {
-      btn.addEventListener('click', () => switchMode(btn.getAttribute('data-mode')));
+      btn.addEventListener('click', () => {
+        const mode = btn.getAttribute('data-mode');
+        if (mode === 'test') {
+          State.testModeType = 'universal';
+        }
+        switchMode(mode);
+      });
     });
+
+    if (DOM.inQuizTopicTestBtn) {
+      DOM.inQuizTopicTestBtn.addEventListener('click', () => {
+        State.testModeType = 'chapter';
+        switchMode('test');
+      });
+    }
+
+    if (DOM.pillChapterTest) {
+      DOM.pillChapterTest.addEventListener('click', () => {
+        State.testModeType = 'chapter';
+        renderTestSetup();
+      });
+    }
+
+    if (DOM.pillUniversalTest) {
+      DOM.pillUniversalTest.addEventListener('click', () => {
+        State.testModeType = 'universal';
+        renderTestSetup();
+      });
+    }
+
+    if (DOM.chapterQuestionCount) {
+      DOM.chapterQuestionCount.addEventListener('change', updateChapterTestTotalTime);
+    }
+
+    if (DOM.chapterSecondsPerQuestion) {
+      DOM.chapterSecondsPerQuestion.addEventListener('change', updateChapterTestTotalTime);
+    }
+
+    if (DOM.chapterStartBtn) {
+      DOM.chapterStartBtn.addEventListener('click', startChapterTest);
+    }
+
+    if (DOM.chapterBackToPracticeBtn) {
+      DOM.chapterBackToPracticeBtn.addEventListener('click', () => switchMode('practice'));
+    }
 
     if (DOM.prevBtn) {
       DOM.prevBtn.addEventListener('click', () => {

@@ -129,118 +129,194 @@
               <!-- Exam setup: shown before a timed test starts -->
               <section id="testSetup" class="test-setup" hidden aria-labelledby="testSetupTitle">
                 <div class="test-setup-card">
-                  <div class="test-setup-header">
-                    <div class="test-header-icon"><span class="ms-icon" aria-hidden="true">timer</span></div>
-                    <div>
-                      <h2 id="testSetupTitle">Exam Test Mode</h2>
-                      <p class="test-setup-sub">Timed exam simulator with randomized questions &amp; live scoring</p>
-                    </div>
-                  </div>
 
-                  <!-- Official Full Exam Mocks -->
-                  <div class="test-section-box">
-                    <div class="test-box-title">
-                      <span class="ms-icon" aria-hidden="true">workspace_premium</span>
-                      <span>Official Exam Mocks (Full Syllabus Format)</span>
-                    </div>
-                    <p class="test-box-desc">Official question count, time limit, and topic-balanced distribution:</p>
-                    
-                    <div class="official-mock-grid">
-                      <!-- UGC NET Education Paper 2 Mock -->
-                      <div class="official-mock-card">
-                        <div class="mock-card-top">
-                          <span class="mock-badge ugc-badge">UGC NET Education</span>
-                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 120 Mins</span>
-                        </div>
-                        <div class="mock-card-title">Paper 2 Complete Mock</div>
-                        <div class="mock-card-meta">
-                          <span><b>100</b> Questions (10 per Unit)</span>
-                          <span><b>200</b> Marks (+2 / 0)</span>
-                        </div>
-                        <button type="button" class="btn btn-primary mock-start-btn" data-preset="ugc_net_full">
-                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start UGC NET Mock (100 Qs · 120 Mins)
-                        </button>
-                      </div>
-
-                      <!-- CTET Paper 2 Social Science & CDP Mock -->
-                      <div class="official-mock-card">
-                        <div class="mock-card-top">
-                          <span class="mock-badge ctet-badge">CTET Paper-II</span>
-                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 90 Mins</span>
-                        </div>
-                        <div class="mock-card-title">Social Science &amp; CDP Complete Mock</div>
-                        <div class="mock-card-meta">
-                          <span><b>90</b> Questions (30 CDP + 60 SST)</span>
-                          <span><b>90</b> Marks (+1 / 0)</span>
-                        </div>
-                        <button type="button" class="btn btn-primary mock-start-btn" data-preset="ctet_p2_full">
-                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET Paper-II Mock (90 Qs · 90 Mins)
-                        </button>
-                      </div>
-
-                      <!-- CTET CDP Section Mock -->
-                      <div class="official-mock-card">
-                        <div class="mock-card-top">
-                          <span class="mock-badge ctet-badge">CTET CDP</span>
-                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 30 Mins</span>
-                        </div>
-                        <div class="mock-card-title">Child Development &amp; Pedagogy Section</div>
-                        <div class="mock-card-meta">
-                          <span><b>30</b> Questions (Units 1–6)</span>
-                          <span><b>30</b> Marks (+1 / 0)</span>
-                        </div>
-                        <button type="button" class="btn btn-secondary mock-start-btn" data-preset="ctet_p1_cdp">
-                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET CDP Mock (30 Qs · 30 Mins)
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Custom Test Builder -->
-                  <div class="test-section-box custom-test-box">
-                    <div class="test-box-title">
+                  <!-- Segmented Test Mode Navigation Pills -->
+                  <div id="testNavPills" class="test-nav-pills" role="tablist" aria-label="Test mode views">
+                    <button id="pillChapterTest" class="test-nav-pill active" type="button" role="tab" aria-selected="true">
                       <span class="ms-icon" aria-hidden="true">assignment</span>
-                      <span>Custom Exam Test (Choose Questions &amp; Time)</span>
-                    </div>
-                    <p id="testSetupModule" class="test-setup-module" style="margin-top:0;margin-bottom:12px;"></p>
-                    
-                    <div class="test-setup-grid custom-grid">
-                      <label class="test-field" for="testScopeSelect" style="grid-column: 1 / -1;">
-                        <span>Choose Exam / Subject / Topic</span>
-                        <select id="testScopeSelect"></select>
-                      </label>
-                      
-                      <label class="test-field" for="testQuestionCount">
-                        <span>Number of Questions</span>
-                        <select id="testQuestionCount"></select>
-                      </label>
-                      
-                      <label class="test-field" for="testSecondsPerQuestion">
-                        <span>Time Per Question</span>
-                        <select id="testSecondsPerQuestion">
-                          <option value="30">30 seconds (Fast pace)</option>
-                          <option value="45">45 seconds</option>
-                          <option value="60" selected>60 seconds (1 min · CTET pace)</option>
-                          <option value="72">72 seconds (1.2 min · UGC NET pace)</option>
-                          <option value="90">90 seconds (1.5 min)</option>
-                          <option value="120">120 seconds (2 mins)</option>
-                        </select>
-                      </label>
-                    </div>
-
-                    <div class="test-setup-summary">
-                      <div><span>Questions</span><strong id="testSummaryQuestions">10</strong></div>
-                      <div><span>Total Time</span><strong id="testTotalTime">10:00</strong></div>
-                      <div><span>Marking</span><strong id="testSummaryMarking">+2.00 / 0</strong></div>
-                      <div><span>Order</span><strong style="color:var(--accent);">Randomized</strong></div>
-                    </div>
-
-                    <button id="testStartBtn" class="btn btn-primary test-start-btn" type="button">
-                      <span class="ms-icon" aria-hidden="true">play_arrow</span> Start Custom Test
+                      <span id="pillChapterTestLabel">Chapter Test</span>
+                    </button>
+                    <button id="pillUniversalTest" class="test-nav-pill" type="button" role="tab" aria-selected="false">
+                      <span class="ms-icon" aria-hidden="true">workspace_premium</span>
+                      <span>Universal Exam Center</span>
                     </button>
                   </div>
 
-                  <p class="test-setup-note">Questions are shuffled randomly every test session. The timer starts immediately and auto-submits when time runs out.</p>
+                  <!-- 1. CHAPTER / TOPIC TEST SECTION -->
+                  <div id="chapterTestSection" class="test-view-pane">
+                    <div class="test-setup-header">
+                      <div class="test-header-icon"><span class="ms-icon" aria-hidden="true">timer</span></div>
+                      <div class="test-header-text">
+                        <div class="test-badge-row">
+                          <span id="chapterTestExamBadge" class="mock-badge ugc-badge">UGC NET Education</span>
+                          <span id="chapterTestPoolBadge" class="test-pool-chip">Verified MCQs</span>
+                        </div>
+                        <h2 id="chapterTestTitle">Chapter Test</h2>
+                        <p class="test-setup-sub">Self-contained topic test with randomized question order &amp; instant scoring</p>
+                      </div>
+                    </div>
+
+                    <div class="test-section-box">
+                      <div class="test-box-title">
+                        <span class="ms-icon" aria-hidden="true">assignment</span>
+                        <span>Chapter Test Options</span>
+                      </div>
+                      
+                      <div class="test-setup-grid custom-grid">
+                        <label class="test-field" for="chapterQuestionCount">
+                          <span>Number of Questions</span>
+                          <select id="chapterQuestionCount"></select>
+                        </label>
+                        
+                        <label class="test-field" for="chapterSecondsPerQuestion">
+                          <span>Time Per Question</span>
+                          <select id="chapterSecondsPerQuestion">
+                            <option value="30">30 seconds (Fast drill)</option>
+                            <option value="45">45 seconds</option>
+                            <option value="60" selected>60 seconds (1 min · CTET pace)</option>
+                            <option value="72">72 seconds (1.2 min · UGC NET pace)</option>
+                            <option value="90">90 seconds (1.5 min)</option>
+                            <option value="120">120 seconds (2 mins)</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <div class="test-setup-summary">
+                        <div><span>Questions</span><strong id="chapterSummaryQuestions">10</strong></div>
+                        <div><span>Total Time</span><strong id="chapterTotalTime">10:00</strong></div>
+                        <div><span>Marking</span><strong id="chapterSummaryMarking">+2.00 / 0</strong></div>
+                        <div><span>Order</span><strong class="text-accent">Randomized</strong></div>
+                      </div>
+
+                      <div class="test-actions-group">
+                        <button id="chapterStartBtn" class="btn btn-primary test-start-btn" type="button">
+                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start Chapter Test
+                        </button>
+                        <button id="chapterBackToPracticeBtn" class="btn btn-secondary back-to-practice-btn" type="button">
+                          <span class="ms-icon" aria-hidden="true">arrow_back</span> Return to Practice Mode
+                        </button>
+                      </div>
+                    </div>
+
+                    <p class="test-setup-note">Questions from this chapter are shuffled randomly on each start. The timer auto-submits upon expiry.</p>
+                  </div>
+
+                  <!-- 2. UNIVERSAL EXAM CENTER SECTION -->
+                  <div id="universalTestSection" class="test-view-pane" style="display:none;">
+                    <div class="test-setup-header">
+                      <div class="test-header-icon"><span class="ms-icon" aria-hidden="true">workspace_premium</span></div>
+                      <div class="test-header-text">
+                        <h2 id="testSetupTitle">Universal Exam Simulator</h2>
+                        <p class="test-setup-sub">Full syllabus official exam mocks and custom multi-subject tests</p>
+                      </div>
+                    </div>
+
+                    <!-- Official Full Exam Mocks -->
+                    <div class="test-section-box">
+                      <div class="test-box-title">
+                        <span class="ms-icon" aria-hidden="true">workspace_premium</span>
+                        <span>Official Exam Mocks (Full Syllabus Format)</span>
+                      </div>
+                      <p class="test-box-desc">Official question count, time limit, and topic-balanced distribution:</p>
+                      
+                      <div class="official-mock-grid">
+                        <!-- UGC NET Education Paper 2 Mock -->
+                        <div class="official-mock-card">
+                          <div class="mock-card-top">
+                            <span class="mock-badge ugc-badge">UGC NET Education</span>
+                            <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 120 Mins</span>
+                          </div>
+                          <div class="mock-card-title">Paper 2 Complete Mock</div>
+                          <div class="mock-card-meta">
+                            <span><b>100</b> Questions (10 per Unit)</span>
+                            <span><b>200</b> Marks (+2 / 0)</span>
+                          </div>
+                          <button type="button" class="btn btn-primary mock-start-btn" data-preset="ugc_net_full">
+                            <span class="ms-icon" aria-hidden="true">play_arrow</span> Start UGC NET Mock (100 Qs · 120 Mins)
+                          </button>
+                        </div>
+
+                        <!-- CTET Paper 2 Social Science & CDP Mock -->
+                        <div class="official-mock-card">
+                          <div class="mock-card-top">
+                            <span class="mock-badge ctet-badge">CTET Paper-II</span>
+                            <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 90 Mins</span>
+                          </div>
+                          <div class="mock-card-title">Social Science &amp; CDP Complete Mock</div>
+                          <div class="mock-card-meta">
+                            <span><b>90</b> Questions (30 CDP + 60 SST)</span>
+                            <span><b>90</b> Marks (+1 / 0)</span>
+                          </div>
+                          <button type="button" class="btn btn-primary mock-start-btn" data-preset="ctet_p2_full">
+                            <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET Paper-II Mock (90 Qs · 90 Mins)
+                          </button>
+                        </div>
+
+                        <!-- CTET CDP Section Mock -->
+                        <div class="official-mock-card">
+                          <div class="mock-card-top">
+                            <span class="mock-badge ctet-badge">CTET CDP</span>
+                            <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 30 Mins</span>
+                          </div>
+                          <div class="mock-card-title">Child Development &amp; Pedagogy Section</div>
+                          <div class="mock-card-meta">
+                            <span><b>30</b> Questions (Units 1–6)</span>
+                            <span><b>30</b> Marks (+1 / 0)</span>
+                          </div>
+                          <button type="button" class="btn btn-secondary mock-start-btn" data-preset="ctet_p1_cdp">
+                            <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET CDP Mock (30 Qs · 30 Mins)
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Custom Multi-Topic Test Builder -->
+                    <div class="test-section-box custom-test-box">
+                      <div class="test-box-title">
+                        <span class="ms-icon" aria-hidden="true">assignment</span>
+                        <span>Custom Multi-Topic Test Builder</span>
+                      </div>
+                      <p id="testSetupModule" class="test-setup-module" style="margin-top:0;margin-bottom:12px;"></p>
+                      
+                      <div class="test-setup-grid custom-grid">
+                        <label class="test-field" for="testScopeSelect" style="grid-column: 1 / -1;">
+                          <span>Choose Exam / Subject / Topic Scope</span>
+                          <select id="testScopeSelect"></select>
+                        </label>
+                        
+                        <label class="test-field" for="testQuestionCount">
+                          <span>Number of Questions</span>
+                          <select id="testQuestionCount"></select>
+                        </label>
+                        
+                        <label class="test-field" for="testSecondsPerQuestion">
+                          <span>Time Per Question</span>
+                          <select id="testSecondsPerQuestion">
+                            <option value="30">30 seconds (Fast pace)</option>
+                            <option value="45">45 seconds</option>
+                            <option value="60" selected>60 seconds (1 min · CTET pace)</option>
+                            <option value="72">72 seconds (1.2 min · UGC NET pace)</option>
+                            <option value="90">90 seconds (1.5 min)</option>
+                            <option value="120">120 seconds (2 mins)</option>
+                          </select>
+                        </label>
+                      </div>
+
+                      <div class="test-setup-summary">
+                        <div><span>Questions</span><strong id="testSummaryQuestions">10</strong></div>
+                        <div><span>Total Time</span><strong id="testTotalTime">10:00</strong></div>
+                        <div><span>Marking</span><strong id="testSummaryMarking">+2.00 / 0</strong></div>
+                        <div><span>Order</span><strong class="text-accent">Randomized</strong></div>
+                      </div>
+
+                      <button id="testStartBtn" class="btn btn-primary test-start-btn" type="button">
+                        <span class="ms-icon" aria-hidden="true">play_arrow</span> Start Custom Test
+                      </button>
+                    </div>
+
+                    <p class="test-setup-note">Questions are shuffled randomly every test session. The timer starts immediately and auto-submits when time runs out.</p>
+                  </div>
+
                 </div>
               </section>
 
@@ -250,7 +326,13 @@
                   <span id="sheetModeLabel" class="sheet-mode">Practice</span>
                   <span id="sheetContext" class="sheet-ctx"></span>
                 </div>
-                <button id="markBtn" class="btn bookmark-btn" type="button" aria-pressed="false"><span class="ms-icon bookmark-icon" aria-hidden="true">star</span><span class="bookmark-text">Bookmark</span></button>
+                <div class="sheet-head-actions">
+                  <button id="inQuizTopicTestBtn" class="btn btn-topic-test" type="button" title="Start a timed test on this chapter">
+                    <span class="ms-icon" aria-hidden="true">timer</span>
+                    <span>Topic Test</span>
+                  </button>
+                  <button id="markBtn" class="btn bookmark-btn" type="button" aria-pressed="false"><span class="ms-icon bookmark-icon" aria-hidden="true">star</span><span class="bookmark-text">Bookmark</span></button>
+                </div>
               </div>
 
               <!-- Exam Mode Strip -->

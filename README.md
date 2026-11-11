@@ -109,3 +109,4 @@ studysynth-android/
 ## 📜 License
 
 MIT License.
+
