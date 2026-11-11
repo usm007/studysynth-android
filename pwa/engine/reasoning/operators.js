@@ -48,25 +48,6 @@
     };
   }
 
-  // Phase 8 fix: fragment check for causal arguments. A cause/effect that
-  // is a bare pronoun, a preposition phrase, or a dangling fragment
-  // ("of the", "if needed", "to") cannot support a causal question.
-  function isFragmentPhrase(text) {
-    const t = String(text || '').trim();
-    if (!t || t.length < 2) return true;
-    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(t)) return true;
-    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)) return true;
-    if (/\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t)) return true;
-    if (t.includes(';') || t.includes('|')) return true;
-    if (/^[^A-Za-z0-9]+/.test(t)) return true;
-    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(t)) return true;
-    return false;
-  }
-
-  function normalizeForClauseCheck(text) {
-    return String(text || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
-  }
-
   // ==========================================
   // OPERATOR A — Rule Application
   // ==========================================
@@ -115,59 +96,6 @@
   }
 
   // ==========================================
-  // Verb tables shared by OP_B and OP_C: strict causatives keep
-  // the causal predicate; contributory/influence verbs keep their
-  // own converse predicate. Moved to module scope so a causal
-  // chain cannot upgrade a contribution into a cause.
-  const STRICT_CAUSAL = /^(causes?|leads?\s+to|results?\s+in|produces?|triggers?|brings?\s+about|generates?|forces?|is\s+responsible\s+for|because|due\s+to|is\s+caused\s+by\s+mechanism)$/;
-  // Both verb forms occur: Pattern 1 captures the sentence's own
-  // form ("contribute to" for a plural subject, "contributes to"
-  // for a singular one), so each verb is listed in both forms.
-  const CONVERSE_VERB = {
-    'contribute to': ['is contributed to by', 'contributes to'],
-    'contributes to': ['is contributed to by', 'contributes to'],
-    'influences': ['is influenced by', 'influences'],
-    'influence': ['is influenced by', 'influences'],
-    'affects': ['is affected by', 'affects'],
-    'affect': ['is affected by', 'affects'],
-    'promotes': ['is promoted by', 'promotes'],
-    'promote': ['is promoted by', 'promotes'],
-    'encourages': ['is encouraged by', 'encourages'],
-    'encourage': ['is encouraged by', 'encourages'],
-    'supports': ['is supported by', 'supports'],
-    'support': ['is supported by', 'supports'],
-    'helps': ['is helped by', 'helps'],
-    'help': ['is helped by', 'helps'],
-    'stimulates': ['is stimulated by', 'stimulates'],
-    'stimulate': ['is stimulated by', 'stimulates'],
-    'increases': ['is increased by', 'increases'],
-    'increase': ['is increased by', 'increases'],
-    'decreases': ['is decreased by', 'decreases'],
-    'decrease': ['is decreased by', 'decreases'],
-    'prevents': ['is prevented by', 'prevents'],
-    'prevent': ['is prevented by', 'prevents'],
-    'inhibits': ['is inhibited by', 'inhibits'],
-    'inhibit': ['is inhibited by', 'inhibits'],
-    'reduces': ['is reduced by', 'reduces'],
-    'reduce': ['is reduced by', 'reduces'],
-    'strengthens': ['is strengthened by', 'strengthens'],
-    'strengthen': ['is strengthened by', 'strengthens'],
-    'weakens': ['is weakened by', 'weakens'],
-    'weaken': ['is weakened by', 'weakens'],
-    'drives': ['is driven by', 'drives'],
-    'drive': ['is driven by', 'drives'],
-    'accelerates': ['is accelerated by', 'accelerates'],
-    'accelerate': ['is accelerated by', 'accelerates'],
-    'slows down': ['is slowed down by', 'slows down'],
-    'slow down': ['is slowed down by', 'slows down'],
-    'enables': ['is enabled by', 'enables'],
-    'enable': ['is enabled by', 'enables'],
-    'allows': ['is allowed by', 'allows'],
-    'allow': ['is allowed by', 'allows'],
-    'determines': ['is determined by', 'determines'],
-    'determine': ['is determined by', 'determines'],
-  };
-
   // OPERATOR B — Causal Explanation
   // ==========================================
   function executeOperatorB(causalProp) {
@@ -177,8 +105,7 @@
     const validCausalTypes = [
       RELATION_TYPES.CAUSES,
       RELATION_TYPES.LEADS_TO,
-      RELATION_TYPES.PRODUCES,
-      RELATION_TYPES.ENABLES
+      RELATION_TYPES.PRODUCES
     ];
     if (!validCausalTypes.includes(causalProp.relation_type)) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a verified causal relation');
@@ -189,100 +116,10 @@
     if (causalProp.modality === MODALITY.POSSIBILITY) {
       return rejection(REJECTION_CODES.SPECULATIVE_MODALITY, 'Causal relation is tentative/speculative');
     }
-    // Phase 8 fix: cause and effect must be usable concepts, and they
-    // must co-occur in the same clause of the supporting excerpt. This
-    // rejects the classic cross-clause misattribution: "Human lives are
-    // deeply connected to its many features; for instance, the distant
-    // Southern Indian Ocean influences the monsoon" must not yield
-    // "Human lives causes the monsoon", because Human lives is not in
-    // the causal clause after the semicolon.
-    if (isFragmentPhrase(causalProp.subject) || isFragmentPhrase(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject or object is a fragment, not a usable concept');
-    }
-    // Quality: an effect must be a complete concept, not a participle
-    // fragment ("involving many thousands of personnel") or a compound
-    // predicate whose second half is a verb ("walkability and
-    // integrates"). Both produced V2 items whose stem asked what causes
-    // a fragment, which no student can answer as a concept.
-    if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect starts with a participle, not a standalone concept');
-    }
-    if (/\band\s+(integrates?|promotes?|includes?|involves?|leads?|causes?|provides?|creates?|makes?|allows?|enables?|supports?|encourages?|drives?|enhances?|reduces?|increases?|decreases?)\b/i.test(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect is a compound predicate, not a single concept');
-    }
-    // Quality: a modal phrase is not a cause. "This could potentially
-    // lead to a slow down…" must not yield a V2 item whose answer is
-    // "This could potentially".
-    if (/^(this|that|it)\s+(could|would|should|may|might|can)\b/i.test(causalProp.subject)
-      || /could potentially|may potentially/i.test(causalProp.subject)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject is a modal phrase, not a cause');
-    }
-    // Phase 8 fix (second round): an effect must be a clean concept, not
-    // a pronoun clause ("it has sunny weather"), a comma clause, or a
-    // compound predicate ("climate, and is home to a variety"). A cause
-    // containing a heading colon is not a concept either, and a naming
-    // explanation ("is called ... because ...") is not a mechanism.
-    if (/^(it|they|you|he|she|we)\b/i.test(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect starts with a pronoun, not a standalone concept');
-    }
-    // Phase 8 fix (third round): an effect that is a whole sentence
-    // (26 words, sentence punctuation, a second clause) is not a concept
-    // that a causal question can ask about.
-    if (causalProp.object.split(/\s+/).filter(Boolean).length > 12 || causalProp.subject.split(/\s+/).filter(Boolean).length > 12) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal argument is a sentence, not a concept');
-    }
-    if (/[.?]\s+\S/.test(causalProp.object) || /\s[ab]\)\s/.test(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect contains a second sentence or list marker');
-    }
-    if (causalProp.object.includes(',') || /\band\s+(is|are|was|were|has|have)\b/i.test(causalProp.object)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal effect is a compound clause, not a single concept');
-    }
-    if (causalProp.subject.includes(':')) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal subject is a heading, not a concept');
-    }
-    if (causalProp.supporting_excerpt && /\bis called\b|\bknown as\b/i.test(causalProp.supporting_excerpt) && /\bbecause\b/i.test(causalProp.supporting_excerpt)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Naming explanation is not a causal mechanism');
-    }
-    if (causalProp.supporting_excerpt && typeof causalProp.supporting_excerpt === 'string' && causalProp.supporting_excerpt.includes(';')) {
-      const clause = causalProp.supporting_excerpt.slice(causalProp.supporting_excerpt.lastIndexOf(';') + 1);
-      const clauseNorm = normalizeForClauseCheck(clause);
-      const subjectNorm = normalizeForClauseCheck(causalProp.subject);
-      const objectNorm = normalizeForClauseCheck(causalProp.object);
-      if (subjectNorm && objectNorm && (!clauseNorm.includes(subjectNorm) || !clauseNorm.includes(objectNorm))) {
-        return rejection(REJECTION_CODES.UNSUPPORTED_PREMISE, 'Causal subject and effect do not co-occur in the causal clause of the excerpt');
-      }
-    }
 
-    // Full-path repair, relation preservation (P0): the derived
-    // proposition must keep the source relationship, not collapse it
-    // into causation. "Mining ... contribute to the GDP" is a
-    // contribution, not a cause: rendering it as "What causes the
-    // GDP?" overstates the source. Strict causal verbs keep the
-    // causal predicate; contributory and influence verbs keep their
-    // own converse predicate ("is contributed to by"), which the
-    // constructor renders as "What contributes to ...?". A verb
-    // outside both lists is rejected, never guessed into "causes".
-    const sourceVerb = String(causalProp.predicate || '').toLowerCase().trim();
-    let derivedPredicate;
-    let activeVerb;
-    // "makes" comparatives ("makes the judicial system more
-    // accessible") are genuine causatives rendered by the
-    // constructor's "What makes ...?" branch; they keep the causal
-    // predicate so that branch still fires.
-    if (sourceVerb === 'makes' || sourceVerb === 'make') {
-      derivedPredicate = 'is caused by mechanism';
-      activeVerb = 'makes';
-    } else if (STRICT_CAUSAL.test(sourceVerb)) {
-      derivedPredicate = 'is caused by mechanism';
-      activeVerb = 'causes';
-    } else if (CONVERSE_VERB[sourceVerb]) {
-      [derivedPredicate, activeVerb] = CONVERSE_VERB[sourceVerb];
-    } else {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Causal premise verb is not a known strict-causal or contributory verb, so no causal question is formed');
-    }
     const derived = Representation.createProposition({
       subject: causalProp.object, // Effect
-      predicate: derivedPredicate,
+      predicate: 'is caused by mechanism',
       relation_type: RELATION_TYPES.CAUSES,
       object: causalProp.subject, // Cause
       source_page: causalProp.source_page,
@@ -296,7 +133,7 @@
       operator: REASONING_OPERATORS.OP_B_CAUSAL_EXPLANATION,
       premises: [causalProp.id],
       steps: [
-        `Extracted source causal mechanism: ${causalProp.subject} ${activeVerb} ${causalProp.object}`,
+        `Extracted source causal mechanism: ${causalProp.subject} causes ${causalProp.object}`,
         `Derived mechanistic explanation for ${causalProp.object}`
       ]
     };
@@ -325,34 +162,9 @@
       return rejection(REJECTION_CODES.CYCLIC_DEPENDENCY, 'Causal chain contains a cycle (A causes A)');
     }
 
-    // Relation preservation (same rule as OP_B): a chain must not
-    // upgrade a contribution or influence into causation. Both links
-    // strict-causal keep "indirectly causes via ..."; if either link
-    // is contributory, the derived link carries that weaker verb (the
-    // second link governs the effect, else the first); an unknown verb
-    // rejects the chain rather than guessing "causes".
-    const verbOf = (v) => {
-      if (v === 'makes' || v === 'make') return { causal: true, active: 'causes' };
-      if (STRICT_CAUSAL.test(v)) return { causal: true, active: 'causes' };
-      if (CONVERSE_VERB[v]) return { causal: false, active: CONVERSE_VERB[v][1] };
-      return null;
-    };
-    const verb1 = String(prop1.predicate || '').toLowerCase().trim();
-    const verb2 = String(prop2.predicate || '').toLowerCase().trim();
-    const link1 = verbOf(verb1);
-    const link2 = verbOf(verb2);
-    if (!link1 || !link2) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Chain premise verb is not a known strict-causal or contributory verb, so no causal chain is formed');
-    }
-    const derivedActive = (link1.causal && link2.causal)
-      ? 'causes'
-      : (!link2.causal ? link2.active : link1.active);
-    const derivedPredicate = (link1.causal && link2.causal)
-      ? 'indirectly causes via ' + prop1.object
-      : 'indirectly ' + derivedActive + ' via ' + prop1.object;
     const derived = Representation.createProposition({
       subject: prop1.subject,
-      predicate: derivedPredicate,
+      predicate: 'indirectly causes via ' + prop1.object,
       relation_type: RELATION_TYPES.LEADS_TO,
       object: prop2.object,
       source_page: prop1.source_page,
@@ -366,9 +178,9 @@
       operator: REASONING_OPERATORS.OP_C_CAUSAL_CHAIN,
       premises: [prop1.id, prop2.id],
       steps: [
-        `Step 1: ${prop1.subject} ${verb1} ${prop1.object}`,
-        `Step 2: ${prop2.subject} ${verb2} ${prop2.object}`,
-        `Synthesis: Traversed intermediate mediator '${prop1.object}' to deduce that ${prop1.subject} indirectly ${derivedActive} ${prop2.object}`
+        `Step 1: ${prop1.subject} leads to ${prop1.object}`,
+        `Step 2: ${prop2.subject} leads to ${prop2.object}`,
+        `Synthesis: Traversed intermediate mediator '${prop1.object}' to deduce that ${prop1.subject} leads to ${prop2.object}`
       ]
     };
 
@@ -384,16 +196,6 @@
     }
     if (condProp.relation_type !== RELATION_TYPES.CONDITIONAL_ON && condProp.relation_type !== RELATION_TYPES.REQUIRES) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a conditional or requirement');
-    }
-    // Phase 8 fix (fourth round): a conditional outcome must be a clean
-    // concept, not a long clause, a comma clause, or a pronoun. This
-    // rejects temporal "When X, Y" narratives that were bridged as
-    // conditionals, whose outcomes are whole sentences.
-    if (condProp.subject.split(/\s+/).filter(Boolean).length > 12 || condProp.object.split(/\s+/).filter(Boolean).length > 12) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Conditional argument is a sentence, not a concept');
-    }
-    if (condProp.subject.includes(',') || /^(it|they|you|he|she|we)\b/i.test(condProp.subject)) {
-      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Conditional outcome is a clause, not a concept');
     }
 
     const derived = Representation.createProposition({
@@ -555,10 +357,11 @@
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Premise is not a classification or definition');
     }
 
+    const isDefinition = instanceProp.relation_type === RELATION_TYPES.DEFINITION_OF;
     const derived = Representation.createProposition({
       subject: instanceProp.subject,
-      predicate: 'belongs to category',
-      relation_type: RELATION_TYPES.INSTANCE_OF,
+      predicate: isDefinition ? 'is defined as' : 'belongs to category',
+      relation_type: isDefinition ? RELATION_TYPES.DEFINITION_OF : RELATION_TYPES.INSTANCE_OF,
       object: instanceProp.object,
       source_page: instanceProp.source_page,
       source_section: instanceProp.source_section,
@@ -571,8 +374,10 @@
       operator: REASONING_OPERATORS.OP_H_CATEGORY_INFERENCE,
       premises: [instanceProp.id],
       steps: [
-        `Extracted taxonomic classification: ${instanceProp.subject} -> ${instanceProp.object}`,
-        `Verified category membership rule`
+        isDefinition
+          ? `Extracted source definition: ${instanceProp.subject} -> ${instanceProp.object}`
+          : `Extracted taxonomic classification: ${instanceProp.subject} -> ${instanceProp.object}`,
+        isDefinition ? 'Verified definitional equivalence' : 'Verified category membership rule'
       ]
     };
 
@@ -633,14 +438,37 @@
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Cannot contrast an entity with itself');
     }
 
-    // Precondition: Genuine contrast basis required.
-    // Either an explicit contrast/comparison relation, OR matching relation type describing differing values on a shared dimension
-    const isExplicitContrast = propA.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
-      propA.relation_type === RELATION_TYPES.COMPARES_WITH ||
-      propB.relation_type === RELATION_TYPES.CONTRASTS_WITH ||
-      propB.relation_type === RELATION_TYPES.COMPARES_WITH;
+    // Both sides must be concise noun phrases. A run-on clause cannot be shown
+    // verbatim as an option, so it is rejected instead of being trimmed.
+    if (!Linguistics.isNounPhraseSpan(propA.subject, 70) ||
+        !Linguistics.isNounPhraseSpan(propB.subject, 70) ||
+        !Linguistics.isNounPhraseSpan(propA.object, 110) ||
+        !Linguistics.isNounPhraseSpan(propB.object, 110)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Contrast spans are not concise noun phrases');
+    }
 
-    const isCompatibleDimension = propA.relation_type === propB.relation_type &&
+    // Precondition: Genuine contrast basis required.
+    // Both premises must describe differing values on the same declared
+    // dimension: identical non-generic predicate, same relation type, distinct
+    // subjects and objects. A generic placeholder predicate ("relation", "role")
+    // is not a dimension, so two unrelated facts can never be paired.
+    const GENERIC_PREDICATES = new Set([
+      'relation', 'has property', 'role', 'numeric value', 'numeric_value',
+      'unclassified', 'is', 'has', 'property', 'definition', 'function',
+      'location', 'date', 'members', 'member', 'comparison', 'superlative',
+      'has component', 'component', 'part of', 'part', 'member of',
+      'instance of', 'instance', 'attribute', 'category',
+      'described as', 'known for', 'is defined as', 'is an instance of',
+      'belongs to category', 'contrasts on', ''
+    ]);
+    const predicateA = String(propA.predicate || propA.relation || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const predicateB = String(propB.predicate || propB.relation || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    const sharedPredicate = Boolean(predicateA) &&
+      predicateA === predicateB &&
+      !GENERIC_PREDICATES.has(predicateA);
+
+    const isCompatibleDimension = sharedPredicate &&
+      propA.relation_type === propB.relation_type &&
       propA.object.toLowerCase().trim() !== propB.object.toLowerCase().trim() &&
       [
         RELATION_TYPES.DEFINITION_OF,
@@ -648,11 +476,13 @@
         RELATION_TYPES.HAS_COMPONENT,
         RELATION_TYPES.PART_OF,
         RELATION_TYPES.MEMBER_OF,
+        RELATION_TYPES.COMPARED_WITH,
+        RELATION_TYPES.CONTRASTS_WITH,
         RELATION_TYPES.INCREASES,
         RELATION_TYPES.DECREASES
       ].includes(propA.relation_type);
 
-    if (!isExplicitContrast && !isCompatibleDimension) {
+    if (!isCompatibleDimension) {
       return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Propositions lack a genuine, shared contrast dimension');
     }
 
@@ -675,6 +505,11 @@
       rule_id: 'OP_J_CONTRASTIVE_EXPLANATION',
       is_derived: true
     });
+
+    // The combined question must stay readable and complete.
+    if (!Linguistics.isSafeSpan(derived.subject, 120) || !Linguistics.isSafeSpan(derived.object, 150)) {
+      return rejection(REJECTION_CODES.PRECONDITION_NOT_MET, 'Combined contrast is too long to present as an option');
+    }
 
     const proofTrace = {
       operator: REASONING_OPERATORS.OP_J_CONTRASTIVE_EXPLANATION,

@@ -4,17 +4,13 @@
  * Progress messages are emitted only at real stage boundaries.
  */
 
-// Reasoning V2 dependency chain (Repair 002, Phase 6): the worker must
-// load the same complete chain as the browser, in dependency order,
-// before generator.js, so StudySynthReasoningV2 is available when the
-// analysis pipeline runs. No module is loaded twice via a competing path.
 importScripts(
   './reasoning/types.js',
   './reasoning/linguistics.js',
   './reasoning/representation.js',
   './reasoning/graph.js',
-  './reasoning/distractors.js',
   './reasoning/operators.js',
+  './reasoning/distractors.js',
   './reasoning/constructors.js',
   './reasoning/validator.js',
   './reasoning/ranking.js',

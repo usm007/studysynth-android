@@ -122,13 +122,7 @@
     classification_membership: 5,
     sequence_order: 6,
     cause_effect: 7,
-    multi_statement: 8,
-    statement_option: 9,
-    multi_statement_3: 10,
-    assertion_reason: 11,
-    matching: 12,
-    chronology: 13,
-    table_question: 14
+    multi_statement: 8
   };
   const SUBTYPE_FACT_TYPES = {
     date_recall: ['date'],
@@ -141,12 +135,6 @@
     sequence_order: ['sequence'],
     cause_effect: ['causal'],
     multi_statement: ['date', 'numeric', 'entity_attribute', 'definition'],
-    multi_statement_3: ['date', 'numeric', 'entity_attribute', 'definition'],
-    statement_option: ['date', 'numeric', 'entity_attribute', 'definition'],
-    assertion_reason: ['causal', 'date', 'numeric', 'entity_attribute', 'definition'],
-    matching: ['entity_attribute', 'definition', 'date', 'causal'],
-    chronology: ['date'],
-    table_question: ['table'],
 
     // V2 Conceptual Reasoning Subtypes
     rule_application: ['rule', 'entity_attribute', 'definition', 'causal'],
@@ -156,7 +144,7 @@
     process_sequence: ['sequence'],
     constraint_inference: ['entity_attribute', 'definition'],
     category_classification: ['membership', 'definition'],
-    exception_reasoning: ['entity_attribute', 'definition', 'membership'],
+    exception_reasoning: ['entity_attribute', 'definition'],
     contrastive_explanation: ['comparison', 'entity_attribute', 'causal'],
     evidence_conclusion: ['entity_attribute', 'causal', 'definition'],
     error_diagnosis: ['causal', 'comparison', 'entity_attribute'],
@@ -167,22 +155,11 @@
     single_choice: ['date', 'numeric', 'entity_attribute', 'definition', 'comparison', 'causal', 'membership', 'sequence']
   };
 
-  // Controlled distractor pools were removed (quality, cross-subject):
-  // distractors must now come from the source itself, not from hardcoded
-  // Indian/space topic lists that were off-topic for other subjects.
-  // Exception: classification category rules below are narrow, same-type
-  // alternatives (other colours for a colour list, other spacecraft for
-  // a spacecraft list). They only trigger when the category matches,
-  // and a single-list source cannot otherwise supply any distractors
-  // at all — without them, a source listing only red/green/blue could
-  // never produce a classification question.
+  // Narrow, category-scoped alternatives for explicit classification items.
+  // They are only used when the source states an exhaustive member list of a
+  // known category, so the options stay same-kind rather than generic filler.
   const CONTROLLED_CATEGORY_RULES = [
-    { test: /colou?rs?\s+of\s+light|primary\s+colou?rs?/i, alternatives: ['yellow', 'orange', 'purple', 'violet'] },
-    { test: /chandrayaan|spacecraft|lander/i, alternatives: ['Orion Capsule', 'Curiosity Rover', 'Cassini Orbiter', 'Artemis Lander'] },
-    { test: /pragyan|rover|payload/i, alternatives: ['Magnetometer', 'Radiometer', 'Seismometer', 'Laser Altimeter'] },
-    { test: /regolith|lunar soil/i, alternatives: ['Gold', 'Lead', 'Mercury', 'Silver'] },
-    { test: /prasar\s+bharati|broadcaster/i, alternatives: ['NDTV', 'Zee Media', 'Star India', 'Sun TV Network'] },
-    { test: /electronic\s+components?|semiconductor/i, alternatives: ['solar panels', 'wind turbines', 'display panels', 'optical fibres'] }
+    { test: /colou?rs?\s+of\s+light|primary\s+colou?rs?/i, alternatives: ['yellow', 'orange', 'purple', 'violet'] }
   ];
 
   function escapeRegExp(value) {
@@ -192,95 +169,6 @@
   function cleanText(str) {
     if (!str) return '';
     return str.toString().normalize('NFKC').replace(/\s+/g, ' ').trim();
-  }
-
-  // Sentence-role classification (Repair 002, Phase 4). This mirrors
-  // ReasoningLinguistics.classifySentenceRole exactly, so the production
-  // generator and Reasoning V2 apply the same deterministic rules. The
-  // browser load order in index.html now loads reasoning first, and
-  // when it is available the generator prefers that shared
-  // implementation (see classifySentenceRoleShared below); the local
-  // mirror is the fallback when reasoning is not loaded. Only
-  // 'assertion' sentences may generate ordinary factual propositions.
-  function classifySentenceRoleLocal(text) {
-    if (!text || typeof text !== 'string') return 'ambiguous';
-    const trimmed = String(text).trim().replace(/\s+/g, ' ');
-    if (!trimmed) return 'ambiguous';
-    if (/\?\s*['"’”\)\]]*\s*$/.test(trimmed)) return 'interrogative';
-    const lower = trimmed.toLowerCase();
-    const imperativePhrases = ['think about', 'look at'];
-    for (const phrase of imperativePhrases) {
-      if (lower === phrase || lower.startsWith(phrase + ' ')) return 'instruction';
-    }
-    // Exercise list markers ("c) Explain why this event was
-    // important") and sentences that point at a table, figure or
-    // page ("The table on the facing page provides...") are not
-    // claims about the subject; they leaked into options and
-    // statements in the manual read. Treat them as ambiguous so
-    // extraction skips them, like any other non-assertion unit.
-    if (/^(?:[a-e]|[ivx]{1,4}|\d+)\)\s/i.test(trimmed)) return 'ambiguous';
-    if (/\b(facing page|table on|figure\s+\d|we saw|we have seen|as you may notice|you may notice|in grade\s+\d|previous chapter|next chapter|see page|on page\s+\d|as shown in|as mentioned)\b/i.test(trimmed)) return 'ambiguous';
-    const imperativeVerbs = [
-      'consider', 'imagine', 'take', 'observe', 'discuss', 'explain', 'compare',
-      'answer', 'try', 'use', 'draw', 'write', 'describe', 'suppose', 'assume'
-    ];
-    const firstWord = lower.split(/\s+/)[0].replace(/^[^a-z]+|[^a-z]+$/g, '');
-    if (imperativeVerbs.includes(firstWord)) return 'instruction';
-    const interrogativeWords = ['what', 'who', 'whom', 'whose', 'which', 'when', 'where', 'why', 'how'];
-    if (interrogativeWords.includes(firstWord)) {
-      // Subordinate-clause exception: "When light intensity increases,
-      // the rate of photosynthesis increases ..." is an assertion with
-      // a temporal clause, not a question. A question in this form
-      // would end with a question mark, which is handled above, so a
-      // when/where/why/how sentence with a comma followed by a main
-      // clause is not interrogative.
-      if (['when', 'where', 'why', 'how'].includes(firstWord)) {
-        const commaIndex = trimmed.indexOf(',');
-        if (commaIndex > 0 && trimmed.slice(commaIndex + 1).trim().split(/\s+/).length >= 2) {
-          // Fall through to assertion (it is not an imperative either,
-          // as imperatives were checked above).
-        } else {
-          return 'interrogative';
-        }
-      } else {
-        return 'interrogative';
-      }
-    }
-    const auxiliaryWords = ['do', 'does', 'did', 'is', 'are', 'was', 'were', 'can', 'could', 'will', 'would', 'should', 'may', 'might', 'has', 'have', 'had'];
-    if (auxiliaryWords.includes(firstWord)) return 'interrogative';
-    const words = trimmed.split(/\s+/).filter(Boolean);
-    if (words.length <= 2) return 'ambiguous';
-    if (/[:_]{2,}|_{3,}|\.\.\./.test(trimmed)) return 'ambiguous';
-    if (/^(q\.|question|activity|exercise|note|hint)\s*[:.]/i.test(trimmed)) return 'ambiguous';
-    if (words.length === 3) {
-      // A three-word sentence may be subject-verb-object ("Rain helps
-      // farmers.") or subject-verb ("The river floods."). Either the
-      // middle or the last word being verb-like makes it an assertion;
-      // a fragment such as "Map of India" has no verb in either place.
-      const verbLikeWord = (w) => {
-        const clean = w.replace(/[^a-z]/gi, '').toLowerCase();
-        return /^(is|are|was|were|has|have|had|causes?|leads?|means?|refers?|consists?|includes?|helps?|supports?|affects?|flows?|floods?|rises?|falls?|grows?)$/i.test(w)
-          || (clean.length > 3 && /s$/.test(clean) && !/ss$/.test(clean));
-      };
-      if (!verbLikeWord(words[1]) && !verbLikeWord(words[2])) return 'ambiguous';
-    }
-    return 'assertion';
-  }
-
-  function classifySentenceRoleShared(text) {
-    try {
-      if (ReasoningV2 && ReasoningV2.Linguistics && typeof ReasoningV2.Linguistics.classifySentenceRole === 'function') {
-        return ReasoningV2.Linguistics.classifySentenceRole(text);
-      }
-    } catch (e) { /* fall through to the local mirror */ }
-    if (typeof global !== 'undefined' && global.ReasoningLinguistics && typeof global.ReasoningLinguistics.classifySentenceRole === 'function') {
-      return global.ReasoningLinguistics.classifySentenceRole(text);
-    }
-    return classifySentenceRoleLocal(text);
-  }
-
-  function classifySentenceRole(text) {
-    return classifySentenceRoleShared(text);
   }
 
   function splitSentences(text, locale = 'en') {
@@ -644,11 +532,11 @@
   // Words that can never name the thing a question is about. A subject that
   // starts with one of these is a leftover pronoun, modal or connective, not a
   // noun phrase a learner could look up.
-  const UNUSABLE_SUBJECT_START = /^(?:we|you|they|it|this|that|there|these|those|he|she|i|us|them|their|his|her|its|our|your|has|have|had|is|are|was|were|do|does|did|will|would|shall|should|can|could|may|might|must|however|but|thus|therefore|hence|also|and|or|if|when|while|where|which|then|than|so|as|at|by|for|from|in|of|on|to|with|other|another|some|any|many|most|more|all|both|each|every|either|neither|such|together|only|even|now|here|again|still|yet|just|very|too|quite|rather|almost|about|around|over|under|between|among|through|across|along|behind|below|above|near|off|out|up|down)\b/i;
+  const UNUSABLE_SUBJECT_START = /^(?:we|you|they|it|this|that|there|these|those|he|she|i|us|them|has|have|had|is|are|was|were|do|does|did|will|would|shall|should|can|could|may|might|must|however|but|thus|therefore|hence|also|and|or|if|when|while|where|which|then|than|so|as|at|by|for|from|in|of|on|to|with|other|another|some|any|many|most|more|all|both|each|every|either|neither|such|together|only|even|now|here|again|still|yet|just|very|too|quite|rather|almost|about|around|over|under|between|among|through|across|along|behind|below|above|near|off|out|up|down)\b/i;
 
   // A subject has to be a noun phrase, not a sentence fragment. A lowercase
   // dummy pronoun anywhere inside it means extraction stopped mid-sentence.
-  const DUMMY_SUBJECT_WORD = /\b(?:we|you|they|it|this|that|there|these|those|he|she|their|his|her|its|our|your|them|us|him|me)\b/;
+  const DUMMY_SUBJECT_WORD = /\b(?:we|you|they|it|this|that|there|these|those|he|she)\b/;
 
   // Detailed explainable subject quality validation
   function checkSubjectQuality(value) {
@@ -670,55 +558,6 @@
     }
     if (DUMMY_SUBJECT_WORD.test(text)) {
       return { valid: false, code: 'DUMMY_PRONOUN', reason: 'Subject contains an internal dummy pronoun' };
-    }
-    // Full-path repair, subjects (P0): a measurement fragment is not
-    // a subject. "km from east" is a leftover of a measurement phrase
-    // ("stretches 2,500 km from east to west"), not the thing a
-    // question is about; a bare measurement phrase ("long years") is
-    // not one either. The direction rule is deliberately narrow so a
-    // genuine subject such as "Years of struggle" still passes.
-    if (/^(?:km|kilometres?|kilometers?|metres?|meters?|cm|mm|kg|kilograms?|grams?|hectares?|sq\.?\s*km)\s+(?:from|to|east|west|north|south)\b/i.test(text)) {
-      return { valid: false, code: 'UNIT_FRAGMENT', reason: 'Subject is a measurement fragment, not a noun phrase' };
-    }
-    if (/^(?:about|over|around|approximately|nearly|almost|long)\s+(?:km|kilometres?|kilometers?|metres?|meters?|years?|days?|months?)\s*$/i.test(text)) {
-      return { valid: false, code: 'UNIT_FRAGMENT', reason: 'Subject is a bare measurement phrase, not a noun phrase' };
-    }
-    // Fronted-modifier backstop (see cleanFactSubject): if a
-    // participial/adverbial opening survived cleaning, the subject is
-    // still not usable.
-    {
-      const frontedCheck = text.match(/^([^,]{2,60}),\s+the\s+/i);
-      if (frontedCheck) {
-        const fw = frontedCheck[1].trim().split(/\s+/)[0].toLowerCase();
-        if (/ly$/.test(fw) || ['built', 'located', 'situated', 'founded', 'constructed', 'decorated', 'surrounded', 'established', 'designed', 'known', 'called', 'carved', 'painted', 'adorned', 'covered', 'dedicated', 'named'].includes(fw)) {
-          return { valid: false, code: 'FRONTED_MODIFIER', reason: 'Subject starts with a participial/adverbial phrase, not the noun it describes' };
-        }
-      }
-    }
-    // Manual-read gates: a subject that is a discourse fragment
-    // ("Few indeed in the whole world"), contains a question word
-    // ("Exposure to what"), contains a finite verb ("Soon the
-    // club's membership increased and its activities"), or ends
-    // in a correlative ("a well-planned city not only") is a
-    // sentence fragment captured as a subject, not a noun phrase
-    // a learner could look up on its own.
-    if (/\bindeed\b/i.test(text)) {
-      return { valid: false, code: 'DISCOURSE_FRAGMENT', reason: 'Subject contains a discourse word (indeed) and is not a clean noun phrase' };
-    }
-    if (/\b(what|why|how|when|where|who|whom|whose|which)\b/i.test(text)) {
-      return { valid: false, code: 'QUESTION_WORD_SUBJECT', reason: 'Subject contains a question word and is not identifiable on its own' };
-    }
-    if (/\b(is|are|was|were|has|have|had|increased|decreased|became|began|started|ended|rose|fell|grew|changed|continued|remained|died|arrived|left|joined|formed|passed|helps|provides|allows|enables|makes|causes|leads|results|shows|indicates|means|refers|contains|includes|protects|guarantees|ensures|states|describes|defines|facilitates|supports|affects|influences|determines|drives|promotes|prevents|reduces|increases|decreases)\b/i.test(text)) {
-      return { valid: false, code: 'FINITE_VERB_SUBJECT', reason: 'Subject contains a finite verb and is a clause, not a noun phrase' };
-    }
-    if (/\b(not only|not just|only|also)\s*$/i.test(text)) {
-      return { valid: false, code: 'DANGLING_CORRELATIVE', reason: 'Subject ends in a correlative fragment (not only / only / also)' };
-    }
-    if (/^(the same|the following)\b/i.test(text)) {
-      return { valid: false, code: 'VAGUE_REFERENCE_SUBJECT', reason: 'Subject is a vague reference (the same / the following), not an identifiable entity' };
-    }
-    if (/^(find|explain|describe|discuss|list|identify|state|write|draw|answer|consider|imagine|observe|suppose|assume|compare|try|use|take)\b/i.test(text)) {
-      return { valid: false, code: 'IMPERATIVE_SUBJECT', reason: 'Subject starts with an imperative verb and is an instruction, not an entity' };
     }
     if ((text.match(/["\u201c\u201d]/g) || []).length % 2 !== 0) {
       return { valid: false, code: 'UNBALANCED_QUOTES', reason: 'Subject contains unbalanced quotation marks' };
@@ -811,18 +650,20 @@
   }
 
   function buildStemContext(stem, excerpt, expected) {
-    // Quality rule: a stem must stand on its own in an exam, with no
-    // passage in front of the student. "According to the passage/source"
-    // is generator scaffolding, never part of the question, so it is
-    // always stripped here, whatever context the app may also show.
-    // The masked excerpt, when available, is returned only as
-    // supplementary app context; the stem must be answerable without it.
-    const raw = String(stem || '');
-    const text = raw
-      .replace(/^According to the (passage|source),\s*/i, '')
-      .replace(/^([a-z])/, (letter) => letter.toUpperCase());
+    const text = String(stem || '');
+    if (!/^According to the passage\b/i.test(text)) {
+      return { stem: text, context: null };
+    }
     const context = maskExpectedAnswer(excerpt, expected);
-    return { stem: text, context: context || null };
+    if (context) return { stem: text, context };
+    // Nothing safe to show means the phrase would point at a passage the
+    // learner cannot see, so the stem has to stand on its own.
+    return {
+      stem: text
+        .replace(/^According to the passage,\s*/i, '')
+        .replace(/^([a-z])/, (letter) => letter.toUpperCase()),
+      context: null
+    };
   }
 
   function replaceOnce(text, needle, replacement) {
@@ -836,68 +677,10 @@
     return optionSignature(a) === optionSignature(b) || normalizeOption(a) === normalizeOption(b);
   }
 
-  // Collapse an immediately repeated phrase of 3+ words, which is
-  // almost always a PDF heading merged with the sentence that follows
-  // it ("Right to constitutional remedies The right to constitutional
-  // remedies", "Right to life The right to life also"), not natural
-  // repetition. The second occurrence, plus a preceding article, is
-  // removed. Legitimate short repetitions ("had had") are below the
-  // 3-word threshold and are left alone.
-  function collapseRepeatedPhrase(raw) {
-    let words = String(raw || '').split(/\s+/).filter(Boolean);
-    for (let round = 0; round < 3; round++) {
-      let changed = false;
-      const lower = words.map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''));
-      outer: for (let len = 6; len >= 3; len--) {
-        for (let i = 0; i + len <= words.length; i++) {
-          for (const gap of [0, 1]) {
-            const j = i + len + gap;
-            if (j + len > words.length) continue;
-            let match = true;
-            for (let k = 0; k < len; k++) {
-              if (lower[i + k] !== lower[j + k]) { match = false; break; }
-            }
-            if (!match) continue;
-            const removeFrom = (gap === 1 && /^(the|a|an)$/i.test(words[j - 1])) ? j - 1 : j;
-            words = words.slice(0, removeFrom).concat(words.slice(j + len));
-            changed = true;
-            break outer;
-          }
-        }
-      }
-      if (!changed) break;
-    }
-    return words.join(' ');
-  }
-
   function cleanFactSubject(raw) {
-    let subject = collapseRepeatedPhrase(cleanText(raw).replace(/[,;:]+$/, '').trim());
+    let subject = cleanText(raw).replace(/[,;:]+$/, '').trim();
+    subject = subject.replace(/^(?:hence|however|thus|therefore|moreover|furthermore|similarly|consequently|in\s+fact|indeed|also)\s*,?\s+/i, '').trim();
     if (!subject || subject.length > 150) return null;
-    // Clause boundary (Phase 8 fix): a causal subject must come from the
-    // clause that actually contains the causal verb. A subject taken from
-    // before a semicolon, or before "for instance/for example", misattributes
-    // the effect to an earlier, unrelated subject — e.g. "Human lives are
-    // deeply connected to its many features; for instance, the distant
-    // Southern Indian Ocean influences the monsoon" must give the Southern
-    // Indian Ocean, not Human lives, as the cause.
-    if (subject.includes(';')) {
-      subject = subject.split(';').pop().trim();
-    }
-    subject = subject.replace(/^for (?:instance|example)\s*,\s*/i, '').trim();
-    subject = subject.replace(/\bfor (?:instance|example)\s*,\s*/i, '').trim();
-    // Full-path repair, subjects (P0): a fronted participial or
-    // adverbial phrase is not part of the subject. "Entirely
-    // decorated with marble, the Taj Mahal is ..." must give the
-    // subject "the Taj Mahal", not the sentence opening.
-    {
-      const fronted = subject.match(/^([^,]{2,60}),\s+(the\s+.+)$/i);
-      if (fronted) {
-        const firstWord = fronted[1].trim().split(/\s+/)[0].toLowerCase();
-        if (/ly$/.test(firstWord) || ['built', 'located', 'situated', 'founded', 'constructed', 'decorated', 'surrounded', 'established', 'designed', 'known', 'called', 'carved', 'painted', 'adorned', 'covered', 'dedicated', 'named'].includes(firstWord)) {
-          subject = fronted[2].trim();
-        }
-      }
-    }
     const split = subject.match(/^(.{2,80}?)\s+(?:is|are|was|were|has|have|had)\s+(.+)$/i);
     if (split && split[1].trim().split(/\s+/).length <= 8 && !/[,]/.test(split[1])) {
       subject = split[1].trim();
@@ -906,54 +689,78 @@
     return subject.length >= 2 ? subject : null;
   }
 
-  // A phrase is a fragment, not a usable concept, if it is a bare pronoun,
-  // starts with a preposition/conjunction, ends with a dangling relative
-  // pronoun/preposition/article, or is a single non-name word. Fragment
-  // phrases must never become a causal subject/effect, a numeric answer,
-  // or a distractor object (Phase 8 fix).
-  function isFragmentPhrase(raw) {
-    const text = cleanText(raw || '');
-    if (!text || text.length < 2) return true;
-    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text)) return true;
-    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into|over|under|about|through|against|between|among|behind|below|above|near|off|out|up|down|like)\b/i.test(text)) return true;
-    // Dangling-word backstop: the trailing word must be a separate
-    // token. A word immediately after a letter + apostrophe ("Qur'an")
-    // is the tail of a proper noun, not a dangling article: the
-    // apostrophe creates a \b boundary that would otherwise misread
-    // "an" as a dangling word and reject a genuine list ending in
-    // such a noun ("... calligraphy of verses from the Qur'an").
-    // The negative lookbehind blocks only that case: a genuine
-    // dangling word after whitespace ("... and an") still fires.
-    if (/(?<![A-Za-z]['\u2019])\b(which|that|who|whom|whose|when|where|and|or|but|of|to|in|on|for|with|by|as|the|a|an|through|from|into|onto|under|over|against|about|between|among|behind|below|above|near|they|them|he|she|it|us|you|we|him|her|his|their|its|not only|was|were|is|are|has|have|had)\s*[.!?]?\s*$/.test(text)) return true;
-    // A pronoun-start phrase with no verb is a truncated clause, not
-    // an answer ("it one of the most productive regions" lost its
-    // verb "make"). A pronoun-start phrase WITH a verb ("it means
-    // many children are being born") is a readable clause and stays.
-    if (/^(it|they|he|she)\b/i.test(text) && !/\b(is|are|was|were|has|have|had|means?|makes?|leads?|results?|shows?|indicates?|refers?|represents?|allows?|enables?|helps?|causes?)\b/i.test(text)) return true;
-    if (text.includes(';') || text.includes('|')) return true;
-    if (/\b[a-e]\)\s+[A-Z]/.test(text)) return true;
-    if (/\btrue or false\b/i.test(text)) return true;
-    if (/^[^A-Za-z0-9]+/.test(text)) return true;
-    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(text)) return true;
+  // A fact span must be a noun phrase, not a whole clause. These guards stop
+  // multi-clause sentences from donating a truncated subject or a run-on
+  // object to a relation.
+  const CLAUSE_BOUNDARY = /(?:;|\u2014|\u2013|\b(?:which|whom|whose|whereas|although|though)\b|,\s*(?:but|yet|so|and\s+then)\b)/i;
+  const FINITE_VERB_IN_SPAN = /\b(?:is|are|was|were|has|have|had|does|do|did|makes?|made|causes?|caused|shows?|showed|shown|means?|meant|said|states?|stated|includes?|included|becomes?|became|gives?|gave|takes?|took|comes?|came|goes?|went)\b/i;
+  const PARTICIPLE_OBJECT_START = /^(?:being|been|called|known|used|considered|regarded|made|given|taken|seen|found|located|based|named|termed|described|characteri[sz]ed|classified|defined|referred|thought|believed|said|told|shown)\b/i;
+
+  function isClauseLikeSpan(value) {
+    const text = cleanText(value);
+    if (!text) return true;
+    if (CLAUSE_BOUNDARY.test(text)) return true;
+    if (text.split(/\s+/).length > 2 && FINITE_VERB_IN_SPAN.test(text)) return true;
     return false;
   }
 
-  function isCleanQuantity(raw) {
-    const text = cleanText(raw || '');
-    // A clean quantity starts with a number and is a short number + unit /
-    // count phrase. In particular a comma followed by a word ("1908, two
-    // young members") is a merged year + count, not a quantity, while
-    // "2,000 km" (comma followed by a digit) is a thousands separator
-    // and is allowed.
-    if (!text) return false;
-    if (/,\s*[A-Za-z]/.test(text)) return false;
-    if (!/^-?\d/.test(text)) return false;
-    if (text.split(/\s+/).length > 3) return false;
-    // A quantity is a number plus a unit, not a clause. "14 states that
-    // the State" (Article 14 states that the State…) is a merged article
-    // number + verb + noun, not a quantity, and must never become an
-    // answer.
-    if (/\b(that|which|who|shall|during|the|a|an)\b/i.test(text)) return false;
+  // Definitions legitimately contain relative clauses ("the process by which
+  // plants ..."), so only true run-on punctuation disqualifies an object.
+  function hasClausePunctuation(value) {
+    return /(?:;|\u2014|\u2013|,\s*(?:but|yet|so)\b)/i.test(cleanText(value));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Option-span integrity
+  //
+  // Options are rendered verbatim, so a fact may only become a question when
+  // both of its spans are complete, concise phrases. Anything longer or more
+  // clause-like is rejected rather than trimmed.
+  // ---------------------------------------------------------------------------
+  const SPAN_FUNCTION_WORD_END = /^(?:a|an|the|of|in|on|at|to|and|or|but|with|for|from|by|as|that|which|who|whom|whose|is|are|was|were|be|been|being|has|have|had|its|their|his|her|this|these|those|such|than|then|when|where|while|because|into|over|under|between|among|through|during|about|after|before|against|within|without|across|along|around|behind|below|above|near|regarding|including|per|via)$/i;
+  const SPAN_DISCOURSE_OPENER = /^(?:hence|however|thus|therefore|moreover|furthermore|similarly|likewise|consequently|in\s+fact|indeed|also|for\s+example|for\s+instance|given\s+below|given\s+above|on\s+the\s+other\s+hand|in\s+addition|as\s+a\s+result|meanwhile|nevertheless|in\s+contrast|by\s+contrast|this|these|those|it|they)\b/i;
+  const SPAN_SENTENCE_PUNCT = /(?:[;?!]|\.\s|\.$)/;
+  const SPAN_QUOTES = /["“”‘’]/;
+  const SPAN_BAD_START = /^(?:them|him|her|us|me|it|they|this|these|those|which|who|whom|whose|that|being|been|violated|reorganised|reorganized|created|continued|evolved|includes?|consists?|comprises?|contains?|integrates?|promotes?|provides?|helps?|allows?|enables?|imagine|soon|with|without|as|and|but|or)\b/i;
+  const SPAN_EMBEDDED_SENTENCE_START = /\s(?:The|A|An|This|These|Those|It|They|He|She|We|You|In|On|At|For|But|And|However|Therefore|Thus|Hence|Soon|Imagine|Historians|According|When|While|If|After|Before|During|With|Without)\s/;
+  const SPAN_COMPOUND_PREDICATE = /\b(?:and|but|then)\s+\w+(?:ed|es|s)\b/i;
+
+  function endsOnFunctionWord(value) {
+    const text = cleanText(value);
+    if (/(?:and\s+)?so\s+on$/i.test(text)) return false;
+    const tokens = text.split(/\s+/);
+    const rawLast = tokens.length ? tokens[tokens.length - 1] : '';
+    const token = rawLast.replace(/[.,;:!?"'”’)\]]+$/g, '');
+    if (!token || /[’']/.test(rawLast)) return false;
+    return SPAN_FUNCTION_WORD_END.test(token);
+  }
+
+  function isQuestionSafeSpan(value, maxLength) {
+    const text = cleanText(value);
+    const limit = Number.isFinite(maxLength) ? maxLength : 160;
+    if (!text || text.length < 2 || text.length > limit) return false;
+    if (SPAN_SENTENCE_PUNCT.test(text)) return false;
+    if (SPAN_QUOTES.test(text)) return false;
+    if (SPAN_DISCOURSE_OPENER.test(text)) return false;
+    if (SPAN_BAD_START.test(text)) return false;
+    if (SPAN_EMBEDDED_SENTENCE_START.test(text)) return false;
+    if (endsOnFunctionWord(text)) return false;
+    return true;
+  }
+
+  function isQuestionSafeFact(fact) {
+    if (!fact) return false;
+    if (!isQuestionSafeSpan(fact.subject, 90)) return false;
+    if (!isQuestionSafeSpan(fact.object, 145)) return false;
+    const relation = String(fact.relation || '');
+    if (relation === 'comparison') {
+      if (isClauseLikeSpan(fact.subject)) return false;
+      if (cleanText(fact.subject).split(/\s+/).length > 10) return false;
+      if (isClauseLikeSpan(fact.object)) return false;
+      if (SPAN_COMPOUND_PREDICATE.test(cleanText(fact.object))) return false;
+      if (/^(?:consists?|comprises?|contains?|includes?|integrates?|promotes?|provides?|helps?|allows?|enables?)\b/i.test(cleanText(fact.object))) return false;
+    }
+    if (relation === 'causes' && isClauseLikeSpan(fact.object)) return false;
     return true;
   }
 
@@ -998,9 +805,12 @@
     // Commas are the primary separators. When the writer used an Oxford comma,
     // a bare "and" inside an item belongs to that item's noun phrase. Without
     // an Oxford comma, split the final "and" pair as well.
-    if (source.includes(',')) {
+    // A comma inside a number ("25,000") is a thousands separator, never a
+    // list boundary. Splitting it produced members such as "000 years".
+    const listComma = /(?<!\d),(?!\s*\d)/;
+    if (listComma.test(source)) {
       const oxford = /,\s*(?:and|or)\s+/i.test(source);
-      const parts = source.split(/\s*,\s*/i);
+      const parts = source.split(/(?<!\d)\s*,\s*(?!\d)/i);
       const expanded = oxford ? parts : parts.flatMap((part) => part.split(/\s+and\s+/i));
       return expanded
         .map(cleanMember)
@@ -1013,7 +823,7 @@
   }
 
   function parseSequence(text) {
-    const match = text.match(/\b(?:first|firstly|1st)\s+(.+?)(?:,\s*|\s*;\s*)(?:then|second|secondly|2nd)\s+(.+?)(?:,\s*(?:and\s+)?|\s+and\s+)(?:finally|third|thirdly|3rd|last)\s+(.+?)[.!?]?\s*$/i);
+    const match = text.match(/\b(?:first|1st)\s+(.+?)(?:,\s*|\s*;\s*)(?:then|second|2nd)\s+(.+?)(?:,\s*(?:and\s+)?|\s+and\s+)(?:finally|third|3rd|last)\s+(.+?)[.!?]?\s*$/i);
     if (!match) return null;
     const items = [match[1], match[2], match[3]]
       .map((item) => cleanText(item).replace(/^[,;:\s]+|[,;:\s]+$/g, ''))
@@ -1100,6 +910,8 @@
     if (!subject || !object || object.length < 6 || object.length > 320) return null;
     if (/^(?:it|this|these|those|they)\b/i.test(subject)) return null;
     if (UNUSABLE_SUBJECT_START.test(subject)) return null;
+    if (isClauseLikeSpan(match[1]) || hasClausePunctuation(object)) return null;
+    if (!isUsableSubject(subject)) return null;
     return {
       fact_type: 'definition',
       subject,
@@ -1143,7 +955,7 @@
 
     if (!members) {
       const plural = text.match(/^The\s+(.+?)\s+are\s+(.+?)[.!?]?\s*$/i);
-      if (plural && /\band\b|,/i.test(plural[2])) {
+      if (plural && /\band\b|(?<!\d),(?!\s*\d)/i.test(plural[2])) {
         subject = 'The ' + cleanText(plural[1]).replace(/[.,;:]+$/, '');
         members = splitList(plural[2]);
         exhaustive = /\b(?:two|three|four|five|six|seven|eight|nine|ten|\d+)\b/i.test(subject);
@@ -1188,6 +1000,16 @@
 
     if (!subject || !members || !members.length) return null;
     if (members.length > 20) return null;
+    // A list member is a noun phrase. Relative clauses and finite-verb spans
+    // ("who have lived ... for 25,000 years") describe a category; they are not
+    // members of it.
+    members = members.filter((member) => {
+      const span = cleanText(member);
+      if (!span) return false;
+      if (/^(?:who|whom|whose|which|that)\b/i.test(span)) return false;
+      return !isClauseLikeSpan(span);
+    });
+    if (!members.length) return null;
     if (/^(?:features|these|they|it|this|there|some|many|several)$/i.test(subject)) return null;
     const unique = [];
     for (const member of members) {
@@ -1207,67 +1029,25 @@
     };
   }
 
-  function parseCause(text) {
-    // Phase 8 fix: work on the clause containing the causal verb, not the
-    // whole multi-clause sentence. If the sentence has a semicolon and the
-    // text after the last semicolon still contains a causal verb, that
-    // clause is the causal clause; earlier clauses must not supply the
-    // subject. "for instance/for example" introductions are dropped.
-    if (typeof text === 'string' && text.includes(';')) {
-      const after = text.slice(text.lastIndexOf(';') + 1).trim();
-      if (/(causes?|leads?\s+to|results?\s+in|enables?|produces?|triggers?|influences?|determines?)\b/i.test(after)) {
-        text = after;
-      }
-    }
-    if (typeof text === 'string') {
-      text = text.replace(/\bfor (?:instance|example)\s*,\s*/i, '');
-    }
-    // Full-path repair, negation (P0): a negated causal claim is not
-    // a positive causal fact. "A mediator has no power to make any
-    // decision" must never become "mediator makes X possible" — the
-    // negation IS the meaning, and cleanFactSubject's has-split would
-    // otherwise strip "has no power to" and invert the answer. Only
-    // negation BEFORE the causal verb counts: "X causes Y, not Z"
-    // still states a positive claim about Y, so negation after the
-    // verb does not block. "not only" is positive and is stripped
-    // before the test.
-    {
-      const verbPos = text.search(/\b(causes?|leads?\s+to|results?\s+in|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|determines?|drives?|encourages?|forces?|strengthens?|weakens?|accelerates?|slows?\s+down|allows?|makes?|is\s+responsible\s+for)\b/i);
-      const beforeVerb = verbPos >= 0 ? text.slice(0, verbPos) : text;
-      const negationBefore = beforeVerb.replace(/\bnot\s+only\b/gi, '');
-      if (/(?:\bnot\b|\bnever\b|n't\b|\bcannot\b|\bcan\s+not\b|\bno\s+(?:power|authority|right|ability)\b|\bunabl\w+\s+to\b)/i.test(negationBefore)) {
-        return null;
-      }
-    }
-    // Phase 8 fix (second round): a naming explanation is not a causal
-    // mechanism. "Mountains are called water towers because they are at
-    // a height" does not mean mountains cause height, and "Mongolia is
-    // called the Land of the Eternal Blue Sky because it has sunny
-    // weather" does not mean Mongolia causes sunny weather.
-    if (typeof text === 'string' && /\bis called\b|\bknown as\b/i.test(text) && /\bbecause\b/i.test(text)) {
-      return null;
-    }
-    // Pattern 1 — explicit direct causal verb. Repair 002: supports,
-    // helps, allows, makes and affects are NOT direct causation merely
-    // because they occur in a broad relation pattern, so they are removed
-    // from this list. Two narrow causative constructions are handled
-    // separately below, only where the extracted arguments themselves
-    // state a direct effect clause (allows + infinitive effect, makes +
-    // base-verb effect); a bare "X supports Y" / "X helps Y" /
-    // "X affects Y" never becomes CAUSES here.
-    let match = text.match(/^(.+?)\s+(causes?|leads?\s+to|results?\s+in|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|determines?|drives?|encourages?|forces?|strengthens?|weakens?|accelerates?|slows?\s+down)\s+(.+?)[.!?]?\s*$/i);
-    if (match) {
+  const EXPLICIT_CAUSAL_VERB = /(causes?|leads?\s+to|results?\s+in|allows?|enables?|produces?|brings?\s+about|triggers?|contributes?\s+to|promotes?|stimulates?|inhibits?|prevents?|reduces?|increases?|decreases?|generates?|influences?|affects?|determines?|drives?|encourages?|forces?|makes?|supports?|strengthens?|weakens?|accelerates?|slows?\s+down)/i;
+  const DISCOURSE_OPENER = /^(?:for\s+(?:instance|example)|such\s+as|however|therefore|thus|hence|moreover|furthermore|in\s+fact|indeed|similarly|consequently)\s*,?\s*/i;
+  const FINITE_AUXILIARY = /\b(?:is|are|was|were|has|have|had|does|do|did)\b/i;
+
+  function parseExplicitCause(text) {
+    const clauses = cleanText(text).split(/\s*;\s*/).filter(Boolean);
+    for (const rawClause of clauses) {
+      const clause = rawClause.replace(DISCOURSE_OPENER, '').trim();
+      const match = clause.match(new RegExp('^(.+?)\\s+' + EXPLICIT_CAUSAL_VERB.source + '\\s+(.+?)[.!?]?\\s*$', 'i'));
+      if (!match) continue;
+      // A subject span must be a noun phrase, not a whole clause. If it still
+      // carries a finite verb or a clause boundary, the match is not safe.
+      if (/[;]/.test(match[1])) continue;
+      if (FINITE_AUXILIARY.test(match[1]) && match[1].trim().split(/\s+/).length > 6) continue;
       const subject = cleanFactSubject(match[1]);
       const object = cleanText(match[3]).replace(/[.,;:]+$/, '');
-      if (!subject || !object || object.length < 3) return null;
-      if (isFragmentPhrase(subject) || isFragmentPhrase(object)) return null;
-      // Phase 8 fix (second round): an effect must be a concept, not a
-      // compound predicate ("climate, and is home to a variety") and not
-      // a pronoun clause ("it has sunny weather"). A heading subject
-      // ("Water towers: Mountains") is not a cause concept either.
-      if (/\band\s+(is|are|was|were|has|have)\b/i.test(object)) return null;
-      if (/^(it|they|you|he|she|we)\b/i.test(object)) return null;
-      if (subject.includes(':')) return null;
+      if (!subject || !object || object.length < 3) continue;
+      if (isClauseLikeSpan(match[1]) || isClauseLikeSpan(object)) continue;
+      if (!isUsableSubject(subject)) continue;
       return {
         fact_type: 'causal',
         subject,
@@ -1279,71 +1059,35 @@
         extraction_method: 'causal_explicit'
       };
     }
+    return null;
+  }
 
-    // Pattern 1b — narrow causative constructions only. "X allows Y to
-    // <verb> ..." states an explicit effect clause, and "X makes Y
-    // <verb> ..." is a causative construction; both keep cause -> effect
-    // order and are not reversed. Anything without that effect clause
-    // falls through and is not forced into CAUSES.
-    const allowsMatch = text.match(/^(.+?)\s+allows?\s+(.+?\s+to\s+\S.+?)[.!?]?\s*$/i);
-    if (allowsMatch) {
-      const subject = cleanFactSubject(allowsMatch[1]);
-      const object = cleanText(allowsMatch[2]).replace(/[.,;:]+$/, '');
-      if (subject && object && object.length >= 5) {
-        return {
-          fact_type: 'causal',
-          subject,
-          relation: 'causes',
-          object,
-          relation_verb: 'allows',
-          causal_direction: 'cause_to_effect',
-          answer_kind: 'effect',
-          extraction_method: 'causal_allows_infinitive'
-        };
-      }
-    }
-    const makesMatch = text.match(/^(.+?)\s+makes?\s+(.+?\s+[a-z]+(?:\s+.+)?)[.!?]?\s*$/i);
-    if (makesMatch) {
-      // Only accept when the object clause contains a verb-like effect
-      // after a short noun phrase (e.g. "the metal expand", not a bare
-      // noun object such as "the students").
-      const object = cleanText(makesMatch[2]).replace(/[.,;:]+$/, '');
-      const objectWords = object.split(/\s+/);
-      if (objectWords.length >= 3) {
-        const subject = cleanFactSubject(makesMatch[1]);
-        if (subject && object.length >= 5) {
-          return {
-            fact_type: 'causal',
-            subject,
-            relation: 'causes',
-            object,
-            relation_verb: 'makes',
-            causal_direction: 'cause_to_effect',
-            answer_kind: 'effect',
-            extraction_method: 'causal_makes_effect'
-          };
-        }
-      }
-    }
+  function parseCause(text) {
+    // Pattern 1 — explicit causal verb, evaluated per clause so a leading
+    // context clause cannot donate its subject to the causal relation.
+    const explicit = parseExplicitCause(text);
+    if (explicit) return explicit;
 
-    // Pattern 2 — "X because Y"
-    const because = text.match(/^(.+?)\s+because\s+(.+?)[.!?]?\s*$/i);
+    // Pattern 2 — "X because Y" (but never "because of", which is a
+    // prepositional cause phrase handled by Pattern 3).
+    const because = text.match(/^(.+?)\s+because\s+(?!of\b)(.+?)[.!?]?\s*$/i);
     if (because) {
       const effect = cleanFactSubject(because[1]);
       const cause = cleanText(because[2]).replace(/[.,;:]+$/, '');
-      if (!effect || !cause || cause.length < 3) return null;
-      if (/^(it|they|you|he|she|we)\s+(is|are|was|were|has|have|had|can|could|will|would)\b/i.test(cause)) return null;
-      if (effect.includes(':')) return null;
-      return {
-        fact_type: 'causal',
-        subject: effect,
-        relation: 'causes',
-        object: cause,
-        relation_verb: 'because',
-        causal_direction: 'effect_because_cause',
-        answer_kind: 'effect',
-        extraction_method: 'causal_because'
-      };
+      if (effect && cause && cause.length >= 3
+          && !isClauseLikeSpan(because[1]) && !isClauseLikeSpan(cause)
+          && isUsableSubject(effect) && isUsableSubject(cause)) {
+        return {
+          fact_type: 'causal',
+          subject: effect,
+          relation: 'causes',
+          object: cause,
+          relation_verb: 'because',
+          causal_direction: 'effect_because_cause',
+          answer_kind: 'effect',
+          extraction_method: 'causal_because'
+        };
+      }
     }
 
     // Pattern 3 — "Due to / Owing to / Because of / As a result of X, Y"
@@ -1352,8 +1096,9 @@
       const cause = cleanText(dueToMatch[1]).replace(/[.,;:]+$/, '');
       const effect = cleanText(dueToMatch[2]).replace(/[.,;:]+$/, '');
       if (!cause || !effect || cause.length < 3 || effect.length < 5) return null;
+      if (isClauseLikeSpan(cause) || isClauseLikeSpan(effect)) return null;
       const causeSubject = cleanFactSubject(cause);
-      if (!causeSubject || UNUSABLE_SUBJECT_START.test(causeSubject)) return null;
+      if (!causeSubject || UNUSABLE_SUBJECT_START.test(causeSubject) || !isUsableSubject(causeSubject)) return null;
       return {
         fact_type: 'causal',
         subject: causeSubject,
@@ -1372,6 +1117,7 @@
       const subject = cleanFactSubject(responsibleMatch[1]);
       const object = cleanText(responsibleMatch[2]).replace(/[.,;:]+$/, '');
       if (!subject || !object || object.length < 3 || UNUSABLE_SUBJECT_START.test(subject)) return null;
+      if (isClauseLikeSpan(responsibleMatch[1]) || isClauseLikeSpan(object) || !isUsableSubject(subject)) return null;
       return {
         fact_type: 'causal',
         subject,
@@ -1390,8 +1136,9 @@
       const effect = cleanFactSubject(passiveMatch[1]);
       const cause = cleanText(passiveMatch[2]).replace(/[.,;:]+$/, '');
       if (!effect || !cause || cause.length < 3 || UNUSABLE_SUBJECT_START.test(effect)) return null;
+      if (isClauseLikeSpan(passiveMatch[1]) || isClauseLikeSpan(cause)) return null;
       const causeSubject = cleanFactSubject(cause);
-      if (!causeSubject) return null;
+      if (!causeSubject || !isUsableSubject(causeSubject) || !isUsableSubject(effect)) return null;
       return {
         fact_type: 'causal',
         subject: causeSubject,
@@ -1414,16 +1161,12 @@
     if (ifMatch) {
       const condition = cleanText(ifMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(ifMatch[2]).replace(/[.,;:]+$/, '');
-      // Phase 8 fix (fourth round): the condition must be a full clause,
-      // not just its noun subject. cleanFactSubject("senior Congress
-      // leaders were arrested") gave "senior Congress leaders", making
-      // the stem "what happens when senior Congress leaders?" unanswerable.
-      // A two-word proper name with no verb ("Muhammad Iqbal", before an
-      // appositive comma) is not a condition at all and must be rejected.
-      const condSubject = cleanText(condition);
+      const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1442,10 +1185,12 @@
     if (whenMatch) {
       const condition = cleanText(whenMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(whenMatch[2]).replace(/[.,;:]+$/, '');
-      const condSubject = cleanText(condition);
+      const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1464,10 +1209,12 @@
     if (unlessMatch) {
       const condition = cleanText(unlessMatch[1]).replace(/[.,;:]+$/, '');
       const consequence = cleanText(unlessMatch[2]).replace(/[.,;:]+$/, '');
-      const condSubject = cleanText(condition);
+      const condSubject = cleanFactSubject(condition);
       if (condSubject && consequence && consequence.length >= 8
-          && condSubject.split(/\s+/).length >= 3 && condSubject.split(/\s+/).length <= 12
-          && !UNUSABLE_SUBJECT_START.test(condSubject)) {
+          && condSubject.split(/\s+/).length <= 10
+          && !UNUSABLE_SUBJECT_START.test(condSubject)
+          && isUsableSubject(condSubject)
+          && !isClauseLikeSpan(condition) && !isClauseLikeSpan(consequence)) {
         return {
           fact_type: 'causal',
           subject: condSubject,
@@ -1795,7 +1542,9 @@
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[2]);
-      if (subject && object && object.length >= 4) {
+      if (subject && object && object.length >= 4
+          && !isClauseLikeSpan(match[1]) && !isClauseLikeSpan(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1811,7 +1560,9 @@
     if (match) {
       const subject = cleanFactSubject(match[1]);
       const object = trimFunctionObject(match[3]);
-      if (subject && object && object.length >= 4) {
+      if (subject && object && object.length >= 4
+          && !isClauseLikeSpan(match[1]) && !isClauseLikeSpan(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1845,8 +1596,12 @@
       const clauseLikeRole = /\b(?:has|have|had)\s+(?:held|said|stated|ruled|observed|noted|ordered|directed|announced|reported)\b/i.test(roleSubject)
         || /\b(?:that|which|who)\b/i.test(roleSubject);
       const subject = cleanFactSubject(roleSubject);
-      const object = cleanText(match[2]).replace(/[.,;:]+$/, '');
-      if (subject && object && object.length >= 4 && !clauseLikeRole && !/^(?:it|this|these|those|they)\b/i.test(subject)) {
+      const object = cleanText(match[2]).replace(/^called\s+/i, '').replace(/[.,;:]+$/, '');
+      if (subject && object && object.length >= 4 && !clauseLikeRole
+          && !/^(?:it|this|these|those|they)\b/i.test(subject)
+          && !isClauseLikeSpan(roleSubject) && !isClauseLikeSpan(object)
+          && !PARTICIPLE_OBJECT_START.test(object)
+          && isUsableSubject(subject)) {
         drafts.push({
           fact_type: 'entity_attribute',
           subject,
@@ -1930,31 +1685,103 @@
     return value;
   }
 
-  function numericAttribute(text, match, kind) {
+  const TIME_UNIT_ATTRIBUTE = /^(?:years?|months?|weeks?|days?|hours?|minutes?|seconds?|decades?|centuries|century|fortnights?)$/i;
+  const MEASURE_NOUN = /(average\s+|total\s+|maximum\s+|minimum\s+|mean\s+|annual\s+)?(length|width|height|depth|area|population|distance|elevation|altitude|extent|circumference|perimeter|density|rainfall|speed|capacity|volume|weight|mass|duration|age|temperature)/i;
+  const MEASURE_APPROX = /^(?:about|around|over|under|nearly|almost|approximately|approx\.?|roughly|more\s+than|less\s+than|up\s+to|at\s+least|at\s+most|of|is|was|reaches|measures|stands\s+at)\b/i;
+  const ENTITY_STOP_VERB = /^(?:is|are|was|were|has|have|had|stretches?|extends?|covers?|spans?|lies?|runs?|flows?|rises?|falls?|measures?|reaches?|occupies?|contains?|includes?|consists?|comprises?|forms?|makes?|borders?|separates?|connects?|divides?|begins?|starts?|ends?|occurs?|exists?|represents?|remains?|becomes?|grows?|produces?|receives?|gets?|holds?|keeps?|shows?|means?|refers?|depends?|requires?|allows?|helps?|prevents?|enables?|causes?|leads?|results?|triggers?|provides?|gives?|takes?|uses?|works?|serves?|stands?|sits?|appears?|seems?|indicates?|records?|experiences?|witnesses?|faces?)$/i;
+
+  // The entity a numeric claim is about: the leading noun phrase of the
+  // sentence, resolved through the carried subject when the sentence opens
+  // with an anaphor such as "The plateau ...".
+  function numericEntity(text, context) {
+    const clause = cleanText(text).split(/[,;:]/)[0];
+    const words = clause.split(/\s+/).filter(Boolean);
+    const picked = [];
+    for (const word of words) {
+      const bare = word.replace(/[^A-Za-z'’.-]/g, '');
+      if (!bare) break;
+      if (ENTITY_STOP_VERB.test(bare)) break;
+      if (/^(?:the|a|an)$/i.test(bare) && !picked.length) continue;
+      picked.push(bare);
+      if (picked.length >= 5) break;
+    }
+    let entity = picked.join(' ').replace(/[.,;:]+$/, '').replace(/^(?:the|a|an)\s+/i, '').trim();
+    const carried = context && context.previousSubject
+      ? String(cleanFactSubject(context.previousSubject) || '').replace(/^(?:the|a|an)\s+/i, '')
+      : null;
+    if (!entity) return carried && isUsableSubject(carried) ? carried : '';
+    if (!/^[A-Z]/.test(entity) && carried && isUsableSubject(carried) && normalizeSubject(carried) !== normalizeSubject(entity)) {
+      return carried;
+    }
+    if (!isUsableSubject(entity)) return carried && isUsableSubject(carried) ? carried : '';
+    return entity;
+  }
+
+  function numericAttribute(text, match, kind, context) {
+    // A numeric question must not reuse another number from the same sentence
+    // as its subject ("from 40°C ... to 5°C" must never ask about "40°C" while
+    // answering "5°C"). Any span that already carries a number is ambiguous.
+    const noNumber = (value) => (value && !/\d/.test(value) ? value : '');
+    const safeSpan = (value) => {
+      const candidate = noNumber(value);
+      if (!candidate) return '';
+      const text = String(candidate).trim();
+      if (text.length < 3) return '';
+      return isUsableSubject(text) ? text : '';
+    };
     const object = cleanText(match[0]);
     if (kind === 'count') {
       const withoutNumber = object.replace(/^-?\d[\d,]*(?:\.\d+)?\s*/, '');
       const cleaned = cleanNumericAttribute(withoutNumber);
-      return isUsableSubject(cleaned) ? cleaned : '';
+      // A bare time unit ("18 months") says when, not what: it cannot name
+      // the thing a numeric question is about.
+      if (TIME_UNIT_ATTRIBUTE.test(cleaned)) return '';
+      return safeSpan(cleaned);
     }
 
     const before = text.slice(0, match.index);
     const after = text.slice(match.index + match[0].length);
 
-    // 1. Inspect 'before': does preceding text establish the measured subject?
+    // 1. Directional extent: "2,500 km from east to west" / "north to south".
+    // The direction pair is part of the measured dimension, so the attribute
+    // keeps both the entity and the axis instead of a bare compass word.
+    const direction = after.match(/^\s*(?:from\s+)?(east|west|north|south)\s*(?:to|towards?|[-–—])\s*(east|west|north|south)\b/i);
+    if (direction) {
+      const pair = [direction[1].toLowerCase(), direction[2].toLowerCase()].sort().join('-');
+      const axis = pair === 'east-west' ? 'east-west' : (pair === 'north-south' ? 'north-south' : '');
+      if (axis) {
+        const entity = numericEntity(text, context);
+        if (entity) return safeSpan(`${entity} ${axis} extent`);
+      }
+    }
+
+    // 2. Explicit relational measurement: "average height of over 4,500 metres",
+    // "total area of ...", "population of ...". Only the named measurement is
+    // accepted, never an arbitrary noun phrase before the number.
+    const measure = before.match(new RegExp(MEASURE_NOUN.source + '(?:\\s+(?:of|is|was|reaches|measures|stands\\s+at))?\\s*(?:about|around|over|under|nearly|almost|approximately|roughly|more\\s+than|less\\s+than|up\\s+to|at\\s+least|at\\s+most)?\\s*$', 'i'));
+    if (measure) {
+      const qualifier = (measure[1] || '').trim().toLowerCase();
+      const measureText = (qualifier ? qualifier + ' ' : '') + measure[2].toLowerCase();
+      const entity = numericEntity(text, context);
+      if (entity && normalizeSubject(entity).indexOf(normalizeSubject(measure[2])) === -1) {
+        return safeSpan(`${entity} ${measureText}`);
+      }
+    }
+
+    // 3. Inspect 'before': does preceding text establish the measured subject?
     // Examples: "length of 2,000 km", "population of India is 1.4 billion", "area of 350,000 sq km"
     const wordsBefore = before.trim().split(/\s+/).slice(-6).join(' ');
-    const cleanedBefore = cleanNumericAttribute(wordsBefore);
-    if (cleanedBefore && cleanedBefore.length >= 3 && isUsableSubject(cleanedBefore)) {
+    const cleanedBefore = safeSpan(cleanNumericAttribute(wordsBefore));
+    if (cleanedBefore && cleanedBefore.length >= 3) {
       return cleanedBefore;
     }
 
-    // 2. Inspect 'after': ONLY accept 'after' if it explicitly connects via a preposition
+    // 4. Inspect 'after': ONLY accept 'after' if it explicitly connects via a preposition
     // or relational adjective (e.g. "of coastline", "in length", "long", "wide", "deep", "high").
     // Rejects adjacent map/diagram labels (e.g. "1000 km Equator ASIA...").
     if (/^\s*(?:of|in|across|throughout|from|to|long|wide|deep|high|tall|thick|broad)\b/i.test(after)) {
-      const cleanedAfter = cleanNumericAttribute(after);
-      if (cleanedAfter && cleanedAfter.length >= 3 && isUsableSubject(cleanedAfter)) {
+      const cleanedAfter = safeSpan(cleanNumericAttribute(after));
+      if (cleanedAfter && cleanedAfter.length >= 3) {
         return cleanedAfter;
       }
     }
@@ -1972,7 +1799,7 @@
     return depth > 0;
   }
 
-  function numericDrafts(text) {
+  function numericDrafts(text, context) {
     const drafts = [];
     const patterns = [
       { kind: 'currency', re: /(?:US\$|₹|\$)\s*-?\d[\d,]*(?:\.\d+)?(?:\s*(?:crore|billion|lakh|million|trillion))?/gi },
@@ -1989,11 +1816,13 @@
         const object = cleanText(match[0]);
         const info = parseNumericValue(object);
         if (!info) continue;
-        if (!isCleanQuantity(object)) continue;
         const prefix = text.slice(Math.max(0, match.index - 30), match.index);
         const approximate = /(?:~|over|about|approximately|around|nearly|almost|more\s+than|less\s+than|under|at\s+least|at\s+most|up\s+to)\s*$/i.test(prefix);
-        const negative = info.raw.startsWith('-') || /(?:not|never|cannot|no|without|nor|neither)\b[^.;]{0,24}$/i.test(prefix);
-        const attribute = numericAttribute(text, match, pattern.kind);
+        const suffix = text.slice(match.index + match[0].length, match.index + match[0].length + 18);
+        const negative = info.raw.startsWith('-')
+          || /(?:not|never|cannot|no|without|nor|neither|minus|negative|below\s+zero|under\s+zero)\b[^.;]{0,24}$/i.test(prefix)
+          || /^\s*(?:below|under)\s+zero\b/i.test(suffix);
+        const attribute = numericAttribute(text, match, pattern.kind, context);
         if (!attribute) continue;
         const subject = attribute;
         const answerKind = pattern.kind === 'currency' ? 'amount'
@@ -2021,24 +1850,22 @@
     return drafts;
   }
 
+  let lastFactExtractionDiagnostics = null;
+
+  function classifySentenceRole(text) {
+    if (ReasoningV2 && ReasoningV2.Linguistics && typeof ReasoningV2.Linguistics.classifySentenceRole === 'function') {
+      return ReasoningV2.Linguistics.classifySentenceRole(text);
+    }
+    return 'assertion';
+  }
+
   function parseFactRelations(sentence, sectionContext) {
     const text = cleanText(sentence);
     const context = sectionContext || {};
     if (!text) return [];
-    // Sentence-role gate (Repair 002, Phase 4): only assertions may
-    // generate ordinary factual propositions. This runs before causal,
-    // conditional, comparison, definition, sequence, exception or any
-    // other factual-relation extraction, and before the fallback below.
-    const sentenceRole = classifySentenceRole(text);
-    if (sentenceRole !== 'assertion') return [];
-    // Phase 8 fix: running book titles are page furniture, not facts, even
-    // when the layout extractor merged a footer line with body text on the
-    // same line (e.g. "Exploring Society: India and Beyond | G rade 8
-    // Part 2 launched in 1906."). A sentence unit containing that title
-    // pattern, or a spaced-out "G rade" artefact, must not become a fact.
-    if (/\bexploring society\b/i.test(text) && /\bgrade\b/i.test(text)) return [];
-    if (/\|\s*G\s*rade\b/i.test(text)) return [];
-    if (/^exploring society:/i.test(text)) return [];
+    // Only declarative assertions carry facts. Questions, prompts, captions,
+    // headings and labels are structural text, never evidence.
+    if (classifySentenceRole(text) !== 'assertion') return [];
     const facts = [];
     const add = (draft) => {
       if (!draft || !draft.subject || draft.object == null || draft.object === '') return;
@@ -2100,43 +1927,8 @@
     dates.forEach(add);
 
     parseEntityAttributes(text, context).forEach(add);
-    if (!dates.length) numericDrafts(text).forEach(add);
+    if (!dates.length) numericDrafts(text, context).forEach(add);
 
-    // Generic relational-verb fallback (quality, cross-subject): for
-    // sentences that yielded nothing, try "[Subject] <verb> [object]"
-    // with common relational verbs. This is what lets geography and
-    // civics sources work, not just "is/was" textbook sentences:
-    // "The Ganga originates from the Gangotri glacier" and
-    // "Article 19 protects freedom of speech" are facts, even though
-    // no earlier parser recognised "originates from" or "protects".
-    // Only specific subjects and clean noun-phrase objects qualify;
-    // clauses ("states that the State shall…") are allowed only for
-    // "states", where the clause itself is the answer, and other
-    // clause objects are rejected.
-    if (!facts.length) {
-      const genericMatch = text.match(/^([A-Z][^,.:!?]{2,60}?)\s+(originates from|flows through|runs? parallel to|protects|guarantees|ensures|provides|contains|covers|states that|is known for|is famous for)\s+(.+?)[.!?]?\s*$/i);
-      if (genericMatch) {
-        const genericSubject = cleanFactSubject(genericMatch[1]);
-        let genericVerb = genericMatch[2].toLowerCase().replace(/\s+/g, '_');
-        if (genericVerb === 'run_parallel_to') genericVerb = 'runs_parallel_to';
-        const genericObject = cleanText(genericMatch[3]).replace(/[.,;:]+$/, '');
-        const isClauseObject = /^(that|the state shall|the state|it)\b/i.test(genericObject) && genericVerb !== 'states_that';
-        if (genericSubject && genericObject
-            && isUsableSubject(genericSubject)
-            && !isFragmentPhrase(genericObject)
-            && !isClauseObject
-            && genericObject.length >= 3 && genericObject.length <= 100) {
-          add({
-            fact_type: 'entity_attribute',
-            subject: genericSubject,
-            relation: genericVerb,
-            object: genericObject,
-            answer_kind: genericVerb === 'originates_from' ? 'place' : 'entity',
-            extraction_method: 'generic_relational_verb'
-          });
-        }
-      }
-    }
     // Pattern-enriched fallback: for sentences that yielded nothing, try a broad
     // "[ProperNoun] is/was [description]" extraction. Guards keep it safe.
     if (!facts.length) {
@@ -2147,6 +1939,8 @@
         if (enrichSubject && enrichObject
             && isUsableSubject(enrichSubject)
             && !UNUSABLE_SUBJECT_START.test(enrichObject)
+            && !PARTICIPLE_OBJECT_START.test(enrichObject)
+            && !isClauseLikeSpan(enrichObject)
             && enrichObject.length >= 10 && enrichObject.length <= 100) {
           add({
             fact_type: 'entity_attribute',
@@ -2161,2487 +1955,6 @@
     }
 
     return facts;
-  }
-
-  // ------------------------------------------------------------------
-  // Phase 2A: strict typed-fact + unparsed-unit model.
-  //
-  // The production path turns every sentence unit into either a fact
-  // (possibly a fallback fact with empty subject, empty object and an
-  // 'unclassified' relation) or nothing at all, silently. This layer
-  // replaces that silent collapse with two explicit collections:
-  //
-  //   typed_facts  — facts with a supported type, a meaningful subject,
-  //                  a grounded object/value, a supported relation, exact
-  //                  evidence and source references, and preserved
-  //                  qualifiers (negation, approximation, units, dates,
-  //                  comparison direction, conditions, direction).
-  //   unparsed_units — source units that produced no typed fact, each
-  //                  with a deterministic reason code, the classification
-  //                  attempts made, and a potential-learning-relevance
-  //                  flag. Unparsed material is NEVER presented as a
-  //                  confidently extracted fact.
-  //
-  // This layer is diagnostic/telemetry in Phase 2A: it does not feed
-  // buildQuestionCandidates, distractor selection or validation, so it
-  // cannot change which questions are accepted or rejected. The one
-  // production-facing boundary it informs is the V2 proposition gate
-  // in reasoning/representation.js, which is quantified separately.
-  // ------------------------------------------------------------------
-
-  const TYPED_FACT_VERSION = 'phase2a-1';
-
-  // Fact types the typed layer accepts. 'fallback' is deliberately
-  // absent: an unclassified unit is an unparsed unit, never a fact.
-  const TYPED_FACT_TYPES = [
-    'date', 'numeric', 'definition', 'entity_attribute', 'membership',
-    'sequence', 'causal', 'comparison', 'table'
-  ];
-
-  // Deterministic unparsed-unit reason taxonomy (Phase 2A). Extend only
-  // by adding a documented code here and in chapter_3_typed_fact_schema.md.
-  const UNPARSED_REASON_CODES = {
-    UNSUPPORTED_PATTERN: 'unsupported_pattern',
-    MISSING_SUBJECT: 'missing_subject',
-    MISSING_OBJECT: 'missing_object',
-    FRAGMENT: 'fragment',
-    AMBIGUOUS_RELATION: 'ambiguous_relation',
-    INTERROGATIVE_OR_INSTRUCTION: 'interrogative_or_instruction',
-    CROSS_PAGE_CONTINUATION_UNRESOLVED: 'cross_page_continuation_unresolved',
-    LAYOUT_RELATIONSHIP_UNRESOLVED: 'layout_relationship_unresolved',
-    VISUAL_DEPENDENCY: 'visual_dependency',
-    CLASSIFICATION_CONFLICT: 'classification_conflict',
-    INSUFFICIENT_EVIDENCE: 'insufficient_evidence',
-    FURNITURE_CONTAMINATION: 'furniture_contamination'
-  };
-
-  // checkSubjectQuality codes that mean "this is a sentence fragment,
-  // not a noun phrase" versus "this is a layout artefact in subject
-  // position". The distinction decides the unparsed reason code.
-  const SUBJECT_FRAGMENT_CODES = new Set([
-    'TOO_SHORT', 'INVALID_START', 'TERMINAL_PUNCTUATION_FRAGMENT',
-    'INTERNAL_SENTENCE_BOUNDARY', 'FORBIDDEN_START_WORD', 'DUMMY_PRONOUN',
-    'UNIT_FRAGMENT', 'FRONTED_MODIFIER', 'DISCOURSE_FRAGMENT',
-    'QUESTION_WORD_SUBJECT', 'FINITE_VERB_SUBJECT', 'DANGLING_CORRELATIVE',
-    'VAGUE_REFERENCE_SUBJECT', 'IMPERATIVE_SUBJECT', 'UNBALANCED_QUOTES',
-    'UNBALANCED_PARENS', 'INSUFFICIENT_LETTERS', 'DANGLING_CONNECTOR'
-  ]);
-  const SUBJECT_ARTIFACT_CODES = new Set([
-    'RUNNING_FURNITURE', 'MAP_LEGEND_ARTIFACT', 'ALL_CAPS_LABEL_CONCATENATION',
-    'NUMERIC_HEADER_PREFIX', 'CALLOUT_BANNER_ARTIFACT',
-    'FIGURE_REFERENCE_ARTIFACT', 'NUMERIC_MAP_ARTIFACT',
-    'COMPASS_DIRECTION_SEQUENCE', 'EXCESSIVE_SINGLE_LETTERS'
-  ]);
-
-  // Running book titles merged into body text by the layout stage
-  // ("Exploring Society: India and Beyond | G rade 8 Part 2 ...").
-  // Production parseFactRelations rejects these sentences outright;
-  // the typed layer records them as furniture contamination instead of
-  // silently dropping them.
-  function isFurnitureContaminated(text) {
-    const source = cleanText(text);
-    if (!source) return false;
-    if (/\bexploring society\b/i.test(source) && /\bgrade\b/i.test(source)) return true;
-    if (/\|\s*G\s*rade\b/i.test(source)) return true;
-    if (/^exploring society:/i.test(source)) return true;
-    return false;
-  }
-
-  // parseFactRelations without the early returns. Production returns
-  // after a sequence sentence, after an initial-move sentence, and
-  // after a cause/conditional/comparison sentence whose claim was
-  // accepted — so later independently supported claims in the same
-  // sentence are silently lost. This variant runs every parser and
-  // collects every distinct claim (same dedup key as production).
-  // The two weaker fallbacks (generic relational verb, pattern
-  // enriched) still run only when nothing else matched, and numerics
-  // still run only when no dates matched, exactly as in production:
-  // those guards prevent over-splitting into invented relationships.
-  function parseAllFactRelations(sentence, sectionContext) {
-    const text = cleanText(sentence);
-    const context = sectionContext || {};
-    if (!text) return [];
-    if (isFurnitureContaminated(text)) return [];
-    const facts = [];
-    const add = (draft) => {
-      if (!draft || !draft.subject || draft.object == null || draft.object === '') return;
-      const duplicate = facts.some((fact) =>
-        fact.fact_type === draft.fact_type &&
-        normalizeSubject(fact.subject) === normalizeSubject(draft.subject) &&
-        normalizeRelation(fact.relation) === normalizeRelation(draft.relation) &&
-        normalizeObject(fact.object) === normalizeObject(draft.object)
-      );
-      if (!duplicate) {
-        facts.push(Object.assign({ supporting_excerpt: text, extraction_method: 'explicit' }, draft));
-      }
-    };
-
-    const sequence = parseSequence(text);
-    if (sequence) add(sequence);
-
-    const initialMove = parseInitialMove(text, context);
-    if (initialMove) initialMove.forEach(add);
-
-    const membership = parseMembership(text, context);
-    if (membership) add(membership);
-
-    const abbreviation = parseAbbreviation(text);
-    if (abbreviation) add(abbreviation);
-
-    const definition = parseDefinition(text);
-    if (definition) add(definition);
-
-    const cause = parseCause(text);
-    if (cause) add(cause);
-
-    const conditional = parseConditional(text);
-    if (conditional) add(conditional);
-
-    const comparison = parseComparison(text);
-    if (comparison) add(comparison);
-
-    const dates = parseDates(text, context);
-    dates.forEach(add);
-
-    parseEntityAttributes(text, context).forEach(add);
-    if (!dates.length) numericDrafts(text).forEach(add);
-
-    if (!facts.length) {
-      const genericMatch = text.match(/^([A-Z][^,.:!?]{2,60}?)\s+(originates from|flows through|runs? parallel to|protects|guarantees|ensures|provides|contains|covers|states that|is known for|is famous for)\s+(.+?)[.!?]?\s*$/i);
-      if (genericMatch) {
-        const genericSubject = cleanFactSubject(genericMatch[1]);
-        let genericVerb = genericMatch[2].toLowerCase().replace(/\s+/g, '_');
-        if (genericVerb === 'run_parallel_to') genericVerb = 'runs_parallel_to';
-        const genericObject = cleanText(genericMatch[3]).replace(/[.,;:]+$/, '');
-        const isClauseObject = /^(that|the state shall|the state|it)\b/i.test(genericObject) && genericVerb !== 'states_that';
-        if (genericSubject && genericObject
-            && isUsableSubject(genericSubject)
-            && !isFragmentPhrase(genericObject)
-            && !isClauseObject
-            && genericObject.length >= 3 && genericObject.length <= 100) {
-          add({
-            fact_type: 'entity_attribute',
-            subject: genericSubject,
-            relation: genericVerb,
-            object: genericObject,
-            answer_kind: genericVerb === 'originates_from' ? 'place' : 'entity',
-            extraction_method: 'generic_relational_verb'
-          });
-        }
-      }
-    }
-    if (!facts.length) {
-      const enrichMatch = text.match(/^([A-Z][^,.:!?]{2,50}?)\s+(?:is|was|are|were)\s+(.{10,100}?)[.!?]?\s*$/);
-      if (enrichMatch) {
-        const enrichSubject = cleanFactSubject(enrichMatch[1]);
-        const enrichObject = cleanText(enrichMatch[2]).replace(/[.,;:]+$/, '');
-        if (enrichSubject && enrichObject
-            && isUsableSubject(enrichSubject)
-            && !UNUSABLE_SUBJECT_START.test(enrichObject)
-            && enrichObject.length >= 10 && enrichObject.length <= 100) {
-          add({
-            fact_type: 'entity_attribute',
-            subject: enrichSubject,
-            relation: 'role',
-            object: enrichObject,
-            answer_kind: 'role',
-            extraction_method: 'pattern_enriched'
-          });
-        }
-      }
-    }
-
-    return facts;
-  }
-
-  // Classify one parser draft as a typed fact or a rejection.
-  // Returns { typed: true } or { typed: false, reason, detail }.
-  // Qualifiers are never stripped here: polarity, precision,
-  // numeric_kind, relation_verb, causal_direction, comparison and
-  // temporal_scope ride on the draft into the typed record.
-  function classifyTypedDraft(draft) {
-    if (!draft) return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'no draft produced' };
-    if (!draft.subject || !cleanText(draft.subject)) {
-      return { typed: false, reason: UNPARSED_REASON_CODES.MISSING_SUBJECT, detail: 'draft has no subject' };
-    }
-    if (draft.object == null || !cleanText(draft.object)) {
-      return { typed: false, reason: UNPARSED_REASON_CODES.MISSING_OBJECT, detail: 'draft has no object or value' };
-    }
-    if (TYPED_FACT_TYPES.indexOf(draft.fact_type) === -1) {
-      return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'unsupported fact type: ' + draft.fact_type };
-    }
-    const relation = normalizeRelation(draft.relation);
-    if (!relation || relation === 'unclassified') {
-      return { typed: false, reason: UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN, detail: 'unsupported relation: ' + draft.relation };
-    }
-    const subjectCheck = checkSubjectQuality(draft.subject);
-    if (!subjectCheck.valid) {
-      if (SUBJECT_FRAGMENT_CODES.has(subjectCheck.code)) {
-        return { typed: false, reason: UNPARSED_REASON_CODES.FRAGMENT, detail: 'subject quality: ' + subjectCheck.code };
-      }
-      if (SUBJECT_ARTIFACT_CODES.has(subjectCheck.code)) {
-        return { typed: false, reason: UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED, detail: 'subject quality: ' + subjectCheck.code };
-      }
-      return { typed: false, reason: UNPARSED_REASON_CODES.CLASSIFICATION_CONFLICT, detail: 'subject quality: ' + subjectCheck.code };
-    }
-    if (isFragmentPhrase(draft.object)) {
-      return { typed: false, reason: UNPARSED_REASON_CODES.FRAGMENT, detail: 'object is a fragment phrase' };
-    }
-    return { typed: true };
-  }
-
-  // Build the typed knowledge layer for a set of parsed sections.
-  // Returns { version, typed_facts, unparsed_units, partial_rejections,
-  // accounting, baseline }.
-  //
-  // - typed_facts: one record per accepted draft (a unit may yield
-  //   several; multi-claim units are flagged, never collapsed).
-  // - unparsed_units: one record per source unit that produced ZERO
-  //   typed facts, with reason, attempts and relevance flag.
-  // - partial_rejections: drafts rejected from units that DID produce
-  //   at least one typed fact. These are diagnostics, not unparsed
-  //   units, so unit denominators never double-count.
-  // - baseline: production extractSourceFacts counts for the same
-  //   sections (usable vs fallback), for old-vs-new comparison.
-  // - accounting: every count with a denominator; block/sentence/fact
-  //   counts are never mixed into one rejection total.
-  //
-  // options: { sourceMeta (singly-nested, corrected form), documentId }.
-  // The production batch passes a doubly-nested sourceMeta object to
-  // analyzeSource; for textbook (non-OCR) input both forms yield the
-  // same 'verified' confidence class, and the typed layer uses the
-  // corrected singly-nested form so an OCR origin, if present, would
-  // actually reach factConfidenceClass.
-  function buildTypedKnowledge(sections, options) {
-    const opts = options || {};
-    const sourceMeta = opts.sourceMeta || null;
-    const documentId = opts.documentId || 'unknown-document';
-    const list = Array.isArray(sections) ? sections : [];
-
-    const units = collectSentenceUnits(list);
-    const groups = detectTableGroups(units);
-    const tableUnitIndex = new Map();
-    groups.forEach((group) => {
-      group.unitIndices.forEach((unitIndex) => tableUnitIndex.set(unitIndex, group));
-    });
-
-    // Baseline production facts for comparison (and as the source of
-    // table facts, whose row/cell logic is not duplicated here).
-    const baselineFacts = extractSourceFacts(list, { sourceMeta: sourceMeta });
-    const baselineByKu = {};
-    baselineFacts.forEach((fact) => {
-      (baselineByKu[fact.ku_id] || (baselineByKu[fact.ku_id] = [])).push(fact);
-    });
-
-    const typedFacts = [];
-    const unparsedUnits = [];
-    const partialRejections = [];
-    let typedSeq = 0;
-    let unparsedSeq = 0;
-    let previousSubject = '';
-
-    const unitsByRole = {};
-    const unitsNoFactsByReason = {};
-    const typedFactsByType = {};
-    const partialRejectionsByReason = {};
-    let multiClaimUnits = 0;
-    let multiClaimFacts = 0;
-    let unitsTyped = 0;
-    let unitsTable = 0;
-
-    units.forEach((unit, unitIndex) => {
-      const role = unit.sentence_role || 'ambiguous';
-      unitsByRole[role] = (unitsByRole[role] || 0) + 1;
-      const text = cleanText(unit.source_text);
-      const sectionText = String((unit.section && unit.section.text) || '');
-
-      const recordUnparsed = (reason, detail, attempts) => {
-        unparsedSeq++;
-        unitsNoFactsByReason[reason] = (unitsNoFactsByReason[reason] || 0) + 1;
-        unparsedUnits.push({
-          unparsed_id: 'UU-LITE-' + padNumber(unparsedSeq, 3),
-          source_unit_id: unit.ku_id,
-          original_text: text,
-          source: {
-            document_id: documentId,
-            page: unit.source_page,
-            section_id: unit.section_id,
-            section_title: unit.section_title,
-            sentence_span: { start: unit.source_start, end: unit.source_end }
-          },
-          sentence_role: role,
-          reason: reason,
-          detail: detail || null,
-          classification_attempts: attempts || [],
-          potential_learning_relevance: role === 'assertion' && text.length >= 20,
-          related_units: {
-            previous_unit_id: unitIndex > 0 ? units[unitIndex - 1].ku_id : null,
-            next_unit_id: unitIndex + 1 < units.length ? units[unitIndex + 1].ku_id : null
-          }
-        });
-      };
-
-      // Table units: typed facts come from the production table path
-      // (one fact per non-header cell). Table units never seed the
-      // previous-subject chain and never go through prose parsing,
-      // exactly as in production.
-      if (tableUnitIndex.has(unitIndex)) {
-        unitsTable++;
-        const tableFacts = (baselineByKu[unit.ku_id] || [])
-          .filter((fact) => fact.fact_type === 'table');
-        if (!tableFacts.length) {
-          recordUnparsed(
-            UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED,
-            'table group detected but no table facts produced',
-            [{ parser: 'table', outcome: 'no_facts' }]);
-          return;
-        }
-        tableFacts.forEach((fact) => {
-          typedSeq++;
-          typedFactsByType.table = (typedFactsByType.table || 0) + 1;
-          typedFacts.push({
-            fact_id: 'TF-LITE-' + padNumber(typedSeq, 3),
-            source_fact_ids: [fact.fact_id],
-            fact_type: 'table',
-            subject: fact.subject,
-            relation: fact.relation,
-            object: fact.object,
-            normalized_subject: normalizeSubject(fact.subject),
-            normalized_relation: normalizeRelation(fact.relation),
-            normalized_object: normalizeObject(fact.object),
-            evidence: text,
-            evidence_span: { start: unit.source_start, end: unit.source_end },
-            object_span: locateInSection(sectionText, fact.object, unit.source_start, unit.source_end),
-            source: {
-              document_id: documentId,
-              page: unit.source_page,
-              section_id: unit.section_id,
-              section_title: unit.section_title,
-              block_ids: [],
-              sentence_id: unit.ku_id,
-              table_id: fact.table_id || null,
-              table_header: fact.table_header || null,
-              table_row: fact.table_row || null
-            },
-            qualifiers: {
-              polarity: fact.polarity || 'positive',
-              precision: fact.precision || 'exact',
-              numeric_kind: fact.numeric_kind || null,
-              relation_verb: fact.relation_verb || null,
-              causal_direction: fact.causal_direction || null,
-              attribute: fact.attribute || null,
-              temporal_scope: fact.temporal_scope || null,
-              comparison: fact.comparison || null,
-              members: fact.members ? fact.members.slice() : null,
-              sequence_items: fact.sequence_items ? fact.sequence_items.slice() : null
-            },
-            classification: { method: 'table', rule_id: 'phase2a-typed-v1' },
-            validation_state: factConfidenceClass(fact, sourceMeta),
-            multi_claim_unit: tableFacts.length > 1
-          });
-        });
-        unitsTyped++;
-        if (tableFacts.length > 1) { multiClaimUnits++; multiClaimFacts += tableFacts.length; }
-        return;
-      }
-
-      // Furniture contamination is checked BEFORE the pipe test: a
-      // merged running title contains a '|' ("... Beyond | G rade 8
-      // ...") that is furniture punctuation, not a table cell divider.
-      // Production's furniture guards likewise run before all parsers.
-      if (isFurnitureContaminated(text)) {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.FURNITURE_CONTAMINATION,
-          'running book title merged into body text',
-          [{ parser: 'furniture', outcome: 'contaminated' }]);
-        return;
-      }
-
-      // A pipe-delimited unit that failed the clean-table test is a
-      // ragged table row, not prose: preserve the relationship failure
-      // explicitly instead of forcing it through sentence parsing.
-      if (text.indexOf('|') !== -1) {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.LAYOUT_RELATIONSHIP_UNRESOLVED,
-          'pipe-delimited unit outside any clean table group',
-          [{ parser: 'table', outcome: 'group_not_clean' }]);
-        return;
-      }
-
-      // Sentence-role gate (mirrors production): only assertions may
-      // yield facts. Questions, instructions and ambiguous units become
-      // reason-coded unparsed units, never facts.
-      if (role === 'interrogative' || role === 'instruction') {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.INTERROGATIVE_OR_INSTRUCTION,
-          'sentence role: ' + role,
-          [{ parser: 'sentence_role', outcome: role }]);
-        return;
-      }
-      if (role !== 'assertion') {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.AMBIGUOUS_RELATION,
-          'sentence role: ' + role,
-          [{ parser: 'sentence_role', outcome: role }]);
-        return;
-      }
-
-      // Production completeness gates, made explicit: a lowercase-start
-      // unit after an unterminated unit on an EARLIER page is a
-      // cross-page continuation that was never stitched; otherwise it
-      // is a fragment. A unit without terminal punctuation is a
-      // fragment. Neither becomes a fact.
-      if (/^[a-z]/.test(text)) {
-        const previous = unitIndex > 0 ? units[unitIndex - 1] : null;
-        const previousUnterminated = previous
-          && !/[.!?"'")\]]\s*$/.test(cleanText(previous.source_text));
-        if (previous && previousUnterminated && previous.source_page < unit.source_page) {
-          recordUnparsed(
-            UNPARSED_REASON_CODES.CROSS_PAGE_CONTINUATION_UNRESOLVED,
-            'lowercase start after unterminated unit on an earlier page',
-            [{ parser: 'continuation', outcome: 'unresolved' }]);
-        } else {
-          recordUnparsed(
-            UNPARSED_REASON_CODES.FRAGMENT,
-            'unit starts lowercase',
-            [{ parser: 'completeness', outcome: 'lowercase_start' }]);
-        }
-        return;
-      }
-      if (!/[.!?"'")\]]$/.test(text)) {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.FRAGMENT,
-          'unit lacks terminal punctuation',
-          [{ parser: 'completeness', outcome: 'no_terminal_punctuation' }]);
-        return;
-      }
-
-      const drafts = parseAllFactRelations(text, { previousSubject: previousSubject });
-      if (!drafts.length) {
-        recordUnparsed(
-          UNPARSED_REASON_CODES.UNSUPPORTED_PATTERN,
-          'no parser produced a draft',
-          [{ parser: 'all', outcome: 'no_draft' }]);
-        return;
-      }
-
-      const accepted = [];
-      const rejected = [];
-      drafts.forEach((draft) => {
-        const verdict = classifyTypedDraft(draft);
-        if (verdict.typed) accepted.push(draft);
-        else rejected.push({ draft: draft, reason: verdict.reason, detail: verdict.detail });
-      });
-
-      if (!accepted.length) {
-        const attempts = rejected.map((entry) => ({
-          parser: entry.draft.extraction_method || 'explicit',
-          fact_type: entry.draft.fact_type || null,
-          outcome: entry.reason,
-          detail: entry.detail
-        }));
-        // One reason per unit: the first rejection reason, with all
-        // attempts preserved for inspection.
-        recordUnparsed(rejected[0].reason, rejected[0].detail, attempts);
-        return;
-      }
-
-      rejected.forEach((entry) => {
-        partialRejectionsByReason[entry.reason] =
-          (partialRejectionsByReason[entry.reason] || 0) + 1;
-        partialRejections.push({
-          source_unit_id: unit.ku_id,
-          fact_type: entry.draft.fact_type || null,
-          reason: entry.reason,
-          detail: entry.detail
-        });
-      });
-
-      accepted.forEach((draft) => {
-        typedSeq++;
-        typedFactsByType[draft.fact_type] = (typedFactsByType[draft.fact_type] || 0) + 1;
-        typedFacts.push({
-          fact_id: 'TF-LITE-' + padNumber(typedSeq, 3),
-          source_fact_ids: (baselineByKu[unit.ku_id] || [])
-            .filter((fact) => fact.fact_type === draft.fact_type
-              && normalizeSubject(fact.subject) === normalizeSubject(draft.subject)
-              && normalizeObject(fact.object) === normalizeObject(draft.object))
-            .map((fact) => fact.fact_id),
-          fact_type: draft.fact_type,
-          subject: draft.subject,
-          relation: draft.relation,
-          object: draft.object,
-          normalized_subject: normalizeSubject(draft.subject),
-          normalized_relation: normalizeRelation(draft.relation),
-          normalized_object: normalizeObject(draft.object),
-          evidence: text,
-          evidence_span: { start: unit.source_start, end: unit.source_end },
-          object_span: locateInSection(sectionText, draft.object, unit.source_start, unit.source_end),
-          source: {
-            document_id: documentId,
-            page: unit.source_page,
-            section_id: unit.section_id,
-            section_title: unit.section_title,
-            block_ids: [],
-            sentence_id: unit.ku_id
-          },
-          qualifiers: {
-            polarity: draft.polarity || 'positive',
-            precision: draft.precision || 'exact',
-            numeric_kind: draft.numeric_kind || null,
-            relation_verb: draft.relation_verb || null,
-            causal_direction: draft.causal_direction || null,
-            attribute: draft.attribute || null,
-            temporal_scope: draft.temporal_scope || null,
-            comparison: draft.comparison || null,
-            members: draft.members ? draft.members.slice() : null,
-            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null
-          },
-          classification: { method: draft.extraction_method || 'explicit', rule_id: 'phase2a-typed-v1' },
-          validation_state: factConfidenceClass(draft, sourceMeta),
-          multi_claim_unit: accepted.length > 1
-        });
-      });
-      unitsTyped++;
-      if (accepted.length > 1) { multiClaimUnits++; multiClaimFacts += accepted.length; }
-
-      // Previous-subject chain, mirroring production exactly: the first
-      // typed fact with a subject for this unit, ordered date, then
-      // entity_attribute, then membership, then numeric, then others.
-      const subjectSource = accepted
-        .filter((draft) => draft.subject)
-        .sort((a, b) => {
-          const order = { date: 0, entity_attribute: 1, membership: 2, numeric: 3 };
-          return (order[a.fact_type] == null ? 9 : order[a.fact_type])
-            - (order[b.fact_type] == null ? 9 : order[b.fact_type]);
-        })[0];
-      if (subjectSource) previousSubject = subjectSource.subject;
-    });
-
-    const baselineUsable = baselineFacts.filter((fact) => fact.fact_type !== 'fallback');
-    const baselineFallback = baselineFacts.filter((fact) => fact.fact_type === 'fallback');
-    const baselineTable = baselineFacts.filter((fact) => fact.fact_type === 'table');
-
-    const accounting = {
-      units_total: units.length,
-      units_by_role: unitsByRole,
-      units_typed: unitsTyped,
-      units_unparsed: unparsedUnits.length,
-      units_table: unitsTable,
-      typed_facts_total: typedFacts.length,
-      typed_facts_by_type: typedFactsByType,
-      typed_facts_with_complete_evidence: typedFacts.filter((fact) =>
-        fact.evidence && fact.evidence_span && fact.source && fact.source.sentence_id).length,
-      multi_claim_units: multiClaimUnits,
-      multi_claim_facts: multiClaimFacts,
-      units_producing_no_facts_by_reason: unitsNoFactsByReason,
-      partial_rejections_by_reason: partialRejectionsByReason,
-      partial_rejections_total: partialRejections.length,
-      baseline: {
-        facts_total: baselineFacts.length,
-        usable_facts: baselineUsable.length,
-        fallback_facts: baselineFallback.length,
-        table_facts: baselineTable.length
-      }
-    };
-
-    return {
-      version: TYPED_FACT_VERSION,
-      typed_facts: typedFacts,
-      unparsed_units: unparsedUnits,
-      partial_rejections: partialRejections,
-      accounting: accounting
-    };
-  }
-
-  // Phase 2B shadow adapter: analyse reconstructed source units with the
-  // SAME typed-knowledge gates as buildTypedKnowledge, while preserving
-  // reconstruction provenance. It does NOT feed production question
-  // builders and does NOT change buildTypedKnowledge, extractSourceFacts
-  // or any validator. Design notes, all deliberate:
-  // - One synthetic section per reconstructed unit, so every gate in
-  //   buildTypedKnowledge (sentence role, completeness, furniture, pipe,
-  //   parser drafts, typed classification) runs exactly as it does for
-  //   production sections. No gate is reimplemented here, so no drift.
-  // - The previous-subject chain resets per unit: reconstructed units
-  //   are not in production's page-ordered prose chain, and sharing a
-  //   chain across shadow units would invent cross-unit coreference.
-  // - Fact/unparsed IDs are remapped to stable TF-REC-/UU-REC- IDs
-  //   (unit order + within-unit order); the typed layer's own IDs are
-  //   kept in source.typed_layer_fact_id / typed_layer_unit_id.
-  // - Unresolved units and weak cross-page candidates are NEVER typed
-  //   input: they are reported in skipped_units, not facts.
-  // - Units the sentence segmenter reduces to zero units (e.g. shorter
-  //   than 6 alphanumeric characters) are reported in dropped_units.
-  // - Reconstruction success and fact-classification success are
-  //   separate outcomes: a unit that types to zero facts still counts
-  //   as reconstructed, and its unparsed record carries the reason.
-  // ---- Phase 2C shadow-only supplementary patterns (adapter-only) ----
-  // These helpers live behind buildTypedKnowledgeFromReconstructedUnits
-  // and are NEVER called from the production path. The shared parsers
-  // (parseDefinition, parseEntityAttributes, parseFactRelations,
-  // parseAllFactRelations) are not modified; supplementary drafts are
-  // classified by the unchanged classifyTypedDraft before they can
-  // become typed facts. No supplementary draft may become a fallback
-  // fact: a failed pattern simply yields no draft.
-
-  // Remove parenthesised figure references such as "(Fig. 3.20)".
-  // Returns { text, removed } where removed lists the references taken out.
-  function stripFigureReferences(text) {
-    const removed = [];
-    const cleaned = String(text || '').replace(/\s*\((?:Fig\.?|Figure)\s+\d+(?:\.\d+)*\)/gi, (match) => {
-      removed.push(match.trim());
-      return '';
-    });
-    return { text: cleanText(cleaned), removed: removed };
-  }
-
-  // Strip a leading "In <phrase>, " context prefix (a time or place
-  // phrase) when it contains no verb, parenthesis or colon. The prefix
-  // is context, not part of the claim; it is recorded in the fact's
-  // derivation and, for temporal phrases, as temporal_scope.
-  function stripLeadingContextPrefix(text) {
-    // One or more comma-separated prefix chunks ("In Thanjavur, Tamil
-    // Nadu, the ...") up to the article that starts the subject. A single
-    // comma is not enough: "In Thanjavur, Tamil Nadu, ..." must strip
-    // both place parts, or the subject keeps a leading place fragment.
-    const match = String(text || '').match(/^In\s+((?:[^,();:]+,\s*)+)(?=(?:the|a|an)\s)/i);
-    if (!match) return { text: text, prefix: null, kind: null };
-    const prefix = match[1].replace(/,\s*$/, '').trim();
-    if (/\b(is|are|was|were|has|have|had|been|being|built|constructed|developed|located|situated|founded)\b/i.test(prefix)) {
-      return { text: text, prefix: null, kind: null };
-    }
-    const kind = /\b(times|century|centuries|period|era|reign|dynasty|age)\b/i.test(prefix) ? 'temporal'
-      : /[A-Z\u00C0-\u024F]/.test(prefix) ? 'place' : null;
-    if (!kind) return { text: text, prefix: null, kind: null };
-    return { text: cleanText(String(text).slice(match[0].length)), prefix: prefix, kind: kind };
-  }
-
-  // Guard for the object of "built/constructed/developed in Y": it must
-  // look like a place or a period, not a manner, quantity or clause.
-  // This is what rejects "constructed in many sizes and shapes".
-  function isPlausibleInObject(object) {
-    const text = cleanText(object || '');
-    if (!text || text.split(/\s+/).length > 8) return false;
-    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom)\b/i.test(text)) return false;
-    if (/\b(in order to|many|several|various|different)\b/i.test(text)) return false;
-    if (!/[A-Z\u00C0-\u024F]/.test(text) && !/\b(times|century|centuries|period|era|reign|dynasty|age)\b/i.test(text)) return false;
-    return true;
-  }
-
-  // Guard for an agent ("built by Y"): an explicit noun phrase, never a
-  // bare pronoun, a clause or a verb phrase.
-  function isPlausibleAgent(agent) {
-    const text = cleanText(agent || '');
-    if (!text || text.split(/\s+/).length > 10) return false;
-    if (/^(it|they|he|she|them|him|her|this|that|these|those)$/i.test(text)) return false;
-    if (/\b(which|that|who|whom|is|are|was|were|has|have|had|been|being)\b/i.test(text)) return false;
-    return true;
-  }
-
-  // Split a trailing "around YYYY" / "in YYYY" date, or a trailing
-  // "in the Nth century" phrase (including PDF spacing "15 th century"),
-  // off an agent phrase. Without the century form, "built by Sultan
-  // Ahmed Shah I in the 15th century" would keep the period inside the
-  // agent name instead of as a temporal scope.
-  function splitTrailingDate(phrase) {
-    const match = String(phrase || '').match(/^(.*?)\s+(around|in)\s+(\d{3,4}(?:\s*(?:CE|BCE))?)\s*$/i);
-    if (match) return { phrase: cleanText(match[1]), temporal: match[2].toLowerCase() + ' ' + match[3] };
-    const century = String(phrase || '').match(/^(.*?)\s+in\s+the\s+(\d+)\s*(st|nd|rd|th)?\s*century\s*$/i);
-    if (century) return { phrase: cleanText(century[1]), temporal: 'in the ' + century[2] + (century[3] || '') + ' century' };
-    return { phrase: cleanText(phrase), temporal: null };
-  }
-
-  // Passive-voice drafts for one sentence segment. Only the patterns
-  // demonstrated by the Chapter 3 wells/stepwells and Nandi passages:
-  //   X is/was/are/were/has been/have been built|constructed|developed by Y
-  //   X is/was/are/were/has been/have been built|constructed|developed in Y
-  //   X developed in Y   (bare past "developed" only; bare "built" /
-  //   "constructed" without an auxiliary are participle phrases, not claims)
-  // Returns [{ draft, derivation }]. A pronoun subject never yields a
-  // draft here; pronoun subjects are handled by the resolver step, which
-  // substitutes the antecedent and then re-runs this function.
-  function passiveDraftsForSegment(segmentText) {
-    const text = cleanText(segmentText || '');
-    if (!text) return [];
-    const prefixStep = stripLeadingContextPrefix(text);
-    const figStep = stripFigureReferences(prefixStep.text);
-    const core = figStep.text;
-    const derivationBase = {
-      stripped_prefix: prefixStep.prefix,
-      prefix_kind: prefixStep.kind,
-      figure_refs_removed: figStep.removed
-    };
-    const out = [];
-    const pushDraft = (subject, verb, form, object, temporal) => {
-      let cleanedSubject = cleanFactSubject(subject);
-      if (!cleanedSubject) return;
-      // Phase 2D A7: an "According to tradition, " attribution is
-      // provenance, not part of the entity name. Strip it from the
-      // subject and carry it as a structured qualifier instead; the
-      // claim is never upgraded to an unqualified confirmed fact.
-      const attributionStep = stripAttributionPrefix(cleanedSubject);
-      const attribution = attributionStep.attribution;
-      cleanedSubject = attributionStep.subject;
-      if (!cleanedSubject) return;
-      if (/^(it|they|this|these|those)\b/i.test(cleanedSubject)) return;
-      // A parenthetical that breaks subject quality (transliterated
-      // alternates such as "(vāvs or bāorīs)" trip the single-letter
-      // rule) may be dropped ONLY when the remainder is itself a valid
-      // subject. The full sentence stays as evidence and the removal
-      // is recorded; otherwise the draft is left for classifyTypedDraft
-      // to reject, never silently repaired into a different claim.
-      let parentheticalRemoved = [];
-      if (!checkSubjectQuality(cleanedSubject).valid && /\([^)]*\)/.test(cleanedSubject)) {
-        const stripped = cleanText(cleanedSubject.replace(/\s*\([^)]*\)/g, ''));
-        if (stripped && checkSubjectQuality(stripped).valid) {
-          parentheticalRemoved = cleanedSubject.match(/\([^)]*\)/g) || [];
-          cleanedSubject = stripped;
-        }
-      }
-      // Phase 2D corpus audit: a subject ending in a lone capital
-      // letter after a lowercase word is a running-title fragment
-      // ("enturies C"), not an entity. A regnal numeral after a
-      // capitalised name ("Rājarāja Chola I") is explicitly allowed:
-      // the guard fires only when the preceding word starts lowercase.
-      // The full sentence stays as evidence; the draft is dropped.
-      const subjectTokens = cleanedSubject.split(/\s+/);
-      for (let ti = 1; ti < subjectTokens.length; ti++) {
-        const tok = subjectTokens[ti].replace(/[^A-Za-z\u00C0-\u024F]/g, '');
-        if (/^[A-Z]$/.test(tok)) {
-          const prev = subjectTokens[ti - 1].replace(/[^A-Za-z\u00C0-\u024F]/g, '');
-          if (prev && /^[a-z\u00E0-\u00FF]/.test(prev)) return;
-        }
-      }
-      const relation = verb.toLowerCase() + '_' + form;
-      out.push({
-        draft: {
-          fact_type: 'entity_attribute',
-          subject: cleanedSubject,
-          relation: relation,
-          object: object,
-          answer_kind: 'entity_attribute',
-          extraction_method: 'passive_' + relation,
-          temporal_scope: temporal || (prefixStep.kind === 'temporal' ? prefixStep.prefix : null),
-          attribution: attribution || null
-        },
-        derivation: Object.assign({ method: 'passive_' + relation, parenthetical_removed: parentheticalRemoved },
-          derivationBase, attribution ? { attribution: attribution } : {})
-      });
-    };
-    let match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+by\s+(.+)$/i);
-    if (match) {
-      const split = splitTrailingDate(match[3].replace(/[.]+$/, ''));
-      if (isPlausibleAgent(split.phrase)) pushDraft(match[1], match[2], 'by', split.phrase, split.temporal);
-      return out;
-    }
-    // Phase 2D corpus audit: a *_in relation here is a PLACE
-    // relation. isPlausibleInObject explicitly admits temporal words
-    // (century, era, period), so a temporal object must be rejected
-    // separately — "developed in the early 17th century" is a date
-    // claim, not a place claim, and must stay unparsed here rather
-    // than ship as developed_in.
-    const temporalObject = /\b(century|centuries|era|period|decade|millennium|year|years)\b/i;
-    match = core.match(/^(.+?)\s+(?:has been|have been|is|was|are|were)\s+(built|constructed|developed)\s+in\s+([^,.]+)/i);
-    if (match && isPlausibleInObject(match[3]) && !temporalObject.test(match[3])) {
-      pushDraft(match[1], match[2], 'in', cleanText(match[3]));
-      return out;
-    }
-    // NOTE: this pattern has two capture groups (subject, object), so the
-    // object is match[2] — unlike the aux forms above, where the verb is
-    // group 2 and the object is group 3. Using match[3] here silently
-    // yields undefined and rejects every bare "developed in" sentence.
-    match = core.match(/^(.+?)\s+developed\s+in\s+([^,.]+)/i);
-    if (match && isPlausibleInObject(match[2]) && !temporalObject.test(match[2])) {
-      pushDraft(match[1], 'developed', 'in', cleanText(match[2]));
-      return out;
-    }
-    return out;
-  }
-
-  // Explicit "X features Y" claims from caption units only. The caller
-  // enforces caption evidence source and a figure reference; a figure
-  // reference is provenance, never proof of identity.
-  function captionFeatureDrafts(segmentText) {
-    const text = cleanText(segmentText || '');
-    const match = text.match(/^(.+?)\s+features\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const figStep = stripFigureReferences(match[1]);
-    const subject = cleanFactSubject(figStep.text);
-    const object = cleanText(match[2]);
-    if (!subject || !object) return [];
-    if (/^(it|they|this|these|those)\b/i.test(subject)) return [];
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'features',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'caption_explicit_claim_features'
-      },
-      derivation: { method: 'caption_explicit_claim_features', figure_refs_removed: figStep.removed }
-    }];
-  }
-
-  // Glossary facts from a reconstructed glossary unit's structured
-  // metadata (term + definition) — never inferred from nearby prose.
-  // The primary definition sentence becomes a definition fact; a later
-  // "Here, it ..." sentence in the SAME unit resolves to the term by
-  // the unit's own metadata. Any other later sentence (including a
-  // second "Term:" entry) is left unparsed; entries are never combined.
-  // Returns [{ draft, segmentIndex, derivation }].
-  function glossaryDraftsForUnit(unit, segments) {
-    const term = cleanText(unit && unit.term);
-    const definition = cleanText(unit && unit.definition);
-    if (!term || !definition) return [];
-    const out = [];
-    const defSegments = segmentSentencesWithOffsets(definition);
-    if (!defSegments.length) return [];
-    const primary = cleanText(defSegments[0].text).replace(/[.]+$/, '');
-    if (!primary) return [];
-    let primaryIndex = segments.findIndex((seg) => cleanText(seg.text).indexOf(term + ':') === 0);
-    if (primaryIndex < 0) primaryIndex = 0;
-    out.push({
-      draft: {
-        fact_type: 'definition',
-        subject: term,
-        relation: 'definition',
-        object: primary,
-        answer_kind: 'definition',
-        extraction_method: 'glossary_term_definition'
-      },
-      segmentIndex: primaryIndex,
-      derivation: { method: 'glossary_term_definition', term: term }
-    });
-    segments.forEach((seg, segIndex) => {
-      if (segIndex === primaryIndex) return;
-      const hereMatch = cleanText(seg.text).match(/^Here,\s+(it|they)\s+is\s+(.+?)\.?$/i);
-      if (!hereMatch) return;
-      out.push({
-        draft: {
-          fact_type: 'entity_attribute',
-          subject: term,
-          relation: 'attribute',
-          object: cleanText(hereMatch[2]),
-          answer_kind: 'entity_attribute',
-          extraction_method: 'glossary_term_reference'
-        },
-        segmentIndex: segIndex,
-        derivation: { method: 'glossary_term_reference', term: term, original_subject: hereMatch[1] }
-      });
-    });
-    return out;
-  }
-
-  // Local pronoun resolution, bounded to ONE reconstructed unit.
-  // segmentSubjects: array per segment (in unit order) of distinct
-  // explicit subject strings from earlier layer/supplementary facts.
-  // The nearest preceding segment that yields any subject decides:
-  // exactly one compatible subject resolves; several distinct subjects
-  // in that segment are ambiguous and reject; an incompatible number
-  // walks further back. Nothing is ever carried across units, sections,
-  // captions, pages or documents. Number compatibility is a deliberate
-  // heuristic (compound "A and B" and plural morphology count as
-  // plural); failures err toward unresolved, never toward a guess.
-  // Returns { antecedent, ambiguous, segment_index }.
-  function resolveLocalPronounAntecedent(segmentSubjects, targetIndex, pronoun) {
-    const singular = /^(it|this)$/i.test(pronoun || '');
-    const pluralMorphology = (phrase) => {
-      const words = cleanText(phrase || '').split(/\s+/);
-      const last = words.length ? words[words.length - 1] : '';
-      if (/\b(people|children|men|women|persons|locals|devotees|visitors)\b/i.test(phrase)) return true;
-      return /[a-z]s$/i.test(last) && !/(ss|us|is)$/i.test(last);
-    };
-    for (let i = targetIndex - 1; i >= 0; i--) {
-      const subjects = segmentSubjects[i] || [];
-      if (!subjects.length) continue;
-      if (subjects.length > 1) return { antecedent: null, ambiguous: true, segment_index: i };
-      const candidate = subjects[0];
-      const compound = /\band\b/i.test(candidate);
-      if (singular && (compound || pluralMorphology(candidate))) continue;
-      if (!singular && !compound && !pluralMorphology(candidate)) continue;
-      return { antecedent: candidate, ambiguous: false, segment_index: i };
-    }
-    return { antecedent: null, ambiguous: false, segment_index: -1 };
-  }
-
-  // Deterministic normalized fact key for cross-unit dedup (spec
-  // section E): type + subject + relation + object, plus polarity and
-  // temporal scope so facts that differ in qualifiers stay separate.
-  function phase2cFactKey(fact) {
-    return [
-      fact.fact_type,
-      normalizeSubject(fact.subject),
-      normalizeRelation(fact.relation),
-      normalizeObject(fact.object),
-      (fact.qualifiers && fact.qualifiers.polarity) || 'positive',
-      (fact.qualifiers && fact.qualifiers.temporal_scope) || ''
-    ].join('|');
-  }
-
-  // Collapse identical facts across reconstructed units. Preference:
-  // complete per-page passages over cross-page merged units, and
-  // typed-layer facts over supplementary ones. The discarded duplicate
-  // and its source unit are recorded; never deduplicate merely for
-  // sharing a subject (the key includes relation, object and
-  // qualifiers, so different meanings survive).
-  function deduplicatePhase2cFacts(facts) {
-    const kept = new Map();
-    const discarded = [];
-    const rank = (fact) => {
-      const merged = fact.source && fact.source.evidence_source === 'cross_page_merged' ? 2 : 0;
-      const supp = fact.classification && fact.classification.rule_id === 'phase2c-shadow-v1' ? 1 : 0;
-      return merged + supp;
-    };
-    facts.forEach((fact) => {
-      const key = phase2cFactKey(fact);
-      const existing = kept.get(key);
-      if (!existing) {
-        kept.set(key, fact);
-        return;
-      }
-      if (rank(fact) < rank(existing)) {
-        discarded.push({
-          discarded_fact_id: existing.fact_id,
-          kept_fact_id: fact.fact_id,
-          fact_key: key,
-          discarded_unit_id: existing.source && existing.source.reconstructed_unit_id,
-          discarded_evidence_source: existing.source && existing.source.evidence_source,
-          kept_unit_id: fact.source && fact.source.reconstructed_unit_id,
-          reason: 'duplicate_fact_key'
-        });
-        kept.set(key, fact);
-      } else {
-        discarded.push({
-          discarded_fact_id: fact.fact_id,
-          kept_fact_id: existing.fact_id,
-          fact_key: key,
-          discarded_unit_id: fact.source && fact.source.reconstructed_unit_id,
-          discarded_evidence_source: fact.source && fact.source.evidence_source,
-          kept_unit_id: existing.source && existing.source.reconstructed_unit_id,
-          reason: 'duplicate_fact_key'
-        });
-      }
-    });
-    return { facts: Array.from(kept.values()), discarded: discarded };
-  }
-
-  // ---- Phase 2D shadow-only supplementary patterns (adapter-only) ----
-  // Same contract as Phase 2C: these helpers live behind
-  // buildTypedKnowledgeFromReconstructedUnits and are NEVER called from
-  // the production path. The shared parsers (parseDefinition,
-  // parseEntityAttributes, parseFactRelations, parseAllFactRelations)
-  // are not modified; every supplementary draft still passes the
-  // unchanged classifyTypedDraft before it can become a typed fact.
-  // Phase 2D producers run only on segments with no typed-layer facts
-  // (like the Phase 2C figure-cleanup rule), so they rescue unparsed
-  // claims instead of duplicating claims the layer already typed.
-
-  // Collapse PDF spacing in ordinals ("8 th" -> "8th") for temporal
-  // scopes. Evidence text is never altered; only the derived scope.
-  function normalizeOrdinals(text) {
-    return String(text || '').replace(/\b(\d+)\s+(st|nd|rd|th)\b/gi, '$1$2');
-  }
-
-  // Strip a leading "According to tradition, " attribution from a
-  // subject phrase. The attribution is returned separately so the
-  // adapter can record it as a structured qualifier instead of fusing
-  // it into the entity name (Phase 2D A7). A tradition-based claim is
-  // never upgraded to an unqualified confirmed fact.
-  function stripAttributionPrefix(subject) {
-    const match = String(subject || '').match(/^\s*According to tradition,\s*/i);
-    if (!match) return { subject: subject, attribution: null };
-    return { subject: cleanText(String(subject).slice(match[0].length)), attribution: 'According to tradition' };
-  }
-
-  // Plural test for relative-clause number agreement: a compound joined
-  // by "or"/"and" counts as plural when its last noun phrase is
-  // plural; otherwise the last content word's morphology decides.
-  function isPluralPhrase(phrase) {
-    const text = cleanText(phrase || '');
-    if (!text) return false;
-    const last = text.split(/\s+/).pop() || '';
-    if (/\b(people|children|men|women|persons|reservoirs|structures|temples)\b/i.test(text)) return true;
-    return /[a-z]s$/i.test(last) && !/(ss|us|is)$/i.test(last);
-  }
-
-  // Shared guard for supplementary subjects: explicit, meaningful,
-  // never a bare pronoun, never a figure-only remnant.
-  function supplementarySubjectOk(subject) {
-    const cleaned = cleanFactSubject(subject);
-    if (!cleaned) return null;
-    if (/^(it|they|this|these|those|he|she|we|you)\b/i.test(cleaned)) return null;
-    if (!checkSubjectQuality(cleaned).valid) return null;
-    return cleaned;
-  }
-
-  // A1. "X has A and B" — two attribute facts, one per stated
-  // attribute, never more. The figure reference is removed from the
-  // subject only when the remainder is independently valid (the caller
-  // passes already-cleaned text; this function re-checks). Exactly one
-  // top-level " and " is required, so multi-item lists are left
-  // unparsed rather than mis-split.
-  function hasAttributeDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const core = figStep.text;
-    const match = core.match(/^(.+?)\s+has\s+(.+?)\.?$/i);
-    if (!match) return [];
-    // Phase 2D corpus audit, guard H1: "has" must be the sentence's
-    // own main verb. If a finite auxiliary/copula already appears in
-    // the subject span, this "has" belongs to a subordinate clause
-    // ("the responsibility each one of us has towards ..."), and the
-    // sentence-initial noun is NOT its subject. Rejecting keeps the
-    // sentence unparsed; a relative-clause subject that genuinely
-    // owns a "has" ("the temple, which was built in 1010, has ...")
-    // is a known conservative loss, not a wrong fact.
-    if (/\b(is|are|was|were|be|been|being|am|have|had|do|does|did|will|would|could|should|may|might|must)\b/i.test(match[1])) return [];
-    const subject = supplementarySubjectOk(match[1]);
-    if (!subject) return [];
-    const objectPart = cleanText(match[2]);
-    // Phase 2D corpus audit, guard H2: "has" must be a main verb of
-    // possession, not a present-perfect auxiliary ("has called ...",
-    // "has thus endured ..."). After skipping leading adverbs, a
-    // verb-like first word (regular -ed/-en form or irregular
-    // participle) that is NOT directly followed by a noun/adjective
-    // is an auxiliary construction: "called this ..." (determiner
-    // follows) and "endured even ..." (adverb follows) reject, while
-    // "carved panels" (noun follows) and "multiple pillared levels"
-    // (not verb-like) still accept.
-    let adverbSkipped = objectPart;
-    let strippedAdverb = true;
-    while (strippedAdverb) {
-      const next = cleanText(adverbSkipped.replace(/^(thus|also|already|just|even|recently|now|still|often|always|never|once)\s+/i, ''));
-      strippedAdverb = next !== adverbSkipped;
-      adverbSkipped = next;
-    }
-    const objTokens = adverbSkipped.split(/\s+/).map((t) => t.replace(/[^A-Za-z\u00C0-\u024F]/g, '').toLowerCase());
-    const irregularParticiples = ['been', 'become', 'begun', 'bent', 'bitten', 'blown', 'broken', 'brought', 'built', 'bought', 'caught', 'chosen', 'come', 'cut', 'dealt', 'done', 'drawn', 'driven', 'eaten', 'fallen', 'fed', 'felt', 'found', 'forgotten', 'frozen', 'given', 'gone', 'grown', 'heard', 'held', 'hidden', 'hit', 'kept', 'known', 'laid', 'led', 'left', 'lost', 'made', 'meant', 'met', 'paid', 'put', 'read', 'ridden', 'risen', 'run', 'said', 'seen', 'sent', 'set', 'shaken', 'shown', 'shut', 'spoken', 'spent', 'stolen', 'struck', 'sworn', 'taken', 'taught', 'told', 'torn', 'understood', 'woken', 'worn', 'written', 'borne', 'beaten', 'bore', 'wore', 'won', 'sang', 'sank', 'sat', 'slept', 'slid'];
-    const nonNounFollowers = ['this', 'that', 'the', 'a', 'an', 'its', 'his', 'her', 'their', 'our', 'your', 'my', 'it', 'them', 'him', 'us', 'one', 'some', 'any', 'no', 'each', 'every', 'both', 'all', 'such', 'even', 'also', 'just', 'already', 'still', 'now', 'then', 'thus', 'so', 'yet', 'again', 'ever', 'never', 'often', 'always', 'recently', 'soon', 'together', 'apart', 'away', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'of', 'as', 'into', 'over', 'under', 'through', 'between', 'among', 'against', 'upon', 'about', 'after', 'before', 'during', 'without', 'within'];
-    const firstWord = objTokens[0] || '';
-    const secondWord = objTokens[1] || '';
-    const verbLike = /ed$/.test(firstWord) || /en$/.test(firstWord) || irregularParticiples.indexOf(firstWord) !== -1;
-    if (verbLike && (!secondWord || nonNounFollowers.indexOf(secondWord) !== -1 || /ed$/.test(secondWord) || /en$/.test(secondWord) || irregularParticiples.indexOf(secondWord) !== -1)) return [];
-    const andParts = objectPart.split(/\s+and\s+/i);
-    if (andParts.length !== 2) return [];
-    // Phase 2D corpus audit, guard H3: a trailing ", with X having
-    // ..." clause describes the attribute; it is not part of the
-    // attribute itself ("unique textiles, with every region having
-    // its own speciality" -> "unique textiles"). A trailing comma
-    // left by the " and " split ("banks, corporate offices,") is
-    // likewise stripped from each object.
-    const objects = andParts.map((p) => cleanText(cleanText(p).replace(/,\s*with\s+[^,]*\bhaving\b.*$/i, '').replace(/[,;]+$/, '')));
-    if (objects.some((o) => !o || o.split(/\s+/).length > 12)) return [];
-    if (objects.some((o) => /\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(o))) return [];
-    if (objects.some((o) => /^(no|not|never)\s+/i.test(o))) return []; // Negated possession ("has no power...") is not an attribute.
-    return objects.map((object) => ({
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'has',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'has_attribute'
-      },
-      derivation: { method: 'has_attribute', figure_refs_removed: figStep.removed }
-    }));
-  }
-
-  // A2. "stepwells offered a social space where ..." — one function
-  // fact whose object preserves the stated space and its activities.
-  // A leading "Besides <gerund phrase>, " prefix is context, recorded
-  // in the derivation; it is not part of the claim.
-  function offeredSocialSpaceDrafts(segmentText) {
-    let text = cleanText(segmentText || '');
-    let strippedPrefix = null;
-    const besides = text.match(/^Besides\s+[^,]+,\s*/i);
-    if (besides) {
-      strippedPrefix = cleanText(besides[0].replace(/,\s*$/, ''));
-      text = cleanText(text.slice(besides[0].length));
-    }
-    const match = text.match(/^(.+?)\s+offered\s+(a|an|the)\s+(social space where .+?)\.?$/i);
-    if (!match) return [];
-    const subject = supplementarySubjectOk(match[1]);
-    if (!subject) return [];
-    const object = cleanText(match[2] + ' ' + match[3]);
-    if (object.split(/\s+/).length > 40) return [];
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'offered',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'offered_social_space'
-      },
-      derivation: { method: 'offered_social_space', stripped_prefix: strippedPrefix }
-    }];
-  }
-
-  // A3. Relative-clause passive: "X had Y attached to them, which were
-  // /was used for Z". Two independent facts: the attachment claim and
-  // the use claim. The "which" antecedent is the object of "had" in
-  // the same sentence — never a noun from another sentence. Number
-  // agreement is enforced: a plural verb needs a plural antecedent
-  // and vice versa. On disagreement the use fact is rejected but the
-  // attachment fact (explicit on its own) is still produced. The
-  // "attached to them" wording is recorded in the derivation; the
-  // attachment fact's object is the antecedent phrase itself, because
-  // a trailing "them" would make the object a fragment phrase.
-  function relativeClauseDrafts(segmentText) {
-    const text = cleanText(segmentText || '');
-    const match = text.match(/^(.+?)\s+had\s+(.+?)\s+attached to them,\s+which\s+(were|was)\s+used for\s+(.+?)\.?$/i);
-    if (!match) return [];
-    let rawSubject = cleanText(match[1]);
-    let frequency = null;
-    const freqMatch = rawSubject.match(/\s+(often|usually|sometimes|generally|frequently)$/i);
-    if (freqMatch) {
-      frequency = freqMatch[1].toLowerCase();
-      rawSubject = cleanText(rawSubject.slice(0, rawSubject.length - freqMatch[0].length));
-    }
-    const subject = supplementarySubjectOk(rawSubject);
-    if (!subject) return [];
-    const antecedentRaw = cleanText(match[2]);
-    const antecedent = supplementarySubjectOk(antecedentRaw);
-    if (!antecedent) return [];
-    const useObject = cleanText(match[4]);
-    if (!useObject || /\b(is|are|was|were|has|have|had|been|being|which|that|who|whom)\b/i.test(useObject)) return [];
-    const out = [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'had',
-        object: antecedent,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'relative_clause_attachment'
-      },
-      derivation: { method: 'relative_clause_attachment', attached_to_them: true, frequency: frequency }
-    }];
-    const pluralVerb = match[3].toLowerCase() === 'were';
-    const pluralAntecedent = isPluralPhrase(antecedent);
-    if (pluralVerb !== pluralAntecedent) return out;
-    out.push({
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: antecedent,
-        relation: 'used_for',
-        object: useObject,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'relative_clause_used_for'
-      },
-      derivation: { method: 'relative_clause_used_for', antecedent_text: antecedent, frequency: frequency }
-    });
-    return out;
-  }
-
-  // A4a. Explicit "X is renowned for Y" claims. The object must be a
-  // complete stated noun phrase (the full list is kept, including a
-  // trailing relative clause that belongs to the last item). Pronoun
-  // subjects are rejected here; the caller substitutes a resolved
-  // antecedent before calling again.
-  function renownedDrafts(segmentText) {
-    const text = cleanText(segmentText || '');
-    const match = text.match(/^(.+?)\s+is\s+renowned for\s+(.+?)\.?$/i);
-    if (!match) return [];
-    // A figure reference in the subject is provenance, never an
-    // identity claim: it may be removed only when the remainder is
-    // independently valid (same rule as Phase 2C figure cleanup).
-    const figStep = stripFigureReferences(match[1]);
-    const subject = supplementarySubjectOk(figStep.text);
-    if (!subject) return [];
-    const object = cleanText(match[2]);
-    if (!object || object.split(/\s+/).length > 60) return [];
-    if (/^(and|or|but|with|of|for|in|on)\b/i.test(object)) return [];
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'renowned_for',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'renowned_for'
-      },
-      derivation: { method: 'renowned_for', figure_refs_removed: figStep.removed }
-    }];
-  }
-
-  // A4b. Explicit temporal size/scale claims, each with its correct
-  // temporal qualifier and nothing more:
-  //   "Until X, temples were modest in size."
-  //   "From X onward, ... they grew in scale"
-  // The second form resolves "they" only through the caller's bounded
-  // same-unit resolver; an unresolved pronoun rejects the draft.
-  // Ordinal spacing in the source ("8 th") is normalised in the scope
-  // only; evidence text is untouched.
-  function temporalScaleDrafts(segmentText, resolvePronoun) {
-    const text = normalizeOrdinals(cleanText(segmentText || ''));
-    let match = text.match(/^Until\s+(.+?),\s+(.+?)\s+were\s+modest in size\.?$/i);
-    if (match) {
-      const subject = supplementarySubjectOk(match[2]);
-      if (!subject) return [];
-      return [{
-        draft: {
-          fact_type: 'entity_attribute',
-          subject: subject,
-          relation: 'attribute',
-          object: 'modest in size',
-          answer_kind: 'entity_attribute',
-          extraction_method: 'temporal_scale_modest',
-          temporal_scope: 'until ' + cleanText(match[1])
-        },
-        derivation: { method: 'temporal_scale_modest' }
-      }];
-    }
-    match = text.match(/^From\s+(.+?)\s+onward,\s+(?:in different parts of India\s+)?(they|it|temples|.+?)\s+grew in scale\b/i);
-    if (match) {
-      let subjectText = cleanText(match[2]);
-      let resolution = null;
-      if (/^(they|it)$/i.test(subjectText)) {
-        if (typeof resolvePronoun !== 'function') return [];
-        resolution = resolvePronoun(subjectText);
-        if (!resolution || !resolution.antecedent) return [];
-        subjectText = resolution.antecedent;
-      }
-      const subject = supplementarySubjectOk(subjectText);
-      if (!subject) return [];
-      return [{
-        draft: {
-          fact_type: 'entity_attribute',
-          subject: subject,
-          relation: 'attribute',
-          object: 'grew in scale',
-          answer_kind: 'entity_attribute',
-          extraction_method: 'temporal_scale_grew',
-          temporal_scope: 'from ' + cleanText(match[1]) + ' onward'
-        },
-        derivation: {
-          method: 'temporal_scale_grew',
-          pronoun_resolution: resolution ? {
-            antecedent_text: resolution.antecedent,
-            original_subject: cleanText(match[2]),
-            antecedent_segment_index: resolution.segment_index
-          } : null
-        }
-      }];
-    }
-    return [];
-  }
-
-  // A5. Sketch claims from a caption sentence such as "A sketch made
-  // in 1809 by a British army officer shows the mosque's full-size
-  // minarets." Date and maker are independent: either may type
-  // without the other. Nothing here identifies the mosque — the
-  // "shows ..." clause is never turned into a fact, and no fact
-  // subject or object names a mosque. Derivation records explicitly
-  // that the mosque claim was left unbound.
-  function sketchClaimDrafts(segmentText) {
-    const text = cleanText(segmentText || '');
-    const subjectMatch = text.match(/^(A|An|The)\s+sketch\b/i);
-    if (!subjectMatch) return [];
-    const subject = subjectMatch[0];
-    const out = [];
-    const dateMatch = text.match(/\bsketch made in\s+(\d{3,4})\b/i);
-    if (dateMatch) {
-      out.push({
-        draft: {
-          fact_type: 'date',
-          subject: subject,
-          relation: 'made_in',
-          object: dateMatch[1],
-          answer_kind: 'date',
-          extraction_method: 'sketch_claim_date'
-        },
-        derivation: { method: 'sketch_claim_date', mosque_unbound: true }
-      });
-    }
-    const makerMatch = text.match(/\bsketch(?: made in \d{3,4})?\s+by\s+(.+?)\s+shows\b/i);
-    if (makerMatch && isPlausibleAgent(makerMatch[1])) {
-      out.push({
-        draft: {
-          fact_type: 'entity_attribute',
-          subject: subject,
-          relation: 'made_by',
-          object: cleanText(makerMatch[1]),
-          answer_kind: 'entity_attribute',
-          extraction_method: 'sketch_claim_maker'
-        },
-        derivation: { method: 'sketch_claim_maker', mosque_unbound: true }
-      });
-    }
-    return out;
-  }
-
-  // Coverage-expansion supplementary patterns (adapter-only). These
-  // rescue list/attribute claims the typed layer left unparsed because
-  // the sentence role was fragment/ambiguous, or the subject carried a
-  // parenthetical, a leading place phrase, or a trailing clause that
-  // belongs to a new clause rather than to the list. They run only on
-  // segments with no typed-layer facts (via runPhase2dProducers, or on
-  // a pronoun-substituted segment) and never on caption units:
-  // captions keep their own feature drafts plus the view-subject
-  // correction below. Every draft still passes classifyTypedDraft;
-  // evidence is never altered — truncation only affects the derived
-  // members, and each truncation is recorded in the derivation so a
-  // reader can see exactly what was dropped. Nothing here changes a
-  // shared parser, and no pattern below invents a member: a list that
-  // cannot be split cleanly stays unparsed.
-
-  // Truncate a list tail at a clause boundary. ", all of which ..."
-  // and ", and <finite verb> ..." start a new clause about the list,
-  // they are not members; ", with X having ..." is an attribute
-  // clause (the H3 rule from hasAttributeDrafts). Returns the kept
-  // text plus the rule that fired, or null when nothing truncates.
-  function truncateListTail(text) {
-    const source = cleanText(text || '');
-    const rules = [
-      { rule_id: 'all_of_which', pattern: /,\s*all of which\b[\s\S]*$/i },
-      { rule_id: 'and_finite_verb', pattern: /,\s*and\s+(is|are|was|were|has|have|had|will|would|can|could|shall|should|may|might|must)\b[\s\S]*$/i },
-      { rule_id: 'with_having', pattern: /,\s*with\s+[^,]*\bhaving\b[\s\S]*$/i }
-    ];
-    for (const entry of rules) {
-      if (entry.pattern.test(source)) {
-        return { text: cleanText(source.replace(entry.pattern, '')), truncation: entry.rule_id };
-      }
-    }
-    return { text: source, truncation: null };
-  }
-
-  // Strip one balanced mid-subject parenthetical ("Common features
-  // (also found ...) included ..." -> "Common features"). Nested or
-  // multiple parentheticals are left untouched: the subject-quality
-  // gate then decides, and a dirty subject yields no fact rather
-  // than a silently repaired one.
-  function stripSubjectParenthetical(subject) {
-    const text = cleanText(subject || '');
-    if ((text.match(/\(/g) || []).length !== 1 || (text.match(/\)/g) || []).length !== 1) {
-      return { subject: text, removed: null };
-    }
-    const match = text.match(/^(.*?)\s*\([^()]*\)\s*(.*)$/);
-    if (!match) return { subject: text, removed: null };
-    const removed = cleanText(text.slice(match[1].length, text.length - match[2].length));
-    return { subject: cleanText(match[1] + ' ' + match[2]), removed: removed };
-  }
-
-  // Strip a mid-subject participial insert ("The Jahangir Mahal,
-  // built to commemorate Emperor Jahangir's visit, showcases ..." ->
-  // "The Jahangir Mahal"). The insert must run to the end of the
-  // subject span with no comma inside it (so "X, built by Y, and Z"
-  // is never truncated to "X"), and the head must pass subject
-  // quality on its own; otherwise the subject is left untouched and
-  // the quality gate decides. Mirrors the 2C parenthetical rule:
-  // strip only when the remainder is independently valid.
-  function stripParticipialInsert(subject) {
-    const text = cleanText(subject || '').replace(/[,;:]+$/, '');
-    const match = text.match(/^(.+?),\s*(built|located|situated|founded|constructed|decorated|surrounded|established|designed|known|called|carved|painted|adorned|covered|dedicated|named)\b([^,]*)$/i);
-    if (!match) return { subject: text, removed: null };
-    const head = cleanText(match[1]);
-    if (!supplementarySubjectOk(head)) return { subject: text, removed: null };
-    return { subject: head, removed: cleanText(match[2] + match[3]) };
-  }
-
-  // Strip a leading "Within <place phrase>, " from a sentence, when
-  // the phrase contains no finite verb or clause marker. The place
-  // phrase is context, recorded in the derivation; it is not part of
-  // the subject ("Within the fort complex, a large palace has ..." ->
-  // subject "a large palace").
-  function stripWithinPrefix(text) {
-    const source = cleanText(text || '');
-    const match = source.match(/^Within\s+([^,]{2,80}),\s*(.+)$/);
-    if (!match) return { text: source, prefix: null };
-    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(match[1])) {
-      return { text: source, prefix: null };
-    }
-    return { text: cleanText(match[2]), prefix: 'Within ' + cleanText(match[1]) };
-  }
-
-  // Shared member guards for list producers: 2..20 unique members,
-  // no finite verb or clause marker inside any member (a member that
-  // contains one is a swallowed clause, not a list item), no member
-  // longer than 15 words. Any violation rejects the whole draft.
-  // List-member hygiene (coverage-expansion fix, 2026-10-27): a member
-  // must be a possessed item, not a clause fragment. Four corpus
-  // defects proved the need: "A mediator has no power to make any
-  // decision, or impose a view on the parties" typed "no power..."
-  // as a member (negated possession, not a member); "Society has
-  // many complex interactions..., therefore, disagreements and
-  // disputes may arise..." typed "therefore", "both personal" and
-  // a modal consequence clause as members; "The Supreme Court has
-  // an extraordinary discretionary jurisdiction..., or to do
-  // substantive justice..." typed a purpose infinitive as a member;
-  // "The seafloor has very deep, V-shaped areas called trenches"
-  // typed the adjective "very deep" as a member (and the maker
-  // chose it as the answer). Any offending member rejects the whole
-  // draft: a comma list whose structure is not a clean membership
-  // list is left untyped rather than repaired by guessing.
-  // Open-list markers ("etc") are dropped, not members: a list that
-  // still has >= 2 real members survives without them.
-  function cleanListMembers(membersText) {
-    const members = splitList(membersText || '');
-    const unique = [];
-    for (const member of members) {
-      if (!member || member.split(/\s+/).length > 15) return null;
-      if (/^(etc\.?|and so on|and others|among others)$/i.test(member)) continue;
-      if (/^(no|not|never)\s+/i.test(member)) return null;
-      if (/^(both|either|neither)\b/i.test(member)) return null;
-      if (/^to\s+/i.test(member)) return null;
-      if (/^(very|quite|rather|extremely|highly|particularly|especially)\s+/i.test(member)) return null;
-      if (/^(therefore|however|moreover|furthermore|thus|hence|meanwhile|consequently|additionally|besides|nonetheless|nevertheless|also|indeed|instead|likewise|otherwise)$/i.test(member)) return null;
-      if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because|may|might|can|could|will|would|shall|should|must|do|does|did)\b/i.test(member)) return null;
-      if (!unique.some((item) => normalizeObject(item) === normalizeObject(member))) unique.push(member);
-    }
-    if (unique.length < 2 || unique.length > 20) return null;
-    return unique;
-  }
-
-  function membershipDraftFromList(subject, members, method, derivation) {
-    return {
-      draft: {
-        fact_type: 'membership',
-        subject: subject,
-        relation: 'members',
-        object: members.join(', '),
-        members: members,
-        exhaustive: false,
-        answer_kind: 'member',
-        extraction_method: method
-      },
-      derivation: Object.assign({ method: method }, derivation || {})
-    };
-  }
-
-  // Membership lists the layer's listed pattern would type if the
-  // sentence role had allowed parsing: a subject carrying one
-  // parenthetical, a trailing "also", or a "Within ..." place prefix,
-  // and a member list with a trailing clause tail. The verb set
-  // mirrors the layer's listed pattern except cover(s): a "covers"
-  // list is usually document scope ("the chapter covers ..."), not a
-  // domain membership claim, and no target sentence needs it.
-  function membershipListDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const within = stripWithinPrefix(figStep.text);
-    const match = within.text.match(/^(.+?)\s+(includes?|included|consists?\s+of|comprised?|comprises?|contains?|carried|carries|encompass(?:es)?)\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const paren = stripSubjectParenthetical(match[1]);
-    const part = stripParticipialInsert(paren.subject);
-    let subjectRaw = part.subject;
-    let alsoStripped = false;
-    if (/\s+also$/i.test(subjectRaw)) {
-      subjectRaw = cleanText(subjectRaw.replace(/\s+also$/i, ''));
-      alsoStripped = true;
-    }
-    const subject = supplementarySubjectOk(subjectRaw);
-    if (!subject || /^features$/i.test(subject)) return [];
-    const tail = truncateListTail(match[3]);
-    const members = cleanListMembers(tail.text);
-    if (!members) return [];
-    return [membershipDraftFromList(subject, members, 'membership_list_ce', {
-      figure_refs_removed: figStep.removed,
-      within_prefix_stripped: within.prefix,
-      parenthetical_removed: paren.removed,
-      participial_removed: part.removed,
-      also_stripped: alsoStripped || null,
-      clause_truncation: tail.truncation
-    })];
-  }
-
-  // "X (also) includes <single object>" — the single-item companion
-  // to membershipListDrafts. A sentence the layer left as a fragment
-  // because a second clause follows ("... includes elegant chhatris
-  // on the riverbank, and is connected to ...") still states one
-  // clean includes claim once the trailing clause is truncated.
-  // Fires only when the truncated object splits to exactly one
-  // member, so multi-member lists stay with membershipListDrafts
-  // and never double-type. The second clause itself is not typed:
-  // one safe claim per segment is enough for the evidence to link.
-  function includesAttributeDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const match = figStep.text.match(/^(.+?)\s+includes?\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const paren = stripSubjectParenthetical(match[1]);
-    const part = stripParticipialInsert(paren.subject);
-    let subjectRaw = part.subject;
-    let alsoStripped = false;
-    if (/\s+also$/i.test(subjectRaw)) {
-      subjectRaw = cleanText(subjectRaw.replace(/\s+also$/i, ''));
-      alsoStripped = true;
-    }
-    const subject = supplementarySubjectOk(subjectRaw);
-    if (!subject) return [];
-    const tail = truncateListTail(match[2]);
-    const members = splitList(tail.text);
-    if (members.length !== 1) return [];
-    const object = cleanText(tail.text);
-    if (!object || object.split(/\s+/).length > 25) return [];
-    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
-    if (/^(no|not|never)\s+/i.test(object)) return []; // "includes no X" states an absence, not a possession.
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'includes',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'includes_attribute_ce'
-      },
-      derivation: {
-        method: 'includes_attribute_ce',
-        figure_refs_removed: figStep.removed,
-        parenthetical_removed: paren.removed,
-        participial_removed: part.removed,
-        also_stripped: alsoStripped || null,
-        clause_truncation: tail.truncation
-      }
-    }];
-  }
-
-  // "X features <list>" for body prose. The list must be delimited by
-  // an em/en dash separating a count phrase from the list ("three
-  // main palaces — Raja Mahal, Jahangir Mahal, and Rai Praveen
-  // Mahal": the count phrase is recorded, never counted as a member)
-  // or by commas. Without a dash or a comma there is no list
-  // structure to trust: "X features A and B" may fuse a phrase
-  // ("screens alongside carvings and pillars"), and a single object
-  // is an attribute, not a membership list. Caption units are
-  // excluded by the caller: captions keep captionFeatureDrafts.
-  function featuresListDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const match = figStep.text.match(/^(.+?)\s+features?\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const part = stripParticipialInsert(match[1]);
-    const subject = supplementarySubjectOk(part.subject);
-    if (!subject || /^features$/i.test(subject)) return [];
-    let rest = cleanText(match[2]);
-    let countPhrase = null;
-    let dashSplit = false;
-    const dash = rest.match(/^(.+?)\s*(?:\u2014|\u2013|--)\s*(.+)$/);
-    if (dash) {
-      countPhrase = cleanText(dash[1]);
-      rest = cleanText(dash[2]);
-      dashSplit = true;
-      if (!countPhrase || countPhrase.length > 60) return [];
-    } else if (!/,/.test(rest)) {
-      return [];
-    }
-    const tail = truncateListTail(rest);
-    const members = cleanListMembers(tail.text);
-    if (!members) return [];
-    return [membershipDraftFromList(subject, members, 'features_list_ce', {
-      figure_refs_removed: figStep.removed,
-      participial_removed: part.removed,
-      dash_split: dashSplit || null,
-      count_phrase: countPhrase,
-      clause_truncation: tail.truncation
-    })];
-  }
-
-  // "X showcases Y" where Y is a plain noun phrase. Bounded to one
-  // verb; the object must contain no finite verb or clause marker,
-  // so a showcases claim never swallows a following clause.
-  function showcasesDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const match = figStep.text.match(/^(.+?)\s+showcases?\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const part = stripParticipialInsert(match[1]);
-    const subject = supplementarySubjectOk(part.subject);
-    if (!subject) return [];
-    const object = cleanText(match[2]);
-    if (!object || object.split(/\s+/).length > 25) return [];
-    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
-    if (/^(no|not|never)\s+/i.test(object)) return []; // "showcases no X" states an absence, not a showcase.
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'showcases',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'showcases_ce'
-      },
-      derivation: { method: 'showcases_ce', figure_refs_removed: figStep.removed, participial_removed: part.removed }
-    }];
-  }
-
-  // "X has <comma list>" — the multi-item companion to
-  // hasAttributeDrafts, which handles exactly two " and "-joined
-  // attributes and is left untouched. A comma is required, so bare
-  // pairs stay with hasAttributeDrafts and never duplicate. Guards H1
-  // (main-verb "has") and H2 (possession, not present-perfect
-  // auxiliary) are mirrored from hasAttributeDrafts; the member list
-  // is truncated at clause boundaries like membership lists. The
-  // result is one membership fact for the whole list, not one "has"
-  // fact per item: a comma enumeration is a list claim, and per-item
-  // facts would bundle comma-joined pairs into single answers.
-  function hasListDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const within = stripWithinPrefix(figStep.text);
-    const core = within.text;
-    const match = core.match(/^(.+?)\s+has\s+(.+?)\.?$/i);
-    if (!match) return [];
-    if (/\b(is|are|was|were|be|been|being|am|have|had|do|does|did|will|would|could|should|may|might|must)\b/i.test(match[1])) return [];
-    const part = stripParticipialInsert(match[1]);
-    const subject = supplementarySubjectOk(part.subject);
-    if (!subject) return [];
-    const objectPart = cleanText(match[2]);
-    if (!/,/.test(objectPart)) return [];
-    let adverbSkipped = objectPart;
-    let strippedAdverb = true;
-    while (strippedAdverb) {
-      const next = cleanText(adverbSkipped.replace(/^(thus|also|already|just|even|recently|now|still|often|always|never|once)\s+/i, ''));
-      strippedAdverb = next !== adverbSkipped;
-      adverbSkipped = next;
-    }
-    const objTokens = adverbSkipped.split(/\s+/).map((t) => t.replace(/[^A-Za-z\u00C0-\u024F]/g, '').toLowerCase());
-    const irregularParticiples = ['been', 'become', 'begun', 'bent', 'bitten', 'blown', 'broken', 'brought', 'built', 'bought', 'caught', 'chosen', 'come', 'cut', 'dealt', 'done', 'drawn', 'driven', 'eaten', 'fallen', 'fed', 'felt', 'found', 'forgotten', 'frozen', 'given', 'gone', 'grown', 'heard', 'held', 'hidden', 'hit', 'kept', 'known', 'laid', 'led', 'left', 'lost', 'made', 'meant', 'met', 'paid', 'put', 'read', 'ridden', 'risen', 'run', 'said', 'seen', 'sent', 'set', 'shaken', 'shown', 'shut', 'spoken', 'spent', 'stolen', 'struck', 'sworn', 'taken', 'taught', 'told', 'torn', 'understood', 'woken', 'worn', 'written', 'borne', 'beaten', 'bore', 'wore', 'won', 'sang', 'sank', 'sat', 'slept', 'slid'];
-    const nonNounFollowers = ['this', 'that', 'the', 'a', 'an', 'its', 'his', 'her', 'their', 'our', 'your', 'my', 'it', 'them', 'him', 'us', 'one', 'some', 'any', 'no', 'each', 'every', 'both', 'all', 'such', 'even', 'also', 'just', 'already', 'still', 'now', 'then', 'thus', 'so', 'yet', 'again', 'ever', 'never', 'often', 'always', 'recently', 'soon', 'together', 'apart', 'away', 'in', 'on', 'at', 'to', 'for', 'with', 'by', 'from', 'of', 'as', 'into', 'over', 'under', 'through', 'between', 'among', 'against', 'upon', 'about', 'after', 'before', 'during', 'without', 'within'];
-    const firstWord = objTokens[0] || '';
-    const secondWord = objTokens[1] || '';
-    const verbLike = /ed$/.test(firstWord) || /en$/.test(firstWord) || irregularParticiples.indexOf(firstWord) !== -1;
-    if (verbLike && (!secondWord || nonNounFollowers.indexOf(secondWord) !== -1 || /ed$/.test(secondWord) || /en$/.test(secondWord) || irregularParticiples.indexOf(secondWord) !== -1)) return [];
-    const tail = truncateListTail(objectPart);
-    const members = cleanListMembers(tail.text);
-    if (!members) return [];
-    return [membershipDraftFromList(subject, members, 'has_list_ce', {
-      figure_refs_removed: figStep.removed,
-      participial_removed: part.removed,
-      within_prefix_stripped: within.prefix,
-      clause_truncation: tail.truncation
-    })];
-  }
-
-  // "X was (originally) made of Y" — a material attribute. The object
-  // is truncated at a following clause boundary (", and had fallen
-  // ..."), so only the material itself becomes the object.
-  function madeOfDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const match = figStep.text.match(/^(.+?)\s+was\s+(?:originally\s+)?made\s+of\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const paren = stripSubjectParenthetical(match[1]);
-    const part = stripParticipialInsert(paren.subject);
-    const subject = supplementarySubjectOk(part.subject);
-    if (!subject) return [];
-    const tail = truncateListTail(match[2]);
-    const object = cleanText(tail.text);
-    if (!object || object.split(/\s+/).length > 20) return [];
-    if (/\b(is|are|was|were|has|have|had|been|being|which|that|who|whom|when|where|because)\b/i.test(object)) return [];
-    if (/^(no|not|never)\s+/i.test(object)) return []; // "made of no X" is not a material claim.
-    return [{
-      draft: {
-        fact_type: 'entity_attribute',
-        subject: subject,
-        relation: 'made_of',
-        object: object,
-        answer_kind: 'entity_attribute',
-        extraction_method: 'made_of_ce'
-      },
-      derivation: {
-        method: 'made_of_ce',
-        figure_refs_removed: figStep.removed,
-        parenthetical_removed: paren.removed,
-        participial_removed: part.removed,
-        clause_truncation: tail.truncation
-      }
-    }];
-  }
-
-  // "X was designed to include <list>" — a membership list under a
-  // passive design verb. Same member guards as the other list
-  // producers; also runs on pronoun-substituted text (see the
-  // pronoun block below) so "It was designed to include ..." types
-  // once its antecedent segment is typed.
-  function designedIncludeDrafts(segmentText) {
-    const figStep = stripFigureReferences(segmentText);
-    const match = figStep.text.match(/^(.+?)\s+was\s+designed\s+to\s+include\s+(.+?)\.?$/i);
-    if (!match) return [];
-    const part = stripParticipialInsert(match[1]);
-    const subject = supplementarySubjectOk(part.subject);
-    if (!subject) return [];
-    const tail = truncateListTail(match[2]);
-    const members = cleanListMembers(tail.text);
-    if (!members) return [];
-    return [membershipDraftFromList(subject, members, 'designed_include_ce', {
-      figure_refs_removed: figStep.removed,
-      participial_removed: part.removed,
-      clause_truncation: tail.truncation
-    })];
-  }
-
-  // A6. Deterministic "etc." sentence boundary, adapter-only: split a
-  // segment at "etc." ONLY when it is followed by whitespace and a
-  // capital-letter sentence start, and both halves are substantial.
-  // "etc.," continuations, lowercase continuations, and a trailing
-  // "etc." never split. The production segmenter is untouched.
-  // Returns null or { first, second } (trimmed half texts).
-  function splitEtcBoundary(segmentText) {
-    const text = String(segmentText || '');
-    const match = text.match(/^(.*?etc\.)(\s+)([A-Z].*)$/);
-    if (!match) return null;
-    const first = cleanText(match[1]);
-    const second = cleanText(match[3]);
-    if (first.length < 20 || second.length < 20) return null;
-    return { first: first, second: second };
-  }
-
-  // Phase 2E boundary recovery, adapter-only. Splits a contaminated
-  // segment at a demonstrated boundary so each piece is typed (or left
-  // unparsed) independently. Only segments with no layer facts and a
-  // layer unparsed entry are candidates, mirroring the "etc." split.
-  // Returns null or { rule_id, first, second, reparseFirst,
-  // reparseSecond }. A piece with reparse false is never re-parsed:
-  // it is a truncated fragment by construction (a dangling "(see" head
-  // or a lowercase tail) and becomes an unparsed record, never a fact
-  // source. Re-parsed pieces go through parseAllFactRelations +
-  // classifyTypedDraft exactly as the layer does, so no new parser
-  // behaviour is introduced; the shared segmenter is untouched.
-  // Priority: dangling "(see", then em/en dash, then lowercase tail,
-  // then missing period — a segment matching an earlier rule is not
-  // re-tested.
-  function splitPhase2eBoundary(segmentText) {
-    const text = String(segmentText || '');
-    // R-BND-SEE: an unclosed "(see" immediately followed by a capital
-    // sentence start (not Fig/Figure). The head is truncated at the
-    // dangling reference; the tail is a complete sentence.
-    const seeMatch = text.match(/^(.*?\(\s*see\s+)([A-Z].*)$/s);
-    // A closed reference ("(see Section 3) ...") has a ")" before any
-    // sentence end in the tail; only a genuinely unclosed "(see" splits.
-    if (seeMatch && !/^(Fig\.?|Figure)\b/.test(seeMatch[2])
-      && !/^[^.!?]*\)/.test(seeMatch[2])
-      && /[.!?]$/.test(cleanText(seeMatch[2]))) {
-      const first = cleanText(seeMatch[1]);
-      const second = cleanText(seeMatch[2]);
-      if (first.length >= 10 && second.length >= 20) {
-        return { rule_id: 'R-BND-SEE', first: first, second: second, reparseFirst: false, reparseSecond: true };
-      }
-    }
-    // R-BND-DASH: an em/en dash acting as a sentence separator — the
-    // source joins two sentences with " — " and no terminal
-    // punctuation (hees201 "colours — The Earth is an oblate
-    // spheroid."). A second dash inside the tail means parenthetical
-    // or appositive structure, not a boundary, and never splits.
-    const dashMatch = text.match(/^([\s\S]*?)\s[—–]\s+([A-Z][\s\S]*)$/);
-    if (dashMatch) {
-      const head = cleanText(dashMatch[1]);
-      const tail = cleanText(dashMatch[2]);
-      const headLast = (head.split(/\s+/).filter((w) => w).pop() || '').toLowerCase().replace(/[^a-z]+$/g, '');
-      const headEndsFunction = ['the', 'a', 'an', 'and', 'or', 'of', 'in', 'to', 'for', 'with', 'by', 'at', 'on', 'from', 'as'].indexOf(headLast) !== -1;
-      if (head.length >= 20 && tail.length >= 20 && /[.!?]$/.test(tail)
-        && tail.indexOf(' — ') === -1 && tail.indexOf(' – ') === -1 && !headEndsFunction) {
-        return { rule_id: 'R-BND-DASH', first: head, second: tail, reparseFirst: true, reparseSecond: true };
-      }
-    }
-    // R-BND-TAIL: a final period followed by a lowercase fragment tail
-    // (". and methane", ". and palaces of the North ..."). The split
-    // is at the LAST period+lowercase boundary; abbreviation periods
-    // (Mr, Fig, e.g., i.e., etc) and decimals never split.
-    const tailPattern = /[.!?]\s+(and|or|but|with|of|in|on|the|to|for|from|at|by)\s+[a-z]/g;
-    let tailIndex = -1;
-    let tailMatch;
-    while ((tailMatch = tailPattern.exec(text)) !== null) {
-      const before = text.slice(0, tailMatch.index);
-      if (/\b(?:Mr|Mrs|Ms|Dr|St|Fig|e\.g|i\.e|etc)\.?$/.test(before)) continue;
-      if (/\d$/.test(before) && /^\s*\d/.test(text.slice(tailMatch.index + 1))) continue;
-      tailIndex = tailMatch.index;
-    }
-    if (tailIndex >= 0) {
-      const first = cleanText(text.slice(0, tailIndex + 1));
-      const second = cleanText(text.slice(tailIndex + 1));
-      if (first.length >= 20 && second.length >= 2) {
-        return { rule_id: 'R-BND-TAIL', first: first, second: second, reparseFirst: true, reparseSecond: false };
-      }
-    }
-    // R-BND-PERIOD: a missing period at a line break — lowercase word
-    // (a noun completing a clause) followed by "The" + noun phrase +
-    // copula/auxiliary verb. The head must end with a noun-like word
-    // (not a function word, not a verb form); the tail must parse as a
-    // standalone sentence when re-parsed, or the split still stands
-    // but yields no fact. "The Hague"-style proper nouns mid-sentence
-    // cannot match: they are preceded by a verb or preposition, and a
-    // capital "The" after a content noun without punctuation is, in
-    // these textbooks, a lost sentence boundary.
-    const functionWords = ['the', 'a', 'an', 'and', 'or', 'of', 'in', 'to', 'for', 'with', 'by', 'at', 'on', 'from', 'as', 'is', 'are', 'was', 'were', 'has', 'have', 'had', 'be', 'been', 'this', 'that', 'these', 'those', 'it', 'they', 'he', 'she', 'we', 'you', 'i', 'its', 'their', 'his', 'her', 'our', 'your', 'my', 'not', 'no', 'very', 'more', 'most', 'also', 'then', 'than', 'when', 'while', 'which', 'who', 'whom', 'whose'];
-    // Word tokens are non-space runs, not ASCII-only: textbook text
-    // carries diacritics and combining marks (paṭṭachitra, Rāmāyaṇa),
-    // and an ASCII-only class silently fails the split on those names.
-    // Every "The" start is tried in order and the FIRST one passing
-    // the guards wins: a single regex match would fix on the earliest
-    // "The" (e.g. a heading "The Golden Temple" inside the head) and
-    // its guard failure would mask the genuine later split point.
-    const periodTailPattern = /^The\s+(?:\S+?\s+){0,10}?(?:were|was|are|is|has|have|had)\b/;
-    const startRe = /(^|\s)The\s/g;
-    let startMatch;
-    while ((startMatch = startRe.exec(text)) !== null) {
-      const splitAt = startMatch.index + startMatch[1].length;
-      const tailRaw = text.slice(splitAt);
-      if (!periodTailPattern.test(tailRaw)) continue;
-      const head = cleanText(text.slice(0, splitAt));
-      const tail = cleanText(tailRaw);
-      const headWords = head.split(/\s+/).filter((w) => w);
-      const lastWord = (headWords[headWords.length - 1] || '').toLowerCase().replace(/[^a-z]+$/g, '');
-      const nounLike = lastWord && functionWords.indexOf(lastWord) === -1
-        && !/(ing|ed)$/.test(lastWord);
-      if (nounLike && head.length >= 20 && tail.length >= 20) {
-        return { rule_id: 'R-BND-PERIOD', first: head, second: tail, reparseFirst: true, reparseSecond: true };
-      }
-    }
-    return null;
-  }
-
-  // A7. "X is characterised by Y" lists characteristics; it is not a
-  // definition. When a supplementary draft for such a segment was
-  // labelled definition by the shared parser, relabel it to an
-  // entity_attribute with relation characterised_by. The shared parser
-  // itself is untouched; only the supplementary draft is corrected,
-  // and the correction is recorded in the derivation.
-  function relabelCharacterisedBy(draft, segText) {
-    if (!draft || draft.fact_type !== 'definition') return draft;
-    if (!/is characterised by/i.test(segText || '')) return draft;
-    const corrected = Object.assign({}, draft, {
-      fact_type: 'entity_attribute',
-      relation: 'characterised_by',
-      extraction_method: (draft.extraction_method || 'definition') + '+characterised_by_correction'
-    });
-    return corrected;
-  }
-
-  function buildTypedKnowledgeFromReconstructedUnits(reconstructedUnits, options) {
-    const opts = options || {};
-    const sourceMeta = opts.sourceMeta || null;
-    const documentId = opts.documentId || 'unknown-document';
-    const list = Array.isArray(reconstructedUnits) ? reconstructedUnits : [];
-
-    const typedFacts = [];
-    const unparsedUnits = [];
-    const skippedUnits = [];
-    const droppedUnits = [];
-    const typedFactsByType = {};
-    const typedFactsByEvidenceSource = {};
-    const unparsedByReason = {};
-    let unitsWithFacts = 0;
-
-    list.forEach((unit, unitIndex) => {
-      const unitId = (unit && unit.unit_id) || ('RU-' + padNumber(unitIndex + 1, 3));
-      const unitType = (unit && unit.type) || 'unknown';
-      const pages = (unit && Array.isArray(unit.pages) && unit.pages.length)
-        ? unit.pages.slice() : [1];
-      const blockIds = (unit && Array.isArray(unit.block_ids)) ? unit.block_ids.slice() : [];
-      if (unitType === 'unresolved' || unitType === 'cross_page_continuation_candidate') {
-        skippedUnits.push({
-          reconstructed_unit_id: unitId, type: unitType,
-          reason: 'unresolved_unit_not_typed_input'
-        });
-        return;
-      }
-      if (!unit || !cleanText(unit.text)) {
-        skippedUnits.push({ reconstructed_unit_id: unitId, type: unitType, reason: 'empty_unit_text' });
-        return;
-      }
-      const evidenceSource = unitType === 'caption' ? 'caption'
-        : unitType === 'glossary_definition' ? 'glossary'
-        : unitType === 'cross_page_continuation' ? 'cross_page_merged'
-        : unitType === 'table' ? 'table'
-        : unitType === 'list' ? 'reconstructed_list'
-        : 'reconstructed_prose';
-      const section = {
-        id: unitId,
-        title: unit.section_title || unitType,
-        text: unit.text,
-        page: pages[0]
-      };
-      const result = buildTypedKnowledge([section], { sourceMeta: sourceMeta, documentId: documentId });
-      if (!result.accounting.units_total) {
-        droppedUnits.push({
-          reconstructed_unit_id: unitId, type: unitType,
-          reason: 'segmented_to_zero_units',
-          detail: 'sentence segmenter produced no units from this text'
-        });
-        return;
-      }
-      // Phase 2C shadow additions: supplementary patterns (adapter-only)
-      // and per-unit bookkeeping for the cross-unit dedup below. Shared
-      // parsers are untouched; every supplementary draft still passes
-      // classifyTypedDraft. Options: { supplementary: false } restores
-      // the Phase 2B adapter exactly; { deduplicate: false } keeps raw
-      // facts (used by the Phase 2C harness for baseline comparison).
-      const supplementaryEnabled = opts.supplementary !== false;
-      const segments = segmentSentencesWithOffsets(unit.text);
-      const layerFactsBySegment = new Map();
-      const unparsedBySegment = new Map();
-      const kuIdBySegment = new Map();
-      const segIndexByFact = new Map();
-      result.typed_facts.forEach((fact) => {
-        const span = fact.evidence_span || {};
-        const idx = segments.findIndex((seg) => seg.start === span.start);
-        if (idx >= 0) {
-          if (!layerFactsBySegment.has(idx)) layerFactsBySegment.set(idx, []);
-          layerFactsBySegment.get(idx).push(fact);
-          segIndexByFact.set(fact, idx);
-          if (fact.source && fact.source.sentence_id) kuIdBySegment.set(idx, fact.source.sentence_id);
-        }
-      });
-      result.unparsed_units.forEach((entry) => {
-        const span = (entry.source && entry.source.sentence_span) || {};
-        const idx = segments.findIndex((seg) => seg.start === span.start);
-        if (idx >= 0) {
-          unparsedBySegment.set(idx, entry);
-          if (entry.source_unit_id) kuIdBySegment.set(idx, entry.source_unit_id);
-        }
-      });
-      const segmentSubjects = segments.map((seg, idx) => {
-        const subjects = [];
-        (layerFactsBySegment.get(idx) || []).forEach((fact) => {
-          if (fact.subject && subjects.indexOf(fact.subject) === -1) subjects.push(fact.subject);
-        });
-        return subjects;
-      });
-      const supplementaryEntries = [];
-      const rescuedSegments = new Set();
-      // Phase 2D A6: segments the adapter splits at an "etc." boundary.
-      // Only segments with no layer facts and a layer unparsed entry
-      // are candidates; the split halves are typed (or left unparsed)
-      // independently, each with its own evidence span.
-      const etcSplits = new Map();
-      const rescuedHalves = new Map();
-      // Phase 2E boundary splits: same gates as the "etc." split (no
-      // layer facts, layer unparsed entry); each half is typed or left
-      // unparsed independently, with its own evidence span.
-      const boundarySplits = new Map();
-      const rescuedBoundaryHalves = new Map();
-      if (supplementaryEnabled) segments.forEach((seg, segIndex) => {
-        if ((layerFactsBySegment.get(segIndex) || []).length) return;
-        if (!unparsedBySegment.has(segIndex)) return;
-        const split = splitEtcBoundary(seg.text);
-        if (!split) return;
-        const secondStart = seg.text.indexOf(split.second);
-        etcSplits.set(segIndex, {
-          first: split.first,
-          second: split.second,
-          firstSpan: { start: seg.start, end: seg.start + split.first.length },
-          secondSpan: { start: seg.start + (secondStart >= 0 ? secondStart : seg.text.length - split.second.length), end: seg.end }
-        });
-        rescuedHalves.set(segIndex, new Set());
-      });
-      if (supplementaryEnabled) segments.forEach((seg, segIndex) => {
-        if ((layerFactsBySegment.get(segIndex) || []).length) return;
-        if (!unparsedBySegment.has(segIndex)) return;
-        if (etcSplits.has(segIndex)) return;
-        const split = splitPhase2eBoundary(seg.text);
-        if (!split) return;
-        const secondStart = seg.text.indexOf(split.second);
-        boundarySplits.set(segIndex, {
-          rule_id: split.rule_id,
-          first: split.first,
-          second: split.second,
-          reparseFirst: split.reparseFirst,
-          reparseSecond: split.reparseSecond,
-          firstSpan: { start: seg.start, end: seg.start + split.first.length },
-          secondSpan: { start: seg.start + (secondStart >= 0 ? secondStart : seg.text.length - split.second.length), end: seg.end }
-        });
-        rescuedBoundaryHalves.set(segIndex, new Set());
-      });
-      const attemptNotes = new Map();
-      const noteAttempt = (idx, attempt) => {
-        if (!attemptNotes.has(idx)) attemptNotes.set(idx, []);
-        attemptNotes.get(idx).push(attempt);
-      };
-      const acceptSupplementary = (entries, segIndex, overrides) => {
-        let accepted = 0;
-        entries.forEach((entry) => {
-          // Supplementary-only object-balance guard: the shared parsers
-          // can truncate an object at a stop-word, leaving an unbalanced
-          // parenthetical (e.g. "...architecture (see further below the
-          // section"). classifyTypedDraft does not check object balance,
-          // so a truncated object would otherwise ship as a fact. The
-          // draft is rejected and the segment stays unparsed with its
-          // layer reason; the object is never silently repaired.
-          const objectText = (entry.draft && entry.draft.object) || '';
-          const openParens = (objectText.match(/\(/g) || []).length;
-          const closeParens = (objectText.match(/\)/g) || []).length;
-          if (openParens !== closeParens) return;
-          const verdict = classifyTypedDraft(entry.draft);
-          if (!verdict.typed) return;
-          accepted++;
-          supplementaryEntries.push({
-            draft: entry.draft, segmentIndex: segIndex, derivation: entry.derivation,
-            evidenceText: overrides && overrides.evidenceText ? overrides.evidenceText : null,
-            evidenceSpan: overrides && overrides.evidenceSpan ? overrides.evidenceSpan : null,
-            etcHalf: overrides && overrides.etcHalf != null ? overrides.etcHalf : null,
-            boundaryHalf: overrides && overrides.boundaryHalf != null ? overrides.boundaryHalf : null
-          });
-          if (unparsedBySegment.has(segIndex)) rescuedSegments.add(segIndex);
-          if (overrides && overrides.etcHalf != null && rescuedHalves.has(segIndex)) {
-            rescuedHalves.get(segIndex).add(overrides.etcHalf);
-          }
-          if (overrides && overrides.boundaryHalf != null && rescuedBoundaryHalves.has(segIndex)) {
-            rescuedBoundaryHalves.get(segIndex).add(overrides.boundaryHalf);
-          }
-          const subs = segmentSubjects[segIndex];
-          if (entry.draft.subject && subs.indexOf(entry.draft.subject) === -1) subs.push(entry.draft.subject);
-        });
-        return accepted;
-      };
-      if (supplementaryEnabled && unitType === 'glossary_definition') {
-        glossaryDraftsForUnit(unit, segments).forEach((entry) => {
-          acceptSupplementary([entry], entry.segmentIndex);
-        });
-      }
-      if (supplementaryEnabled) {
-        // Phase 2D producers for one text (a segment, or one half of
-        // an "etc."-split segment). They run only on segments with no
-        // typed-layer facts, so they rescue unparsed claims instead of
-        // duplicating claims the layer already typed. resolvePronoun
-        // is the bounded same-unit resolver, for patterns whose
-        // subject is a pronoun mid-sentence.
-        const runPhase2dProducers = (text, segIndex, overrides) => {
-          let accepted = 0;
-          const resolvePronoun = (pronoun) => resolveLocalPronounAntecedent(segmentSubjects, segIndex, pronoun);
-          accepted += acceptSupplementary(hasAttributeDrafts(text), segIndex, overrides);
-          accepted += acceptSupplementary(offeredSocialSpaceDrafts(text), segIndex, overrides);
-          accepted += acceptSupplementary(relativeClauseDrafts(text), segIndex, overrides);
-          accepted += acceptSupplementary(renownedDrafts(text), segIndex, overrides);
-          accepted += acceptSupplementary(sketchClaimDrafts(text), segIndex, overrides);
-          accepted += acceptSupplementary(temporalScaleDrafts(text, resolvePronoun), segIndex, overrides);
-          // Coverage-expansion producers: list/attribute claims only,
-          // never on caption units (captions keep their own drafts
-          // plus the view-subject correction in the segment loop).
-          if (evidenceSource !== 'caption') {
-            accepted += acceptSupplementary(membershipListDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(includesAttributeDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(featuresListDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(showcasesDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(hasListDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(madeOfDrafts(text), segIndex, overrides);
-            accepted += acceptSupplementary(designedIncludeDrafts(text), segIndex, overrides);
-          }
-          return accepted;
-        };
-        segments.forEach((seg, segIndex) => {
-          const segText = cleanText(seg.text);
-          if (!segText) return;
-          const hasLayerFacts = (layerFactsBySegment.get(segIndex) || []).length > 0;
-          // Phase 2D A6: an "etc."-split segment is processed half by
-          // half, never as one joined sentence. Each half gets the
-          // passive + Phase 2D producers with its own evidence span;
-          // caption features apply per half for caption units.
-          const split = etcSplits.get(segIndex);
-          if (split) {
-            [0, 1].forEach((half) => {
-              const halfText = half === 0 ? split.first : split.second;
-              const halfSpan = half === 0 ? split.firstSpan : split.secondSpan;
-              const overrides = { evidenceText: halfText, evidenceSpan: halfSpan, etcHalf: half };
-              acceptSupplementary(passiveDraftsForSegment(halfText), segIndex, overrides);
-              runPhase2dProducers(halfText, segIndex, overrides);
-              if (evidenceSource === 'caption' && unit.figure_ref) {
-                acceptSupplementary(captionFeatureDrafts(halfText), segIndex, overrides);
-              }
-            });
-            return;
-          }
-          // Phase 2E boundary splits: same half-by-half processing, plus
-          // a layer re-parse of each flagged half (the mirrors, mountain
-          // and paṭṭachitra claims are layer-parser patterns, not
-          // supplementary-producer patterns). Unflagged halves are
-          // truncated fragments by construction and are never re-parsed.
-          const bSplit = boundarySplits.get(segIndex);
-          if (bSplit) {
-            [0, 1].forEach((half) => {
-              const halfText = half === 0 ? bSplit.first : bSplit.second;
-              const halfSpan = half === 0 ? bSplit.firstSpan : bSplit.secondSpan;
-              const overrides = { evidenceText: halfText, evidenceSpan: halfSpan, boundaryHalf: half };
-              const reparse = half === 0 ? bSplit.reparseFirst : bSplit.reparseSecond;
-              if (reparse) {
-                acceptSupplementary(
-                  parseAllFactRelations(halfText, { previousSubject: '' }).map((draft) => {
-                    const corrected = relabelCharacterisedBy(draft, halfText);
-                    return {
-                      draft: corrected,
-                      derivation: {
-                        method: 'phase2e_boundary_reparse', rule_id: bSplit.rule_id,
-                        parser_method: draft.extraction_method || null
-                      }
-                    };
-                  }),
-                  segIndex, overrides
-                );
-              }
-              acceptSupplementary(passiveDraftsForSegment(halfText), segIndex, overrides);
-              runPhase2dProducers(halfText, segIndex, overrides);
-              if (evidenceSource === 'caption' && unit.figure_ref) {
-                acceptSupplementary(captionFeatureDrafts(halfText), segIndex, overrides);
-              }
-            });
-            return;
-          }
-          // Do not relabel an agent claim the typed layer already made:
-          // if the layer typed launched_by/implemented_by/developed_by
-          // for the same object in this segment, a supplementary passive
-          // draft for that object is the same claim under a different
-          // relation and is skipped (dedup would not collapse it,
-          // because the key includes the relation).
-          const layerAgentObjects = new Set((layerFactsBySegment.get(segIndex) || [])
-            .filter((fact) => ['launched_by', 'implemented_by', 'developed_by'].indexOf(fact.relation) !== -1)
-            .map((fact) => normalizeObject(fact.object)));
-          const passiveEntries = passiveDraftsForSegment(segText)
-            .filter((entry) => !layerAgentObjects.has(normalizeObject(entry.draft.object)));
-          let acceptedForSegment = acceptSupplementary(passiveEntries, segIndex);
-          // Figure cleanup rescues segments the layer rejected (a fig
-          // reference in the subject fails subject quality). Segments
-          // that already yielded layer facts are NOT re-parsed: the
-          // cleaned parse would duplicate their facts, and any genuine
-          // second fig-ref claim in such a segment is a known
-          // limitation, not a silent duplicate.
-          if (!acceptedForSegment && /\(Fig\./i.test(segText) && !hasLayerFacts) {
-            const figStep = stripFigureReferences(segText);
-            acceptedForSegment = acceptSupplementary(
-              parseAllFactRelations(figStep.text, { previousSubject: '' }).map((draft) => {
-                const corrected = relabelCharacterisedBy(draft, figStep.text);
-                const derivation = { method: 'figure_reference_cleanup', figure_refs_removed: figStep.removed, parser_method: draft.extraction_method || null };
-                if (corrected !== draft) derivation.semantic_correction = 'characterised_by_not_definition';
-                return { draft: corrected, derivation: derivation };
-              }),
-              segIndex
-            );
-          }
-          const pronounMatch = segText.match(/^(It|They|This|These)\b/);
-          // Phase 2E guard: "This is why/because ..." is a discourse
-          // connective referring to the preceding explanation, not an
-          // entity antecedent. Substituting the nearest entity subject
-          // ("The Earth is why all maps have some distortion") invents
-          // a false attribution. Such segments are never pronoun-
-          // resolved; they stay unparsed with a recorded reason.
-          const isDiscourseConnective = /^This is (why|because)\b/i.test(segText);
-          if (!acceptedForSegment && pronounMatch && isDiscourseConnective) {
-            noteAttempt(segIndex, {
-              parser: 'pronoun_resolution', outcome: 'discourse_connective_skipped',
-              detail: 'This is why/because refers to the preceding explanation, not an entity antecedent'
-            });
-          }
-          if (!acceptedForSegment && pronounMatch && !isDiscourseConnective) {
-            const resolution = resolveLocalPronounAntecedent(segmentSubjects, segIndex, pronounMatch[1]);
-            if (resolution.antecedent) {
-              const substituted = segText.replace(/^(It|They|This|These)\b/, resolution.antecedent);
-              let sub = passiveDraftsForSegment(substituted);
-              if (sub.length) {
-                sub = sub.map((entry) => ({
-                  draft: entry.draft,
-                  derivation: Object.assign({}, entry.derivation, {
-                    method: 'pronoun_resolution_same_unit',
-                    antecedent_text: resolution.antecedent,
-                    original_subject: pronounMatch[1],
-                    antecedent_segment_index: resolution.segment_index
-                  })
-                }));
-              } else {
-                sub = parseAllFactRelations(substituted, { previousSubject: '' }).map((draft) => {
-                  const corrected = relabelCharacterisedBy(draft, substituted);
-                  const derivation = {
-                    method: 'pronoun_resolution_same_unit',
-                    antecedent_text: resolution.antecedent,
-                    original_subject: pronounMatch[1],
-                    antecedent_segment_index: resolution.segment_index,
-                    parser_method: draft.extraction_method || null
-                  };
-                  if (corrected !== draft) derivation.semantic_correction = 'characterised_by_not_definition';
-                  return { draft: corrected, derivation: derivation };
-                });
-              }
-              acceptedForSegment = acceptSupplementary(sub, segIndex);
-              // Phase 2D A4a: a resolved pronoun subject plus an
-              // explicit "renowned for" claim types only now, with
-              // both the original pronoun evidence and the resolution
-              // derivation preserved.
-              if (!acceptedForSegment) {
-                const ren = renownedDrafts(substituted).map((entry) => ({
-                  draft: entry.draft,
-                  derivation: Object.assign({}, entry.derivation, {
-                    pronoun_resolution: {
-                      antecedent_text: resolution.antecedent,
-                      original_subject: pronounMatch[1],
-                      antecedent_segment_index: resolution.segment_index
-                    }
-                  })
-                }));
-                acceptedForSegment = acceptSupplementary(ren, segIndex);
-              }
-              // Coverage-expansion: a resolved pronoun subject plus a
-              // list/attribute claim types only now, and only when the
-              // antecedent comes from the immediately preceding
-              // segment. The distance rule is load-bearing: in the
-              // Orchha unit the sentence before "It has ornate
-              // chambers ..." is about the Jahangir Mahal, while an
-              // earlier segment is about "the complex"; resolving
-              // across the intervening sentence would attribute the
-              // chambers to the complex. When the preceding segment
-              // is untyped, the pronoun stays unresolved rather than
-              // guessing. Caption units are excluded: captions keep
-              // their own drafts.
-              if (!acceptedForSegment && evidenceSource !== 'caption'
-                  && resolution.segment_index === segIndex - 1) {
-                const withPronoun = (entries) => entries.map((entry) => ({
-                  draft: entry.draft,
-                  derivation: Object.assign({}, entry.derivation, {
-                    pronoun_resolution: {
-                      antecedent_text: resolution.antecedent,
-                      original_subject: pronounMatch[1],
-                      antecedent_segment_index: resolution.segment_index
-                    },
-                    immediate_predecessor_only: true
-                  })
-                }));
-                if (!acceptedForSegment) {
-                  acceptedForSegment = acceptSupplementary(withPronoun(hasListDrafts(substituted)), segIndex);
-                }
-                if (!acceptedForSegment) {
-                  acceptedForSegment = acceptSupplementary(withPronoun(hasAttributeDrafts(substituted)), segIndex);
-                }
-                if (!acceptedForSegment) {
-                  acceptedForSegment = acceptSupplementary(withPronoun(designedIncludeDrafts(substituted)), segIndex);
-                }
-              }
-              if (!acceptedForSegment) {
-                noteAttempt(segIndex, { parser: 'pronoun_resolution', outcome: 'resolved_no_pattern', detail: 'antecedent: ' + resolution.antecedent });
-              }
-            } else {
-              noteAttempt(segIndex, {
-                parser: 'pronoun_resolution',
-                outcome: resolution.ambiguous ? 'ambiguous_antecedent' : 'no_antecedent',
-                detail: resolution.ambiguous ? 'multiple plausible antecedents in nearest segment' : 'no explicit antecedent in this unit'
-              });
-            }
-          }
-          // Phase 2D producers: only segments the layer left untyped.
-          if (!hasLayerFacts) {
-            runPhase2dProducers(segText, segIndex, null);
-          }
-          if (evidenceSource === 'caption' && unit.figure_ref) {
-            acceptSupplementary(captionFeatureDrafts(segText), segIndex);
-          }
-          // Coverage-expansion: a caption "view of X" subject is the
-          // picture, not the thing a date attaches to. When the layer
-          // typed a completion_year date fact for such a subject in a
-          // caption unit, emit the same claim with the depicted thing
-          // as subject ("A general view of the Madras High Court,
-          // completed in 1892" -> the court was completed in 1892).
-          // The original view-subject fact is kept and prefiltered as
-          // weak_subject downstream, so no duplicate question arises;
-          // the evidence is the unchanged caption sentence. Only
-          // completion_year is corrected: it is the relation the
-          // layer emits for built/constructed/completed passives, and
-          // a view is never the thing completed.
-          if (evidenceSource === 'caption' && unit.figure_ref) {
-            (layerFactsBySegment.get(segIndex) || []).forEach((layerFact) => {
-              if (layerFact.fact_type !== 'date' || layerFact.relation !== 'completion_year') return;
-              const viewMatch = String(layerFact.subject || '')
-                .match(/^(?:(?:A|An|The)\s+)?(?:general\s+)?view\s+of\s+(.+)$/i);
-              if (!viewMatch) return;
-              const correctedSubject = supplementarySubjectOk(
-                cleanText(viewMatch[1]).replace(/[.,;:]+$/, ''));
-              if (!correctedSubject) return;
-              if (/^(general\s+)?view\s+of\b/i.test(correctedSubject)) return;
-              acceptSupplementary([{
-                draft: {
-                  fact_type: 'date',
-                  subject: correctedSubject,
-                  relation: 'completion_year',
-                  object: layerFact.object,
-                  answer_kind: layerFact.answer_kind || 'date',
-                  extraction_method: 'caption_view_subject_correction'
-                },
-                derivation: {
-                  method: 'caption_view_subject_correction',
-                  original_subject: layerFact.subject,
-                  figure_ref: unit.figure_ref
-                }
-              }], segIndex);
-            });
-          }
-        });
-      }
-      let factsForUnit = 0;
-      const remappedFacts = [];
-      const factSegmentIndexes = [];
-      result.typed_facts.forEach((fact, factIndex) => {
-        factsForUnit++;
-        const remapped = Object.assign({}, fact, {
-          fact_id: 'TF-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(factIndex + 1, 3),
-          source: Object.assign({}, fact.source, {
-            typed_layer_fact_id: fact.fact_id,
-            reconstructed_unit_id: unitId,
-            reconstructed_unit_type: unitType,
-            block_ids: blockIds,
-            page_range: pages,
-            evidence_source: evidenceSource,
-            section_id: unit.section_id || fact.source.section_id,
-            section_title: unit.section_title || fact.source.section_title
-          })
-        });
-        remappedFacts.push(remapped);
-        factSegmentIndexes.push(segIndexByFact.has(fact) ? segIndexByFact.get(fact) : -1);
-        typedFacts.push(remapped);
-      });
-      supplementaryEntries.forEach((entry, suppIndex) => {
-        const draft = entry.draft;
-        const seg = segments[entry.segmentIndex];
-        const factIndex = result.typed_facts.length + suppIndex;
-        factsForUnit++;
-        const remapped = {
-          fact_id: 'TF-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(factIndex + 1, 3),
-          source_fact_ids: [],
-          fact_type: draft.fact_type,
-          subject: draft.subject,
-          relation: draft.relation,
-          object: draft.object,
-          normalized_subject: normalizeSubject(draft.subject),
-          normalized_relation: normalizeRelation(draft.relation),
-          normalized_object: normalizeObject(draft.object),
-          evidence: entry.evidenceText ? cleanText(entry.evidenceText) : cleanText(seg.text),
-          evidence_span: entry.evidenceSpan ? entry.evidenceSpan : { start: seg.start, end: seg.end },
-          object_span: locateInSection(unit.text, draft.object, seg.start, seg.end),
-          source: {
-            document_id: documentId,
-            page: pages[0],
-            section_id: unit.section_id || unitId,
-            section_title: unit.section_title || unitType,
-            block_ids: blockIds,
-            sentence_id: kuIdBySegment.get(entry.segmentIndex) || null,
-            typed_layer_fact_id: null,
-            reconstructed_unit_id: unitId,
-            reconstructed_unit_type: unitType,
-            page_range: pages,
-            evidence_source: evidenceSource,
-            figure_ref: unit.figure_ref || null
-          },
-          qualifiers: {
-            polarity: draft.polarity || 'positive',
-            precision: draft.precision || 'exact',
-            numeric_kind: draft.numeric_kind || null,
-            relation_verb: draft.relation_verb || null,
-            causal_direction: draft.causal_direction || null,
-            attribute: draft.attribute || null,
-            temporal_scope: draft.temporal_scope || null,
-            comparison: draft.comparison || null,
-            members: draft.members ? draft.members.slice() : null,
-            sequence_items: draft.sequence_items ? draft.sequence_items.slice() : null,
-            attribution: draft.attribution || null
-          },
-          classification: { method: (entry.derivation && entry.derivation.method) || draft.extraction_method || 'explicit', rule_id: (entry.derivation && entry.derivation.method === 'phase2e_boundary_reparse') ? 'phase2e-shadow-v1' : 'phase2c-shadow-v1' },
-          validation_state: factConfidenceClass(draft, sourceMeta),
-          multi_claim_unit: false,
-          derivation: entry.derivation || null
-        };
-        remappedFacts.push(remapped);
-        factSegmentIndexes.push(entry.segmentIndex);
-        typedFacts.push(remapped);
-      });
-      // Multi-claim flags reflect layer + supplementary facts together.
-      const countsBySegment = new Map();
-      factSegmentIndexes.forEach((idx) => {
-        if (idx >= 0) countsBySegment.set(idx, (countsBySegment.get(idx) || 0) + 1);
-      });
-      remappedFacts.forEach((fact, i) => {
-        const idx = factSegmentIndexes[i];
-        if (idx >= 0) fact.multi_claim_unit = (countsBySegment.get(idx) || 0) > 1;
-      });
-      result.unparsed_units.forEach((entry, entryIndex) => {
-        const span = (entry.source && entry.source.sentence_span) || {};
-        const segIndex = segments.findIndex((seg) => seg.start === span.start);
-        if (segIndex >= 0 && rescuedSegments.has(segIndex) && !etcSplits.has(segIndex) && !boundarySplits.has(segIndex)) return;
-        const notes = (segIndex >= 0 && attemptNotes.get(segIndex)) || [];
-        const baseId = 'UU-REC-' + padNumber(unitIndex + 1, 3) + '-' + padNumber(entryIndex + 1, 3);
-        const remapUnparsed = (textOverride, spanOverride, idOverride) => Object.assign({}, entry, {
-          unparsed_id: idOverride || baseId,
-          original_text: textOverride != null ? textOverride : entry.original_text,
-          source: Object.assign({}, entry.source, {
-            typed_layer_unit_id: entry.unparsed_id,
-            reconstructed_unit_id: unitId,
-            reconstructed_unit_type: unitType,
-            block_ids: blockIds,
-            page_range: pages,
-            evidence_source: evidenceSource,
-            section_id: unit.section_id || entry.source.section_id,
-            section_title: unit.section_title || entry.source.section_title,
-            sentence_span: spanOverride || entry.source.sentence_span
-          }),
-          classification_attempts: (entry.classification_attempts || []).concat(notes)
-        });
-        // Phase 2D A6: an "etc."-split segment yields one unparsed
-        // record per unrescued half, each with its own exact text and
-        // span. A rescued half produces no record; a fully rescued
-        // split produces none at all.
-        if (segIndex >= 0 && etcSplits.has(segIndex)) {
-          const split = etcSplits.get(segIndex);
-          const rescued = rescuedHalves.get(segIndex) || new Set();
-          if (!rescued.has(0)) {
-            unparsedUnits.push(remapUnparsed(split.first, split.firstSpan, baseId));
-          }
-          if (!rescued.has(1)) {
-            unparsedUnits.push(remapUnparsed(split.second, split.secondSpan, baseId + '-b'));
-          }
-          return;
-        }
-        // Phase 2E boundary splits: one unparsed record per unrescued
-        // half, each with its own exact text and span. A rescued half
-        // produces no record; a fully rescued split produces none.
-        if (segIndex >= 0 && boundarySplits.has(segIndex)) {
-          const split = boundarySplits.get(segIndex);
-          const rescued = rescuedBoundaryHalves.get(segIndex) || new Set();
-          if (!rescued.has(0)) {
-            unparsedUnits.push(remapUnparsed(split.first, split.firstSpan, baseId));
-          }
-          if (!rescued.has(1)) {
-            unparsedUnits.push(remapUnparsed(split.second, split.secondSpan, baseId + '-b'));
-          }
-          return;
-        }
-        unparsedUnits.push(remapUnparsed(null, null, null));
-      });
-      if (factsForUnit > 0) unitsWithFacts++;
-    });
-
-    // Phase 2C dedup: collapse identical facts (same type, subject,
-    // relation, object, polarity and temporal scope) across units,
-    // preferring complete per-page passages over cross-page merges and
-    // typed-layer facts over supplementary ones. Raw counts are kept
-    // alongside unique counts; nothing is silently dropped.
-    const rawTypedTotal = typedFacts.length;
-    const dedupEnabled = opts.deduplicate !== false;
-    const dedupResult = dedupEnabled ? deduplicatePhase2cFacts(typedFacts) : { facts: typedFacts, discarded: [] };
-    const finalFacts = dedupResult.facts;
-    const finalByType = {};
-    const finalBySource = {};
-    finalFacts.forEach((fact) => {
-      finalByType[fact.fact_type] = (finalByType[fact.fact_type] || 0) + 1;
-      const srcName = (fact.source && fact.source.evidence_source) || 'unknown';
-      finalBySource[srcName] = (finalBySource[srcName] || 0) + 1;
-    });
-    const finalUnparsedByReason = {};
-    unparsedUnits.forEach((entry) => {
-      finalUnparsedByReason[entry.reason] = (finalUnparsedByReason[entry.reason] || 0) + 1;
-    });
-    const uniqueUnitsWithFacts = new Set();
-    finalFacts.forEach((fact) => {
-      if (fact.source && fact.source.reconstructed_unit_id) uniqueUnitsWithFacts.add(fact.source.reconstructed_unit_id);
-    });
-    return {
-      version: TYPED_FACT_VERSION,
-      typed_facts: finalFacts,
-      unparsed_units: unparsedUnits,
-      skipped_units: skippedUnits,
-      dropped_units: droppedUnits,
-      deduplication: { duplicates_discarded: dedupResult.discarded },
-      accounting: {
-        units_input: list.length,
-        units_skipped: skippedUnits.length,
-        units_dropped: droppedUnits.length,
-        units_with_facts: unitsWithFacts,
-        units_with_unique_facts: uniqueUnitsWithFacts.size,
-        typed_facts_total: finalFacts.length,
-        typed_facts_raw_total: rawTypedTotal,
-        typed_facts_by_type: finalByType,
-        typed_facts_by_evidence_source: finalBySource,
-        unparsed_units_total: unparsedUnits.length,
-        unparsed_units_by_reason: finalUnparsedByReason,
-        duplicates_discarded_total: dedupResult.discarded.length
-      }
-    };
   }
 
   function collectSentenceUnits(sections) {
@@ -4664,83 +1977,11 @@
           source_page: section.page != null ? section.page : 1,
           source_text: record.text,
           source_start: record.start,
-          source_end: record.end,
-          sentence_role: classifySentenceRole(record.text)
+          source_end: record.end
         });
       }
     }
     return units;
-  }
-
-  // Table parsing (mock-test quality, tables as facts): a table
-  // is not prose, so sentence extraction cannot read it, and the
-  // old pipeline turned every table row into a fallback fact.
-  // Two formats reach this stage. The PDF parser renders a table
-  // block as one paragraph with rows separated by ' ; ' and cells
-  // by ' | '. A pasted text table with rows on separate lines
-  // arrives as consecutive pipe-delimited sentence units (the
-  // sentence splitter breaks on newlines). Both are parsed here,
-  // into one fact per cell: subject = row header, relation =
-  // column header, object = cell value. A table question is then
-  // a normal single-choice question on a table fact, with
-  // distractors from the same column, so it passes the same
-  // validation as every other question instead of being a
-  // special case that bypasses evidence checks.
-  function parseTableRow(text) {
-    if (!text || text.indexOf('|') === -1) return null;
-    const cells = String(text).split('|').map((c) => cleanText(c));
-    if (cells.length < 2) return null;
-    for (const cell of cells) {
-      if (!cell || cell.length > 40 || cell.indexOf('?') !== -1 || /^[^A-Za-z0-9]/.test(cell)) return null;
-    }
-    return cells;
-  }
-
-  function tableGroupIsClean(rows) {
-    if (!rows || rows.length < 4) return false;
-    const count = rows[0].length;
-    if (count < 2) return false;
-    for (const row of rows) if (row.length !== count) return false;
-    const headers = rows[0];
-    if (headers.some((h) => !/[A-Za-z]/.test(h) || /^\d+$/.test(h))) return false;
-    if (new Set(headers.map((h) => h.toLowerCase())).size !== headers.length) return false;
-    const rowHeaders = rows.slice(1).map((r) => r[0].toLowerCase());
-    if (new Set(rowHeaders).size !== rowHeaders.length) return false;
-    return true;
-  }
-
-  function detectTableGroups(units) {
-    const groups = [];
-    const consumed = new Set();
-    for (let i = 0; i < units.length; i++) {
-      if (consumed.has(i)) continue;
-      const unit = units[i];
-      // Format A: one PDF table paragraph, rows separated by ' ; '.
-      if (unit.source_text.indexOf(' ; ') !== -1 && unit.source_text.indexOf('|') !== -1) {
-        const rows = unit.source_text.split(' ; ').map(parseTableRow);
-        if (rows.every(Boolean) && tableGroupIsClean(rows)) {
-          groups.push({ unitIndices: [i], rows, tableText: cleanText(unit.source_text), sectionId: unit.section_id });
-          consumed.add(i);
-          continue;
-        }
-      }
-      // Format B: consecutive pipe-delimited units, one row each.
-      const rows = [];
-      const indices = [];
-      for (let j = i; j < units.length; j++) {
-        if (units[j].section_id !== unit.section_id) break;
-        const row = parseTableRow(units[j].source_text);
-        if (!row) break;
-        if (rows.length && row.length !== rows[0].length) break;
-        rows.push(row);
-        indices.push(j);
-      }
-      if (tableGroupIsClean(rows)) {
-        groups.push({ unitIndices: indices, rows, tableText: rows.map((r) => r.join(' | ')).join(' ; '), sectionId: unit.section_id });
-        for (const idx of indices) consumed.add(idx);
-      }
-    }
-    return groups;
   }
 
   function extractSourceFacts(sections, options) {
@@ -4748,129 +1989,32 @@
     const sourceMeta = opts.sourceMeta || null;
     const facts = [];
     const units = collectSentenceUnits(sections);
+    const roleDiagnostics = {
+      sentences: 0,
+      assertions: 0,
+      rejected: {},
+      rejectedSentences: []
+    };
     let factSeq = 0;
     let previousSubject = '';
-    const tableGroups = detectTableGroups(units);
-    const tableUnitMap = new Map();
-    tableGroups.forEach((group, groupIndex) => {
-      group.unitIndices.forEach((unitIndex, position) => {
-        tableUnitMap.set(unitIndex, { group, groupIndex, position });
-      });
-    });
 
-    for (let unitIndex = 0; unitIndex < units.length; unitIndex++) {
-      const unit = units[unitIndex];
-      const tableInfo = tableUnitMap.get(unitIndex);
-      if (tableInfo) {
-        // Table rows do not enter prose fact extraction and must
-        // not seed the previous-subject chain for the next
-        // sentence. Header rows emit no facts; each data row
-        // emits one fact per non-first column.
-        if (tableInfo.group.unitIndices.length === 1) {
-          // Format A: one unit holds the whole table.
-          const rows = tableInfo.group.rows;
-          const headers = rows[0];
-          const tableId = tableInfo.group.sectionId + '|' + unitIndex + '|' + headers.join('|').toLowerCase();
-          for (let r = 1; r < rows.length; r++) {
-            for (let c = 1; c < headers.length; c++) {
-              const column = headers[c].replace(/[^A-Za-z0-9 ]/g, '').trim().replace(/\s+/g, '_').toLowerCase();
-              if (!column) continue;
-              factSeq++;
-              facts.push({
-                fact_id: 'F-LITE-' + padNumber(factSeq, 3),
-                ku_id: unit.ku_id,
-                section_id: unit.section_id,
-                section_title: unit.section_title,
-                source_page: unit.source_page,
-                source_text: unit.source_text,
-                supporting_excerpt: unit.source_text,
-                source_start: unit.source_start,
-                source_end: unit.source_end,
-                object_start: unit.source_start,
-                object_end: unit.source_end,
-                fact_type: 'table',
-                subject: rows[r][0],
-                relation: 'table_' + column,
-                object: rows[r][c],
-                normalized_subject: normalizeSubject(rows[r][0]),
-                normalized_relation: normalizeRelation('table_' + column),
-                normalized_object: normalizeObject(rows[r][c]),
-                temporal_scope: '',
-                extraction_method: 'table_cell',
-                confidence_class: factConfidenceClass({}, sourceMeta),
-                conflict_status: 'clear',
-                answer_kind: 'table_cell',
-                sentence_role: 'assertion',
-                table_id: tableId,
-                table_header: headers[c],
-                table_row: rows[r][0],
-                table_text: tableInfo.group.tableText
-              });
-            }
-          }
-        } else if (tableInfo.position > 0) {
-          const rows = tableInfo.group.rows;
-          const headers = rows[0];
-          const row = rows[tableInfo.position];
-          const tableId = tableInfo.group.sectionId + '|' + tableInfo.group.unitIndices[0] + '|' + headers.join('|').toLowerCase();
-          for (let c = 1; c < headers.length; c++) {
-            const column = headers[c].replace(/[^A-Za-z0-9 ]/g, '').trim().replace(/\s+/g, '_').toLowerCase();
-            if (!column) continue;
-            factSeq++;
-            facts.push({
-              fact_id: 'F-LITE-' + padNumber(factSeq, 3),
-              ku_id: unit.ku_id,
-              section_id: unit.section_id,
-              section_title: unit.section_title,
-              source_page: unit.source_page,
-              source_text: unit.source_text,
-              supporting_excerpt: unit.source_text,
-              source_start: unit.source_start,
-              source_end: unit.source_end,
-              object_start: unit.source_start,
-              object_end: unit.source_end,
-              fact_type: 'table',
-              subject: row[0],
-              relation: 'table_' + column,
-              object: row[c],
-              normalized_subject: normalizeSubject(row[0]),
-              normalized_relation: normalizeRelation('table_' + column),
-              normalized_object: normalizeObject(row[c]),
-              temporal_scope: '',
-              extraction_method: 'table_cell',
-              confidence_class: factConfidenceClass({}, sourceMeta),
-              conflict_status: 'clear',
-              answer_kind: 'table_cell',
-              sentence_role: 'assertion',
-              table_id: tableId,
-              table_header: headers[c],
-              table_row: row[0],
-              table_text: tableInfo.group.tableText
-            });
-          }
+    for (const unit of units) {
+      roleDiagnostics.sentences += 1;
+      const role = classifySentenceRole(unit.source_text);
+      if (role !== 'assertion') {
+        roleDiagnostics.rejected[role] = (roleDiagnostics.rejected[role] || 0) + 1;
+        if (roleDiagnostics.rejectedSentences.length < 100) {
+          roleDiagnostics.rejectedSentences.push({ role, text: unit.source_text });
         }
         continue;
       }
+      roleDiagnostics.assertions += 1;
       const context = {
         previousSubject,
         sectionTitle: unit.section_title,
         sectionId: unit.section_id,
         sourcePage: unit.source_page
       };
-      const sentenceRole = classifySentenceRole(unit.source_text);
-      // Never create fallback facts from an excluded interrogative,
-      // instruction or ambiguous unit.
-      if (sentenceRole !== 'assertion') continue;
-      // Full-path repair, evidence (P1): a unit that starts lowercase
-      // is a continuation fragment ("to Indonesia, Japan, ..."), and
-      // a unit with no terminal punctuation was cut mid-sentence
-      // ("... gentle rolling"). Neither is a complete statement, so
-      // neither can support a question or its evidence.
-      {
-        const unitText = cleanText(unit.source_text);
-        if (/^[a-z]/.test(unitText)) continue;
-        if (!/[.!?"'\u201d)\]]$/.test(unitText)) continue;
-      }
       let drafts = parseFactRelations(unit.source_text, context);
       if (!drafts.length) {
         drafts = [{
@@ -4905,6 +2049,7 @@
           object_start: objectStart,
           object_end: objectEnd,
           fact_type: draft.fact_type || 'fallback',
+          sentence_role: 'assertion',
           subject: draft.subject || '',
           relation: draft.relation || 'unclassified',
           object: objectText,
@@ -4915,8 +2060,7 @@
           extraction_method: draft.extraction_method || 'explicit',
           confidence_class: factConfidenceClass(draft, sourceMeta),
           conflict_status: 'clear',
-          answer_kind: draft.answer_kind || 'none',
-          sentence_role: sentenceRole
+          answer_kind: draft.answer_kind || 'none'
         };
 
         const carry = [
@@ -4941,7 +2085,16 @@
         })[0];
       if (subjectSource) previousSubject = subjectSource.subject;
     }
+    lastFactExtractionDiagnostics = roleDiagnostics;
+    if (opts.diagnostics && typeof opts.diagnostics === 'object') {
+      opts.diagnostics.sentenceRoles = roleDiagnostics;
+    }
     return facts;
+  }
+
+  function getFactExtractionDiagnostics() {
+    if (!lastFactExtractionDiagnostics) return null;
+    return JSON.parse(JSON.stringify(lastFactExtractionDiagnostics));
   }
 
   function detectFactConflicts(facts) {
@@ -5052,50 +2205,46 @@
   }
 
   // Parse Raw Document (Markdown, TXT, or structured text)
+  //
+  // Paragraph integrity matters: wrapped lines inside one paragraph are joined
+  // with a space, while blank lines, page markers and headings end the current
+  // paragraph. Paragraphs inside one section are separated by a blank line so
+  // sentence segmentation never glues the last sentence of one paragraph onto
+  // the first sentence of the next.
   function parseRawDocument(rawText, defaultTitle) {
-    // Repair 002, Phase 3: paragraph and page boundaries are structural.
-    // A blank line flushes the current paragraph (it does not disappear);
-    // a page marker flushes the current paragraph AND its section and
-    // updates page metadata; a heading flushes both and starts a new
-    // section. Wrapped lines inside one paragraph stay connected (joined
-    // with a single space). Two paragraphs are never joined into one
-    // fact-extraction unit, and the end of one page is never merged with
-    // the start of the next. Section.text joins paragraphs with blank
-    // lines so sentence segmentation still sees the boundary.
     const titleFallback = defaultTitle || 'Study Document';
     const lines = String(rawText == null ? '' : rawText).split(/\r?\n/);
     const sections = [];
     let currentTitle = titleFallback;
-    let currentParagraphLines = [];
-    let currentParagraphs = [];
-    let currentParagraphMeta = [];
+    let paragraphs = [];
+    let currentParagraph = [];
     let pageNum = 1;
 
     const flushParagraph = () => {
-      if (!currentParagraphLines.length) return;
-      const paragraphText = currentParagraphLines.join(' ');
-      currentParagraphs.push(paragraphText);
-      currentParagraphMeta.push({ text: paragraphText, page: pageNum, title: currentTitle });
-      currentParagraphLines = [];
+      if (!currentParagraph.length) return;
+      paragraphs.push(currentParagraph.join(' ').replace(/\s+/g, ' ').trim());
+      currentParagraph = [];
     };
+
     const flushSection = () => {
       flushParagraph();
-      if (!currentParagraphs.length) return;
+      const usable = paragraphs.filter(Boolean);
+      if (!usable.length) {
+        paragraphs = [];
+        return;
+      }
       sections.push({
         id: 'sec_' + (sections.length + 1),
         title: currentTitle,
-        text: currentParagraphs.join('\n\n'),
+        text: usable.join('\n\n'),
         page: pageNum,
-        paragraphs: currentParagraphs.slice(),
-        paragraphMeta: currentParagraphMeta.slice()
+        paragraphs: usable.slice()
       });
-      currentParagraphs = [];
-      currentParagraphMeta = [];
+      paragraphs = [];
     };
 
     for (const line of lines) {
       const trimmed = line.trim();
-      // Blank line: paragraph boundary, not ignored, not a section break.
       if (!trimmed) {
         flushParagraph();
         continue;
@@ -5116,7 +2265,7 @@
         flushSection();
         currentTitle = trimmed.replace(/^#{1,4}\s+/, '').replace(/^(\d+\.|\([A-Za-z0-9]+\))\s+/, '');
       } else {
-        currentParagraphLines.push(trimmed);
+        currentParagraph.push(trimmed);
       }
     }
 
@@ -5127,9 +2276,7 @@
         id: 'sec_1',
         title: titleFallback,
         text: cleanText(rawText),
-        page: 1,
-        paragraphs: [cleanText(rawText)],
-        paragraphMeta: [{ text: cleanText(rawText), page: 1, title: titleFallback }]
+        page: 1
       });
     }
 
@@ -5259,19 +2406,12 @@
     const index = ctx.index;
     const facts = ctx.facts;
     let pool = [];
-    // Quality, cross-subject: distractors must come from the source
-    // itself. The old controlled pools (Indian institutions, space
-    // functions, "statutory regulator", "orbit correction"…) produced
-    // off-topic options in science, history and pedagogy sources, where
-    // a student could eliminate them without knowing the topic. If the
-    // source does not supply three same-type distractors, the candidate
-    // is rejected — a missing question is better than a giveaway.
-    if (fact.answer_kind === 'place') pool = index.places.slice();
-    else if (fact.answer_kind === 'institution') pool = index.institutions.slice();
-    else if (fact.answer_kind === 'person') pool = index.persons.slice();
-    else if (fact.answer_kind === 'role') pool = index.roles.slice();
-    else if (fact.answer_kind === 'equipment') pool = index.equipment.slice();
-    else if (fact.answer_kind === 'function') pool = index.functions.slice();
+    if (fact.answer_kind === 'place') pool = index.places;
+    else if (fact.answer_kind === 'institution') pool = index.institutions;
+    else if (fact.answer_kind === 'person') pool = index.persons;
+    else if (fact.answer_kind === 'role') pool = index.roles;
+    else if (fact.answer_kind === 'equipment') pool = index.equipment;
+    else if (fact.answer_kind === 'function') pool = index.functions;
     else pool = index.functions.concat(index.roles);
 
     const sameSubjectPlaces = new Set();
@@ -5286,7 +2426,6 @@
 
     return pool.filter((candidate) => {
       if (!candidate) return false;
-      if (isFragmentPhrase(candidate)) return false;
       const normalized = normalizeObject(candidate);
       if (!normalized || normalized === normalizeObject(fact.object)) return false;
       if (sameSubjectPlaces.has(normalized)) return false;
@@ -5295,32 +2434,18 @@
     });
   }
 
-  function sameSectionObjectSet(ctx, fact) {
-    // Normalized objects of facts from the question's own section, for
-    // same-section-first distractor ordering in the typed pools.
-    const set = new Set();
-    if (!fact || !fact.section_id) return set;
-    for (const other of ctx.facts || []) {
-      if (other && other.section_id === fact.section_id && other.object) set.add(normalizeObject(other.object));
-    }
-    return set;
-  }
-
   function buildEntityDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
     const pool = entityPool(fact, ctx);
-    const sameSection = sameSectionObjectSet(ctx, fact);
-    pool.sort((a, b) => ((sameSection.has(normalizeObject(b)) ? 1 : 0) - (sameSection.has(normalizeObject(a)) ? 1 : 0)));
     for (const candidate of pool) {
       if (results.length >= 6) break;
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
       results.push({
         text: candidate,
-        origin: fact.answer_kind === 'place' ? 'controlled_place_pool' : 'typed_entity_pool',
+        origin: fact.answer_kind === 'place' ? 'source_place_pool' : 'typed_entity_pool',
         confusion_type: fact.answer_kind === 'place' ? 'wrong_place' : 'wrong_entity',
-        distractor_purpose: fact.answer_kind === 'place' ? 'wrong_entity' : 'confusable_fact',
-        same_section: sameSection.has(normalizeObject(candidate))
+        distractor_purpose: fact.answer_kind === 'place' ? 'wrong_entity' : 'confusable_fact'
       });
     }
     return results;
@@ -5329,11 +2454,8 @@
   function buildDefinitionDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
-    const sameSectionDefs = sameSectionObjectSet(ctx, fact);
-    const orderedDefinitions = ctx.index.definitions.slice().sort((a, b) => ((sameSectionDefs.has(normalizeObject(b)) ? 1 : 0) - (sameSectionDefs.has(normalizeObject(a)) ? 1 : 0)));
-    for (const candidate of orderedDefinitions) {
+    for (const candidate of ctx.index.definitions) {
       if (results.length >= 6) break;
-      if (isFragmentPhrase(candidate)) continue;
       if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
       if (isValueSupported(ctx.facts, fact.subject, fact.relation, candidate, fact.temporal_scope)) continue;
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
@@ -5381,10 +2503,6 @@
     }
     return alternatives.filter((candidate, index, list) =>
       candidate &&
-      !/\b(for|over|about|around|approximately|more than|less than)\s+\d+\s*$/i.test(candidate) &&
-      !isFragmentPhrase(candidate) &&
-      !/^\d/.test(candidate) &&
-      !/^(about|around|approximately|over|under|nearly)\s+\d/i.test(candidate) &&
       !memberSet.has(normalizeObject(candidate)) &&
       list.findIndex((item) => normalizeObject(item) === normalizeObject(candidate)) === index
     );
@@ -5397,7 +2515,7 @@
       if (isEquivalentOption(candidate, correctMember)) continue;
       results.push({
         text: candidate,
-        origin: 'controlled_category_pool',
+        origin: 'source_member_pool',
         confusion_type: 'wrong_category',
         distractor_purpose: 'wrong_category'
       });
@@ -5408,17 +2526,9 @@
   function buildCauseDistractors(fact, registry, questionSubtype) {
     const ctx = normalizeRegistry(registry);
     const results = [];
-    const sameSectionEffects = sameSectionObjectSet(ctx, fact);
-    const orderedEffects = ctx.index.effects.slice().sort((a, b) => ((sameSectionEffects.has(normalizeObject(b)) ? 1 : 0) - (sameSectionEffects.has(normalizeObject(a)) ? 1 : 0)));
-    for (const candidate of orderedEffects) {
+    for (const candidate of ctx.index.effects) {
       if (results.length >= 6) break;
       if (normalizeObject(candidate) === normalizeObject(fact.object)) continue;
-      // Phase 8 fix (fourth round): causal effects used as distractors
-      // must not be fragments ("of the high-pitched chants ...", "it
-      // clear, therefore, that ...") or sentence-long clauses.
-      if (isFragmentPhrase(candidate)) continue;
-      if (/^(it|they|this|that|of|to|in|on|for|with|by|as)\b/i.test(candidate)) continue;
-      if (candidate.split(/\s+/).filter(Boolean).length > 12) continue;
       if (isValueSupported(ctx.facts, fact.subject, fact.relation, candidate, fact.temporal_scope)) continue;
       if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
       results.push({
@@ -5439,7 +2549,7 @@
         if (results.some((item) => isEquivalentOption(item.text, candidate))) continue;
         results.push({
           text: candidate,
-          origin: 'controlled_effect_pool',
+          origin: 'source_effect_pool',
           confusion_type: 'reversed_relation',
           distractor_purpose: 'scope_error'
         });
@@ -5490,83 +2600,13 @@
         : fact.object;
       return buildMembershipDistractors(fact, factRegistry, correct);
     }
-    let results = [];
-    if (questionSubtype === 'cause_effect') results = buildCauseDistractors(fact, factRegistry, questionSubtype);
-    else if (questionSubtype === 'comparison') results = buildComparisonDistractors(fact, factRegistry, questionSubtype);
-    else if (fact.fact_type === 'date') return buildDateDistractors(fact, factRegistry, questionSubtype);
-    else if (fact.fact_type === 'numeric') return buildNumericDistractors(fact, factRegistry, questionSubtype);
-    else if (fact.fact_type === 'definition') results = buildDefinitionDistractors(fact, factRegistry, questionSubtype);
-    else if (fact.fact_type === 'entity_attribute') results = buildEntityDistractors(fact, factRegistry, questionSubtype);
-    // General source-object fallback (quality, cross-subject): when the
-    // typed pool is too small — typical for short sources, notes, and
-    // user documents — fill from other facts' objects in the SAME
-    // source, with a similar length, rather than from generic pools or
-    // not at all. This is what rescues a science or civics excerpt:
-    // its own other effects, definitions and entities are plausible
-    // wrong answers, while "statutory regulator" for photosynthesis is
-    // not. Date and numeric questions are excluded: their distractors
-    // must be dates/numbers, not arbitrary objects.
-    if (results.length < 6) {
-      const ctx = normalizeRegistry(factRegistry);
-      const expected = cleanText(fact.object || '');
-      const expectedLen = expected.length || 1;
-      // Misconception preference (mock-test quality): a distractor
-      // from a fact about the SAME subject family is a real test of
-      // knowledge, while a distractor from an unrelated part of the
-      // source is eliminable by topic alone — e.g. "oblate spheroid"
-      // as a distractor for Yellowstone's role. So the fallback pool
-      // is ordered by shared subject words first, then by length
-      // closeness, instead of raw source order.
-      const subjectWords = new Set(String(fact.subject || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !['about', 'which', 'their', 'these', 'those'].includes(w)));
-      const pool = [];
-      for (const other of ctx.facts || []) {
-        if (!other || other.fact_id === fact.fact_id) continue;
-        // Full-path repair, distractors (P0): a distractor from the
-        // same section is a real test of knowledge; one from another
-        // part of the chapter is eliminable by topic alone
-        // ("called a map projection" for Yellowstone). Section is
-        // therefore the first sort key, before type and overlap.
-        var sameSection = !!(fact.section_id && other.section_id && fact.section_id === other.section_id);
-        if (other.fact_type === 'numeric' || other.fact_type === 'date') continue;
-        const otherWords = new Set(String(other.subject || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4));
-        let overlap = 0;
-        for (const w of subjectWords) if (otherWords.has(w)) overlap++;
-        // Members of other lists are not answers: they leaked
-        // animals ("bilbies", "dingoes") and counts ("about 350")
-        // into unrelated questions as distractors. Only the other
-        // fact's own object may be a fallback distractor.
-        const values = [];
-        if (other.object) values.push(other.object);
-        for (const value of values) {
-          const cand = cleanText(value);
-          if (!cand || cand.length < 3 || cand.length > 150) continue;
-          if (isFragmentPhrase(cand)) continue;
-          if (/^(of|to|in|on|for|with|by|as)\b/i.test(cand)) continue;
-          if (isEquivalentOption(cand, expected)) continue;
-          if (isValueSupported(ctx.facts, fact.subject, fact.relation, cand, fact.temporal_scope)) continue;
-          if (cand.length < expectedLen / 8 || cand.length > expectedLen * 8) continue;
-          if (!pool.some((item) => isEquivalentOption(item.text, cand))) pool.push({ text: cand, overlap, sameType: other.fact_type === fact.fact_type, sameSection });
-        }
-      }
-      // Same-type distractors first: in a large source they are
-      // always preferred over a cross-type phrase, so the fallback
-      // only supplies cross-type options when no same-type option
-      // exists (small sources, where dropping the question would
-      // leave nothing at all).
-      pool.sort((a, b) => ((b.sameSection ? 1 : 0) - (a.sameSection ? 1 : 0)) || ((b.sameType ? 1 : 0) - (a.sameType ? 1 : 0)) || (b.overlap - a.overlap) || (Math.abs(a.text.length - expectedLen) - Math.abs(b.text.length - expectedLen)));
-      for (const item of pool) {
-        if (results.length >= 6) break;
-        if (results.some((r) => isEquivalentOption(r.text, item.text))) continue;
-        results.push({
-          text: item.text,
-          origin: 'source_object_pool',
-          confusion_type: 'partial_truth',
-          distractor_purpose: 'confusable_fact',
-          same_section: item.sameSection
-        });
-      }
-    }
-    return results;
+    if (questionSubtype === 'cause_effect') return buildCauseDistractors(fact, factRegistry, questionSubtype);
+    if (questionSubtype === 'comparison') return buildComparisonDistractors(fact, factRegistry, questionSubtype);
+    if (fact.fact_type === 'date') return buildDateDistractors(fact, factRegistry, questionSubtype);
+    if (fact.fact_type === 'numeric') return buildNumericDistractors(fact, factRegistry, questionSubtype);
+    if (fact.fact_type === 'definition') return buildDefinitionDistractors(fact, factRegistry, questionSubtype);
+    if (fact.fact_type === 'entity_attribute') return buildEntityDistractors(fact, factRegistry, questionSubtype);
+    return [];
   }
 
   const PAST_TENSE = {
@@ -5592,210 +2632,101 @@
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
     if (fact.relation === 'date_field') {
-      return `what date is recorded for ${subject}?`;
+      return `According to the passage, what date is recorded for ${subject}?`;
     }
     if (fact.answer_kind === 'range') {
-      return `which period is associated with ${subject}?`;
+      return `According to the passage, which period is associated with ${subject}?`;
     }
     const dateWord = fact.answer_kind === 'year' ? 'year' : 'date';
     if (fact.event_type === 'active') {
       const tail = fact.event_object ? ` to ${fact.event_object}` : '';
-      return `in which ${dateWord} did ${subject} ${fact.event_base}${tail}?`;
+      return `According to the passage, in which ${dateWord} did ${subject} ${fact.event_base}${tail}?`;
     }
-    // Coverage-engine date facts (typed layer) carry no event_base:
-    // without this guard the stem rendered "undefineded" (measured
-    // 2026-10-27, Ch3 Fig. 3.52 caption fact). Production date facts
-    // always carry event_base, so this branch never triggers for them.
-    // A four-digit object is a year even when answer_kind is absent.
-    if (!fact.event_base) {
-      const dw = /^\d{4}$/.test(cleanText(fact.object)) ? 'year' : dateWord;
-      if (fact.relation === 'completion_year') return `in which ${dw} was ${subject} completed?`;
-      if (fact.relation === 'made_in') return `in which ${dw} was ${subject} made?`;
-      if (fact.relation === 'establishment_year') return `in which ${dw} was ${subject} established?`;
-      if (fact.relation === 'launch_year') return `in which ${dw} was ${subject} launched?`;
-      return `what ${dw} is associated with ${subject}?`;
-    }
-    return `in which ${dateWord} was ${subject} ${pastTense(fact.event_base)}?`;
+    return `According to the passage, in which ${dateWord} was ${subject} ${pastTense(fact.event_base)}?`;
   }
 
   function numericStem(fact) {
     const attribute = cleanText(fact.attribute || fact.subject || 'the stated quantity');
     if (!attribute || /^the stated quantity$/i.test(attribute)) return null;
     if (!isUsableSubject(attribute)) return null;
-    // Dimension gate (manual read): an attribute that names no
-    // dimension ("km from east", "long years") produces a stem
-    // no student can parse ("What measurement is stated for km
-    // from east?"). Reject it; a future entity-extraction step
-    // may turn such facts into "How far / How many years" stems,
-    // but a unit-fragment stem must never ship.
-    const DIMENSION_NOUNS = /\b(distance|length|height|width|depth|area|volume|weight|mass|population|strength|span|age|speed|temperature|rate|percentage|proportion|count|number|total|amount|size|value|price|cost|duration|density|elevation|altitude)\b/i;
-    // Refinement: an attribute that IS the subject ("Great Barrier
-    // Reef" for "2300 kilometres") is a named entity, and the stem
-    // "What measurement is stated for the Great Barrier Reef?" is
-    // self-contained. Only a separate attribute phrase that names
-    // neither a dimension nor a proper noun ("km from east",
-    // "long years") is a unit fragment and is rejected.
-    if (/\b(can|could|will|would|shall|should|may|might|must)\b/i.test(attribute)) return null;
-    if (/^(km|kilometres?|metres?|cm|mm|kg|g|litres?|years?|days?)\b/i.test(attribute)) return null;
-    if (/^long years$/i.test(attribute)) return null;
-    const attrIsSubject = fact.attribute && cleanText(fact.attribute) === cleanText(fact.subject);
-    if (!attrIsSubject && !DIMENSION_NOUNS.test(attribute) && !/[A-Z]/.test(attribute)) return null;
     const kind = fact.answer_kind === 'amount' ? 'amount'
       : fact.answer_kind === 'percentage' ? 'percentage'
         : fact.answer_kind === 'measurement' ? 'measurement'
           : 'number';
     const expected = cleanText(fact.object).toLowerCase();
-    // "1,500 years" does not make "years" the thing being asked about, and
-    // a bare-unit question ("What number is stated?" for "28 States") is
-    // meaningless in an exam: it names no entity being counted. Reject
-    // such facts rather than generating a context-free stem; a future
-    // entity-extraction step may turn them into "How many States does
-    // India have?" questions, but a vague stem must never ship.
+    // "1,500 years" does not make "years" the thing being asked about: the
+    // unit repeats the answer, so the source line has to carry the meaning.
     if (attribute.split(/\s+/).length === 1 && expected.endsWith(attribute.toLowerCase())) {
-      return null;
+      return `According to the passage, what ${kind} is stated?`;
     }
-    // Stem polish: if the attribute itself contains a measured
-    // value ("40°C during the day"), the stem asks for a
-    // measurement for a measurement, and the question is
-    // unanswerable without the excerpt ("What measurement is
-    // stated for 40°C during the day?" for the answer 5°C).
-    // A year in the attribute ("population in 2020") is a
-    // qualifier, not a measured value, so it is allowed; a
-    // number with a unit is not. Reject, do not ship the stem.
-    if (/\d+\s*(°|%|km|m|cm|mm|kg|g|litres?|years?|days?)\b/i.test(attribute) && !/^\d{4}$/.test(attribute)) {
-      const hasYearOnly = attribute.replace(/\b(1|2)\d{3}\b/g, '').trim();
-      if (/\d/.test(hasYearOnly)) return null;
-    }
-    return `what ${kind} is stated for ${inlineSubject(attribute)}?`;
+    return `According to the passage, what ${kind} is stated for ${inlineSubject(attribute)}?`;
   }
 
   function entityStem(fact) {
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
-    // Generic-subject gate (quality): a stem about "the following",
-    // "the air", "one important factor", a subject ending in an adverb
-    // ("the complex also", "subordinate courts broadly"), or a subject
-    // containing a question word ("exposure to what") is not
-    // identifiable on its own. Reject, do not ship a vague stem.
-    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(subject)) return null;
-    // A bare definite noun ("the mosque", "the palace", "the present
-    // structure") does not identify which mosque or palace, so the
-    // stem cannot be answered on its own. A named or modified version
-    // ("the Dilwara Temples", "the mosque at Mount Abu") is fine.
-    if (/^(the|a)\s+(mosque|palace|temple|fort|building|structure|church|tomb|monument)$/i.test(subject)) return null;
-    if (/^(the)\s+(present|main|current)\s+(structure|building|mosque|palace|temple)$/i.test(subject)) return null;
-    if (/\b(also|often|broadly|here|not only|not just|only)\s*[.!?]?$/i.test(subject)) return null;
-    if (/\?/.test(subject) || /\bwhat\b/i.test(subject)) return null;
     // Superlative: subject IS the description; question asks which entity fits it.
     if (fact.relation === 'superlative') {
-      return `which is described as ${subject}?`;
+      return `According to the passage, which is described as ${subject}?`;
     }
     // Pattern-enriched fallback facts get a more neutral, natural stem.
     if (fact.extraction_method === 'pattern_enriched') {
-      return `which of the following correctly describes ${subject}?`;
+      return `According to the passage, which of the following correctly describes ${subject}?`;
     }
     const stems = {
-      initial_location: `where was ${subject} initially located?`,
-      destination_location: `where did ${subject} move to?`,
-      location: `where is ${subject} located?`,
-      office: `which office did ${subject} hold?`,
-      launched_by: `who launched ${subject}?`,
-      implemented_by: `who implemented ${subject}?`,
-      developed_by: `who developed ${subject}?`,
-      // Coverage-engine relations (additive, 2026-10-27): the typed
-      // layer produces these relations, but the table above had no
-      // stem for them, so every such fact silently produced no
-      // candidate (measured: 25 of 38 adapted Chapter 3 facts). Each
-      // stem below phrases exactly the typed relation; no existing
-      // stem is changed. Phrasings avoid a copula where the subject
-      // may be singular or plural ("where did the building of X take
-      // place?", "what purpose did X serve?").
-      built_by: `who built ${subject}?`,
-      built_in: `where did the building of ${subject} take place?`,
-      made_by: `who made ${subject}?`,
-      developed_in: `where did ${subject} develop?`,
-      renowned_for: `what is ${subject} renowned for?`,
-      characterised_by: `which of the following characterises ${subject}?`,
-      attribute: `which of the following correctly describes ${subject}?`,
-      features: `what does ${subject} feature?`,
-      has: `what does ${subject} have?`,
-      had: `what did ${subject} have?`,
-      offered: `what did ${subject} offer?`,
-      used_for: `what purpose did ${subject} serve?`,
-      function: `what is the stated function of ${subject}?`,
-      method: `what method is associated with ${subject}?`,
-      role: `what role is associated with ${subject}?`,
-      equipment: `what equipment is used by ${subject}?`,
-      originates_from: `where does ${subject} originate from?`,
-      flows_through: `through what does ${subject} flow?`,
-      runs_parallel_to: `what does ${subject} run parallel to?`,
-      protects: `what does ${subject} protect?`,
-      guarantees: `what does ${subject} guarantee?`,
-      ensures: `what does ${subject} ensure?`,
-      provides: `what does ${subject} provide?`,
-      contains: `what does ${subject} contain?`,
-      covers: `what does ${subject} cover?`,
-      states_that: `what does ${subject} state?`,
-      is_known_for: `what is ${subject} known for?`,
-      is_famous_for: `what is ${subject} famous for?`,
-      // Coverage-expansion relations (additive): without a stem, a
-      // fact with one of these relations silently produces no
-      // candidate, exactly the failure the coverage-engine block
-      // above fixed for its relations. Each stem phrases exactly
-      // the typed relation; no existing stem is changed.
-      showcases: `what does ${subject} showcase?`,
-      includes: `what does ${subject} include?`,
-      made_of: `what is ${subject} made of?`
+      initial_location: `According to the passage, where was ${subject} initially located?`,
+      destination_location: `According to the passage, where did ${subject} move to?`,
+      location: `According to the passage, where is ${subject} located?`,
+      office: `According to the passage, which office did ${subject} hold?`,
+      launched_by: `According to the passage, who launched ${subject}?`,
+      implemented_by: `According to the passage, who implemented ${subject}?`,
+      developed_by: `According to the passage, who developed ${subject}?`,
+      function: `According to the passage, what is the stated function of ${subject}?`,
+      method: `According to the passage, what method is associated with ${subject}?`,
+      role: `According to the passage, what role is associated with ${subject}?`,
+      equipment: `According to the passage, what equipment is used by ${subject}?`
     };
-    // No recognised relation means no self-contained question: a vague
-    // "what does the source state about X?" stem must never ship.
-    return stems[fact.relation] || null;
+    return stems[fact.relation] || `According to the passage, what does the source state about ${subject}?`;
   }
 
   function causeStem(fact) {
     if (!isUsableSubject(fact.subject)) return null;
     const subject = inlineSubject(fact.subject);
-    // A cause subject must be a concept, not a whole clause or a
-    // discourse starter: "Let us…", "Besides,…", "Though …" and
-    // subjects over 12 words ("the larger ones often include one or
-    // several domes…") produce stems that are not questions at all.
-    if (/^(let us|besides|though|while|although|however)\b/i.test(subject)) return null;
-    if (subject.split(/\s+/).filter(Boolean).length > 12) return null;
     const verb = cleanText(fact.relation_verb || 'causes').toLowerCase();
-    if (/^leads?\s+to$/.test(verb)) return `what does ${subject} lead to?`;
-    if (/^results?\s+in$/.test(verb)) return `what does ${subject} result in?`;
-    if (/^allows?$/.test(verb)) return `what does ${subject} allow?`;
-    if (/^enables?$/.test(verb)) return `what does ${subject} enable?`;
-    if (/^produces?$/.test(verb)) return `what does ${subject} produce?`;
-    if (/^brings?\s+about$/.test(verb)) return `what does ${subject} bring about?`;
-    if (/^triggers?$/.test(verb)) return `what does ${subject} trigger?`;
-    if (/^contributes?\s+to$/.test(verb)) return `what does ${subject} contribute to?`;
-    if (/^promotes?$/.test(verb)) return `what does ${subject} promote?`;
-    if (/^stimulates?$/.test(verb)) return `what does ${subject} stimulate?`;
-    if (/^inhibits?$/.test(verb)) return `what does ${subject} inhibit?`;
-    if (/^prevents?$/.test(verb)) return `what does ${subject} prevent?`;
-    if (/^reduces?$/.test(verb)) return `what does ${subject} reduce?`;
-    if (/^increases?$/.test(verb)) return `what does ${subject} increase?`;
-    if (/^decreases?$/.test(verb)) return `what does ${subject} decrease?`;
-    if (/^influences?$/.test(verb)) return `what does ${subject} influence?`;
-    if (/^affects?$/.test(verb)) return `what does ${subject} affect?`;
-    if (/^determines?$/.test(verb)) return `what does ${subject} determine?`;
-    if (/^drives?$/.test(verb)) return `what does ${subject} drive?`;
-    if (/^encourages?$/.test(verb)) return `what does ${subject} encourage?`;
-    if (/^generates?$/.test(verb)) return `what does ${subject} generate?`;
-    if (/^strengthens?$/.test(verb)) return `what does ${subject} strengthen?`;
-    if (/^weakens?$/.test(verb)) return `what does ${subject} weaken?`;
-    if (/^accelerates?$/.test(verb)) return `what does ${subject} accelerate?`;
-    if (/^helps?$/.test(verb)) return `what does ${subject} help achieve?`;
-    if (/^makes?$/.test(verb)) return `what does ${subject} make possible?`;
-    if (/^forces?$/.test(verb)) return `what does ${subject} force?`;
-    if (/^supports?$/.test(verb)) return `what does ${subject} support?`;
+    if (/^leads?\s+to$/.test(verb)) return `According to the passage, what does ${subject} lead to?`;
+    if (/^results?\s+in$/.test(verb)) return `According to the passage, what does ${subject} result in?`;
+    if (/^allows?$/.test(verb)) return `According to the passage, what does ${subject} allow?`;
+    if (/^enables?$/.test(verb)) return `According to the passage, what does ${subject} enable?`;
+    if (/^produces?$/.test(verb)) return `According to the passage, what does ${subject} produce?`;
+    if (/^brings?\s+about$/.test(verb)) return `According to the passage, what does ${subject} bring about?`;
+    if (/^triggers?$/.test(verb)) return `According to the passage, what does ${subject} trigger?`;
+    if (/^contributes?\s+to$/.test(verb)) return `According to the passage, what does ${subject} contribute to?`;
+    if (/^promotes?$/.test(verb)) return `According to the passage, what does ${subject} promote?`;
+    if (/^stimulates?$/.test(verb)) return `According to the passage, what does ${subject} stimulate?`;
+    if (/^inhibits?$/.test(verb)) return `According to the passage, what does ${subject} inhibit?`;
+    if (/^prevents?$/.test(verb)) return `According to the passage, what does ${subject} prevent?`;
+    if (/^reduces?$/.test(verb)) return `According to the passage, what does ${subject} reduce?`;
+    if (/^increases?$/.test(verb)) return `According to the passage, what does ${subject} increase?`;
+    if (/^decreases?$/.test(verb)) return `According to the passage, what does ${subject} decrease?`;
+    if (/^influences?$/.test(verb)) return `According to the passage, what does ${subject} influence?`;
+    if (/^affects?$/.test(verb)) return `According to the passage, what does ${subject} affect?`;
+    if (/^determines?$/.test(verb)) return `According to the passage, what does ${subject} determine?`;
+    if (/^drives?$/.test(verb)) return `According to the passage, what does ${subject} drive?`;
+    if (/^encourages?$/.test(verb)) return `According to the passage, what does ${subject} encourage?`;
+    if (/^generates?$/.test(verb)) return `According to the passage, what does ${subject} generate?`;
+    if (/^strengthens?$/.test(verb)) return `According to the passage, what does ${subject} strengthen?`;
+    if (/^weakens?$/.test(verb)) return `According to the passage, what does ${subject} weaken?`;
+    if (/^accelerates?$/.test(verb)) return `According to the passage, what does ${subject} accelerate?`;
+    if (/^helps?$/.test(verb)) return `According to the passage, what does ${subject} help achieve?`;
+    if (/^makes?$/.test(verb)) return `According to the passage, what does ${subject} make possible?`;
+    if (/^forces?$/.test(verb)) return `According to the passage, what does ${subject} force?`;
+    if (/^supports?$/.test(verb)) return `According to the passage, what does ${subject} support?`;
     if (/^(?:due\s+to|owing\s+to|because\s+of|as\s+a\s+result\s+of|as\s+a\s+consequence\s+of)$/.test(verb)) {
-      return `what is the effect of ${subject}?`;
+      return `According to the passage, what is the effect of ${subject}?`;
     }
-    if (/^is\s+responsible\s+for$/.test(verb)) return `what is ${subject} responsible for?`;
-    if (/^(?:if|when|unless)$/.test(verb)) return `what happens when ${subject}?`;
-    return `what does ${subject} cause?`;
+    if (/^is\s+responsible\s+for$/.test(verb)) return `According to the passage, what is ${subject} responsible for?`;
+    if (/^(?:if|when|unless)$/.test(verb)) return `According to the passage, what happens when ${subject}?`;
+    return `According to the passage, what does ${subject} cause?`;
   }
 
   function factExplanation(fact, subtype, expected, correct) {
@@ -5827,25 +2758,15 @@
     return `The source states: “${excerpt}” This identifies ${relationLabel(fact.relation)} of ${fact.subject} as ${expected}.`;
   }
 
-  // Difficulty is a property of the work the question asks, not just
-  // its form label. A single-value recall is easy; a single relation
-  // (cause, comparison, one table cell) is medium; anything that asks
-  // the student to evaluate several statements, order events, match
-  // pairs, or judge an Assertion-Reason pair is hard, because it
-  // requires holding several claims in mind at once. Statement-option
-  // was previously medium, but evaluating four full sentences is
-  // multi-claim work, so it is hard here. This label is what the
-  // mock-test assembler uses for its difficulty mix, so it must
-  // reflect the task, not the subtype's age in the codebase.
   function difficultyFor(subtype) {
-    if (subtype === 'multi_statement' || subtype === 'multi_statement_3' || subtype === 'assertion_reason' || subtype === 'matching' || subtype === 'statement_option' || subtype === 'chronology') return 'hard';
+    if (subtype === 'multi_statement') return 'hard';
     if (subtype === 'date_recall' || subtype === 'numeric_recall') return 'easy';
     return 'medium';
   }
 
   function cognitiveFor(subtype) {
-    if (subtype === 'multi_statement' || subtype === 'multi_statement_3' || subtype === 'statement_option' || subtype === 'assertion_reason' || subtype === 'matching' || subtype === 'chronology') return 'analysis';
-    if (subtype === 'cause_effect' || subtype === 'comparison' || subtype === 'sequence_order' || subtype === 'table_question') return 'understanding';
+    if (subtype === 'multi_statement') return 'analysis';
+    if (subtype === 'cause_effect' || subtype === 'comparison' || subtype === 'sequence_order') return 'understanding';
     if (subtype === 'classification_membership' || subtype === 'definition') return 'understanding';
     return 'recall';
   }
@@ -5858,101 +2779,18 @@
     };
   }
 
-  // Per-distractor explanations (mock-test quality): a student who
-  // got a question wrong should learn why each wrong option fails,
-  // not just that the correct option is right. Every sentence here
-  // is tied to the distractor's origin, and every claim is true by
-  // construction: the distractor is not the fact's object, so it is
-  // not the value the source states for this subject and relation.
-  // Sentences name option texts, never option letters, because the
-  // bank builder rotates options after selection and a letter in
-  // the explanation would then point at the wrong option.
-  function explainDistractor(distractor, fact, expected, subtype) {
-    const text = cleanText(distractor && distractor.text ? distractor.text : '');
-    if (!text) return '';
-    if (subtype === 'exception_reasoning' && distractor.origin === 'source_member_pool') {
-      return `“${text}” is a true member of the list, so it cannot be the exception.`;
-    }
-    if (distractor.confusion_type === 'wrong_date') {
-      return `“${text}” is a nearby year, but the source states ${expected} for this subject, not ${text}.`;
-    }
-    if (distractor.confusion_type === 'adjacent_value') {
-      return `“${text}” is a nearby value, but the source states ${expected}, not ${text}.`;
-    }
-    if (distractor.origin === 'deterministic_permutation') {
-      return `“${text}” swaps steps in the stated sequence.`;
-    }
-    if (distractor.confusion_type === 'wrong_place') {
-      return `“${text}” is a different place of the same kind, not the one the source states for this subject.`;
-    }
-    if (distractor.confusion_type === 'wrong_entity') {
-      return `“${text}” is a different entity of the same kind, not the one the source states for this subject.`;
-    }
-    if (distractor.origin === 'source_definition_pool') {
-      return `“${text}” is a definition stated elsewhere in the source, not the definition of this subject.`;
-    }
-    if (distractor.origin === 'source_causal_pool' || distractor.origin === 'controlled_effect_pool') {
-      return `“${text}” is an effect stated elsewhere in the source, not the effect of this cause.`;
-    }
-    if (distractor.origin === 'source_comparison_pool') {
-      return `“${text}” is a different comparison, not the one the source states for this subject.`;
-    }
-    if (distractor.origin === 'source_object_pool') {
-      return `“${text}” is stated in the source, but not for this subject.`;
-    }
-    if (distractor.origin === 'controlled_category_pool') {
-      return `“${text}” is not a member of this list.`;
-    }
-    if (distractor.origin === 'table_column_pool') {
-      return `“${text}” is the value for a different row in the same column, not for this row.`;
-    }
-    return `“${text}” is not the value the source states for this subject.`;
-  }
-
   function buildSingleChoiceCandidate(fact, subtype, stem, expected, distractors, explanation, extra) {
+    if (!isQuestionSafeSpan(expected, 150)) return null;
     const usable = [];
     for (const distractor of distractors || []) {
       if (!distractor || !distractor.text) continue;
-      // Length matching is applied after collection (below): distractors
-      // are collected first, then the three closest in length to the
-      // correct answer are chosen, so a long clause answer does not sit
-      // next to only short one-word distractors as a giveaway.
-      // Quality: a fragment distractor must never become an option, and
-      // must not kill the whole question either — skip it and use the
-      // next clean distractor from the pool, if one exists. Without this
-      // central filter, a pool containing "type of" or "of its deep
-      // roots…" poisoned otherwise valid questions (notably hees209,
-      // which fell from 15 to 6 questions when validation alone
-      // rejected them).
-      const dt = cleanText(distractor.text);
-      if (isFragmentPhrase(dt)) continue;
-      if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(dt)) continue;
-      if (/^(of|to|in|on|for|with|by|as)\b/i.test(dt)) continue;
-      if (/^(type|path|kind) of$/i.test(dt)) continue;
-      if (/^[^A-Za-z0-9]/.test(dt)) continue;
+      if (!isQuestionSafeSpan(distractor.text, 150)) continue;
       if (isEquivalentOption(distractor.text, expected)) continue;
       if (usable.some((item) => isEquivalentOption(item.text, distractor.text))) continue;
       usable.push(distractor);
-      if (usable.length >= 10) break;
+      if (usable.length === 3) break;
     }
     if (usable.length < 3) return null;
-    // Quality: choose the three distractors closest in length to the
-    // correct answer. The pool is already type-matched and
-    // source-derived; picking the first three in source order produced
-    // systematic length giveaways (a 100-char clause answer next to
-    // 10-char distractors). Length-matching keeps the options
-    // homogeneous without inventing new distractors.
-    usable.sort((a, b) => Math.abs(cleanText(a.text).length - cleanText(expected).length) - Math.abs(cleanText(b.text).length - cleanText(expected).length));
-    usable.length = 3;
-
-    // Entity gate: a direct entity question ships only if at least
-    // one of its three options comes from the question's own
-    // section. A question whose every option is chapter-wide
-    // (Yellowstone with "called a map projection") is answerable by
-    // topic alone, so it is dropped, not published. Statement
-    // options are exempt: their options are mutations of the
-    // question's own sentence, on-topic by construction.
-    if (subtype === 'entity_attribute' && !usable.some((d) => d.same_section)) return null;
 
     const options = [{ key: 'A', text: expected, is_correct: true }];
     usable.forEach((distractor, index) => {
@@ -5967,21 +2805,6 @@
     });
 
     const framed = buildStemContext(stem, fact.supporting_excerpt, expected);
-    // Per-distractor teaching, for direct single-value questions
-    // only. Statement-option distractors are full mutated sentences,
-    // so a value-based sentence would be wrong for them, and
-    // multi/Assertion-Reason/matching already explain per statement,
-    // per pair, or per code. For the direct forms, append one
-    // sentence per chosen distractor, in option order.
-    let fullExplanation = explanation;
-    const directSubtypes = ['date_recall', 'numeric_recall', 'definition', 'entity_attribute', 'classification_membership', 'cause_effect', 'comparison', 'sequence_order', 'fill_blank', 'exception_reasoning'];
-    if (directSubtypes.includes(subtype)) {
-      const reasons = options.filter((o) => !o.is_correct).map((o) => {
-        const src = usable.find((d) => cleanText(d.text) === cleanText(o.text)) || { text: o.text, origin: o.distractor_origin, confusion_type: o.confusion_type };
-        return explainDistractor(src, fact, expected, subtype);
-      }).filter(Boolean);
-      if (reasons.length) fullExplanation = `${explanation} Why the other options are wrong: ${reasons.join(' ')}`;
-    }
     const question = {
       id: '',
       type: 'single_choice',
@@ -5995,7 +2818,7 @@
       source_title: fact.section_title,
       source_page: fact.source_page,
       supporting_excerpt: fact.supporting_excerpt,
-      explanation: fullExplanation,
+      explanation,
       difficulty: difficultyFor(subtype),
       cognitive_level: cognitiveFor(subtype),
       evidence: {
@@ -6058,18 +2881,12 @@
     const distractors = buildDistractorCandidates(fact, registry, 'definition');
     if (distractors.length < 3) return null;
     const expected = fact.object;
-    if (isFragmentPhrase(expected)) return null;
-    // Full-path repair, truncation (P1): a definition answer cut
-    // before its head noun ("low-lying terrain, gentle rolling") is
-    // not an answer. A trailing participle phrase after a comma is
-    // the signature of that cut.
-    if (/,\s*[^,]*\b\w+ing\s*$/.test(cleanText(expected))) return null;
     const subject = inlineSubject(fact.subject);
     // Rotate stem phrasing deterministically based on fact ID hash.
     const stemVariants = [
-      `what does ${subject} mean?`,
-      `which of the following best describes ${subject}?`,
-      `how is ${subject} defined or described?`
+      `According to the passage, what does ${subject} mean?`,
+      `According to the passage, which of the following best describes ${subject}?`,
+      `According to the passage, how is ${subject} defined or described?`
     ];
     const stem = stemVariants[stableHash(fact.fact_id) % stemVariants.length];
     const explanation = factExplanation(fact, 'definition', expected, expected);
@@ -6080,11 +2897,6 @@
     const distractors = buildDistractorCandidates(fact, registry, 'entity_attribute');
     if (distractors.length < 3) return null;
     const expected = fact.object;
-    // Manual read: "Who launched Cities?" with the answer
-    // "everybody" is an extraction artefact, not a question. A
-    // bare quantifier or adverb is never a usable entity answer.
-    if (/^(everybody|everyone|anybody|anyone|somebody|someone|generally|usually|people|any|some)$/i.test(cleanText(expected))) return null;
-    if (isFragmentPhrase(expected)) return null;
     const stem = entityStem(fact);
     if (!stem) return null;
     const explanation = factExplanation(fact, 'entity_attribute', expected, expected);
@@ -6093,23 +2905,16 @@
 
   function makeMembershipCandidate(fact, registry) {
     if (!isUsableSubject(fact.subject)) return null;
-    // Same generic-subject gate as entity stems: a membership subject
-    // ending in an adverb or a discourse marker ("the complex also",
-    // "rural areas, on the other hand") is not a identifiable category.
-    const memSubject = inlineSubject(fact.subject);
-    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(memSubject)) return null;
-    if (/on the other hand/i.test(memSubject)) return null;
     if (!fact.members || !fact.members.length) return null;
     const corrected = fact.members[stableHash(fact.fact_id) % fact.members.length];
-    if (isFragmentPhrase(corrected) || /^\d/.test(corrected) || /^(about|around|approximately|over|under|nearly)\s+\d/i.test(corrected) || /\b(for|over|about|around|approximately|more than|less than)\s+\d+\s*$/.test(corrected)) return null;
     const distractors = buildDistractorCandidates(fact, registry, 'classification_membership');
     if (distractors.length < 3) return null;
     const subject = inlineSubject(fact.subject);
     // Rotate stem phrasing deterministically.
     const stemVariants = [
-      `which of the following is included in ${subject}?`,
-      `which of the following is listed as part of ${subject}?`,
-      `which one is mentioned as belonging to ${subject}?`
+      `According to the passage, which of the following is included in ${subject}?`,
+      `According to the passage, which of the following is listed as part of ${subject}?`,
+      `According to the passage, which one is mentioned as belonging to ${subject}?`
     ];
     const stem = stemVariants[stableHash(fact.fact_id + 'stem') % stemVariants.length];
     const explanation = factExplanation(fact, 'classification_membership', corrected, corrected);
@@ -6125,119 +2930,6 @@
     if (!candidate) return null;
     candidate.expected_member = corrected;
     return candidate;
-  }
-
-  // Mock-test form 1 (books: "Which of the following is NOT ...?").
-  // A membership fact gives a true list; the correct answer is an
-  // outsider from another list in the same source, and the three
-  // distractors are all true members. A student who only knows one
-  // member cannot answer it, and a student who knows the list can.
-  // NOT is capitalised in the stem: in a real exam a missed "not"
-  // flips the whole question, so it must be impossible to skim past.
-  function makeExceptionCandidate(fact, registry) {
-    if (!isUsableSubject(fact.subject)) return null;
-    const memSubject = inlineSubject(fact.subject);
-    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(memSubject)) return null;
-    if (/on the other hand/i.test(memSubject)) return null;
-    if (!fact.members || fact.members.length < 3) return null;
-    const members = fact.members.map((m) => cleanText(m)).filter((m) => m && !isFragmentPhrase(m) && !/^[^A-Za-z0-9]/.test(m) && !/\b(for|over|about|around|approximately|more than|less than)\s+\d+\s*$/.test(m));
-    if (members.length < 3) return null;
-    const ctx = normalizeRegistry(registry);
-    const outsiders = membershipAlternatives(fact, ctx).filter((cand) => {
-      const c = cleanText(cand);
-      if (!c || c.length < 3 || c.length > 150) return false;
-      if (isFragmentPhrase(c)) return false;
-      if (/^(of|to|in|on|for|with|by|as)\b/i.test(c)) return false;
-      if (members.some((m) => isEquivalentOption(m, c))) return false;
-      // The outsider must not be a member of the same category under
-      // any other fact in this source, or the "exception" is not one.
-      for (const other of ctx.facts || []) {
-        if (other.fact_id === fact.fact_id) continue;
-        if (other.fact_type !== 'membership') continue;
-        if (normalizeSubject(other.subject) !== normalizeSubject(fact.subject)) continue;
-        if (Array.isArray(other.members) && other.members.some((m) => isEquivalentOption(m, c))) return false;
-      }
-      return true;
-    });
-    if (!outsiders.length) return null;
-    const outsider = outsiders[0];
-    const distractors = members.slice(0, 3).map((m) => ({
-      text: m,
-      origin: 'source_member_pool',
-      confusion_type: 'partial_truth',
-      distractor_purpose: 'confusable_fact'
-    }));
-    if (distractors.length < 3) return null;
-    const subject = inlineSubject(fact.subject);
-    const stemVariants = [
-      `which of the following is NOT included in ${subject}?`,
-      `which of the following is NOT listed as part of ${subject}?`,
-      `which one of the following is NOT a member of ${subject}?`
-    ];
-    const stem = stemVariants[stableHash(fact.fact_id + 'exc') % stemVariants.length];
-    const explanation = `The source states: “${fact.supporting_excerpt}” The members listed are ${members.join(', ')}. ${outsider} is not among them, so it is the exception.`;
-    const candidate = buildSingleChoiceCandidate(
-      fact,
-      'exception_reasoning',
-      stem,
-      outsider,
-      distractors,
-      explanation,
-      { answer_relation_key: fact.fact_id + '|members', relation_keys: [fact.fact_id + '|members'] }
-    );
-    return candidate;
-  }
-
-  // Mock-test form 2 (books: "Which of the following statements is
-  // correct about X?"). The options are full sentences, not single
-  // entities, so the student must evaluate a complete claim. The
-  // correct option is the exact source sentence; each distractor is
-  // that same sentence with its value replaced by a value the source
-  // does not state for this subject — a near-miss claim, not a
-  // random other fact. A distractor that is actually supported
-  // elsewhere for this subject is rejected, or the question would
-  // have two correct answers.
-  function makeStatementOptionCandidate(fact, registry) {
-    if (!isUsableSubject(fact.subject)) return null;
-    const subject = inlineSubject(fact.subject);
-    if (/\b(also|often|broadly)\s*[.!?]?$/i.test(subject)) return null;
-    if (/on the other hand/i.test(subject)) return null;
-    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(subject)) return null;
-    if (/\?/.test(subject)) return null;
-    const src = cleanText(fact.source_text || '');
-    if (!src || /^[^A-Za-z0-9]/.test(src) || !/[.!?]$/.test(src) || src.split(/\s+/).length < 5) return null;
-    if (/^[a-z]/.test(src)) return null;
-    if (!hasMainVerb(src)) return null;
-    if (!fact.object || src.indexOf(fact.object) === -1) return null;
-    const ctx = normalizeRegistry(registry);
-    let values = [];
-    if (fact.fact_type === 'date') values = buildDateDistractors(fact, ctx, 'date_recall');
-    else if (fact.fact_type === 'numeric') values = buildNumericDistractors(fact, ctx, 'numeric_recall');
-    else if (fact.fact_type === 'definition') values = buildDefinitionDistractors(fact, ctx, 'definition');
-    else if (fact.fact_type === 'entity_attribute') values = buildEntityDistractors(fact, ctx, 'entity_attribute');
-    else return null;
-    const distractors = [];
-    for (const v of values) {
-      if (distractors.length >= 3) break;
-      if (!v || !v.text) continue;
-      if (isEquivalentOption(v.text, fact.object)) continue;
-      if (isValueSupported(ctx.facts, fact.subject, fact.relation, v.text, fact.temporal_scope)) continue;
-      const sentence = replaceOnce(src, fact.object, v.text);
-      if (!sentence || /^[^A-Za-z0-9]/.test(sentence) || !/[.!?]$/.test(sentence) || sentence.split(/\s+/).length < 5) continue;
-      if (isFragmentPhrase(sentence)) continue;
-      if (!isCleanMutatedSentence(sentence, v.text, fact.object)) continue;
-      if (distractors.some((d) => isEquivalentOption(d.text, sentence))) continue;
-      distractors.push({
-        text: sentence,
-        origin: v.origin || 'source_value_pool',
-        confusion_type: 'partial_truth',
-        distractor_purpose: 'confusable_fact'
-      });
-    }
-    if (distractors.length < 3) return null;
-    const stem = `which of the following statements is correct about ${subject}?`;
-    const explanation = `The source states: “${fact.supporting_excerpt}” The correct statement preserves that value. The other options replace it with a value the source does not state for ${subject}.`;
-    return buildSingleChoiceCandidate(fact, 'statement_option', stem, src, distractors, explanation);
   }
 
   function permutations(items) {
@@ -6265,7 +2957,7 @@
       confusion_type: 'scope_error',
       distractor_purpose: 'scope_error'
     }));
-    const stem = 'What is the correct order of the steps?';
+    const stem = 'According to the passage, what is the correct order of the steps?';
     const explanation = factExplanation(fact, 'sequence_order', expected, expected);
     return buildSingleChoiceCandidate(
       fact,
@@ -6283,7 +2975,6 @@
     const distractors = buildDistractorCandidates(fact, registry, 'cause_effect');
     if (distractors.length < 3) return null;
     const expected = fact.object;
-    if (isFragmentPhrase(expected)) return null;
     const stem = causeStem(fact);
     if (!stem) return null;
     const explanation = factExplanation(fact, 'cause_effect', expected, expected);
@@ -6300,15 +2991,13 @@
 
     let stem;
     if (subject && comp.subject_b && comp.direction === 'contrast') {
-      stem = `how does ${subject} compare to ${comp.subject_b}?`;
+      stem = `According to the passage, how does ${subject} compare to ${comp.subject_b}?`;
     } else if (subject && comp.subject_b && comp.direction === 'similar') {
-      stem = `in what way is ${subject} similar to ${comp.subject_b}?`;
+      stem = `According to the passage, in what way is ${subject} similar to ${comp.subject_b}?`;
+    } else if (subject) {
+      stem = `According to the passage, what is explicitly stated about ${subject}?`;
     } else {
-      // A sentence that merely contains a contrast word is not a
-      // comparison question. Without two named entities and a direction,
-      // the only available stem ("what is stated about <whole clause>?")
-      // is vague and unanswerable on its own, so reject the candidate.
-      return null;
+      stem = 'According to the passage, which comparison is explicitly stated?';
     }
 
     const explanation = factExplanation(fact, 'comparison', expected, expected);
@@ -6331,81 +3020,10 @@
     return null;
   }
 
-  // A mutated sentence is only a fair false claim if it reads like a
-  // sentence of the same kind. Manual read found three systematic
-  // failures: a replacement that is a participle verb phrase
-  // ("was an composed in local languages"), a pronoun inside the
-  // replacement ("was a killed or tortured for his or her"), and
-  // an article that no longer agrees with the replacement ("was
-  // an path of Islam", "is a oblate spheroid"). Any of these makes
-  // the item answerable by grammar, not knowledge, so the mutation
-  // is rejected and the caller falls back to another variant.
-  const PARTICIPLE_START = /^(killed|observed|taken|composed|called|considered|described|known|used|made|given|shown|found|built|written|created|established|located|situated|based|related|associated|connected|involved|engaged|employed|appointed|elected|selected|chosen|named|titled|termed|defined|referred|regarded|viewed|seen|heard|said|stated|mentioned|noted|reported|recorded|listed|included|excluded|divided|classified|grouped|organised|organized)\b/i;
-  // A source sentence must contain a main verb, or it is a fragment
-  // ("40°C during the day to 5°C at night"). "during" is a
-  // preposition, not a verb, so it is excluded from the -ing test,
-  // and irregular past forms ("took place", "was formed") are
-  // covered by an explicit list, not only by -ed endings.
-  const MAIN_VERBS = new Set(('is are was were has have had be been being took take takes began begin became become held hold formed form built build gave give made make led lead rose fell grew grow died die lived live worked work fought fight won win lost lose wrote write said say saw see came come went go found find left leave joined join started start ended end changed change moved move passed pass arrived arrive launched launch established establish created create developed develop introduced introduce opened open signed sign declared declare announced announce published publish recorded record followed follow continued continue remained remain increased increase decreased decrease caused cause resulted result allowed allow enabled enable helped help produced produce provided provide protected protect guaranteed guarantee ensured ensure stated state described describe defined define known know called call named name referred refer meant mean represents represent includes include contains contain consists consist covers cover stretches stretch extends extend lies lie located situated provides allows makes causes leads results shows indicates states').split(' '));
-  function hasMainVerb(text) {
-    const words = String(text || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
-    for (const w of words) {
-      if (MAIN_VERBS.has(w)) return true;
-      if (/^[a-z]{3,}s$/.test(w) && !/^(this|that|thus|also)$/.test(w)) return true;
-      if (/^[a-z]{3,}ed$/.test(w)) return true;
-      if (/^[a-z]{3,}ing$/.test(w) && w !== 'during') return true;
-    }
-    return false;
-  }
-  const PRONOUN_IN_VALUE = /\b(his|her|their|it|they|him|them|us|we|you|he|she)\b/i;
-  function isCleanMutatedSentence(text, replacement, original) {
-    if (!text || !replacement) return false;
-    if (PARTICIPLE_START.test(replacement)) return false;
-    if (PRONOUN_IN_VALUE.test(replacement)) return false;
-    if (/(?:^|\s)[A-Za-z](?:\s|$)/.test(replacement) && !/^(a|I)$/.test(replacement.trim())) return false;
-    if (isFragmentPhrase(replacement)) return false;
-    if (String(replacement).split(/\s+/).filter(Boolean).length === 1 && String(original || '').split(/\s+/).filter(Boolean).length >= 4) return false;
-    const stripped = cleanText(text).replace(/[.!?]+\s*$/, '');
-    if (/\b(of|to|in|on|for|with|by|as|through|from|the|a|an|it|they|them)\s*$/i.test(stripped)) return false;
-    // Article agreement, ignoring the silent-h and vowel-sound
-    // exceptions ("an hour", "a university", "a one"): a mismatch
-    // is a grammar giveaway, so the mutation is rejected outright
-    // rather than repaired, because repairing the article does not
-    // repair a replacement of the wrong kind.
-    if (/\b(a|an)\s+the\b/i.test(text)) return false;
-    const forCheck = text.replace(/\b(an)\s+(hour|honest)\b/gi, '$1 XX').replace(/\b(a)\s+(one|university|european|user|uniform)\b/gi, '$1 XX');
-    if (/\ba\s+[aeiouAEIOU]/.test(forCheck)) return false;
-    if (/\ban\s+[^aeiouAEIOU\s]/.test(forCheck)) return false;
-    return true;
-  }
-
   function falseStatementFor(fact, replacement) {
     if (!replacement || !fact.object) return null;
-    // Mutated-statement readability gate (mock-test quality): the
-    // Assertion-Reason builders already reject long, clausal
-    // replacements, but multi-statement builders did not, and a
-    // long clausal replacement spliced into another sentence
-    // produced garbled items in the banks (a three-statement item
-    // whose false statement read as two clauses joined with no
-    // connector). Reject a replacement that is itself a clause, or
-    // longer than eight words, and reject a mutated sentence with
-    // a repeated four-word phrase or a dangling relative ending
-    // ("that allows us"). Callers fall back to another variant
-    // (all-true, or a different false position) rather than
-    // shipping the garbled statement.
-    if (isClausalValue(replacement)) return null;
-    if (String(replacement).split(/\s+/).filter(Boolean).length > 8) return null;
     const text = replaceOnce(fact.source_text, fact.object, replacement);
     if (!text) return null;
-    if (!isCleanMutatedSentence(text, replacement, fact.object)) return null;
-    const words = cleanText(text).toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
-    const phrases = new Set();
-    for (let i = 0; i + 4 <= words.length; i++) {
-      const phrase = words.slice(i, i + 4).join(' ');
-      if (phrases.has(phrase)) return null;
-      phrases.add(phrase);
-    }
-    if (/\bthat (allows|lets|helps|enables) (us|them|it)\.?$/i.test(cleanText(text))) return null;
     return {
       text,
       alteration: {
@@ -6417,74 +3035,38 @@
     };
   }
 
-  // Combo text for a set of true statement numbers. For two
-  // statements this is the classic CTET form ("1 only", "2 only",
-  // "Both 1 and 2", "Neither 1 nor 2"); for three it is the
-  // corresponding subset ("1 and 3 only", "1, 2 and 3", ...).
-  function comboTextForTrueNumbers(trueNumbers, count) {
-    const set = new Set(trueNumbers);
-    if (count === 2) {
-      if (set.size === 2) return 'Both 1 and 2';
-      if (set.size === 1) return set.has(1) ? '1 only' : '2 only';
-      return 'Neither 1 nor 2';
+  function makeMultiCandidate(trueStatements, falseStatements, trueFacts, falseFacts, sourceTitle) {
+    const statements = [];    let index = 1;
+    for (const item of trueStatements) {
+      const number = index++;
+      statements.push({
+        index: number,
+        number: number,
+        text: item.fact.source_text,
+        fact_id: item.fact.fact_id,
+        source_excerpt: item.fact.supporting_excerpt,
+        truth_value: true
+      });
     }
-    if (set.size === 0) return 'None of the above';
-    if (set.size === 3) return '1, 2 and 3';
-    const parts = [1, 2, 3].filter((n) => set.has(n));
-    if (parts.length === 1) return `${parts[0]} only`;
-    return `${parts.join(' and ')} only`;
-  }
-
-  function comboSetForText(text) {
-    const nums = [];
-    for (const m of String(text || '').matchAll(/[123]/g)) nums.push(Number(m[0]));
-    if (/neither|none/i.test(text)) return new Set();
-    return new Set(nums);
-  }
-
-  // Ordered multi-statement builder. Statements stay in the order
-  // their facts occur in the source, with a truth value each — this
-  // is what makes "2 only" and "1 and 3 only" reachable. The old
-  // builder grouped all true statements first, so the first statement
-  // was always true and "2 only" could never be the answer, which
-  // is why no selected bank ever contained it.
-  function makeOrderedMultiCandidate(items, sourceTitle) {
-    if (!Array.isArray(items) || items.length < 2 || items.length > 3) return null;
-    const count = items.length;
-    const statements = items.map((item, i) => {
-      const number = i + 1;
-      const s = {
+    for (const item of falseStatements) {
+      const number = index++;
+      statements.push({
         index: number,
         number: number,
         text: item.text,
         fact_id: item.fact.fact_id,
         source_excerpt: item.fact.supporting_excerpt,
-        truth_value: item.truth_value
-      };
-      if (item.alteration) s.alteration = item.alteration;
-      return s;
-    });
-    const trueNumbers = statements.filter((s) => s.truth_value).map((s) => s.number);
-    const correctText = comboTextForTrueNumbers(trueNumbers, count);
-    let optionTexts;
-    if (count === 2) {
-      optionTexts = ['1 only', '2 only', 'Both 1 and 2', 'Neither 1 nor 2'];
-    } else {
-      const allCombos = ['1 only', '2 only', '3 only', '1 and 2 only', '1 and 3 only', '2 and 3 only', '1, 2 and 3'];
-      const correctSet = comboSetForText(correctText);
-      const byDistance = allCombos.filter((c) => c !== correctText).map((c) => {
-        const s = comboSetForText(c);
-        let dist = 0;
-        for (const n of [1, 2, 3]) if (s.has(n) !== correctSet.has(n)) dist++;
-        return { text: c, dist };
-      }).sort((a, b) => a.dist - b.dist || allCombos.indexOf(a.text) - allCombos.indexOf(b.text));
-      // Distractors are near-miss combinations: a student who gets
-      // two of three statements right must still fail, and a student
-      // who gets one wrong must not be able to guess from a far-off
-      // combination.
-      const chosen = [correctText].concat(byDistance.slice(0, 3).map((d) => d.text));
-      optionTexts = allCombos.filter((c) => chosen.includes(c));
+        truth_value: false,
+        alteration: item.alteration
+      });
     }
+    if (statements.length !== 2) return null;
+    const trueCount = statements.filter((statement) => statement.truth_value).length;
+    let correctText = 'Neither 1 nor 2';
+    if (trueCount === 2) correctText = 'Both 1 and 2';
+    else if (trueCount === 1) correctText = statements[0].truth_value ? '1 only' : '2 only';
+
+    const optionTexts = ['1 only', '2 only', 'Both 1 and 2', 'Neither 1 nor 2'];
     const options = optionTexts.map((text, optionIndex) => {
       const correct = text === correctText;
       const result = { key: KEYS[optionIndex], text, is_correct: correct };
@@ -6496,7 +3078,7 @@
       return result;
     });
     const answerKey = options.find((option) => option.is_correct).key;
-    const allFacts = items.map((item) => item.fact);
+    const allFacts = trueFacts.concat(falseFacts);
     const excerptParts = allFacts.map((fact) => fact.supporting_excerpt);
     const explanationParts = statements.map((statement) => {
       if (statement.truth_value) {
@@ -6506,19 +3088,18 @@
       const replacement = statement.alteration ? statement.alteration.replacement : '';
       return `Statement ${statement.index} is false. The source states: “${statement.source_excerpt}” The stated value is ${original}, not ${replacement}.`;
     });
-    const subtype = count === 3 ? 'multi_statement_3' : 'multi_statement';
+    const rawTitle = cleanText(sourceTitle || '');
+    const cleanTitle = rawTitle &&
+      rawTitle.length <= 90 &&
+      !/[.;?!]/.test(rawTitle) &&
+      !/^(?:fig|figure|table|photo|source|chapter)\b/i.test(rawTitle)
+      ? rawTitle
+      : 'the passage';
     return {
       id: '',
       type: 'multi_statement',
-      question_subtype: subtype,
-      // Phase 8 fix: do not put a section title in the stem. Section titles
-      // are derived from textbook headings and numbered learning-objective
-      // lists, and on real NCERT pages they arrive truncated or merged
-      // ("based on What are the unique physical:"), which made the stem
-      // unanswerable. The statements themselves are rendered by the app
-      // and by the batch markdown report; the stem only needs to introduce
-      // them. sourceTitle is kept for source_title metadata, not the stem.
-      stem: 'Consider the following statements:',
+      question_subtype: 'multi_statement',
+      stem: `Consider the following statements based on ${cleanTitle}:`,
       prompt_suffix: 'Which of the statements given above is/are correct?',
       options,
       answer_key: answerKey,
@@ -6549,21 +3130,11 @@
   }
 
   function multiEligible(fact) {
-    // A multi-statement item is only as good as its two statements.
-    // Reject facts whose source sentence is a marker, a fragment, or
-    // does not end as a complete sentence — those produced garbled
-    // statement 2s such as "A person who is sub-magistrate in a
-    // district of Bengal" and statements starting with the "Æ" marker.
-    const src = cleanText(fact && fact.source_text ? fact.source_text : '');
-    if (!src || /^[^A-Za-z0-9]/.test(src) || !/[.!?]$/.test(src) || src.split(/\s+/).length < 5) return false;
-    if (/^(they|it|this|that|these|those|he|she|its|their|his|her|our|your|however|for example|for instance|moreover|besides|meanwhile|in fact|as you may notice)\b/i.test(src)) return false;
-    if (/^[a-z]/.test(src)) return false;
-    if (src.includes(';')) return false;
-    if (/\b(of|to|in|on|for|with|by|as|through|from|the|a|an|it|they|them)[.!?]?\s*$/.test(src.replace(/[.!?]+\s*$/, ''))) return false;
-    if (/\ba\s+[aeiouAEIOU]/.test(src) || /\ban\s+[^aeiouAEIOU\s]/.test(src)) return false;
-    if (/\b(facing page|table on|figure\s+\d|we saw|as you may notice|grade\s+\d)\b/i.test(src)) return false;
     return fact &&
       !isFactUnsafe(fact) &&
+      isQuestionSafeFact(fact) &&
+      fact.sentence_role === 'assertion' &&
+      /^[A-Z0-9]/.test(String(fact.source_text || '')) &&
       fact.object &&
       typeof fact.object === 'string' &&
       fact.fact_type !== 'fallback' &&
@@ -6618,32 +3189,14 @@
           });
         }
       }
-      // Variety fix: rotate the variant order by a hash of the pair, so
-      // the selected pattern is not always the first variant ("1 only").
-      // Variants are, in order: 1-only, 2-only, Both, Neither. Rotating
-      // by content hash varies the pattern across chapters and pairs
-      // without depending on the pair's position in the source. This
-      // must happen after all variants (including Neither) are built,
-      // because selection picks the earliest-id variant for a pair.
-      {
-        // Rotate by the statements' actual text, not by fact_id:
-        // fact_ids are sequential (F-LITE-001, F-LITE-002…) and therefore
-        // identical for the first pair in every chapter, which made the
-        // "rotation" produce the same pattern everywhere. Content hash
-        // varies genuinely across chapters and pairs.
-        const rotateBy = variants.length ? stableHash((first.source_text || '') + '|' + (second.source_text || '')) % variants.length : 0;
-        const rotated = variants.slice(rotateBy).concat(variants.slice(0, rotateBy));
-        variants.length = 0;
-        for (const v of rotated) variants.push(v);
-      }
       for (const variant of variants) {
-        const orderedItems = pair.map((fact) => {
-          const trueItem = variant.trueItems.find((item) => item.fact.fact_id === fact.fact_id);
-          if (trueItem) return { fact, truth_value: true, text: fact.source_text };
-          const falseItem = variant.falseItems.find((item) => item.fact.fact_id === fact.fact_id);
-          return { fact, truth_value: false, text: falseItem.text, alteration: falseItem.alteration };
-        });
-        const candidate = makeOrderedMultiCandidate(orderedItems, first.section_title);
+        const candidate = makeMultiCandidate(
+          variant.trueItems,
+          variant.falseItems,
+          variant.trueFacts,
+          variant.falseFacts,
+          first.section_title
+        );
         if (candidate) {
           candidate.id = 'C-LITE-' + padNumber(seq++, 4);
           candidates.push(candidate);
@@ -6651,721 +3204,6 @@
       }
     }
     return candidates;
-  }
-
-  // Three-statement form (books: "Consider the following three
-  // statements..."). A triple is taken in source order; each
-  // statement is true or mutated false. Variants with all three
-  // false are skipped: a question with no true statement is a
-  // "none correct" trick, not a test of the source. The correct
-  // combination is always a subset of {1,2,3}, and the distractors
-  // are near-miss subsets, so partial knowledge does not guess it.
-  function buildMulti3Candidates(ctx, seqStart) {
-    const facts = ctx.facts.filter(multiEligible).slice(0, 12);
-    if (facts.length < 3) return [];
-    const candidates = [];
-    let seq = seqStart;
-    const triples = [];
-    for (let i = 0; i < facts.length - 2 && triples.length < 6; i++) {
-      triples.push([facts[i], facts[i + 1], facts[i + 2]]);
-    }
-    for (const triple of triples) {
-      const falseValues = triple.map((fact) => buildFalseValue(fact, ctx));
-      const variants = [];
-      // All true.
-      variants.push([true, true, true]);
-      // Exactly one false, at each position.
-      for (let k = 0; k < 3; k++) {
-        if (falseValues[k]) {
-          const v = [true, true, true];
-          v[k] = false;
-          variants.push(v);
-        }
-      }
-      // Exactly one true, at each position.
-      for (let k = 0; k < 3; k++) {
-        const othersHaveFalse = triple.every((fact, idx) => idx === k || Boolean(falseValues[idx]));
-        if (othersHaveFalse) {
-          const v = [false, false, false];
-          v[k] = true;
-          variants.push(v);
-        }
-      }
-      const rotateBy = variants.length ? stableHash(triple.map((f) => f.source_text || '').join('|')) % variants.length : 0;
-      const rotated = variants.slice(rotateBy).concat(variants.slice(0, rotateBy));
-      for (const variant of rotated) {
-        const items = [];
-        let ok = true;
-        for (let idx = 0; idx < 3; idx++) {
-          const fact = triple[idx];
-          if (variant[idx]) {
-            items.push({ fact, truth_value: true, text: fact.source_text });
-          } else {
-            const falseStatement = falseStatementFor(fact, falseValues[idx]);
-            if (!falseStatement) { ok = false; break; }
-            items.push({ fact, truth_value: false, text: falseStatement.text, alteration: falseStatement.alteration });
-          }
-        }
-        if (!ok) continue;
-        const candidate = makeOrderedMultiCandidate(items, triple[0].section_title);
-        if (candidate) {
-          candidate.id = 'C-LITE-' + padNumber(seq++, 4);
-          candidates.push(candidate);
-        }
-      }
-    }
-    return candidates;
-  }
-
-  // Assertion-Reason standard options, in CTET order. These are
-  // the fixed code set for the form, not source-derived distractors:
-  // every A-R question in a real paper offers exactly these four
-  // judgements, and the student must pick the one that matches the
-  // truth of A, the truth of R, and whether R explains A.
-  const AR_OPTION_TEXTS = [
-    'Both A and R are true and R is the correct explanation of A',
-    'Both A and R are true but R is NOT the correct explanation of A',
-    'A is true but R is false',
-    'A is false but R is true'
-  ];
-
-  // Render an effect claim from a causal fact, only when it is safe.
-  // The effect phrase is often not a sentence ("the judicial system
-  // more accessible and transparent"), so it must be turned into one
-  // without inventing content: either it already contains a finite
-  // verb, or it is a short noun phrase followed by a comparative
-  // remainder, where inserting "is" is the only change. Anything
-  // else (a bare noun phrase, a verb phrase, a clause) returns null
-  // and the causal fact simply yields no type-(a) A-R item.
-  function renderEffectClaim(fact) {
-    const obj = cleanText(fact.object || '');
-    if (!obj || obj.length < 5 || obj.length > 150) return null;
-    if (/^(that|which|who|whom|whose|to|of|for|with|by|as|they|it|you|we|he|she)\b/i.test(obj)) return null;
-    if (/[,;]/.test(obj)) return null;
-    if (/\b(that|which|who|when|if|but)\b/i.test(obj)) return null;
-    const m = obj.match(/^((?:the|a|an)\s+(?:[A-Za-z'’-]+\s+){0,3}[A-Za-z'’-]+)\s+(more|less|better|greater|higher|lower|increasing|decreasing)\b(.*)$/i);
-    if (!m) return null;
-    const noun = m[1].trim();
-    const rest = (m[2] + (m[3] || '')).trim();
-    if (/\b(is|are|was|were|that|which|who|when|if|but)\b/i.test(rest)) return null;
-    let s = noun.charAt(0).toUpperCase() + noun.slice(1) + ' is ' + rest;
-    if (!/[.!?]$/.test(s)) s += '.';
-    if (s.split(/\s+/).length > 20) return null;
-    if (isFragmentPhrase(s)) return null;
-    return s;
-  }
-
-  function makeAROptionSet(pattern) {
-    const correctText = AR_OPTION_TEXTS[pattern === 'a' ? 0 : pattern === 'b' ? 1 : pattern === 'c' ? 2 : 3];
-    const options = AR_OPTION_TEXTS.map((text, idx) => {
-      const result = { key: KEYS[idx], text, is_correct: text === correctText };
-      if (!result.is_correct) {
-        result.distractor_origin = 'assertion_reason_code_pool';
-        result.confusion_type = 'partial_truth';
-        result.distractor_purpose = 'partial_truth';
-      }
-      return result;
-    });
-    return { options, correctText, answerKey: options.find((o) => o.is_correct).key };
-  }
-
-  function makeARCandidate(assertion, reason, pattern, truth, facts, explanation, alteration) {
-    if (!assertion || !reason || assertion === reason) return null;
-    for (const s of [assertion, reason]) {
-      if (/^[^A-Za-z0-9]/.test(s) || !/[.!?]$/.test(s) || s.split(/\s+/).length < 3) return null;
-    }
-    const { options, correctText, answerKey } = makeAROptionSet(pattern);
-    const first = facts[0];
-    const candidate = {
-      id: '',
-      type: 'single_choice',
-      question_subtype: 'assertion_reason',
-      stem: `Assertion (A): ${assertion} Reason (R): ${reason} Which of the following is correct?`,
-      assertion,
-      reason,
-      ar_pattern: pattern,
-      ar_truth: truth,
-      options,
-      answer_key: answerKey,
-      expected_answer: correctText,
-      knowledge_units: facts.map((fact) => ({ ku_id: fact.ku_id, fact_id: fact.fact_id, role: 'evidence' })),
-      source_title: first.section_title,
-      source_page: first.source_page,
-      supporting_excerpt: first.supporting_excerpt,
-      explanation,
-      difficulty: 'hard',
-      cognitive_level: 'analysis',
-      evidence: {
-        fact_ids: facts.map((fact) => fact.fact_id),
-        excerpts: facts.map((fact) => fact.supporting_excerpt),
-        source_offsets: facts.map((fact) => ({ fact_id: fact.fact_id, start: fact.source_start, end: fact.source_end })),
-        stem_relation: first.normalized_relation,
-        temporal_scope: first.temporal_scope || '',
-        fact_type: first.fact_type,
-        source_title: first.section_title,
-        source_page: first.source_page
-      },
-      verification: { status: 'candidate', rules: ['assertion_reason_pattern', 'explicit_alteration_or_source'] },
-      answer_relation_key: facts.map((fact) => fact.fact_id + '|' + normalizeObject(fact.object)).join('&'),
-      relation_keys: facts.map((fact) => fact.fact_id + '|' + normalizeObject(fact.object)),
-      candidate_sort: { source_start: first.source_start, fact_id: first.fact_id }
-    };
-    if (alteration) candidate.ar_alteration = alteration;
-    return candidate;
-  }
-
-  // Assertion-Reason builder. Pattern (a) — both true, R explains A —
-  // comes only from a causal fact whose effect can be rendered as a
-  // standalone claim (see renderEffectClaim); the Reason is the
-  // causal sentence itself, which states the mechanism. Patterns
-  // (b), (c) and (d) come from pairs of multi-eligible statements:
-  // (b) both true but unrelated, (c) A true / R mutated false,
-  // (d) A mutated false / R true. For (b) the two facts must share
-  // no content word and neither may be causal, so the claim "R does
-  // not explain A" is not debatable. For (c) and (d) the explanation
-  // link is moot (one statement is false), so the pair only needs
-  // to be topically coherent — same section when possible.
-  // Shared gates for the new forms, reusing the engine's existing
-  // subject quality rules and adding the ones the old builders
-  // already apply: a generic subject ("one important factor"), a
-  // bare definite noun ("the temple", "the range", "the main
-  // alignment"), an anaphoric subject ("a similar push") and a
-  // dangling object ("... from", "... if they") are not identifiable
-  // on their own, so a matching or Assertion-Reason item built from
-  // them is not an exam question, however technically correct its
-  // code is. These gates are why the first NCERT run's hees206
-  // matching set (subjects "This could potentially", "One important
-  // factor", objects ending in "from" and "if they") is rejected.
-  function isCleanNewFormSubject(subject) {
-    if (!isUsableSubject(subject)) return false;
-    const s = cleanText(subject);
-    if (/^(its|their|his|her|our|your)\b/i.test(s)) return false;
-    if (/^(the following|the air|one important factor|the first task|the second outcome)$/i.test(s)) return false;
-    if (/^(the|a)\s+(mosque|palace|temple|fort|building|structure|church|tomb|monument|range|alignment|region|area|place|site|period|phase|stage|level|type|kind|group|class|section|part|aspect|factor|move|event|development|change|process|situation|condition|trend|phenomenon|outcome|result|effect|impact|role|purpose|aim|objective|function|feature|side|form)$/i.test(s)) return false;
-    if (/^(the)\s+(present|main|current)\s+[a-z][a-z'’-]+$/i.test(s)) return false;
-    if (/\b(similar|such)\b/i.test(s)) return false;
-    if (/\b(also|often|broadly|here)\s*[.!?]?$/i.test(s)) return false;
-    if (/\?/.test(s) || /\bwhat\b/i.test(s)) return false;
-    return true;
-  }
-
-  function isCleanNewFormObject(obj) {
-    const o = cleanText(obj);
-    if (!o) return false;
-    if (isFragmentPhrase(o)) return false;
-    if (/^(of|to|in|on|for|with|by|as)\b/i.test(o)) return false;
-    if (/\s+(?:and|or|in|of|to|for|with|on|at|by|from|into|onto|under|over|about|if|that|when|they|them|it|these|those|this)\s*$/i.test(o)) return false;
-    if (/^like\b/i.test(o)) return false;
-    return true;
-  }
-
-  // A mutation value that is itself a clause or verb phrase ("better
-  // understand the people living") creates a double-predicate
-  // sentence when substituted into another sentence ("... manage
-  // better understand ..."). Only non-clausal values may be mutated
-  // into an Assertion-Reason statement.
-  function isClausalValue(value) {
-    return /\b(is|are|was|were|has|have|understand|understands|manage|manages|allocate|allocates|determine|determines|improve|improves|become|becomes|lead|leads|make|makes|made|help|helps|provide|provides|follow|follows|give|gives|take|takes)\b/i.test(String(value || ''));
-  }
-
-  function buildARCandidates(ctx, seqStart) {
-    const candidates = [];
-    let seq = seqStart;
-    const push = (cand) => {
-      if (!cand) return;
-      cand.id = 'C-LITE-' + padNumber(seq++, 4);
-      candidates.push(cand);
-    };
-    // Pattern (a): causal facts.
-    const causalFacts = ctx.facts.filter((f) => f && f.fact_type === 'causal' && !isFactUnsafe(f) && f.causal_direction !== 'effect_because_cause');
-    for (const fact of causalFacts.slice(0, 4)) {
-      const claim = renderEffectClaim(fact);
-      if (!claim) continue;
-      const reason = cleanText(fact.source_text);
-      if (!reason || reason === claim) continue;
-      const explanation = `Assertion is correct: ${claim} Reason is correct and states the mechanism: “${fact.supporting_excerpt}” Therefore R is the correct explanation of A.`;
-      push(makeARCandidate(claim, reason, 'a', { assertion: true, reason: true, explains: true }, [fact], explanation));
-    }
-    // Patterns (b), (c), (d): pairs of multi-eligible facts, further
-    // filtered to statements that are testable claims on their own:
-    // a clean subject, a statement that does not start with a
-    // pronoun, modal or discourse marker ("Let us", "Hence",
-    // "It clear"), and at most 25 words, so introductory meta-prose
-    // ("In a vast and diverse country ... we offer a few vignettes")
-    // never becomes an Assertion or a Reason.
-    const statementUsable = (fact) => {
-      if (!isCleanNewFormSubject(fact.subject)) return false;
-      const s = cleanText(fact.source_text || '');
-      if (!s || s.split(/\s+/).length > 25) return false;
-      if (!/^[A-Z]/.test(s)) return false;
-      if (/^(we|you|they|it|its|this|that|there|these|those|he|she|i|us|them|their|his|her|our|your|let|hence|therefore|thus|often|besides|while|although|however|in|on|at|by|for|with|from|to|of|in a vast|in this|as we|we will|for example)\b/i.test(s)) return false;
-      if (/\s+(?:and|or|in|of|to|for|with|on|at|by|from|if|that|when|they|them|it|these|those|this)\s*[.!?]?$/i.test(s)) return false;
-      return true;
-    };
-    const facts = ctx.facts.filter((f) => multiEligible(f) && statementUsable(f)).slice(0, 14);
-    const pairs = [];
-    for (let i = 0; i < facts.length - 1 && pairs.length < 8; i++) {
-      for (let j = i + 1; j < Math.min(i + 4, facts.length) && pairs.length < 8; j++) {
-        pairs.push([facts[i], facts[j]]);
-      }
-    }
-    const contentWords = (text) => new Set(String(text || '').toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4));
-    // Near-duplicate means one statement contains the other as a
-    // contiguous substring (a restatement with a discourse prefix),
-    // not merely that two parallel sentences share template words
-    // ("The Alpha Commission was established in 1990" vs "The Beta
-    // Commission was established in 1995" share most words, but are
-    // different facts and a valid pair).
-    const nearDuplicate = (a, b) => {
-      const na = normalizeOption(a), nb = normalizeOption(b);
-      if (!na || !nb) return true;
-      return na.includes(nb) || nb.includes(na);
-    };
-    for (const pair of pairs) {
-      const [first, second] = pair;
-      // Two statements that are near-duplicates of each other (one
-      // restating the other with a discourse prefix) are not an
-      // Assertion-Reason pair; they are the same claim twice.
-      if (nearDuplicate(first.source_text, second.source_text)) continue;
-      const rotateBy = stableHash((first.source_text || '') + '|' + (second.source_text || '')) % 3;
-      const patterns = ['b', 'c', 'd'].slice(rotateBy).concat(['b', 'c', 'd'].slice(0, rotateBy));
-      for (const pattern of patterns) {
-        if (pattern === 'b') {
-          if (first.fact_type === 'causal' || second.fact_type === 'causal') continue;
-          const w1 = contentWords(first.subject + ' ' + first.source_text);
-          const w2 = contentWords(second.subject + ' ' + second.source_text);
-          let shared = false;
-          for (const w of w1) if (w2.has(w)) { shared = true; break; }
-          if (shared) continue;
-          const explanation = `Assertion is correct: “${first.supporting_excerpt}” Reason is correct: “${second.supporting_excerpt}” However, R does not state a cause or reason for A, so it is not the correct explanation of A.`;
-          push(makeARCandidate(cleanText(first.source_text), cleanText(second.source_text), 'b', { assertion: true, reason: true, explains: false }, [first, second], explanation));
-          break;
-        }
-        if (pattern === 'c') {
-          const falseValue = buildFalseValue(second, ctx);
-          if (!falseValue || isClausalValue(falseValue)) continue;
-          if (String(second.object || '').split(/\s+/).length > 5 || String(falseValue).split(/\s+/).length > 5) continue;
-          const falseStatement = falseStatementFor(second, falseValue);
-          if (!falseStatement) continue;
-          const explanation = `Assertion is correct: “${first.supporting_excerpt}” Reason is false: the source states “${second.supporting_excerpt}” The stated value is ${second.object}, not ${falseValue}.`;
-          push(makeARCandidate(cleanText(first.source_text), cleanText(falseStatement.text), 'c', { assertion: true, reason: false, explains: false }, [first, second], explanation, falseStatement.alteration));
-          break;
-        }
-        if (pattern === 'd') {
-          const falseValue = buildFalseValue(first, ctx);
-          if (!falseValue || isClausalValue(falseValue)) continue;
-          if (String(first.object || '').split(/\s+/).length > 5 || String(falseValue).split(/\s+/).length > 5) continue;
-          const falseStatement = falseStatementFor(first, falseValue);
-          if (!falseStatement) continue;
-          const explanation = `Assertion is false: the source states “${first.supporting_excerpt}” The stated value is ${first.object}, not ${falseValue}. Reason is correct: “${second.supporting_excerpt}”`;
-          push(makeARCandidate(cleanText(falseStatement.text), cleanText(second.source_text), 'd', { assertion: false, reason: true, explains: false }, [first, second], explanation, falseStatement.alteration));
-          break;
-        }
-      }
-    }
-    return candidates;
-  }
-
-  // Matching builder (books: "Match List I with List II").
-  // Four facts from the same section, each with a short subject and
-  // a distinct, short object, become List I (subjects, labelled A-D)
-  // and List II (objects, numbered 1-4, shuffled so the correct code
-  // is not the trivial A-1, B-2, C-3, D-4). The options are codes;
-  // the distractors are near-miss codes obtained by swapping two
-  // targets in the correct code, so a student who matches three of
-  // four pairs correctly still fails. A pair is rejected if its
-  // object is also supported for another subject in the set, or the
-  // matching would be ambiguous and have two correct codes.
-  function buildMatchingCandidates(ctx, seqStart) {
-    const candidates = [];
-    let seq = seqStart;
-    const eligible = ctx.facts.filter((f) => {
-      if (!f || isFactUnsafe(f)) return false;
-      if (!['entity_attribute', 'definition', 'date', 'causal'].includes(f.fact_type)) return false;
-      if (f.extraction_method === 'fallback' || f.fact_type === 'fallback') return false;
-      const subj = cleanText(f.subject || '');
-      const obj = cleanText(f.object || '');
-      if (!subj || !obj) return false;
-      if (!isCleanNewFormSubject(subj) || !isCleanNewFormObject(obj)) return false;
-      // Matching-only gates: List I items must be entities or
-      // concepts, not sentences or gerund phrases ("Children need
-      // special protection", "Living in a place", "the Indian
-      // Constitution came into effect in 1950"), and List II items
-      // must not start with a pronoun ("you a resident ...", "they
-      // depend ...", "it had no ..."), or the pair is a sentence
-      // fragment, not a matchable value. A set that fails any of
-      // these is rejected whole, not repaired by editing.
-      if (/\b(need|needs|want|wants|came|went|became|becomes|is|are|was|were|has|have|had|can|could|will|would|should|must|may|might|does|did|do)\b/i.test(subj)) return false;
-      const subjWords = subj.split(/\s+/);
-      if (subjWords.length >= 2 && /ing$/i.test(subjWords[0]) && /^(in|on|at|by|for|with|from|to|of|a|the)$/i.test(subjWords[1])) return false;
-      if (/^(you|they|it|we|he|she|this|that|these|those)\b/i.test(obj)) return false;
-      if (subj.split(/\s+/).length > 8 || obj.split(/\s+/).length > 15) return false;
-      if (obj.length > 100) return false;
-      if (!f.source_text || f.source_text.indexOf(f.object) === -1) return false;
-      return true;
-    });
-    // Two groupings, both tried, deduplicated by fact set. Grouping
-    // by section alone gives the Articles set (four Articles with
-    // different relations, one theme); grouping by section and
-    // relation as well gives coherent sets from a long chapter
-    // section where consecutive facts are unrelated (all "protects"
-    // facts, all "located" facts). Either grouping alone loses a
-    // real set, so both are tried and a fact set is used once.
-    const groupings = [];
-    const bySection = new Map();
-    for (const f of eligible) {
-      const key = f.section_title || 'Unknown';
-      if (!bySection.has(key)) bySection.set(key, []);
-      bySection.get(key).push(f);
-    }
-    groupings.push(bySection);
-    const byRelation = new Map();
-    for (const f of eligible) {
-      const key = (f.section_title || 'Unknown') + '|' + f.fact_type + '|' + (f.normalized_relation || f.relation || '');
-      if (!byRelation.has(key)) byRelation.set(key, []);
-      byRelation.get(key).push(f);
-    }
-    groupings.push(byRelation);
-    const seenSets = new Set();
-    for (const grouping of groupings) {
-    for (const [section, group] of grouping) {
-      // Take up to two matching sets per section, from consecutive
-      // facts, so a long section can yield more than one set.
-      for (let start = 0; start + 4 <= group.length && start < 8; start += 4) {
-        const set = group.slice(start, start + 4);
-        const setKey = set.map((f) => f.fact_id).sort().join('&');
-        if (seenSets.has(setKey)) continue;
-        seenSets.add(setKey);
-        const subjects = set.map((f) => normalizeSubject(f.subject));
-        const objects = set.map((f) => normalizeObject(f.object));
-        if (new Set(subjects).size !== 4 || new Set(objects).size !== 4) continue;
-        // Ambiguity check: no object may be supported for another
-        // subject in the set under the same relation.
-        let ambiguous = false;
-        for (let i = 0; i < 4 && !ambiguous; i++) {
-          for (let j = 0; j < 4; j++) {
-            if (i === j) continue;
-            if (isValueSupported(ctx.facts, set[i].subject, set[i].relation, set[j].object, set[i].temporal_scope)) { ambiguous = true; break; }
-          }
-        }
-        if (ambiguous) continue;
-        // List II order: sort by hash, then rotate if it happens to
-        // be the identity order (which would make the code trivial).
-        let list2Order = [0, 1, 2, 3].sort((a, b) => stableHash(set[a].subject + '|' + set[a].object) - stableHash(set[b].subject + '|' + set[b].object));
-        if (list2Order.every((v, idx) => v === idx)) list2Order = [1, 2, 3, 0];
-        // Correct code: for List I item i (A-D), the number of its
-        // object in List II (1-based).
-        const correctTargets = set.map((_, i) => list2Order.indexOf(i) + 1);
-        const formatCode = (targets) => targets.map((n, i) => `${String.fromCharCode(65 + i)}-${n}`).join(', ');
-        const correctCode = formatCode(correctTargets);
-        // Distractor codes: swap two targets at a time.
-        const distractorCodes = [];
-        const swaps = [[0, 1], [0, 2], [1, 3]];
-        for (const [a, b] of swaps) {
-          const targets = correctTargets.slice();
-          const tmp = targets[a]; targets[a] = targets[b]; targets[b] = tmp;
-          const code = formatCode(targets);
-          if (code !== correctCode && !distractorCodes.includes(code)) distractorCodes.push(code);
-        }
-        if (distractorCodes.length < 3) continue;
-        const list1 = set.map((f, i) => ({ label: String.fromCharCode(65 + i), text: cleanText(f.subject) }));
-        const list2 = list2Order.map((origIdx, pos) => ({ label: String(pos + 1), text: cleanText(set[origIdx].object) }));
-        const list1Text = list1.map((item) => `${item.label}. ${item.text}`).join('; ');
-        const list2Text = list2.map((item) => `${item.label}. ${item.text}`).join('; ');
-        const stem = `Match List I with List II and select the correct answer using the codes given below. List I: ${list1Text}. List II: ${list2Text}.`;
-        const optionTexts = [correctCode].concat(distractorCodes.slice(0, 3));
-        // Order options by hash so the correct code is not always first.
-        const ordered = optionTexts.map((text) => ({ text, h: stableHash(text) })).sort((a, b) => a.h - b.h).map((o) => o.text);
-        const options = ordered.map((text, idx) => {
-          const result = { key: KEYS[idx], text, is_correct: text === correctCode };
-          if (!result.is_correct) {
-            result.distractor_origin = 'matching_permutation_pool';
-            result.confusion_type = 'partial_truth';
-            result.distractor_purpose = 'partial_truth';
-          }
-          return result;
-        });
-        const answerKey = options.find((o) => o.is_correct).key;
-        const explanationParts = set.map((f, i) => `${list1[i].label} matches ${list2[correctTargets[i] - 1].label}: the source states “${f.supporting_excerpt}”`);
-        const first = set[0];
-        const candidate = {
-          id: 'C-LITE-' + padNumber(seq++, 4),
-          type: 'single_choice',
-          question_subtype: 'matching',
-          stem,
-          lists: { list1, list2 },
-          matching_pairs: set.map((f, i) => ({ subject: cleanText(f.subject), object: cleanText(f.object), list2_index: correctTargets[i] })),
-          options,
-          answer_key: answerKey,
-          expected_answer: correctCode,
-          knowledge_units: set.map((f) => ({ ku_id: f.ku_id, fact_id: f.fact_id, role: 'evidence' })),
-          source_title: first.section_title,
-          source_page: first.source_page,
-          supporting_excerpt: first.supporting_excerpt,
-          explanation: explanationParts.join(' '),
-          difficulty: 'hard',
-          cognitive_level: 'analysis',
-          evidence: {
-            fact_ids: set.map((f) => f.fact_id),
-            excerpts: set.map((f) => f.supporting_excerpt),
-            source_offsets: set.map((f) => ({ fact_id: f.fact_id, start: f.source_start, end: f.source_end })),
-            stem_relation: first.normalized_relation,
-            temporal_scope: first.temporal_scope || '',
-            fact_type: first.fact_type,
-            source_title: first.section_title,
-            source_page: first.source_page
-          },
-          verification: { status: 'candidate', rules: ['matching_pairs_verified', 'permutation_codes'] },
-          answer_relation_key: set.map((f) => f.fact_id + '|' + normalizeObject(f.object)).join('&'),
-          relation_keys: set.map((f) => f.fact_id + '|' + normalizeObject(f.object)),
-          candidate_sort: { source_start: first.source_start, fact_id: first.fact_id }
-        };
-        candidates.push(candidate);
-      }
-    }
-    }
-    return candidates;
-  }
-
-  // Chronology ordering (mock-test quality, sequence from dates):
-  // the existing sequence_order form needs an explicit "first...
-  // then... finally..." sentence, which NCERT prose almost never
-  // contains, so it yielded zero items. History chapters do
-  // contain dated events, and ordering them is a standard CTET
-  // form. Four date facts from one section become one question:
-  // the events are listed with letters (in a hash-shuffled order
-  // that is never the chronological order, or the answer would be
-  // A, B, C, D), and the options are the chronological letter
-  // sequence plus three near-miss sequences that swap two
-  // adjacent events. Years are never printed in the list, or
-  // ordering would be mechanical sorting, not knowledge, and an
-  // event whose subject itself contains a year is rejected for
-  // the same reason.
-  function extractYear(text) {
-    const match = String(text || '').match(/\b(1|2)\d{3}\b/);
-    if (!match) return null;
-    const year = parseInt(match[0], 10);
-    return year >= 1000 && year <= 2100 ? year : null;
-  }
-
-  function buildChronologyCandidates(ctx, seqStart) {
-    const candidates = [];
-    let seq = seqStart;
-    const bySection = new Map();
-    for (const fact of ctx.facts || []) {
-      if (!fact || fact.fact_type !== 'date' || isFactUnsafe(fact)) continue;
-      if (!isUsableSubject(fact.subject)) continue;
-      if (/\d{4}/.test(String(fact.subject || ''))) continue;
-      const year = extractYear(fact.object);
-      if (!year) continue;
-      const key = fact.section_title || 'Unknown';
-      if (!bySection.has(key)) bySection.set(key, []);
-      bySection.get(key).push({ fact, year });
-    }
-    for (const group of bySection.values()) {
-      const seenSubjects = new Set();
-      const seenYears = new Set();
-      const events = [];
-      for (const entry of group) {
-        const subjectKey = normalizeSubject(entry.fact.subject);
-        if (seenSubjects.has(subjectKey) || seenYears.has(entry.year)) continue;
-        seenSubjects.add(subjectKey);
-        seenYears.add(entry.year);
-        events.push(entry);
-        if (events.length >= 4) break;
-      }
-      if (events.length < 4) continue;
-      let order = [0, 1, 2, 3].sort((a, b) => stableHash(events[a].fact.subject + '|' + events[a].year) - stableHash(events[b].fact.subject + '|' + events[b].year));
-      const chronological = events.map((_, i) => i).sort((a, b) => events[a].year - events[b].year);
-      // Presentation order must not be the chronological order.
-      if (order.every((v, idx) => v === chronological[idx])) order = [1, 2, 3, 0].map((i) => order[i]);
-      const presented = order.map((i) => events[i]);
-      const letters = presented.map((_, i) => String.fromCharCode(65 + i));
-      const correctTargets = chronological.map((origIdx) => letters[order.indexOf(origIdx)]);
-      const correctCode = correctTargets.join(', ');
-      const distractorCodes = [];
-      for (const swap of [[0, 1], [1, 2], [2, 3]]) {
-        const targets = correctTargets.slice();
-        const tmp = targets[swap[0]]; targets[swap[0]] = targets[swap[1]]; targets[swap[1]] = tmp;
-        const code = targets.join(', ');
-        if (code !== correctCode && !distractorCodes.includes(code)) distractorCodes.push(code);
-      }
-      if (distractorCodes.length < 3) continue;
-      const eventList = presented.map((entry, i) => `${letters[i]}) ${cleanText(entry.fact.subject)}`).join('; ');
-      const stem = `Arrange the following events in chronological order (earliest first): ${eventList}.`;
-      const optionTexts = [correctCode].concat(distractorCodes.slice(0, 3));
-      const ordered = optionTexts.map((text) => ({ text, h: stableHash(text) })).sort((a, b) => a.h - b.h).map((o) => o.text);
-      const options = ordered.map((text, idx) => {
-        const result = { key: KEYS[idx], text, is_correct: text === correctCode };
-        if (!result.is_correct) {
-          result.distractor_origin = 'chronology_permutation_pool';
-          result.confusion_type = 'scope_error';
-          result.distractor_purpose = 'scope_error';
-        }
-        return result;
-      });
-      const answerKey = options.find((o) => o.is_correct).key;
-      const chronologicalItems = chronological.map((origIdx) => events[origIdx]);
-      const explanationParts = chronologicalItems.map((entry) => {
-        const letter = letters[order.indexOf(events.indexOf(entry))];
-        return `${letter} (${cleanText(entry.fact.subject)}) occurred in ${entry.year}. The source states: “${entry.fact.supporting_excerpt}”`;
-      });
-      explanationParts.push('The other options swap the order of two events, so they are not chronological.');
-      // The question's supporting excerpt must be the first
-      // referenced fact's excerpt (validation requires an exact
-      // match for date facts), not the shuffled first presented
-      // event, even though the presented list is shuffled.
-      const first = events[0];
-      candidates.push({
-        id: 'C-LITE-' + padNumber(seq++, 4),
-        type: 'single_choice',
-        question_subtype: 'chronology',
-        stem,
-        chronology_items: presented.map((entry, i) => ({ letter: letters[i], subject: cleanText(entry.fact.subject), year: entry.year })),
-        options,
-        answer_key: answerKey,
-        expected_answer: correctCode,
-        knowledge_units: events.map((entry) => ({ ku_id: entry.fact.ku_id, fact_id: entry.fact.fact_id, role: 'evidence' })),
-        source_title: first.fact.section_title,
-        source_page: first.fact.source_page,
-        supporting_excerpt: first.fact.supporting_excerpt,
-        explanation: explanationParts.join(' '),
-        difficulty: 'hard',
-        cognitive_level: 'analysis',
-        evidence: {
-          fact_ids: events.map((entry) => entry.fact.fact_id),
-          excerpts: events.map((entry) => entry.fact.supporting_excerpt),
-          source_offsets: events.map((entry) => ({ fact_id: entry.fact.fact_id, start: entry.fact.source_start, end: entry.fact.source_end })),
-          stem_relation: events[0].fact.normalized_relation,
-          temporal_scope: events[0].fact.temporal_scope || '',
-          fact_type: 'date',
-          source_title: first.fact.section_title,
-          source_page: first.fact.source_page
-        },
-        verification: { status: 'candidate', rules: ['chronology_years_verified', 'permutation_codes'] },
-        answer_relation_key: events.map((entry) => entry.fact.fact_id + '|' + normalizeObject(entry.fact.object)).join('&'),
-        relation_keys: events.map((entry) => entry.fact.fact_id + '|' + normalizeObject(entry.fact.object)),
-        candidate_sort: { source_start: first.fact.source_start, fact_id: first.fact.fact_id }
-      });
-      break;
-    }
-    return candidates;
-  }
-
-  // Table questions from table facts: the stem shows the table
-  // (a table question is unanswerable without it, unlike the
-  // self-contained direct forms), and asks for one cell. The
-  // distractors are the other cells in the same column, so they
-  // are the same kind of value and cannot be eliminated by type
-  // alone. At most four questions per table, so a large table
-  // does not crowd a bank.
-  function buildTableCandidates(ctx, seqStart) {
-    const candidates = [];
-    let seq = seqStart;
-    const byTable = new Map();
-    for (const fact of ctx.facts || []) {
-      if (!fact || fact.fact_type !== 'table' || isFactUnsafe(fact)) continue;
-      if (!byTable.has(fact.table_id)) byTable.set(fact.table_id, []);
-      byTable.get(fact.table_id).push(fact);
-    }
-    for (const tableFacts of byTable.values()) {
-      const ordered = tableFacts.map((f) => ({ f, h: stableHash(f.fact_id) })).sort((a, b) => a.h - b.h).map((o) => o.f);
-      let made = 0;
-      for (const fact of ordered) {
-        if (made >= 4) break;
-        const sameColumn = tableFacts.filter((other) => other.relation === fact.relation && other.fact_id !== fact.fact_id && normalizeObject(other.object) !== normalizeObject(fact.object));
-        const distractors = [];
-        for (const other of sameColumn) {
-          if (distractors.length >= 3) break;
-          if (distractors.some((d) => isEquivalentOption(d.text, other.object))) continue;
-          if (isFragmentPhrase(cleanText(other.object))) continue;
-          distractors.push({ text: cleanText(other.object), origin: 'table_column_pool', confusion_type: 'partial_truth', distractor_purpose: 'confusable_fact' });
-        }
-        if (distractors.length < 3) continue;
-        const stem = `In the table below, what is the ${fact.table_header} for ${fact.table_row}? Table: ${fact.table_text}`;
-        const explanation = `The table states: “${fact.supporting_excerpt}” The value in the ${fact.table_header} column for ${fact.table_row} is ${fact.object}. The other options are values for different rows in the same column, not for ${fact.table_row}.`;
-        const candidate = buildSingleChoiceCandidate(fact, 'table_question', stem, cleanText(fact.object), distractors, explanation, {
-          table: { headers: null, text: fact.table_text, row: fact.table_row, column: fact.table_header },
-          answer_relation_key: fact.fact_id + '|' + normalizeObject(fact.object),
-          relation_keys: [fact.fact_id + '|' + normalizeObject(fact.object)]
-        });
-        if (candidate) {
-          candidate.id = 'C-LITE-' + padNumber(seq++, 4);
-          candidates.push(candidate);
-          made++;
-        }
-      }
-    }
-    return candidates;
-  }
-
-  // Case-based sets (mock-test quality): a case set is not a new
-  // question form, it is a presentation grouping. Questions in
-  // one bank that share a section are about the same topic, so
-  // they can be presented together with that section's own
-  // excerpts as the case, instead of as isolated items. The
-  // questions themselves stay self-contained (their stems
-  // already are), so the case adds context, it does not supply
-  // missing information, and no scenario is invented. Grouping
-  // by page as well was tried first and formed almost no sets,
-  // because a diverse bank spreads its questions across pages;
-  // section alone is the case unit that actually groups.
-  // Groups need at least three questions of different subtypes
-  // and different relation keys; a set carries up to four.
-  function assembleCaseSets(questions, options) {
-    const opts = options || {};
-    const maxSets = Number.isFinite(opts.maxSets) && opts.maxSets > 0 ? Math.floor(opts.maxSets) : 3;
-    const perSet = Number.isFinite(opts.questionsPerSet) && opts.questionsPerSet > 0 ? Math.floor(opts.questionsPerSet) : 4;
-    const all = Array.isArray(questions) ? questions.filter((q) => q && Array.isArray(q.options) && q.options.length === 4) : [];
-    const groups = new Map();
-    for (const q of all) {
-      const key = q.source_title || 'Unknown';
-      if (!groups.has(key)) groups.set(key, []);
-      groups.get(key).push(q);
-    }
-    const sets = [];
-    for (const group of groups.values()) {
-      if (sets.length >= maxSets) break;
-      const seenKeys = new Set();
-      const seenSubtypes = new Set();
-      const picked = [];
-      for (const q of group) {
-        const keys = Array.isArray(q.relation_keys) ? q.relation_keys : [q.answer_relation_key];
-        if (keys.some((k) => seenKeys.has(k))) continue;
-        picked.push(q);
-        for (const k of keys) seenKeys.add(k);
-        seenSubtypes.add(q.question_subtype);
-        if (picked.length >= perSet) break;
-      }
-      if (picked.length < 3 || seenSubtypes.size < 2) continue;
-      const excerpts = [];
-      for (const q of picked) {
-        const candidates = (q.evidence && Array.isArray(q.evidence.excerpts) && q.evidence.excerpts.length)
-          ? q.evidence.excerpts
-          : (q.supporting_excerpt ? [q.supporting_excerpt] : []);
-        for (const excerpt of candidates) {
-          if (excerpt && !excerpts.includes(excerpt)) excerpts.push(excerpt);
-        }
-      }
-      sets.push({
-        case_id: 'CASE-' + padNumber(sets.length + 1, 2),
-        case_title: picked[0].source_title || 'Unknown',
-        case_page: picked[0].source_page,
-        case_context: excerpts.join(' '),
-        questions: picked,
-        question_count: picked.length,
-        subtypes: Array.from(seenSubtypes)
-      });
-    }
-    return {
-      sets,
-      audit: {
-        groupsFound: groups.size,
-        setsCreated: sets.length,
-        questionsUsed: sets.reduce((n, s) => n + s.question_count, 0),
-        questionsTotal: all.length
-      }
-    };
   }
 
   function buildQuestionCandidates(factRegistry, options) {
@@ -7401,6 +3239,10 @@
         buildMetrics.unsafeFacts++;
         continue;
       }
+      if (!isQuestionSafeFact(fact)) {
+        buildMetrics.unsafeSpans = (buildMetrics.unsafeSpans || 0) + 1;
+        continue;
+      }
 
       if (fact.fact_type === 'date') {
         if (!push(makeDateCandidate(fact, ctx))) buildMetrics.missingOptions++;
@@ -7422,10 +3264,6 @@
         if (!push(makeEntityCandidate(fact, ctx))) buildMetrics.missingOptions++;
       } else if (fact.fact_type === 'membership') {
         if (!push(makeMembershipCandidate(fact, ctx))) buildMetrics.missingOptions++;
-        // Exception form for the same list: relation_keys collide with
-        // the membership candidate, so a bank never tests the same
-        // list twice, once as "included" and once as "NOT included".
-        push(makeExceptionCandidate(fact, ctx));
       } else if (fact.fact_type === 'sequence') {
         if (!push(makeSequenceCandidate(fact, ctx))) buildMetrics.missingOptions++;
       } else if (fact.fact_type === 'causal') {
@@ -7435,31 +3273,9 @@
       }
     }
 
-    for (const fact of ctx.facts) {
-      if (!fact || fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') continue;
-      if (isFactUnsafe(fact)) continue;
-      if (!['date', 'numeric', 'definition', 'entity_attribute'].includes(fact.fact_type)) continue;
-      if (!multiEligible(fact)) continue;
-      const candidate = makeStatementOptionCandidate(fact, ctx);
-      if (candidate) {
-        candidate.id = 'C-LITE-' + padNumber(seq++, 4);
-        candidates.push(candidate);
-      }
-    }
-
     const multi = buildMultiCandidates(ctx, seq);
     if (!multi.length) buildMetrics.multiMissing++;
     for (const candidate of multi) candidates.push(candidate);
-    const multi3 = buildMulti3Candidates(ctx, seq + multi.length);
-    for (const candidate of multi3) candidates.push(candidate);
-    const ar = buildARCandidates(ctx, seq + multi.length + multi3.length);
-    for (const candidate of ar) candidates.push(candidate);
-    const matching = buildMatchingCandidates(ctx, seq + multi.length + multi3.length + ar.length);
-    for (const candidate of matching) candidates.push(candidate);
-    const chronology = buildChronologyCandidates(ctx, seq + multi.length + multi3.length + ar.length + matching.length);
-    for (const candidate of chronology) candidates.push(candidate);
-    const table = buildTableCandidates(ctx, seq + multi.length + multi3.length + ar.length + matching.length + chronology.length);
-    for (const candidate of table) candidates.push(candidate);
 
     Object.defineProperty(candidates, 'buildMetrics', { value: buildMetrics, enumerable: false });
     Object.defineProperty(candidates, 'facts', { value: ctx.facts, enumerable: false });
@@ -7529,6 +3345,9 @@
         continue;
       }
       const normalized = normalizeOption(option.text);
+      if (!isQuestionSafeSpan(option.text, 160)) {
+        add('option_span', 'Option must be a complete, concise phrase.', { text: option.text });
+      }
       for (const filler of FILLER_PATTERNS) {
         if (normalized.includes(normalizeOption(filler))) {
           add('generic_filler', 'Option contains forbidden generic filler.', { text: option.text });
@@ -7538,127 +3357,6 @@
         if (!option.distractor_origin || option.distractor_origin === 'generic_filler') {
           add('distractor_provenance', 'Every distractor must identify a typed source or controlled origin.', { text: option.text });
         }
-      }
-    }
-
-    // Phase 8 fix: evidence and answers must be standalone and complete.
-    // A running book title, a figure reference, or a dangling fragment
-    // cannot be evidence, and a numeric answer cannot be a merged
-    // year + count phrase.
-    const excerptText = cleanText(question.supporting_excerpt || '');
-    if (excerptText && /\bexploring society\b/i.test(excerptText) && /\bgrade\b/i.test(excerptText)) {
-      add('page_furniture', 'Supporting excerpt is a running book title, not body prose.');
-    }
-    if (excerptText && /\(Fig\.|Fig\.\s*\d|Figure\s+\d/i.test(excerptText)) {
-      add('figure_reference', 'Supporting excerpt depends on a figure reference and is not standalone evidence.');
-    }
-    // Same apostrophe guard as isFragmentPhrase: a trailing word
-    // immediately after a letter + apostrophe ("Qur'an") is the tail
-    // of a proper noun, not a dangling word, and must not reject an
-    // otherwise complete excerpt.
-    if (excerptText && /(?<![A-Za-z]['\u2019])\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(excerptText)) {
-      add('fragment_excerpt', 'Supporting excerpt ends with a dangling word and is not a complete statement.');
-    }
-    // Full-path repair, evidence completeness (P1 backstop): an
-    // excerpt that starts mid-sentence or ends without terminal
-    // punctuation is a truncated fragment, not evidence. Table
-    // questions are exempt: their excerpt is pipe-delimited table
-    // text, not a sentence, by design.
-    if (excerptText && question.question_subtype !== 'table_question' && /^[a-z]/.test(excerptText)) {
-      add('fragment_excerpt', 'Supporting excerpt starts mid-sentence and is not a complete statement.');
-    }
-    if (excerptText && question.question_subtype !== 'table_question' && !/[.!?"'\u201d)\]]$/.test(excerptText)) {
-      add('fragment_excerpt', 'Supporting excerpt ends mid-sentence and is not a complete statement.');
-    }
-    // Full-path repair, negation (P0 backstop): an answer that appears
-    // in the excerpt only under a negation contradicts its own
-    // evidence ("A mediator has no power to make any decision"
-    // cannot support "any decision" as what a mediator makes
-    // possible). Statement, multi, Assertion-Reason and matching
-    // forms are exempt: their answer IS the sentence or a code, not
-    // a value lifted from inside it. A contrast pivot ("but",
-    // "rather", "instead", ", it is") between the negation and the
-    // answer exempts it too: "The capital is not Mumbai, it is
-    // Delhi" genuinely supports Delhi.
-    if (excerptText && correctOptions.length === 1 && !['statement_option', 'multi_statement', 'multi_statement_3', 'assertion_reason', 'matching', 'table_question'].includes(question.question_subtype)) {
-      const negMatch = excerptText.match(/\b(not|never|no|n't|cannot|can\s+not|unabl\w+\s+to)\b/i);
-      const correctText = cleanText(correctOptions[0].text);
-      if (negMatch && correctText) {
-        const lowerExcerpt = excerptText.toLowerCase();
-        const negPos = lowerExcerpt.indexOf(negMatch[0].toLowerCase());
-        const ansPos = lowerExcerpt.indexOf(correctText.toLowerCase());
-        if (ansPos > negPos && ansPos - negPos <= 80) {
-          const span = lowerExcerpt.slice(negPos, ansPos);
-          const hasPivot = /\b(but|rather|instead|however)\b/.test(span) || /,\s*(it|this|that)\s+(is|are|was|were)\b/.test(span) || /[.!?]/.test(span);
-          if (!hasPivot) {
-            add('answer_contradicts_excerpt', 'The correct answer appears in the excerpt under a negation and contradicts its evidence.', { excerpt: excerptText, answer: correctText });
-          }
-        }
-      }
-    }
-    if (question.question_subtype === 'numeric_recall' && correctOptions.length === 1 && !isCleanQuantity(correctOptions[0].text)) {
-      add('numeric_answer', 'A numeric answer must be a clean quantity, not a merged phrase.', { text: correctOptions[0].text });
-    }
-    // Quality gates: stems must be self-contained and must never
-    // reference a passage/source/text the student cannot see.
-    const stemText = String(question.stem || '');
-    if (/according to the (passage|source|text)\b|based on the (source|passage|text)\b|in the (passage|source|text)\b/i.test(stemText)) {
-      add('stem_source_reference', 'Stem must not reference a passage, source or text the student cannot see.', { stem: stemText });
-    }
-    if (/^what (number|measurement|amount|percentage|value) is stated\?$/i.test(stemText.trim())
-      || /^what is stated\?$/i.test(stemText.trim())
-      || /^which comparison is explicitly stated\?$/i.test(stemText.trim())) {
-      add('stem_context_free', 'Stem carries no subject or context and cannot be answered on its own.', { stem: stemText });
-    }
-    // V2 causal stem polish: "What causes X?" is only a question
-    // when X is a noun phrase the student can identify. A pronoun
-    // subject ("their urbanisation") has no antecedent in the stem
-    // alone, and a clause subject ("the colonial government
-    // finally decided to withdraw it in 1911") is not a thing that
-    // can be caused — it needs "Why did...?", which this form
-    // does not generate. Reject both, rather than shipping a
-    // clause-like or antecedent-free stem.
-    if (question.question_subtype === 'causal_reasoning' && /^what (causes|makes)\s+/i.test(stemText)) {
-      const caused = stemText.replace(/^what (causes|makes)\s+/i, '').replace(/\?\s*$/, '');
-      if (/^(their|his|her|its|our|your|they|he|she|it|them|this|that|these|those)\b/i.test(caused)) {
-        add('stem_pronoun_subject', 'A causal stem must not start with a pronoun or possessive with no antecedent.', { stem: stemText });
-      } else if (/\b(decided|withdrew|withdraw|became|become|was|were|is|are|had|has|did|does|will|would|could|should|may|might|must|lost|won|changed|moved|started|ended)\b/i.test(caused)) {
-        add('stem_clause_subject', 'A causal stem subject must be a noun phrase, not a clause with a finite verb.', { stem: stemText });
-      }
-    }
-    for (const option of options) {
-      if (option && !option.is_correct && option.text) {
-        const ot = cleanText(option.text);
-        if (/^[^A-Za-z0-9]/.test(ot) || /^(of|to|in|on|for|with|by|as)\b/i.test(ot) || /^type of$/i.test(ot) || /^path of$/i.test(ot)) {
-          add('fragment_distractor', 'Distractor must not be a fragment or preposition phrase.', { text: option.text });
-        }
-      }
-    }
-    // Length giveaway gate (quality): if the correct answer is more
-    // than 2.5x the median distractor length, a student can guess it
-    // by length alone. Multi-statement options are fixed patterns and
-    // are exempt. This forces selection to pick a different fact
-    // whose distractors are length-matched, rather than shipping a
-    // giveaway.
-    if (question.question_subtype !== 'multi_statement' && question.question_subtype !== 'multi_statement_3' && question.question_subtype !== 'assertion_reason' && question.question_subtype !== 'matching' && correctOptions.length === 1) {
-      const distLens = options.filter((o) => !o.is_correct && o.text).map((o) => cleanText(o.text).length).sort((a, b) => a - b);
-      if (distLens.length >= 3) {
-        const median = distLens[Math.floor(distLens.length / 2)];
-        const correctLen = cleanText(correctOptions[0].text).length;
-        if (median > 0 && correctLen > 2.5 * median) {
-          add('length_giveaway', 'Correct answer is far longer than the distractors and can be guessed by length.', { correct_length: correctLen, median_distractor_length: median });
-        }
-      }
-    }
-    if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
-      const expectedStatements = question.question_subtype === 'multi_statement_3' ? 3 : 2;
-      if (!Array.isArray(question.statements) || question.statements.length !== expectedStatements) {
-        add('statement_count', 'Multi-statement questions must carry exactly two (or three, for multi_statement_3) statements for rendering.');
-      }
-      if (/based on\s+\S/.test(question.stem || '') && /:/.test(question.stem || '')) {
-        // The fixed stem is exactly "Consider the following statements:";
-        // any "based on <section title>" stem is the old truncated form.
-        add('multi_stem', 'Multi-statement stem must not depend on a section title.', { stem: question.stem });
       }
     }
 
@@ -7716,11 +3414,10 @@
     }
 
     const correct = correctOptions[0];
-    if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
+    if (question.question_subtype === 'multi_statement') {
       if (question.type !== 'multi_statement') add('renderer_contract', 'Multi-statement subtype must use the multi_statement renderer type.');
       const statements = Array.isArray(question.statements) ? question.statements : [];
-      const expectedStatementCount = question.question_subtype === 'multi_statement_3' ? 3 : 2;
-      if (statements.length !== expectedStatementCount) add('statement_count', 'Multi-statement questions require exactly two (or three, for multi_statement_3) verified statements.');
+      if (statements.length !== 2) add('statement_count', 'Multi-statement questions require exactly two verified statements.');
       const seenTrue = [];
       for (const statement of statements) {
         const fact = facts.find((item) => item.fact_id === statement.fact_id);
@@ -7756,10 +3453,10 @@
           add('statement_truth', 'Every statement needs a verified truth value.', { fact_id: statement.fact_id });
         }
       }
-      const trueNumbers = statements.filter((statement) => statement.truth_value === true).map((statement) => statement.number);
-      // Statements are in source order, so the correct combination is
-      // the set of true numbers, not just how many are true.
-      let expectedText = comboTextForTrueNumbers(trueNumbers, statements.length);
+      const trueCount = statements.filter((statement) => statement.truth_value === true).length;
+      let expectedText = 'Neither 1 nor 2';
+      if (trueCount === 2) expectedText = 'Both 1 and 2';
+      else if (trueCount === 1) expectedText = statements[0] && statements[0].truth_value ? '1 only' : '2 only';
       if (normalizeOption(correct.text) !== normalizeOption(expectedText)) {
         add('truth_pattern', 'The keyed option must match the verified truth pattern.', { expected: expectedText, actual: correct.text });
       }
@@ -7770,20 +3467,23 @@
     }
 
     const fact = referenced[0];
+    // V2 proof-carrying questions are validated by the reasoning engine's own
+    // operator contract; the legacy stem/relation checks below do not apply.
+    const isV2Proof = Boolean(question.proof_trace && question.derived_proposition && question.primary_operator);
     const allowed = SUBTYPE_FACT_TYPES[question.question_subtype] || [];
-    if (!allowed.includes(fact.fact_type)) {
+    if (!isV2Proof && !allowed.includes(fact.fact_type)) {
       add('subtype_fact_mismatch', 'Question subtype is not supported by the primary fact type.', {
         subtype: question.question_subtype,
         fact_type: fact.fact_type
       });
     }
-    if (evidence.stem_relation && evidence.stem_relation !== fact.normalized_relation) {
+    if (!isV2Proof && evidence.stem_relation && evidence.stem_relation !== fact.normalized_relation) {
       add('stem_relation', 'Stem must target the same subject and relation as the answer fact.', {
         expected: fact.normalized_relation,
         actual: evidence.stem_relation
       });
     }
-    if (normalizeObject(evidence.temporal_scope || '') !== normalizeObject(fact.temporal_scope || '')) {
+    if (!isV2Proof && normalizeObject(evidence.temporal_scope || '') !== normalizeObject(fact.temporal_scope || '')) {
       add('stem_relation', 'Stem must preserve the extracted temporal scope.', {
         expected: fact.temporal_scope || '',
         actual: evidence.temporal_scope || ''
@@ -7791,95 +3491,7 @@
     }
 
     let expected = fact.object;
-    if (question.question_subtype === 'matching') {
-      // The correct option must be the code for the recorded pairs,
-      // and every pair must be a verified fact: the List I subject
-      // must have exactly that object in the source.
-      if (!Array.isArray(question.matching_pairs) || question.matching_pairs.length !== 4) {
-        add('source_answer', 'Matching questions must carry exactly four verified pairs.', {});
-      } else {
-        const pairs = question.matching_pairs;
-        for (const pair of pairs) {
-          const pf = facts.find((item) => normalizeSubject(item.subject) === normalizeSubject(pair.subject));
-          if (!pf) {
-            add('source_answer', 'Every matching pair must reference a real fact.', { subject: pair.subject });
-          } else if (normalizeObject(pf.object) !== normalizeObject(pair.object)) {
-            add('source_answer', 'Matching pair object must equal the extracted fact value.', { subject: pair.subject });
-          }
-        }
-        // Parse the correct code and compare it with the pairs.
-        const codeMap = {};
-        for (const m of String(correct.text || '').matchAll(/([A-D])-(\d)/g)) codeMap[m[1]] = Number(m[2]);
-        for (let i = 0; i < 4; i++) {
-          const letter = String.fromCharCode(65 + i);
-          if (codeMap[letter] !== pairs[i].list2_index) {
-            add('source_answer', 'Matching code must map each List I item to its verified List II number.', { letter, expected: pairs[i].list2_index, actual: codeMap[letter] });
-          }
-        }
-      }
-      // Every code option must be a permutation of 1-4.
-      for (const opt of options) {
-        const nums = [...String(opt.text || '').matchAll(/-(\d)/g)].map((m) => Number(m[1])).sort().join(',');
-        if (nums !== '1,2,3,4') {
-          add('source_answer', 'Matching code options must be permutations of 1, 2, 3 and 4.', { text: opt.text });
-        }
-      }
-      expected = correct.text;
-    } else if (question.question_subtype === 'assertion_reason') {
-      // A-R answers are codes, not fact values: the correct option
-      // must be the standard text for the recorded pattern, and the
-      // Assertion and Reason must be present, distinct, complete
-      // sentences. Truth re-derivation for (a) is builder-side (the
-      // effect claim is derived, not a source sentence); for other
-      // patterns the recorded truth is checked by the regression
-      // tests, not by re-running the builder here.
-      if (!question.assertion || !question.reason || question.assertion === question.reason) {
-        add('source_answer', 'Assertion-Reason questions must carry distinct Assertion and Reason statements.', {});
-      }
-      for (const s of [question.assertion, question.reason]) {
-        if (s && (!/[.!?]$/.test(s) || s.split(/\s+/).length < 3)) {
-          add('source_answer', 'Assertion and Reason must be complete sentences.', { text: s });
-        }
-      }
-      const patternIndex = { a: 0, b: 1, c: 2, d: 3 }[question.ar_pattern];
-      if (patternIndex == null) {
-        add('source_answer', 'Assertion-Reason questions must record a pattern a/b/c/d.', { pattern: question.ar_pattern });
-      } else {
-        const expectedTexts = [
-          'Both A and R are true and R is the correct explanation of A',
-          'Both A and R are true but R is NOT the correct explanation of A',
-          'A is true but R is false',
-          'A is false but R is true'
-        ];
-        if (normalizeOption(correct.text) !== normalizeOption(expectedTexts[patternIndex])) {
-          add('source_answer', 'Assertion-Reason key must match the recorded pattern.', { pattern: question.ar_pattern, actual: correct.text });
-        }
-        const optionTexts = options.map((o) => normalizeOption(o.text));
-        for (const et of expectedTexts) {
-          if (!optionTexts.includes(normalizeOption(et))) {
-            add('source_answer', 'Assertion-Reason options must be the four standard judgements.', { missing: et });
-          }
-        }
-      }
-      expected = correct.text;
-    } else if (question.question_subtype === 'exception_reasoning') {
-      // The correct answer must NOT be a member; every distractor
-      // must be a true member, or the "exception" is not one.
-      if (!Array.isArray(fact.members) || fact.members.some((member) => normalizeObject(member) === normalizeOption(correct.text))) {
-        add('source_answer', 'Exception answer must not be one of the stated members.', { answer: correct.text });
-      }
-      for (const opt of options) {
-        if (!opt.is_correct && (!Array.isArray(fact.members) || !fact.members.some((member) => normalizeObject(member) === normalizeOption(opt.text)))) {
-          add('source_answer', 'Exception distractors must all be true members.', { answer: opt.text });
-        }
-      }
-      expected = correct.text;
-    } else if (question.question_subtype === 'statement_option') {
-      if (normalizeOption(correct.text) !== normalizeOption(fact.source_text)) {
-        add('source_answer', 'Statement-option answer must be the exact source statement.', { answer: correct.text });
-      }
-      expected = correct.text;
-    } else if (question.question_subtype === 'classification_membership') {
+    if (question.question_subtype === 'classification_membership') {
       if (!Array.isArray(fact.members) || !fact.members.some((member) => normalizeObject(member) === normalizeOption(correct.text))) {
         add('source_answer', 'Membership answer must be one of the stated members.', { answer: correct.text });
       }
@@ -7889,34 +3501,6 @@
       if (normalizeOption(correct.text) !== normalizeOption(expected)) {
         add('source_answer', 'Sequence answer must preserve the explicit source order.', { answer: correct.text });
       }
-    } else if (question.question_subtype === 'chronology') {
-      // The correct option must be a permutation of A-D whose
-      // letters map to years in ascending order, and every
-      // distractor must be a different permutation of A-D.
-      const items = Array.isArray(question.chronology_items) ? question.chronology_items : [];
-      if (items.length !== 4) {
-        add('source_answer', 'Chronology questions must carry exactly four dated events.', {});
-      } else {
-        const yearByLetter = {};
-        for (const item of items) yearByLetter[item.letter] = item.year;
-        const parseSequence = (text) => String(text || '').split(',').map((s) => s.trim());
-        const correctSeq = parseSequence(correct.text);
-        if (correctSeq.slice().sort().join(',') !== 'A,B,C,D') {
-          add('source_answer', 'Chronology options must be permutations of A, B, C and D.', { text: correct.text });
-        } else {
-          const years = correctSeq.map((letter) => yearByLetter[letter]);
-          if (years.some((y) => y == null) || years.some((y, i) => i > 0 && years[i - 1] >= y)) {
-            add('source_answer', 'The correct chronology sequence must list events in ascending year order.', { text: correct.text });
-          }
-        }
-        for (const opt of options) {
-          if (opt.is_correct) continue;
-          if (parseSequence(opt.text).slice().sort().join(',') !== 'A,B,C,D') {
-            add('source_answer', 'Chronology distractor options must be permutations of A, B, C and D.', { text: opt.text });
-          }
-        }
-      }
-      expected = correct.text;
     } else if (question.proof_trace && question.derived_proposition) {
       if (normalizeOption(correct.text) !== normalizeOption(question.expected_answer)) {
         add('source_answer', 'Keyed answer must equal the verified derived proposition.', {
@@ -8099,47 +3683,28 @@
 
     const candidates = buildQuestionCandidates(ctx, opts);
 
-    // Repair 002, Phase 5: the production generator must NOT merge raw
-    // V2 candidates. It now calls the validated V2 question-bank API,
-    // which internally compiles propositions, builds the graph, runs
-    // operators and enforces V2 proof validation (Validator.validateCandidate)
-    // before returning. The candidates returned here are then also run
-    // through existing production validation below, so only candidates
-    // passing BOTH layers may be published. Evidence and source metadata
-    // are preserved as returned by V2; nothing is manufactured to make a
-    // candidate pass. A V2 exception is recorded in diagnostics
-    // (v2Failed / v2Error) and is never silently presented as a fully
-    // validated bank.
     let v2Candidates = [];
-    let v2Generation = null;
-    let v2Error = null;
     if (ReasoningV2 && typeof ReasoningV2.generateReasoningQuestionBank === 'function') {
       try {
         const sectionsForV2 = (ctx.sections && ctx.sections.length) ? ctx.sections : (opts.sections || []);
         if (sectionsForV2.length) {
+          const initialFactIds = new Set(facts.map((f) => f.fact_id));
+          // Run the full V2 pipeline (compile -> graph -> production operators
+          // -> proof validation -> coverage selection) rather than calling the
+          // raw candidate generator. V2 contributes at most 5 questions.
           const v2Bank = ReasoningV2.generateReasoningQuestionBank(sectionsForV2, {
             facts: facts,
-            targetCount: targetCount
+            targetCount: Math.min(5, targetCount)
           });
-          v2Generation = v2Bank && v2Bank.generation ? v2Bank.generation : null;
-          v2Candidates = Array.isArray(v2Bank) ? v2Bank.slice() : [];
-          // Preserve original evidence references: drop only candidates
-          // whose evidence does not reference any supplied fact at all.
-          // V2-validated candidates normally carry production fact ids
-          // (see constructors.js); this is a safety filter, not a
-          // substitute for V2 or production validation.
-          const initialFactIds = new Set(facts.map((f) => f.fact_id));
-          v2Candidates = v2Candidates.filter((cand) => {
+          v2Candidates = (Array.isArray(v2Bank) ? v2Bank : []).filter((cand) => {
             if (!cand || !cand.evidence || !Array.isArray(cand.evidence.fact_ids)) return false;
-            return cand.evidence.fact_ids.some((id) => initialFactIds.has(id));
+            // Keep only reasoning that is grounded in the same verified fact
+            // registry the legacy bank uses.
+            cand.evidence.fact_ids = cand.evidence.fact_ids.filter((id) => initialFactIds.has(id));
+            return cand.evidence.fact_ids.length > 0;
           });
         }
-      } catch (err) {
-        v2Error = err;
-        v2Candidates = [];
-      }
-    } else if (ReasoningV2) {
-      v2Error = new Error('ReasoningV2.generateReasoningQuestionBank is not available');
+      } catch (_) {}
     }
 
     const allCandidates = [...v2Candidates, ...candidates];
@@ -8147,6 +3712,7 @@
     const rejectionCounts = {};
     if (buildMetrics.missingOptions) rejectionCounts.missing_options = buildMetrics.missingOptions;
     if (buildMetrics.unsafeFacts) rejectionCounts.unsafe_facts = buildMetrics.unsafeFacts;
+    if (buildMetrics.unsafeSpans) rejectionCounts.unsafe_spans = buildMetrics.unsafeSpans;
     if (buildMetrics.unsupportedFacts) rejectionCounts.unsupported_facts = buildMetrics.unsupportedFacts;
     if (buildMetrics.multiMissing) rejectionCounts.multi_missing = buildMetrics.multiMissing;
 
@@ -8165,88 +3731,10 @@
     const usedRelations = new Set();
     const usedStems = new Set();
     const subtypeUse = {};
-    // Fact-expensive forms first: a three-statement question consumes
-    // three facts for one question, so if direct questions claim
-    // those facts first, it can never be selected at all — which is
-    // why the first mock-test regeneration contained no multi_3
-    // items despite them existing as candidates. Give multi_3 and
-    // multi_statement first claim on their facts, one each, then
-    // fill normally. This is allocation, not a quota: if no triple
-    // survives, the bank simply has no multi_3 item.
-    // Only when facts are abundant: in a small source, a multi
-    // question that consumes three facts for one question starves
-    // the bank (a science sample fell from 5 to 4 questions), so
-    // the first pass is skipped there and the bank fills normally.
-    const distinctFactCount = new Set(validated.flatMap((c) => (c.evidence && c.evidence.fact_ids) || [])).size;
-    // Rare-subtype first claim (coverage, mock-test quality):
-    // a chapter that yields one date, one comparison, one
-    // sequence, one chronology or one table question should
-    // actually include it, instead of losing it because a
-    // fact-expensive multi-statement or Assertion-Reason item
-    // claimed the same fact first, or because entity and
-    // statement-option candidates crowd it out. One per rare
-    // subtype, before the fact-expensive pass, so the bank
-    // reads like a paper covering the chapter, not a pool of
-    // the easiest forms to generate.
-    for (const rareSubtype of ['chronology', 'date_recall', 'comparison', 'sequence_order', 'table_question']) {
-      if (selected.length >= targetCount) break;
-      // Chronology consumes four facts for one question, so on
-      // a small source it would starve the bank (four date facts
-      // became one chronology question instead of three varied
-      // questions). Gate it by abundance, like the fact-expensive
-      // pass; the single-fact rare forms are not gated.
-      if (rareSubtype === 'chronology' && distinctFactCount < targetCount * 2) continue;
-      const pool = validated.filter((candidate) =>
-        candidate.question_subtype === rareSubtype &&
-        !candidate.relation_keys.some((key) => usedRelations.has(key)) &&
-        !usedStems.has(normalizeOption(candidate.stem))
-      );
-      if (!pool.length) continue;
-      pool.sort((a, b) => {
-        const startA = a.candidate_sort ? a.candidate_sort.source_start : 0;
-        const startB = b.candidate_sort ? b.candidate_sort.source_start : 0;
-        if (startA !== startB) return startA - startB;
-        return String(a.id).localeCompare(String(b.id));
-      });
-      const chosen = pool[0];
-      selected.push(chosen);
-      for (const key of chosen.relation_keys) usedRelations.add(key);
-      usedStems.add(normalizeOption(chosen.stem));
-      subtypeUse[chosen.question_subtype] = (subtypeUse[chosen.question_subtype] || 0) + 1;
-    }
-    const factExpensiveFirst = distinctFactCount >= targetCount * 2;
-    for (const prioritySubtype of (factExpensiveFirst ? ['multi_statement_3', 'multi_statement', 'assertion_reason'] : [])) {
-      if (selected.length >= targetCount) break;
-      const pool = validated.filter((candidate) =>
-        candidate.question_subtype === prioritySubtype &&
-        !candidate.relation_keys.some((key) => usedRelations.has(key)) &&
-        !usedStems.has(normalizeOption(candidate.stem))
-      );
-      if (!pool.length) continue;
-      pool.sort((a, b) => {
-        const startA = a.candidate_sort ? a.candidate_sort.source_start : 0;
-        const startB = b.candidate_sort ? b.candidate_sort.source_start : 0;
-        if (startA !== startB) return startA - startB;
-        return String(a.id).localeCompare(String(b.id));
-      });
-      const chosen = pool[0];
-      selected.push(chosen);
-      for (const key of chosen.relation_keys) usedRelations.add(key);
-      usedStems.add(normalizeOption(chosen.stem));
-      subtypeUse[chosen.question_subtype] = (subtypeUse[chosen.question_subtype] || 0) + 1;
-    }
     while (selected.length < targetCount) {
       const available = validated.filter((candidate) => {
         if (candidate.relation_keys.some((key) => usedRelations.has(key))) return false;
-        if (usedStems.has(normalizeOption(candidate.stem))) return false;
-        // Variety cap (quality): no subtype may exceed 40% of the
-        // bank. A descriptive chapter that only yields entity facts
-        // must yield a smaller, balanced bank, not a 67% entity bank.
-        // Target count is a maximum, not a quota to be filled by
-        // repeating one subtype.
-        const cap = Math.ceil(targetCount * 0.4);
-        if ((subtypeUse[candidate.question_subtype] || 0) >= cap) return false;
-        return true;
+        return !usedStems.has(normalizeOption(candidate.stem));
       });
       if (!available.length) break;
       available.sort((a, b) => {
@@ -8296,24 +3784,15 @@
       incrementCount(rejectionCounts, selected.length >= targetCount ? 'target_limit' : 'duplicate_relation', 1);
     }
 
-    if (v2Error) rejectionCounts.v2_error = (rejectionCounts.v2_error || 0) + 1;
-    if (v2Generation && v2Generation.rejectionCounts) {
-      for (const key of Object.keys(v2Generation.rejectionCounts)) {
-        rejectionCounts['v2_' + key] = (rejectionCounts['v2_' + key] || 0) + v2Generation.rejectionCounts[key];
-      }
-    }
     if (!accepted.length) {
       const metrics = {
         factCount: facts.length,
-        totalCandidates: allCandidates.length,
+        totalCandidates: candidates.length,
         accepted: 0,
-        rejected: allCandidates.length,
+        rejected: candidates.length,
         conflictCount: conflicts.length,
         rejectionCounts,
-        buildMetrics,
-        v2Failed: Boolean(v2Error),
-        v2Error: v2Error ? (v2Error.message || String(v2Error)) : null,
-        v2Generation: v2Generation
+        buildMetrics
       };
       throw noVerifiedQuestionsError(
         'No verified questions could be created from this source. The material was unsupported, ambiguous, or in conflict, so nothing was published.',
@@ -8333,11 +3812,9 @@
     const conflictedFactIds = facts.filter((fact) => fact.conflict_status === 'conflicting').map((fact) => fact.fact_id);
     const metrics = {
       factCount: facts.length,
-      totalCandidates: allCandidates.length,
-      productionCandidates: candidates.length,
-      v2Candidates: v2Candidates.length,
+      totalCandidates: candidates.length,
       accepted: accepted.length,
-      rejected: Math.max(0, allCandidates.length - accepted.length),
+      rejected: Math.max(0, candidates.length - accepted.length),
       requestedCount: targetCount,
       conflictCount: conflicts.length,
       conflictedFactCount: conflictedFactIds.length,
@@ -8347,207 +3824,23 @@
       rejectionCounts,
       buildMetrics,
       subtypeDistribution,
-      keyDistribution,
-      v2Failed: Boolean(v2Error),
-      v2Error: v2Error ? (v2Error.message || String(v2Error)) : null,
-      v2Generation: v2Generation
+      keyDistribution
     };
     Object.defineProperty(accepted, 'generation', { value: metrics, enumerable: false });
     Object.defineProperty(accepted, 'facts', { value: facts, enumerable: false });
-    Object.defineProperty(accepted, 'v2Diagnostics', {
-      value: { failed: Boolean(v2Error), error: v2Error ? (v2Error.message || String(v2Error)) : null, generation: v2Generation },
-      enumerable: false
-    });
     return accepted;
-  }
-
-  // Mock-test assembly (not a bank dump). A bank is a pool of
-  // verified questions; a mock test is a selected paper with a
-  // blueprint: coverage across sections, a difficulty mix, no fact
-  // reused, no answer leaked by another question, and balanced
-  // answer keys. Selection is deterministic (input order + hashes),
-  // so the same bank always assembles the same paper, and a
-  // different bank assembles a different one.
-  function assembleMockTest(questions, options) {
-    const opts = options || {};
-    const all = Array.isArray(questions) ? questions.filter((q) => q && Array.isArray(q.options) && q.options.length === 4 && q.options.filter((o) => o.is_correct).length === 1) : [];
-    const target = Number.isFinite(opts.targetCount) && opts.targetCount > 0 ? Math.floor(opts.targetCount) : Math.min(20, all.length);
-    const mixRaw = opts.difficultyMix || { easy: 0.3, medium: 0.5, hard: 0.2 };
-    const mixSum = (mixRaw.easy || 0) + (mixRaw.medium || 0) + (mixRaw.hard || 0) || 1;
-    const mix = { easy: (mixRaw.easy || 0) / mixSum, medium: (mixRaw.medium || 0) / mixSum, hard: (mixRaw.hard || 0) / mixSum };
-    const patternAnswers = new Set(['1 only', '2 only', '3 only', 'both 1 and 2', 'neither 1 nor 2', '1 and 2 only', '1 and 3 only', '2 and 3 only', '1, 2 and 3', 'none of the above']);
-    function questionText(q) {
-      // Only stems and statements count as leakage: an answer that
-      // appears as a distractor in another question is normal exam
-      // practice (the same set of places, years, or terms recurs as
-      // options), not a giveaway. An answer stated in another
-      // question's stem or in a multi-statement, however, gives it
-      // away before the student even reads the options.
-      const parts = [q.stem || ''];
-      for (const s of q.statements || []) parts.push(s.text || '');
-      return normalizeOption(parts.join(' '));
-    }
-    function leaks(a, b) {
-      // Does a's answer appear in b's text, or b's answer in a's?
-      const pairs = [[a, b], [b, a]];
-      for (const [first, second] of pairs) {
-        const ans = normalizeOption(first.expected_answer || '');
-        if (!ans || ans.length < 3 || patternAnswers.has(ans)) continue;
-        if (questionText(second).includes(ans)) return true;
-      }
-      return false;
-    }
-    const sections = [];
-    for (const q of all) {
-      const s = q.source_title || 'Unknown';
-      if (!sections.includes(s)) sections.push(s);
-    }
-    const selected = [];
-    const rejected = new Set();
-    const usedRelations = new Set();
-    const usedStems = new Set();
-    const subtypeUse = {};
-    const difficultyUse = { easy: 0, medium: 0, hard: 0 };
-    let leakageRejected = 0;
-    let reuseRejected = 0;
-    let sectionCursor = 0;
-    // Round-robin across sections, so a paper does not come only
-    // from the first chapter section that happened to yield facts.
-    // Within a section, prefer the difficulty with the largest
-    // remaining deficit against the mix, then the least-used subtype.
-    while (selected.length < target) {
-      let progressed = false;
-      for (let round = 0; round < sections.length && selected.length < target; round++) {
-        const section = sections[(sectionCursor + round) % sections.length];
-        const pool = all.filter((q) => (q.source_title || 'Unknown') === section && !selected.includes(q) && !rejected.has(q));
-        if (!pool.length) continue;
-        const deficits = {};
-        for (const d of ['easy', 'medium', 'hard']) {
-          deficits[d] = Math.round(mix[d] * target) - (difficultyUse[d] || 0);
-        }
-        pool.sort((a, b) => {
-          const da = deficits[a.difficulty] || 0;
-          const db = deficits[b.difficulty] || 0;
-          if (db !== da) return db - da;
-          const ua = subtypeUse[a.question_subtype] || 0;
-          const ub = subtypeUse[b.question_subtype] || 0;
-          if (ua !== ub) return ua - ub;
-          return all.indexOf(a) - all.indexOf(b);
-        });
-        let chosen = null;
-        for (const cand of pool) {
-          const stemKey = normalizeOption(cand.stem || '');
-          const rels = Array.isArray(cand.relation_keys) ? cand.relation_keys : [];
-          // Relation keys (fact id + value) are the reuse identity:
-          // fact ids alone restart at F-LITE-001 for every source, so
-          // they cannot be used to detect reuse across combined banks.
-          if (usedStems.has(stemKey) || rels.some((r) => usedRelations.has(r))) {
-            rejected.add(cand);
-            reuseRejected++;
-            continue;
-          }
-          if (selected.some((s) => leaks(s, cand))) {
-            rejected.add(cand);
-            leakageRejected++;
-            continue;
-          }
-          chosen = cand;
-          break;
-        }
-        if (!chosen) continue;
-        selected.push(chosen);
-        usedStems.add(normalizeOption(chosen.stem || ''));
-        for (const r of chosen.relation_keys || []) usedRelations.add(r);
-        subtypeUse[chosen.question_subtype] = (subtypeUse[chosen.question_subtype] || 0) + 1;
-        difficultyUse[chosen.difficulty] = (difficultyUse[chosen.difficulty] || 0) + 1;
-        progressed = true;
-      }
-      sectionCursor = (sectionCursor + 1) % Math.max(1, sections.length);
-      if (!progressed) break;
-    }
-    // Key balancing: reassign keys so counts differ by at most one,
-    // choosing the least-used key per question (tie-broken by a hash
-    // of the question id, so the key sequence is not a simple ABCD
-    // rotation a student could learn). Input questions are copied,
-    // never mutated.
-    const keyCounts = { A: 0, B: 0, C: 0, D: 0 };
-    const balanced = selected.map((q) => {
-      const copy = Object.assign({}, q);
-      const correct = q.options.find((o) => o.is_correct);
-      const distractors = q.options.filter((o) => !o.is_correct);
-      let targetKey = KEYS[0];
-      let bestScore = Infinity;
-      for (const key of KEYS) {
-        const score = keyCounts[key] * 10 + (stableHash(q.id || q.stem || '') % 4 === KEYS.indexOf(key) ? 0 : 1);
-        if (score < bestScore) { bestScore = score; targetKey = key; }
-      }
-      keyCounts[targetKey]++;
-      const newOptions = [];
-      let dIdx = 0;
-      for (const key of KEYS) {
-        if (key === targetKey) newOptions.push(Object.assign({}, correct, { key }));
-        else newOptions.push(Object.assign({}, distractors[dIdx++], { key }));
-      }
-      copy.options = newOptions;
-      copy.answer_key = targetKey;
-      return copy;
-    });
-    const audit = {
-      total: balanced.length,
-      target,
-      byDifficulty: { easy: difficultyUse.easy || 0, medium: difficultyUse.medium || 0, hard: difficultyUse.hard || 0 },
-      difficultyTarget: { easy: Math.round(mix.easy * target), medium: Math.round(mix.medium * target), hard: Math.round(mix.hard * target) },
-      bySubtype: subtypeUse,
-      bySection: {},
-      keyDistribution: keyCounts,
-      sectionsCovered: 0,
-      sectionsAvailable: sections.length,
-      leakageRejected,
-      reuseRejected
-    };
-    for (const q of balanced) {
-      const s = q.source_title || 'Unknown';
-      audit.bySection[s] = (audit.bySection[s] || 0) + 1;
-    }
-    audit.sectionsCovered = Object.keys(audit.bySection).length;
-    return { questions: balanced, audit };
   }
 
   const StudySynthEngine = {
     cleanText,
-    classifySentenceRole,
     splitSentences,
     extractAnchors,
     balanceDistractorLength,
     parseRawDocument,
     extractSourceFacts,
+    getFactExtractionDiagnostics,
+    classifySentenceRole,
     parseFactRelations,
-    parseAllFactRelations,
-    buildTypedKnowledge,
-    buildTypedKnowledgeFromReconstructedUnits,
-    resolveLocalPronounAntecedent,
-    phase2cFactKey,
-    passiveDraftsForSegment,
-    captionFeatureDrafts,
-    glossaryDraftsForUnit,
-    stripFigureReferences,
-    stripLeadingContextPrefix,
-    hasAttributeDrafts,
-    offeredSocialSpaceDrafts,
-    relativeClauseDrafts,
-    renownedDrafts,
-    temporalScaleDrafts,
-    sketchClaimDrafts,
-    splitEtcBoundary,
-    splitPhase2eBoundary,
-    relabelCharacterisedBy,
-    normalizeOrdinals,
-    stripAttributionPrefix,
-    classifyTypedDraft,
-    isFurnitureContaminated,
-    TYPED_FACT_VERSION,
-    TYPED_FACT_TYPES,
-    UNPARSED_REASON_CODES,
     detectFactConflicts,
     buildKnowledgeInventory,
     buildDistractorCandidates,
@@ -8555,8 +3848,6 @@
     validateQuestion,
     validateQuestionBank,
     generateQuestionBank,
-    assembleMockTest,
-    assembleCaseSets,
     isUsableSubject,
     checkSubjectQuality,
     cleanNumericAttribute,

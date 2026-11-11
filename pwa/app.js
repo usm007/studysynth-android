@@ -1,3 +1,17 @@
+
+  // Fisher-Yates true random shuffle for exam test mode
+  function shuffleArray(array) {
+    if (!Array.isArray(array)) return [];
+    const arr = array.slice();
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+    return arr;
+  }
+
 /**
  * StudySynth — Client Application Controller
  * Adaptive, offline-first workspace for phones, tablets, and desktops.
@@ -11,7 +25,8 @@
     test: 'Exam Test',
     revision: 'Revision',
     generator: 'Generator',
-    library: 'Library'
+    library: 'Library',
+    analysis: 'Analysis'
   };
 
   const MARKS_CORRECT = 2;
@@ -19,8 +34,8 @@
 
   const State = {
     activeMode: 'library',
-    librarySubject: null,
     libraryClass: null,
+    libraryExam: 'ugc_net',
     librarySearch: '',
     currentModule: null,
     currentIndex: 0,
@@ -97,6 +112,9 @@
     DOM.examSubmitBtn = document.getElementById('examSubmitBtn');
     DOM.testSetup = document.getElementById('testSetup');
     DOM.testSetupModule = document.getElementById('testSetupModule');
+    DOM.testScopeSelect = document.getElementById('testScopeSelect');
+    DOM.testSummaryQuestions = document.getElementById('testSummaryQuestions');
+    DOM.testSummaryMarking = document.getElementById('testSummaryMarking');
     DOM.testQuestionCount = document.getElementById('testQuestionCount');
     DOM.testSecondsPerQuestion = document.getElementById('testSecondsPerQuestion');
     DOM.testTotalTime = document.getElementById('testTotalTime');
@@ -161,7 +179,12 @@
     DOM.revSummaryDoneBtn = document.getElementById('revSummaryDoneBtn');
 
     DOM.libraryContainer = document.getElementById('libraryContainer');
+    DOM.analysisView = document.getElementById('analysisView');
+    DOM.analysisContainer = document.getElementById('analysisContainer');
+    DOM.analysisSub = document.getElementById('analysisSub');
     DOM.libBreadcrumbBar = document.getElementById('libBreadcrumbBar');
+    DOM.examTabUgc = document.getElementById('examTabUgc');
+    DOM.examTabCtet = document.getElementById('examTabCtet');
     DOM.libraryGenerateBtn = document.getElementById('libraryGenerateBtn');
     DOM.libSearchInput = document.getElementById('libSearchInput');
     DOM.toast = document.getElementById('toast');
@@ -177,6 +200,7 @@
     DOM.scoreNote = document.getElementById('scoreNote');
     DOM.scoreReviewBtn = document.getElementById('scoreReviewBtn');
     DOM.scoreRetakeBtn = document.getElementById('scoreRetakeBtn');
+    DOM.scoreAnalysisBtn = document.getElementById('scoreAnalysisBtn');
     DOM.scoreCloseBtn = document.getElementById('scoreCloseBtn');
 
     DOM.aboutModal = document.getElementById('aboutModal');
@@ -184,15 +208,12 @@
 
     DOM.processModal = document.getElementById('processModal');
     DOM.processTitle = document.getElementById('processTitle');
-    DOM.processJob = document.getElementById('processJob');
     DOM.processMessage = document.getElementById('processMessage');
-    DOM.processExpectation = document.getElementById('processExpectation');
     DOM.processNotice = document.getElementById('processNotice');
     DOM.processTrack = document.getElementById('processTrack');
     DOM.processBar = document.getElementById('processBar');
     DOM.processCount = document.getElementById('processCount');
     DOM.processPct = document.getElementById('processPct');
-    DOM.processElapsed = document.getElementById('processElapsed');
     DOM.processStages = document.getElementById('processStages');
     DOM.processStorage = document.getElementById('processStorage');
     DOM.processMinimizeBtn = document.getElementById('processMinimizeBtn');
@@ -503,8 +524,20 @@
   // ==========================================================================
   // MODE SWITCHING
   // ==========================================================================
-  function switchMode(mode) {
+    async function switchMode(mode) {
     if (!MODE_LABELS[mode]) mode = 'library';
+    if ((mode === 'practice' || mode === 'test') && !State.currentModule) {
+      try {
+        const bundled = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || [];
+        const firstSet = bundled.find(m => m && m.questionCount > 0) || bundled[0];
+        if (firstSet) {
+          const full = await resolveModuleBody(firstSet);
+          if (full && Array.isArray(full.questions) && full.questions.length) {
+            setModule(full);
+          }
+        }
+      } catch (err) {}
+    }
     if ((mode === 'practice' || mode === 'revision' || mode === 'test') && !State.currentModule) {
       showToast('Choose a saved set from the Library to start studying.');
       mode = 'library';
@@ -533,6 +566,7 @@
     DOM.generatorView.style.display = mode === 'generator' ? 'block' : 'none';
     DOM.revisionView.style.display = mode === 'revision' ? 'flex' : 'none';
     DOM.libraryView.style.display = mode === 'library' ? 'block' : 'none';
+    if (DOM.analysisView) DOM.analysisView.style.display = mode === 'analysis' ? 'block' : 'none';
     if (DOM.workspace) DOM.workspace.scrollTop = 0;
 
     if (DOM.sheetModeLabel) DOM.sheetModeLabel.textContent = MODE_LABELS[mode];
@@ -556,6 +590,8 @@
       openRevision();
     } else if (mode === 'library') {
       renderLibrary();
+    } else if (mode === 'analysis') {
+      renderAnalysis();
     } else if (isQuiz && !testSetup) {
       renderQuestion();
       renderPalette();
@@ -564,9 +600,9 @@
 
     setNavOpen(false, { returnFocus: wasNavOpen });
 
-    if (mode === 'library' || mode === 'generator') {
-      if (DOM.setTitle) DOM.setTitle.textContent = 'LIBRARY';
-      if (DOM.setTopic) DOM.setTopic.textContent = 'Choose a PDF or saved set';
+    if (mode === 'library' || mode === 'generator' || mode === 'analysis') {
+      if (DOM.setTitle) DOM.setTitle.textContent = mode === 'analysis' ? 'ANALYSIS' : 'LIBRARY';
+      if (DOM.setTopic) DOM.setTopic.textContent = 'UGC NET Education (Code 09)';
     } else if (State.currentModule) {
       const activeCount = Array.isArray(State.currentModule.questions) ? State.currentModule.questions.length : 0;
       if (DOM.setTitle) DOM.setTitle.textContent = activeCount ? `${activeCount} VERIFIED QUESTIONS` : 'REVISION ONLY';
@@ -575,63 +611,136 @@
   }
 
   // ==========================================================================
-  // EXAM TIMER & TEST SETUP
+  // EXAM TIMER & TEST SETUP (OFFICIAL MOCKS & CUSTOM TESTS WITH RANDOMIZATION)
   // ==========================================================================
-  function renderTestSetup() {
-    const mod = State.currentModule;
-    if (!DOM.testSetup || !mod) return;
-    const available = Array.isArray(mod.questions) ? mod.questions.length : 0;
-    if (DOM.testSetupModule) {
-      DOM.testSetupModule.textContent = `${mod.title || 'Untitled set'} · ${available} verified question${available === 1 ? '' : 's'} available`;
+  async function loadModulesQuestions(moduleIds) {
+    const questionsByMod = {};
+    for (const id of moduleIds) {
+      try {
+        const mod = await resolveModuleBody({ id });
+        if (mod && Array.isArray(mod.questions)) {
+          questionsByMod[id] = mod.questions;
+        }
+      } catch (e) {}
     }
-    if (DOM.testQuestionCount) {
-      const counts = [5, 10, 15, 20, 30, 50].filter((n) => n < available);
-      counts.push(available);
-      const previous = Number(DOM.testQuestionCount.value) || State.testQuestionLimit;
-      const selected = counts.indexOf(previous) >= 0 ? previous : Math.min(10, available);
-      DOM.testQuestionCount.innerHTML = counts.map((n) =>
-        `<option value="${n}"${n === selected ? ' selected' : ''}>${n} question${n === 1 ? '' : 's'}${n === available ? ' (all)' : ''}</option>`
-      ).join('');
-      State.testQuestionLimit = selected;
-    }
-    if (DOM.testSecondsPerQuestion) {
-      const previous = Number(DOM.testSecondsPerQuestion.value);
-      if (previous) State.testSecondsPerQuestion = previous;
-      DOM.testSecondsPerQuestion.value = String(State.testSecondsPerQuestion);
-    }
-    updateTestTotalTime();
+    return questionsByMod;
   }
 
-  function updateTestTotalTime() {
-    const count = Number(DOM.testQuestionCount && DOM.testQuestionCount.value) || 0;
-    const seconds = Number(DOM.testSecondsPerQuestion && DOM.testSecondsPerQuestion.value) || 60;
-    if (DOM.testTotalTime) DOM.testTotalTime.textContent = formatTime(count * seconds);
+  async function launchOfficialMock(presetId) {
+    showToast('Preparing official exam mock questions…');
+
+    if (presetId === 'ugc_net_full') {
+      // UGC NET Education (Code 09) Paper 2: 100 Questions, 120 Mins (10 per unit)
+      const unitIds = Array.from({ length: 10 }, (_, i) => `ugc_net_unit_${i + 1}`);
+      const qByMod = await loadModulesQuestions(unitIds);
+      let selectedQuestions = [];
+
+      unitIds.forEach((uid) => {
+        const pool = shuffleArray(qByMod[uid] || []);
+        selectedQuestions = selectedQuestions.concat(pool.slice(0, 10));
+      });
+
+      selectedQuestions = shuffleArray(selectedQuestions);
+
+      const mockModule = {
+        id: 'mock_ugc_net_full',
+        title: 'UGC NET Education (Code 09) - Paper 2 Official Mock',
+        exam: 'ugc_net',
+        examName: 'UGC NET Education (Code 09)',
+        subject: 'Education (Code 09)',
+        topic: 'Official Paper 2 Full Mock (All 10 Units Balanced)',
+        durationMs: 120 * 60 * 1000,
+        questions: selectedQuestions
+      };
+
+      setModule(mockModule);
+      startCustomOrPresetTest(100, 72, selectedQuestions);
+      showToast('UGC NET Official Mock started: 100 Questions · 120 Minutes');
+    } else if (presetId === 'ctet_p2_full') {
+      // CTET Paper-II: 90 Questions (30 CDP + 60 SST), 90 Mins
+      const cdpUnits = [
+        'ctet_cdp_growth_development', 'ctet_cdp_theories', 'ctet_cdp_progressive_intelligence',
+        'ctet_cdp_inclusive', 'ctet_cdp_learning_pedagogy', 'ctet_cdp_assessment'
+      ];
+      const sstUnits = [
+        'ctet_sst_history', 'ctet_sst_geography', 'ctet_sst_polity', 'ctet_sst_pedagogy'
+      ];
+
+      const qByMod = await loadModulesQuestions(cdpUnits.concat(sstUnits));
+      let selectedQuestions = [];
+
+      // 30 CDP: 5 questions from each of the 6 CDP units
+      cdpUnits.forEach((uid) => {
+        const pool = shuffleArray(qByMod[uid] || []);
+        selectedQuestions = selectedQuestions.concat(pool.slice(0, 5));
+      });
+
+      // 60 SST: 20 History, 15 Geography, 15 Civics, 10 Pedagogy
+      const sstHist = shuffleArray(qByMod['ctet_sst_history'] || []).slice(0, 20);
+      const sstGeo = shuffleArray(qByMod['ctet_sst_geography'] || []).slice(0, 15);
+      const sstPol = shuffleArray(qByMod['ctet_sst_polity'] || []).slice(0, 15);
+      const sstPed = shuffleArray(qByMod['ctet_sst_pedagogy'] || []).slice(0, 10);
+      selectedQuestions = selectedQuestions.concat(sstHist, sstGeo, sstPol, sstPed);
+
+      selectedQuestions = shuffleArray(selectedQuestions);
+
+      const mockModule = {
+        id: 'mock_ctet_p2_full',
+        title: 'CTET Paper-II - Social Science & CDP Official Mock',
+        exam: 'ctet',
+        examName: 'CTET (Central Teacher Eligibility Test)',
+        subject: 'Social Science & CDP',
+        topic: 'Official Paper-II Full Mock (30 CDP + 60 SST)',
+        durationMs: 90 * 60 * 1000,
+        questions: selectedQuestions
+      };
+
+      setModule(mockModule);
+      startCustomOrPresetTest(90, 60, selectedQuestions);
+      showToast('CTET Paper-II Official Mock started: 90 Questions · 90 Minutes');
+    } else if (presetId === 'ctet_p1_cdp') {
+      // CTET CDP Mock: 30 Questions, 30 Mins (5 from each CDP unit)
+      const cdpUnits = [
+        'ctet_cdp_growth_development', 'ctet_cdp_theories', 'ctet_cdp_progressive_intelligence',
+        'ctet_cdp_inclusive', 'ctet_cdp_learning_pedagogy', 'ctet_cdp_assessment'
+      ];
+      const qByMod = await loadModulesQuestions(cdpUnits);
+      let selectedQuestions = [];
+      cdpUnits.forEach((uid) => {
+        const pool = shuffleArray(qByMod[uid] || []);
+        selectedQuestions = selectedQuestions.concat(pool.slice(0, 5));
+      });
+      selectedQuestions = shuffleArray(selectedQuestions);
+
+      const mockModule = {
+        id: 'mock_ctet_cdp',
+        title: 'CTET - Child Development & Pedagogy Official Mock',
+        exam: 'ctet',
+        examName: 'CTET (Central Teacher Eligibility Test)',
+        subject: 'Child Development & Pedagogy',
+        topic: 'Official CDP Section Mock (30 Questions)',
+        durationMs: 30 * 60 * 1000,
+        questions: selectedQuestions
+      };
+
+      setModule(mockModule);
+      startCustomOrPresetTest(30, 60, selectedQuestions);
+      showToast('CTET CDP Mock started: 30 Questions · 30 Minutes');
+    }
   }
 
-  function updateTestScreen() {
-    const showSetup = State.activeMode === 'test' && !State.testStarted && !State.testSubmitted;
-    document.body.setAttribute('data-test-setup', showSetup ? 'true' : 'false');
-    if (DOM.quizView) DOM.quizView.classList.toggle('is-test-setup', showSetup);
-    if (DOM.testSetup) DOM.testSetup.hidden = !showSetup;
-    if (showSetup) renderTestSetup();
-  }
+  function startCustomOrPresetTest(count, secondsPerQ, questions) {
+    // ALWAYS randomize question order in test mode!
+    const randomized = shuffleArray(questions);
+    const selected = randomized.slice(0, count);
 
-  function startTest() {
-    const mod = State.currentModule;
-    if (!mod || !Array.isArray(mod.questions) || !mod.questions.length) return;
-    const count = Math.min(
-      Math.max(1, Number(DOM.testQuestionCount && DOM.testQuestionCount.value) || 1),
-      mod.questions.length
-    );
-    const seconds = Math.max(10, Number(DOM.testSecondsPerQuestion && DOM.testSecondsPerQuestion.value) || 60);
-
-    State.testQuestionLimit = count;
-    State.testSecondsPerQuestion = seconds;
-    State.testQuestions = mod.questions.slice(0, count);
+    State.testQuestionLimit = selected.length;
+    State.testSecondsPerQuestion = secondsPerQ;
+    State.testQuestions = selected;
     State.testAnswers = {};
     State.testSubmitted = false;
     State.currentIndex = 0;
-    State.testDurationSeconds = count * seconds;
+    State.testDurationSeconds = selected.length * secondsPerQ;
     State.testRemainingSeconds = State.testDurationSeconds;
     State.testStarted = true;
     State.testStartedAt = Date.now();
@@ -645,7 +754,173 @@
     updateStats();
     const firstOption = DOM.qContainer && DOM.qContainer.querySelector('.opt');
     if (firstOption) setTimeout(() => firstOption.focus(), 30);
-    showToast(`Test started: ${count} question${count === 1 ? '' : 's'} · ${formatTime(seconds)} per question.`);
+  }
+
+  function renderTestSetup() {
+    if (!DOM.testSetup) return;
+    const mod = State.currentModule;
+    const indexList = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || window.CTET_INDEX || [];
+
+    // Populate testScopeSelect
+    if (DOM.testScopeSelect) {
+      const currentScope = DOM.testScopeSelect.value || 'current';
+      let optHtml = '';
+      if (mod && Array.isArray(mod.questions) && mod.questions.length) {
+        optHtml += `<option value="current">Current Set: ${escapeHtml(mod.topic || mod.title)} (${mod.questions.length} MCQs)</option>`;
+      }
+      optHtml += `
+        <optgroup label="Complete Exam Pools">
+          <option value="ugc_net_all">UGC NET Education (Code 09) - All 10 Units (1,770 MCQs)</option>
+          <option value="ctet_all">CTET Complete - CDP &amp; Social Science (6,749 MCQs)</option>
+          <option value="ctet_cdp_all">CTET - Child Development &amp; Pedagogy (All 6 Units)</option>
+          <option value="ctet_sst_all">CTET - Social Science (All 4 Units)</option>
+        </optgroup>
+        <optgroup label="UGC NET Education (Code 09) - Individual Units">
+      `;
+      indexList.filter(m => String(m.id).startsWith('ugc_net_')).forEach(m => {
+        optHtml += `<option value="${m.id}">${escapeHtml(m.topic || m.title)} (${m.questionCount} MCQs)</option>`;
+      });
+      optHtml += `</optgroup><optgroup label="CTET - Individual Subject &amp; Topic Units">`;
+      indexList.filter(m => String(m.id).startsWith('ctet_')).forEach(m => {
+        optHtml += `<option value="${m.id}">${escapeHtml(m.topic || m.title)} (${m.questionCount} MCQs)</option>`;
+      });
+      optHtml += `</optgroup>`;
+      DOM.testScopeSelect.innerHTML = optHtml;
+      if (currentScope && DOM.testScopeSelect.querySelector(`option[value="${currentScope}"]`)) {
+        DOM.testScopeSelect.value = currentScope;
+      }
+    }
+
+    updateTestQuestionCountOptions();
+    updateTestTotalTime();
+
+    // Wire official mock buttons
+    DOM.testSetup.querySelectorAll('.mock-start-btn').forEach(btn => {
+      btn.onclick = () => {
+        const preset = btn.getAttribute('data-preset');
+        launchOfficialMock(preset);
+      };
+    });
+  }
+
+  function getScopeQuestionCount(scope) {
+    const mod = State.currentModule;
+    const indexList = (typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || window.CTET_INDEX || [];
+    if (scope === 'current' && mod && Array.isArray(mod.questions)) return mod.questions.length;
+    if (scope === 'ugc_net_all') return 1770;
+    if (scope === 'ctet_all') return 6749;
+    if (scope === 'ctet_cdp_all') return 5025;
+    if (scope === 'ctet_sst_all') return 1724;
+    const target = indexList.find(m => m.id === scope);
+    return target ? target.questionCount : 100;
+  }
+
+  function updateTestQuestionCountOptions() {
+    if (!DOM.testQuestionCount) return;
+    const scope = DOM.testScopeSelect ? DOM.testScopeSelect.value : 'current';
+    const available = getScopeQuestionCount(scope);
+
+    if (DOM.testSetupModule) {
+      DOM.testSetupModule.textContent = `Pool: ${available} verified questions available · Shuffled randomly every test`;
+    }
+
+    const counts = [5, 10, 15, 20, 25, 30, 50, 90, 100].filter((n) => n < available);
+    counts.push(available);
+
+    const previous = Number(DOM.testQuestionCount.value) || State.testQuestionLimit;
+    const selected = counts.indexOf(previous) >= 0 ? previous : (counts.includes(30) ? 30 : Math.min(10, available));
+    DOM.testQuestionCount.innerHTML = counts.map((n) =>
+      `<option value="${n}"${n === selected ? ' selected' : ''}>${n} questions${n === available ? ' (all available)' : ''}</option>`
+    ).join('');
+    State.testQuestionLimit = selected;
+  }
+
+  function updateTestTotalTime() {
+    const count = Number(DOM.testQuestionCount && DOM.testQuestionCount.value) || 0;
+    const seconds = Number(DOM.testSecondsPerQuestion && DOM.testSecondsPerQuestion.value) || 60;
+    const scope = DOM.testScopeSelect ? DOM.testScopeSelect.value : 'current';
+    const isCtet = scope.includes('ctet') || (State.currentModule && (State.currentModule.exam === 'ctet' || String(State.currentModule.id).startsWith('ctet_')));
+
+    if (DOM.testTotalTime) DOM.testTotalTime.textContent = formatTime(count * seconds);
+    if (DOM.testSummaryQuestions) DOM.testSummaryQuestions.textContent = count;
+    if (DOM.testSummaryMarking) {
+      DOM.testSummaryMarking.textContent = isCtet ? '+1.00 / 0 (CTET)' : '+2.00 / 0 (UGC NET)';
+    }
+  }
+
+  function updateTestScreen() {
+    const showSetup = State.activeMode === 'test' && !State.testStarted && !State.testSubmitted;
+    document.body.setAttribute('data-test-setup', showSetup ? 'true' : 'false');
+    if (DOM.quizView) DOM.quizView.classList.toggle('is-test-setup', showSetup);
+    if (DOM.testSetup) DOM.testSetup.hidden = !showSetup;
+    if (showSetup) renderTestSetup();
+  }
+
+  async function startTest() {
+    const scope = DOM.testScopeSelect ? DOM.testScopeSelect.value : 'current';
+    const count = Number(DOM.testQuestionCount && DOM.testQuestionCount.value) || 10;
+    const seconds = Number(DOM.testSecondsPerQuestion && DOM.testSecondsPerQuestion.value) || 60;
+
+    let pool = [];
+    let scopeTitle = '';
+
+    if (scope === 'current') {
+      pool = State.currentModule && Array.isArray(State.currentModule.questions) ? State.currentModule.questions : [];
+      scopeTitle = State.currentModule ? State.currentModule.topic || State.currentModule.title : 'Practice Set';
+    } else if (scope === 'ugc_net_all') {
+      const unitIds = Array.from({ length: 10 }, (_, i) => `ugc_net_unit_${i + 1}`);
+      const qByMod = await loadModulesQuestions(unitIds);
+      Object.values(qByMod).forEach(qs => pool.push(...qs));
+      scopeTitle = 'UGC NET Education (All 10 Units)';
+    } else if (scope === 'ctet_all') {
+      const allCtet = [
+        'ctet_cdp_growth_development', 'ctet_cdp_theories', 'ctet_cdp_progressive_intelligence',
+        'ctet_cdp_inclusive', 'ctet_cdp_learning_pedagogy', 'ctet_cdp_assessment',
+        'ctet_sst_history', 'ctet_sst_geography', 'ctet_sst_polity', 'ctet_sst_pedagogy'
+      ];
+      const qByMod = await loadModulesQuestions(allCtet);
+      Object.values(qByMod).forEach(qs => pool.push(...qs));
+      scopeTitle = 'CTET Complete (CDP & Social Science)';
+    } else if (scope === 'ctet_cdp_all') {
+      const cdpUnits = [
+        'ctet_cdp_growth_development', 'ctet_cdp_theories', 'ctet_cdp_progressive_intelligence',
+        'ctet_cdp_inclusive', 'ctet_cdp_learning_pedagogy', 'ctet_cdp_assessment'
+      ];
+      const qByMod = await loadModulesQuestions(cdpUnits);
+      Object.values(qByMod).forEach(qs => pool.push(...qs));
+      scopeTitle = 'CTET Child Development & Pedagogy';
+    } else if (scope === 'ctet_sst_all') {
+      const sstUnits = ['ctet_sst_history', 'ctet_sst_geography', 'ctet_sst_polity', 'ctet_sst_pedagogy'];
+      const qByMod = await loadModulesQuestions(sstUnits);
+      Object.values(qByMod).forEach(qs => pool.push(...qs));
+      scopeTitle = 'CTET Social Science';
+    } else {
+      const singleMod = await resolveModuleBody({ id: scope });
+      if (singleMod && Array.isArray(singleMod.questions)) {
+        pool = singleMod.questions;
+        scopeTitle = singleMod.topic || singleMod.title;
+      }
+    }
+
+    if (!pool.length) {
+      showToast('No questions found for the selected test scope.');
+      return;
+    }
+
+    const isCtet = scope.includes('ctet') || (State.currentModule && String(State.currentModule.id).startsWith('ctet_'));
+    setModule({
+      id: 'custom_test_' + Date.now(),
+      title: `${scopeTitle} - Test (${Math.min(count, pool.length)} MCQs)`,
+      exam: isCtet ? 'ctet' : 'ugc_net',
+      examName: isCtet ? 'CTET (Central Teacher Eligibility Test)' : 'UGC NET Education (Code 09)',
+      subject: scopeTitle,
+      topic: scopeTitle,
+      durationMs: count * seconds * 1000,
+      questions: pool
+    });
+
+    startCustomOrPresetTest(Math.min(count, pool.length), seconds, pool);
+    showToast(`Test started: ${Math.min(count, pool.length)} questions · ${formatTime(seconds)} per question.`);
   }
 
   function startTimer(reset) {
@@ -755,13 +1030,84 @@
   // ==========================================================================
   // QUESTION RENDERING
   // ==========================================================================
+  function formatQuestionPresentation(q) {
+    if (!q) return '';
+    const pt = q.presentation_type || 'standard';
+    const pd = q.presentation_data;
+
+    if (pt === 'match_list' && pd && Array.isArray(pd.l1) && Array.isArray(pd.l2)) {
+      const maxRows = Math.max(pd.l1.length, pd.l2.length);
+      let rowsHtml = '';
+      for (let i = 0; i < maxRows; i++) {
+        const item1 = pd.l1[i];
+        const item2 = pd.l2[i];
+        const c1 = item1 ? `<span class="match-key">${escapeHtml(item1.key)}</span><span class="match-text">${escapeHtml(item1.text)}</span>` : '';
+        const c2 = item2 ? `<span class="match-key">${escapeHtml(item2.key)}</span><span class="match-text">${escapeHtml(item2.text)}</span>` : '';
+        rowsHtml += `<tr><td>${c1}</td><td>${c2}</td></tr>`;
+      }
+      return `
+        <div class="ugc-match-card">
+          <div class="ugc-match-instruction">${escapeHtml(pd.intro || 'Match List - I with List - II.')}</div>
+          <div class="ugc-match-table-wrap">
+            <table class="ugc-match-table">
+              <thead>
+                <tr>
+                  <th>${escapeHtml(pd.l1_header || 'List - I')}</th>
+                  <th>${escapeHtml(pd.l2_header || 'List - II')}</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </div>
+          ${pd.prompt ? `<div class="ugc-match-prompt">${escapeHtml(pd.prompt)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    if (pt === 'assertion_reason' && pd) {
+      return `
+        <div class="ugc-ar-box">
+          <div class="ugc-ar-intro">${escapeHtml(pd.intro || 'Given below are two statements, one is labelled as Assertion (A) and the other as Reason (R):')}</div>
+          <div class="ugc-stmt-card assertion">
+            <span class="ugc-stmt-badge">Assertion (A)</span>
+            <span class="ugc-stmt-text">${escapeHtml(pd.assertion || '')}</span>
+          </div>
+          <div class="ugc-stmt-card reason">
+            <span class="ugc-stmt-badge">Reason (R)</span>
+            <span class="ugc-stmt-text">${escapeHtml(pd.reason || '')}</span>
+          </div>
+          ${pd.prompt ? `<div class="ugc-match-prompt">${escapeHtml(pd.prompt)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    if (pt === 'statement_pair' && pd) {
+      return `
+        <div class="ugc-ar-box">
+          <div class="ugc-ar-intro">${escapeHtml(pd.intro || 'Given below are two statements:')}</div>
+          <div class="ugc-stmt-card statement">
+            <span class="ugc-stmt-badge">Statement I</span>
+            <span class="ugc-stmt-text">${escapeHtml(pd.statement1 || '')}</span>
+          </div>
+          <div class="ugc-stmt-card statement">
+            <span class="ugc-stmt-badge">Statement II</span>
+            <span class="ugc-stmt-text">${escapeHtml(pd.statement2 || '')}</span>
+          </div>
+          ${pd.prompt ? `<div class="ugc-match-prompt">${escapeHtml(pd.prompt)}</div>` : ''}
+        </div>
+      `;
+    }
+
+    return `<div class="q-stem">${escapeHtml(q.stem || '')}</div>`;
+  }
+
   function renderQuestion(preservePageScroll) {
     const qList = activeQuestionList();
     const q = qList[State.currentIndex];
     if (!q) return;
 
     if (DOM.sheetNum) DOM.sheetNum.textContent = `Q ${String(State.currentIndex + 1).padStart(2, '0')}`;
-    if (DOM.sheetContext) DOM.sheetContext.textContent = q.source_title || 'General Studies';
+    if (DOM.sheetContext) DOM.sheetContext.textContent = q.source_title || '';
 
     const progressCurrent = State.currentIndex + 1;
     const pct = Math.round((progressCurrent / qList.length) * 100);
@@ -789,9 +1135,9 @@
       : '';
 
     let html = `
-      <div class="q-context">${escapeHtml(q.cognitive_level || 'recall')}<span class="sep">/</span>${escapeHtml(q.source_title || 'source')}</div>
+      <div class="q-context">${escapeHtml(q.cognitive_level || 'recall')}${q.source_title ? `<span class="sep">/</span><span class="source-tag">${escapeHtml(q.source_title)}</span>` : ''}</div>
       ${sourceLine}
-      <h2 class="q-stem">${escapeHtml(q.stem || 'Question unavailable')}</h2>
+      ${formatQuestionPresentation(q)}
     `;
 
     if (q.type === 'multi_statement' && Array.isArray(q.statements) && q.statements.length) {
@@ -918,9 +1264,13 @@
       else wrong++;
     });
 
-    const score = correct * MARKS_CORRECT - wrong * MARKS_WRONG;
-    const max = qList.length * MARKS_CORRECT;
-    return { total: qList.length, correct, wrong, skipped, score, max };
+    const isCtet = (State.currentModule && (State.currentModule.exam === 'ctet' || String(State.currentModule.id).startsWith('ctet_')));
+    const markPerCorrect = isCtet ? 1 : 2;
+    // Official exams have no negative marking (0 marks for wrong)
+    const markPerWrong = 0;
+    const score = correct * markPerCorrect - wrong * markPerWrong;
+    const max = qList.length * markPerCorrect;
+    return { total: qList.length, correct, wrong, skipped, score, max, markPerCorrect };
   }
 
   function updateExamAnswered() {
@@ -1161,11 +1511,6 @@
       renderLibrary();
       return true;
     }
-    if (State.librarySubject !== null) {
-      State.librarySubject = null;
-      renderLibrary();
-      return true;
-    }
     return false;
   }
   window.__studysynthBack = handleAndroidBack;
@@ -1204,13 +1549,6 @@
   let recoveryJob = null;
   let recoveryQueue = [];
   let completedModule = null;
-  // One-step import: when a file is chosen, question generation starts
-  // automatically once its import job completes. The flag is consumed
-  // by handleProcessingSettled and is never set for pasted text, so
-  // the manual Generate path is untouched. The only stop that remains
-  // is low-confidence OCR, where the extracted text itself may be
-  // wrong and must be reviewed first (see handleProcessingSettled).
-  let autoGenerateAfterImport = false;
 
   function createGenerationWorker() {
     try {
@@ -1385,48 +1723,8 @@
     if (p.total && p.completed != null) return `${p.completed} of ${p.total} pages`;
     if (job.status === 'completed') return 'Completed';
     if (job.status === 'interrupted') return 'Paused';
-    // Generation has no page total, so the stage label is the honest
-    // count line ("Creating questions", "Checking answers") instead
-    // of a bare "Working" next to a sliding bar.
-    if (job.status === 'running') return job.stageLabel || job.message || 'Working';
+    if (!p.indeterminate && p.percent != null) return job.stage === 'ocr' ? 'Recognising text' : 'Working';
     return 'Working';
-  }
-
-  function formatElapsed(ms) {
-    if (!Number.isFinite(ms) || ms < 0) return '';
-    const totalSeconds = Math.floor(ms / 1000);
-    if (totalSeconds < 60) return `${totalSeconds}s`;
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds % 60;
-    return `${minutes}m ${String(seconds).padStart(2, '0')}s`;
-  }
-
-  // What the user should expect at this point: how long it can take,
-  // and what happens next on completion, error or interruption. This
-  // is static guidance per state, not a promise of a finish time —
-  // generation time depends on the document, and the bar stays
-  // indeterminate while the on-device engine works through it.
-  function processExpectationText(job) {
-    const isImport = job.type === 'import';
-    if (job.status === 'completed') {
-      if (isImport) return 'Document ready. Questions are generated next — or, for scanned text that needs a check, review the text first.';
-      return 'Your study module is saved. Open it to practise, or find it in the Library.';
-    }
-    if (job.status === 'failed') {
-      if (job.canRetry) return 'Nothing was saved for this step. Try again to resume from the last saved step.';
-      return 'Nothing was saved for this step. Add the document again to continue.';
-    }
-    if (job.status === 'interrupted') {
-      return job.canResume
-        ? 'Processing paused. Resume to continue from the last saved step, or discard to remove it.'
-        : 'Processing was interrupted and cannot be resumed. Add the document again to continue.';
-    }
-    if (isImport) {
-      return job.kind === 'pdf'
-        ? 'Reading your document on this device. A long PDF can take a few minutes — use “Continue in background” and keep using the app while it works.'
-        : 'Reading your document on this device. This is usually quick.';
-    }
-    return 'Creating and checking questions on this device. A chapter-length document usually takes a minute or two; a long PDF takes longer. You can continue in the background.';
   }
 
   function renderProcessStages(job) {
@@ -1484,20 +1782,7 @@
         : isRecovery ? 'Processing was interrupted'
           : isImport ? 'Preparing your document' : 'Preparing your study module';
     if (DOM.processTitle) DOM.processTitle.textContent = title;
-    if (DOM.processJob) {
-      DOM.processJob.textContent = job.title || '';
-      DOM.processJob.hidden = !job.title;
-    }
     if (DOM.processMessage) DOM.processMessage.textContent = job.message || 'Working…';
-    if (DOM.processExpectation) DOM.processExpectation.textContent = processExpectationText(job);
-    if (DOM.processElapsed) {
-      const startedAt = job.startedAtMs;
-      const elapsed = startedAt ? formatElapsed(Date.now() - startedAt) : '';
-      DOM.processElapsed.textContent = elapsed
-        ? (job.status === 'running' ? `Time so far: ${elapsed}` : `Finished in ${elapsed}`)
-        : '';
-      DOM.processElapsed.hidden = !elapsed;
-    }
 
     if (DOM.processNotice) {
       let notice = '';
@@ -1618,8 +1903,7 @@
     else DOM.generateBtn.textContent = text;
   }
 
-  function applyImportedDocument(result, options) {
-    const autoGenerating = !!(options && options.autoGenerating);
+  function applyImportedDocument(result) {
     completedModule = null;
     const detailed = result.detailed || {};
     const text = result.text || '';
@@ -1642,9 +1926,6 @@
     if (lowConfidence) {
       setFileStatus(`Loaded ${fileName} · OCR confidence ${Math.round(detailed.confidence)}%. Review and correct the text before generating.`, 'error');
       showToast('Review the extracted OCR text before generating.');
-    } else if (autoGenerating) {
-      setFileStatus(`Loaded ${fileName} · ${text.length.toLocaleString()} characters extracted. Generating questions…`, 'ok');
-      showToast(`Loaded ${fileName}. Generating questions now.`);
     } else {
       setFileStatus(`Loaded ${fileName} · ${text.length.toLocaleString()} characters extracted.`, 'ok');
       showToast(`Loaded ${fileName}. Review the text, then generate.`);
@@ -1677,7 +1958,6 @@
   function handleProcessingSettled(result) {
     if (!result) return;
     if (result.status === 'cancelled') {
-      autoGenerateAfterImport = false;
       processExpanded = false;
       if (Processing) Processing.dismiss();
       paintProcessing(null);
@@ -1685,36 +1965,13 @@
       return;
     }
     if (result.status === 'failed') {
-      autoGenerateAfterImport = false;
       const message = (result.error && result.error.message) || 'Processing stopped.';
       setFileStatus(message, 'error');
       showToast(message);
       return;
     }
     if (result.status === 'completed') {
-      if (result.type === 'import') {
-        // One-step import: the file is in, so generation starts now
-        // without a second tap. The single exception is low-confidence
-        // OCR, where the extracted text may be wrong: generation
-        // must not run on text nobody has checked, so the flow stops
-        // here with the review prompt and the user taps Generate
-        // once they are happy with the text. Short text is left to
-        // handleGenerate, which already explains the minimum.
-        const shouldAutoGenerate = autoGenerateAfterImport;
-        autoGenerateAfterImport = false;
-        const detailed = result.detailed || {};
-        const lowConfidenceOcr = detailed.origin === 'ocr'
-          && (!Number.isFinite(detailed.confidence) || detailed.confidence < 90);
-        applyImportedDocument(result, { autoGenerating: shouldAutoGenerate && !lowConfidenceOcr });
-        if (shouldAutoGenerate && lowConfidenceOcr) {
-          const confidenceText = Number.isFinite(detailed.confidence)
-            ? `OCR confidence is ${Math.round(detailed.confidence)}%. `
-            : '';
-          setFileStatus(`${confidenceText}Review and correct the extracted text, then tap Generate Quiz & Study Package.`, 'error');
-        } else if (shouldAutoGenerate) {
-          handleGenerate();
-        }
-      }
+      if (result.type === 'import') applyImportedDocument(result);
       else handleGeneratedModule(result);
       // The completed view is painted before onSettled runs, so repaint now
       // that the generated module is available to the dialog's open action.
@@ -1741,10 +1998,8 @@
     clearProcessingHide();
     processExpanded = true;
     if (DOM.processResumeBtn) DOM.processResumeBtn.disabled = true;
-    const wasImport = !!(recoveryJob && recoveryJob.type === 'import');
     const result = await Processing.resume(id);
     recoveryJob = null;
-    if (wasImport) autoGenerateAfterImport = true;
     const current = Processing.getCurrent();
     if (current) {
       paintProcessing(current);
@@ -1776,7 +2031,6 @@
 
   async function discardRecovery() {
     if (!recoveryJob || !Processing) return;
-    autoGenerateAfterImport = false;
     const id = recoveryJob.id;
     await Processing.discard(id);
     recoveryJob = null;
@@ -2339,43 +2593,86 @@
     if (!mod) return;
     const questionCount = Array.isArray(mod.questions) ? mod.questions.length : 0;
     if (!questionCount && (mode === 'practice' || mode === 'test')) {
-      setModule(mod);
-      switchMode('revision');
-      showToast('This set is revision-only because no question passed source verification.');
+      showToast('No questions available for this set.');
       return;
     }
     setModule(mod);
     switchMode(mode);
   }
 
-  function parseModuleHierarchy(mod) {    const title = (mod && mod.title) ? String(mod.title).trim() : 'Untitled set';
+  
+  function updateExamTabs() {
+    const isUgc = (State.libraryExam || 'ugc_net') === 'ugc_net';
+    if (DOM.examTabUgc) {
+      DOM.examTabUgc.classList.toggle('active', isUgc);
+      DOM.examTabUgc.setAttribute('aria-selected', isUgc ? 'true' : 'false');
+    }
+    if (DOM.examTabCtet) {
+      DOM.examTabCtet.classList.toggle('active', !isUgc);
+      DOM.examTabCtet.setAttribute('aria-selected', !isUgc ? 'true' : 'false');
+    }
+    
+    if (DOM.examTabUgc) {
+      DOM.examTabUgc.addEventListener('click', () => {
+        State.libraryExam = 'ugc_net';
+        State.libraryClass = null;
+        updateExamTabs();
+        renderLibrary();
+      });
+    }
+    if (DOM.examTabCtet) {
+      DOM.examTabCtet.addEventListener('click', () => {
+        State.libraryExam = 'ctet';
+        State.libraryClass = null;
+        updateExamTabs();
+        renderLibrary();
+      });
+    }
+    if (DOM.libSearchInput) {
+      DOM.libSearchInput.placeholder = isUgc
+        ? 'Search UGC NET Education syllabus units or questions...'
+        : 'Search CTET syllabus topics, papers, or questions...';
+    }
+  }
+
+  function parseModuleHierarchy(mod) {
+    if (!mod) return { subject: 'General', cls: 'General', chapter: 'Untitled set', originalTitle: 'Untitled set' };
+    const title = (mod.title || '').trim();
     const parts = title.split(/\s*-\s*/);
+    const isUgc = mod.exam === 'ugc_net' || String(mod.id || '').startsWith('ugc_net_');
+    const defaultSubject = isUgc ? 'UGC NET Education (Code 09)' : 'CTET';
+
     if (parts.length >= 3) {
       return {
-        subject: parts[0].trim(),
-        cls: parts[1].trim(),
+        subject: parts[0].trim() || defaultSubject,
+        cls: parts[1].trim() || (mod.topic || 'General'),
         chapter: parts.slice(2).join(' - ').trim(),
         originalTitle: title
       };
     } else if (parts.length === 2) {
       return {
-        subject: parts[0].trim(),
-        cls: parts[1].trim(),
+        subject: parts[0].trim() || defaultSubject,
+        cls: parts[1].trim() || (mod.topic || 'General'),
         chapter: parts[1].trim(),
         originalTitle: title
       };
     }
     return {
-      subject: 'Other Notes',
-      cls: 'General',
+      subject: defaultSubject,
+      cls: mod.topic || 'General',
       chapter: title,
       originalTitle: title
     };
   }
 
+  function cleanSetTitle(title) {
+    return String(title || 'Practice set').replace(/\s*\(\d+\s*MCQs?\)\s*$/i, '').trim() || 'Practice set';
+  }
+
   async function renderLibrary() {
     if (!DOM.libraryContainer) return;
-    DOM.libraryContainer.innerHTML = '<p class="empty-state">Loading saved sets…</p>';
+    if (typeof updateExamTabs === 'function') updateExamTabs();
+    DOM.libraryContainer.innerHTML = '<p class="empty-state">Loading study sets…</p>';
 
     let list = [];
     let attempts = [];
@@ -2387,31 +2684,10 @@
       storageWarning = 'Local storage is unavailable in this browser, so saved sets cannot be listed.';
     }
 
-    list = Array.isArray(list) ? list : [];
+    list = (Array.isArray(list) && list.length) ? list : ((typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || window.CTET_INDEX || []);
     attempts = Array.isArray(attempts) ? attempts : [];
 
-    function parseChapterOrder(m) {
-      const match = (m.title || '').match(/Class\s*(\d+)/i);
-      const clsNum = match ? parseInt(match[1], 10) : 99;
-      const idMatch = (m.id || '').match(/ch(\d+)/i);
-      const chIdx = idMatch ? parseInt(idMatch[1], 10) : 999;
-      return { clsNum, chIdx };
-    }
-
-    list.sort((a, b) => {
-      const isCustomA = !String(a.id || '').startsWith('ctet_');
-      const isCustomB = !String(b.id || '').startsWith('ctet_');
-      if (isCustomA && !isCustomB) return -1;
-      if (!isCustomA && isCustomB) return 1;
-      if (isCustomA && isCustomB) {
-        return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-      }
-      const ordA = parseChapterOrder(a);
-      const ordB = parseChapterOrder(b);
-      if (ordA.clsNum !== ordB.clsNum) return ordA.clsNum - ordB.clsNum;
-      if (ordA.chIdx !== ordB.chIdx) return ordA.chIdx - ordB.chIdx;
-      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-    });
+    const activeExam = State.libraryExam || 'ugc_net';
 
     const latestByModule = {};
     const countByModule = {};
@@ -2423,15 +2699,116 @@
       }
     });
 
-    // Helper to render a chapter card (Level 3 or Search)
-    function renderChapterCard(mod, showBadge) {
+    const topicMetaMap = {
+      // UGC NET Education (Code 09) Units
+      'Unit 1': {
+        icon: 'school',
+        desc: 'Philosophical & sociological foundations of education, Indian & Western philosophy schools, and constitutional provisions.'
+      },
+      'Unit 2': {
+        icon: 'history',
+        desc: 'Commissions, policy frameworks, financing of education, human capital theory, and political economy of education.'
+      },
+      'Unit 3': {
+        icon: 'psychology',
+        desc: 'Growth & development, cognitive & learning theories, intelligence, personality, mental health, and guidance & counselling.'
+      },
+      'Unit 4': {
+        icon: 'workspace_premium',
+        desc: 'Pre-service & in-service teacher education models, curriculum frameworks, apex agencies (NCTE, NCERT), and pedagogy.'
+      },
+      'Unit 5': {
+        icon: 'menu_book',
+        desc: 'Models of curriculum design, engineering, evaluation models (Tyler, Stufflebeam), and curriculum change implementation.'
+      },
+      'Unit 6': {
+        icon: 'fact_check',
+        desc: 'Quantitative & qualitative research methodologies, hypothesis testing, sampling, ANOVA, and statistical tools.'
+      },
+      'Unit 7': {
+        icon: 'quiz',
+        desc: 'Pedagogical & andragogical models (Knowles), interaction analysis (Flanders), assessment rubrics, and portfolio evaluation.'
+      },
+      'Unit 8': {
+        icon: 'bolt',
+        desc: 'ICT in education, e-learning models, SWAYAM, instructional design, assistive technologies, and digital pedagogy.'
+      },
+      'Unit 9': {
+        icon: 'assignment',
+        desc: 'Educational management, leadership theories, Total Quality Management (Deming), Six Sigma, and institutional governance.'
+      },
+      'Unit 10': {
+        icon: 'public',
+        desc: 'Concepts of inclusive education, RPwD Act 2016, barriers, assistive technologies, and pedagogical adaptations.'
+      },
+      // CTET Child Development & Pedagogy (CDP) Topics
+      'ctet_cdp_growth_development': {
+        icon: 'psychology',
+        desc: 'Principles of development, heredity & environment, and primary & secondary socialization processes.'
+      },
+      'ctet_cdp_theories': {
+        icon: 'menu_book',
+        desc: 'Constructs and critical perspectives of Jean Piaget, Lawrence Kohlberg, and Lev Vygotsky.'
+      },
+      'ctet_cdp_progressive_intelligence': {
+        icon: 'school',
+        desc: 'Child-centred & progressive education (Dewey), multi-dimensional intelligence (Gardner), language & thought, and gender.'
+      },
+      'ctet_cdp_inclusive': {
+        icon: 'diversity_3',
+        desc: 'Addressing diverse learners, learning difficulties (Dyslexia, ADHD), and gifted & talented children.'
+      },
+      'ctet_cdp_learning_pedagogy': {
+        icon: 'lightbulb',
+        desc: 'How children think and learn, child as problem solver, alternative conceptions, and motivation & emotion.'
+      },
+      'ctet_cdp_assessment': {
+        icon: 'quiz',
+        desc: 'Continuous & Comprehensive Evaluation (CCE), School-Based Assessment (SBA), and diagnostic teaching.'
+      },
+      // CTET Social Science (SST) Topics
+      'ctet_sst_history': {
+        icon: 'history',
+        desc: 'Ancient, medieval, and modern Indian history: earliest societies, Indus Valley, Mauryas, Mughals to freedom struggle.'
+      },
+      'ctet_sst_geography': {
+        icon: 'public',
+        desc: 'The Earth, latitudes, longitudes, atmosphere, lithosphere, water, climate, agriculture, and resources.'
+      },
+      'ctet_sst_polity': {
+        icon: 'account_balance',
+        desc: 'Democracy, Indian Constitution, parliament, judiciary, government, rural & urban administration, and social justice.'
+      },
+      'ctet_sst_pedagogy': {
+        icon: 'fact_check',
+        desc: 'Concept & nature of social studies, enquiry/empirical evidence, primary/secondary sources, and project methods.'
+      }
+    };
+
+    function getMeta(mod) {
+      const id = String(mod.id || '').toLowerCase();
+      if (topicMetaMap[id]) return topicMetaMap[id];
+      if (id.includes('unit_10')) return topicMetaMap['Unit 10'];
+      for (let i = 1; i <= 9; i++) {
+        if (id.includes(`unit_${i}`) && !id.startsWith('ctet_')) return topicMetaMap[`Unit ${i}`];
+      }
+      return { icon: 'school', desc: 'Comprehensive practice set with verified exam MCQs.' };
+    }
+
+    function renderCard(mod) {
       const parsed = parseModuleHierarchy(mod);
+      const meta = getMeta(mod);
       const last = latestByModule[mod.id];
       const attemptCount = countByModule[mod.id] || 0;
       const questionCount = moduleQuestionCount(mod);
       const revisionOnly = questionCount === 0;
       const date = mod.createdAt ? new Date(mod.createdAt).toLocaleDateString() : '';
-      const safeTitle = escapeHtml(parsed.chapter || mod.title || 'Untitled set');
+
+      let displayTitle = mod.topic || parsed.cls || mod.title || 'Untitled set';
+      displayTitle = cleanSetTitle(displayTitle);
+      const subjectBadge = mod.subject ? `<span class="library-badge" style="background:var(--surface-variant, #e0e0e0);color:var(--on-surface-variant, #333);font-size:11px;">${escapeHtml(mod.subject)}</span>` : '';
+
+      const isAllInOne = String(mod.id || '').includes('all_pyq');
       const scoreline = last
         ? `Last score ${Number(last.score).toFixed(2)}/${Number(last.max).toFixed(2)} · ${attemptCount} attempt${attemptCount === 1 ? '' : 's'}`
         : (revisionOnly ? 'Revision-only set · no verified MCQs' : 'Not attempted yet');
@@ -2439,40 +2816,38 @@
       return `
         <article class="library-card${revisionOnly ? ' is-revision-only' : ''}">
           <div class="library-card-head">
-            <div class="library-file-icon">${icon('picture_as_pdf')}</div>
+            <div class="library-file-icon">${icon(meta.icon)}</div>
             <div class="library-copy">
-              ${showBadge ? `<div class="lib-crumb-badge">${escapeHtml(parsed.subject)} › ${escapeHtml(parsed.cls)}</div>` : ''}
               <div class="library-title-row">
-                <h3>${safeTitle}</h3>
+                <h3>${escapeHtml(displayTitle)}</h3>
+                ${subjectBadge}
                 ${revisionOnly ? '<span class="library-badge">Revision only</span>' : ''}
               </div>
               <div class="library-meta">
-                <span>${revisionOnly ? 'No verified MCQs' : `${questionCount} verified question${questionCount === 1 ? '' : 's'}`}</span>
+                <span><b>${questionCount}</b> Verified MCQs</span>
+                <span>${isAllInOne ? 'All PYQs Combined' : 'Complete Topic Set'}</span>
                 ${date ? `<span>${escapeHtml(date)}</span>` : ''}
               </div>
-              <div class="library-history">${icon('history')}<span>${escapeHtml(scoreline)}</span></div>
+              <p class="library-card-desc" style="font-size:12px; color:var(--muted); margin:4px 0 0 0; line-height:1.4;">${escapeHtml(meta.desc)}</p>
+              <div class="library-history" style="margin-top:6px;">${icon('history')}<span>${escapeHtml(scoreline)}</span></div>
             </div>
-            <button class="lib-del" type="button" data-id="${escapeHtml(mod.id)}" aria-label="Delete ${safeTitle}">${icon('delete')}</button>
+            ${String(mod.id || '').startsWith('ugc_net_') || String(mod.id || '').startsWith('ctet_') ? '' : `<button class="lib-del" type="button" data-id="${escapeHtml(mod.id)}" aria-label="Delete ${escapeHtml(displayTitle)}">${icon('delete')}</button>`}
           </div>
-          <div class="library-modes" role="group" aria-label="Study modes for ${safeTitle}">
-            <button class="lib-mode lib-mode-practice" type="button" data-id="${escapeHtml(mod.id)}" data-action="practice" aria-label="Practice ${safeTitle}"${revisionOnly ? ' disabled aria-disabled="true"' : ''}>
+          <div class="library-modes" role="group" aria-label="Study modes for ${escapeHtml(displayTitle)}">
+            <button class="lib-mode lib-mode-practice" type="button" data-id="${escapeHtml(mod.id)}" data-action="practice" aria-label="Practice ${escapeHtml(displayTitle)}"${revisionOnly ? ' disabled aria-disabled="true"' : ''}>
               ${icon('lightbulb')}
-              <span class="lib-mode-copy"><b>Practice</b><small>${revisionOnly ? 'No MCQs' : 'Feedback'}</small></span>
+              <span class="lib-mode-copy"><b>Practice</b><small>${revisionOnly ? 'No MCQs' : 'Instant Feedback'}</small></span>
             </button>
-            <button class="lib-mode lib-mode-revision" type="button" data-id="${escapeHtml(mod.id)}" data-action="revision" aria-label="Revise ${safeTitle}">
-              ${icon('style')}
-              <span class="lib-mode-copy"><b>Revision</b><small>Adaptive recall</small></span>
-            </button>
-            <button class="lib-mode lib-mode-test" type="button" data-id="${escapeHtml(mod.id)}" data-action="test" aria-label="Take an exam test on ${safeTitle}"${revisionOnly ? ' disabled aria-disabled="true"' : ''}>
+            <button class="lib-mode lib-mode-test" type="button" data-id="${escapeHtml(mod.id)}" data-action="test" aria-label="Take an exam test on ${escapeHtml(displayTitle)}"${revisionOnly ? ' disabled aria-disabled="true"' : ''}>
               ${icon('timer')}
-              <span class="lib-mode-copy"><b>Exam Test</b><small>${revisionOnly ? 'No MCQs' : 'Timed'}</small></span>
+              <span class="lib-mode-copy"><b>Exam Test</b><small>${revisionOnly ? 'No MCQs' : 'Timed & Scored'}</small></span>
             </button>
           </div>
         </article>
       `;
     }
 
-    function wireChapterCardListeners(container, activeList) {
+    function wireCardListeners(container, activeList) {
       container.querySelectorAll('.lib-mode').forEach((btn) => {
         btn.addEventListener('click', () => {
           const id = btn.getAttribute('data-id');
@@ -2490,16 +2865,6 @@
           if (!window.confirm(`Delete “${title}” from this device?`)) return;
           try {
             await window.OfflineStorage.deleteModule(id);
-            if (State.currentModule && State.currentModule.id === id) {
-              State.currentModule = null;
-              State.revision.items = null;
-              State.revision.itemsFor = null;
-              State.revision.progress = {};
-              State.revision.session = null;
-              State.revision.resumeCandidate = null;
-              State.revision.revealed = false;
-              State.revision.viewingPrev = false;
-            }
             renderLibrary();
             showToast('Study set deleted.');
           } catch (e) {
@@ -2509,357 +2874,441 @@
       });
     }
 
+    function renderBackButton(label, onClick) {
+      if (!DOM.libBreadcrumbBar) return;
+      if (!onClick) {
+        DOM.libBreadcrumbBar.innerHTML = '';
+        DOM.libBreadcrumbBar.hidden = true;
+        return;
+      }
+      DOM.libBreadcrumbBar.hidden = false;
+      DOM.libBreadcrumbBar.innerHTML = `
+        <button id="libBackBtn" class="lib-back-btn" type="button" aria-label="${escapeHtml(label)}" title="${escapeHtml(label)}">
+          ${icon('arrow_back')}
+        </button>
+      `;
+      const btn = DOM.libBreadcrumbBar.querySelector('#libBackBtn');
+      if (btn) btn.addEventListener('click', onClick);
+    }
+
     // CASE 1: SEARCH ACTIVE
     if (State.librarySearch && State.librarySearch.trim()) {
       const q = State.librarySearch.trim().toLowerCase();
-      const searchResults = list.filter((m) => (m.title || '').toLowerCase().includes(q));
+      const searchResults = list.filter((m) => (m.title || '').toLowerCase().includes(q) || (m.topic || '').toLowerCase().includes(q));
 
-      if (DOM.libBreadcrumbBar) {
-        DOM.libBreadcrumbBar.innerHTML = `
-          <button id="libClearSearchBtn" class="lib-back-btn" type="button">
-            ${icon('close')}
-            <span>Clear Search</span>
-          </button>
-          <div class="lib-crumb-trail">
-            <span class="lib-crumb-current">Search Results (${searchResults.length})</span>
-          </div>
-        `;
-        const clearBtn = DOM.libBreadcrumbBar.querySelector('#libClearSearchBtn');
-        if (clearBtn) {
-          clearBtn.addEventListener('click', () => {
-            State.librarySearch = '';
-            if (DOM.libSearchInput) DOM.libSearchInput.value = '';
-            renderLibrary();
-          });
-        }
-      }
+      renderBackButton('Clear search', () => {
+        State.librarySearch = '';
+        if (DOM.libSearchInput) DOM.libSearchInput.value = '';
+        renderLibrary();
+      });
 
       if (!searchResults.length) {
-        DOM.libraryContainer.innerHTML = '<div class="empty-state"><strong>No matching chapters or papers found.</strong><br>Try a different keyword or class name.</div>';
+        DOM.libraryContainer.innerHTML = '<div class="empty-state"><strong>No matching topics or questions found.</strong><br>Try a different keyword or topic name.</div>';
         return;
       }
 
       let html = storageWarning ? `<p class="library-warning" role="status">${escapeHtml(storageWarning)}</p>` : '';
+      html += `<div class="lib-hierarchy-grid">`;
       searchResults.forEach((mod) => {
-        html += renderChapterCard(mod, true);
+        html += renderCard(mod);
       });
-      DOM.libraryContainer.innerHTML = html;
-      wireChapterCardListeners(DOM.libraryContainer, searchResults);
-      return;
-    }
-
-    // Group all modules by Subject -> Class
-    const subjectMap = {};
-    list.forEach((mod) => {
-      const info = parseModuleHierarchy(mod);
-      if (!subjectMap[info.subject]) {
-        subjectMap[info.subject] = {
-          name: info.subject,
-          classes: {},
-          totalQuestions: 0,
-          modules: []
-        };
-      }
-      const sObj = subjectMap[info.subject];
-      sObj.modules.push(mod);
-      const qCount = moduleQuestionCount(mod);
-      sObj.totalQuestions += qCount;
-
-      if (!sObj.classes[info.cls]) {
-        sObj.classes[info.cls] = {
-          name: info.cls,
-          modules: [],
-          totalQuestions: 0
-        };
-      }
-      sObj.classes[info.cls].modules.push(mod);
-      sObj.classes[info.cls].totalQuestions += qCount;
-    });
-
-    const subjectOrder = ['Social Science', 'Pedagogy', 'English'];
-    const sortedSubjects = Object.keys(subjectMap).sort((a, b) => {
-      const idxA = subjectOrder.indexOf(a);
-      const idxB = subjectOrder.indexOf(b);
-      if (idxA >= 0 && idxB >= 0) return idxA - idxB;
-      if (idxA >= 0) return -1;
-      if (idxB >= 0) return 1;
-      return a.localeCompare(b);
-    });
-
-    // CASE 2: LEVEL 1 — SUBJECT CARDS (State.librarySubject === null)
-    if (!State.librarySubject) {
-      if (DOM.libBreadcrumbBar) {
-        DOM.libBreadcrumbBar.innerHTML = `
-          <div class="lib-crumb-trail">
-            <span class="lib-crumb-current">Library</span>
-          </div>
-        `;
-      }
-
-      if (!sortedSubjects.length) {
-        DOM.libraryContainer.innerHTML = '<div class="empty-state"><strong>No study sets yet.</strong><br>Add a PDF or notes to build your first set.</div>';
-        return;
-      }
-
-      let html = storageWarning ? `<p class="library-warning" role="status">${escapeHtml(storageWarning)}</p>` : '';
-      html += `
-        <div class="lib-level-header">
-          <div>
-            <h3>Select a Subject</h3>
-            <div class="lib-level-count">${sortedSubjects.length} subjects available</div>
-          </div>
-        </div>
-        <div class="lib-hierarchy-grid">
-      `;
-
-      sortedSubjects.forEach((subName) => {
-        const sObj = subjectMap[subName];
-        const classNames = Object.keys(sObj.classes).sort((a, b) => {
-          const numA = (a.match(/\d+/) || [99])[0];
-          const numB = (b.match(/\d+/) || [99])[0];
-          return Number(numA) - Number(numB);
-        });
-
-        let iconName = 'description';
-        let iconClass = 'icon-cls';
-        let desc = 'Saved study modules and notes.';
-
-        if (subName === 'Social Science') {
-          iconName = 'public';
-          iconClass = 'icon-soc';
-          desc = 'NCERT Social Science (Classes 6–8) and official CTET Paper 2 Solved Exam Papers.';
-        } else if (subName === 'Pedagogy') {
-          iconName = 'psychology';
-          iconClass = 'icon-ped';
-          desc = 'Child Development & Pedagogy (CDP) concept units and official CTET Paper 2 Solved Papers.';
-        } else if (subName === 'English') {
-          iconName = 'menu_book';
-          iconClass = 'icon-eng';
-          desc = 'English Language & Pedagogy comprehension, language learning, and solved CTET papers.';
-        }
-
-        const pillHtml = classNames.map((cn) => {
-          const cCount = sObj.classes[cn].modules.length;
-          return `<button class="lib-quick-pill" type="button" data-subject="${escapeHtml(subName)}" data-cls="${escapeHtml(cn)}">${escapeHtml(cn)} (${cCount})</button>`;
-        }).join('');
-
-        html += `
-          <div class="lib-nav-card" data-subject="${escapeHtml(subName)}">
-            <div class="lib-nav-card-head">
-              <div class="lib-nav-card-icon ${iconClass}">${icon(iconName)}</div>
-              <div>
-                <h4 class="lib-nav-card-title">${escapeHtml(subName)}</h4>
-                <div class="lib-nav-card-sub">${classNames.length} sections · ${sObj.modules.length} chapters · ${sObj.totalQuestions} MCQs</div>
-              </div>
-            </div>
-            <div class="lib-nav-card-desc">${escapeHtml(desc)}</div>
-            <div class="lib-quick-classes" aria-label="Direct classes in ${escapeHtml(subName)}">
-              ${pillHtml}
-            </div>
-            <div class="lib-nav-card-foot">
-              <span>Explore Subject</span>
-              ${icon('arrow_forward')}
-            </div>
-          </div>
-        `;
-      });
-
       html += `</div>`;
       DOM.libraryContainer.innerHTML = html;
-
-      // Event listeners for Subject cards
-      DOM.libraryContainer.querySelectorAll('.lib-nav-card').forEach((card) => {
-        card.addEventListener('click', (e) => {
-          if (e.target.closest('.lib-quick-pill')) return;
-          const sub = card.getAttribute('data-subject');
-          State.librarySubject = sub;
-          State.libraryClass = null;
-          renderLibrary();
-        });
-      });
-
-      // Event listeners for quick pills
-      DOM.libraryContainer.querySelectorAll('.lib-quick-pill').forEach((pill) => {
-        pill.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const sub = pill.getAttribute('data-subject');
-          const cls = pill.getAttribute('data-cls');
-          State.librarySubject = sub;
-          State.libraryClass = cls;
-          renderLibrary();
-        });
-      });
+      wireCardListeners(DOM.libraryContainer, searchResults);
       return;
     }
 
-    // CASE 3: LEVEL 2 — CLASS / SECTION CARDS (State.librarySubject !== null && State.libraryClass === null)
-    const currentSubjectObj = subjectMap[State.librarySubject];
-    if (!currentSubjectObj) {
-      // Subject no longer exists
-      State.librarySubject = null;
-      State.libraryClass = null;
-      renderLibrary();
-      return;
-    }
+    renderBackButton('', null);
 
-    if (!State.libraryClass) {
-      if (DOM.libBreadcrumbBar) {
-        DOM.libBreadcrumbBar.innerHTML = `
-          <button id="libBackToSubjectsBtn" class="lib-back-btn" type="button">
-            ${icon('arrow_back')}
-            <span>All Subjects</span>
-          </button>
-          <div class="lib-crumb-trail">
-            <button class="lib-crumb-link" type="button" id="libCrumbRoot">Library</button>
-            <span class="lib-crumb-sep">›</span>
-            <span class="lib-crumb-current">${escapeHtml(State.librarySubject)}</span>
-          </div>
-        `;
-        const backBtn = DOM.libBreadcrumbBar.querySelector('#libBackToSubjectsBtn');
-        const crumbRoot = DOM.libBreadcrumbBar.querySelector('#libCrumbRoot');
-        const goBack = () => {
-          State.librarySubject = null;
-          State.libraryClass = null;
-          renderLibrary();
-        };
-        if (backBtn) backBtn.addEventListener('click', goBack);
-        if (crumbRoot) crumbRoot.addEventListener('click', goBack);
+    // CASE 2: FILTER BY SELECTED EXAM (UGC NET vs CTET)
+    let examSets = list.filter((mod) => {
+      const id = String(mod.id || '');
+      const exam = String(mod.exam || '');
+      if (activeExam === 'ugc_net') {
+        return exam === 'ugc_net' || id.startsWith('ugc_net_');
+      } else {
+        return exam === 'ctet' || id.startsWith('ctet_');
       }
+    });
 
-      const classNames = Object.keys(currentSubjectObj.classes).sort((a, b) => {
-        if (a === 'Child Development') return -1;
-        if (b === 'Child Development') return 1;
-        const isPyqA = a.includes('PYQ');
-        const isPyqB = b.includes('PYQ');
-        if (!isPyqA && isPyqB) return -1;
-        if (isPyqA && !isPyqB) return 1;
-        const numA = (a.match(/\d+/) || [99])[0];
-        const numB = (b.match(/\d+/) || [99])[0];
-        return Number(numA) - Number(numB);
-      });
-
-      let html = storageWarning ? `<p class="library-warning" role="status">${escapeHtml(storageWarning)}</p>` : '';
-      html += `
-        <div class="lib-level-header">
-          <div>
-            <h3>${escapeHtml(State.librarySubject)} — Select Class or Section</h3>
-            <div class="lib-level-count">${classNames.length} sections available</div>
-          </div>
-        </div>
-        <div class="lib-hierarchy-grid">
-      `;
-
-      classNames.forEach((cn) => {
-        const cObj = currentSubjectObj.classes[cn];
-        const cCount = cObj.modules.length;
-        const qCount = cObj.totalQuestions;
-
-        let desc = `${cCount} curated study modules with verified practice questions and adaptive revision.`;
-        let iconName = 'school';
-        if (cn.includes('Child Development')) {
-          iconName = 'psychology';
-          desc = 'Child Development & Pedagogy textbook chapters: Growth, Socialisation, Piaget, Vygotsky, Kohlberg, Intelligence & Inclusive Education.';
-        } else if (cn.includes('Class 6')) {
-          desc = 'Class 6 NCERT: History (Our Pasts I), Geography (The Earth Our Habitat), Civics (Social & Political Life I).';
-        } else if (cn.includes('Class 7')) {
-          desc = 'Class 7 NCERT: History (Our Pasts II), Geography (Our Environment), Civics (Social & Political Life II).';
-        } else if (cn.includes('Class 8')) {
-          desc = 'Class 8 NCERT: History (Our Pasts III), Geography (Resources & Dev), Civics (Social & Political Life III).';
-        } else if (cn.includes('PYQ')) {
-          iconName = 'assignment';
-          desc = 'Official previous year CTET Paper 2 exam sets with comprehensive answers and explanations.';
-        }
-
-        html += `
-          <div class="lib-nav-card" data-cls="${escapeHtml(cn)}">
-            <div class="lib-nav-card-head">
-              <div class="lib-nav-card-icon icon-cls">${icon(iconName)}</div>
-              <div>
-                <h4 class="lib-nav-card-title">${escapeHtml(cn)}</h4>
-                <div class="lib-nav-card-sub">${cCount} chapter${cCount === 1 ? '' : 's'} · ${qCount} verified MCQs</div>
-              </div>
-            </div>
-            <div class="lib-nav-card-desc">${escapeHtml(desc)}</div>
-            <div class="lib-nav-card-foot">
-              <span>View Chapters</span>
-              ${icon('arrow_forward')}
-            </div>
-          </div>
-        `;
-      });
-
-      html += `</div>`;
-      DOM.libraryContainer.innerHTML = html;
-
-      DOM.libraryContainer.querySelectorAll('.lib-nav-card').forEach((card) => {
-        card.addEventListener('click', () => {
-          const cls = card.getAttribute('data-cls');
-          State.libraryClass = cls;
-          renderLibrary();
-        });
-      });
-      return;
+    const userSets = list.filter((mod) => {
+      const id = String(mod.id || '');
+      return !id.startsWith('ugc_net_') && !id.startsWith('ctet_');
+    });
+    if (activeExam === 'ugc_net' && userSets.length) {
+      examSets = examSets.concat(userSets);
     }
 
-    // CASE 4: LEVEL 3 — CHAPTERS LIST (State.librarySubject !== null && State.libraryClass !== null)
-    const currentClassObj = currentSubjectObj.classes[State.libraryClass];
-    if (!currentClassObj) {
-      State.libraryClass = null;
-      renderLibrary();
-      return;
-    }
-
-    if (DOM.libBreadcrumbBar) {
-      DOM.libBreadcrumbBar.innerHTML = `
-        <button id="libBackToClassesBtn" class="lib-back-btn" type="button">
-          ${icon('arrow_back')}
-          <span>Back to ${escapeHtml(State.librarySubject)}</span>
-        </button>
-        <div class="lib-crumb-trail">
-          <button class="lib-crumb-link" type="button" id="libCrumbRoot">Library</button>
-          <span class="lib-crumb-sep">›</span>
-          <button class="lib-crumb-link" type="button" id="libCrumbSubject">${escapeHtml(State.librarySubject)}</button>
-          <span class="lib-crumb-sep">›</span>
-          <span class="lib-crumb-current">${escapeHtml(State.libraryClass)}</span>
-        </div>
-      `;
-
-      const backBtn = DOM.libBreadcrumbBar.querySelector('#libBackToClassesBtn');
-      const crumbSubject = DOM.libBreadcrumbBar.querySelector('#libCrumbSubject');
-      const crumbRoot = DOM.libBreadcrumbBar.querySelector('#libCrumbRoot');
-
-      if (backBtn) backBtn.addEventListener('click', () => {
-        State.libraryClass = null;
-        renderLibrary();
+    // Sort order
+    if (activeExam === 'ugc_net') {
+      examSets.sort((a, b) => {
+        const numA = parseInt((String(a.id || '').match(/unit_(\d+)/i) || [])[1], 10) || 99;
+        const numB = parseInt((String(b.id || '').match(/unit_(\d+)/i) || [])[1], 10) || 99;
+        return numA - numB;
       });
-      if (crumbSubject) crumbSubject.addEventListener('click', () => {
-        State.libraryClass = null;
-        renderLibrary();
-      });
-      if (crumbRoot) crumbRoot.addEventListener('click', () => {
-        State.librarySubject = null;
-        State.libraryClass = null;
-        renderLibrary();
+    } else {
+      // CTET: Sort by setNumber (CDP Units 1-6 first, then SST Units 1-4)
+      examSets.sort((a, b) => {
+        const setA = Number(a.setNumber) || 99;
+        const setB = Number(b.setNumber) || 99;
+        return setA - setB;
       });
     }
 
-    const activeList = currentClassObj.modules;
+    const totalQuestions = examSets.reduce((sum, mod) => sum + moduleQuestionCount(mod), 0);
+    const examHeading = activeExam === 'ugc_net' ? 'UGC NET Education (Code 09)' : 'CTET (Central Teacher Eligibility Test)';
+    const examSub = activeExam === 'ugc_net'
+      ? '10 Official Syllabus Units · 1 Comprehensive Practice Set Per Unit'
+      : 'Official Syllabus Topics · Child Development & Social Science Only';
+
     let html = storageWarning ? `<p class="library-warning" role="status">${escapeHtml(storageWarning)}</p>` : '';
     html += `
-      <div class="lib-level-header">
+      <div class="lib-level-header" style="margin-bottom:14px;">
         <div>
-          <h3>${escapeHtml(State.libraryClass)}</h3>
-          <div class="lib-level-count">${activeList.length} chapter${activeList.length === 1 ? '' : 's'} available</div>
+          <h3>${escapeHtml(examHeading)}</h3>
+          <div class="lib-level-count">${examSets.length} study sets · ${totalQuestions} verified MCQs · ${escapeHtml(examSub)}</div>
         </div>
+      </div>
+      <div class="lib-hierarchy-grid">
+    `;
+
+    examSets.forEach((mod) => {
+      html += renderCard(mod);
+    });
+
+    html += `</div>`;
+    DOM.libraryContainer.innerHTML = html;
+    wireCardListeners(DOM.libraryContainer, examSets);
+  }
+
+  // ==========================================================================
+  // ANALYSIS — strengths, weaknesses and progress across completed mocks
+  // ==========================================================================
+  const ANALYSIS_MIN_SAMPLE = 6;
+
+  function analysisBand(accuracy) {
+    if (accuracy >= 75) return { label: 'Strong', cls: 'good' };
+    if (accuracy >= 60) return { label: 'On track', cls: 'warn' };
+    return { label: 'Needs work', cls: 'bad' };
+  }
+
+  function shortUnit(unit) {
+    const match = String(unit || '').match(/Unit\s+(\d+)/i);
+    return match ? 'Unit ' + match[1] : (unit || 'General');
+  }
+
+  function formatPercent(value) {
+    return Math.round(value) + '%';
+  }
+
+  function cleanSetTitle(title) {
+    const cleaned = String(title || 'Practice set').replace(/\s*\(\d+\s*MCQs?\)\s*$/i, '').trim();
+    return cleaned || 'Practice set';
+  }
+
+  async function renderAnalysis() {
+    if (!DOM.analysisContainer) return;
+    DOM.analysisContainer.innerHTML = '<p class="empty-state">Reading your saved mocks…</p>';
+
+    let modules = [];
+    let attempts = [];
+    try {
+      modules = await window.OfflineStorage.getModules();
+      if (window.OfflineStorage.getAttempts) attempts = await window.OfflineStorage.getAttempts();
+    } catch (err) {
+      DOM.analysisContainer.innerHTML = '<div class="empty-state"><strong>Stored history is unavailable.</strong><br>This browser is blocking local storage, so past mocks cannot be analysed.</div>';
+      return;
+    }
+
+    modules = Array.isArray(modules) && modules.length ? modules : ((typeof globalThis !== 'undefined' && globalThis.CTET_INDEX) || []);
+    attempts = Array.isArray(attempts) ? attempts : [];
+
+    // All modules eligible for analysis across UGC NET and CTET
+
+    const moduleIndex = {};
+    modules.forEach((mod) => {
+      if (!mod || !mod.id) return;
+      const info = parseModuleHierarchy(mod);
+      moduleIndex[mod.id] = {
+        mod,
+        unit: String(mod.topic || info.cls || 'General').trim(),
+        chapter: info.chapter || mod.title || 'Practice set'
+      };
+    });
+
+    const mocks = attempts.filter((a) => a && a.moduleId).map((a) => {
+      const known = moduleIndex[a.moduleId];
+      const fallback = parseModuleHierarchy({ title: a.moduleTitle || 'Practice set' });
+      const correct = Number(a.correct) || 0;
+      const wrong = Number(a.wrong) || 0;
+      const skipped = Number(a.skipped) || 0;
+      const answered = correct + wrong;
+      return {
+        moduleId: a.moduleId,
+        title: cleanSetTitle(known ? known.chapter : (fallback.chapter || 'Practice set')),
+        unit: known ? known.unit : String(fallback.cls || 'General'),
+        date: new Date(a.createdAt || 0),
+        correct,
+        wrong,
+        skipped,
+        answered,
+        total: Number(a.total) || (correct + wrong + skipped),
+        score: Number(a.score) || 0,
+        max: Number(a.max) || (Number(a.total) || (correct + wrong + skipped)) * 2,
+        time: Number(a.timeSeconds) || 0,
+        accuracy: answered ? (correct / answered) * 100 : 0
+      };
+    }).filter((row) => !Number.isNaN(row.date.getTime())).sort((a, b) => a.date - b.date);
+
+    if (!mocks.length) {
+      if (DOM.analysisSub) DOM.analysisSub.textContent = 'Performance across your completed mocks';
+      DOM.analysisContainer.innerHTML = `
+        <div class="an-empty">
+          <div class="an-empty-icon">${icon('insights')}</div>
+          <h3>No mock results yet</h3>
+          <p>Finish a timed exam test and this page will break down your accuracy, the units you are strong and weak in, your answering pace, and how you are trending over time.</p>
+          <button id="anOpenLibrary" class="btn btn-primary" type="button">Choose a practice set</button>
+        </div>`;
+      const openBtn = DOM.analysisContainer.querySelector('#anOpenLibrary');
+      if (openBtn) openBtn.addEventListener('click', () => switchMode('library'));
+      return;
+    }
+
+    if (DOM.analysisSub) {
+      const lastDate = mocks[mocks.length - 1].date;
+      DOM.analysisSub.textContent = `${mocks.length} completed mock${mocks.length === 1 ? '' : 's'} · last on ${lastDate.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}`;
+    }
+
+    const answeredTotal = mocks.reduce((sum, row) => sum + row.answered, 0);
+    const correctTotal = mocks.reduce((sum, row) => sum + row.correct, 0);
+    const blankTotal = mocks.reduce((sum, row) => sum + row.skipped, 0);
+    const timeTotal = mocks.reduce((sum, row) => sum + row.time, 0);
+    const questionTotal = mocks.reduce((sum, row) => sum + row.total, 0);
+    const overall = answeredTotal ? (correctTotal / answeredTotal) * 100 : 0;
+    const best = mocks.reduce((max, row) => Math.max(max, row.accuracy), 0);
+    const pace = questionTotal ? timeTotal / questionTotal : 0;
+    const blankRate = (answeredTotal + blankTotal) ? (blankTotal / (answeredTotal + blankTotal)) * 100 : 0;
+    const band = analysisBand(overall);
+
+    const unitStats = {};
+    mocks.forEach((row) => {
+      if (!unitStats[row.unit]) {
+        unitStats[row.unit] = { unit: row.unit, mocks: 0, correct: 0, wrong: 0, answered: 0, blank: 0 };
+      }
+      const stat = unitStats[row.unit];
+      stat.mocks += 1;
+      stat.correct += row.correct;
+      stat.wrong += row.wrong;
+      stat.answered += row.answered;
+      stat.blank += row.skipped;
+    });
+    Object.values(unitStats).forEach((stat) => {
+      stat.accuracy = stat.answered ? (stat.correct / stat.answered) * 100 : 0;
+    });
+
+    const scored = mocks.filter((row) => row.answered > 0);
+    let trend = 'steady';
+    if (scored.length >= 4) {
+      const half = Math.floor(scored.length / 2);
+      const average = (rows) => rows.reduce((sum, row) => sum + row.accuracy, 0) / rows.length;
+      const delta = average(scored.slice(half)) - average(scored.slice(0, half));
+      if (delta >= 5) trend = 'improving';
+      else if (delta <= -5) trend = 'slipping';
+    }
+    const trendInfo = {
+      improving: { label: 'Improving', icon: 'trending_up' },
+      slipping: { label: 'Slipping', icon: 'trending_down' },
+      steady: { label: 'Steady', icon: 'trending_flat' }
+    }[trend];
+
+    const ranked = Object.values(unitStats)
+      .filter((stat) => stat.answered >= ANALYSIS_MIN_SAMPLE)
+      .sort((a, b) => a.accuracy - b.accuracy);
+    const weakest = ranked[0] || null;
+    const strongest = ranked[ranked.length - 1] || null;
+
+    let insight = 'Take a few more mocks — a unit needs at least six answered questions before it can be judged fairly.';
+    if (strongest && weakest && strongest.unit !== weakest.unit) {
+      insight = `${shortUnit(strongest.unit)} is your strongest area at ${formatPercent(strongest.accuracy)}, while ${shortUnit(weakest.unit)} is your weakest at ${formatPercent(weakest.accuracy)}.`;
+    } else if (strongest && weakest) {
+      insight = `${shortUnit(strongest.unit)} is the only unit with enough answers so far. Attempt another unit to compare strengths.`;
+    }
+    if (blankRate >= 10) {
+      insight += ` You leave ${Math.round(blankRate)}% of questions blank, which gives away marks that cost nothing to attempt.`;
+    }
+
+    const statTiles = [
+      { label: 'Mocks completed', value: String(mocks.length), sub: `${questionTotal} questions sat` },
+      { label: 'Average accuracy', value: formatPercent(overall), sub: `${correctTotal} of ${answeredTotal} answered` },
+      { label: 'Best mock', value: formatPercent(best), sub: 'Highest accuracy so far' },
+      { label: 'Pace', value: `${Math.round(pace)}s`, sub: pace <= 60 ? 'Within the 60s target' : 'Slower than 60s a question' }
+    ];
+
+    const recentBars = scored.slice(-12);
+    let barsHtml = '';
+    recentBars.forEach((row) => {
+      const barBand = analysisBand(row.accuracy);
+      const height = Math.max(4, Math.round(row.accuracy));
+      barsHtml += `
+        <div class="an-bar-col" title="${escapeHtml(row.title)} · ${formatPercent(row.accuracy)}">
+          <span class="an-bar-val">${Math.round(row.accuracy)}</span>
+          <div class="an-bar-track"><i class="an-bar-fill ${barBand.cls}" style="height:${height}%"></i></div>
+        </div>`;
+    });
+
+    const unitRows = Object.values(unitStats).sort((a, b) => {
+      const aLow = a.answered < ANALYSIS_MIN_SAMPLE;
+      const bLow = b.answered < ANALYSIS_MIN_SAMPLE;
+      if (aLow !== bLow) return aLow ? 1 : -1;
+      return a.accuracy - b.accuracy;
+    });
+
+    const attemptedUnits = new Set(Object.keys(unitStats));
+    const untouchedUnits = [...new Set(modules
+      .map((mod) => String((mod && mod.topic) || '').trim())
+      .filter((unit) => unit && !attemptedUnits.has(unit)))]
+      .sort((a, b) => {
+        const numA = parseInt((a.match(/\d+/) || [])[0], 10) || 99;
+        const numB = parseInt((b.match(/\d+/) || [])[0], 10) || 99;
+        return numA - numB;
+      });
+
+    const setStats = {};
+    mocks.forEach((row) => {
+      if (!setStats[row.moduleId]) {
+        setStats[row.moduleId] = { moduleId: row.moduleId, title: row.title, unit: row.unit, correct: 0, answered: 0, mocks: 0 };
+      }
+      const stat = setStats[row.moduleId];
+      stat.mocks += 1;
+      stat.correct += row.correct;
+      stat.answered += row.answered;
+    });
+    Object.values(setStats).forEach((stat) => {
+      stat.accuracy = stat.answered ? (stat.correct / stat.answered) * 100 : 0;
+    });
+    const revisit = Object.values(setStats)
+      .filter((stat) => stat.answered >= ANALYSIS_MIN_SAMPLE && stat.accuracy < 75)
+      .sort((a, b) => a.accuracy - b.accuracy)
+      .slice(0, 3);
+
+    const recentMocks = mocks.slice(-8).reverse();
+
+    let html = `
+      <div class="an-hero ${band.cls}">
+        <div class="an-hero-main">
+          <div class="an-hero-label">Overall accuracy</div>
+          <div class="an-hero-value">${formatPercent(overall)}</div>
+          <div class="an-hero-band">
+            <span class="an-chip ${band.cls}">${band.label}</span>
+            <span class="an-trend-pill">${icon(trendInfo.icon)}${trendInfo.label}</span>
+          </div>
+        </div>
+        <p class="an-hero-copy">${escapeHtml(insight)}</p>
+      </div>
+
+      <div class="an-stats">
+        ${statTiles.map((tile) => `
+          <div class="an-stat">
+            <b>${escapeHtml(tile.value)}</b>
+            <span class="an-stat-label">${escapeHtml(tile.label)}</span>
+            <span class="an-stat-sub">${escapeHtml(tile.sub)}</span>
+          </div>`).join('')}
+      </div>
+
+      <div class="an-card">
+        <div class="an-card-head">
+          <h3>Accuracy by mock</h3>
+          <span>Last ${recentBars.length} · oldest to newest</span>
+        </div>
+        <div class="an-trend">${barsHtml}</div>
+      </div>
+
+      <div class="an-card">
+        <div class="an-card-head">
+          <h3>Unit strengths &amp; weaknesses</h3>
+          <span>Weakest first</span>
+        </div>
+        <div class="an-units">
+          ${unitRows.map((stat) => {
+            const lowData = stat.answered < ANALYSIS_MIN_SAMPLE;
+            const unitBand = analysisBand(stat.accuracy);
+            const chipCls = lowData ? 'neutral' : unitBand.cls;
+            const chipText = lowData ? 'Low data' : formatPercent(stat.accuracy);
+            return `
+              <button class="an-unit-row" type="button" data-unit="${escapeHtml(stat.unit)}">
+                <span class="an-unit-top">
+                  <span class="an-unit-name">${escapeHtml(stat.unit)}</span>
+                  <span class="an-chip ${chipCls}">${chipText}</span>
+                </span>
+                <span class="an-track"><i class="${unitBand.cls}" style="width:${lowData ? 0 : Math.round(stat.accuracy)}%"></i></span>
+                <span class="an-unit-meta">${stat.mocks} mock${stat.mocks === 1 ? '' : 's'} · ${stat.answered} answered · ${stat.blank} blank</span>
+              </button>`;
+          }).join('')}
+        </div>
+        ${untouchedUnits.length ? `<p class="an-more">Not attempted yet: ${untouchedUnits.map((unit) => escapeHtml(shortUnit(unit))).join(', ')}</p>` : ''}
       </div>
     `;
 
-    activeList.forEach((mod) => {
-      html += renderChapterCard(mod, false);
+    if (revisit.length) {
+      html += `
+        <div class="an-card">
+          <div class="an-card-head">
+            <h3>Sets to revisit</h3>
+            <span>Lowest accuracy</span>
+          </div>
+          <div class="an-sets">
+            ${revisit.map((stat) => `
+              <div class="an-set-row">
+                <div class="an-set-copy">
+                  <b>${escapeHtml(stat.title)}</b>
+                  <span>${escapeHtml(stat.unit)} · ${formatPercent(stat.accuracy)} accuracy</span>
+                </div>
+                <button class="btn btn-sm an-set-btn" type="button" data-module="${escapeHtml(stat.moduleId)}">Practice</button>
+              </div>`).join('')}
+          </div>
+        </div>`;
+    }
+
+    html += `
+      <div class="an-card">
+        <div class="an-card-head">
+          <h3>Recent mocks</h3>
+          <span>Newest first</span>
+        </div>
+        <div class="an-attempts">
+          ${recentMocks.map((row) => {
+            const rowBand = analysisBand(row.accuracy);
+            return `
+              <div class="an-attempt">
+                <div class="an-attempt-top">
+                  <span class="an-attempt-title">${escapeHtml(row.title)}</span>
+                  <span class="an-chip ${rowBand.cls}">${formatPercent(row.accuracy)}</span>
+                </div>
+                <div class="an-attempt-meta">${escapeHtml(shortUnit(row.unit))} · ${row.date.toLocaleDateString(undefined, { day: 'numeric', month: 'short' })} · ${formatTime(row.time)} · ${row.score.toFixed(2)}/${row.max.toFixed(0)} marks</div>
+                <div class="an-attempt-meta">${row.correct} correct · ${row.wrong} wrong · ${row.skipped} blank</div>
+              </div>`;
+          }).join('')}
+        </div>
+      </div>
+
+      <p class="an-note">Accuracy counts only the questions you answered, so leaving questions blank never flatters it. Scores on the exam screen also apply −0.66 per wrong answer, which is why the marks shown after a test can sit lower than these percentages.</p>
+    `;
+
+    DOM.analysisContainer.innerHTML = html;
+
+    DOM.analysisContainer.querySelectorAll('.an-unit-row').forEach((row) => {
+      row.addEventListener('click', () => {
+        State.libraryClass = row.getAttribute('data-unit');
+        switchMode('library');
+      });
     });
 
-    DOM.libraryContainer.innerHTML = html;
-    wireChapterCardListeners(DOM.libraryContainer, activeList);
+    DOM.analysisContainer.querySelectorAll('.an-set-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const entry = moduleIndex[btn.getAttribute('data-module')];
+        if (entry && entry.mod) startLibraryMode(entry.mod, 'practice');
+      });
+    });
   }
 
   // ==========================================================================
@@ -2867,7 +3316,6 @@
   // ==========================================================================
   async function processFile(file) {
     if (!file) return;
-    autoGenerateAfterImport = false;
     const maxBytes = 60 * 1024 * 1024;
     if (file.size > maxBytes) {
       setFileStatus('This file is too large. Choose a file smaller than 60 MB.', 'error');
@@ -2898,10 +3346,6 @@
       processExpanded = true;
       paintProcessing(started.job || Processing.getCurrent());
       showToast('Another document is still being processed.');
-    } else {
-      // The import job now owns the file; when it completes,
-      // handleProcessingSettled starts generation automatically.
-      autoGenerateAfterImport = true;
     }
   }
 
@@ -3036,12 +3480,35 @@
     if (DOM.scoreCloseBtn) DOM.scoreCloseBtn.addEventListener('click', closeScorecard);
     if (DOM.scoreReviewBtn) DOM.scoreReviewBtn.addEventListener('click', reviewAnswers);
     if (DOM.scoreRetakeBtn) DOM.scoreRetakeBtn.addEventListener('click', retakeTest);
+    if (DOM.scoreAnalysisBtn) {
+      DOM.scoreAnalysisBtn.addEventListener('click', () => {
+        closeScorecard();
+        switchMode('analysis');
+      });
+    }
     if (DOM.scoreModal) {
       DOM.scoreModal.addEventListener('click', (e) => {
         if (e.target === DOM.scoreModal) closeScorecard();
       });
     }
 
+    
+    if (DOM.examTabUgc) {
+      DOM.examTabUgc.addEventListener('click', () => {
+        State.libraryExam = 'ugc_net';
+        State.libraryClass = null;
+        updateExamTabs();
+        renderLibrary();
+      });
+    }
+    if (DOM.examTabCtet) {
+      DOM.examTabCtet.addEventListener('click', () => {
+        State.libraryExam = 'ctet';
+        State.libraryClass = null;
+        updateExamTabs();
+        renderLibrary();
+      });
+    }
     if (DOM.libSearchInput) {
       DOM.libSearchInput.addEventListener('input', (e) => {
         State.librarySearch = e.target.value || '';

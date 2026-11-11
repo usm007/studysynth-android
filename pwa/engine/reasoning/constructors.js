@@ -16,7 +16,11 @@
     ? require('./distractors.js')
     : global.ReasoningDistractors;
 
-  const { REASONING_OPERATORS, DIFFICULTY_LEVELS } = Types;
+  const Linguistics = (typeof module !== 'undefined' && module.exports)
+    ? require('./linguistics.js')
+    : global.ReasoningLinguistics;
+
+  const { REASONING_OPERATORS, DIFFICULTY_LEVELS, RELATION_TYPES } = Types;
 
   let candidateCounter = 0;
 
@@ -63,84 +67,17 @@
 
     switch (operatorId) {
       case REASONING_OPERATORS.OP_A_RULE_APPLICATION:
-        stem = `What is the expected outcome when ${subject} is evaluated?`;
+        stem = `Based on the established rule in the source, what is the expected outcome when ${subject} is evaluated?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_B_CAUSAL_EXPLANATION:
-        // Causal stem polish (mock-test quality): "What causes X?"
-        // is only a question when X is a noun phrase the student
-        // can identify. A pronoun subject ("their urbanisation")
-        // has no antecedent in the stem alone, and a clause
-        // subject ("the colonial government finally decided to
-        // withdraw it in 1911", "Children need special
-        // protection", "citizens to approach ... if their ...")
-        // is not a thing that can be caused. Returning an empty
-        // stem makes constructQuestionCandidate drop the
-        // candidate, in both the batch and the user paths, rather
-        // than shipping a clause-like stem. This gate is here,
-        // not only in production validation, because the batch
-        // generator writes V2 items directly and does not run
-        // production validation on them.
-        {
-          const subj = String(subject || '').trim();
-          const pronounStart = /^(their|his|her|its|our|your|they|he|she|it|them|this|that|these|those)\b/i.test(subj);
-          const clauseConnector = /\b(if|when|while|although|because)\b/i.test(subj);
-          const finiteVerb = /\b(decided|withdrew|withdraw|became|become|was|were|is|are|had|has|did|does|will|would|could|should|may|might|must|lost|won|changed|moved|started|ended|need|needs|lived|approached|approaches)\b/i.test(subj);
-          if (pronounStart || clauseConnector || finiteVerb) {
-            return { stem: '', answerText: '' };
-          }
-        }
-        // Comparative effects are not caused as a noun is caused:
-        // "What causes the judicial system more accessible?" is
-        // ungrammatical. The natural form is "What makes the
-        // judicial system more accessible?", with the subject
-        // lowercased after the verb.
-        const cleanSubject = String(subject || '').trim();
-        const lowerSubject = cleanSubject.charAt(0).toLowerCase() + cleanSubject.slice(1);
-        // Full-path repair, relation preservation (P0): the stem
-        // must ask with the source verb, not always "causes". The
-        // derived predicate carries the converse form set by OP_B
-        // ("is contributed to by"), which maps back to the active
-        // verb here. An unknown predicate is not rendered as a
-        // causal question at all.
-        const derivedPredicate = String(derivedProp.predicate || '').toLowerCase().trim();
-        const ACTIVE_VERB = {
-          'is caused by mechanism': 'causes',
-          'is contributed to by': 'contributes to',
-          'is influenced by': 'influences',
-          'is affected by': 'affects',
-          'is promoted by': 'promotes',
-          'is encouraged by': 'encourages',
-          'is supported by': 'supports',
-          'is helped by': 'helps',
-          'is stimulated by': 'stimulates',
-          'is increased by': 'increases',
-          'is decreased by': 'decreases',
-          'is prevented by': 'prevents',
-          'is inhibited by': 'inhibits',
-          'is reduced by': 'reduces',
-          'is strengthened by': 'strengthens',
-          'is weakened by': 'weakens',
-          'is driven by': 'drives',
-          'is accelerated by': 'accelerates',
-          'is slowed down by': 'slows down',
-          'is enabled by': 'enables',
-          'is allowed by': 'allows',
-          'is determined by': 'determines'
-        };
-        if (/\bmore\b/i.test(cleanSubject)) {
-          stem = `What makes ${lowerSubject}?`;
-        } else if (ACTIVE_VERB[derivedPredicate]) {
-          stem = `What ${ACTIVE_VERB[derivedPredicate]} ${lowerSubject}?`;
-        } else {
-          return { stem: '', answerText: '' };
-        }
+        stem = `According to the source, what causal mechanism directly produces ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_C_CAUSAL_CHAIN:
-        stem = `What ultimate effect follows ${subject}?`;
+        stem = `Through the multi-step causal sequence in the passage, what ultimate effect follows ${subject}?`;
         answerText = object;
         break;
 
@@ -150,22 +87,24 @@
         break;
 
       case REASONING_OPERATORS.OP_E_COMPARATIVE_REASONING:
-        stem = `How does ${subject} compare?`;
+        stem = `How does the source characterize the relative comparison involving ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_F_PROCESS_SEQUENCE:
-        stem = `Which step must occur prior to ${object}?`;
+        stem = `In the sequence described by the source, which step must occur prior to ${object}?`;
         answerText = subject;
         break;
 
       case REASONING_OPERATORS.OP_G_CONSTRAINT_INFERENCE:
-        stem = `Which alternative satisfies all the stated criteria?`;
+        stem = `Applying the constraints specified in the passage, which alternative satisfies all stated criteria?`;
         answerText = subject;
         break;
 
       case REASONING_OPERATORS.OP_H_CATEGORY_INFERENCE:
-        stem = `To which category or classification does ${subject} belong, based on its defining attributes?`;
+        stem = derivedProp.relation_type === RELATION_TYPES.DEFINITION_OF
+          ? `According to the source, which statement best defines ${subject}?`
+          : `Based on its defining attributes in the text, to which category or classification does ${subject} belong?`;
         answerText = object;
         break;
 
@@ -180,17 +119,17 @@
         break;
 
       case REASONING_OPERATORS.OP_K_EVIDENCE_CONCLUSION:
-        stem = `What primary empirical evidence substantiates the claim regarding ${subject}?`;
+        stem = `What primary empirical evidence does the text cite to substantiate the claim regarding ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_L_ERROR_DIAGNOSIS:
-        stem = `Which logical fallacy or misinterpretation contradicts the findings on ${subject}?`;
+        stem = `Which logical fallacy or misinterpretation contradicts the source's findings on ${subject}?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_M_QUANTITATIVE_REASONING:
-        stem = `How does an increase in ${subject} affect ${object}?`;
+        stem = `Based on the quantitative relationships stated in the text, how does an increase in ${subject} affect ${object}?`;
         answerText = object;
         break;
 
@@ -200,12 +139,12 @@
         break;
 
       case REASONING_OPERATORS.OP_O_MULTIHOP_SYNTHESIS:
-        stem = `How does ${subject} relate to the broader conclusion?`;
+        stem = `Synthesizing the findings across the document, how does ${subject} relate to the broader conclusion?`;
         answerText = object;
         break;
 
       case REASONING_OPERATORS.OP_P_COUNTERFACTUAL_REASONING:
-        stem = `What consequence would follow ${subject}?`;
+        stem = `Based on the directional principles established in the text, what consequence would follow ${subject}?`;
         answerText = object;
         break;
 
@@ -233,6 +172,11 @@
 
     const { stem, answerText } = formQuestionStemAndAnswer(operatorId, derivedProp);
     if (!stem || stem.length <= 12 || !answerText || answerText.length < 2) {
+      return null;
+    }
+    // Correct answers are shown verbatim. Reject fragments and run-ons rather
+    // than publishing an option that cannot be read on its own.
+    if (!Linguistics.isSafeSpan(answerText, 150)) {
       return null;
     }
 
@@ -264,7 +208,9 @@
 
     const excerpt = derivedProp.supporting_excerpt || '';
 
-    // Evidence fact IDs: map premises strictly to valid fact IDs in context.facts
+    // Evidence fact IDs: every premise must resolve to a verified fact or a
+    // graph proposition. A candidate with any unresolved premise is dropped
+    // rather than attached to unrelated evidence.
     const availableFacts = (context && Array.isArray(context.facts)) ? context.facts : [];
     const evidenceFactIds = [];
     const premiseExcerpts = [];
@@ -281,17 +227,27 @@
               premiseOffsets.push({ fact_id: pid, start: fact.source_start, end: fact.source_end });
             }
           }
-        } else if (graph && typeof graph.getProposition === 'function') {
-          const propNode = graph.getProposition(pid);
-          if (propNode && propNode.supporting_excerpt) {
-            premiseExcerpts.push(propNode.supporting_excerpt);
+          continue;
+        }
+        const propNode = graph && typeof graph.getProposition === 'function'
+          ? graph.getProposition(pid)
+          : null;
+        if (!propNode || propNode.id !== pid) {
+          return null;
+        }
+        if (!evidenceFactIds.includes(pid)) {
+          evidenceFactIds.push(pid);
+          if (propNode.supporting_excerpt) premiseExcerpts.push(propNode.supporting_excerpt);
+          if (propNode.source_start != null && propNode.source_end != null) {
+            premiseOffsets.push({ fact_id: pid, start: propNode.source_start, end: propNode.source_end });
           }
         }
       }
     }
 
-    // Strict evidence integrity: never substitute unrelated first fact
-    if (evidenceFactIds.length === 0 && availableFacts.length > 0) {
+    // Strict evidence integrity: a question without resolved evidence is not
+    // publishable.
+    if (evidenceFactIds.length === 0) {
       return null;
     }
 
@@ -324,8 +280,8 @@
         temporal_scope: derivedProp.temporal_scope || ''
       },
       verification: {
-        status: 'verified',
-        rules: ['source_fact', 'typed_options', 'evidence_quoted', 'answer_verified', 'scope_preserved', 'proof_trace_verified']
+        status: 'provisional',
+        rules: ['source_fact', 'typed_options', 'evidence_quoted', 'answer_verified', 'scope_preserved', 'proof_trace_pending_validation']
       },
 
       // Proof-Carrying Metadata

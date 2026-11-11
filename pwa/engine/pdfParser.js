@@ -8,6 +8,479 @@
   'use strict';
 
   let pdfjsPromise = null;
+  let lastLayoutDiagnostics = [];
+  let lastExtractionMeta = null;
+
+  const BLOCK_TYPES = Object.freeze([
+    'body',
+    'heading',
+    'caption',
+    'table',
+    'diagram',
+    'page_furniture',
+    'fragment',
+    'ambiguous'
+  ]);
+
+  const FURNITURE_MARKERS = /(?:Exploring\s*Society|India\s*and\s*the\s*World|Governance\s*and\s*Democracy|Economic\s*Life|Tapestry\s*of\s*the\s*Past|Our\s*Cultural\s*Heritage|NCERT|Reprint(?:ed)?|First\s*Edition|Printed\s*by|ISBN|Chapter\s+\d+\.indd)/i;
+  const CAPTION_MARKER = /^(?:fig(?:ure)?\s*\.?\s*\d+|table\s*\.?\s*\d+|photo\s*\.?\s*\d+|map\s*\.?\s*\d+|chart\s*\.?\s*\d+|diagram\s*\.?\s*\d+|plate\s*\.?\s*\d+|legend\b|source\s*:|scale\b)/i;
+  const COMPASS_OR_SCALE = /^(?:[NESW]|[0-9][0-9,.]*\s*(?:km|m|mi|metres?|kilometres?)?|scale|legend|route|city)$/i;
+  const TERMINAL_PUNCTUATION = /[.!?]["'”’)\]]*\s*$/;
+  const FIGURE_TABLE_MARKER = /\b(?:fig(?:ure)?\s*\.?\s*\d+|table\s*\.?\s*\d+|photo\s*\.?\s*\d+|legend|scale\s*bar|compass)\b/i;
+
+  function median(values) {
+    const list = (values || []).filter((value) => Number.isFinite(value)).sort((a, b) => a - b);
+    if (!list.length) return 0;
+    const middle = Math.floor(list.length / 2);
+    return list.length % 2 ? list[middle] : (list[middle - 1] + list[middle]) / 2;
+  }
+
+  function joinItemStrings(parts) {
+    let text = '';
+    for (const part of parts) {
+      if (!part) continue;
+      if (!text) {
+        text = part;
+        continue;
+      }
+      if (/\s$/.test(text) || /^\s/.test(part)) text += part;
+      else text += ' ' + part;
+    }
+    return text.replace(/\s+/g, ' ').trim();
+  }
+
+  function readingOrder(a, b) {
+    if (Math.abs(a.y - b.y) > 1.5) return a.y - b.y;
+    return a.x - b.x;
+  }
+
+  /**
+   * Finds empty vertical bands (gutters) that run the height of the page.
+   * A span must never be joined across one of these bands, even when the
+   * numeric gap is small: sidebars and figure labels sit in separate columns
+   * whose right edge can nearly touch the body text.
+   */
+  function detectColumnBands(items, pageWidth) {
+    if (!items.length) return [];
+    const binSize = 2;
+    const binCount = Math.ceil(pageWidth / binSize) + 1;
+    const covered = new Uint8Array(binCount);
+    for (const item of items) {
+      const start = Math.max(0, Math.floor(item.x / binSize));
+      const end = Math.min(binCount - 1, Math.ceil((item.x + item.width) / binSize));
+      for (let i = start; i <= end; i++) covered[i] = 1;
+    }
+
+    const minWidth = Math.max(8, pageWidth * 0.012);
+    const maxWidth = pageWidth * 0.35;
+    const bands = [];
+    let runStart = -1;
+    for (let i = 0; i <= binCount; i++) {
+      const empty = i < binCount && !covered[i];
+      if (empty && runStart < 0) runStart = i;
+      if (!empty && runStart >= 0) {
+        const start = runStart * binSize;
+        const end = i * binSize;
+        const width = end - start;
+        if (width >= minWidth && width <= maxWidth) {
+          const leftCount = items.filter((item) => item.x + item.width <= start + 1).length;
+          const rightCount = items.filter((item) => item.x >= end - 1).length;
+          if (leftCount >= 3 && rightCount >= 3) bands.push({ start, end, width });
+        }
+        runStart = -1;
+      }
+    }
+    return bands;
+  }
+
+  function crossesColumnBand(bands, leftEdge, rightEdge) {
+    if (leftEdge == null) return false;
+    for (const band of bands) {
+      if (leftEdge <= band.end + 0.5 && rightEdge >= band.start - 0.5) return true;
+    }
+    return false;
+  }
+
+  /**
+   * Deterministic, geometry-aware page layout extraction.
+   * Reads text-item positions (never PDF stream order alone), rebuilds lines,
+   * splits distant spans, groups aligned lines into blocks, classifies blocks
+   * conservatively, detects genuine columns from block geometry, and returns
+   * only confirmed body prose as bodyText.
+   */
+  function extractPageLayout(content, viewport, pageNumber) {
+    const pageNo = Number.isFinite(pageNumber) ? pageNumber : 1;
+    const pageWidth = viewport && Number.isFinite(viewport.width) && viewport.width > 0 ? viewport.width : 612;
+    const pageHeight = viewport && Number.isFinite(viewport.height) && viewport.height > 0 ? viewport.height : 792;
+    const rawItems = content && Array.isArray(content.items) ? content.items : [];
+    const items = [];
+
+    rawItems.forEach((item, index) => {
+      if (!item || typeof item.str !== 'string') return;
+      if (!item.str.trim()) return;
+      const transform = Array.isArray(item.transform) && item.transform.length >= 6
+        ? item.transform
+        : [1, 0, 0, 1, 0, 0];
+      let x = Number(transform[4]) || 0;
+      let y = Number(transform[5]) || 0;
+      if (viewport && typeof viewport.convertToViewportPoint === 'function') {
+        const point = viewport.convertToViewportPoint(transform[4], transform[5]);
+        if (Array.isArray(point) && point.length >= 2) {
+          x = Number(point[0]);
+          y = Number(point[1]);
+        }
+      } else if (viewport && Number.isFinite(viewport.height)) {
+        y = viewport.height - y;
+      }
+      const rotated = Math.abs(Number(transform[1]) || 0) > 0.01 || Math.abs(Number(transform[2]) || 0) > 0.01;
+      const height = Math.abs(Number(item.height)) > 0
+        ? Math.abs(Number(item.height))
+        : Math.max(6, Math.abs(Number(transform[3]) || 10));
+      const width = Math.abs(Number(item.width)) > 0
+        ? Math.abs(Number(item.width))
+        : Math.max(1, item.str.length * height * 0.5);
+      items.push({
+        index,
+        str: item.str,
+        x,
+        y,
+        width,
+        height,
+        fontName: item.fontName || '',
+        rotated
+      });
+    });
+
+    const medianHeight = median(items.map((item) => item.height)) || 10;
+    const baselineTolerance = Math.max(2.5, 0.4 * medianHeight);
+    const spanGap = Math.max(16, 2 * medianHeight);
+    const columnBands = detectColumnBands(items, pageWidth);
+
+    // 1. Group items into baseline lines.
+    const sorted = items.slice().sort((a, b) => (a.y - b.y) || (a.x - b.x));
+    const lines = [];
+    for (const item of sorted) {
+      let line = null;
+      for (let i = lines.length - 1; i >= 0 && i >= lines.length - 4; i--) {
+        if (lines[i].rotated !== item.rotated) continue;
+        if (Math.abs(lines[i].y - item.y) <= baselineTolerance) {
+          line = lines[i];
+          break;
+        }
+      }
+      if (!line) {
+        line = { y: item.y, items: [], heights: [], rotated: item.rotated };
+        lines.push(line);
+      }
+      line.items.push(item);
+      line.heights.push(item.height);
+      line.y = line.items.reduce((sum, entry) => sum + entry.y, 0) / line.items.length;
+    }
+
+    // 2. Split each line into horizontally distant spans.
+    const spans = [];
+    for (const line of lines) {
+      const ordered = line.items.slice().sort((a, b) => a.x - b.x);
+      let current = null;
+      let currentEnd = null;
+      let currentFont = '';
+      let currentRotated = null;
+      for (const item of ordered) {
+        const gap = currentEnd == null ? 0 : item.x - currentEnd;
+        const rotatedChanged = currentRotated != null && item.rotated !== currentRotated;
+        // Inline font changes (bold terms, italics) are part of the same
+        // sentence; only a real geometric gap, a column gutter, or a rotation
+        // change separates spans.
+        if (!current || gap > spanGap || rotatedChanged || crossesColumnBand(columnBands, currentEnd, item.x)) {
+          current = { items: [], y: line.y };
+          spans.push(current);
+          currentEnd = null;
+          currentFont = '';
+        }
+        current.items.push(item);
+        if (!currentFont) currentFont = item.fontName;
+        currentRotated = item.rotated;
+        currentEnd = Math.max(currentEnd == null ? item.x + item.width : currentEnd, item.x + item.width);
+      }
+    }
+    const lineSpans = spans.map((span) => {
+      const x0 = Math.min.apply(null, span.items.map((item) => item.x));
+      const x1 = Math.max.apply(null, span.items.map((item) => item.x + item.width));
+      const height = median(span.items.map((item) => item.height)) || medianHeight;
+      const rotated = span.items.every((item) => item.rotated);
+      const text = joinItemStrings(span.items.map((item) => item.str));
+      return {
+        text,
+        x0,
+        x1,
+        y: span.y,
+        height,
+        rotated,
+        furnitureCandidate: FURNITURE_MARKERS.test(text) || /^(?:page\s*)?\d{1,4}\.?$/i.test(text),
+        fonts: new Set(span.items.map((item) => item.fontName).filter(Boolean)),
+        items: span.items
+      };
+    }).filter((span) => span.text);
+
+    const medianLineHeight = median(lineSpans.map((span) => span.height)) || medianHeight;
+    const maxVerticalGap = 1.8 * medianLineHeight;
+    const alignmentTolerance = Math.max(12, 1.5 * medianHeight);
+
+    // 3. Group neighbouring spans into blocks when alignment and spacing agree.
+    const blocks = [];
+    for (const span of lineSpans.slice().sort(readingOrder)) {
+      let best = null;
+      let bestGap = Infinity;
+      for (const block of blocks) {
+        const gap = span.y - block.lastY;
+        if (gap < -baselineTolerance || gap > maxVerticalGap) continue;
+        if (block.rotated !== span.rotated) continue;
+        if (block.furnitureCandidate !== span.furnitureCandidate) continue;
+        const overlap = Math.min(block.x1, span.x1) - Math.max(block.x0, span.x0);
+        const aligned = Math.abs(block.x0 - span.x0) <= alignmentTolerance;
+        if (overlap <= 0 && !aligned) continue;
+        const shortSpan = span.text.length < 40;
+        const fontDisjoint = span.fonts.size > 0 && block.fonts.size > 0 &&
+          !Array.from(span.fonts).some((font) => block.fonts.has(font));
+        const outside = span.x1 <= block.x0 + 1 || span.x0 >= block.x1 - 1;
+        if (shortSpan && fontDisjoint && (outside || gap > 0)) continue;
+        if (gap < bestGap) {
+          best = block;
+          bestGap = gap;
+        }
+      }
+      if (!best) {
+        best = {
+          x0: span.x0,
+          x1: span.x1,
+          top: span.y,
+          bottom: span.y + span.height,
+          lastY: span.y,
+          rotated: span.rotated,
+          furnitureCandidate: span.furnitureCandidate,
+          fonts: new Set(span.fonts),
+          lines: [],
+          items: []
+        };
+        blocks.push(best);
+      }
+      for (const font of span.fonts) best.fonts.add(font);
+      best.lines.push(span.text);
+      best.items = best.items.concat(span.items);
+      best.x0 = Math.min(best.x0, span.x0);
+      best.x1 = Math.max(best.x1, span.x1);
+      best.top = Math.min(best.top, span.y);
+      best.bottom = Math.max(best.bottom, span.y + span.height);
+      best.lastY = span.y;
+    }
+
+    // 4. Classify blocks conservatively.
+    const records = blocks.map((block, index) => {
+      const text = block.lines.join('\n').trim();
+      const flat = text.replace(/\s+/g, ' ').trim();
+      const lineCount = block.lines.filter(Boolean).length;
+      const charCount = flat.replace(/\s/g, '').length;
+      const wordCount = flat.split(/\s+/).filter(Boolean).length;
+      const averageLineLength = lineCount ? flat.length / lineCount : flat.length;
+      const width = Math.max(0, block.x1 - block.x0);
+      const height = Math.max(0, block.bottom - block.top);
+      const nearEdge = block.top <= pageHeight * 0.12 || block.bottom >= pageHeight * 0.88;
+      const rotated = block.items.length > 0 && block.items.filter((item) => item.rotated).length >= Math.ceil(block.items.length * 0.6);
+      const uppercaseRatio = (() => {
+        const letters = flat.replace(/[^A-Za-z]/g, '');
+        if (!letters) return 0;
+        return (letters.replace(/[^A-Z]/g, '').length / letters.length);
+      })();
+      const lowerWordRatio = (() => {
+        const words = flat.split(/\s+/).filter((word) => /[A-Za-z]/.test(word));
+        if (!words.length) return 0;
+        return words.filter((word) => /[a-z]/.test(word)).length / words.length;
+      })();
+
+      let type = 'fragment';
+      let confidence = 'low';
+      let reason = 'short label or fragment';
+
+      const firstLine = block.lines[0] || '';
+      const purePageNumber = /^(?:page\s*)?\d{1,4}$/i.test(flat);
+      const metadata = FURNITURE_MARKERS.test(flat) && flat.length <= 140;
+      const caption = CAPTION_MARKER.test(firstLine) || /^fig(?:ure)?\s*\.?\s*\d+/i.test(flat);
+      const compassOrScale = COMPASS_OR_SCALE.test(flat) || /^(?:[NESW]\s*){2,}[NESW]$/.test(flat);
+      const labelLike = lineCount <= 3 && wordCount <= 6 && !TERMINAL_PUNCTUATION.test(flat);
+
+      if (purePageNumber || metadata || (nearEdge && labelLike && charCount <= 90)) {
+        type = 'page_furniture';
+        confidence = 'high';
+        reason = purePageNumber ? 'short page-number fragment' : 'repeated running header or footer';
+      } else if (caption) {
+        type = 'caption';
+        confidence = 'high';
+        reason = 'figure or table caption';
+      } else if (rotated) {
+        type = 'diagram';
+        confidence = 'medium';
+        reason = 'rotated diagram label';
+      } else if (compassOrScale || (uppercaseRatio > 0.75 && charCount <= 80 && wordCount <= 8)) {
+        type = 'diagram';
+        confidence = 'medium';
+        reason = 'map label, compass letter or scale label';
+      } else if (lineCount <= 2 && wordCount >= 2 && wordCount <= 12 && charCount >= 8 && charCount <= 90 &&
+        !TERMINAL_PUNCTUATION.test(flat) && width > pageWidth * 0.25 && !COMPASS_OR_SCALE.test(flat)) {
+        type = 'heading';
+        confidence = 'high';
+        reason = 'short title-case heading spanning the text column';
+      } else if (labelLike && (charCount <= 40 || width < pageWidth * 0.35)) {
+        type = 'diagram';
+        confidence = 'medium';
+        reason = 'short diagram label';
+      } else if (lineCount >= 2 && width < pageWidth * 0.28 && averageLineLength < 30) {
+        type = 'fragment';
+        confidence = 'low';
+        reason = 'narrow sidebar column of short lines';
+      } else if (block.lines.length >= 2 && block.lines.every((line) => line.split(/\s+/).length <= 6) && width > pageWidth * 0.4) {
+        type = 'table';
+        confidence = 'medium';
+        reason = 'row-aligned short table cells';
+      } else if (lineCount <= 2 && charCount <= 100 && (!TERMINAL_PUNCTUATION.test(flat) || /bold/i.test(block.items.map((item) => item.fontName).join(' ')))) {
+        type = 'heading';
+        confidence = 'high';
+        reason = 'short heading line';
+      } else {
+        const proseLines = lineCount >= 2 && charCount >= 50 && averageLineLength >= 25 && lowerWordRatio >= 0.5;
+        const proseSentence = lineCount === 1 &&
+          flat.length >= 50 &&
+          wordCount >= 8 &&
+          TERMINAL_PUNCTUATION.test(flat) &&
+          !FIGURE_TABLE_MARKER.test(flat);
+        const mixed = FIGURE_TABLE_MARKER.test(flat) || /(?:[A-Z]\s+){2,}[A-Z]/.test(flat);
+        if ((proseLines || proseSentence) && !mixed) {
+          type = 'body';
+          confidence = lineCount >= 2 ? 'high' : 'medium';
+          reason = 'aligned prose lines';
+        } else if (charCount >= 40 && mixed) {
+          type = 'ambiguous';
+          confidence = 'low';
+          reason = 'mixed prose and label content';
+        } else if (charCount >= 40 && lineCount >= 2 && averageLineLength >= 20) {
+          type = 'ambiguous';
+          confidence = 'low';
+          reason = 'prose-like block without a reliable paragraph shape';
+        } else {
+          type = 'fragment';
+          confidence = 'low';
+          reason = 'short label or fragment';
+        }
+      }
+
+      return {
+        id: 'P' + pageNo + '-B' + (index + 1),
+        pageNumber: pageNo,
+        type,
+        text,
+        bbox: {
+          x: Math.round(block.x0 * 10) / 10,
+          y: Math.round(block.top * 10) / 10,
+          width: Math.round(width * 10) / 10,
+          height: Math.round(height * 10) / 10
+        },
+        itemCount: block.items.length,
+        confidence,
+        reason
+      };
+    });
+
+    // 5. Detect genuine columns from block geometry, never a fixed x cutoff.
+    function detectGutter(contentBlocks) {
+      if (contentBlocks.length < 6) return null;
+      const candidates = [];
+      for (const left of contentBlocks) {
+        const leftEdge = left.bbox.x + left.bbox.width;
+        for (const right of contentBlocks) {
+          const rightEdge = right.bbox.x;
+          const gutterWidth = rightEdge - leftEdge;
+          if (gutterWidth < pageWidth * 0.04) continue;
+          if (gutterWidth > pageWidth * 0.5) continue;
+          const leftCount = contentBlocks.filter((block) => block.bbox.x + block.bbox.width <= leftEdge + 0.5).length;
+          const rightCount = contentBlocks.filter((block) => block.bbox.x >= rightEdge - 0.5).length;
+          if (leftCount < 3 || rightCount < 3) continue;
+          const crossing = contentBlocks.filter((block) =>
+            block.bbox.x < rightEdge && block.bbox.x + block.bbox.width > leftEdge
+          ).length;
+          if (crossing > Math.floor(contentBlocks.length * 0.15)) continue;
+          candidates.push({ start: leftEdge, end: rightEdge, width: gutterWidth, leftCount, rightCount, crossing });
+        }
+      }
+      if (!candidates.length) return null;
+      candidates.sort((a, b) => (b.width - a.width) || (a.start - b.start));
+      return candidates[0];
+    }
+
+    const contentRecords = records.filter((record) => record.type !== 'page_furniture');
+    const gutter = detectGutter(contentRecords);
+    let ordered = records.slice().sort((a, b) => readingOrder(
+      { x: a.bbox.x, y: a.bbox.y },
+      { x: b.bbox.x, y: b.bbox.y }
+    ));
+
+    if (gutter) {
+      const left = [];
+      const right = [];
+      const full = [];
+      for (const record of records) {
+        const rightEdge = record.bbox.x + record.bbox.width;
+        if (rightEdge <= gutter.start + 0.5) left.push(record);
+        else if (record.bbox.x >= gutter.end - 0.5) right.push(record);
+        else full.push(record);
+      }
+      if (left.length && right.length) {
+        const columnTop = Math.min.apply(null, left.concat(right).map((record) => record.bbox.y));
+        const columnBottom = Math.max.apply(null, left.concat(right).map((record) => record.bbox.y + record.bbox.height));
+        const above = [];
+        const below = [];
+        const middle = [];
+        for (const record of full) {
+          const bottom = record.bbox.y + record.bbox.height;
+          if (bottom <= columnTop + 2) above.push(record);
+          else if (record.bbox.y >= columnBottom - 2) below.push(record);
+          else middle.push(record);
+        }
+        const byTop = (a, b) => readingOrder({ x: a.bbox.x, y: a.bbox.y }, { x: b.bbox.x, y: b.bbox.y });
+        ordered = above.sort(byTop)
+          .concat(left.sort(byTop))
+          .concat(right.sort(byTop))
+          .concat(below.sort(byTop))
+          .concat(middle.sort(byTop));
+      }
+    }
+
+    const bodyBlocks = ordered.filter((record) => record.type === 'body');
+    const bodyText = bodyBlocks
+      .map((record) => record.text.replace(/\s*\n\s*/g, ' ').replace(/\s+/g, ' ').trim())
+      .filter(Boolean)
+      .join('\n\n');
+
+    return {
+      pageNumber: pageNo,
+      bodyText,
+      blocks: ordered,
+      stats: {
+        textItemCount: items.length,
+        blockCount: records.length,
+        bodyBlockCount: bodyBlocks.length,
+        nonProseBlockCount: records.length - bodyBlocks.length,
+        gutter: gutter ? { start: gutter.start, end: gutter.end, width: gutter.width } : null,
+        pageWidth,
+        pageHeight
+      }
+    };
+  }
+
+  function getLastLayoutDiagnostics() {
+    return {
+      pages: lastLayoutDiagnostics.slice(),
+      extraction: lastExtractionMeta ? Object.assign({}, lastExtractionMeta) : null
+    };
+  }
 
   function abortError() {
     const err = new Error('Processing cancelled.');
@@ -24,445 +497,13 @@
     if (isAborted(options)) throw abortError();
   }
 
-  // ---------------------------------------------------------------------------
-  // Shared geometry-aware page-layout extraction (Repair 002, Phase 2).
-  //
-  // This is the single production layout algorithm. It works from real
-  // PDF.js text content and viewport geometry — never from a flat
-  // `content.items.map(item => item.str).join(' ')` join, which destroys
-  // column, paragraph and page structure.
-  //
-  // PDF.js coordinates: item.transform[4] is x and item.transform[5] is y
-  // measured from the bottom-left of the page, in the same units as
-  // item.width / item.height. The viewport converts that to a top-down
-  // bbox: yTop = viewport.height - yBottom - height.
-  // ---------------------------------------------------------------------------
-
-  function medianValue(values) {
-    if (!values.length) return 0;
-    const sorted = values.slice().sort((a, b) => a - b);
-    const mid = Math.floor(sorted.length / 2);
-    return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
-  }
-
-  function normalizeLayoutItem(item, index) {
-    if (!item || typeof item.str !== 'string') return null;
-    const text = item.str;
-    if (!text.trim()) return null;
-    const transform = Array.isArray(item.transform) ? item.transform : [1, 0, 0, 1, 0, 0];
-    const x = Number.isFinite(transform[4]) ? transform[4] : 0;
-    const yBottom = Number.isFinite(transform[5]) ? transform[5] : 0;
-    const width = Number.isFinite(item.width) && item.width > 0 ? item.width : Math.max(1, text.trim().length * 5);
-    const height = Number.isFinite(item.height) && item.height > 0 ? item.height : 12;
-    return { index: index, str: text, x: x, yBottom: yBottom, width: width, height: height };
-  }
-
-  const RUNNING_TITLE_PATTERNS = [
-    /\bexploring society\b/i,
-    /\bindia and the world\b/i,
-    /\bgovernance and democracy\b/i,
-    /\beconomic life\b/i,
-    /\btapestry of the past\b/i,
-    /\bour cultural heritage\b/i,
-    /\bchapter\s+\d+\.indd\b/i
-  ];
-
-  function isRunningFurniture(segment, pageHeight) {
-    const inTopMargin = segment.yTop < pageHeight * 0.09;
-    const inBottomMargin = segment.yTop + segment.height > pageHeight * 0.91;
-    const text = segment.text.trim();
-    // Phase 8 fix: a running book title is furniture wherever it repeats,
-    // not only in the extreme margin. NCERT running footers sit at about
-    // 83% of page height (y ~650 on a 785pt page), below the 91% threshold,
-    // so the margin test alone missed them and they merged into body
-    // text. A segment that *starts* with a running title pattern is a
-    // title line, not a body sentence that merely mentions the book.
-    if (RUNNING_TITLE_PATTERNS.some((re) => re.test(text)) && /^(exploring society|india and the world|governance and democracy|economic life|tapestry of the past|our cultural heritage)/i.test(text)) return true;
-    if (!inTopMargin && !inBottomMargin) return false;
-    if (/^\d+$/.test(text)) return true;
-    if (RUNNING_TITLE_PATTERNS.some((re) => re.test(text))) return true;
-    if (/^\d+\s*[-–]\s*.+/.test(text) && text.length <= 60) return true;
-    return false;
-  }
-
-  function isCaptionText(text) {
-    return /^(fig\.|figure|photo|table|map)\s*\d+/i.test(text.trim());
-  }
-
-  function isDiagramCandidateText(text, height, medianHeight) {
-    const t = text.trim();
-    if (/^[NESW]$/.test(t)) return true;
-    if (/^(legend|route|city|scale)$/i.test(t)) return true;
-    if (/^0$|^\d{1,4}(,\d{3})*\s*km$/i.test(t)) return true;
-    if (/^([A-Za-z]\s+){2,}[A-Za-z]$/.test(t)) return true;
-    if (/^[A-Za-z]\s+[A-Za-z]$/.test(t)) return true;
-    // An isolated all-caps label is only a diagram label when it is short
-    // and small; a lone uppercase line is never enough on its own (see
-    // the diagram-context check in extractLayoutFromTextContent).
-    if (height <= medianHeight && /^[A-Z]{3,}$/.test(t) && t.length <= 20) return true;
-    return false;
-  }
-
-  function isHeadingCandidate(segment, medianHeight) {
-    const text = segment.text.trim();
-    const words = text.split(/\s+/).filter(Boolean);
-    if (words.length === 0 || words.length > 10) return false;
-    if (/^\d+(\.\d+)*\s+\S/.test(text)) return true;
-    if (/^chapter\s+\d+/i.test(text)) return true;
-    if (segment.height >= medianHeight * 1.25 && text.length <= 60) return true;
-    if (segment.isFullWidth && words.length <= 8 && /^[A-Z][a-z]/.test(text) && segment.height >= medianHeight) return true;
-    return false;
-  }
-
-  function extractLayoutFromTextContent(content, pageNumber, viewport) {
-    const rawItems = content && Array.isArray(content.items) ? content.items : [];
-    const normalized = [];
-    rawItems.forEach((item, index) => {
-      const norm = normalizeLayoutItem(item, index);
-      if (norm) normalized.push(norm);
-    });
-
-    const vp = viewport || (content && content.viewport) || null;
-    let pageWidth = vp && Number.isFinite(vp.width) && vp.width > 0 ? vp.width : 0;
-    let pageHeight = vp && Number.isFinite(vp.height) && vp.height > 0 ? vp.height : 0;
-    if (!pageWidth) pageWidth = Math.max.apply(null, normalized.map((it) => it.x + it.width).concat([612]));
-    if (!pageHeight) pageHeight = Math.max.apply(null, normalized.map((it) => it.yBottom + it.height).concat([792]));
-
-    const items = normalized.map((it) => {
-      const yTop = pageHeight - it.yBottom - it.height;
-      return Object.assign({}, it, {
-        yTop: yTop,
-        bbox: { x: it.x, y: yTop, width: it.width, height: it.height, x1: it.x + it.width, y1: yTop + it.height }
-      });
-    });
-
-    const medianHeight = medianValue(items.map((it) => it.height)) || 12;
-    const lineTolerance = Math.max(2.5, 0.4 * medianHeight);
-    const gapThreshold = Math.max(18, 1.5 * medianHeight);
-    const paragraphGap = Math.max(8, 0.8 * medianHeight);
-
-    // 1. Cluster into y-bands, then split each band into segments at
-    //    meaningful horizontal gaps (positions + widths, not a fixed split).
-    const sorted = items.slice().sort((a, b) => (a.yTop - b.yTop) || (a.x - b.x));
-    const bands = [];
-    for (const item of sorted) {
-      const band = bands.length ? bands[bands.length - 1] : null;
-      if (band && Math.abs(item.yTop - band.yTop) <= lineTolerance) {
-        band.items.push(item);
-      } else {
-        bands.push({ yTop: item.yTop, items: [item] });
-      }
-    }
-    const segments = [];
-    for (const band of bands) {
-      const bandItems = band.items.slice().sort((a, b) => a.x - b.x);
-      let current = [bandItems[0]];
-      for (let i = 1; i < bandItems.length; i++) {
-        const prev = bandItems[i - 1];
-        const gap = bandItems[i].x - (prev.x + prev.width);
-        if (gap > gapThreshold) {
-          segments.push(current);
-          current = [bandItems[i]];
-        } else {
-          current.push(bandItems[i]);
-        }
-      }
-      segments.push(current);
-    }
-    const segmentObjs = segments.map((segItems) => {
-      const x0 = Math.min.apply(null, segItems.map((it) => it.x));
-      const x1 = Math.max.apply(null, segItems.map((it) => it.x + it.width));
-      const yTop = Math.min.apply(null, segItems.map((it) => it.yTop));
-      const height = Math.max.apply(null, segItems.map((it) => it.yTop + it.height)) - yTop;
-      return {
-        items: segItems,
-        x0: x0, x1: x1, yTop: yTop, height: height,
-        text: segItems.map((it) => it.str).join(' ').replace(/\s+/g, ' ').trim(),
-        isFullWidth: false
-      };
-    });
-
-    // 2. Dynamic gutter detection: >=4% of page width, >=3 blocks on each
-    //    side, <=15% of segments crossing it. Widest qualifying gap wins.
-    let gutter = null;
-    if (segmentObjs.length >= 6) {
-      const candidates = [];
-      for (const band of bands) {
-        const bandSegs = segmentObjs.filter((s) => Math.abs(s.yTop - band.yTop) <= lineTolerance);
-        const ordered = bandSegs.slice().sort((a, b) => a.x0 - b.x0);
-        for (let i = 0; i + 1 < ordered.length; i++) {
-          const gapStart = ordered[i].x1;
-          const gapEnd = ordered[i + 1].x0;
-          const width = gapEnd - gapStart;
-          if (width < 0.04 * pageWidth) continue;
-          const left = segmentObjs.filter((s) => s.x1 <= gapStart).length;
-          const right = segmentObjs.filter((s) => s.x0 >= gapEnd).length;
-          const crossing = segmentObjs.filter((s) => s.x0 < gapStart && s.x1 > gapEnd).length;
-          if (left >= 3 && right >= 3 && crossing <= 0.15 * segmentObjs.length) {
-            candidates.push({ gapStart: gapStart, gapEnd: gapEnd, width: width, left: left, right: right, crossing: crossing });
-          }
-        }
-      }
-      candidates.sort((a, b) => (b.width - a.width) || (a.crossing - b.crossing) || ((b.left + b.right) - (a.left + a.right)));
-      if (candidates.length) gutter = candidates[0];
-    }
-    for (const seg of segmentObjs) {
-      if (gutter) {
-        if (seg.x0 < gutter.gapStart && seg.x1 > gutter.gapEnd) seg.isFullWidth = true;
-        seg.column = seg.isFullWidth ? 'full' : (seg.x1 <= gutter.gapStart ? 'left' : (seg.x0 >= gutter.gapEnd ? 'right' : 'full'));
-        if (seg.column === 'full' && !seg.isFullWidth) seg.isFullWidth = true;
-      } else {
-        seg.column = 'single';
-      }
-    }
-
-    // 3. Table-band detection: runs of >=2 bands each with >=3 segments.
-    const tableSegmentSet = new Set();
-    {
-      let run = [];
-      const flushRun = () => {
-        if (run.length >= 2) {
-          for (const seg of run) tableSegmentSet.add(seg);
-        }
-        run = [];
-      };
-      for (const band of bands) {
-        const bandSegs = segmentObjs.filter((s) => Math.abs(s.yTop - band.yTop) <= lineTolerance);
-        if (bandSegs.length >= 3) run.push.apply(run, bandSegs);
-        else flushRun();
-      }
-      flushRun();
-    }
-
-    // 4. Pre-classify segments; diagram labels need context (at least two
-    //    diagram-like segments on the page, or a strong compass/scale/legend
-    //    pattern) so a lone uppercase line is not silently treated as a label.
-    const diagramCandidateCount = segmentObjs.filter((s) => isDiagramCandidateText(s.text, s.height, medianHeight)).length;
-    for (const seg of segmentObjs) {
-      seg.preType = null;
-      if (isRunningFurniture(seg, pageHeight)) seg.preType = 'page_furniture';
-      else if (isCaptionText(seg.text)) seg.preType = 'caption';
-      else if (tableSegmentSet.has(seg)) seg.preType = 'table';
-      else if (isDiagramCandidateText(seg.text, seg.height, medianHeight)) {
-        const strong = /^[NESW]$/.test(seg.text.trim()) || /^(legend|route|city|scale)$/i.test(seg.text.trim()) || /^0$|^\d{1,4}(,\d{3})*\s*km$/i.test(seg.text.trim());
-        if (strong || diagramCandidateCount >= 2) seg.preType = 'diagram';
-      }
-      else if (isHeadingCandidate(seg, medianHeight)) seg.preType = 'heading';
-    }
-
-    // 5. Group body segments into paragraphs by column, alignment and
-    //    vertical spacing. Pre-classified segments stay as own blocks.
-    const blocks = [];
-    const pushBlock = (segs, forcedType) => {
-      if (!segs.length) return;
-      const text = segs.map((s) => s.text).join(' ').replace(/\s+/g, ' ').trim();
-      if (!text) return;
-      const yTop = Math.min.apply(null, segs.map((s) => s.yTop));
-      const x0 = Math.min.apply(null, segs.map((s) => s.x0));
-      const x1 = Math.max.apply(null, segs.map((s) => s.x1));
-      const height = Math.max.apply(null, segs.map((s) => s.yTop + s.height)) - yTop;
-      const itemCount = segs.reduce((n, s) => n + s.items.length, 0);
-      blocks.push({
-        segments: segs, text: text, yTop: yTop, x0: x0, x1: x1, height: height,
-        itemCount: itemCount, column: segs[0].column,
-        isFullWidth: segs.every((s) => s.isFullWidth),
-        forcedType: forcedType || null
-      });
-    };
-
-    // Table blocks: one block per contiguous run of table segments.
-    if (tableSegmentSet.size) {
-      const tableSegs = segmentObjs.filter((s) => tableSegmentSet.has(s)).sort((a, b) => (a.yTop - b.yTop) || (a.x0 - b.x0));
-      // Group table segments by band (row) for the block text.
-      const rows = [];
-      for (const seg of tableSegs) {
-        const row = rows.length ? rows[rows.length - 1] : null;
-        if (row && Math.abs(seg.yTop - row.yTop) <= lineTolerance) row.segs.push(seg);
-        else rows.push({ yTop: seg.yTop, segs: [seg] });
-      }
-      const tableText = rows.map((r) => r.segs.slice().sort((a, b) => a.x0 - b.x0).map((s) => s.text).join(' | ')).join(' ; ');
-      const yTop = Math.min.apply(null, tableSegs.map((s) => s.yTop));
-      const x0 = Math.min.apply(null, tableSegs.map((s) => s.x0));
-      const x1 = Math.max.apply(null, tableSegs.map((s) => s.x1));
-      const height = Math.max.apply(null, tableSegs.map((s) => s.yTop + s.height)) - yTop;
-      blocks.push({
-        segments: tableSegs, text: tableText, yTop: yTop, x0: x0, x1: x1, height: height,
-        itemCount: tableSegs.reduce((n, s) => n + s.items.length, 0), column: 'full',
-        isFullWidth: true, forcedType: 'table'
-      });
-    }
-
-    const bodySegsByColumn = {};
-    for (const seg of segmentObjs) {
-      if (seg.preType) {
-        pushBlock([seg], seg.preType);
-      } else if (!tableSegmentSet.has(seg)) {
-        (bodySegsByColumn[seg.column] = bodySegsByColumn[seg.column] || []).push(seg);
-      }
-    }
-    for (const column of Object.keys(bodySegsByColumn)) {
-      const colSegs = bodySegsByColumn[column].slice().sort((a, b) => (a.yTop - b.yTop) || (a.x0 - b.x0));
-      let current = [];
-      let prev = null;
-      const flush = () => { if (current.length) pushBlock(current, null); current = []; };
-      for (const seg of colSegs) {
-        if (prev) {
-          const gap = seg.yTop - (prev.yTop + prev.height);
-          const alignmentShift = Math.abs(seg.x0 - prev.x0);
-          if (gap > paragraphGap || alignmentShift > 40) flush();
-        }
-        current.push(seg);
-        prev = seg;
-      }
-      flush();
-    }
-
-    // 6. Final block classification (conservative: unclassifiable prose
-    //    becomes ambiguous, never silently merged into body prose).
-    const classified = blocks.map((block) => {
-      const text = block.text;
-      const words = text.split(/\s+/).filter(Boolean);
-      const letters = (text.match(/[A-Za-z]/g) || []).length;
-      const alphaRatio = text.length ? letters / text.length : 0;
-      let type = block.forcedType;
-      let reason = '';
-      let confidence = 0.9;
-      if (!type) {
-        if (words.length <= 3 && text.length <= 40) {
-          // A short complete sentence ("Rivers flow south.") is body
-          // prose, not a fragment; a short line without sentence
-          // punctuation or a verb is a fragment.
-          const sentenceLike = /[.!?]$/.test(text) && words.slice(1).some((w) => {
-            const clean = w.replace(/[^a-z]/gi, '').toLowerCase();
-            return /^(is|are|was|were|has|have|flow|flows|flood|floods|rise|rises|fall|falls|grow|grows)$/i.test(w)
-              || (clean.length > 3 && /s$/.test(clean) && !/ss$/.test(clean));
-          });
-          if (sentenceLike) {
-            type = 'body'; reason = 'Short complete sentence'; confidence = 0.85;
-          } else {
-            type = 'fragment'; reason = 'Short isolated line without paragraph structure'; confidence = 0.5;
-          }
-        } else if (alphaRatio < 0.5 || /_{2,}|\[?\.\.\.\]/.test(text)) {
-          type = 'ambiguous'; reason = 'Mostly non-alphabetic or placeholder content; not confident body prose'; confidence = 0.4;
-        } else if (words.length >= 4 && words.length <= 10 && !/[.!?]$/.test(text) && !/\b(is|are|was|were|has|have|had|causes?|leads?|means?|refers?)\b/i.test(text)) {
-          type = 'ambiguous'; reason = 'Short line without a clear assertion verb; preserved, not merged into prose'; confidence = 0.4;
-        } else {
-          type = 'body'; reason = 'Ordinary prose paragraph'; confidence = 0.9;
-        }
-      } else {
-        reason = type === 'page_furniture' ? 'Running header/footer in page margin'
-          : type === 'caption' ? 'Figure/table/photo caption'
-          : type === 'diagram' ? 'Diagram/map label'
-          : type === 'table' ? 'Tabular rows'
-          : type === 'heading' ? 'Heading'
-          : 'Pre-classified segment';
-        confidence = type === 'fragment' ? 0.5 : type === 'ambiguous' ? 0.4 : 0.85;
-      }
-      const allItems = [];
-      for (const seg of block.segments) for (const it of seg.items) allItems.push(it);
-      const bbox = {
-        x: block.x0, y: block.yTop, width: block.x1 - block.x0, height: block.height,
-        x1: block.x1, y1: block.yTop + block.height
-      };
-      return {
-        segments: block.segments, text: text, type: type, reason: reason, confidence: confidence,
-        itemCount: block.itemCount, yTop: block.yTop, column: block.column,
-        isFullWidth: block.isFullWidth, bbox: bbox
-      };
-    });
-
-    // 7. Reading order: full-width headings in geometric segments first
-    //    (column content before a heading, then the heading), then remaining
-    //    column content (left, then right), then full-width concluding
-    //    content. Single-column pages keep top-down order.
-    let ordered;
-    if (!gutter) {
-      ordered = classified.slice().sort((a, b) => (a.yTop - b.yTop) || (a.x0 - b.x0));
-    } else {
-      const headings = classified.filter((b) => b.type === 'heading' && b.isFullWidth).sort((a, b) => a.yTop - b.yTop);
-      const columns = classified.filter((b) => !b.isFullWidth);
-      const fullOthers = classified.filter((b) => b.isFullWidth && b.type !== 'heading').sort((a, b) => a.yTop - b.yTop);
-      const remaining = columns.slice();
-      ordered = [];
-      for (const heading of headings) {
-        const before = remaining.filter((b) => b.yTop < heading.yTop);
-        const leftBefore = before.filter((b) => b.column === 'left').sort((a, b) => a.yTop - b.yTop);
-        const rightBefore = before.filter((b) => b.column === 'right').sort((a, b) => a.yTop - b.yTop);
-        ordered.push.apply(ordered, leftBefore.concat(rightBefore));
-        for (const b of before) { const idx = remaining.indexOf(b); if (idx >= 0) remaining.splice(idx, 1); }
-        ordered.push(heading);
-      }
-      const leftRest = remaining.filter((b) => b.column === 'left').sort((a, b) => a.yTop - b.yTop);
-      const rightRest = remaining.filter((b) => b.column === 'right').sort((a, b) => a.yTop - b.yTop);
-      ordered.push.apply(ordered, leftRest.concat(rightRest));
-      ordered.push.apply(ordered, fullOthers);
-      // Any heading that was not full-width, or any block not yet placed,
-      // keeps its geometric position at the end of its segment.
-      const placed = new Set(ordered);
-      for (const b of classified) if (!placed.has(b)) ordered.push(b);
-    }
-
-    const finalBlocks = ordered.map((block, index) => ({
-      id: 'p' + pageNumber + '-b' + (index + 1),
-      pageNumber: pageNumber,
-      type: block.type,
-      text: block.text,
-      bbox: block.bbox,
-      itemCount: block.itemCount,
-      confidence: block.confidence,
-      reason: block.reason
-    }));
-
-    const countsByType = {};
-    for (const block of finalBlocks) countsByType[block.type] = (countsByType[block.type] || 0) + 1;
-    const bodyBlocks = finalBlocks.filter((b) => b.type === 'body');
-    const headingBlocks = finalBlocks.filter((b) => b.type === 'heading');
-    const bodyItemCount = bodyBlocks.reduce((n, b) => n + b.itemCount, 0);
-    const headingItemCount = headingBlocks.reduce((n, b) => n + b.itemCount, 0);
-    const bodyText = ordered.filter((b) => b.type === 'body' || b.type === 'heading').map((b) => b.text).join('\n\n');
-    const bodyOnlyText = bodyBlocks.map((b) => b.text).join('\n\n');
-
-    return {
-      pageNumber: pageNumber,
-      bodyText: bodyText,
-      bodyOnlyText: bodyOnlyText,
-      blocks: finalBlocks,
-      stats: {
-        totalItems: items.length,
-        bodyItems: bodyItemCount,
-        headingItems: headingItemCount,
-        excludedItems: items.length - bodyItemCount - headingItemCount,
-        blockCount: finalBlocks.length,
-        countsByType: countsByType,
-        gutter: gutter ? { x: (gutter.gapStart + gutter.gapEnd) / 2, gapStart: gutter.gapStart, gapEnd: gutter.gapEnd, width: gutter.width } : null,
-        pageWidth: pageWidth,
-        pageHeight: pageHeight,
-        fallback: false,
-        confidence: bodyBlocks.length ? 'high' : 'low'
-      }
-    };
-  }
-
-  async function extractPageLayout(page, pageNumber) {
-    const content = await page.getTextContent();
-    let viewport = null;
-    if (page && typeof page.getViewport === 'function') {
-      try { viewport = page.getViewport({ scale: 1 }); } catch (e) { viewport = null; }
-    }
-    return extractLayoutFromTextContent(content, pageNumber, viewport);
-  }
-
   async function loadPdfJs() {
     if (!pdfjsPromise) {
       pdfjsPromise = import('../vendor/pdfjs/pdf.mjs').then((pdfjs) => {
-        if (pdfjs.GlobalWorkerOptions && typeof document !== 'undefined' && document.baseURI) {
+        if (pdfjs.GlobalWorkerOptions) {
           pdfjs.GlobalWorkerOptions.workerSrc = new URL('./vendor/pdfjs/pdf.worker.mjs', document.baseURI).href;
         }
         return pdfjs;
-      }).catch((err) => {
-        // Do not cache a rejected loader: a later call may succeed.
-        pdfjsPromise = null;
-        throw err;
       });
     }
     return pdfjsPromise;
@@ -473,7 +514,7 @@
    * compressed streams, object streams, Unicode maps, and multi-page files.
    * Everything stays on the device.
    */
-  async function extractWithPdfJsInternal(arrayBuffer, onProgress, options) {
+  async function extractWithPdfJs(arrayBuffer, onProgress, options) {
     const opts = options || {};
     const pdfjs = await loadPdfJs();
     checkpointError(opts);
@@ -488,6 +529,18 @@
     const pages = (opts.initialPages || []).map((entry) => entry.text);
     const startPage = Math.max(1, Math.min(opts.startPage || 1, pdf.numPages + 1));
 
+    lastLayoutDiagnostics = [];
+    lastExtractionMeta = {
+      origin: 'pdf-layout',
+      pageCount: 0,
+      textItemCount: 0,
+      bodyPages: 0,
+      visitedPages: 0,
+      nonProseOnlyPages: 0,
+      ambiguousPages: 0,
+      blockTypes: {}
+    };
+
     if (onProgress) {
       onProgress({
         status: 'Reading ' + pdf.numPages + ' page' + (pdf.numPages === 1 ? '' : 's') + '…',
@@ -497,15 +550,28 @@
       });
     }
 
-    const pageLayouts = [];
     try {
       for (let pageNumber = startPage; pageNumber <= pdf.numPages; pageNumber++) {
         checkpointError(opts);
         const page = await pdf.getPage(pageNumber);
-        const layout = await extractPageLayout(page, pageNumber);
-        pageLayouts.push(layout);
-        const formatted = layout.bodyText ? `==Page ${pageNumber}==\n${layout.bodyText}` : null;
-        if (formatted) pages.push(formatted);
+        const viewport = page.getViewport({ scale: 1 });
+        const content = await page.getTextContent();
+        const layout = extractPageLayout(content, viewport, pageNumber);
+        lastLayoutDiagnostics.push(layout);
+
+        const meta = lastExtractionMeta;
+        meta.pageCount = pdf.numPages;
+        meta.visitedPages += 1;
+        meta.textItemCount += layout.stats.textItemCount;
+        if (layout.stats.bodyBlockCount > 0) meta.bodyPages += 1;
+        else if (layout.stats.textItemCount > 0) meta.nonProseOnlyPages += 1;
+        if (layout.blocks.some((block) => block.type === 'ambiguous')) meta.ambiguousPages += 1;
+        for (const block of layout.blocks) {
+          meta.blockTypes[block.type] = (meta.blockTypes[block.type] || 0) + 1;
+        }
+
+        const bodyText = layout.bodyText.trim();
+        if (bodyText) pages.push(`==Page ${pageNumber}==\n${bodyText}`);
         page.cleanup();
 
         if (onProgress) {
@@ -515,8 +581,15 @@
             completed: pageNumber,
             total: pdf.numPages,
             pageNumber: pageNumber,
-            pageText: formatted,
-            pageLayout: layout
+            pageText: bodyText ? `==Page ${pageNumber}==\n${bodyText}` : null,
+            layout: {
+              pageNumber: pageNumber,
+              stats: layout.stats,
+              blockTypes: layout.blocks.reduce((counts, block) => {
+                counts[block.type] = (counts[block.type] || 0) + 1;
+                return counts;
+              }, {})
+            }
           });
         }
       }
@@ -524,18 +597,7 @@
       try { await pdf.destroy(); } catch (e) { /* already closed */ }
     }
 
-    const text = pages.join('\n\n');
-    return { text: text, pages: pageLayouts };
-  }
-
-  async function extractWithPdfJs(arrayBuffer, onProgress, options) {
-    const result = await extractWithPdfJsInternal(arrayBuffer, onProgress, options);
-    return result.text;
-  }
-
-  async function extractWithPdfJsDetailed(arrayBuffer, onProgress, options) {
-    const result = await extractWithPdfJsInternal(arrayBuffer, onProgress, options);
-    return { text: result.text, pages: result.pages, fallbackUsed: false, primaryFailed: false };
+    return pages.join('\n\n');
   }
 
   /**
@@ -608,46 +670,31 @@
     throw new Error('No selectable text streams found in PDF. Note: Pure scanned image PDFs require OCR.');
   }
 
-  async function extractTextFromPDFDetailed(arrayBuffer, onProgress, options) {
+  async function extractTextFromPDF(arrayBuffer, onProgress, options) {
     const opts = options || {};
     let primaryError = null;
-    let primary = null;
     try {
-      primary = await extractWithPdfJsDetailed(arrayBuffer, onProgress, opts);
+      const text = await extractWithPdfJs(arrayBuffer, onProgress, opts);
+      const meta = lastExtractionMeta || {};
+      // A selectable-text PDF was read successfully: never re-run the
+      // unstructured regex fallback just because layout filtering left little
+      // body prose. That would reintroduce diagram labels as contaminated text.
+      if (Number(meta.textItemCount) > 0) return text;
+      primaryError = new Error('This PDF has no selectable text layer. It may be a scanned image PDF.');
     } catch (err) {
       if (isAborted(opts) || (err && err.name === 'AbortError')) throw abortError();
       primaryError = err;
     }
 
-    // Repair 002 fallback rule: a successfully parsed selectable-text PDF
-    // does NOT fall back to the unstructured extractor merely because the
-    // filtered body text is short. Fallback is permitted only when the
-    // primary extraction actually failed, or when it produced no accepted
-    // body text at all (no selectable text layer). Any non-empty primary
-    // result is returned as-is, with its low body-text status preserved
-    // in diagnostics rather than hidden by an unstructured join.
-    if (primary) {
-      const bodyChars = (primary.text || '').replace(/==Page \d+==/g, '').trim().length;
-      const hasBodyBlocks = (primary.pages || []).some((p) => (p.blocks || []).some((b) => b.type === 'body'));
-      if (bodyChars > 0 || hasBodyBlocks) {
-        return {
-          text: primary.text, pages: primary.pages, fallbackUsed: false,
-          primaryFailed: false, lowConfidence: bodyChars < 25,
-          diagnostics: primary.pages.map((p) => p.stats)
-        };
-      }
-      primaryError = new Error('This PDF has no selectable text layer. It may be a scanned image PDF.');
-    }
-
     checkpointError(opts);
     try {
       const fallbackText = await extractWithFallback(arrayBuffer, onProgress, opts);
-      return {
-        text: fallbackText, pages: [], fallbackUsed: true, primaryFailed: true,
-        primaryError: primaryError ? primaryError.message : null,
-        lowConfidence: true,
-        diagnostics: [{ fallback: true, confidence: 'low', reason: 'Unstructured fallback used after primary extraction produced no body text or failed' }]
-      };
+      lastExtractionMeta = Object.assign({}, lastExtractionMeta || {}, {
+        origin: 'pdf-regex-fallback',
+        layoutAware: false,
+        lowConfidence: true
+      });
+      return fallbackText;
     } catch (fallbackError) {
       if (isAborted(opts) || (fallbackError && fallbackError.name === 'AbortError')) throw abortError();
       if (primaryError && /password|encrypted/i.test(primaryError.message || '')) {
@@ -655,11 +702,6 @@
       }
       throw new Error('No readable text was found in this PDF. For a scanned document, choose a clear photo of the page so the on-device OCR can read it.');
     }
-  }
-
-  async function extractTextFromPDF(arrayBuffer, onProgress, options) {
-    const result = await extractTextFromPDFDetailed(arrayBuffer, onProgress, options);
-    return result.text;
   }
 
   function parsePdfTextOperators(streamText) {
@@ -740,12 +782,14 @@
 
     if (ext === 'pdf') {
       const buffer = await file.arrayBuffer();
-      const result = await extractTextFromPDFDetailed(buffer, onProgress, opts);
+      const text = await extractTextFromPDF(buffer, onProgress, opts);
+      const meta = lastExtractionMeta ? Object.assign({}, lastExtractionMeta) : null;
       return {
-        text: result.text, origin: 'pdf-text', confidence: null,
-        lowConfidence: Boolean(result.lowConfidence || result.fallbackUsed),
-        fallbackUsed: Boolean(result.fallbackUsed),
-        diagnostics: result.diagnostics || null
+        text,
+        origin: meta && meta.origin ? meta.origin : 'pdf-text',
+        confidence: null,
+        lowConfidence: Boolean(meta && meta.lowConfidence),
+        layout: meta
       };
     }
 
@@ -763,12 +807,11 @@
 
   const OfflineDocParser = {
     extractTextFromPDF,
-    extractTextFromPDFDetailed,
-    extractWithPdfJs,
     extractPageLayout,
-    extractLayoutFromTextContent,
+    getLastLayoutDiagnostics,
     readFileContentDetailed,
-    readFileContent
+    readFileContent,
+    BLOCK_TYPES
   };
 
   if (typeof module !== 'undefined' && module.exports) {

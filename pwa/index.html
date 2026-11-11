@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover, interactive-widget=resizes-content">
-  <title>StudySynth CTET — NCERT Social Science Practice & Revision</title>
-  <meta name="description" content="CTET Social Science (Classes 6 to 8) NCERT study companion. Verified practice questions, adaptive revision flashcards, and timed mock tests — 100% offline.">
+  <title>StudySynth — UGC NET Education (Code 09) Question Papers & Exam Simulator</title>
+  <meta name="description" content="UGC NET in Education (Code 09) offline exam study companion. Official previous year papers (2009–2026), verified answer keys, timed mock tests, and adaptive revision.">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#3943d3">
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="StudySynth CTET">
+  <meta name="apple-mobile-web-app-title" content="StudySynth">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" type="image/png" href="./assets/favicon.png">
@@ -33,14 +33,14 @@
         <div class="brand" id="brandLogo">
           <img src="./assets/logo.png" alt="StudySynth" class="brand-mark">
           <div class="brand-text">
-            <div class="brand-name">StudySynth CTET</div>
-            <div class="brand-sub">NCERT Social Science (6–8)</div>
+            <div class="brand-name">StudySynth</div>
+            <div class="brand-sub">UGC NET Education</div>
           </div>
         </div>
 
         <div class="set-title">
           <b id="setTitle">LIBRARY</b>
-          <span id="setTopic">Choose a PDF or saved set</span>
+          <span id="setTopic">UGC NET Education (Code 09)</span>
         </div>
 
         <div class="progress-wrap" aria-label="Question progress">
@@ -74,35 +74,28 @@
             <span class="mode-icon ms-icon" aria-hidden="true">library_books</span>
             <div>
               <b>Library</b>
-              <small>PDFs &amp; saved sets</small>
+              <small>Question Papers (2009–2026)</small>
             </div>
           </button>
           <button class="mode-item" data-mode="practice">
             <span class="mode-icon ms-icon" aria-hidden="true">lightbulb</span>
             <div>
-              <b>Practice</b>
-              <small>Instant feedback &amp; citation</small>
-            </div>
-          </button>
-          <button class="mode-item" data-mode="revision">
-            <span class="mode-icon ms-icon" aria-hidden="true">style</span>
-            <div>
-              <b>Revision</b>
-              <small>Adaptive spaced recall</small>
+              <b>Practice Mode</b>
+              <small>Instant feedback &amp; explanations</small>
             </div>
           </button>
           <button class="mode-item" data-mode="test">
             <span class="mode-icon ms-icon" aria-hidden="true">timer</span>
             <div>
-              <b>Exam Test</b>
-              <small>Timed evaluation</small>
+              <b>Exam Test Mode</b>
+              <small>Timed evaluation &amp; scoring</small>
             </div>
           </button>
-          <button class="mode-item" data-mode="generator">
-            <span class="mode-icon ms-icon" aria-hidden="true">bolt</span>
+          <button class="mode-item" data-mode="analysis">
+            <span class="mode-icon ms-icon" aria-hidden="true">insights</span>
             <div>
-              <b>Generator</b>
-              <small>Extract from notes / PDF</small>
+              <b>Analysis</b>
+              <small>Strengths, weak areas &amp; progress</small>
             </div>
           </button>
         </nav>
@@ -131,35 +124,123 @@
           <div id="qwork">
 
             <!-- QUIZ VIEW -->
-            <div id="quizView" class="view quiz-view">
+            <div id="quizView" class="view quiz-view" style="display:none;">
 
               <!-- Exam setup: shown before a timed test starts -->
               <section id="testSetup" class="test-setup" hidden aria-labelledby="testSetupTitle">
                 <div class="test-setup-card">
-                  <h2 id="testSetupTitle">Start an exam test</h2>
-                  <p id="testSetupModule" class="test-setup-module"></p>
-                  <div class="test-setup-grid">
-                    <label class="test-field" for="testQuestionCount">
-                      <span>Number of questions</span>
-                      <select id="testQuestionCount"></select>
-                    </label>
-                    <label class="test-field" for="testSecondsPerQuestion">
-                      <span>Time per question</span>
-                      <select id="testSecondsPerQuestion">
-                        <option value="30">30 seconds</option>
-                        <option value="45">45 seconds</option>
-                        <option value="60" selected>1 minute</option>
-                        <option value="90">1 minute 30 seconds</option>
-                        <option value="120">2 minutes</option>
-                      </select>
-                    </label>
+                  <div class="test-setup-header">
+                    <div class="test-header-icon"><span class="ms-icon" aria-hidden="true">timer</span></div>
+                    <div>
+                      <h2 id="testSetupTitle">Exam Test Mode</h2>
+                      <p class="test-setup-sub">Timed exam simulator with randomized questions &amp; live scoring</p>
+                    </div>
                   </div>
-                  <div class="test-setup-summary">
-                    <div><span>Total time</span><strong id="testTotalTime">10:00</strong></div>
-                    <div><span>Marking</span><strong>+2.00 / −0.66</strong></div>
+
+                  <!-- Official Full Exam Mocks -->
+                  <div class="test-section-box">
+                    <div class="test-box-title">
+                      <span class="ms-icon" aria-hidden="true">workspace_premium</span>
+                      <span>Official Exam Mocks (Full Syllabus Format)</span>
+                    </div>
+                    <p class="test-box-desc">Official question count, time limit, and topic-balanced distribution:</p>
+                    
+                    <div class="official-mock-grid">
+                      <!-- UGC NET Education Paper 2 Mock -->
+                      <div class="official-mock-card">
+                        <div class="mock-card-top">
+                          <span class="mock-badge ugc-badge">UGC NET Education</span>
+                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 120 Mins</span>
+                        </div>
+                        <div class="mock-card-title">Paper 2 Complete Mock</div>
+                        <div class="mock-card-meta">
+                          <span><b>100</b> Questions (10 per Unit)</span>
+                          <span><b>200</b> Marks (+2 / 0)</span>
+                        </div>
+                        <button type="button" class="btn btn-primary mock-start-btn" data-preset="ugc_net_full">
+                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start UGC NET Mock (100 Qs · 120 Mins)
+                        </button>
+                      </div>
+
+                      <!-- CTET Paper 2 Social Science & CDP Mock -->
+                      <div class="official-mock-card">
+                        <div class="mock-card-top">
+                          <span class="mock-badge ctet-badge">CTET Paper-II</span>
+                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 90 Mins</span>
+                        </div>
+                        <div class="mock-card-title">Social Science &amp; CDP Complete Mock</div>
+                        <div class="mock-card-meta">
+                          <span><b>90</b> Questions (30 CDP + 60 SST)</span>
+                          <span><b>90</b> Marks (+1 / 0)</span>
+                        </div>
+                        <button type="button" class="btn btn-primary mock-start-btn" data-preset="ctet_p2_full">
+                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET Paper-II Mock (90 Qs · 90 Mins)
+                        </button>
+                      </div>
+
+                      <!-- CTET CDP Section Mock -->
+                      <div class="official-mock-card">
+                        <div class="mock-card-top">
+                          <span class="mock-badge ctet-badge">CTET CDP</span>
+                          <span class="mock-time"><span class="ms-icon" aria-hidden="true">timer</span> 30 Mins</span>
+                        </div>
+                        <div class="mock-card-title">Child Development &amp; Pedagogy Section</div>
+                        <div class="mock-card-meta">
+                          <span><b>30</b> Questions (Units 1–6)</span>
+                          <span><b>30</b> Marks (+1 / 0)</span>
+                        </div>
+                        <button type="button" class="btn btn-secondary mock-start-btn" data-preset="ctet_p1_cdp">
+                          <span class="ms-icon" aria-hidden="true">play_arrow</span> Start CTET CDP Mock (30 Qs · 30 Mins)
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                  <button id="testStartBtn" class="btn btn-primary test-start-btn" type="button">Start test</button>
-                  <p class="test-setup-note">The timer starts immediately and keeps running if you switch screens. The test submits automatically when time runs out.</p>
+
+                  <!-- Custom Test Builder -->
+                  <div class="test-section-box custom-test-box">
+                    <div class="test-box-title">
+                      <span class="ms-icon" aria-hidden="true">assignment</span>
+                      <span>Custom Exam Test (Choose Questions &amp; Time)</span>
+                    </div>
+                    <p id="testSetupModule" class="test-setup-module" style="margin-top:0;margin-bottom:12px;"></p>
+                    
+                    <div class="test-setup-grid custom-grid">
+                      <label class="test-field" for="testScopeSelect" style="grid-column: 1 / -1;">
+                        <span>Choose Exam / Subject / Topic</span>
+                        <select id="testScopeSelect"></select>
+                      </label>
+                      
+                      <label class="test-field" for="testQuestionCount">
+                        <span>Number of Questions</span>
+                        <select id="testQuestionCount"></select>
+                      </label>
+                      
+                      <label class="test-field" for="testSecondsPerQuestion">
+                        <span>Time Per Question</span>
+                        <select id="testSecondsPerQuestion">
+                          <option value="30">30 seconds (Fast pace)</option>
+                          <option value="45">45 seconds</option>
+                          <option value="60" selected>60 seconds (1 min · CTET pace)</option>
+                          <option value="72">72 seconds (1.2 min · UGC NET pace)</option>
+                          <option value="90">90 seconds (1.5 min)</option>
+                          <option value="120">120 seconds (2 mins)</option>
+                        </select>
+                      </label>
+                    </div>
+
+                    <div class="test-setup-summary">
+                      <div><span>Questions</span><strong id="testSummaryQuestions">10</strong></div>
+                      <div><span>Total Time</span><strong id="testTotalTime">10:00</strong></div>
+                      <div><span>Marking</span><strong id="testSummaryMarking">+2.00 / 0</strong></div>
+                      <div><span>Order</span><strong style="color:var(--accent);">Randomized</strong></div>
+                    </div>
+
+                    <button id="testStartBtn" class="btn btn-primary test-start-btn" type="button">
+                      <span class="ms-icon" aria-hidden="true">play_arrow</span> Start Custom Test
+                    </button>
+                  </div>
+
+                  <p class="test-setup-note">Questions are shuffled randomly every test session. The timer starts immediately and auto-submits when time runs out.</p>
                 </div>
               </section>
 
@@ -200,13 +281,7 @@
 
             <!-- GENERATOR VIEW -->
             <div id="generatorView" class="view generator-view" style="display:none;">
-              <div class="view-inner">
-                <div class="view-heading">
-                  <div>
-                    <h2>Question Generator</h2>
-                  </div>
-                </div>
-
+              <div class="view-inner generator-inner">
                 <div id="dropZone" class="drop-zone" role="button" tabindex="0" aria-label="Choose a study document or note photo">
                   <div class="drop-icon"><span class="ms-icon" aria-hidden="true">upload_file</span></div>
                   <h3>Drop a study document, selectable PDF, or note photo</h3>
@@ -230,7 +305,6 @@
                   <span class="ms-icon" aria-hidden="true">bolt</span>
                   <span class="generate-label">Generate Quiz &amp; Study Package</span>
                 </button>
-                <p class="generator-note">Choose a file and questions are generated automatically — there is no second step. If scanned text is hard to read, you will be asked to review it before generating.</p>
               </div>
             </div>
 
@@ -326,22 +400,44 @@
             </div>
 
             <!-- LIBRARY VIEW -->
-            <div id="libraryView" class="view library-view" style="display:none;">
+            <div id="libraryView" class="view library-view" style="display:block;">
               <div class="view-inner">
                 <div class="view-heading">
                   <div>
                     <h2>Library</h2>
                   </div>
                 </div>
+                <div class="library-exam-switcher" role="tablist" aria-label="Select exam syllabus">
+                  <button id="examTabUgc" class="exam-tab active" type="button" data-exam="ugc_net" role="tab" aria-selected="true">
+                    <span class="ms-icon" aria-hidden="true">school</span>
+                    <span>UGC NET Education (Code 09)</span>
+                  </button>
+                  <button id="examTabCtet" class="exam-tab" type="button" data-exam="ctet" role="tab" aria-selected="false">
+                    <span class="ms-icon" aria-hidden="true">menu_book</span>
+                    <span>CTET (Teacher Eligibility)</span>
+                  </button>
+                </div>
                 <div class="library-toolbar">
                   <nav id="libBreadcrumbBar" class="lib-breadcrumb-bar" aria-label="Library navigation"></nav>
                   <div class="lib-search-box">
                     <span class="ms-icon" aria-hidden="true">search</span>
-                    <input id="libSearchInput" type="search" placeholder="Search chapters or papers..." aria-label="Search chapters or papers">
+                    <input id="libSearchInput" type="search" placeholder="Search questions, syllabus units or topics..." aria-label="Search chapters or papers">
                   </div>
-                  <button id="libraryGenerateBtn" class="btn btn-sm" type="button"><span class="ms-icon" aria-hidden="true">add</span><span>Add PDF or notes</span></button>
                 </div>
                 <div id="libraryContainer"></div>
+              </div>
+            </div>
+
+            <!-- ANALYSIS VIEW -->
+            <div id="analysisView" class="view analysis-view" style="display:none;">
+              <div class="view-inner">
+                <div class="view-heading">
+                  <div>
+                    <h2>Analysis</h2>
+                    <p id="analysisSub" class="view-sub">Performance across your completed mocks</p>
+                  </div>
+                </div>
+                <div id="analysisContainer"></div>
               </div>
             </div>
 
@@ -392,10 +488,8 @@
     <div class="modal-card process-card">
       <div class="process-head">
         <h2 id="processTitle">Preparing your study module</h2>
-        <p id="processJob" class="process-job" hidden></p>
         <p id="processMessage" class="process-message">Opening your document…</p>
         <p id="processNotice" class="process-notice" hidden></p>
-        <p id="processExpectation" class="process-expectation">Working on your document on this device.</p>
       </div>
 
       <div class="process-progress">
@@ -404,7 +498,6 @@
         </div>
         <div class="process-meta">
           <span id="processCount">Working</span>
-          <span id="processElapsed" class="process-elapsed" hidden></span>
           <span id="processPct" class="process-pct" hidden>0%</span>
         </div>
       </div>
@@ -444,6 +537,7 @@
         <button id="scoreReviewBtn" class="btn" type="button">Review answers</button>
         <button id="scoreRetakeBtn" class="btn btn-primary" type="button">Retake test</button>
       </div>
+      <button id="scoreAnalysisBtn" class="score-analysis-link" type="button">See how this fits your overall progress →</button>
       <button id="scoreCloseBtn" class="modal-close" type="button" aria-label="Close scorecard"><span class="ms-icon" aria-hidden="true">close</span></button>
     </div>
   </div>
@@ -453,7 +547,8 @@
     <div class="modal-card about-card">
       <img src="./assets/logo.png" alt="" class="about-mark">
       <h2 id="aboutTitle" class="about-title">StudySynth</h2>
-      <p class="about-summary">Turn your notes and PDFs into verified practice questions, adaptive revision, and timed exam tests. Everything runs on your device, fully offline.</p>
+      <p class="about-subtitle">UGC NET Education (Code 09)</p>
+      <p class="about-summary">Offline Previous Years Question Papers (2009–2026) and Exam Simulator for UGC NET Education (Subject Code 09). Complete syllabus practice across 10 official units with verified answer keys, timed evaluation, and zero distraction.</p>
       <p class="about-credit" aria-label="Built by usm007">Built with <span class="credit-heart ms-icon" aria-hidden="true">favorite</span> by usm007</p>
       <div class="modal-actions">
         <button id="aboutCloseBtn" class="btn btn-primary" type="button">Close</button>
@@ -471,24 +566,20 @@
   <!-- Offline Scripts -->
   <script src="./sample_data.js"></script>
   <script src="./ctet_index.js"></script>
-  <!-- Reasoning V2 dependency chain (Repair 002, Phase 6): engine_v2.js
-       captures its dependencies at load time, so every module it needs
-       must load before generator.js, in dependency order, exactly once.
-       Order: Types -> Linguistics -> Representation, Graph, Distractors
-       -> Operators -> Constructors -> Validator -> Ranking -> Engine V2. -->
+  <!-- Reasoning Engine V2: modules must load in dependency order before the
+       generator, which binds them at parse time. -->
   <script src="./engine/reasoning/types.js"></script>
   <script src="./engine/reasoning/linguistics.js"></script>
   <script src="./engine/reasoning/representation.js"></script>
   <script src="./engine/reasoning/graph.js"></script>
-  <script src="./engine/reasoning/distractors.js"></script>
   <script src="./engine/reasoning/operators.js"></script>
+  <script src="./engine/reasoning/distractors.js"></script>
   <script src="./engine/reasoning/constructors.js"></script>
   <script src="./engine/reasoning/validator.js"></script>
   <script src="./engine/reasoning/ranking.js"></script>
   <script src="./engine/reasoning/engine_v2.js"></script>
   <script src="./engine/generator.js"></script>
   <script src="./engine/analyze.js"></script>
-  <script src="./engine/pdfParser.js"></script>
   <script src="./engine/ocr.js"></script>
   <script src="./engine/storage.js"></script>
   <script src="./engine/jobs.js"></script>

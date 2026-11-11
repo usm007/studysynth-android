@@ -106,88 +106,83 @@
     if (premises.length === 0) {
       return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Proof trace premises are empty' };
     }
+    const premiseProps = [];
     for (const pid of premises) {
       const hasFact = context && Array.isArray(context.facts) && context.facts.some((f) => f.fact_id === pid);
-      const hasProp = graph && typeof graph.getProposition === 'function' && Boolean(graph.getProposition(pid));
-      if (!hasFact && !hasProp) {
+      const propNode = graph && typeof graph.getProposition === 'function' ? graph.getProposition(pid) : null;
+      if (!hasFact && !propNode) {
         return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: `Premise ${pid} does not resolve to a verified fact or proposition` };
       }
+      if (propNode) premiseProps.push(propNode);
     }
 
-    // Phase 8 fix: evidence must be standalone and complete, and derived
-    // concepts must not be fragments. A figure reference, a running book
-    // title, or a dangling fragment in the excerpt, or a fragment cause /
-    // effect in the derived proposition, rejects the candidate — the
-    // bank must produce fewer questions rather than publish these.
-    function isFragmentPhraseValidator(text) {
-      const t = String(text || '').trim();
-      if (!t || t.length < 2) return true;
-      if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(t)) return true;
-      if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)) return true;
-      if (/\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t)) return true;
-      if (t.includes(';') || t.includes('|')) return true;
-      if (/^[^A-Za-z0-9]+/.test(t)) return true;
-      if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(t)) return true;
-      return false;
+    // 7b. Operator-specific proof contract
+    const operatorId = candidate.primary_operator || candidate.proof_trace.operator;
+    const PRODUCTION_OPERATORS = [
+      'OP_B_CAUSAL_EXPLANATION',
+      'OP_C_CAUSAL_CHAIN',
+      'OP_F_PROCESS_SEQUENCE',
+      'OP_H_CATEGORY_INFERENCE',
+      'OP_I_EXCEPTION_REASONING',
+      'OP_J_CONTRASTIVE_EXPLANATION'
+    ];
+    if (!PRODUCTION_OPERATORS.includes(operatorId)) {
+      return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: `Operator ${operatorId} is not enabled for production questions` };
     }
-    if (candidate.supporting_excerpt) {
-      if (/\(Fig\.|Fig\.\s*\d|Figure\s+\d/i.test(candidate.supporting_excerpt)) {
-        return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Supporting excerpt depends on a figure reference' };
-      }
-      if (/\bexploring society\b/i.test(candidate.supporting_excerpt) && /\bgrade\b/i.test(candidate.supporting_excerpt)) {
-        return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Supporting excerpt is a running book title' };
-      }
+    if (premiseProps.length !== premises.length) {
+      return { valid: false, code: REJECTION_CODES.UNSUPPORTED_PREMISE, message: 'Every premise must resolve to a graph proposition' };
     }
-    for (const opt of candidate.options) {
-      const influenceMatch = opt.text && opt.text.match(/without influencing\s+(.+)$/i);
-      if (influenceMatch && isFragmentPhraseValidator(influenceMatch[1])) {
-        return { valid: false, code: REJECTION_CODES.INSUFFICIENT_DISTRACTORS, message: 'Distractor concept is a fragment' };
+
+    const derived = candidate.derived_proposition;
+    const sameConcept = (a, b) => Boolean(normalize(a)) && normalize(a) === normalize(b);
+    if (operatorId === 'OP_B_CAUSAL_EXPLANATION') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['CAUSES', 'LEADS_TO', 'PRODUCES'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.object, premise.subject) || !sameConcept(derived.subject, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Causal explanation must invert exactly one verified causal premise' };
+      }
+    } else if (operatorId === 'OP_C_CAUSAL_CHAIN') {
+      if (premises.length !== 2 ||
+          !sameConcept(premiseProps[0].object, premiseProps[1].subject) ||
+          !derived || !sameConcept(derived.subject, premiseProps[0].subject) || !sameConcept(derived.object, premiseProps[1].object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Causal chain must traverse a shared intermediate concept' };
+      }
+    } else if (operatorId === 'OP_F_PROCESS_SEQUENCE') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['PRECEDES', 'FOLLOWS'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.subject, premise.subject) || !sameConcept(derived.object, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Sequence question must preserve the stated order' };
+      }
+    } else if (operatorId === 'OP_H_CATEGORY_INFERENCE') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !['INSTANCE_OF', 'DEFINITION_OF'].includes(premise.relation_type) ||
+          !derived || !sameConcept(derived.object, premise.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Category question must preserve the stated category' };
+      }
+    } else if (operatorId === 'OP_I_EXCEPTION_REASONING') {
+      const premise = premiseProps[0];
+      if (premises.length !== 1 ||
+          !(premise.relation_type === 'EXCEPTION_TO' || premise.exception) ||
+          !derived || !sameConcept(derived.object, premise.subject)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Exception question must preserve the stated general rule' };
+      }
+    } else if (operatorId === 'OP_J_CONTRASTIVE_EXPLANATION') {
+      const a = premiseProps[0];
+      const b = premiseProps[1];
+      if (premises.length !== 2 ||
+          a.relation_type !== b.relation_type ||
+          normalize(a.predicate) !== normalize(b.predicate) ||
+          sameConcept(a.subject, b.subject) ||
+          sameConcept(a.object, b.object)) {
+        return { valid: false, code: REJECTION_CODES.UNVERIFIED_TRANSFORMATION, message: 'Contrast question requires a shared predicate on distinct values' };
       }
     }
 
     // 8. Derived proposition entailment check
-    const derived = candidate.derived_proposition;
     if (derived) {
-      if (isFragmentPhraseValidator(derived.subject) || isFragmentPhraseValidator(derived.object)) {
-        return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived proposition subject or object is a fragment' };
-      }
-      // Phase 8 fix (second round, causal only): derived effect must be a
-      // clean concept. Other operators may legitimately use lists, so
-      // these gates apply only to causal_reasoning candidates.
-      if (candidate.question_subtype === 'conditional_reasoning') {
-        if (derived.subject.split(/\s+/).filter(Boolean).length > 12 || derived.object.split(/\s+/).filter(Boolean).length > 12) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Conditional argument is a sentence, not a concept' };
-        }
-        if (derived.subject.includes(',') || /^(it|they|you|he|she|we)\b/i.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Conditional outcome is a clause, not a concept' };
-        }
-      }
-      if (candidate.question_subtype === 'causal_reasoning') {
-        if (/^(involving|including|leading|resulting|causing|following|concerning)\b/i.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect starts with a participle, not a standalone concept' };
-        }
-        if (/\band\s+(integrates?|promotes?|includes?|involves?|leads?|causes?|provides?|creates?|makes?|allows?|enables?|supports?|encourages?|drives?|enhances?|reduces?|increases?|decreases?)\b/i.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect is a compound predicate, not a single concept' };
-        }
-        if (/^(it|they|you|he|she|we)\b/i.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect starts with a pronoun, not a standalone concept' };
-        }
-        if (derived.subject.split(/\s+/).filter(Boolean).length > 12 || derived.object.split(/\s+/).filter(Boolean).length > 12) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived causal argument is a sentence, not a concept' };
-        }
-        if (/[.?]\s+\S/.test(derived.subject) || /\s[ab]\)\s/.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect contains a second sentence or list marker' };
-        }
-        if (derived.subject.includes(',') || /\band\s+(is|are|was|were|has|have)\b/i.test(derived.subject)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived effect is a compound clause, not a single concept' };
-        }
-        if (derived.object.includes(':')) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Derived cause is a heading, not a concept' };
-        }
-        if (candidate.supporting_excerpt && /\bis called\b|\bknown as\b/i.test(candidate.supporting_excerpt) && /\bbecause\b/i.test(candidate.supporting_excerpt)) {
-          return { valid: false, code: REJECTION_CODES.PRECONDITION_NOT_MET, message: 'Naming explanation is not a causal mechanism' };
-        }
-      }
       if (derived.modality === 'possibility') {
         return { valid: false, code: REJECTION_CODES.SPECULATIVE_MODALITY, message: 'Derived proposition is speculative' };
       }

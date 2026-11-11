@@ -4,6 +4,14 @@
  * Produces plausible, grammatically matched distractors derived from
  * specific reasoning errors (reversed causality, condition inversion,
  * comparison flipping, scope overgeneralization) and verifies them against the graph.
+ *
+ * Integrity rules:
+ *  - every option is typed and traceable to the source graph;
+ *  - a value the source asserts for the same subject is never offered;
+ *  - options are same-kind (relation values first, then source entities);
+ *  - when fewer than three defensible options exist the operator returns
+ *    nothing and the candidate is rejected instead of being backfilled with
+ *    unrelated filler.
  */
 
 (function (global) {
@@ -20,22 +28,19 @@
   const { RELATION_TYPES, DISTRACTOR_TYPES } = Types;
 
   function normalize(str) {
-    return String(str || '').toLowerCase().trim();
+    return String(str || '').toLowerCase().replace(/\s+/g, ' ').trim();
   }
 
-  // Phase 8 fix: a distractor object that is a bare pronoun, a preposition
-  // phrase, or a dangling fragment ("It", "to", "of the", "which") makes
-  // the whole distractor malformed, even if the template is grammatical.
-  function isFragmentObject(raw) {
-    const text = String(raw || '').trim();
-    if (!text || text.length < 2) return true;
-    if (/^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text)) return true;
-    if (/^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(text)) return true;
-    if (/\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(text)) return true;
-    if (text.includes(';') || text.includes('|')) return true;
-    if (/^[^A-Za-z0-9]+/.test(text)) return true;
-    if (/\b(would|could|should|will|can|may|might)\s*[.!?]?\s*$/.test(text)) return true;
-    return false;
+  function cleanOption(text) {
+    return String(text || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/^[,.;:)\]]+\s*/, '')
+      .replace(/[,.;:]+$/, '');
+  }
+
+  function graphPropositions(graph) {
+    return graph && typeof graph.getAllPropositions === 'function' ? graph.getAllPropositions() : [];
   }
 
   /**
@@ -43,198 +48,145 @@
    */
   function generateMisconceptionDistractors(derivedProp, correctAnswerText, operatorId, graph) {
     const distractors = [];
-    const usedTexts = new Set([normalize(correctAnswerText)]);
+    const correct = normalize(correctAnswerText);
+    const usedTexts = new Set([correct]);
+    const props = graphPropositions(graph);
+    const relation = derivedProp.relation_type;
 
     function addDistractor(text, distractorOrigin, transformationType) {
-      if (!text || typeof text !== 'string') return false;
-      const clean = text.trim();
+      const clean = cleanOption(text);
+      if (!clean || clean.length < 3 || clean.length > 140) return false;
+      // A distractor is shown verbatim: it must be a complete, concise phrase.
+      if (!Linguistics.isSafeSpan(clean, 140)) return false;
       const norm = normalize(clean);
-      if (clean.length < 3 || usedTexts.has(norm)) return false;
-      // Phase 8 fix: reject a distractor whose trailing concept is a
-      // fragment, e.g. "It operates independently without influencing It"
-      // or "... without influencing to". A candidate left with fewer than
-      // three distractors is dropped by the constructor, which is correct:
-      // do not backfill a malformed distractor to hit a target count.
-      const influenceMatch = clean.match(/without influencing\s+(.+)$/i);
-      if (influenceMatch && isFragmentObject(influenceMatch[1])) return false;
-      if (isFragmentObject(object) && clean.includes(object)) return false;
+      if (!norm || usedTexts.has(norm)) return false;
 
-      // Closed-context verification: ensure distractor is not accidentally true in the source graph
-      if (graph && typeof graph.findPropositions === 'function') {
-        const matchingTrueProps = graph.findPropositions({ subject: derivedProp.subject });
-        if (matchingTrueProps.some((p) => normalize(p.object) === norm)) {
-          // Rejected: distractor statement is actually asserted as true in the source graph
-          return false;
-        }
-      }
-
-      // Verify whether explicitly contradicted or reasoning misconception
-      let finalOrigin = distractorOrigin || 'misconception_transformation';
-      let finalTransformation = transformationType || 'reasoning_error';
-
-      if (graph && typeof graph.hasContradiction === 'function' && graph.hasContradiction(clean, derivedProp.relation_type, correctAnswerText)) {
-        finalTransformation = 'explicit_contradiction';
-      }
+      // Closed-context verification: never offer a statement the source
+      // already asserts about the same derived subject.
+      const asserted = props.some((prop) =>
+        normalize(prop.subject) === normalize(derivedProp.subject) && normalize(prop.object) === norm
+      );
+      if (asserted) return false;
 
       usedTexts.add(norm);
       distractors.push({
         text: clean,
         is_correct: false,
-        distractor_origin: finalOrigin,
-        transformation_type: finalTransformation
+        distractor_origin: distractorOrigin || 'misconception_transformation',
+        transformation_type: transformationType || DISTRACTOR_TYPES.EXTENDED_SPECULATION
       });
       return true;
     }
 
-    const subject = derivedProp.subject;
-    const object = derivedProp.object;
+    function valuesFrom(relationTypes, field, exclude) {
+      const values = [];
+      const excluded = new Set((exclude || []).map(normalize));
+      for (const prop of props) {
+        if (!relationTypes.includes(prop.relation_type)) continue;
+        const value = prop[field];
+        if (!value) continue;
+        const norm = normalize(value);
+        if (!norm || norm === correct || excluded.has(norm)) continue;
+        if (values.some((existing) => normalize(existing) === norm)) continue;
+        values.push(value);
+      }
+      return values;
+    }
 
-    // Transformation 1: Reversed causality / directional inversion
-    if (derivedProp.relation_type === RELATION_TYPES.CAUSES || derivedProp.relation_type === RELATION_TYPES.LEADS_TO) {
-      // Predicate-aware reversal: the reversed distractor must speak
-      // the derived relation's own verb. A "contributes to" question
-      // whose wrong answer says "caused by" is off-register, so the
-      // converse predicate's verb is used when it is known (either
-      // the converse or the active form may appear in the predicate);
-      // unknown predicates keep the existing causal wording.
-      const REVERSED_VERB = [
-        ['contributed to by', 'contributes to', 'is contributed to by', 'contributing to'],
-        ['influenced by', 'influences', 'is influenced by', 'influencing'],
-        ['affected by', 'affects', 'is affected by', 'affecting'],
-        ['promoted by', 'promotes', 'is promoted by', 'promoting'],
-        ['encouraged by', 'encourages', 'is encouraged by', 'encouraging'],
-        ['supported by', 'supports', 'is supported by', 'supporting'],
-        ['helped by', 'helps', 'is helped by', 'helping'],
-        ['stimulated by', 'stimulates', 'is stimulated by', 'stimulating'],
-        ['increased by', 'increases', 'is increased by', 'increasing'],
-        ['decreased by', 'decreases', 'is decreased by', 'decreasing'],
-        ['prevented by', 'prevents', 'is prevented by', 'preventing'],
-        ['inhibited by', 'inhibits', 'is inhibited by', 'inhibiting'],
-        ['reduced by', 'reduces', 'is reduced by', 'reducing'],
-        ['strengthened by', 'strengthens', 'is strengthened by', 'strengthening'],
-        ['weakened by', 'weakens', 'is weakened by', 'weakening'],
-        ['driven by', 'drives', 'is driven by', 'driving'],
-        ['accelerated by', 'accelerates', 'is accelerated by', 'accelerating'],
-        ['slowed down by', 'slows down', 'is slowed down by', 'slowing down'],
-        ['enabled by', 'enables', 'is enabled by', 'enabling'],
-        ['allowed by', 'allows', 'is allowed by', 'allowing'],
-        ['determined by', 'determines', 'is determined by', 'determining']
-      ];
-      let reversedText = `It is caused by ${subject} rather than causing it`;
-      const predText = String(derivedProp.predicate || '').toLowerCase();
-      for (const [converse, active, passive, gerund] of REVERSED_VERB) {
-        if (predText.includes(converse) || predText.includes(active)) {
-          reversedText = `It ${passive} ${subject} rather than ${gerund} it`;
-          break;
+    // Fallback pool: concrete entities that actually appear in the source
+    // graph. They are same-surface-kind answers, never generic filler.
+    function sourceEntities(exclude) {
+      const values = [];
+      const excluded = new Set((exclude || []).map(normalize));
+      excluded.add(correct);
+      for (const prop of props) {
+        for (const value of [prop.subject, prop.object]) {
+          if (!value) continue;
+          const norm = normalize(value);
+          if (!norm || norm.length < 3 || excluded.has(norm)) continue;
+          if (!Linguistics.isNounPhraseSpan(value, 80)) continue;
+          if (norm === normalize(derivedProp.subject) || norm === normalize(derivedProp.object)) continue;
+          if (norm.includes(correct) || correct.includes(norm)) continue;
+          if (values.some((existing) => normalize(existing) === norm)) continue;
+          values.push(value);
         }
       }
-      addDistractor(
-        reversedText,
-        'reversed_relation',
-        DISTRACTOR_TYPES.REVERSED_CAUSALITY
-      );
-      addDistractor(
-        `It prevents ${object} from occurring`,
-        'reversed_relation',
+      return values;
+    }
+
+    function fillFrom(pool, origin, transformation) {
+      for (const value of pool) {
+        if (distractors.length >= 3) break;
+        addDistractor(value, origin, transformation);
+      }
+    }
+
+    if (relation === RELATION_TYPES.CAUSES || relation === RELATION_TYPES.LEADS_TO || relation === RELATION_TYPES.PRODUCES) {
+      // A cause question: reversed causality first, then other stated causes,
+      // then other source entities.
+      addDistractor(derivedProp.subject, 'reversed_relation', DISTRACTOR_TYPES.REVERSED_CAUSALITY);
+      fillFrom(
+        valuesFrom([RELATION_TYPES.CAUSES, RELATION_TYPES.LEADS_TO, RELATION_TYPES.PRODUCES], 'subject'),
+        'confusable_fact',
         DISTRACTOR_TYPES.OPPOSITE_EFFECT
       );
-      addDistractor(
-        `It operates independently without influencing ${object}`,
-        'scope_error',
-        DISTRACTOR_TYPES.EXTENDED_SPECULATION
-      );
-    }
-    // Transformation 2: Variable change inversion (increases vs decreases)
-    else if (derivedProp.relation_type === RELATION_TYPES.INCREASES || derivedProp.relation_type === RELATION_TYPES.DECREASES) {
-      const oppositeVerb = derivedProp.relation_type === RELATION_TYPES.INCREASES ? 'decreases' : 'increases';
-      addDistractor(
-        `It ${oppositeVerb} ${object}`,
-        'adjacent_value',
-        DISTRACTOR_TYPES.OPPOSITE_EFFECT
-      );
-      addDistractor(
-        `It stabilizes ${object} at a constant baseline`,
-        'partial_truth',
-        DISTRACTOR_TYPES.EXTENDED_SPECULATION
-      );
-      addDistractor(
-        `It has no measurable effect on ${object}`,
-        'scope_error',
-        DISTRACTOR_TYPES.INVERTED_CONDITION
-      );
-    }
-    // Transformation 3: Comparative inversion (greater than vs less than)
-    else if (derivedProp.relation_type === RELATION_TYPES.GREATER_THAN || derivedProp.relation_type === RELATION_TYPES.LESS_THAN) {
-      const invertedComparator = derivedProp.relation_type === RELATION_TYPES.GREATER_THAN ? 'lower than' : 'higher than';
-      addDistractor(
-        `It is significantly ${invertedComparator} ${object}`,
-        'adjacent_value',
-        DISTRACTOR_TYPES.REVERSED_COMPARISON
-      );
-      addDistractor(
-        `It is strictly equivalent in all measurements to ${object}`,
-        'partial_truth',
-        DISTRACTOR_TYPES.REVERSED_COMPARISON
-      );
-      addDistractor(
-        `Its relative magnitude cannot be compared to ${object}`,
-        'scope_error',
-        DISTRACTOR_TYPES.EXTENDED_SPECULATION
-      );
-    }
-    // Transformation 4: Prerequisite / conditional inversion
-    else if (derivedProp.relation_type === RELATION_TYPES.CONDITIONAL_ON || derivedProp.relation_type === RELATION_TYPES.REQUIRES) {
-      addDistractor(
-        `It occurs unconditionally without requiring ${derivedProp.condition || object}`,
-        'scope_error',
-        DISTRACTOR_TYPES.INVERTED_CONDITION
-      );
-      addDistractor(
-        `It requires the exact absence of ${derivedProp.condition || object}`,
-        'reversed_relation',
-        DISTRACTOR_TYPES.INVERTED_CONDITION
-      );
-      addDistractor(
-        `It is triggered only after ${derivedProp.condition || object} is fully depleted`,
-        'partial_truth',
-        DISTRACTOR_TYPES.EXTENDED_SPECULATION
-      );
-    }
-    // Transformation 5: Sequence reversal
-    else if (derivedProp.relation_type === RELATION_TYPES.PRECEDES) {
-      addDistractor(
-        `It occurs strictly after ${object}`,
-        'adjacent_value',
-        DISTRACTOR_TYPES.REVERSED_SEQUENCE
-      );
-      addDistractor(
-        `It occurs simultaneously in parallel with ${object}`,
-        'partial_truth',
-        DISTRACTOR_TYPES.REVERSED_SEQUENCE
-      );
-      addDistractor(
-        `It eliminates the need for ${object}`,
-        'scope_error',
+      fillFrom(sourceEntities(), 'wrong_entity', DISTRACTOR_TYPES.OPPOSITE_EFFECT);
+    } else if (relation === RELATION_TYPES.PRECEDES || relation === RELATION_TYPES.FOLLOWS) {
+      // A "which step comes first" question: the later step is the classic
+      // reversal, other sequence steps are confusable alternatives.
+      addDistractor(derivedProp.object, 'reversed_relation', DISTRACTOR_TYPES.REVERSED_SEQUENCE);
+      fillFrom(
+        valuesFrom([RELATION_TYPES.PRECEDES, RELATION_TYPES.FOLLOWS], 'subject'),
+        'confusable_fact',
         DISTRACTOR_TYPES.OMITTED_STEP
       );
-    }
-    // Transformation 6: Exception / boundary violation
-    else if (derivedProp.relation_type === RELATION_TYPES.EXCEPTION_TO) {
-      addDistractor(
-        `It is fully governed by the general rule without exception`,
-        'scope_error',
+      fillFrom(
+        valuesFrom([RELATION_TYPES.PRECEDES, RELATION_TYPES.FOLLOWS], 'object'),
+        'confusable_fact',
+        DISTRACTOR_TYPES.REVERSED_SEQUENCE
+      );
+      fillFrom(sourceEntities(), 'wrong_entity', DISTRACTOR_TYPES.OMITTED_STEP);
+    } else if (relation === RELATION_TYPES.INSTANCE_OF || relation === RELATION_TYPES.DEFINITION_OF) {
+      // A classification question: other stated categories first, then
+      // source entities as wrong-category alternatives.
+      fillFrom(
+        valuesFrom([RELATION_TYPES.INSTANCE_OF, RELATION_TYPES.DEFINITION_OF], 'object'),
+        'wrong_category',
+        DISTRACTOR_TYPES.CATEGORY_CONFUSION
+      );
+      fillFrom(sourceEntities(), 'wrong_category', DISTRACTOR_TYPES.CATEGORY_CONFUSION);
+    } else if (relation === RELATION_TYPES.EXCEPTION_TO) {
+      // An exception question: other exceptions, then entities that appear in
+      // the general rule but are not the exception.
+      fillFrom(
+        valuesFrom([RELATION_TYPES.EXCEPTION_TO], 'object'),
+        'wrong_entity',
         DISTRACTOR_TYPES.OUT_OF_SCOPE_APPLICATION
       );
-      addDistractor(
-        `It defines the universal baseline rather than being an exception`,
-        'partial_truth',
-        DISTRACTOR_TYPES.OUT_OF_SCOPE_APPLICATION
+      const ruleText = String(derivedProp.object || '');
+      const mentioned = ruleText
+        .replace(/[^\w\s-]/g, ' ')
+        .split(/\s+/)
+        .filter((word) => word.length >= 4 && !/^(?:with|from|that|this|these|those|which|their|there|then|than|have|were|when|what|will|also|into|over|only|most|some|such|each|every|about|other|more|less|contain|contains|include|includes|consist|consists|comprise|comprises|except|excluding|exception|general|rule|governed|apply|applies|follow|follows|under|without)$/i.test(word));
+      fillFrom(mentioned, 'partial_truth', DISTRACTOR_TYPES.OUT_OF_SCOPE_APPLICATION);
+      fillFrom(sourceEntities(), 'wrong_entity', DISTRACTOR_TYPES.OUT_OF_SCOPE_APPLICATION);
+    } else if (relation === RELATION_TYPES.CONTRASTS_WITH) {
+      // A contrast question: the swapped pair is the reversal, other stated
+      // contrasts are confusable alternatives.
+      const pair = String(derivedProp.object || '').split(/\s+vs\s+/i);
+      if (pair.length === 2) {
+        addDistractor(`${pair[1]} vs ${pair[0]}`, 'reversed_relation', DISTRACTOR_TYPES.REVERSED_COMPARISON);
+      }
+      fillFrom(
+        valuesFrom([RELATION_TYPES.CONTRASTS_WITH], 'object'),
+        'confusable_fact',
+        DISTRACTOR_TYPES.REVERSED_COMPARISON
       );
-      addDistractor(
-        `It invalidates the entire general rule across all cases`,
-        'scope_error',
-        DISTRACTOR_TYPES.EXTENDED_SPECULATION
-      );
+      fillFrom(sourceEntities(), 'wrong_entity', DISTRACTOR_TYPES.REVERSED_COMPARISON);
+    } else if (relation === RELATION_TYPES.INCREASES || relation === RELATION_TYPES.DECREASES) {
+      const oppositeVerb = relation === RELATION_TYPES.INCREASES ? 'decreases' : 'increases';
+      addDistractor(`It ${oppositeVerb} ${derivedProp.object}`, 'adjacent_value', DISTRACTOR_TYPES.OPPOSITE_EFFECT);
+      fillFrom(sourceEntities(), 'wrong_entity', DISTRACTOR_TYPES.OPPOSITE_EFFECT);
     }
 
     // Require genuine, defensible distractors; do not backfill arbitrary concepts

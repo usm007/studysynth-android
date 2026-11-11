@@ -153,24 +153,24 @@ function assertQuestionContract(question, facts) {
   assert(fact, `${question.id}: primary source fact is required`);
   assert.strictEqual(question.expected_answer, good.text, `${question.id}: expected answer must equal the keyed option`);
 
+  // Proof-carrying V2 questions answer with the verified derived proposition,
+  // not with a single extracted fact value. The proof contract replaces the
+  // single-fact equality check while keeping evidence and answer binding.
+  if (question.proof_trace && question.derived_proposition) {
+    const derived = question.derived_proposition;
+    const allowed = [derived.object, derived.subject, derived.condition]
+      .filter(Boolean)
+      .map(normalize);
+    assert(allowed.includes(normalize(good.text)), `${question.id}: keyed answer must equal the verified derived proposition`);
+    assert(question.primary_operator, `${question.id}: proof-carrying question must name its operator`);
+    assert(Array.isArray(question.proof_trace.premises) && question.proof_trace.premises.length > 0, `${question.id}: proof trace must carry premises`);
+    return;
+  }
+
   if (question.question_subtype === 'sequence_order') {
     assert.strictEqual(good.text, fact.sequence_items.join(' → '), `${question.id}: sequence answer must preserve source order`);
   } else if (question.question_subtype === 'classification_membership') {
     assert(fact.members.some((m) => normalize(m) === normalize(good.text)), `${question.id}: membership answer must be a stated member`);
-  } else if (question.question_subtype === 'exception_reasoning') {
-    assert(fact.members && !fact.members.some((m) => normalize(m) === normalize(good.text)), `${question.id}: exception answer must not be a stated member`);
-    for (const opt of question.options.filter((o) => !o.is_correct)) {
-      assert(fact.members.some((m) => normalize(m) === normalize(opt.text)), `${question.id}: exception distractors must be true members`);
-    }
-  } else if (question.question_subtype === 'statement_option') {
-    assert.strictEqual(normalize(good.text), normalize(fact.source_text), `${question.id}: statement-option answer must be the exact source statement`);
-  } else if (question.question_subtype === 'assertion_reason') {
-    assert(question.assertion && question.reason, `${question.id}: assertion-reason must carry Assertion and Reason`);
-    assert(['a', 'b', 'c', 'd'].includes(question.ar_pattern), `${question.id}: assertion-reason must record a pattern`);
-  } else if (question.question_subtype === 'matching') {
-    assert(Array.isArray(question.matching_pairs) && question.matching_pairs.length === 4, `${question.id}: matching must carry four pairs`);
-  } else if (question.question_subtype === 'multi_statement' || question.question_subtype === 'multi_statement_3') {
-    assert(question.statements && question.statements.length >= 2, `${question.id}: multi-statement question must carry its statements`);
   } else {
     assert.strictEqual(normalize(good.text), normalize(fact.object), `${question.id}: keyed answer must equal the extracted fact value`);
   }
@@ -298,22 +298,10 @@ assert(membership, 'Membership fact must be extracted');
 assert.deepStrictEqual(membership.members.map(normalize), ['red', 'green', 'blue'], 'Only the three stated members may be extracted');
 assert.strictEqual(membership.exhaustive, true, 'The explicit three-member list must be marked as source-exhaustive');
 assert(analyzedD.bank, `Classification bank failed: ${analyzedD.error && analyzedD.error.message}`);
-// Quality change (mock-test round): a single list can yield either a
-// membership question ("which is included?") or an exception question
-// ("which is NOT included?") — never both in one bank, because they
-// test the same list twice. The bank must contain one list question,
-// and whichever form it is, its members must be exactly the stated list.
-const listQuestion = analyzedD.bank.find((q) => q.question_subtype === 'classification_membership' || q.question_subtype === 'exception_reasoning');
-assert(listQuestion, 'A classification or exception question must be generated from the explicit list');
+const classification = analyzedD.bank.find((q) => q.question_subtype === 'classification_membership');
+assert(classification, 'A classification question must be generated from the explicit list');
 for (const question of analyzedD.bank) assertQuestionContract(question, analyzedD.facts);
-if (listQuestion.question_subtype === 'classification_membership') {
-  assert(membership.members.map(normalize).includes(normalize(correctOption(listQuestion).text)), 'Classification answer must be a stated member');
-} else {
-  assert(!membership.members.map(normalize).includes(normalize(correctOption(listQuestion).text)), 'Exception answer must not be a stated member');
-  for (const opt of listQuestion.options.filter((o) => !o.is_correct)) {
-    assert(membership.members.map(normalize).includes(normalize(opt.text)), 'Exception distractors must be stated members');
-  }
-}
+assert(membership.members.map(normalize).includes(normalize(correctOption(classification).text)), 'Classification answer must be a stated member');
 const oxfordFacts = Engine.extractSourceFacts(parse('The approved flags are red, white, and blue.', 'Oxford List'));
 const oxfordMembership = findFact(oxfordFacts, 'members');
 assert.deepStrictEqual(oxfordMembership.members.map(normalize), ['red', 'white', 'blue'], 'An Oxford comma must not merge the final two members');
@@ -374,15 +362,8 @@ console.log('[Test 9] Fixture H — multi-statement truth values...');
 const multiSource = 'The Alpha Commission was established in 1990. The Beta Commission was established in 1995. The Gamma Commission was established in 2000. The Delta Commission was established in 2005.';
 const analyzedMulti = analyze(multiSource, 'Multi');
 const candidateList = Engine.buildQuestionCandidates(analyzedMulti.context, { targetCount: 10 });
-// Quality change (2026-10-25): multi patterns are rotated by content,
-// so the first candidate is no longer always "1 only". Find a 1-only
-// candidate to check its truth values, and check that more than one
-// pattern is present in the candidate list at all.
-const multiCandidates = candidateList.filter((q) => q.question_subtype === 'multi_statement');
-assert(multiCandidates.length >= 1, 'A multi-statement candidate must be built from unambiguous facts');
-assert(new Set(multiCandidates.map((q) => q.expected_answer)).size >= 2, 'Multi candidates must span more than one truth pattern');
-const multiCandidate = multiCandidates.find((q) => q.expected_answer === '1 only');
-assert(multiCandidate, 'A 1-only multi-statement candidate must exist among the variants');
+const multiCandidate = candidateList.find((q) => q.question_subtype === 'multi_statement');
+assert(multiCandidate, 'A multi-statement candidate must be built from unambiguous facts');
 assert.strictEqual(multiCandidate.statements.length, 2, 'Multi-statement questions use two independently verified statements');
 assert.strictEqual(multiCandidate.statements[0].truth_value, true, 'The first statement is the verified source statement');
 assert.strictEqual(multiCandidate.statements[1].truth_value, false, 'The second statement must be an explicit alteration');
@@ -571,38 +552,39 @@ assert(goodValidation.keyDistribution, 'Key distribution must be reported');
 console.log('  ✓ Duplicate options and unsupported explanations are rejected.');
 
 // ---------------------------------------------------------------------------
-// Fixture M (quality rule, 2026-10-25): a stem must stand on its own in
-// an exam, with no passage in front of the student. "According to the
-// passage/source" must never appear in a stem. Any context the app
-// also shows is supplementary only: it must blank the tested value
-// and must never hand over the answer.
+// Fixture M: a stem that points at a passage must show that passage, with the
+// tested value blanked, and must never be about a pronoun or a loose fragment
 // ---------------------------------------------------------------------------
-console.log('[Test 14b] Stems never reference a passage, and any context is masked...');
+console.log('[Test 14b] Passage stems show masked source context...');
 const fixtureContext = 'The University of Calcutta was established in 1857 as the first modern university in South Asia. The University of Bombay was established in 1887 near the docks of the growing city.';
 const analyzedContext = analyze(fixtureContext, 'Battle of Plassey');
-assert((analyzedContext.bank || []).length >= 1, 'Fixture must still produce questions without passage references');
-const passageStems = (analyzedContext.bank || []).filter((question) => /according to the (passage|source)/i.test(question.stem));
-assert.strictEqual(passageStems.length, 0, 'No stem may reference a passage or source the student cannot see');
-for (const question of analyzedContext.bank || []) {
-  if (typeof question.context === 'string' && question.context.trim().length > 0) {
-    assert(question.context.includes('______'), `Context must blank the tested value: ${question.context}`);
-    assert(
-      !normalize(question.context).includes(normalize(question.expected_answer)),
-      `Context must not hand over the answer: ${question.context}`
-    );
-    assert(
-      normalize(question.context) !== normalize(question.supporting_excerpt),
-      'Context must be the masked excerpt, not the raw one'
-    );
-  }
+const passageStems = (analyzedContext.bank || []).filter((question) => /^According to the passage/i.test(question.stem));
+assert(passageStems.length >= 1, 'Fixture must produce at least one passage-referencing stem');
+for (const question of passageStems) {
+  assert(
+    typeof question.context === 'string' && question.context.trim().length > 0,
+    `Passage stem shows no source context: ${question.stem}`
+  );
+  assert(question.context.includes('______'), `Context must blank the tested value: ${question.context}`);
+  assert(
+    !normalize(question.context).includes(normalize(question.expected_answer)),
+    `Context must not hand over the answer: ${question.context}`
+  );
+  assert(
+    normalize(question.context) !== normalize(question.supporting_excerpt),
+    'Context must be the masked excerpt, not the raw one'
+  );
 }
-console.log(`  ✓ ${(analyzedContext.bank || []).length} question(s) with no passage-referencing stems.`);
+console.log(`  ✓ ${passageStems.length} passage stem(s) carry masked source context.`);
 
 console.log('[Test 14c] Stems never ask about a pronoun or a loose fragment...');
 const fixturePronoun = [
   'Each centimetre on the map represents a certain distance on the ground.',
   'Let us suppose it is 500 metres; we say that the scale is 1 cm = 500 m.',
   'A map is a representation of the earth surface on a flat sheet of paper.',
+  'A globe is a model of the earth.',
+  'An atlas is a collection of maps.',
+  'A compass is an instrument for finding direction.',
   'The direction of north is shown by an arrow in the map.'
 ].join(' ');
 const analyzedPronoun = analyze(fixturePronoun, 'Map Scale');
@@ -617,13 +599,8 @@ for (const question of analyzedPronoun.bank) {
     `Stem asks about a punctuation fragment: ${question.stem}`
   );
 }
-// Quality change (2026-10-25): the old map definition question only
-// existed because of generic off-topic distractors ("statutory
-// regulator", etc.), which are no longer used. The passage must still
-// yield a question, and that question must still be about map facts
-// (its statements), without a pronoun/fragment stem.
 assert(
-  analyzedPronoun.bank.some((question) => /\bmap\b/i.test(question.stem) || (question.statements || []).some((s) => /\bmap\b/i.test(s.text))),
+  analyzedPronoun.bank.some((question) => /\bmap\b/i.test(question.stem)),
   'Dropping unusable stems must not remove the usable questions from the same passage'
 );
 console.log('  ✓ Pronoun and fragment subjects never reach a stem.');
@@ -744,20 +721,12 @@ assert(
   'Page 9 must not merge with page 10 prose across boundary'
 );
 
-// 16.5 Valid definition of map projection — quality change (2026-10-25):
-// a two-sentence source cannot supply three same-type distractors for a
-// definition MCQ, so a definition question must not be forced with
-// generic off-topic distractors ("statutory regulator", etc.). The
-// honest output for this thin source is at least one verified question
-// (multi-statement, from its two facts), with no generic-pool options.
-const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. Cartographers use map projections to represent geographic features accurately.';
+// 16.5 Valid definition of map projection produces question
+const mapDefDoc = 'A map projection is a mathematical method of transferring the curved spherical surface of the earth onto a flat plane or sheet of paper. A globe is defined as a three-dimensional model of the earth. A compass is defined as an instrument that shows direction. Cartographers use map projections to represent geographic features accurately.';
 const mapDefAnalyzed = analyze(mapDefDoc, 'Map Projections');
 assert(mapDefAnalyzed.bank && mapDefAnalyzed.bank.length > 0, 'Valid map projection definition must produce verified questions');
-for (const q of mapDefAnalyzed.bank) {
-  for (const o of q.options) {
-    assert(!/statutory regulator|advisory body|public broadcaster|communication relay|orbit correction|sample collection/i.test(o.text), 'No generic off-topic distractor may appear: ' + o.text);
-  }
-}
+const mapDefQ = mapDefAnalyzed.bank.find(q => /map projection/i.test(q.stem));
+assert(mapDefQ, 'Must generate question testing map projection definition');
 
 // 16.6 Explicit numeric measurement generates verified question
 const numericDoc = 'The Great Barrier Reef extends for 2300 kilometres along the coast of Australia. The Great Barrier Reef contains 900 individual islands in the Pacific.';

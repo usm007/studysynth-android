@@ -21,6 +21,7 @@ favorite
 favorite_border
 grade
 history
+insights
 install_mobile
 library_books
 light_mode
@@ -54,6 +55,9 @@ style
 system_security_update
 system_update
 timer
+trending_down
+trending_flat
+trending_up
 upload_file
 visibility
 workspace_premium

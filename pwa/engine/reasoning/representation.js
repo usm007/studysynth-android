@@ -32,33 +32,6 @@
   /**
    * Typed Proposition Schema
    */
-  function collapseRepeatedPhrase(raw) {
-    let words = String(raw || '').split(/\s+/).filter(Boolean);
-    for (let round = 0; round < 3; round++) {
-      let changed = false;
-      const lower = words.map((w) => w.toLowerCase().replace(/[^a-z0-9]/g, ''));
-      outer: for (let len = 6; len >= 3; len--) {
-        for (let i = 0; i + len <= words.length; i++) {
-          for (const gap of [0, 1]) {
-            const j = i + len + gap;
-            if (j + len > words.length) continue;
-            let match = true;
-            for (let k = 0; k < len; k++) {
-              if (lower[i + k] !== lower[j + k]) { match = false; break; }
-            }
-            if (!match) continue;
-            const removeFrom = (gap === 1 && /^(the|a|an)$/i.test(words[j - 1])) ? j - 1 : j;
-            words = words.slice(0, removeFrom).concat(words.slice(j + len));
-            changed = true;
-            break outer;
-          }
-        }
-      }
-      if (!changed) break;
-    }
-    return words.join(' ');
-  }
-
   function createProposition(fields) {
     const relType = fields.relation_type || RELATION_TYPES.HAS_PROPERTY;
     let defaultFactType = 'entity_attribute';
@@ -82,14 +55,14 @@
     return {
       id: propId,
       fact_id: propId,
-      subject: collapseRepeatedPhrase(fields.subject || ''),
-      subject_normalized: Linguistics.normalizeConcept(collapseRepeatedPhrase(fields.subject || '')),
+      subject: fields.subject || '',
+      subject_normalized: Linguistics.normalizeConcept(fields.subject),
       predicate: fields.predicate || '',
       relation_type: relType,
       relation: fields.predicate || 'relation',
       normalized_relation: fields.normalized_relation || fields.predicate || 'relation',
-      object: collapseRepeatedPhrase(fields.object || ''),
-      object_normalized: Linguistics.normalizeConcept(collapseRepeatedPhrase(fields.object || '')),
+      object: fields.object || '',
+      object_normalized: Linguistics.normalizeConcept(fields.object),
       polarity: fields.polarity || POLARITY.POSITIVE,
       modality: fields.modality || MODALITY.FACT,
       quantification: fields.quantification || QUANTIFICATION.UNSPECIFIED,
@@ -133,9 +106,13 @@
     const props = [];
     const raw = sentenceAnalysis.text;
 
-    // Pattern 1: X causes / leads to / results in Y
+    // Only strong, explicit causal verbs. Weak or associative wording
+    // ("induces", bare "because" clauses) is deliberately not treated as
+    // causation, and "enables" stays a separate ENABLES relation rather than
+    // being collapsed into CAUSES.
+    // Pattern 1: X causes / leads to / results in / produces / triggers Y
     // Example: "Increased carbon dioxide leads to ocean acidification."
-    const causalVerbRegex = /([^,.;]+?)\s+(?:causes|leads to|results in|produces|triggers|induces)\s+([^,.;]+)/gi;
+    const causalVerbRegex = /([^,.;]+?)\s+(?:causes|leads to|results in|produces|triggers)\s+([^,.;]+)/gi;
     let match;
     while ((match = causalVerbRegex.exec(raw)) !== null) {
       const subject = match[1].trim();
@@ -160,9 +137,9 @@
       }
     }
 
-    // Pattern 2: Y is caused by / produced by X
+    // Pattern 2: Y is caused by / produced by X (effect first, cause second)
     // Example: "Ocean acidification is caused by increased carbon dioxide."
-    const passiveCausalRegex = /([^,.;]+?)\s+(?:is caused by|is produced by|results from)\s+([^,.;]+)/gi;
+    const passiveCausalRegex = /([^,.;]+?)\s+(?:is caused by|is produced by|is triggered by|results from)\s+([^,.;]+)/gi;
     while ((match = passiveCausalRegex.exec(raw)) !== null) {
       const effect = match[1].trim();
       const cause = match[2].trim();
@@ -186,32 +163,7 @@
       }
     }
 
-    // Pattern 3: Y occurs because X / Y because X
-    const becauseRegex = /([^,.;]+?)\s+because\s+([^,.;]+)/gi;
-    while ((match = becauseRegex.exec(raw)) !== null) {
-      const effect = match[1].trim();
-      const cause = match[2].trim();
-      if (cause.length > 2 && effect.length > 2) {
-        props.push(createProposition({
-          subject: cause,
-          predicate: 'causes',
-          relation_type: RELATION_TYPES.CAUSES,
-          object: effect,
-          polarity: sentenceAnalysis.polarity,
-          modality: sentenceAnalysis.modality,
-          quantification: sentenceAnalysis.quantification,
-          source_page: sectionMeta.page,
-          source_section: sectionMeta.title,
-          source_sentence: raw,
-          supporting_excerpt: raw,
-          char_start: sentenceAnalysis.start,
-          char_end: sentenceAnalysis.end,
-          rule_id: 'EXT_CAUSAL_BECAUSE'
-        }));
-      }
-    }
-
-    // Pattern 4: X increases / decreases Y
+    // Pattern 3: X increases / decreases Y
     const changeRegex = /([^,.;]+?)\s+(increases|decreases|raises|lowers|reduces|enhances)\s+([^,.;]+)/gi;
     while ((match = changeRegex.exec(raw)) !== null) {
       const subject = match[1].trim();
@@ -486,73 +438,62 @@
     return props;
   }
 
+  // A proposition may only reach the operators when both of its spans can be
+  // shown verbatim as a concise option.
+  function isSafeProposition(prop) {
+    if (!prop) return false;
+    if (!Linguistics.isSafeSpan(prop.subject, 90)) return false;
+    if (!Linguistics.isSafeSpan(prop.object, 150)) return false;
+    // Every subject must be a noun phrase: a whole clause cannot label a
+    // question ("PIL filed under ... is an innovation" is not an entity).
+    if (!Linguistics.isNounPhraseSpan(prop.subject, 90)) return false;
+    if (prop.relation_type === RELATION_TYPES.COMPARED_WITH ||
+        prop.relation_type === RELATION_TYPES.GREATER_THAN ||
+        prop.relation_type === RELATION_TYPES.LESS_THAN) {
+      if (!Linguistics.isNounPhraseSpan(prop.object, 120)) return false;
+    }
+    if (prop.relation_type === RELATION_TYPES.DEFINITION_OF) {
+      if (prop.subject.split(/\s+/).length > 8) return false;
+      if (prop.object.split(/\s+/).length < 2) return false;
+      // The definition must be a phrase, not a clause with its own subject
+      // and finite verb ("The Banarasi saris have a Geographical Indication").
+      const head = prop.object.split(/\s+/).slice(0, 6).join(' ');
+      if (/\b(?:have|has|had|is|are|was|were|reorganised|reorganized|contains?|includes?)\b/i.test(head)) return false;
+    }
+    if (prop.relation_type === RELATION_TYPES.CAUSES ||
+        prop.relation_type === RELATION_TYPES.LEADS_TO ||
+        prop.relation_type === RELATION_TYPES.PRODUCES) {
+      if (!Linguistics.isNounPhraseSpan(prop.subject, 90)) return false;
+      if (!Linguistics.isNounPhraseSpan(prop.object, 120)) return false;
+      if (prop.object.split(/\s+/).length < 2) return false;
+    }
+    return true;
+  }
+
   // Map legacy fact to a rich typed Proposition (bridge contract)
-  // A proposition subject or object that is only a pronoun names nothing
-  // a learner could look up. Such values are fragments, not entities.
-  function isBarePronoun(value) {
-    const text = String(value == null ? '' : value).trim();
-    return /^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(text);
-  }
-
-  // Preposition/conjunction starts are clause leftovers, not entities.
-  const FRAGMENT_START = /^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into|over|under|about|through|against|between|among|behind|below|above|near|off|out|up|down|like)\b/i;
-
-  /**
-   * Phase 2A V2 graph boundary: only eligible, validated typed facts
-   * may become propositions. A fact is INELIGIBLE when it is a fallback
-   * (unclassified, empty subject/object), has an empty or fragment
-   * subject/object, carries conflicting values, or is OCR-unverified.
-   * Polarity and precision do NOT block eligibility: a negative or
-   * approximate proposition is meaningful and its qualifiers are
-   * preserved on the proposition. Every rejection carries a specific
-   * reason, recorded by compileSemanticRepresentation in
-   * graphRejections — never silently dropped.
-   *
-   * This is an intentional behaviour change for future V2 regeneration:
-   * chapters that currently ship V2 items built partly from
-   * fallback-derived propositions will regenerate fewer V2 candidates.
-   * The Phase 2A diagnostic quantifies the change for Chapter 3; bank
-   * files are never rewritten by this gate.
-   */
-  function classifyPropositionEligibility(fact) {
-    if (!fact || typeof fact !== 'object') return { eligible: false, reason: 'missing_fact' };
-    if (fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') {
-      return { eligible: false, reason: 'fallback_unclassified' };
-    }
-    const subject = String(fact.subject == null ? '' : fact.subject).trim();
-    const object = fact.object == null ? '' : String(fact.object).trim();
-    if (!subject) return { eligible: false, reason: 'missing_subject' };
-    if (!object) return { eligible: false, reason: 'missing_object' };
-    if (isBarePronoun(subject) || FRAGMENT_START.test(subject)) {
-      return { eligible: false, reason: 'fragment_subject' };
-    }
-    if (isBarePronoun(object) || FRAGMENT_START.test(object)) {
-      return { eligible: false, reason: 'fragment_object' };
-    }
-    if (fact.conflict_status === 'conflicting') {
-      return { eligible: false, reason: 'conflicting_values' };
-    }
-    if (fact.confidence_class === 'ocr-unverified') {
-      return { eligible: false, reason: 'ocr_unverified' };
-    }
-    return { eligible: true, reason: null };
-  }
-
   function mapFactToProposition(fact) {
     if (!fact) return null;
-    // Phase 2A boundary: an ineligible fact never becomes a proposition,
-    // not even through the direct bridge. Callers already null-check.
-    if (!classifyPropositionEligibility(fact).eligible) return null;
+
+    // The bridge only accepts complete, declarative assertions. Fallback
+    // records, empty subjects/objects, questions and prompts are structural
+    // text and must never become reasoning premises.
+    if (fact.fact_type === 'fallback' || fact.extraction_method === 'fallback') return null;
+    const subject = String(fact.subject || '').trim();
+    const object = String(fact.object == null ? '' : fact.object).trim();
+    if (subject.length < 2 || object.length < 2) return null;
+    const excerpt = String(fact.supporting_excerpt || fact.source_text || '').trim();
+    if (excerpt && Linguistics.classifySentenceRole(excerpt) !== 'assertion') return null;
+    if (/\?["'”’)\]]*$/.test(subject)) return null;
+    if (/^(?:what|which|who|whom|whose|where|when|why|how)\b/i.test(subject)) return null;
+
     let relationType = RELATION_TYPES.HAS_PROPERTY;
-    // Phase 8 fix (third round): a temporal conditional ("When X, Y")
-    // is not a causal mechanism. Mapping it to CAUSES let Operator B
-    // turn "When the work was nearly done, a reporter asked ..." into
-    // "the work causes a reporter ...". Conditionals map to
-    // CONDITIONAL_ON, which Operator D (conditional reasoning) can use,
-    // but Operator B (causal explanation) cannot.
-    if (fact.extraction_method === 'causal_conditional' || /^(if|when|unless)$/i.test(fact.relation_verb || '')) {
-      relationType = RELATION_TYPES.CONDITIONAL_ON;
-    } else if (fact.fact_type === 'causal' || fact.causal_direction) {
+    if (fact.fact_type === 'causal' || fact.causal_direction) {
+      // Only production-grade causal wording may become a CAUSES premise.
+      // Weak/associative verbs ("helps", "makes", "due to", "because") are
+      // not direct mechanisms and must not reach the causal operators.
+      const verb = String(fact.relation_verb || '').toLowerCase().replace(/\s+/g, ' ').trim();
+      const strongCausal = /^(?:causes?|leads?\s+to|results?\s+in|produces?|triggers?|is\s+caused\s+by|are\s+caused\s+by|is\s+produced\s+by|are\s+produced\s+by|is\s+triggered\s+by|are\s+triggered\s+by|results?\s+from)$/.test(verb);
+      if (!strongCausal) return null;
       relationType = RELATION_TYPES.CAUSES;
     } else if (fact.fact_type === 'definition') {
       relationType = RELATION_TYPES.DEFINITION_OF;
@@ -562,34 +503,12 @@
       relationType = RELATION_TYPES.HAS_PROPERTY;
     }
 
-    // Phase 8 fix (fourth round): production conditional facts store the
-    // condition as subject and the consequence as object (condition ->
-    // outcome), but the representation convention for CONDITIONAL_ON is
-    // outcome as subject and condition as object (outcome conditional on
-    // condition). Without this swap, Operator D asked "under what
-    // condition does [condition] occur?" with the consequence as the
-    // answer — the converse of the source conditional.
-    // Quality fix: production "because" facts store effect as subject and
-    // cause as object (causal_direction 'effect_because_cause'), but the
-    // CAUSES convention is cause -> effect. Without this swap, Operator B
-    // inverts an already-inverted fact and asks what produces the cause
-    // itself — e.g. "what produces families had many children?" answered
-    // by "The birth rate", when the excerpt says the birth rate was high
-    // BECAUSE families had many children. Swap exactly as for conditionals.
-    const swapBridged = (relationType === RELATION_TYPES.CONDITIONAL_ON && fact.extraction_method === 'causal_conditional')
-      || (relationType === RELATION_TYPES.CAUSES && fact.causal_direction === 'effect_because_cause');
-    const bridgedSubject = swapBridged
-      ? (fact.object || '')
-      : (fact.subject || '');
-    const bridgedObject = swapBridged
-      ? (fact.subject || '')
-      : (fact.object || '');
-    return createProposition({
+    const prop = createProposition({
       id: fact.fact_id,
-      subject: bridgedSubject,
+      subject: fact.subject || '',
       predicate: fact.relation_verb || fact.relation || 'has property',
       relation_type: relationType,
-      object: bridgedObject,
+      object: fact.object || '',
       polarity: fact.polarity === 'negative' ? POLARITY.NEGATIVE : POLARITY.POSITIVE,
       modality: MODALITY.FACT,
       quantification: QUANTIFICATION.UNSPECIFIED,
@@ -600,6 +519,7 @@
       rule_id: 'EXT_LEGACY_FACT_BRIDGE',
       is_derived: false
     });
+    return isSafeProposition(prop) ? prop : null;
   }
 
   // Main compilation function: takes parsed document sections and optional legacy facts
@@ -607,57 +527,10 @@
     resetPropositionCounter();
     const propositions = [];
     const propositionMap = new Map();
-    // Phase 2A: every fact or direct extraction rejected from graph
-    // construction is recorded here with a specific reason. This field
-    // is additive: existing callers read .propositions and .count.
-    const graphRejections = [];
 
-    // 1. First, incorporate existing facts (gated, Phase 2A: only
-    //    eligible, validated typed facts — see classifyPropositionEligibility).
-    //    A fact explicitly tagged with a non-assertion sentence role is
-    //    never bridged into a proposition; facts without a role tag keep
-    //    their legacy behaviour (they were already production-validated).
+    // 1. First, incorporate existing facts (ensures full baseline compatibility)
     if (Array.isArray(existingFacts)) {
       for (const fact of existingFacts) {
-        if (fact && fact.sentence_role && fact.sentence_role !== 'assertion') {
-          graphRejections.push({
-            source: 'fact_bridge', fact_id: fact.fact_id || null,
-            reason: 'non_assertion_role', subject: fact.subject || null,
-            source_page: fact.source_page || null,
-            section_id: fact.section_id || fact.source_section || null
-          });
-          continue;
-        }
-        const eligibility = classifyPropositionEligibility(fact);
-        if (!eligibility.eligible) {
-          graphRejections.push({
-            source: 'fact_bridge', fact_id: fact.fact_id || null,
-            reason: eligibility.reason, subject: fact.subject || null,
-            source_page: fact.source_page || null,
-            section_id: fact.section_id || fact.source_section || null
-          });
-          continue;
-        }
-        // Phase 8 fix: a bridged causal fact with a fragment subject or
-        // object must not enter the graph, even if production validation
-        // let it through elsewhere.
-        if (fact && fact.fact_type === 'causal') {
-          const frag = (s) => {
-            const t = String(s || '').trim();
-            return !t || /^(it|they|this|that|these|those|us|you|he|she|we|them|him|her)$/i.test(t)
-              || /^(of|to|in|on|for|with|by|as|if|when|while|and|or|but|from|at|into)\b/i.test(t)
-              || /\b(which|that|who|whom|whose|and|or|but|of|to|in|on|for|with|by|as|the|a|an)\s*[.!?]?\s*$/.test(t);
-          };
-          if (frag(fact.subject) || frag(fact.object)) {
-            graphRejections.push({
-              source: 'fact_bridge', fact_id: fact.fact_id || null,
-              reason: 'fragment_causal', subject: fact.subject || null,
-              source_page: fact.source_page || null,
-              section_id: fact.section_id || fact.source_section || null
-            });
-            continue;
-          }
-        }
         const prop = mapFactToProposition(fact);
         if (prop) {
           propositions.push(prop);
@@ -677,12 +550,9 @@
 
         const sentences = Linguistics.splitSentencesWithOffsets(text);
         for (const s of sentences) {
-          // Sentence-role gate (Repair 002, Phase 4): only assertions may
-          // generate factual propositions. Interrogatives, instructions
-          // and ambiguous fragments are skipped before any relation
-          // extraction, including causal, conditional and definition.
-          const sentenceRole = Linguistics.classifySentenceRole(s.text);
-          if (sentenceRole !== 'assertion') continue;
+          // Assertion filtering: prompts, captions, headings, labels and
+          // questions are never compiled into reasoning premises.
+          if (Linguistics.classifySentenceRole(s.text) !== 'assertion') continue;
           const analysis = Linguistics.analyzeSentenceLinguistics(s, text);
 
           // Extract all relation types
@@ -703,26 +573,7 @@
           ];
 
           for (const prop of allExtracted) {
-            prop.sentence_role = sentenceRole;
-            // Phase 2A narrow guard for direct extraction: no empty or
-            // bare-pronoun subject/object may enter the graph, even
-            // when an extractor's length guard let it through (e.g. a
-            // comparative with a pronoun subject). Rejected direct
-            // extractions are recorded, not silently dropped.
-            const propSubject = String(prop.subject == null ? '' : prop.subject).trim();
-            const propObject = prop.object == null ? '' : String(prop.object).trim();
-            if (!propSubject || !propObject || isBarePronoun(propSubject) || isBarePronoun(propObject)) {
-              graphRejections.push({
-                source: 'direct_extraction', fact_id: null,
-                reason: !propSubject ? 'missing_subject'
-                  : (!propObject ? 'missing_object'
-                    : (isBarePronoun(propSubject) ? 'fragment_subject' : 'fragment_object')),
-                subject: propSubject || null,
-                source_sentence: prop.source_sentence || s.text || null,
-                rule_id: prop.rule_id || null
-              });
-              continue;
-            }
+            if (!isSafeProposition(prop)) continue;
             // Deduplicate against existing by subject+relation+object
             const key = `${prop.subject_normalized}|${prop.relation_type}|${prop.object_normalized}`;
             if (!propositionMap.has(key)) {
@@ -736,8 +587,7 @@
 
     return {
       propositions,
-      count: propositions.length,
-      graphRejections
+      count: propositions.length
     };
   }
 
@@ -745,9 +595,7 @@
     createProposition,
     compileSemanticRepresentation,
     mapFactToProposition,
-    classifyPropositionEligibility,
-    resetPropositionCounter,
-    classifySentenceRole: Linguistics.classifySentenceRole
+    resetPropositionCounter
   };
 
   if (typeof module !== 'undefined' && module.exports) module.exports = Representation;

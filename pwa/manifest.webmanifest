@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "StudySynth CTET — Social Science",
-  "short_name": "StudySynth CTET",
-  "description": "Offline study workspace for CTET Social Science (Classes 6–8 NCERT) with practice questions, adaptive revision, and timed tests.",
+  "name": "StudySynth — UGC NET Education (Code 09)",
+  "short_name": "StudySynth",
+  "description": "Offline study companion for UGC NET Education (Code 09) with official previous year question papers, verified answer keys, interactive practice, revision, and timed tests (2009–2026).",
   "lang": "en",
   "dir": "ltr",
   "start_url": "./?mode=standalone",

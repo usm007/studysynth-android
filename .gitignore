@@ -1,8 +1,36 @@
+# Dependencies
+node_modules/
+pwa/node_modules/
+
+# Build artifacts and caches
+build/
+www/
+output/
 __pycache__/
 *.pyc
 .pytest_cache/
-node_modules/
-output/
-www/
-build/
 .superpowers/
+
+# Android build outputs & IDE
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/.idea/
+android/.cxx/
+
+# Binary and crash logs
+*.log
+hs_err_pid*
+replay_pid*
+*.apk
+
+# Heavy raw reference papers & books (kept local, excluded from git repo)
+Papers/
+books/
+
+# Temporary files
+scratch_zeros.txt
+user_prompt_papers.txt
+ugc-net-education-back-button.json
+.vscode/

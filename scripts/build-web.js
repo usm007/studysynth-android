@@ -22,8 +22,17 @@ const files = [
 ];
 const dirs = ['assets', 'engine', 'vendor', 'ctet'];
 
-fs.rmSync(out, { recursive: true, force: true });
-fs.mkdirSync(out, { recursive: true });
+if (!fs.existsSync(out)) {
+  fs.mkdirSync(out, { recursive: true });
+} else {
+  for (const entry of fs.readdirSync(out)) {
+    try {
+      fs.rmSync(path.join(out, entry), { recursive: true, force: true });
+    } catch (e) {
+      // ignore transient locks
+    }
+  }
+}
 
 for (const file of files) {
   const from = path.join(src, file);

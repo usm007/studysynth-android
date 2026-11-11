@@ -20,98 +20,6 @@
     'aug', 'sep', 'sept', 'oct', 'nov', 'dec'
   ]);
 
-  // ---------------------------------------------------------------------------
-  // Sentence-role classification (Repair 002, Phase 4). Deterministic and
-  // shared with the production generator: only 'assertion' sentences may
-  // generate ordinary factual propositions. Interrogatives, instructions
-  // and ambiguous fragments must never become factual claims.
-  // ---------------------------------------------------------------------------
-  const IMPERATIVE_PHRASES = [
-    'think about', 'look at'
-  ];
-  const IMPERATIVE_VERBS = [
-    'consider', 'imagine', 'take', 'observe', 'discuss', 'explain', 'compare',
-    'answer', 'try', 'use', 'draw', 'write', 'describe', 'suppose', 'assume'
-  ];
-  const INTERROGATIVE_WORDS = [
-    'what', 'who', 'whom', 'whose', 'which', 'when', 'where', 'why', 'how'
-  ];
-  const AUXILIARY_WORDS = [
-    'do', 'does', 'did', 'is', 'are', 'was', 'were', 'can', 'could', 'will',
-    'would', 'should', 'may', 'might', 'has', 'have', 'had'
-  ];
-
-  function classifySentenceRole(text) {
-    if (!text || typeof text !== 'string') return 'ambiguous';
-    const trimmed = String(text).trim().replace(/\s+/g, ' ');
-    if (!trimmed) return 'ambiguous';
-    // 1. Terminal question mark, including one followed by closing quotes
-    //    or brackets.
-    if (/\?\s*['"’”\)\]]*\s*$/.test(trimmed)) return 'interrogative';
-    const lower = trimmed.toLowerCase();
-    // 3 (checked before bare interrogative words, so "Explain why ..."
-    //    is an instruction, not a question): textbook imperatives at the
-    //    start of the sentence.
-    for (const phrase of IMPERATIVE_PHRASES) {
-      if (lower === phrase || lower.startsWith(phrase + ' ')) return 'instruction';
-    }
-    // Mirror of the generator's manual-read exclusion: exercise
-    // list markers and table/figure/page/discourse references are
-    // not assertions, so extraction skips them.
-    if (/^(?:[a-e]|[ivx]{1,4}|\d+)\)\s/i.test(trimmed)) return 'ambiguous';
-    if (/\b(facing page|table on|figure\s+\d|we saw|we have seen|as you may notice|you may notice|in grade\s+\d|previous chapter|next chapter|see page|on page\s+\d|as shown in|as mentioned)\b/i.test(trimmed)) return 'ambiguous';
-    const firstWord = lower.split(/\s+/)[0].replace(/^[^a-z]+|[^a-z]+$/g, '');
-    if (IMPERATIVE_VERBS.includes(firstWord)) return 'instruction';
-    // 2. Interrogative constructions even when punctuation is missing.
-    if (INTERROGATIVE_WORDS.includes(firstWord)) {
-      // Subordinate-clause exception: "When light intensity increases,
-      // the rate of photosynthesis increases ..." is an assertion with
-      // a temporal clause, not a question. A question in this form
-      // would end with a question mark, which is handled above, so a
-      // when/where/why/how sentence with a comma followed by a main
-      // clause is not interrogative.
-      if (['when', 'where', 'why', 'how'].includes(firstWord)) {
-        const commaIndex = trimmed.indexOf(',');
-        if (commaIndex > 0 && trimmed.slice(commaIndex + 1).trim().split(/\s+/).length >= 2) {
-          // Fall through to assertion.
-        } else {
-          return 'interrogative';
-        }
-      } else {
-        return 'interrogative';
-      }
-    }
-    if (AUXILIARY_WORDS.includes(firstWord)) {
-      // A sentence opening with an auxiliary verb is a question in
-      // textbook prose ("Is the river...?", "Do human actions...?").
-      // An assertion that merely contains an auxiliary later in the
-      // sentence is unaffected, because only the first word is checked.
-      return 'interrogative';
-    }
-    // 4. Fragments, prompt-like text and unclear roles are ambiguous.
-    const words = trimmed.split(/\s+/).filter(Boolean);
-    if (words.length <= 2) return 'ambiguous';
-    if (/[:_]{2,}|_{3,}|\.\.\./.test(trimmed)) return 'ambiguous';
-    if (/^(q\.|question|activity|exercise|note|hint)\s*[:.]/i.test(trimmed)) return 'ambiguous';
-    // A three-word fragment ("Map of India") has no verb in the middle
-    // position; a three-word assertion ("Rain helps farmers.") does.
-    // The middle word ending in -s/-es is the usual third-person verb
-    // form in textbook prose, so it counts as a verb here.
-    if (words.length === 3) {
-      // A three-word sentence may be subject-verb-object ("Rain helps
-      // farmers.") or subject-verb ("The river floods."). Either the
-      // middle or the last word being verb-like makes it an assertion;
-      // a fragment such as "Map of India" has no verb in either place.
-      const verbLikeWord = (w) => {
-        const clean = w.replace(/[^a-z]/gi, '').toLowerCase();
-        return /^(is|are|was|were|has|have|had|causes?|leads?|means?|refers?|consists?|includes?|helps?|supports?|affects?|flows?|floods?|rises?|falls?|grows?)$/i.test(w)
-          || (clean.length > 3 && /s$/.test(clean) && !/ss$/.test(clean));
-      };
-      if (!verbLikeWord(words[1]) && !verbLikeWord(words[2])) return 'ambiguous';
-    }
-    return 'assertion';
-  }
-
   // Clean and normalize whitespace while preserving exact offset mapping if needed
   function cleanText(text) {
     if (!text) return '';
@@ -261,6 +169,74 @@
     { pattern: /\bafter\b/i, type: 'SEQ_AFTER' },
     { pattern: /\bfinally,\b/i, type: 'SEQ_FINAL' }
   ];
+
+  // Sentence-role classification.
+  //
+  // Only declarative assertions may become facts. Questions, instructions,
+  // captions, headings and bare labels are filtered before extraction so a
+  // worksheet prompt or a diagram label can never be turned into a quiz item.
+  const ASSERTION_ROLE = 'assertion';
+
+  const WH_START = /^(?:what|which|who|whom|whose|where|when|why|how)\b/i;
+  const AUX_START = /^(?:is|are|was|were|am|do|does|did|can|could|will|would|shall|should|may|might|must|has|have|had)\b/i;
+  const INSTRUCTION_VERB = /^(?:state|name|explain|describe|define|list|give|write|find|calculate|choose|select|match|tick|fill|answer|discuss|compare|differentiate|identify|mention|observe|look|read|see|draw|label|mark|circle|underline|complete|solve|measure|count|arrange|classify|predict|guess|suggest|think|try|work|make|use|take|put|turn|open|close|pick|point|show|tell|recall|note|justify|prove|derive|verify|test|record|collect|visit|ask|prepare|paste|cut|colour|color|trace|locate|highlight)\b/i;
+  const INSTRUCTION_OBJECT = /^(?:the|a|an|any|all|each|every|two|three|four|five|your|its|their|his|her|whether|why|how|what|which|who|where|when|if|in|on|at|from|with|by|below|above|following|out|one|another)\b/i;
+  const CAPTION_START = /^(?:fig(?:ure)?|table|photo|chart|diagram|plate)\s*\.?\s*\d/i;
+  const CAPTION_QUALIFIER = /^(?:map|chart|diagram|figure|table|photo|plate)\s+(?:showing|of|not to scale|based on|depicting|illustrating)\b/i;
+  const SOURCE_NOTE = /^(?:source|legend|scale|note)\s*[:.]/i;
+  const FINITE_VERB = /\b(?:is|are|was|were|be|been|being|has|have|had|do|does|did|can|could|will|would|shall|should|may|might|must|includes?|contains?|consists?|comprises?|stretches?|extends?|covers?|lies?|flows?|rises?|falls?|grows?|produces?|causes?|leads?|forms?|makes?|uses?|provides?|receives?|gets?|gives?|takes?|holds?|keeps?|shows?|means?|refers?|called|known|located|found|built|established|founded|became|becomes|remains?|appears?|seems?|occupies?|surrounds?|borders?|separates?|connects?|divides?|reaches?|measures?|weighs?|begins?|starts?|ends?|occurs?|happens?|exists?|represents?|indicates?|depends?|requires?|allows?|helps?|prevents?|enables?)\b/i;
+  // Function words that can never end a complete sentence. A line that stops
+  // on one of these was cut at a page, column, or box boundary.
+  const TRUNCATED_END = /\b(?:a|an|the|of|in|on|at|to|and|or|but|with|for|from|by|as|that|which|who|whom|whose|is|are|was|were|be|been|being|has|have|had|its|their|his|her|this|these|those|such|than|then|when|where|while|because|into|over|under|between|among|through|during|about|after|before|against|within|without|across|along|around|behind|below|above|near|off|out|up|down|regarding|including|per|via)$/i;
+
+  function classifySentenceRole(text) {
+    const raw = String(text == null ? '' : text).replace(/\s+/g, ' ').trim();
+    if (!raw) return 'fragment';
+
+    const words = raw.split(/\s+/).filter(Boolean);
+    const wordCount = words.length;
+    const endsWithQuestionMark = /\?["'”’)\]]*$/.test(raw);
+    const endsWithTerminal = /[.!?]["'”’)\]]*$/.test(raw);
+    const endsWithColon = /:$/.test(raw);
+
+    if (endsWithQuestionMark) return 'question';
+
+    if (CAPTION_START.test(raw) || CAPTION_QUALIFIER.test(raw) || SOURCE_NOTE.test(raw)) {
+      return 'caption';
+    }
+
+    if (WH_START.test(raw)) {
+      // "What is ...", "Why do ..." and chapter-title questions alike are not
+      // assertions. A subordinate "When the rains arrive, ..." clause is rare
+      // in textbook prose; excluding it is the safe choice.
+      return 'question';
+    }
+    if (AUX_START.test(raw) && wordCount >= 3) {
+      // "Is the ...", "Do plants ..." — interrogative word order.
+      return 'question';
+    }
+
+    if (INSTRUCTION_VERB.test(raw)) {
+      const rest = raw.replace(INSTRUCTION_VERB, '').trim();
+      if (!rest || INSTRUCTION_OBJECT.test(rest) || /^[,;:]/.test(rest)) return 'instruction';
+    }
+
+    const hasVerb = FINITE_VERB.test(raw);
+    const titleLike = wordCount <= 12 && !endsWithTerminal;
+    const allCaps = /[A-Z]/.test(raw) && !/[a-z]/.test(raw);
+    const titleCase = words.length > 1 &&
+      words.filter((word) => /^[A-Z]/.test(word)).length >= Math.ceil(words.length * 0.6);
+
+    // A sentence that stops on a function word was cut at a page or column
+    // boundary; it is not a complete assertion.
+    if (!endsWithTerminal && TRUNCATED_END.test(raw)) return 'fragment';
+
+    if (titleLike && (allCaps || titleCase) && !hasVerb) return 'heading';
+    if (!endsWithTerminal && !hasVerb && wordCount <= 8) return 'label';
+    if (!endsWithTerminal && !hasVerb && wordCount <= 14 && (endsWithColon || titleCase)) return 'heading';
+
+    return ASSERTION_ROLE;
+  }
 
   // Detect modality
   function detectModality(text) {
@@ -486,6 +462,65 @@
     return phrases;
   }
 
+  // ---------------------------------------------------------------------------
+  // Answer-span integrity
+  //
+  // A question option must be a short, self-contained phrase. These guards stop
+  // sentence fragments, run-on clauses and discourse leftovers from becoming
+  // correct answers or distractors. They are intentionally conservative: an
+  // unsafe span is rejected, never trimmed, because a trimmed option can change
+  // the meaning of the source claim.
+  // ---------------------------------------------------------------------------
+  const SPAN_FUNCTION_WORD_END = /^(?:a|an|the|of|in|on|at|to|and|or|but|with|for|from|by|as|that|which|who|whom|whose|is|are|was|were|be|been|being|has|have|had|its|their|his|her|this|these|those|such|than|then|when|where|while|because|into|over|under|between|among|through|during|about|after|before|against|within|without|across|along|around|behind|below|above|near|regarding|including|per|via)$/i;
+  const SPAN_DISCOURSE_OPENER = /^(?:hence|however|thus|therefore|moreover|furthermore|similarly|likewise|consequently|in\s+fact|indeed|also|for\s+example|for\s+instance|given\s+below|given\s+above|on\s+the\s+other\s+hand|in\s+addition|as\s+a\s+result|meanwhile|nevertheless|in\s+contrast|by\s+contrast|this|these|those|it|they)\b/i;
+  const SPAN_SENTENCE_PUNCT = /(?:[;?!:]|\.\s|\.$)/;
+  const SPAN_QUOTES = /["“”‘’]/;
+  const SPAN_BAD_START = /^(?:them|him|her|us|me|it|they|this|these|those|which|who|whom|whose|that|being|been|violated|reorganised|reorganized|created|continued|evolved|includes?|consists?|comprises?|contains?|integrates?|promotes?|provides?|helps?|allows?|enables?|imagine|soon|with|without|as|and|but|or)\b/i;
+  const SPAN_EMBEDDED_SENTENCE_START = /\s(?:The|A|An|This|These|Those|It|They|He|She|We|You|In|On|At|For|But|And|However|Therefore|Thus|Hence|Soon|Imagine|Historians|According|When|While|If|After|Before|During|With|Without)\s/;
+  const SPAN_CLAUSE_MARKER = /(?:;|\u2014|\u2013|\b(?:which|whom|whose|whereas|although|though)\b|,\s*(?:but|yet|so|and\s+then)\b)/i;
+  const SPAN_FINITE_VERB = /\b(?:is|are|was|were|has|have|had|does|do|did|makes?|made|causes?|caused|shows?|showed|shown|means?|meant|said|includes?|included|becomes?|became|gives?|gave|takes?|took|comes?|came|goes?|went|consists?|comprises?|contains?|integrates?|promotes?|provides?|helps?|allows?|enables?|pursued|contained|imposed)\b/i;
+
+  function lastWord(value) {
+    const tokens = String(value || '').trim().split(/\s+/);
+    return tokens.length ? tokens[tokens.length - 1] : '';
+  }
+
+  function endsOnFunctionWord(value) {
+    const text = String(value || '').trim();
+    if (/(?:and\s+)?so\s+on$/i.test(text)) return false;
+    const token = lastWord(text).replace(/[.,;:!?"'”’)\]]+$/g, '');
+    if (!token || /[’']/.test(lastWord(text))) return false;
+    return SPAN_FUNCTION_WORD_END.test(token);
+  }
+
+  /**
+   * True when a span can be shown verbatim as a multiple-choice option.
+   */
+  function isSafeSpan(value, maxLength) {
+    const text = cleanText(value);
+    const limit = Number.isFinite(maxLength) ? maxLength : 160;
+    if (!text || text.length < 2 || text.length > limit) return false;
+    if (SPAN_SENTENCE_PUNCT.test(text)) return false;
+    if (SPAN_QUOTES.test(text)) return false;
+    if (SPAN_DISCOURSE_OPENER.test(text)) return false;
+    if (SPAN_BAD_START.test(text)) return false;
+    if (SPAN_EMBEDDED_SENTENCE_START.test(text)) return false;
+    if (endsOnFunctionWord(text)) return false;
+    return true;
+  }
+
+  /**
+   * True when a span is a concise noun phrase rather than a whole clause.
+   */
+  function isNounPhraseSpan(value, maxLength) {
+    if (!isSafeSpan(value, maxLength)) return false;
+    const text = cleanText(value);
+    if (SPAN_CLAUSE_MARKER.test(text)) return false;
+    if (text.split(/\s+/).length > 12) return false;
+    if (text.split(/\s+/).length > 2 && SPAN_FINITE_VERB.test(text)) return false;
+    return true;
+  }
+
   // Conservative concept normalization (preserves surface form, normalizes ID)
   function normalizeConcept(surface) {
     if (!surface) return '';
@@ -510,14 +545,17 @@
 
   const Linguistics = {
     cleanText,
-    classifySentenceRole,
     splitSentencesWithOffsets,
+    classifySentenceRole,
     analyzeSentenceLinguistics,
     detectModality,
     detectPolarity,
     detectQuantification,
     extractNounPhrases,
     normalizeConcept,
+    isSafeSpan,
+    isNounPhraseSpan,
+    endsOnFunctionWord,
     CAUSAL_CONNECTIVES,
     CONDITIONAL_CONNECTIVES,
     CONTRAST_CONNECTIVES,
