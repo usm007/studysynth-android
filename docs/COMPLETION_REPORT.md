@@ -112,7 +112,7 @@ Supporting checks:
 | Check | Result |
 | --- | --- |
 | `node scripts/check-ids.js` | 163 ids used, 0 missing |
-| `node scripts/verify-ui.js` | 69 checks passed (13 per viewport × 4, 3 service worker, 14 exam shell) |
+| `node scripts/verify-ui.js` | 77 checks passed (15 per viewport × 4, 3 service worker, 14 exam shell) |
 | Icon font contract | 70 symbols present, includes every icon used by the shell and the home screen |
 | Browser console | Zero page errors, zero console errors, zero failed local requests in all four passes |
 | Horizontal overflow | None at 360 px or 412 px |

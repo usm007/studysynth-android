@@ -236,6 +236,40 @@ async function runViewport(browser, origin, viewport, theme) {
   const updateText = await page.$eval('#updateSheetBody', (el) => (el.textContent || '').replace(/\s+/g, ' ').trim());
   check(`${label}: Update Centre shows status`, updateText.length > 20, updateText.slice(0, 90));
   await page.screenshot({ path: path.join(SHOT_DIR, `updates-${viewport.name}-${theme}.png`) });
+
+  // A downloaded installer and a retained previous content package must each
+  // produce a usable button, not a hidden or dead one.
+  await page.evaluate(() => {
+    window.UpdateCoordinator.getStatus = async () => ({
+      installed: {
+        versionName: '2.1.0',
+        versionCode: 4,
+        contentVersion: '2026.11.2',
+        contentSource: 'pack',
+        contentPreviousVersion: '2026.11.1',
+        webBundleId: 'bundle-4'
+      },
+      native: true,
+      liveUpdate: true,
+      apkUpdate: true,
+      lastCheckAt: Date.now(),
+      lastCheckOk: true,
+      lastError: '',
+      available: { versionName: '2.1.1', apk: true, web: true, content: true, blocked: [] },
+      settings: { auto: true, wifiOnly: true },
+      apkState: { status: 'downloaded', versionCode: 5 }
+    });
+    return window.UpdateUI.refresh();
+  });
+  const updateActions = await page.$$eval('#updateSheetBody [data-update-action]', (buttons) => buttons.map((button) => ({
+    action: button.getAttribute('data-update-action'),
+    hidden: button.hidden,
+    disabled: button.disabled
+  })));
+  const usableAction = (action) => updateActions.some((item) => item.action === action && !item.hidden && !item.disabled);
+  check(`${label}: Update Centre offers the downloaded install`, usableAction('install'), JSON.stringify(updateActions));
+  check(`${label}: Update Centre offers content rollback`, usableAction('content-rollback'), JSON.stringify(updateActions));
+
   await page.click('#updateSheetClose');
   await page.waitForFunction(
     () => !document.getElementById('updateSheet').classList.contains('open'),
