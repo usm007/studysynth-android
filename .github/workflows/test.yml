@@ -1,0 +1,89 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit:
+    name: Unit and contract tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            pwa/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm ci --prefix pwa
+
+      - name: Build the web payload
+        run: npm run web:build
+
+      - name: Run the PWA test suites
+        run: npm test --prefix pwa
+
+      - name: Check every DOM id used by the app exists in the shell
+        run: node scripts/check-ids.js
+
+      - name: Validate the published update manifest
+        if: hashFiles('updates-site/updates/stable/manifest.json') != ''
+        run: node scripts/updates/check-manifest.js
+
+      - name: Syntax-check the release tooling
+        run: |
+          for file in scripts/version.js scripts/check-ids.js scripts/updates/*.js; do
+            node --check "$file"
+          done
+
+  browser:
+    name: Headless browser shell checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            pwa/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the web payload
+        run: npm run web:build
+
+      - name: Verify layout, navigation, exam shell and service worker
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node scripts/verify-ui.js
+
+      - name: Keep screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-screenshots
+          path: output/ui
+          if-no-files-found: ignore
+          retention-days: 14

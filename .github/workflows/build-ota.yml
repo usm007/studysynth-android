@@ -1,0 +1,90 @@
+name: Publish OTA update
+
+# Rebuilds the web bundle and content package for an existing release and
+# republishes the update site. Use this for interface and question-bank updates
+# that do not need a new APK. The APK attached to the GitHub Release is carried
+# into the new manifest unchanged, so installed apps keep their download path.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mandatory:
+        description: Mark this update as mandatory (installs without asking)
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      mandatory:
+        description: Mark this update as mandatory
+        type: boolean
+        default: false
+    secrets:
+      OTA_SIGNING_KEY:
+        required: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build, sign and publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Read the version
+        id: version
+        run: echo "name=$(node -p "require('./version.json').versionName")" >> "$GITHUB_OUTPUT"
+
+      - name: Download the released APK
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p dist/apk
+          gh release download "v${{ steps.version.outputs.name }}" \
+            --pattern "*.apk" --dir dist/apk
+          ls -l dist/apk
+
+      - name: Build and sign the OTA bundle and content package
+        env:
+          OTA_SIGNING_KEY: ${{ secrets.OTA_SIGNING_KEY }}
+        run: |
+          npm run release:web
+          npm run release:content
+          npm run updates:manifest -- --apk "dist/apk/studysynth-${{ steps.version.outputs.name }}.apk" ${{ inputs.mandatory && '--mandatory' || '' }}
+
+      - name: Verify the whole update set
+        env:
+          ANDROID_HOME: /usr/local/lib/android/sdk
+        run: npm run release:verify
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the update site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: updates-site
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
